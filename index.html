@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mark van Passel — Tools & Experiments</title>
+<meta name="description" content="A small collection of tools, instruments and experiments by Mark van Passel.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231f3a5f'/%3E%3Ccircle cx='16' cy='16' r='6' fill='none' stroke='%23f4c95d' stroke-width='3'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#f6f4ef; --ink:#1c1f26; --muted:#667085; --card:#ffffff; --line:#e4e0d6; --accent:#1f3a5f;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#14161b; --ink:#eceae4; --muted:#9aa1ae; --card:#1c1f26; --line:#2b303a; --accent:#f4c95d;}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:56px 16px 72px}
+header h1{font:600 clamp(28px,5vw,42px)/1.1 ui-serif,Georgia,serif;margin:0 0 10px;letter-spacing:-.01em}
+header p{color:var(--muted);margin:0;max-width:56ch}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:32px 0 20px}
+.chip{border:1px solid var(--line);background:transparent;color:var(--ink);padding:6px 14px;border-radius:999px;font:inherit;font-size:14px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
+.card{display:flex;gap:16px;align-items:flex-start;padding:18px;background:var(--card);border:1px solid var(--line);border-radius:16px;text-decoration:none;color:inherit;transition:transform .15s,box-shadow .15s}
+.card:hover,.card:focus-visible{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.08);outline:none}
+.card:focus-visible{border-color:var(--accent)}
+.icon{flex:none;width:56px;height:56px;border-radius:14px;display:grid;place-items:center;overflow:hidden}
+.icon svg,.icon img{width:100%;height:100%;display:block}
+.body h2{font-size:17px;margin:0 0 2px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.lang{font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:0 5px}
+.body p{margin:0;color:var(--muted);font-size:14px}
+footer{margin-top:48px;color:var(--muted);font-size:13px}
+footer a{color:inherit}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Tools &amp; experiments</h1>
+    <p>Small things I build for work, curiosity and sound. Each one lives in its own page — click to open.</p>
+  </header>
+
+  <div class="filters" id="filters" role="group" aria-label="Filter by category"></div>
+  <main class="grid" id="grid"></main>
+
+  <footer>By <a href="https://github.com/mvanpassel-cmyk">Mark van Passel</a> · built in the open on GitHub Pages</footer>
+</div>
+
+<script>
+/* ------------------------------------------------------------
+   ADD A NEW TOOL: copy one block below, change the fields, save.
+   - repo:  GitHub repo name (page = https://mvanpassel-cmyk.github.io/<repo>/)
+   - icon:  { glyph: "svg path content", from: "#hex", to: "#hex" }  or  { img: "url" }
+   - cat:   any label; filter chips are generated automatically
+   - lang:  optional, e.g. "NL" / "EN"
+------------------------------------------------------------- */
+const BASE = "https://mvanpassel-cmyk.github.io/";
+const TOOLS = [
+  { repo:"gh-ribbon", title:"Global Health Ribbon", cat:"Global health",
+    desc:"A live feed of global health news and policy signals, aggregated from RSS sources.", lang:"EN",
+    icon:{ from:"#1f6f78", to:"#0f3d4a",
+      glyph:'<path d="M12 36c8-14 14-14 20 0s12 14 20 0" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/><path d="M12 24c8-10 14-10 20 0s12 10 20 0" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="3" stroke-linecap="round"/>' } },
+
+  { repo:"soundscape", title:"Soundscape", cat:"Sound",
+    desc:"A browser-based ambient audio app for building slow, layered atmospheres.", lang:"EN",
+    icon:{ img: "soundscape.png" } },
+
+  { repo:"slowreverb", title:"SlowReverb Studio", cat:"Sound",
+    desc:"Slow down any track and drench it in reverb — a slowed + reverb audio editor.", lang:"NL",
+    icon:{ from:"#6d3fc0", to:"#2a1a5e",
+      glyph:'<g fill="none" stroke="#fff" stroke-linecap="round" stroke-width="4"><path d="M10 28v8M18 22v20M26 16v32M34 20v24M42 26v12"/><path stroke-opacity=".45" d="M50 30v4"/></g>' } },
+
+  { repo:"the-machine", title:"The Machine", cat:"Experiments",
+    desc:"Five superfluous instruments for the human shortcoming: nonchalance, apathy, Maslow, knowledge, and a machine that describes you while you read.", lang:"EN",
+    icon:{ from:"#3b3f4a", to:"#16181d",
+      glyph:'<circle cx="32" cy="32" r="9" fill="none" stroke="#f4c95d" stroke-width="4"/><g stroke="#f4c95d" stroke-width="4" stroke-linecap="round"><path d="M32 8v8M32 48v8M8 32h8M48 32h8M15 15l6 6M43 43l6 6M49 15l-6 6M21 43l-6 6"/></g>' } },
+
+  { repo:"de-machine", title:"De Machine", cat:"Experiments",
+    desc:"Vijf overbodige werktuigen voor het menselijk tekort — de Nederlandse versie van The Machine.", lang:"NL",
+    icon:{ from:"#c2571a", to:"#7a2e0b",
+      glyph:'<circle cx="32" cy="32" r="9" fill="none" stroke="#fff" stroke-width="4"/><g stroke="#fff" stroke-width="4" stroke-linecap="round"><path d="M32 8v8M32 48v8M8 32h8M48 32h8M15 15l6 6M43 43l6 6M49 15l-6 6M21 43l-6 6"/></g>' } },
+
+
+
+
+  { repo:"hijtje", title:"Hijtje", cat:"Experiments",
+    desc:"Plak het NRC-ikje van vandaag en lees hetzelfde voorval vanuit de ander, die er niets van doorhad.", lang:"NL",
+    icon:{ from:"#1a4c8b", to:"#0d2a4f",
+      glyph:'<path d="M12 32h30M32 20l12 12-12 12" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>' } },
+];
+
+const grid = document.getElementById("grid");
+const filters = document.getElementById("filters");
+let active = "All";
+
+function iconHTML(t, i){
+  if (t.icon.img) return `<div class="icon"><img src="${t.icon.img}" alt="" loading="lazy"></div>`;
+  const id = "g"+i;
+  return `<div class="icon"><svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${t.icon.from}"/><stop offset="1" stop-color="${t.icon.to}"/></linearGradient></defs><rect width="64" height="64" fill="url(#${id})"/>${t.icon.glyph}</svg></div>`;
+}
+function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+
+function render(){
+  grid.innerHTML = TOOLS.filter(t=>active==="All"||t.cat===active).map((t,i)=>`
+    <a class="card" href="${t.url || BASE+t.repo+'/'}">
+      ${iconHTML(t,i)}
+      <div class="body">
+        <h2>${esc(t.title)}${t.lang?`<span class="lang">${t.lang}</span>`:""}</h2>
+        <p>${esc(t.desc)}</p>
+      </div>
+    </a>`).join("");
+}
+function renderFilters(){
+  const cats = ["All", ...new Set(TOOLS.map(t=>t.cat))];
+  filters.innerHTML = cats.map(c=>`<button class="chip" aria-pressed="${c===active}" data-c="${esc(c)}">${esc(c)}</button>`).join("");
+}
+filters.addEventListener("click", e=>{
+  const b = e.target.closest(".chip"); if(!b) return;
+  active = b.dataset.c; renderFilters(); render();
+});
+renderFilters(); render();
+</script>
+</body>
+</html>
