@@ -77,10 +77,10 @@ footer{margin-top:36px;color:var(--muted);font-size:13px}
   <footer>By <a href="https://github.com/mvanpassel-cmyk">Mark van Passel</a> · data in <a href="projects.json">projects.json</a>, refreshed weekly</footer>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson-client/3.1.0/topojson-client.min.js"></script>
+<script src="lib/d3.min.js"></script>
+<script src="lib/topojson-client.min.js"></script>
 <script>
-const ATLAS="https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json";
+const ATLAS="lib/countries-110m.json";
 const TOPICS={climate:"Climate & health",preparedness:"Preparedness & surveillance",amr:"AMR",onehealth:"One Health",building:"Institute building",other:"Other"};
 const STATUS={ongoing:"Ongoing",completed:"Completed",planned:"Planned",unclear:"Unclear"};
 /* centroid overrides where the automatic centroid lands on overseas territories */
