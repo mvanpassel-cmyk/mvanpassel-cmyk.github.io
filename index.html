@@ -89,6 +89,11 @@ const TOOLS = [
     icon:{ from:"#1a4c8b", to:"#0d2a4f",
       glyph:'<path d="M12 32h30M32 20l12 12-12 12" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>' } },
 
+  { repo:"nphi-map", title:"NPHI Collaboration Map", cat:"Global health",
+    desc:"World map of who works with whom: national public health institutes' projects abroad, ongoing and finished, with sources.", lang:"EN",
+    icon:{ from:"#1f6f78", to:"#173b5c",
+      glyph:'<circle cx="32" cy="32" r="20" fill="none" stroke="#fff" stroke-width="3"/><path d="M12 32h40M32 12c-8 6-8 34 0 40M32 12c8 6 8 34 0 40" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="2"/><path d="M20 26Q32 14 44 38" fill="none" stroke="#f4c95d" stroke-width="3" stroke-linecap="round"/><circle cx="20" cy="26" r="3" fill="#f4c95d"/><circle cx="44" cy="38" r="3" fill="#f4c95d"/>' } },
+
 ];
 
 const grid = document.getElementById("grid");
@@ -113,12 +118,7 @@ function render(){
     </a>`).join("");
 }
 function renderFilters(){
-  const cats = ["All", ...new Set(TOOLS.map(t=>t.cat))  { repo:"nphi-map", title:"NPHI Collaboration Map", cat:"Global health",
-    desc:"World map of who works with whom: national public health institutes' projects abroad, ongoing and finished, with sources.", lang:"EN",
-    icon:{ from:"#1f6f78", to:"#173b5c",
-      glyph:'<circle cx="32" cy="32" r="20" fill="none" stroke="#fff" stroke-width="3"/><path d="M12 32h40M32 12c-8 6-8 34 0 40M32 12c8 6 8 34 0 40" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="2"/><path d="M20 26Q32 14 44 38" fill="none" stroke="#f4c95d" stroke-width="3" stroke-linecap="round"/><circle cx="20" cy="26" r="3" fill="#f4c95d"/><circle cx="44" cy="38" r="3" fill="#f4c95d"/>' } },
-
-];
+  const cats = ["All", ...new Set(TOOLS.map(t=>t.cat))];
   filters.innerHTML = cats.map(c=>`<button class="chip" aria-pressed="${c===active}" data-c="${esc(c)}">${esc(c)}</button>`).join("");
 }
 filters.addEventListener("click", e=>{
