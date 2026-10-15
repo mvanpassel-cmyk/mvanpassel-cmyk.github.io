@@ -19,6 +19,7 @@ h1{font:600 clamp(26px,5vw,38px)/1.1 ui-serif,Georgia,serif;margin:10px 0 8px}
 .bar .lbl{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-right:2px}
 .chip{border:1px solid var(--line);background:transparent;color:var(--ink);padding:5px 12px;border-radius:999px;font:inherit;font-size:13px;cursor:pointer}
 .chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+#fActor{max-width:min(360px,100%)}
 input[type=search],select{font:inherit;font-size:14px;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)}
 .mapbox{position:relative;background:var(--sea);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin:14px 0}
 svg#map{display:block;width:100%;height:auto;cursor:grab;touch-action:none}
@@ -55,6 +56,7 @@ footer{margin-top:36px;color:var(--muted);font-size:13px}
 
   <div class="bar" id="fTopic"><span class="lbl">Topic</span></div>
   <div class="bar" id="fStatus"><span class="lbl">Status</span></div>
+  <div class="bar" id="fKind"><span class="lbl">Type</span></div>
   <div class="bar">
     <span class="lbl">Institute</span><select id="fActor"><option value="">All</option></select>
     <input id="q" type="search" placeholder="Search projects…" aria-label="Search projects">
@@ -82,6 +84,8 @@ footer{margin-top:36px;color:var(--muted);font-size:13px}
 <script>
 const ATLAS="lib/countries-110m.json";
 const TOPICS={climate:"Climate & health",preparedness:"Preparedness & surveillance",amr:"AMR",onehealth:"One Health",building:"Institute building",other:"Other"};
+const KINDS={jointaction:"Joint action",project:"Project",programme:"Programme",agreement:"Agreement / MoU",peer:"Twinning & peer-to-peer",review:"Peer review",network:"Network",research:"Research",other:"Other"};
+function kind(t){t=(t||"").toLowerCase();if(/^joint action/.test(t))return"jointaction";if(/peer review|evaluation|assessment/.test(t))return"review";if(/agreement|mou|memorandum|letter of intent/.test(t))return"agreement";if(/twinning|peer|exchange|study tour/.test(t))return"peer";if(/network/.test(t))return"network";if(/research|study/.test(t))return"research";if(/programme|program/.test(t))return"programme";if(/project/.test(t))return"project";return"other"}
 const STATUS={ongoing:"Ongoing",completed:"Completed",planned:"Planned",unclear:"Unclear"};
 /* centroid overrides where the automatic centroid lands on overseas territories */
 const OVR={"France":[2.3,46.6],"United States of America":[-98,39],"Norway":[9,61],"Netherlands":[5.3,52.1],"Denmark":[10,56],"Russia":[60,57]};
@@ -93,7 +97,7 @@ const g=svg.append("g");
 const gl=g.append("g"),ga=g.append("g"),gd=g.append("g");
 const tip=document.getElementById("tip");
 let data=[],feats=[],cent={},sel=null;
-const F={topic:new Set(),status:new Set(),actor:"",q:""};
+const F={topic:new Set(),status:new Set(),kind:new Set(),actor:"",q:""};
 
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 function chips(id,map,set){
@@ -103,17 +107,17 @@ function chips(id,map,set){
     b.onclick=()=>{set.has(k)?set.delete(k):set.add(k);b.setAttribute("aria-pressed",set.has(k));draw()};
     el.appendChild(b)});
 }
-chips("fTopic",TOPICS,F.topic);chips("fStatus",STATUS,F.status);
+chips("fTopic",TOPICS,F.topic);chips("fStatus",STATUS,F.status);chips("fKind",KINDS,F.kind);
 document.getElementById("fActor").onchange=e=>{F.actor=e.target.value;draw()};
 document.getElementById("q").oninput=e=>{F.q=e.target.value.toLowerCase();draw()};
-document.getElementById("reset").onclick=()=>{F.topic.clear();F.status.clear();F.actor="";F.q="";sel=null;
+document.getElementById("reset").onclick=()=>{F.topic.clear();F.status.clear();F.kind.clear();F.actor="";F.q="";sel=null;
   document.querySelectorAll(".chip[aria-pressed]").forEach(b=>b.setAttribute("aria-pressed","false"));
   document.getElementById("fActor").value="";document.getElementById("q").value="";draw()};
 
 function visible(){
   return data.filter(p=>
     (!F.topic.size||p.topics.some(t=>F.topic.has(t)))&&
-    (!F.status.size||F.status.has(p.status))&&
+    (!F.status.size||F.status.has(p.status))&&(!F.kind.size||F.kind.has(p.kind))&&
     (!F.actor||p.actor===F.actor)&&
     (!F.q||(p.title+" "+p.summary+" "+p.actor+" "+p.institutes+" "+p.partners.join(" ")).toLowerCase().includes(F.q))&&
     (!sel||p.actorCountry===sel||p.partners.includes(sel)));
@@ -121,7 +125,7 @@ function visible(){
 function draw(){
   const vis=visible();
   const base=data.filter(p=>
-    (!F.topic.size||p.topics.some(t=>F.topic.has(t)))&&(!F.status.size||F.status.has(p.status))&&
+    (!F.topic.size||p.topics.some(t=>F.topic.has(t)))&&(!F.status.size||F.status.has(p.status))&&(!F.kind.size||F.kind.has(p.kind))&&
     (!F.actor||p.actor===F.actor)&&(!F.q||(p.title+" "+p.summary+" "+p.actor+" "+p.institutes+" "+p.partners.join(" ")).toLowerCase().includes(F.q)));
   const A=new Set(base.map(p=>p.actorCountry)),Pn=new Set(base.flatMap(p=>p.partners));
   gl.selectAll("path").attr("class",d=>"land"+(A.has(d.properties.name)?" actor":Pn.has(d.properties.name)?" partner":"")+(sel===d.properties.name?" sel":""));
@@ -150,7 +154,7 @@ function list(vis){
 }
 
 Promise.all([d3.json(ATLAS),d3.json("projects.json")]).then(([topo,pj])=>{
-  data=pj.projects;
+  data=pj.projects;data.forEach(p=>p.kind=kind(p.type));
   document.getElementById("upd").textContent="Data last updated "+pj.updated+".";
   feats=topojson.feature(topo,topo.objects.countries).features.filter(f=>f.properties.name!=="Antarctica");
   feats.forEach(f=>{cent[f.properties.name]=OVR[f.properties.name]||d3.geoCentroid(f)});
