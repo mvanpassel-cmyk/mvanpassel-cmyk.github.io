@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NPHI Collaboration Map</title>
+<meta name="description" content="A world map of publicly documented collaborations between national public health institutes (RKI, RIVM, UKHSA, CDC, Africa CDC and others) on global health.">
+<style>
+:root{--bg:#f6f4ef;--ink:#1c1f26;--muted:#667085;--card:#fff;--line:#e4e0d6;--sea:#e8eef2;--land:#d9d6cb;--act:#1f6f78;--par:#e0a526;--done:#8a8f99;--plan:#7a4fb5;--accent:#1f3a5f}
+@media (prefers-color-scheme:dark){:root{--bg:#14161b;--ink:#eceae4;--muted:#9aa1ae;--card:#1c1f26;--line:#2b303a;--sea:#10151b;--land:#2a2f38;--act:#4fb3bd;--par:#f4c95d;--done:#8a8f99;--plan:#b794f4;--accent:#f4c95d}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:28px 16px 64px}
+a{color:var(--accent)}
+.back{font-size:14px;color:var(--muted);text-decoration:none}
+h1{font:600 clamp(26px,5vw,38px)/1.1 ui-serif,Georgia,serif;margin:10px 0 8px}
+.lead{color:var(--muted);max-width:70ch;margin:0 0 18px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 8px}
+.bar .lbl{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-right:2px}
+.chip{border:1px solid var(--line);background:transparent;color:var(--ink);padding:5px 12px;border-radius:999px;font:inherit;font-size:13px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+input[type=search],select{font:inherit;font-size:14px;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)}
+.mapbox{position:relative;background:var(--sea);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin:14px 0}
+svg#map{display:block;width:100%;height:auto;cursor:grab;touch-action:none}
+.land{fill:var(--land);stroke:var(--bg);stroke-width:.4}
+.land.partner{fill:var(--par);fill-opacity:.55}
+.land.actor{fill:var(--act);fill-opacity:.7}
+.land.sel{stroke:var(--ink);stroke-width:1.2}
+.arc{fill:none;stroke-width:1.2;stroke-opacity:.6;stroke-linecap:round}
+.arc.ongoing{stroke:var(--act)}.arc.completed{stroke:var(--done);stroke-dasharray:4 3}.arc.planned{stroke:var(--plan);stroke-dasharray:1 4}.arc.unclear{stroke:var(--par)}
+.dot{fill:var(--act);stroke:var(--bg);stroke-width:1}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:12px;padding:4px 8px;border-radius:6px;opacity:0;transition:opacity .1s;max-width:220px}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--muted);margin:2px 0 18px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-2px;margin-right:5px}
+.count{color:var(--muted);font-size:14px;margin:18px 0 10px}
+.list{display:grid;gap:12px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.item h3{margin:0 0 2px;font-size:16px}
+.route{font-size:13px;color:var(--muted);margin-bottom:6px}
+.item p{margin:0 0 8px;font-size:14px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px}
+.tag{border:1px solid var(--line);border-radius:999px;padding:0 8px;color:var(--muted)}
+.st{border-radius:999px;padding:0 8px;color:#fff;font-weight:600}
+.st.ongoing{background:var(--act);color:#06262b}.st.completed{background:var(--done)}.st.planned{background:var(--plan)}.st.unclear{background:var(--par);color:#3a2a00}
+.note{font-size:12px;color:var(--muted);margin-top:6px}
+.warn{border-left:3px solid var(--par);padding:2px 12px;color:var(--muted);font-size:13px;margin:20px 0}
+footer{margin-top:36px;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../">← all tools</a>
+  <h1>NPHI collaboration map</h1>
+  <p class="lead">Publicly documented collaborations between national public health institutes (and a few close relatives) on global health: who works with whom, on what, and whether the project is ongoing or finished. Click a country to see its links.</p>
+
+  <div class="bar" id="fTopic"><span class="lbl">Topic</span></div>
+  <div class="bar" id="fStatus"><span class="lbl">Status</span></div>
+  <div class="bar">
+    <span class="lbl">Institute</span><select id="fActor"><option value="">All</option></select>
+    <input id="q" type="search" placeholder="Search projects…" aria-label="Search projects">
+    <button class="chip" id="reset">Reset</button>
+  </div>
+
+  <div class="mapbox"><svg id="map" role="img" aria-label="World map of collaborations"></svg><div class="tip" id="tip"></div></div>
+  <div class="legend">
+    <span><i style="background:var(--act)"></i>Institute / lead country</span>
+    <span><i style="background:var(--par)"></i>Partner country</span>
+    <span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="var(--act)" stroke-width="2"/></svg> ongoing</span>
+    <span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="var(--done)" stroke-width="2" stroke-dasharray="4 3"/></svg> completed</span>
+    <span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="var(--par)" stroke-width="2"/></svg> status unclear</span>
+  </div>
+
+  <div class="count" id="count"></div>
+  <div class="list" id="list"></div>
+
+  <p class="warn"><strong>Read with care.</strong> Entries come from public web sources (project databases, institute pages, press releases) and are summarised in my own words; always check the source link. Not finding a collaboration here does not mean it does not exist. “Unclear” means the source gives no end date or is undated. <span id="upd"></span></p>
+  <footer>By <a href="https://github.com/mvanpassel-cmyk">Mark van Passel</a> · data in <a href="projects.json">projects.json</a>, refreshed weekly</footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson-client/3.1.0/topojson-client.min.js"></script>
+<script>
+const ATLAS="https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json";
+const TOPICS={climate:"Climate & health",preparedness:"Preparedness & surveillance",amr:"AMR",onehealth:"One Health",building:"Institute building",other:"Other"};
+const STATUS={ongoing:"Ongoing",completed:"Completed",planned:"Planned",unclear:"Unclear"};
+/* centroid overrides where the automatic centroid lands on overseas territories */
+const OVR={"France":[2.3,46.6],"United States of America":[-98,39],"Norway":[9,61],"Netherlands":[5.3,52.1],"Denmark":[10,56],"Russia":[60,57]};
+const W=960,H=500;
+const svg=d3.select("#map").attr("viewBox",[0,0,W,H]);
+const proj=d3.geoNaturalEarth1().fitExtent([[6,6],[W-6,H-6]],{type:"Sphere"});
+const path=d3.geoPath(proj);
+const g=svg.append("g");
+const gl=g.append("g"),ga=g.append("g"),gd=g.append("g");
+const tip=document.getElementById("tip");
+let data=[],feats=[],cent={},sel=null;
+const F={topic:new Set(),status:new Set(),actor:"",q:""};
+
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function chips(id,map,set){
+  const el=document.getElementById(id);
+  Object.entries(map).forEach(([k,v])=>{
+    const b=document.createElement("button");b.className="chip";b.textContent=v;b.setAttribute("aria-pressed","false");
+    b.onclick=()=>{set.has(k)?set.delete(k):set.add(k);b.setAttribute("aria-pressed",set.has(k));draw()};
+    el.appendChild(b)});
+}
+chips("fTopic",TOPICS,F.topic);chips("fStatus",STATUS,F.status);
+document.getElementById("fActor").onchange=e=>{F.actor=e.target.value;draw()};
+document.getElementById("q").oninput=e=>{F.q=e.target.value.toLowerCase();draw()};
+document.getElementById("reset").onclick=()=>{F.topic.clear();F.status.clear();F.actor="";F.q="";sel=null;
+  document.querySelectorAll(".chip[aria-pressed]").forEach(b=>b.setAttribute("aria-pressed","false"));
+  document.getElementById("fActor").value="";document.getElementById("q").value="";draw()};
+
+function visible(){
+  return data.filter(p=>
+    (!F.topic.size||p.topics.some(t=>F.topic.has(t)))&&
+    (!F.status.size||F.status.has(p.status))&&
+    (!F.actor||p.actor===F.actor)&&
+    (!F.q||(p.title+" "+p.summary+" "+p.actor+" "+p.institutes+" "+p.partners.join(" ")).toLowerCase().includes(F.q))&&
+    (!sel||p.actorCountry===sel||p.partners.includes(sel)));
+}
+function draw(){
+  const vis=visible();
+  const base=data.filter(p=>
+    (!F.topic.size||p.topics.some(t=>F.topic.has(t)))&&(!F.status.size||F.status.has(p.status))&&
+    (!F.actor||p.actor===F.actor)&&(!F.q||(p.title+" "+p.summary+" "+p.actor+" "+p.institutes+" "+p.partners.join(" ")).toLowerCase().includes(F.q)));
+  const A=new Set(base.map(p=>p.actorCountry)),Pn=new Set(base.flatMap(p=>p.partners));
+  gl.selectAll("path").attr("class",d=>"land"+(A.has(d.properties.name)?" actor":Pn.has(d.properties.name)?" partner":"")+(sel===d.properties.name?" sel":""));
+  const arcs=[];
+  vis.forEach(p=>p.partners.forEach(c=>{if(cent[p.actorCountry]&&cent[c]&&c!==p.actorCountry)arcs.push({s:p.status,a:cent[p.actorCountry],b:cent[c]})}));
+  ga.selectAll("path").data(arcs).join("path").attr("class",d=>"arc "+d.s)
+    .attr("d",d=>{const a=proj(d.a),b=proj(d.b),dx=b[0]-a[0],dy=b[1]-a[1],L=Math.hypot(dx,dy),k=Math.min(.25,40/Math.max(L,1)+.12);
+      return `M${a}Q${(a[0]+b[0])/2-dy*k},${(a[1]+b[1])/2+dx*k-Math.min(L*.15,30)} ${b}`});
+  gd.selectAll("circle").data([...new Set(vis.map(p=>p.actorCountry))]).join("circle").attr("class","dot")
+    .attr("r",3).attr("transform",c=>{const p=proj(cent[c]);return `translate(${p})`});
+  list(vis);
+}
+function years(p){return p.start?(p.end?(p.start===p.end?p.start:p.start+"–"+p.end):p.start+"–"):(p.end?"–"+p.end:"dates not stated")}
+function list(vis){
+  const order={ongoing:0,planned:1,unclear:2,completed:3};
+  vis=[...vis].sort((a,b)=>order[a.status]-order[b.status]||(b.start||0)-(a.start||0));
+  document.getElementById("count").textContent=vis.length+" of "+data.length+" collaborations"+(sel?" · "+sel:"");
+  document.getElementById("list").innerHTML=vis.map(p=>`<article class="item">
+    <h3>${esc(p.title)}</h3>
+    <div class="route">${esc(p.actor)} (${esc(p.actorCountry)}) → ${esc(p.partners.length>6?p.partners.slice(0,6).join(", ")+" +"+(p.partners.length-6):p.partners.join(", "))}${p.institutes?" · with "+esc(p.institutes):""}</div>
+    <p>${esc(p.summary)}</p>
+    <div class="tags"><span class="st ${p.status}">${STATUS[p.status]}</span><span class="tag">${years(p)}</span>
+      ${p.topics.map(t=>`<span class="tag">${TOPICS[t]||t}</span>`).join("")}<span class="tag">${esc(p.type)}</span>${p.nphi===false?'<span class="tag">not NPHI-led</span>':""}
+      <a href="${esc(p.url)}" target="_blank" rel="noopener">Source ↗</a></div>
+    ${p.note?`<div class="note">${esc(p.note)}</div>`:""}</article>`).join("")||"<p>No collaborations match these filters.</p>";
+}
+
+Promise.all([d3.json(ATLAS),d3.json("projects.json")]).then(([topo,pj])=>{
+  data=pj.projects;
+  document.getElementById("upd").textContent="Data last updated "+pj.updated+".";
+  feats=topojson.feature(topo,topo.objects.countries).features.filter(f=>f.properties.name!=="Antarctica");
+  feats.forEach(f=>{cent[f.properties.name]=OVR[f.properties.name]||d3.geoCentroid(f)});
+  cent["Ethiopia"]=cent["Ethiopia"];
+  gl.selectAll("path").data(feats).join("path").attr("d",path)
+    .on("mousemove",(e,d)=>{const r=svg.node().getBoundingClientRect(),n=d.properties.name;
+      const c=data.filter(p=>p.actorCountry===n||p.partners.includes(n)).length;
+      tip.style.opacity=1;tip.style.left=(e.clientX-r.left+12)+"px";tip.style.top=(e.clientY-r.top+12)+"px";tip.textContent=n+(c?" · "+c+" collaboration"+(c>1?"s":""):"")})
+    .on("mouseleave",()=>tip.style.opacity=0)
+    .on("click",(e,d)=>{sel=sel===d.properties.name?null:d.properties.name;draw()});
+  const actors=[...new Set(data.map(p=>p.actor))].sort();
+  const s=document.getElementById("fActor");actors.forEach(a=>{const o=document.createElement("option");o.value=a;o.textContent=a;s.appendChild(o)});
+  const missing=[...new Set(data.flatMap(p=>[p.actorCountry,...p.partners]))].filter(c=>!cent[c]);
+  if(missing.length)console.warn("Unmatched country names:",missing);
+  svg.call(d3.zoom().scaleExtent([1,8]).translateExtent([[0,0],[W,H]]).on("zoom",e=>{g.attr("transform",e.transform);gd.selectAll("circle").attr("r",3/e.transform.k);ga.selectAll("path").attr("stroke-width",1.2/e.transform.k)}));
+  draw();
+}).catch(err=>{document.getElementById("list").innerHTML="<p>Could not load the map data: "+esc(err.message)+"</p>"});
+</script>
+</body>
+</html>
