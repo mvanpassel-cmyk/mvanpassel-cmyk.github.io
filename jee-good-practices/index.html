@@ -84,6 +84,15 @@ footer{margin-top:40px;color:var(--muted);font-size:13px}
 .dist td.n{color:var(--muted);font-size:11px;text-align:right;width:36px}
 .l1{--bar:#d62728}.l2{--bar:#f5a031}.l3{--bar:#e0701a}.l4{--bar:#9ad88a}.l5{--bar:#1e7a2e}
 .gapl li{margin:4px 0}
+
+.sol{margin:4px 0 6px 0;padding:6px 10px;border-left:3px solid var(--accent);background:var(--card);border-radius:0 8px 8px 0;font-size:13px}
+.sol .badge{margin-top:0}
+.nosrc{font-size:12px;color:var(--muted);font-style:italic}
+ol.qs{padding-left:22px}ol.qs>li{margin:10px 0}
+ol.qs ol.sub{list-style:lower-alpha;margin:4px 0}
+figure.ch{margin:0;overflow:auto}
+svg.pc text{fill:var(--ink);font-family:inherit}
+svg.pc .mut{fill:var(--muted)}
 .sr{position:absolute;left:-9999px}
 @media (max-width:640px){table.mx th.rh{min-width:170px}}
 </style>
@@ -102,15 +111,15 @@ footer{margin-top:40px;color:var(--muted);font-size:13px}
 "use strict";
 const LABELS={1:"No capacity",2:"Limited capacity",3:"Developed capacity",4:"Demonstrated capacity",5:"Sustainable capacity"};
 const FUNCS=["Prevent","Detect","Respond","Other hazards"];
-const TABS=[["indicators","Indicators"],["scores","Country scores"],["gaps","Find solutions"],["practices","Practices"],["about","About & method"]];
+const TABS=[["indicators","Indicators"],["questions","Technical questions"],["scores","Country scores"],["chart","Profile chart"],["gaps","Find solutions"],["practices","Practices"],["about","About & method"]];
 const D={}; const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const view=$("#view");
-const st={q:"",fn:"",edition:"1",year:"",region:"",countries:null,mode:"dist",thr:2,self:{},evalId:""};
+const st={qq:"",qa:"",qf:"",q:"",fn:"",edition:"1",year:"",region:"",countries:null,mode:"dist",thr:2,self:{},evalId:""};
 
 async function load(){
   const get=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(u+" "+r.status);return r.json()});
-  const [fw,pr,as,rg]=await Promise.all([get("data/jee-v3-framework.json"),get("data/practices.json"),get("data/assessments.json").catch(()=>null),get("data/jee-register.json").catch(()=>null)]);
+  const [fw,pr,as,rg,sol]=await Promise.all([get("data/jee-v3-framework.json"),get("data/practices.json"),get("data/assessments.json").catch(()=>null),get("data/jee-register.json").catch(()=>null),get("data/solutions.json").catch(()=>({meta:{},solutions:[]}))]);D.sol=sol.solutions;D.solMeta=sol.meta;D.solByQ={};D.sol.forEach(x=>x.questions.forEach(k=>(D.solByQ[k]=D.solByQ[k]||[]).push(x)));
   D.fw=fw;D.pr=pr.practices;D.prMeta=pr.meta;D.as=as;D.reg=rg;
   D.areas=Object.fromEntries(fw.technicalAreas.map(a=>[a.id,a]));
   D.ind=Object.fromEntries(fw.indicators.map(i=>[i.id,i]));
@@ -121,7 +130,7 @@ async function load(){
 function nav(){ const cur=(location.hash.replace(/^#\/?/,"").split("/")[0])||"indicators";
   $("#tabs").innerHTML=TABS.map(([k,l])=>`<a href="#/${k}" ${k===cur?'aria-current="page"':""}>${l}</a>`).join(""); return cur;}
 function route(){ const parts=location.hash.replace(/^#\/?/,"").split("/"); const tab=nav();
-  ({indicators:vIndicators,scores:vScores,gaps:vGaps,practices:vPractices,about:vAbout}[tab]||vIndicators)(parts[1]); }
+  ({indicators:vIndicators,questions:vQuestions,chart:vChart,scores:vScores,gaps:vGaps,practices:vPractices,about:vAbout}[tab]||vIndicators)(parts[1]); }
 window.addEventListener("hashchange",route);
 
 /* ---------- helpers ---------- */
@@ -170,6 +179,74 @@ function vIndicators(open){
   $("#area").onchange=e=>{st.area=e.target.value;vIndicators()};
   $("#rs").onclick=()=>{st.q="";st.fn="";st.area="";vIndicators()};
   if(open){const el=document.getElementById("i-"+open); if(el) el.scrollIntoView();}
+}
+
+
+/* ---------- technical questions ---------- */
+function solHTML(list){ return list.map(x=>`<div class="sol"><span class="badge">${esc(x.type)}${x.addedBy==="user"?" · supplied by Mark":""}</span><a href="${esc(x.url)}" rel="noopener"><strong>${esc(x.title)}</strong></a> <span class="muted">${esc(x.citation)}</span>${x.note?`<div class="small muted">${esc(x.note)}</div>`:""}${x.why?`<div class="small">${esc(x.why)}</div>`:""}</div>`).join(""); }
+function vQuestions(open){
+  const q=st.qq.trim().toLowerCase(), fw=D.fw;
+  const total=fw.indicators.reduce((n,i)=>n+i.technicalQuestions.length,0);
+  const withSrc=fw.indicators.reduce((n,i)=>n+i.technicalQuestions.filter(t=>D.solByQ[i.id+":"+t.id]||t.sub.some(s=>D.solByQ[i.id+":"+t.id+"."+s.k])).length,0);
+  let h=`<p class="lead">All ${total} technical questions of the WHO JEE tool (3rd edition), per technical area and indicator, in WHO's wording. Under a question you find publications, protocols or tools that can help answer it or close the gap it points to. <strong>${withSrc} of ${total} questions have at least one source so far</strong>; the others are shown as “no source yet”, not as “none exists”.</p>
+  <div class="bar"><input id="qq" type="search" placeholder="Search questions…" aria-label="Search questions" value="${esc(st.qq)}" size="30">
+   <select id="qa" aria-label="Technical area"><option value="">All technical areas</option>${fw.technicalAreas.map(a=>`<option value="${a.id}" ${st.qa===a.id?"selected":""}>${a.id} ${esc(a.name)}</option>`).join("")}</select>
+   <select id="qf" aria-label="Sources"><option value="">All questions</option><option value="with" ${st.qf==="with"?"selected":""}>With sources</option><option value="without" ${st.qf==="without"?"selected":""}>Without sources yet</option></select></div>`;
+  let shown=0;
+  for(const a of fw.technicalAreas){ if(st.qa&&a.id!==st.qa) continue;
+    let ah="";
+    for(const i of fw.indicators.filter(i=>i.areaId===a.id)){
+      const qs=i.technicalQuestions.filter(t=>{const has=!!(D.solByQ[i.id+":"+t.id]||t.sub.some(s=>D.solByQ[i.id+":"+t.id+"."+s.k]));
+        if(st.qf==="with"&&!has) return false; if(st.qf==="without"&&has) return false;
+        return !q||[t.text,...t.sub.map(s=>s.text),i.id,i.title].join(" ").toLowerCase().includes(q)});
+      if(!qs.length) continue; shown+=qs.length;
+      ah+=`<details class="ind" ${(open===i.id||q||st.qf)?"open":""} id="qi-${i.id}"><summary><span class="id">${i.id}</span><span>${esc(i.title)}</span><span class="badge">${qs.length} question${qs.length>1?"s":""}</span></summary><div class="body"><ol class="qs">${qs.map(t=>{const n=t.id.replace("q","");const ss=D.solByQ[i.id+":"+t.id]||[];
+        return `<li value="${n}">${esc(t.text)} <span class="small muted">(manual p. ${t.page})</span>${t.sub.length?`<ol class="sub">${t.sub.map(s=>{const sl=D.solByQ[i.id+":"+t.id+"."+s.k]||[];return `<li>${esc(s.text)}${sl.length?solHTML(sl):""}</li>`}).join("")}</ol>`:""}${ss.length?solHTML(ss):(t.sub.some(s=>D.solByQ[i.id+":"+t.id+"."+s.k])?"":`<div class="nosrc">no source yet</div>`)}</li>`}).join("")}</ol><p class="small"><a href="#/indicators/${i.id}">Indicator definition and level descriptions</a></p></div></details>`; }
+    if(ah) h+=`<div class="areahead"><span class="fn">${a.function}</span><h2>${a.id} · ${esc(a.name)}</h2></div>`+ah; }
+  if(!shown) h+=`<p class="muted">No question matches.</p>`;
+  view.innerHTML=h+`<p class="note">${esc((D.solMeta&&D.solMeta.status)||"")}</p>`;
+  $("#qq").oninput=e=>{st.qq=e.target.value;const p=e.target.selectionStart;vQuestions();const n=$("#qq");n.focus();n.setSelectionRange(p,p)};
+  $("#qa").onchange=e=>{st.qa=e.target.value;vQuestions()}; $("#qf").onchange=e=>{st.qf=e.target.value;vQuestions()};
+  if(open){const el=document.getElementById("qi-"+open); if(el) el.scrollIntoView();}
+}
+
+/* ---------- profile chart (SVG) ---------- */
+const LVC={1:"#e0202b",2:"#f6a623",3:"#ea8a12",4:"#8fe08a",5:"#1b6e2a"};
+const SHORT={P1:"Legal instruments",P2:"Financing",P3:"IHR coordination",P4:"AMR",P5:"Zoonotic disease",P6:"Food safety",P7:"Biosafety & biosecurity",P8:"Immunization",D1:"Laboratory",D2:"Surveillance",D3:"Human resources",R1:"Emergency management",R2:"Public health & security",R3:"Health services",R4:"IPC",R5:"RCCE",PoE:"Points of entry",CE:"Chemical events",RE:"Radiation"};
+function vChart(){
+  if(!D.as){ view.innerHTML=`<div class="note">Country score data is not available.</div>`; return; }
+  const ed=st.edition; const E=D.as.editions[ed]; const all=evalsFor(ed);
+  const years=[...new Set(all.map(e=>e.year))].sort();
+  let ev=all.filter(e=>!st.year||String(e.year)===st.year); const qc=(st.cq||"").toLowerCase(); if(qc) ev=ev.filter(e=>e.country.toLowerCase().includes(qc));
+  const style=st.cstyle||"thick";
+  let h=`<p class="lead">Profile of the selected evaluations: for each indicator, how the evaluations spread over capacity levels 1–5. Same data as the distribution table under Country scores.</p>
+  <div class="bar"><span class="lbl">Edition</span>${["1","2","3"].map(k=>`<button data-ed="${k}" aria-pressed="${ed===k}">JEE v${k} <span class="muted small">(${evalsFor(k).length})</span></button>`).join("")}
+   <span class="lbl">Year</span><select id="yr"><option value="">All</option>${years.map(y=>`<option ${String(y)===st.year?"selected":""}>${y}</option>`).join("")}</select>
+   <input id="cq" type="search" placeholder="Filter countries…" aria-label="Filter countries" value="${esc(st.cq||"")}">
+   <span class="lbl">Style</span><button data-cs="thick" aria-pressed="${style==="thick"}">Thickness (as in the example)</button><button data-cs="len" aria-pressed="${style==="len"}">Bar graph (length)</button><button id="svgdl">Download SVG</button></div>`;
+  if(!ev.length){ view.innerHTML=h+`<p class="muted">No evaluations match.</p>`; bindChart(); return; }
+  let maxP=0.01; for(const i of E.indicators){const c=[0,0,0,0,0];let n=0;ev.forEach(e=>{const s=e.scores[i.id];if(s){c[s[0]-1]++;n++}}); if(n) maxP=Math.max(maxP,...c.map(v=>v/n));}
+  const rowH=16, x0=190, colW=86, barW=46, top=8, idX=x0+5*colW+8, W=idX+60; let y=top; let g="";
+  for(const a of E.areas){ const inds=E.indicators.filter(i=>i.area===a.id); if(!inds.length) continue; const yA=y;
+    inds.forEach(i=>{const c=[0,0,0,0,0];let n=0;ev.forEach(e=>{const s=e.scores[i.id];if(s){c[s[0]-1]++;n++}});
+      c.forEach((v,k)=>{const p=n?v/n:0; if(!p) return; const cx=x0+k*colW+colW/2; const tip=`${i.id}: level ${k+1} (${LABELS[k+1]}): ${v} of ${n} evaluations (${Math.round(p*100)}%)`;
+        if(style==="thick"){const hh=Math.max(1.5,(p/maxP)*(rowH-2)); g+=`<rect x="${cx-barW/2}" y="${y+(rowH-hh)/2}" width="${barW}" height="${hh}" fill="${LVC[k+1]}"><title>${esc(tip)}</title></rect>`;}
+        else{const ww=Math.max(1.5,p*(colW-26)); g+=`<rect x="${x0+k*colW+6}" y="${y+3}" width="${ww}" height="${rowH-6}" fill="${LVC[k+1]}"><title>${esc(tip)}</title></rect><text x="${x0+k*colW+8+ww}" y="${y+rowH-4}" font-size="8.5" class="mut">${Math.round(p*100)}</text>`;}});
+      g+=`<text x="${idX}" y="${y+rowH-4}" font-size="9" class="mut"><title>${esc(i.title)}</title>${esc(i.id)}</text>`; y+=rowH;});
+    const nm=ed==="3"?(SHORT[a.id]||a.name):(a.name.length>26?a.name.slice(0,25)+"…":a.name);
+    g+=`<text x="${x0-30}" y="${(yA+y)/2+4}" font-size="12" font-weight="700" text-anchor="end"><title>${esc(a.name)}</title>${esc(nm)}</text>`;
+    y+=4; g+=`<line x1="8" x2="${W-6}" y1="${y-2}" y2="${y-2}" stroke="var(--line)" stroke-dasharray="3 3"/>`; }
+  const H=y+36; let ax=""; for(let k=1;k<=5;k++) ax+=`<text x="${x0+(k-1)*colW+colW/2}" y="${y+16}" font-size="14" font-weight="700" text-anchor="middle">${k}</text><text x="${x0+(k-1)*colW+colW/2}" y="${y+28}" font-size="8" text-anchor="middle" class="mut">${LABELS[k].replace(" capacity","")}</text>`;
+  ax+=`<line x1="${x0-4}" x2="${x0-4}" y1="${top-4}" y2="${y-4}" stroke="var(--ink)"/>`;
+  h+=`<figure class="ch"><svg class="pc" id="pcsvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" role="img" aria-label="Profile chart of JEE v${ed}: share of ${ev.length} evaluations per capacity level per indicator">${g}${ax}</svg><figcaption class="small muted">Share of ${ev.length} evaluation${ev.length===1?"":"s"} per level, JEE v${ed}. ${style==="thick"?`Bar thickness = share (thickest bar = ${Math.round(maxP*100)}%).`:"Bar length = share (number = %)."} Colours: 1 red, 2–3 orange, 4 light green, 5 dark green. Exact numbers: Country scores, “Level distribution” view.</figcaption></figure>`;
+  view.innerHTML=h; bindChart();
+}
+function bindChart(){
+  view.querySelectorAll("[data-ed]").forEach(b=>b.onclick=()=>{st.edition=b.dataset.ed;st.year="";vChart()});
+  view.querySelectorAll("[data-cs]").forEach(b=>b.onclick=()=>{st.cstyle=b.dataset.cs;vChart()});
+  const y=$("#yr"); if(y) y.onchange=e=>{st.year=e.target.value;vChart()};
+  const c=$("#cq"); if(c) c.oninput=e=>{st.cq=e.target.value;const p=e.target.selectionStart;vChart();const n=$("#cq");n.focus();n.setSelectionRange(p,p)};
+  const d=$("#svgdl"); if(d) d.onclick=()=>{const svg=$("#pcsvg"); if(!svg) return; let t=new XMLSerializer().serializeToString(svg).replace(/var\(--ink\)/g,"#1c1f26").replace(/var\(--muted\)/g,"#667085").replace(/var\(--line\)/g,"#bbb");t=t.replace("<svg ",'<svg style="background:#fff" ').replace(/<text /g,'<text fill="#1c1f26" ');const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"image/svg+xml"}));a.download=`jee-v${st.edition}-profile.svg`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)};
 }
 
 /* ---------- scores matrix ---------- */
