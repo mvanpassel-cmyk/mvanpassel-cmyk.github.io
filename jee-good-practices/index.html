@@ -71,6 +71,19 @@ table.mx td.na{background:var(--na);color:var(--muted);text-align:center}
 #panel{position:sticky;bottom:10px;margin-top:12px}
 dl.kv{display:grid;grid-template-columns:130px 1fr;gap:2px 10px;margin:6px 0;font-size:14px}dl.kv dt{color:var(--muted)}dl.kv dd{margin:0}
 footer{margin-top:40px;color:var(--muted);font-size:13px}
+
+.dist{border-collapse:collapse;font-size:13px;width:100%;max-width:820px;background:var(--card);border:1px solid var(--line);border-radius:12px}
+.dist th,.dist td{padding:0 6px}
+.dist thead th{position:sticky;top:0;background:var(--card);z-index:2;text-align:center;font-weight:600;padding:8px 6px;border-bottom:1px solid var(--line)}
+.dist td.ar{font-weight:600;vertical-align:middle;width:170px;border-top:1px solid var(--line);padding:6px 10px}
+.dist tr.first td,.dist tr.first th{border-top:1px solid var(--line)}
+.dist th.ix{text-align:right;font-weight:400;white-space:nowrap;width:70px}
+.dist td.b{height:28px;width:92px;vertical-align:middle;text-align:left;padding-left:8px;white-space:nowrap}
+.dist td.b i{display:inline-block;width:56px;vertical-align:middle;background:var(--bar);border-radius:2px;margin-right:5px}
+.dist td.b span{font-size:10px;color:var(--muted);vertical-align:middle}
+.dist td.n{color:var(--muted);font-size:11px;text-align:right;width:36px}
+.l1{--bar:#d62728}.l2{--bar:#f5a031}.l3{--bar:#e0701a}.l4{--bar:#9ad88a}.l5{--bar:#1e7a2e}
+.gapl li{margin:4px 0}
 .sr{position:absolute;left:-9999px}
 @media (max-width:640px){table.mx th.rh{min-width:170px}}
 </style>
@@ -93,7 +106,7 @@ const TABS=[["indicators","Indicators"],["scores","Country scores"],["gaps","Fin
 const D={}; const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const view=$("#view");
-const st={q:"",fn:"",edition:"1",year:"",region:"",countries:null,mode:"ind",thr:2,self:{},evalId:""};
+const st={q:"",fn:"",edition:"1",year:"",region:"",countries:null,mode:"dist",thr:2,self:{},evalId:""};
 
 async function load(){
   const get=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(u+" "+r.status);return r.json()});
@@ -174,12 +187,13 @@ function vScores(){
    <span class="lbl">Year</span><select id="yr"><option value="">All</option>${years.map(y=>`<option ${String(y)===st.year?"selected":""}>${y}</option>`).join("")}</select>
    ${regions.length?`<span class="lbl">WHO region</span><select id="rg"><option value="">All</option>${regions.map(r=>`<option ${r===st.region?"selected":""}>${esc(r)}</option>`).join("")}</select>`:""}
    <input id="cq" type="search" placeholder="Filter countries…" aria-label="Filter countries" value="${esc(st.cq||"")}">
-   <span class="lbl">View</span><button data-mode="ind" aria-pressed="${st.mode==="ind"}">All indicators</button><button data-mode="area" aria-pressed="${st.mode==="area"}">Areas (summary)</button>
+   <span class="lbl">View</span><button data-mode="dist" aria-pressed="${st.mode==="dist"}">Level distribution</button><button data-mode="ind" aria-pressed="${st.mode==="ind"}">Matrix per country</button><button data-mode="area" aria-pressed="${st.mode==="area"}">Areas (summary)</button>
    <button id="csv">Download CSV</button></div>
-  <div class="legend" aria-label="Legend">${[1,2,3,4,5].map(n=>`<span><span class="sw s${n}">${n}</span> ${LABELS[n]}</span>`).join("")}<span><span class="sw" style="background:var(--na);color:var(--muted)">·</span> no score extracted</span></div>`;
+  ${st.mode==="dist"?"":`<div class="legend" aria-label="Legend">${[1,2,3,4,5].map(n=>`<span><span class="sw s${n}">${n}</span> ${LABELS[n]}</span>`).join("")}<span><span class="sw" style="background:var(--na);color:var(--muted)">·</span> no score extracted</span></div>`}`;
   if(ed==="1"||ed==="2") head+=`<div class="note">Edition ${ed} is shown by <strong>year of the evaluation</strong> and by the indicator set found in each report. Indicator titles are as printed in the reports. v1, v2 and v3 use different indicators and are not directly comparable; a lower later score does not mean capacity declined.</div>`;
   if(ed==="3") head+=`<div class="note">Third-edition reports (mission 2022 onward) come from WHO's IRIS repository. The year is the year of the mission. A few reports have 1–5 indicators without an extracted score, shown as “·”. The Netherlands (2025) was assessed jointly with an ECDC preparedness assessment.</div>`;
   if(!ev.length){ view.innerHTML=head+(all.length?`<p class="muted">No evaluations match.</p>`:`<div class="note">No JEE v${ed} country scores have been extracted yet. Reports of the third edition (2022 onwards) are listed in the WHO library; their scores will be added in a later step. Until then, use the <a href="#/indicators">v3 indicator directory</a> and the self-assessment under <a href="#/gaps">Find solutions</a>.</div>`); bindScores(ev,E); return; }
+  if(st.mode==="dist"){ view.innerHTML=head+distHTML(ev,E,ed)+`<p class="note">Scores were read automatically from the report PDFs and can contain extraction errors; check them in the source report (see the Matrix per country view for page links). Missing scores are not counted as zero.</p>`; bindScores(ev,E); return; }
   let t=`<div class="mwrap"><table class="mx"><caption class="sr">JEE v${ed} scores: rows are indicators, columns are country evaluations</caption><thead><tr><th class="rh" scope="col">${st.mode==="ind"?"Indicator":"Technical area"}</th>${ev.map(e=>`<th class="ch" scope="col" title="${esc(e.country)} ${e.year}"><div>${esc(e.country)} ${e.year}</div></th>`).join("")}</tr></thead><tbody>`;
   const cell=(e,rowLabel,score,id)=> score? `<td><button class="cell s${score[0]}" data-e="${e.id}" data-i="${esc(id)}" aria-label="${esc(e.country)} ${e.year}, ${esc(rowLabel)}: score ${score[0]}, ${LABELS[score[0]]}">${score[0]}</button></td>` : `<td class="na" title="No score extracted">·</td>`;
   if(st.mode==="ind"){
@@ -194,6 +208,20 @@ function vScores(){
   t+=`</tbody></table></div><div id="panel" class="card" hidden></div>`;
   view.innerHTML=head+t+`<p class="note">Scores were read automatically from the report PDFs and can contain extraction errors. Click a cell for the source report and page, and check it there. Evaluations without a score cell are shown as “·”; this is not a score of zero (JEE has no level 0).</p>`;
   bindScores(ev,E);
+}
+
+function distHTML(ev,E,ed){
+  const rows=[];const has=id=>ed==="3"&&D.ind[id];
+  let h=`<p class="small muted">Each bar shows the share of the ${ev.length} selected evaluation${ev.length===1?"":"s"} that scored that level on an indicator (bar thickness and percentage). It describes the group, not any one country. Click an indicator to open its definition, technical questions and linked practices.</p>`;
+  h+=`<table class="dist"><caption class="sr">Share of evaluations per capacity level for each indicator, JEE v${ed}</caption><thead><tr><th scope="col" colspan="2">Technical area · indicator</th>${[1,2,3,4,5].map(n=>`<th scope="col" title="${LABELS[n]}">${n}<div class="small muted" style="font-weight:400">${LABELS[n].replace(" capacity","")}</div></th>`).join("")}<th scope="col">n</th></tr></thead><tbody>`;
+  const stats=[];
+  for(const a of E.areas){ const inds=E.indicators.filter(i=>i.area===a.id); if(!inds.length) continue;
+    inds.forEach((i,k)=>{ const c=[0,0,0,0,0]; let n=0; ev.forEach(e=>{const s=e.scores[i.id]; if(s){c[s[0]-1]++;n++;}}); stats.push({i,c,n});
+      h+=`<tr class="${k===0?"first":""}">${k===0?`<td class="ar" rowspan="${inds.length}" title="${esc(a.name)}">${esc(a.id)} · ${esc(a.name)}</td>`:""}<th scope="row" class="ix" title="${esc(i.title)}">${has(i.id)?`<a href="#/indicators/${esc(i.id)}">${esc(i.id)}</a>`:esc(i.id)}</th>${c.map((v,x)=>{const p=n?v/n:0;return `<td class="b l${x+1}"><i style="height:${p?Math.max(2,Math.round(p*26)):0}px"></i><span>${n?Math.round(p*100)+"%":""}<span class="sr"> ${v} of ${n} evaluations at level ${x+1}, ${LABELS[x+1]}</span></span></td>`}).join("")}<td class="n">${n}</td></tr>`; }); }
+  h+=`</tbody></table>`;
+  const worst=stats.filter(s=>s.n>=3).map(s=>({...s,low:(s.c[0]+s.c[1])/s.n})).sort((a,b)=>b.low-a.low).slice(0,10);
+  h+=`<h2>Where the gaps are largest</h2><p class="small muted">Indicators with the highest share of evaluations at level 1–2 (at least 3 evaluations scored). These are the entry points to the technical questions and good practices.</p><ol class="gapl">${worst.map(w=>{const pr=D.pByInd[w.i.id]||[];return `<li>${has(w.i.id)?`<a href="#/indicators/${esc(w.i.id)}"><strong>${esc(w.i.id)}</strong></a>`:`<strong>${esc(w.i.id)}</strong>`} ${esc(w.i.title)} <span class="badge">${Math.round(w.low*100)}% at level 1–2</span>${has(w.i.id)?` <span class="small muted">${pr.length?pr.length+" linked practice"+(pr.length>1?"s":""):"no practice linked yet"} · ${D.ind[w.i.id].technicalQuestions.length} technical questions</span>`:""}</li>`}).join("")}</ol>`;
+  return h;
 }
 function bindScores(ev,E){
   view.querySelectorAll("[data-ed]").forEach(b=>b.onclick=()=>{st.edition=b.dataset.ed;st.year="";st.region="";vScores()});
