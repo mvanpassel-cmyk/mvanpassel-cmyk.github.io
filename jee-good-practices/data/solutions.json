@@ -1,6 +1,10 @@
 {
  "meta": {
-  "status": "Sources are added per question after a literature and guidance search. Relevance is judged from each source's title and summary; a source can help answer a question or address the gap behind it, but its inclusion is not a claim that it improves JEE scores."
+  "status": "Sources were found by searching WHO, partner and peer-reviewed literature for each technical question (October 2026), starting from the tools that WHO lists in its benchmarks for each technical area. Relevance is judged from each source's title and summary, not from reading every document in full. A source can help answer a question or close the gap behind it; it is not a claim that it raises a JEE score. Questions without a source are shown as 'no source yet'.",
+  "built": "2026-10-16",
+  "nSources": 312,
+  "nQuestionsCovered": 471,
+  "nQuestions": 479
  },
  "solutions": [
   {
@@ -14,9 +18,11 @@
    "questions": [
     "P7.1:q1",
     "P7.1:q1.a",
-    "P7.1:q4"
+    "P7.1:q4",
+    "P7.1:q4.a",
+    "P7.1:q4.b"
    ],
-   "why": "Step-by-step method to set up and maintain a national record of where dangerous pathogens are held, which also shows where collections could be consolidated."
+   "why": "Step-by-step method to set up and keep a national record of which facilities hold dangerous pathogens; the overview also shows where collections can be consolidated."
   },
   {
    "id": "brizee-2019-uganda-inventory",
@@ -29,10 +35,4725 @@
    "questions": [
     "P7.1:q1",
     "P7.1:q1.a",
-    "P7.1:q4"
+    "P7.1:q4",
+    "P7.1:q4.a"
    ],
-   "why": "Country example of building a national pathogen inventory in a low-resource setting, including the survey of facilities.",
-   "note": "PubMed ID supplied by Mark; title and authors taken from the RIVM WHO Collaborating Centre publication list, as PubMed could not be read from here."
+   "why": "Country example of building a national pathogen inventory in a low-resource setting, including the facility survey.",
+   "note": "PubMed ID supplied by Mark; title and authors taken from the RIVM WHO Collaborating Centre publication list."
+  },
+  {
+   "id": "who-ihr-legislation-toolkit",
+   "title": "International Health Regulations (2005) toolkit for implementation in national legislation",
+   "citation": "World Health Organization.",
+   "url": "https://www.who.int/publications/m/item/international-health-regulations-(2005)-toolkit-for-implementation-in-national-legislation",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P1.1:q1",
+    "P1.1:q2",
+    "P1.1:q4",
+    "P1.1:q5",
+    "P1.1:q6",
+    "P1.1:q9",
+    "P1.1:q10",
+    "P1.1:q11",
+    "R2.1:q5",
+    "D3.3:q7"
+   ],
+   "why": "WHO guidance for reviewing national law against IHR obligations and identifying what to revise or add."
+  },
+  {
+   "id": "rtsl-ihr-legal-checklist",
+   "title": "Checklist and template for IHR legal analysis",
+   "citation": "Resolve to Save Lives. 2025.",
+   "url": "https://resolvetosavelives.org/wp-content/uploads/2025/12/RTSL_Checklist-and-Template-for-IHR-Legal-Analysis_English_Final.pdf",
+   "year": 2025,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P1.1:q1",
+    "P1.1:q4",
+    "P1.1:q5",
+    "P1.1:q6"
+   ],
+   "why": "A practical checklist and template to map legal instruments and record gaps, usable for a national legal mapping exercise."
+  },
+  {
+   "id": "ifrc-law-phe",
+   "title": "Guidance on law and public health emergency preparedness and response",
+   "citation": "International Federation of Red Cross and Red Crescent Societies. 2021.",
+   "url": "https://disasterlaw.ifrc.org/sites/default/files/media/disaster_law/2021-09/20210926_Law_PHE.pdf",
+   "year": 2021,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P1.1:q2",
+    "P1.1:q3",
+    "P1.1:q7",
+    "P1.1:q8",
+    "P1.1:q9",
+    "P1.1:q12",
+    "P1.1:q13"
+   ],
+   "why": "Sets out what emergency laws should cover: declaration powers, multisectoral and multilevel coordination, accountability, community roles and protection of vulnerable groups."
+  },
+  {
+   "id": "ghsa-legal-preparedness-definition",
+   "title": "Legal preparedness: definition and scope",
+   "citation": "Global Health Security Agenda Legal Preparedness Action Package. 2023.",
+   "url": "https://globalhealthsecurityagenda.org/wp-content/uploads/2024/08/Final_May2023_Legal-Preparedness-Definition.pdf",
+   "year": 2023,
+   "type": "strategy",
+   "addedBy": "search",
+   "questions": [
+    "P1.1:q1"
+   ],
+   "why": "Common definition of legal preparedness that a legal mapping can be structured around."
+  },
+  {
+   "id": "oneill-legal-capacity",
+   "title": "Strengthening legal capacity for public health emergencies",
+   "citation": "O'Neill Institute, Georgetown University.",
+   "url": "https://oneill.law.georgetown.edu/strengthening-legal-capacity-for-public-health-emergencies/",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P1.1:q5",
+    "P1.1:q6",
+    "D3.3:q8",
+    "D3.3:q9"
+   ],
+   "why": "Programme and materials on assessing legal frameworks and building legal workforce capacity for emergencies."
+  },
+  {
+   "id": "woah-vet-legislation",
+   "title": "Terrestrial Animal Health Code, chapter on veterinary legislation",
+   "citation": "World Organisation for Animal Health. 2022.",
+   "url": "https://www.woah.org/en/what-we-do/standards/codes-and-manuals/terrestrial-code-online-access/?id=169&L=1&htmfile=chapitre_vet_legislation.htm",
+   "year": 2022,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P1.1:q8",
+    "P5.3:q1"
+   ],
+   "why": "International standard for animal health legislation, needed so legal instruments cover the animal sector as well."
+  },
+  {
+   "id": "afro-pheoc-legal-framework",
+   "title": "PHEOC legal framework guide: developing a legal framework to authorize a PHEOC",
+   "citation": "WHO Regional Office for Africa. 2021.",
+   "url": "https://www.afro.who.int/publications/public-health-emergency-operations-center-pheoc-legal-framework-guide-guide/",
+   "year": 2021,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P1.1:q2",
+    "P1.1:q9",
+    "R1.2:q2"
+   ],
+   "why": "Model for giving the emergency operations centre and incident decision-making a legal basis."
+  },
+  {
+   "id": "who-sex-gender-epidemics",
+   "title": "Addressing sex and gender in epidemic-prone infectious diseases",
+   "citation": "World Health Organization. 2007.",
+   "url": "https://apps.who.int/iris/handle/10665/43644",
+   "year": 2007,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P1.2:q2",
+    "P1.2:q3"
+   ],
+   "why": "Explains how sex and gender shape exposure and outcomes in outbreaks, and what data and actions follow from that."
+  },
+  {
+   "id": "wb-genpar",
+   "title": "Gender in Preparedness and Response Toolkit (GENPAR)",
+   "citation": "Pande RP, Mollard IMP, et al. World Bank Group. 2022.",
+   "url": "https://www.genderandcovid-19.org/resources/gender-in-preparedness-and-response-toolkit-genpar/",
+   "year": 2022,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P1.2:q1",
+    "P1.2:q3",
+    "P1.2:q4",
+    "P2.1:q8",
+    "P2.2:q11"
+   ],
+   "why": "Step-by-step toolkit to build gender analysis into preparedness and response plans, with costing and monitoring."
+  },
+  {
+   "id": "who-hr-gender-policy-coherence",
+   "title": "Human rights and gender equality in health sector strategies: how to assess policy coherence",
+   "citation": "WHO, OHCHR, Sida. 2011.",
+   "url": "https://www.who.int/publications/i/item/9789241564083",
+   "year": 2011,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P1.2:q1"
+   ],
+   "why": "Method to check whether laws and strategies address equity and gender."
+  },
+  {
+   "id": "who-heat",
+   "title": "Health Equity Assessment Toolkit (HEAT)",
+   "citation": "World Health Organization.",
+   "url": "https://www.who.int/data/health-equity/assessment_toolkit",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P1.2:q2",
+    "D2.3:q1",
+    "R3.2:q2.b"
+   ],
+   "why": "Free software to analyse and report health data disaggregated by sex, age, income, education and place."
+  },
+  {
+   "id": "who-intersectional-toolkit",
+   "title": "Incorporating intersectional gender analysis into research on infectious diseases of poverty: a toolkit",
+   "citation": "WHO and TDR. 2020.",
+   "url": "https://www.who.int/publications/i/item/9789240008458",
+   "year": 2020,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P1.2:q2"
+   ],
+   "why": "Practical steps to collect and analyse data by sex and other social variables."
+  },
+  {
+   "id": "paho-gender-emergency-2020",
+   "title": "Key considerations for integrating gender equality into health emergency and disaster response: COVID-19",
+   "citation": "Pan American Health Organization. 2020.",
+   "url": "https://iris.paho.org/handle/10665.2/52247",
+   "year": 2020,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P1.2:q3"
+   ],
+   "why": "Checklist of gender actions for response plans."
+  },
+  {
+   "id": "paho-gender-indicators",
+   "title": "A framework for indicators for monitoring gender equality and health in the Americas",
+   "citation": "Pan American Health Organization. 2019.",
+   "url": "https://iris.paho.org/handle/10665.2/51786",
+   "year": 2019,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P1.2:q2",
+    "P1.2:q4"
+   ],
+   "why": "Indicator set for monitoring gender equality in health, usable to report on plan implementation."
+  },
+  {
+   "id": "iasc-gender-handbook",
+   "title": "The Gender Handbook for Humanitarian Action",
+   "citation": "Inter-Agency Standing Committee. 2017.",
+   "url": "https://www.gihahandbook.org/",
+   "year": 2017,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P1.2:q3"
+   ],
+   "why": "Sector-by-sector guidance on gender in emergency programming."
+  },
+  {
+   "id": "who-ghs-sustainable-financing",
+   "title": "Delivering global health security through sustainable financing",
+   "citation": "World Health Organization. 2018.",
+   "url": "https://www.who.int/publications/i/item/WHO-WHE-CPI-2018.38",
+   "year": 2018,
+   "type": "strategy",
+   "addedBy": "search",
+   "questions": [
+    "P2.1:q4",
+    "P2.1:q9",
+    "P2.1:q10",
+    "P2.1:q18",
+    "P2.2:q6"
+   ],
+   "why": "Options for domestic financing of IHR capacities and for reducing reliance on donors."
+  },
+  {
+   "id": "wb-hsfat",
+   "title": "Health Security Financing Assessment Tool (HSFAT)",
+   "citation": "World Bank. 2018.",
+   "url": "https://thedocs.worldbank.org/en/doc/284281528446571304-0070022018/original/HSFATLeaflet.pdf",
+   "year": 2018,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P2.1:q2",
+    "P2.1:q3",
+    "P2.1:q4",
+    "P2.1:q5",
+    "P2.1:q6",
+    "P2.1:q9",
+    "P2.1:q10",
+    "P2.1:q15",
+    "P2.1:q16",
+    "P2.1:q17",
+    "P2.2:q2",
+    "P2.2:q7",
+    "P2.2:q12",
+    "P2.1:q11",
+    "P2.1:q12",
+    "P2.2:q1",
+    "P2.2:q9"
+   ],
+   "why": "Structured assessment of how health security is budgeted, released and spent across ministries, including bottlenecks in disbursement."
+  },
+  {
+   "id": "who-naphs-for-all",
+   "title": "NAPHS for all: a country implementation guide for national action plans for health security",
+   "citation": "World Health Organization.",
+   "url": "https://www.who.int/publications/i/item/naphs-for-all---a-country-implementation-guide-for-naphs",
+   "year": null,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P2.1:q1",
+    "P3.3:q1"
+   ],
+   "why": "How to develop, cost and implement a national action plan for health security."
+  },
+  {
+   "id": "who-naphs-strategy",
+   "title": "WHO strategy (2022-2026) for the National Action Plan for Health Security",
+   "citation": "World Health Organization. 2022.",
+   "url": "https://www.who.int/publications/i/item/9789240061545",
+   "year": 2022,
+   "type": "strategy",
+   "addedBy": "search",
+   "questions": [
+    "P2.1:q1",
+    "P3.3:q1"
+   ],
+   "why": "Strategy for linking national action plans to financing and implementation."
+  },
+  {
+   "id": "rtsl-naphs-costing",
+   "title": "Action-based costing for national action plans for health security",
+   "citation": "Resolve to Save Lives.",
+   "url": "https://resolvetosavelives.org/resources/action-based-costing-for-national-action-plans-for-health-security/",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P2.1:q5",
+    "P2.1:q6"
+   ],
+   "why": "Costing approach that compares plan needs with allocated budgets."
+  },
+  {
+   "id": "gu-ihr-costing",
+   "title": "IHR Costing Tool",
+   "citation": "Georgetown University Center for Global Health Science and Security.",
+   "url": "https://ghss.georgetown.edu/ihrcosting/",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P2.1:q6"
+   ],
+   "why": "Estimates the cost of building and maintaining IHR capacities, for comparison with budgets."
+  },
+  {
+   "id": "pandemic-fund",
+   "title": "The Pandemic Fund: frequently asked questions",
+   "citation": "The Pandemic Fund (World Bank-hosted financial intermediary fund).",
+   "url": "https://thepandemicfund.org/what-we-do/frequently-asked-questions",
+   "year": null,
+   "type": "strategy",
+   "addedBy": "search",
+   "questions": [
+    "P2.1:q13",
+    "P2.1:q14"
+   ],
+   "why": "Explains the multilateral grant mechanism for prevention, preparedness and response investments and how countries apply."
+  },
+  {
+   "id": "who-cfe",
+   "title": "Contingency Fund for Emergencies (CFE)",
+   "citation": "World Health Organization.",
+   "url": "https://www.who.int/news-room/feature-stories/detail/enabling-quick-action-to-save-lives-the-contingency-fund-for-emergencies",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P2.2:q3",
+    "P2.2:q4"
+   ],
+   "why": "How WHO's emergency fund releases money within hours, and how countries request it."
+  },
+  {
+   "id": "who-funding-emergencies",
+   "title": "Funding for emergencies",
+   "citation": "World Health Organization. 2023.",
+   "url": "https://www.who.int/emergencies/funding",
+   "year": 2023,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P2.2:q3",
+    "P2.2:q4",
+    "P2.2:q5"
+   ],
+   "why": "Overview of emergency financing mechanisms, including appeals and the Contingency Fund."
+  },
+  {
+   "id": "who-nfp-page",
+   "title": "National IHR Focal Points (incl. National IHR Focal Point Guide)",
+   "citation": "World Health Organization.",
+   "url": "https://www.who.int/teams/ihr/national-focal-points",
+   "year": null,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P3.1:q1",
+    "P3.1:q1.a",
+    "P3.1:q1.b",
+    "P3.1:q1.c",
+    "P3.1:q1.d",
+    "P3.1:q1.e",
+    "P3.1:q1.f",
+    "P3.1:q1.g",
+    "P3.1:q3",
+    "P3.1:q3.a",
+    "P3.1:q3.b",
+    "P3.1:q3.c",
+    "P3.2:q1",
+    "P3.2:q2"
+   ],
+   "why": "WHO guidance on NFP functions, staffing, 24/7 access, mandate and contact maintenance."
+  },
+  {
+   "id": "paho-nfp-framework",
+   "title": "Overview of IHR National Focal Point functions: operational framework",
+   "citation": "Pan American Health Organization. 2023.",
+   "url": "https://www.paho.org/sites/default/files/2023-09/overview-ihr-nfp-functions-operational-framework.pdf",
+   "year": 2023,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P3.1:q1",
+    "P3.1:q2",
+    "P3.1:q2.a",
+    "P3.1:q2.b",
+    "P3.1:q2.c",
+    "P3.1:q2.d",
+    "P3.1:q3"
+   ],
+   "why": "Operational framework describing NFP positioning, procedures and connections with other sectors."
+  },
+  {
+   "id": "who-annex2-guidance",
+   "title": "WHO guidance for the use of Annex 2 of the IHR (2005)",
+   "citation": "World Health Organization. 2010.",
+   "url": "https://www.who.int/publications/m/item/who-guidance-for-the-use-of-annex-2-of-the-international-health-regulations-(2005)",
+   "year": 2010,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P3.1:q2.e",
+    "P3.1:q2.f"
+   ],
+   "why": "Decision instrument for assessing and notifying events to WHO."
+  },
+  {
+   "id": "paho-nfp-workshop",
+   "title": "Multilateral IHR NFP strengthening workshop toolkit",
+   "citation": "Pan American Health Organization.",
+   "url": "https://www.paho.org/en/detection-verification-and-risk-assessment-dva/multilateral-ihr-nfp-strengthening-workshop-toolkit",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P3.1:q1.g",
+    "P3.1:q2.h"
+   ],
+   "why": "Workshop package to train NFP staff and test procedures."
+  },
+  {
+   "id": "tzg-mcm-ot",
+   "title": "Multisectoral coordination mechanisms operational tool (Tripartite zoonoses guide)",
+   "citation": "FAO, WOAH, WHO. 2022.",
+   "url": "https://www.who.int/publications/i/item/9789240053236",
+   "year": 2022,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P3.2:q3",
+    "P5.2:q1.b",
+    "P4.1:q1"
+   ],
+   "why": "Steps to set up or strengthen a multisectoral coordination mechanism with terms of reference."
+  },
+  {
+   "id": "who-ihr-pvs-nbw",
+   "title": "IHR-PVS National Bridging Workshops",
+   "citation": "WHO and WOAH.",
+   "url": "https://extranet.who.int/sph/ihr-pvs-bridging-workshop",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P3.2:q3",
+    "P5.1:q1",
+    "P5.1:q5",
+    "P5.2:q1",
+    "P5.2:q2"
+   ],
+   "why": "Joint workshop that brings human and animal health services together to agree roles and a joint roadmap."
+  },
+  {
+   "id": "who-multisectoral-prep-framework",
+   "title": "Multisectoral preparedness coordination framework: best practices, case studies and key elements",
+   "citation": "World Health Organization. 2020.",
+   "url": "https://www.who.int/publications/i/item/9789240006232",
+   "year": 2020,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P3.2:q3",
+    "R2.1:q1"
+   ],
+   "why": "Case studies and key elements of whole-of-government coordination for preparedness, including security sectors."
+  },
+  {
+   "id": "who-star",
+   "title": "Strategic toolkit for assessing risks (STAR)",
+   "citation": "World Health Organization. 2021.",
+   "url": "https://www.who.int/publications/i/item/9789240036086",
+   "year": 2021,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P3.3:q1.c",
+    "P3.3:q2.c",
+    "R1.1:q1",
+    "R1.1:q1.a",
+    "R1.1:q1.b",
+    "R1.1:q1.c",
+    "R1.1:q1.d",
+    "R1.1:q1.g",
+    "R1.1:q1.h",
+    "R3.3:q2"
+   ],
+   "why": "All-hazards strategic risk assessment method that produces a national risk profile to base plans on."
+  },
+  {
+   "id": "who-health-edrm",
+   "title": "Health emergency and disaster risk management framework",
+   "citation": "World Health Organization. 2019.",
+   "url": "https://apps.who.int/iris/handle/10665/326106",
+   "year": 2019,
+   "type": "strategy",
+   "addedBy": "search",
+   "questions": [
+    "P3.3:q1",
+    "P3.3:q2",
+    "P3.3:q2.a",
+    "P3.3:q2.b",
+    "R1.1:q1"
+   ],
+   "why": "Framework for multihazard, multisectoral emergency risk management in the health sector."
+  },
+  {
+   "id": "who-cities-preparedness",
+   "title": "Strengthening health emergency preparedness in cities and urban settings: guidance for national and local authorities",
+   "citation": "World Health Organization. 2021.",
+   "url": "https://www.who.int/publications-detail-redirect/9789240040892",
+   "year": 2021,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P3.3:q1.g",
+    "P3.3:q2.l",
+    "P3.3:q2.p"
+   ],
+   "why": "Guidance for preparedness plans at intermediate and local levels."
+  },
+  {
+   "id": "who-ipu-parliament",
+   "title": "WHO-IPU parliamentary conference on strengthening health security preparedness (Africa)",
+   "citation": "WHO Regional Office for Africa and Inter-Parliamentary Union.",
+   "url": "https://www.afro.who.int/fr/node/18355",
+   "year": null,
+   "type": "case-study",
+   "addedBy": "search",
+   "questions": [
+    "P3.3:q3",
+    "P3.3:q4"
+   ],
+   "why": "Example of advocacy for IHR implementation aimed at parliamentarians.",
+   "note": "Event page; a dedicated WHO guide on IHR advocacy strategies was not found."
+  },
+  {
+   "id": "amr-nap-manual",
+   "title": "Antimicrobial resistance: a manual for developing national action plans",
+   "citation": "FAO, WOAH, WHO. 2016.",
+   "url": "https://www.who.int/publications/i/item/antimicrobial-resistance-a-manual-for-developing-national-action-plans",
+   "year": 2016,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P4.1:q2",
+    "P4.1:q3",
+    "P4.1:q6"
+   ],
+   "why": "How to write a One Health AMR action plan covering all sectors and levels of government."
+  },
+  {
+   "id": "who-amr-nap-handbook",
+   "title": "WHO implementation handbook for national action plans on antimicrobial resistance",
+   "citation": "World Health Organization. 2022.",
+   "url": "https://www.who.int/publications/i/item/9789240041981",
+   "year": 2022,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P4.1:q1",
+    "P4.1:q2",
+    "P4.1:q3",
+    "P4.1:q5"
+   ],
+   "why": "Implementation steps for governance, prioritisation and monitoring of the AMR plan."
+  },
+  {
+   "id": "who-amr-costing",
+   "title": "WHO costing and budgeting tool for national action plans on antimicrobial resistance",
+   "citation": "World Health Organization. 2021.",
+   "url": "https://www.who.int/publications/i/item/9789240036901",
+   "year": 2021,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P4.1:q4"
+   ],
+   "why": "Spreadsheet tool to cost the operational plan and prepare budgets."
+  },
+  {
+   "id": "amr-costing-paper",
+   "title": "The WHO costing and budgeting tool for national action plans on AMR: a practical addition to the toolkit",
+   "citation": "Peer-reviewed article, PubMed Central (PMC10210613).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10210613/",
+   "year": null,
+   "type": "peer-reviewed",
+   "addedBy": "search",
+   "questions": [
+    "P4.1:q4"
+   ],
+   "why": "Describes the tool and country experience with costing."
+  },
+  {
+   "id": "tracss",
+   "title": "Tracking AMR Country Self-assessment Survey (TrACSS)",
+   "citation": "FAO, UNEP, WHO, WOAH.",
+   "url": "http://www.amrcountryprogress.org",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P4.1:q5"
+   ],
+   "why": "Annual self-assessment that tracks progress on the national action plan."
+  },
+  {
+   "id": "amr-gap-me",
+   "title": "Monitoring and evaluation of the global action plan on AMR: framework and recommended indicators",
+   "citation": "FAO, WOAH, WHO. 2019.",
+   "url": "https://www.who.int/publications/i/item/monitoring-and-evaluation-of-the-global-action-plan-on-antimicrobial-resistance",
+   "year": 2019,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P4.1:q5"
+   ],
+   "why": "Indicators to monitor national plan progress."
+  },
+  {
+   "id": "who-gap-amr",
+   "title": "Global action plan on antimicrobial resistance",
+   "citation": "World Health Organization. 2015.",
+   "url": "https://www.who.int/publications/i/item/9789241509763",
+   "year": 2015,
+   "type": "strategy",
+   "addedBy": "search",
+   "questions": [
+    "P4.1:q3"
+   ],
+   "why": "The five strategic objectives that national plans are expected to address."
+  },
+  {
+   "id": "who-glass",
+   "title": "Global Antimicrobial Resistance and Use Surveillance System (GLASS)",
+   "citation": "World Health Organization.",
+   "url": "https://www.who.int/initiatives/glass",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P4.2:q2",
+    "P4.2:q10",
+    "P4.2:q12",
+    "P4.2:q14",
+    "R4.2:q8",
+    "R4.2:q9"
+   ],
+   "why": "Standardised national AMR and antimicrobial-use surveillance and reporting to WHO."
+  },
+  {
+   "id": "glass-checklist",
+   "title": "National AMR surveillance systems and participation in GLASS: core components checklist and questionnaire",
+   "citation": "World Health Organization. 2016.",
+   "url": "https://apps.who.int/iris/handle/10665/251552",
+   "year": 2016,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P4.2:q2",
+    "P4.2:q3",
+    "P4.2:q6",
+    "P4.2:q9"
+   ],
+   "why": "Checklist of what a national AMR surveillance system needs."
+  },
+  {
+   "id": "glass-manual-2023",
+   "title": "GLASS manual for antimicrobial resistance surveillance in common bacteria causing human infection",
+   "citation": "World Health Organization. 2023.",
+   "url": "https://www.who.int/publications/i/item/9789240076600",
+   "year": 2023,
+   "type": "protocol",
+   "addedBy": "search",
+   "questions": [
+    "P4.2:q2",
+    "P4.2:q3",
+    "P4.2:q4",
+    "P4.2:q12",
+    "P4.2:q9"
+   ],
+   "why": "Protocol for setting up sites, sampling and reporting, including representativeness."
+  },
+  {
+   "id": "glass-nrl",
+   "title": "GLASS guidance for national reference laboratories",
+   "citation": "World Health Organization. 2020.",
+   "url": "https://www.who.int/publications/i/item/9789240010581",
+   "year": 2020,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P4.2:q6",
+    "P4.2:q7",
+    "P4.3:q4",
+    "P4.3:q7"
+   ],
+   "why": "Roles of the national reference laboratory in confirmation, quality assurance and support to sites."
+  },
+  {
+   "id": "who-tricycle",
+   "title": "WHO integrated global surveillance on ESBL-producing E. coli using a One Health approach (Tricycle protocol)",
+   "citation": "World Health Organization. 2021.",
+   "url": "https://www.who.int/publications/i/item/9789240021402",
+   "year": 2021,
+   "type": "protocol",
+   "addedBy": "search",
+   "questions": [
+    "P4.2:q1",
+    "P4.2:q5",
+    "P4.2:q11",
+    "P4.2:q16"
+   ],
+   "why": "Simple protocol that measures one resistance indicator in humans, food animals and the environment, so sectors can be compared."
+  },
+  {
+   "id": "who-agisar",
+   "title": "Integrated surveillance of antimicrobial resistance in foodborne bacteria: application of a One Health approach (AGISAR)",
+   "citation": "World Health Organization. 2017.",
+   "url": "https://apps.who.int/iris/handle/10665/255747",
+   "year": 2017,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P4.2:q5",
+    "P4.2:q8",
+    "P4.2:q11",
+    "P6.1:q1"
+   ],
+   "why": "How to design integrated AMR surveillance along the food chain."
+  },
+  {
+   "id": "who-diag-stewardship",
+   "title": "Diagnostic stewardship: a guide to implementation in AMR surveillance sites",
+   "citation": "World Health Organization. 2016.",
+   "url": "https://www.who.int/publications/i/item/WHO-DGO-AMR-2016.3",
+   "year": 2016,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P4.2:q3",
+    "P4.2:q13",
+    "P4.3:q2",
+    "P4.3:q6",
+    "R4.2:q5"
+   ],
+   "why": "Improves the quality and use of microbiology results in surveillance sites and clinical care."
+  },
+  {
+   "id": "woah-animuse",
+   "title": "ANIMUSE: global database on antimicrobial agents intended for use in animals",
+   "citation": "World Organisation for Animal Health.",
+   "url": "https://amu.woah.org/amu-system-portal",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P4.2:q14",
+    "P4.2:q15",
+    "P4.5:q7"
+   ],
+   "why": "The WOAH system to which countries report antimicrobial use in animals."
+  },
+  {
+   "id": "fao-atlass",
+   "title": "FAO Assessment Tool for Laboratories and AMR Surveillance Systems (FAO-ATLASS)",
+   "citation": "Food and Agriculture Organization. 2020.",
+   "url": "https://www.fao.org/antimicrobial-resistance/resources/tools/fao-atlass/en/",
+   "year": 2020,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P4.2:q1",
+    "P4.2:q5"
+   ],
+   "why": "Assessment of laboratory and surveillance capacity for AMR in food and agriculture."
+  },
+  {
+   "id": "glass-molecular",
+   "title": "GLASS: molecular methods for antimicrobial resistance diagnostics",
+   "citation": "World Health Organization. 2019.",
+   "url": "https://www.who.int/publications/i/item/WHO-WSI-AMR-2019.1",
+   "year": 2019,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P4.2:q1"
+   ],
+   "why": "Options for molecular AMR detection in laboratories."
+  },
+  {
+   "id": "who-cro-guidelines",
+   "title": "Guidelines for the prevention and control of carbapenem-resistant Enterobacteriaceae, A. baumannii and P. aeruginosa in health care facilities",
+   "citation": "World Health Organization. 2017.",
+   "url": "https://apps.who.int/iris/handle/10665/259462",
+   "year": 2017,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P4.3:q3",
+    "P4.3:q8",
+    "P4.3:q9"
+   ],
+   "why": "Evidence-based recommendations on containment, screening, hand hygiene and environmental cleaning for MDRO."
+  },
+  {
+   "id": "who-cro-manual",
+   "title": "Implementation manual to prevent and control the spread of carbapenem-resistant organisms at national and facility level",
+   "citation": "World Health Organization. 2019.",
+   "url": "https://www.who.int/publications/i/item/WHO-UHC-SDS-2019-6",
+   "year": 2019,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P4.3:q1",
+    "P4.3:q3",
+    "P4.3:q4",
+    "P4.3:q8",
+    "P4.3:q9"
+   ],
+   "why": "Step-by-step implementation, including national case definitions and support to facilities."
+  },
+  {
+   "id": "glass-ear",
+   "title": "GLASS emerging antimicrobial resistance reporting framework (GLASS-EAR)",
+   "citation": "World Health Organization. 2018.",
+   "url": "https://www.who.int/publications/i/item/9789241514590",
+   "year": 2018,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P4.3:q5",
+    "P4.3:q6",
+    "P4.3:q7"
+   ],
+   "why": "How to detect, verify and report unusual or emerging resistance."
+  },
+  {
+   "id": "who-ipc-core",
+   "title": "Guidelines on core components of infection prevention and control programmes at the national and acute health care facility level",
+   "citation": "World Health Organization. 2016.",
+   "url": "https://www.who.int/publications/i/item/9789241549929",
+   "year": 2016,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P4.3:q8",
+    "R4.1:q1",
+    "R4.1:q3",
+    "R4.1:q4",
+    "R4.2:q1",
+    "R4.3:q7"
+   ],
+   "why": "The eight core components of an IPC programme."
+  },
+  {
+   "id": "who-ams-policy",
+   "title": "WHO policy guidance on integrated antimicrobial stewardship activities",
+   "citation": "World Health Organization. 2021.",
+   "url": "https://www.who.int/publications-detail-redirect/9789240025530",
+   "year": 2021,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P4.4:q1.d",
+    "P4.4:q3",
+    "P4.5:q2",
+    "P4.5:q4"
+   ],
+   "why": "How to organise national and facility stewardship programmes and monitor them."
+  },
+  {
+   "id": "who-aware-book",
+   "title": "The WHO AWaRe (Access, Watch, Reserve) antibiotic book",
+   "citation": "World Health Organization. 2022.",
+   "url": "https://iris.who.int/handle/10665/365237",
+   "year": 2022,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P4.4:q1",
+    "P4.4:q1.c",
+    "P4.4:q1.e",
+    "P4.4:q6",
+    "P4.5:q2"
+   ],
+   "why": "Empiric treatment guidance by AWaRe category, a basis for national prescribing guidelines."
+  },
+  {
+   "id": "who-eml-2021",
+   "title": "The selection and use of essential medicines 2021 (WHO Expert Committee report)",
+   "citation": "World Health Organization. 2021.",
+   "url": "https://www.who.int/publications/i/item/WHO-MHP-HPS-EML-2021.01",
+   "year": 2021,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P4.4:q1.b",
+    "P4.4:q4",
+    "P4.4:q6",
+    "P4.5:q5"
+   ],
+   "why": "Model list of essential medicines with AWaRe grouping; supports selection and access."
+  },
+  {
+   "id": "who-gsms",
+   "title": "WHO Global Surveillance and Monitoring System for substandard and falsified medical products",
+   "citation": "World Health Organization.",
+   "url": "https://www.who.int/who-global-surveillance-and-monitoring-system",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P4.4:q5",
+    "P4.5:q9"
+   ],
+   "why": "National reporting and alert system for substandard and falsified medicines."
+  },
+  {
+   "id": "who-responsible-medicines",
+   "title": "The pursuit of responsible use of medicines: sharing and learning from country experiences",
+   "citation": "World Health Organization. 2012.",
+   "url": "https://apps.who.int/iris/handle/10665/75828",
+   "year": 2012,
+   "type": "case-study",
+   "addedBy": "search",
+   "questions": [
+    "P4.4:q1.a",
+    "P4.4:q2",
+    "P4.5:q3"
+   ],
+   "why": "Country examples of policies that improved medicine use, including prescription-only enforcement."
+  },
+  {
+   "id": "who-mia-animals",
+   "title": "WHO guidelines on use of medically important antimicrobials in food-producing animals",
+   "citation": "World Health Organization. 2017.",
+   "url": "https://www.who.int/publications/i/item/9789241550130",
+   "year": 2017,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P4.5:q7",
+    "P4.5:q8"
+   ],
+   "why": "Recommends ending growth-promotion use and restricting critically important antimicrobials in animals."
+  },
+  {
+   "id": "woah-amr-standards",
+   "title": "OIE standards, guidelines and resolutions on antimicrobial resistance and the use of antimicrobial agents",
+   "citation": "World Organisation for Animal Health. 2020.",
+   "url": "https://www.woah.org/app/uploads/2021/03/book-amr-ang-fnl-lr.pdf",
+   "year": 2020,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P4.5:q1",
+    "P4.5:q6",
+    "P4.5:q7"
+   ],
+   "why": "International standards for prudent use, prescription and monitoring in animals."
+  },
+  {
+   "id": "woah-vet-antimicrobials-list",
+   "title": "OIE list of antimicrobial agents of veterinary importance",
+   "citation": "World Organisation for Animal Health. 2021.",
+   "url": "https://www.woah.org/app/uploads/2021/06/a-oie-list-antimicrobials-june2021.pdf",
+   "year": 2021,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P4.5:q7",
+    "P4.5:q8"
+   ],
+   "why": "Classification used to prioritise prudent use in animals."
+  },
+  {
+   "id": "who-cia-list",
+   "title": "Critically important antimicrobials for human medicine, 6th revision",
+   "citation": "World Health Organization. 2019.",
+   "url": "https://www.who.int/publications/i/item/9789241515528",
+   "year": 2019,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P4.5:q8"
+   ],
+   "why": "List used to restrict antimicrobials most important for human medicine in animal production."
+  },
+  {
+   "id": "tzg-sis-ot",
+   "title": "Surveillance and information sharing operational tool (Tripartite zoonoses guide)",
+   "citation": "WHO, FAO, WOAH. 2022.",
+   "url": "https://www.who.int/publications/i/item/9789240053250",
+   "year": 2022,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P5.1:q1",
+    "P5.1:q5",
+    "P5.1:q5.a",
+    "P5.1:q6",
+    "P5.1:q6.a",
+    "P5.1:q6.b",
+    "P5.1:q6.c",
+    "P5.1:q6.d",
+    "P5.1:q7",
+    "P5.1:q7.a",
+    "P5.1:q7.b",
+    "D2.2:q4"
+   ],
+   "why": "Steps to set up joint surveillance and routine information sharing between human, animal and environmental sectors."
+  },
+  {
+   "id": "tzg-2019",
+   "title": "Taking a multisectoral, One Health approach: a tripartite guide to addressing zoonotic diseases in countries",
+   "citation": "FAO, WOAH, WHO. 2019.",
+   "url": "https://apps.who.int/iris/handle/10665/325620",
+   "year": 2019,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P5.1:q1",
+    "P5.1:q5",
+    "P5.2:q1",
+    "P5.2:q1.a",
+    "P5.2:q3",
+    "P5.2:q4",
+    "P5.2:q6"
+   ],
+   "why": "The main guide for joint planning, surveillance, investigation and response to zoonoses."
+  },
+  {
+   "id": "cdc-ohzdp",
+   "title": "One Health Zoonotic Disease Prioritization (OHZDP)",
+   "citation": "US Centers for Disease Control and Prevention.",
+   "url": "https://www.cdc.gov/onehealth/what-we-do/zoonotic-disease-prioritization/index.html",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P5.1:q2"
+   ],
+   "why": "Workshop method for agreeing a national list of priority zoonoses."
+  },
+  {
+   "id": "eid-2017-ohzdp",
+   "title": "Prioritizing zoonoses for global health capacity building: themes from One Health zoonotic disease workshops in 7 countries",
+   "citation": "Emerg Infect Dis. 2017;23(13).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5711306/",
+   "year": 2017,
+   "type": "peer-reviewed",
+   "addedBy": "search",
+   "questions": [
+    "P5.1:q2"
+   ],
+   "why": "Lessons from seven country prioritisation workshops."
+  },
+  {
+   "id": "tzg-jra",
+   "title": "Joint risk assessment operational tool (Tripartite)",
+   "citation": "FAO, WOAH, WHO. 2020.",
+   "url": "https://www.who.int/initiatives/tripartite-zoonosis-guide/joint-risk-assessment-operational-tool",
+   "year": 2020,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P5.1:q5.b",
+    "P5.1:q7.b",
+    "R1.1:q1.c",
+    "D2.2:q7"
+   ],
+   "why": "Method for human and animal health sectors to assess the risk of a zoonotic event together."
+  },
+  {
+   "id": "glews",
+   "title": "Global early warning system for health threats at the human-animal-ecosystems interface (GLEWS)",
+   "citation": "FAO, WOAH, WHO.",
+   "url": "http://www.glews.net/",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P5.1:q7"
+   ],
+   "why": "International joint early-warning platform that national sectors can mirror."
+  },
+  {
+   "id": "who-hai-handbook",
+   "title": "Handbook for the assessment of capacities at the human-animal interface",
+   "citation": "WHO and WOAH. 2017.",
+   "url": "https://apps.who.int/iris/handle/10665/254552",
+   "year": 2017,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P5.1:q1"
+   ],
+   "why": "Assessment of joint capacities at the human-animal interface."
+  },
+  {
+   "id": "woah-pvs",
+   "title": "PVS Pathway",
+   "citation": "World Organisation for Animal Health.",
+   "url": "https://www.woah.org/en/what-we-offer/improving-veterinary-services/pvs-pathway/",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P5.1:q3",
+    "P1.1:q4"
+   ],
+   "why": "Evaluation of veterinary services, including animal disease surveillance."
+  },
+  {
+   "id": "who-woah-governance",
+   "title": "Operational framework for good governance at the human-animal interface",
+   "citation": "WHO and WOAH. 2014.",
+   "url": "https://www.who.int/publications/i/item/who-oie-operational-framework-for-good-governance-at-the-human-animal-interface",
+   "year": 2014,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P5.2:q4"
+   ],
+   "why": "Clarifies the roles of human and animal health services in joint response."
+  },
+  {
+   "id": "woah-traceability",
+   "title": "Terrestrial Animal Health Code: general principles on identification and traceability of live animals",
+   "citation": "World Organisation for Animal Health. 2024.",
+   "url": "https://woah.org/fileadmin/Home/eng/Health_standards/tahc/2024/en_chapitre_ident_traceability.htm",
+   "year": 2024,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P5.3:q4",
+    "P5.3:q4.a"
+   ],
+   "why": "Standard for animal identification systems that allow tracing back zoonotic events."
+  },
+  {
+   "id": "who-live-wild-markets",
+   "title": "Reducing public health risks associated with the sale of live wild animals of mammalian species in traditional food markets",
+   "citation": "WHO, WOAH, UNEP. 2021.",
+   "url": "https://www.who.int/westernpacific/publications/i/item/WHO-2019-nCoV-Food-safety-traditional-markets-2021.1",
+   "year": 2021,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P5.3:q3",
+    "P5.3:q4.b"
+   ],
+   "why": "Recommended regulations and measures for live animal markets."
+  },
+  {
+   "id": "ohjpa",
+   "title": "One Health joint plan of action (2022-2026)",
+   "citation": "FAO, UNEP, WHO, WOAH. 2022.",
+   "url": "https://www.who.int/publications/i/item/9789240059139",
+   "year": 2022,
+   "type": "strategy",
+   "addedBy": "search",
+   "questions": [
+    "P5.3:q2"
+   ],
+   "why": "Action track on preventing spillover at the human-animal-environment interface."
+  },
+  {
+   "id": "who-fbd-stage1",
+   "title": "Using indicator- and event-based surveillance to detect foodborne events (Stage one booklet)",
+   "citation": "World Health Organization. 2017.",
+   "url": "https://www.who.int/publications/i/item/strengthening-surveillance-of-and-response-to-foodborne-diseases",
+   "year": 2017,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P6.1:q1",
+    "P6.1:q3",
+    "P6.1:q4"
+   ],
+   "why": "First step to set up surveillance that detects foodborne events."
+  },
+  {
+   "id": "who-fbd-stage2",
+   "title": "Strengthening indicator-based surveillance (Stage two booklet)",
+   "citation": "World Health Organization. 2017.",
+   "url": "https://www.who.int/publications/i/item/9789241513258",
+   "year": 2017,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P6.1:q1",
+    "P6.1:q2"
+   ],
+   "why": "Case definitions and indicator-based surveillance for priority foodborne diseases."
+  },
+  {
+   "id": "infosan",
+   "title": "International Food Safety Authorities Network (INFOSAN)",
+   "citation": "FAO and WHO.",
+   "url": "https://www.who.int/groups/international-food-safety-authorities-network-infosan",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P6.1:q9",
+    "P6.1:q10",
+    "P6.2:q6"
+   ],
+   "why": "Network for rapid information exchange in food safety events; countries designate emergency contact points."
+  },
+  {
+   "id": "infosan-template",
+   "title": "INFOSAN members guide, web annex: template national protocol for information sharing during food safety events",
+   "citation": "WHO and FAO. 2020.",
+   "url": "https://www.who.int/publications/i/item/9789240012288",
+   "year": 2020,
+   "type": "protocol",
+   "addedBy": "search",
+   "questions": [
+    "P6.1:q10",
+    "P6.2:q5",
+    "P6.2:q9"
+   ],
+   "why": "Template to set up national information-sharing procedures and contact lists."
+  },
+  {
+   "id": "fao-who-fser-framework",
+   "title": "FAO/WHO framework for developing national food safety emergency response plans",
+   "citation": "FAO and WHO. 2010.",
+   "url": "https://www.who.int/publications/i/item/9789241500357",
+   "year": 2010,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P6.2:q1",
+    "P6.2:q1.a",
+    "P6.2:q1.b",
+    "P6.2:q1.c",
+    "P6.2:q1.d",
+    "P6.2:q2",
+    "P6.2:q3",
+    "P6.2:q4",
+    "P6.2:q7",
+    "P6.2:q7.a",
+    "P6.2:q7.c"
+   ],
+   "why": "How to write a national food safety emergency plan with thresholds, roles and communication procedures."
+  },
+  {
+   "id": "fao-who-food-riskcomm",
+   "title": "Risk communication applied to food safety: handbook",
+   "citation": "FAO and WHO. 2016.",
+   "url": "https://www.fao.org/publications/card/en/c/I5863E/",
+   "year": 2016,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P6.2:q8",
+    "P6.2:q10"
+   ],
+   "why": "Principles and practice of communication in food safety events."
+  },
+  {
+   "id": "fao-who-food-control-assessment",
+   "title": "Food control system assessment tool: introductory booklet",
+   "citation": "FAO and WHO. 2021.",
+   "url": "https://www.who.int/publications/i/item/9789240028371",
+   "year": 2021,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P6.1:q1",
+    "P6.2:q12.c",
+    "P6.2:q12.e"
+   ],
+   "why": "Assessment of the national food control system, including inspection and laboratory capacity."
+  },
+  {
+   "id": "who-fbd-burden",
+   "title": "Estimating the burden of foodborne diseases: a practical handbook for countries",
+   "citation": "World Health Organization. 2021.",
+   "url": "https://apps.who.int/iris/handle/10665/341634",
+   "year": 2021,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P6.1:q1"
+   ],
+   "why": "Helps set national priorities for foodborne disease surveillance."
+  },
+  {
+   "id": "who-fbd-wgs",
+   "title": "Whole genome sequencing for foodborne disease surveillance: landscape paper",
+   "citation": "World Health Organization. 2018.",
+   "url": "https://apps.who.int/iris/handle/10665/272430",
+   "year": 2018,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P6.1:q7"
+   ],
+   "why": "Options for laboratory methods in foodborne outbreak detection."
+  },
+  {
+   "id": "who-lbm4",
+   "title": "Laboratory biosafety manual, 4th edition",
+   "citation": "World Health Organization. 2020.",
+   "url": "https://www.who.int/publications/i/item/9789240011311",
+   "year": 2020,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P7.1:q3",
+    "P7.1:q3.e",
+    "P7.1:q3.g",
+    "P7.1:q10",
+    "P7.1:q11",
+    "P7.1:q12",
+    "P7.1:q14",
+    "P7.1:q15",
+    "P7.1:q16",
+    "P7.2:q1",
+    "P7.2:q6"
+   ],
+   "why": "Risk-based approach to biosafety: containment, practices, PPE, waste, incident response and occupational health."
+  },
+  {
+   "id": "who-lbm4-bsc",
+   "title": "Laboratory biosafety manual, 4th edition: biological safety cabinets and other primary containment devices (monograph)",
+   "citation": "World Health Organization. 2020.",
+   "url": "https://www.who.int/publications/i/item/9789240011335",
+   "year": 2020,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P7.1:q8"
+   ],
+   "why": "Selection, installation, certification and maintenance of biosafety cabinets."
+  },
+  {
+   "id": "who-biosafety-regulatory",
+   "title": "WHO guidance on implementing regulatory requirements for biosafety and biosecurity in biomedical laboratories: a stepwise approach",
+   "citation": "World Health Organization. 2020.",
+   "url": "https://apps.who.int/iris/handle/10665/332244",
+   "year": 2020,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P7.1:q2",
+    "P7.1:q2.a",
+    "P7.1:q2.b",
+    "P7.1:q2.c",
+    "P7.1:q3",
+    "P7.1:q6",
+    "P7.1:q6.a"
+   ],
+   "why": "Stepwise approach to build a national regulatory framework, licensing and oversight."
+  },
+  {
+   "id": "who-biosecurity-2024",
+   "title": "WHO laboratory biosecurity guidance (2024)",
+   "citation": "World Health Organization. 2024.",
+   "url": "https://www.who.int/news/item/04-07-2024-who-updates-laboratory-biosecurity-guidance",
+   "year": 2024,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P7.1:q1",
+    "P7.1:q3",
+    "P7.1:q3.a",
+    "P7.1:q3.b",
+    "P7.1:q3.c",
+    "P7.1:q3.d"
+   ],
+   "why": "Updated guidance on physical, information, transport and personnel security for laboratories.",
+   "note": "Link is the WHO announcement page, which links to the publication."
+  },
+  {
+   "id": "who-life-sciences-framework",
+   "title": "Global guidance framework for the responsible use of the life sciences: mitigating biorisks and governing dual-use research",
+   "citation": "World Health Organization. 2022.",
+   "url": "https://www.who.int/news/item/13-09-2022-who-launches-guide-to-safely-unlock-benefits-of-the-life-sciences",
+   "year": 2022,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P7.1:q6",
+    "P7.1:q6.a",
+    "P7.2:q3"
+   ],
+   "why": "Framework for national oversight of biorisks and dual-use research, including education.",
+   "note": "Link is the WHO launch page."
+  },
+  {
+   "id": "unoda-cbm-guide",
+   "title": "Guide to participating in the confidence-building measures of the Biological Weapons Convention",
+   "citation": "UNODA. 2015.",
+   "url": "https://disarmament.unoda.org/publications/more/cbm-guide",
+   "year": 2015,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P7.1:q1",
+    "R2.1:q8"
+   ],
+   "why": "BWC confidence-building measures include declaring high-containment facilities, which requires an up-to-date record."
+  },
+  {
+   "id": "australia-group-list",
+   "title": "List of human and animal pathogens and toxins for export control",
+   "citation": "The Australia Group. 2022.",
+   "url": "https://www.dfat.gov.au/publications/minisite/theaustraliagroupnet/site/en/human_animal_pathogens.html",
+   "year": 2022,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P7.1:q1",
+    "P7.1:q1.a"
+   ],
+   "why": "Commonly used reference list to define which agents count as high-consequence for an inventory."
+  },
+  {
+   "id": "rivm-biosecurity-checklist",
+   "title": "Development of a biosecurity checklist for laboratory assessment and monitoring",
+   "citation": "Brizee S, van Passel MWJ, van den Berg LM, et al. Appl Biosaf. 2019;24(2):83-89.",
+   "url": "https://www.rivm.nl/publicaties/development-of-biosecurity-checklist-for-laboratory-assessment-and-monitoring",
+   "year": 2019,
+   "type": "peer-reviewed",
+   "addedBy": "search",
+   "questions": [
+    "P7.1:q3",
+    "P7.1:q3.a",
+    "P7.1:q3.b",
+    "P7.1:q3.c",
+    "P7.1:q3.d",
+    "P7.1:q3.f"
+   ],
+   "why": "Checklist to assess and monitor laboratory biosecurity, usable for audits."
+  },
+  {
+   "id": "rivm-vulnerability-scan",
+   "title": "The Vulnerability Scan, a web tool to increase institutional biosecurity resilience",
+   "citation": "Meulenbelt SE, van Passel MWJ, de Bruin A, et al. Front Public Health. 2019;7:47.",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6422864/",
+   "year": 2019,
+   "type": "peer-reviewed",
+   "addedBy": "search",
+   "questions": [
+    "P7.1:q3",
+    "P7.1:q3.a",
+    "P7.1:q3.b",
+    "P7.1:q3.d"
+   ],
+   "why": "Free self-assessment of institutional biosecurity vulnerabilities."
+  },
+  {
+   "id": "multilingual-biorisk-tool",
+   "title": "A multilingual tool for standardized laboratory biosafety and biosecurity assessment and monitoring",
+   "citation": "Peer-reviewed article, PubMed Central (PMC9805837).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9805837/",
+   "year": null,
+   "type": "peer-reviewed",
+   "addedBy": "search",
+   "questions": [
+    "P7.1:q3.f",
+    "P7.1:q3.g",
+    "P7.2:q7"
+   ],
+   "why": "Standard assessment tool for repeated laboratory biorisk audits."
+  },
+  {
+   "id": "bsc-certification-sea",
+   "title": "A biological safety cabinet certification program: experiences in southeast Asia",
+   "citation": "Mahidol University repository.",
+   "url": "https://repository.li.mahidol.ac.th/handle/123456789/43244",
+   "year": null,
+   "type": "case-study",
+   "addedBy": "search",
+   "questions": [
+    "P7.1:q8"
+   ],
+   "why": "Example of building local capacity to certify and service biosafety cabinets."
+  },
+  {
+   "id": "aiha-uganda-bsc",
+   "title": "Biosafety cabinet calibration and certification training programme in Uganda opens national calibration center",
+   "citation": "AIHA. 2017.",
+   "url": "https://www.aiha.com/2017/08/18/aiha-concludes-biosafety-cabinet-calibration-and-certification-training-program-in-uganda-opens-national-calibration-center/",
+   "year": 2017,
+   "type": "case-study",
+   "addedBy": "search",
+   "questions": [
+    "P7.1:q8"
+   ],
+   "why": "Country example of a national calibration and certification service for biosafety cabinets."
+  },
+  {
+   "id": "who-equipment-maintenance",
+   "title": "Medical equipment maintenance programme overview",
+   "citation": "World Health Organization. 2011.",
+   "url": "https://www.who.int/publications/i/item/9789241501538",
+   "year": 2011,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P7.1:q9",
+    "D1.3:q8"
+   ],
+   "why": "How to plan, budget and staff preventive maintenance."
+  },
+  {
+   "id": "who-transport-2025",
+   "title": "Guidance on regulations for the transport of infectious substances 2025-2026",
+   "citation": "World Health Organization. 2025.",
+   "url": "https://www.who.int/publications/i/item/9789240120822",
+   "year": 2025,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P7.1:q13",
+    "P7.1:q13.a",
+    "P7.1:q13.b",
+    "P7.2:q5",
+    "D1.1:q3.a",
+    "D1.1:q7"
+   ],
+   "why": "Current rules for classifying, packing and shipping category A and B substances, and training of shippers."
+  },
+  {
+   "id": "canada-lab-exposures",
+   "title": "Surveillance of laboratory exposures to human pathogens and toxins, Canada, 2022",
+   "citation": "Canada Communicable Disease Report, PubMed Central (PMC10919944).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10919944/",
+   "year": null,
+   "type": "case-study",
+   "addedBy": "search",
+   "questions": [
+    "P7.1:q12",
+    "P7.1:q17",
+    "P7.1:q17.a",
+    "P7.1:q17.b"
+   ],
+   "why": "Example of a mandatory national reporting system for laboratory exposure incidents, with a yearly national overview."
+  },
+  {
+   "id": "canada-lai-2016-2021",
+   "title": "Laboratory-acquired infections in Canada, 2016 to 2021",
+   "citation": "Can Commun Dis Rep. 2022.",
+   "url": "https://www.canada.ca/en/public-health/services/reports-publications/canada-communicable-disease-report-ccdr/monthly-issue/2022-48/issue-7-8-july-august-2022/laboratory-acquired-infections-canada-2016-2021.html",
+   "year": 2022,
+   "type": "case-study",
+   "addedBy": "search",
+   "questions": [
+    "P7.1:q17",
+    "P7.1:q17.b"
+   ],
+   "why": "Analysis of reported laboratory-acquired infections from a national system."
+  },
+  {
+   "id": "who-ilo-caring",
+   "title": "Caring for those who care: guide for the development and implementation of occupational health and safety programmes for health workers",
+   "citation": "WHO and ILO. 2022.",
+   "url": "https://www.who.int/publications/i/item/9789240040779",
+   "year": 2022,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P7.1:q14",
+    "D3.1:q5",
+    "D3.1:q5.a",
+    "D3.1:q5.b"
+   ],
+   "why": "Framework for occupational health services for health and laboratory workers."
+  },
+  {
+   "id": "who-biosafety-videos",
+   "title": "WHO biosafety video series: good microbiological practice and procedures",
+   "citation": "World Health Organization (hosted by ASLM).",
+   "url": "https://aslm.org/resource/who-biosafety-video-series-good-microbiological-practice-and-procedures/",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P7.2:q1",
+    "P7.2:q2",
+    "P7.2:q6"
+   ],
+   "why": "Free training videos on core biosafety practices."
+  },
+  {
+   "id": "ia2030",
+   "title": "Immunization Agenda 2030: a global strategy to leave no one behind",
+   "citation": "World Health Organization. 2020.",
+   "url": "https://www.who.int/teams/immunization-vaccines-and-biologicals/strategies/ia2030",
+   "year": 2020,
+   "type": "strategy",
+   "addedBy": "search",
+   "questions": [
+    "P8.1:q1",
+    "P8.1:q1.c",
+    "P8.2:q4"
+   ],
+   "why": "Global strategy national immunization plans are aligned with."
+  },
+  {
+   "id": "mr-framework",
+   "title": "Measles and rubella strategic framework 2021-2030",
+   "citation": "World Health Organization. 2020.",
+   "url": "https://www.who.int/publications/i/item/measles-and-rubella-strategic-framework-2021-2030",
+   "year": 2020,
+   "type": "strategy",
+   "addedBy": "search",
+   "questions": [
+    "P8.1:q1.b"
+   ],
+   "why": "Coverage targets and strategies for measles and rubella."
+  },
+  {
+   "id": "who-routine-schedule",
+   "title": "WHO recommendations for routine immunization: summary tables",
+   "citation": "World Health Organization.",
+   "url": "https://www.who.int/teams/immunization-vaccines-and-biologicals/policies/who-recommendations-for-routine-immunization---summary-tables",
+   "year": null,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P8.1:q1.a"
+   ],
+   "why": "Reference for which vaccine-preventable diseases a national schedule should cover."
+  },
+  {
+   "id": "who-besd",
+   "title": "Behavioural and social drivers of vaccination: tools and practical guidance for achieving high uptake",
+   "citation": "World Health Organization. 2022.",
+   "url": "https://www.who.int/publications/i/item/9789240049680",
+   "year": 2022,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P8.1:q2",
+    "P8.1:q3",
+    "P8.3:q3"
+   ],
+   "why": "Survey tools to find out why people do or do not get vaccinated, and how to act on it."
+  },
+  {
+   "id": "who-tip",
+   "title": "TIP: tailoring immunization programmes",
+   "citation": "WHO Regional Office for Europe. 2019.",
+   "url": "https://www.who.int/europe/publications/i/item/9789289054492",
+   "year": 2019,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P8.1:q2",
+    "P8.1:q3",
+    "P8.2:q4",
+    "P8.3:q10"
+   ],
+   "why": "Method to identify under-vaccinated groups and design interventions for them."
+  },
+  {
+   "id": "who-grisp",
+   "title": "Global routine immunization strategies and practices (GRISP)",
+   "citation": "WHO and partners. 2016.",
+   "url": "https://www.who.int/publications/i/item/global-routine-immunization-strategies-and-practices-(grisp)",
+   "year": 2016,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P8.1:q2",
+    "P8.2:q2",
+    "P8.2:q5"
+   ],
+   "why": "Practices that strengthen routine immunization delivery and financing."
+  },
+  {
+   "id": "who-dqr",
+   "title": "Data quality review (DQR) toolkit",
+   "citation": "WHO (via TechNet-21).",
+   "url": "https://www.technet-21.org/en/resources/repository/data-quality-review-dqr-toolkit",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P8.1:q4",
+    "P8.1:q4.e",
+    "P8.1:q5"
+   ],
+   "why": "Desk review and field verification of the quality of coverage data."
+  },
+  {
+   "id": "who-target-pop",
+   "title": "Assessing and improving the accuracy of target population estimates for immunization coverage",
+   "citation": "WHO (via TechNet-21).",
+   "url": "https://www.technet-21.org/en/resources/guidance/assessing-and-improving-the-accuracy-of-target-population-estimates-for-immunization-coverage",
+   "year": null,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P8.1:q4.d"
+   ],
+   "why": "How to check and improve the denominators used in coverage estimates."
+  },
+  {
+   "id": "evm-tool",
+   "title": "Effective Vaccine Management (EVM) assessment tool",
+   "citation": "WHO and UNICEF (via TechNet-21).",
+   "url": "https://www.technet-21.org/fr/ressources/outil/effective-vaccine-management-evm-assessment-tool",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P8.2:q1",
+    "P8.2:q2",
+    "P8.3:q6"
+   ],
+   "why": "Standard assessment of the vaccine supply chain and cold chain, with an improvement plan."
+  },
+  {
+   "id": "who-mi4a",
+   "title": "Market Information for Access to Vaccines (MI4A)",
+   "citation": "World Health Organization.",
+   "url": "https://www.who.int/teams/immunization-vaccines-and-biologicals/vaccine-access/mi4a",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P8.2:q3",
+    "P8.3:q8"
+   ],
+   "why": "Global vaccine market and supply data to consider when planning national stocks."
+  },
+  {
+   "id": "who-sia-guide",
+   "title": "Planning and implementing high-quality supplementary immunization activities for injectable vaccines: field guide",
+   "citation": "World Health Organization. 2016.",
+   "url": "https://www.who.int/publications/i/item/9789241511254",
+   "year": 2016,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P8.3:q6",
+    "P8.3:q9"
+   ],
+   "why": "Field guide for planning and running vaccination campaigns."
+  },
+  {
+   "id": "who-microplanning",
+   "title": "Guidance on operational microplanning for COVID-19 vaccination (revised 2023)",
+   "citation": "World Health Organization. 2023.",
+   "url": "https://www.who.int/publications/i/item/WHO-2019-nCoV-vaccination-microplanning-2023.1",
+   "year": 2023,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P8.3:q9",
+    "P8.3:q10"
+   ],
+   "why": "Microplanning approach for reaching priority and vulnerable groups during mass vaccination."
+  },
+  {
+   "id": "who-aefi-manual",
+   "title": "Global manual on surveillance of adverse events following immunization",
+   "citation": "World Health Organization. 2016.",
+   "url": "https://www.who.int/publications/i/item/9789241507769",
+   "year": 2016,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P8.3:q4",
+    "P8.3:q4.b",
+    "P8.3:q4.c",
+    "P8.3:q5"
+   ],
+   "why": "How to set up AEFI surveillance, investigation and causality assessment."
+  },
+  {
+   "id": "who-covid-vaccine-safety-reliance",
+   "title": "COVID-19 vaccines safety surveillance manual: regulatory reliance and work-sharing",
+   "citation": "World Health Organization. 2021.",
+   "url": "https://www.who.int/publications/m/item/WHO-MHP-RPQ-PVG-2021.10",
+   "year": 2021,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P8.3:q2",
+    "P8.3:q4"
+   ],
+   "why": "How regulators can rely on other authorities and share safety work for new vaccines."
+  },
+  {
+   "id": "paho-reliance-eua",
+   "title": "Reliance for emergency use authorization of medicines and other health technologies in a pandemic",
+   "citation": "Pan American Health Organization.",
+   "url": "https://www.paho.org/en/documents/reliance-emergency-use-authorization-medicines-and-other-health-technologies-pandemic-eg",
+   "year": null,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P8.3:q1",
+    "P8.3:q2",
+    "R1.5:q1.a"
+   ],
+   "why": "Model for fast-track emergency authorisation through regulatory reliance."
+  },
+  {
+   "id": "who-icg",
+   "title": "International Coordinating Group (ICG) on Vaccine Provision",
+   "citation": "World Health Organization.",
+   "url": "https://www.who.int/groups/icg",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P8.3:q7",
+    "P8.3:q8",
+    "R1.5:q5",
+    "R1.5:q6"
+   ],
+   "why": "Emergency vaccine stockpiles for outbreaks and how countries request them."
+  },
+  {
+   "id": "dno-paper",
+   "title": "Bringing data analytics to the design of optimized diagnostic networks in low- and middle-income countries",
+   "citation": "Peer-reviewed article, PubMed Central (PMC7823670).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7823670/",
+   "year": null,
+   "type": "peer-reviewed",
+   "addedBy": "search",
+   "questions": [
+    "D1.1:q1",
+    "D1.1:q3",
+    "D1.4:q2",
+    "D1.4:q3",
+    "D1.1:q2"
+   ],
+   "why": "Method to map tests, referral routes and transport for a tiered network."
+  },
+  {
+   "id": "ghsc-specimen-transport",
+   "title": "Leveraging private sector transport and logistics services to improve national integrated specimen referral",
+   "citation": "USAID Global Health Supply Chain Program.",
+   "url": "https://www.ghsupplychain.org/leveraging-private-sector-transportationlogistics-services-improve-national-integrated-specimen",
+   "year": null,
+   "type": "case-study",
+   "addedBy": "search",
+   "questions": [
+    "D1.1:q3",
+    "D1.1:q3.b",
+    "D1.1:q3.c",
+    "D1.1:q3.e",
+    "D1.1:q6",
+    "D1.1:q2"
+   ],
+   "why": "Country example of contracting courier services for integrated specimen transport, with tracking."
+  },
+  {
+   "id": "who-lqms-handbook",
+   "title": "Laboratory quality management system handbook",
+   "citation": "WHO, CLSI, CDC. 2011.",
+   "url": "https://www.who.int/publications/i/item/9789241548274",
+   "year": 2011,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "D1.2:q9",
+    "D1.2:q10",
+    "D1.2:q11",
+    "D1.2:q12",
+    "D1.3:q6"
+   ],
+   "why": "The twelve quality system essentials, including supervision, indicators and corrective action."
+  },
+  {
+   "id": "who-lqsi",
+   "title": "Laboratory Quality Stepwise Implementation tool (LQSI)",
+   "citation": "World Health Organization.",
+   "url": "https://extranet.who.int/lqsi/content/homepage",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "D1.2:q12",
+    "D1.3:q6"
+   ],
+   "why": "Step-by-step online tool to implement a quality system towards ISO 15189."
+  },
+  {
+   "id": "slmta",
+   "title": "Strengthening Laboratory Management Toward Accreditation (SLMTA)",
+   "citation": "SLMTA / US CDC.",
+   "url": "https://www.slmta.org/",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "D1.2:q4.b",
+    "D1.2:q6"
+   ],
+   "why": "Training and mentoring programme that has brought many laboratories to accreditation."
+  },
+  {
+   "id": "emro-qms-stepwise",
+   "title": "Stepwise implementation of a quality management system for a health laboratory",
+   "citation": "WHO Regional Office for the Eastern Mediterranean. 2016.",
+   "url": "https://apps.who.int/iris/handle/10665/249570",
+   "year": 2016,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "D1.2:q3",
+    "D1.2:q4"
+   ],
+   "why": "Adapts ISO 15189 into a stepwise path towards accreditation."
+  },
+  {
+   "id": "who-eqa-manual",
+   "title": "WHO manual for organizing a national external quality assessment programme for health laboratories and other testing sites",
+   "citation": "World Health Organization. 2016.",
+   "url": "https://www.technet-21.org/en/resources/guidance/who-manual-for-organizing-a-national-external-quality-assessment-programme-for-health-laboratories-and-other-testing-sites",
+   "year": 2016,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "D1.2:q13",
+    "D1.2:q14",
+    "D1.2:q14.a",
+    "D1.2:q14.e",
+    "D1.3:q9"
+   ],
+   "why": "How to set up and run a national EQA programme, including follow-up of poor results."
+  },
+  {
+   "id": "who-ivd-model-framework",
+   "title": "WHO global model regulatory framework for medical devices including in vitro diagnostic medical devices",
+   "citation": "World Health Organization. 2017.",
+   "url": "https://sites.bu.edu/qualityofmedicalproducts/files/2017/06/2017-WHO-Model-Reg-Framework-MDs-IVDs.pdf",
+   "year": 2017,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "D1.2:q7",
+    "D1.2:q8"
+   ],
+   "why": "Model for national registration and regulation of diagnostic kits and reagents."
+  },
+  {
+   "id": "who-lqms-training",
+   "title": "Laboratory quality management system training toolkit",
+   "citation": "World Health Organization. 2023.",
+   "url": "https://extranet.who.int/hslp/content/LQMS-training-toolkit",
+   "year": 2023,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "D1.2:q10"
+   ],
+   "why": "Training materials and checklists for laboratory supervision."
+  },
+  {
+   "id": "who-edl",
+   "title": "First WHO model list of essential in vitro diagnostics",
+   "citation": "World Health Organization. 2019.",
+   "url": "https://www.who.int/publications/i/item/9789241210263",
+   "year": 2019,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "D1.3:q1",
+    "D1.3:q2",
+    "D1.3:q7",
+    "D1.4:q1",
+    "D1.4:q2",
+    "D1.4:q3",
+    "D1.3:q4"
+   ],
+   "why": "Lists tests by level of the health system, as a basis for a national essential diagnostics list."
+  },
+  {
+   "id": "fao-lab-mapping",
+   "title": "Strengthening veterinary diagnostic capacities: the FAO Laboratory Mapping Tool",
+   "citation": "FAO. 2016.",
+   "url": "https://www.fao.org/documents/card/en/c/e13cf0b7-c8f4-4ff7-b340-439f40c677ec/",
+   "year": 2016,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "D1.3:q2",
+    "D1.3:q7",
+    "D1.4:q1"
+   ],
+   "why": "Assessment of veterinary laboratory capacity and equipment."
+  },
+  {
+   "id": "who-biohub",
+   "title": "WHO BioHub system for sharing biological materials",
+   "citation": "World Health Organization (SPH news).",
+   "url": "https://extranet.who.int/sph/node/31744",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "D1.1:q7",
+    "D1.3:q3"
+   ],
+   "why": "Mechanism for transferring pathogen samples between countries and reference laboratories."
+  },
+  {
+   "id": "who-ewar",
+   "title": "Early warning, alert and response (EWAR) in emergencies: an operational guide",
+   "citation": "World Health Organization. 2023.",
+   "url": "https://www.who.int/publications/i/item/9789240063587",
+   "year": 2023,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "D2.1:q1",
+    "D2.1:q1.a",
+    "D2.1:q2",
+    "D2.1:q4",
+    "D2.1:q5",
+    "D2.1:q6",
+    "D2.1:q7",
+    "D2.2:q1",
+    "D2.2:q2",
+    "D2.2:q3",
+    "P5.1:q4"
+   ],
+   "why": "How to set up and run early warning with alert logbooks, verification and data quality checks."
+  },
+  {
+   "id": "afro-idsr",
+   "title": "Technical guidelines for integrated disease surveillance and response in the African Region, 3rd edition",
+   "citation": "WHO Regional Office for Africa. 2019.",
+   "url": "https://www.afro.who.int/publications/technical-guidelines-integrated-disease-surveillance-and-response-african-region-third",
+   "year": 2019,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "D2.1:q1",
+    "D2.1:q2.c",
+    "D2.1:q3",
+    "D2.1:q4",
+    "D2.1:q6",
+    "D2.2:q2",
+    "D2.2:q5",
+    "D2.3:q1",
+    "D2.3:q7",
+    "P5.1:q4",
+    "D3.2:q3",
+    "D3.2:q4"
+   ],
+   "why": "Case definitions, reporting, analysis and response at every level."
+  },
+  {
+   "id": "africacdc-ebs",
+   "title": "Africa CDC event-based surveillance framework",
+   "citation": "Africa CDC.",
+   "url": "https://stacks.cdc.gov/view/cdc/95823",
+   "year": null,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "D2.1:q2.a",
+    "D2.1:q1.a"
+   ],
+   "why": "Framework for setting up event-based surveillance alongside indicator-based reporting."
+  },
+  {
+   "id": "afro-cbs-guide",
+   "title": "A guide for establishing community based surveillance",
+   "citation": "WHO Regional Office for Africa. 2014.",
+   "url": "https://www.afro.who.int/sites/default/files/2017-06/a-guide-for-establishing-community-based-surveillance-102014.pdf",
+   "year": 2014,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "D2.1:q2.a",
+    "D2.1:q2.b"
+   ],
+   "why": "How to involve community members and leaders in reporting."
+  },
+  {
+   "id": "who-collab-surveillance",
+   "title": "Defining collaborative surveillance",
+   "citation": "World Health Organization. 2023.",
+   "url": "https://apps.who.int/iris/handle/10665/367927",
+   "year": 2023,
+   "type": "strategy",
+   "addedBy": "search",
+   "questions": [
+    "D2.1:q1",
+    "D2.3:q3",
+    "D2.3:q6",
+    "D1.4:q6"
+   ],
+   "why": "Concept for integrating surveillance, laboratory and other data streams."
+  },
+  {
+   "id": "who-eios",
+   "title": "Epidemic Intelligence from Open Sources (EIOS)",
+   "citation": "World Health Organization.",
+   "url": "https://www.who.int/initiatives/eios",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "D2.1:q1.a",
+    "D2.1:q1.d"
+   ],
+   "why": "Platform for detecting signals from open sources; countries can join."
+  },
+  {
+   "id": "cdc-surv-eval",
+   "title": "Updated guidelines for evaluating public health surveillance systems",
+   "citation": "CDC. MMWR Recomm Rep. 2001;50(RR-13).",
+   "url": "https://www.cdc.gov/mmwr/preview/mmwrhtml/rr5013a1.htm",
+   "year": 2001,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "D2.1:q5",
+    "D2.1:q7"
+   ],
+   "why": "Standard method to evaluate completeness, timeliness and data quality of surveillance."
+  },
+  {
+   "id": "rtsl-717",
+   "title": "7-1-7: the promise of tangible results through agility and accountability",
+   "citation": "Peer-reviewed article, PubMed Central (PMC10097505).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10097505/",
+   "year": null,
+   "type": "peer-reviewed",
+   "addedBy": "search",
+   "questions": [
+    "D2.1:q7",
+    "D2.2:q1",
+    "D2.2:q2",
+    "P5.2:q5"
+   ],
+   "why": "Timeliness target (7 days to detect, 1 to notify, 7 to respond) used to monitor and improve detection and response."
+  },
+  {
+   "id": "rtsl-717-guide",
+   "title": "Implementation of the 7-1-7 target for detection, notification and response",
+   "citation": "Resolve to Save Lives.",
+   "url": "https://resolvetosavelives.org/resources/implementation-of-the-7-1-7-target-for-detection-notification-and-response/",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "D2.1:q7",
+    "D2.2:q1",
+    "D2.2:q2",
+    "D2.2:q3"
+   ],
+   "why": "Practical guide to track timeliness and find bottlenecks after each event."
+  },
+  {
+   "id": "who-vpd-standards",
+   "title": "Vaccine-preventable disease surveillance standards",
+   "citation": "World Health Organization.",
+   "url": "https://www.who.int/teams/immunization-vaccines-and-biologicals/immunization-analysis-and-insights/surveillance/surveillance-for-vpds/vpd-surveillance-standards",
+   "year": null,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "D2.1:q2.c"
+   ],
+   "why": "Case definitions and minimum standards for VPD surveillance."
+  },
+  {
+   "id": "who-rra",
+   "title": "Rapid risk assessment of acute public health events",
+   "citation": "World Health Organization. 2012.",
+   "url": "https://apps.who.int/iris/handle/10665/70810",
+   "year": 2012,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "D2.2:q6",
+    "D2.2:q8",
+    "D2.3:q4",
+    "D2.3:q5",
+    "R1.1:q1.f"
+   ],
+   "why": "Method for rapid risk assessment at all levels and for communicating results."
+  },
+  {
+   "id": "goarn",
+   "title": "Global Outbreak Alert and Response Network (GOARN)",
+   "citation": "GOARN / WHO.",
+   "url": "https://goarn.who.int/",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "D2.2:q7",
+    "R1.4:q5"
+   ],
+   "why": "International network providing experts for verification and response; countries can join and receive support."
+  },
+  {
+   "id": "emro-integrated-surveillance",
+   "title": "A regional strategy for integrated disease surveillance: overcoming data fragmentation in the Eastern Mediterranean Region",
+   "citation": "WHO Regional Office for the Eastern Mediterranean. 2021.",
+   "url": "https://apps.who.int/iris/handle/10665/352420",
+   "year": 2021,
+   "type": "strategy",
+   "addedBy": "search",
+   "questions": [
+    "D2.3:q3",
+    "D2.3:q6",
+    "D2.3:q8",
+    "D2.3:q8.a",
+    "D1.4:q6"
+   ],
+   "why": "How to link data sources and set data exchange standards."
+  },
+  {
+   "id": "who-hrh-2030",
+   "title": "Global strategy on human resources for health: Workforce 2030",
+   "citation": "World Health Organization. 2016.",
+   "url": "https://www.who.int/publications/i/item/9789241511131",
+   "year": 2016,
+   "type": "strategy",
+   "addedBy": "search",
+   "questions": [
+    "D3.1:q1",
+    "D3.1:q6"
+   ],
+   "why": "Framework for national workforce strategies and their financing."
+  },
+  {
+   "id": "who-nhwa",
+   "title": "National health workforce accounts: a handbook, second edition",
+   "citation": "World Health Organization. 2023.",
+   "url": "https://www.who.int/publications/i/item/9789240081291",
+   "year": 2023,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "D3.1:q4",
+    "D3.2:q1",
+    "D3.2:q8"
+   ],
+   "why": "Indicators and data system to track the workforce and strategy implementation."
+  },
+  {
+   "id": "who-hlma",
+   "title": "Health labour market analysis guidebook",
+   "citation": "World Health Organization. 2021.",
+   "url": "https://www.who.int/publications/i/item/9789240035546",
+   "year": 2021,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "D3.1:q3",
+    "D3.1:q3.a",
+    "D3.1:q6"
+   ],
+   "why": "Analysis of supply, demand, attrition and financing of the health workforce."
+  },
+  {
+   "id": "who-rural-retention",
+   "title": "WHO guideline on health workforce development, attraction, recruitment and retention in rural and remote areas",
+   "citation": "World Health Organization. 2021.",
+   "url": "https://www.who.int/publications/i/item/9789240024243",
+   "year": 2021,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "D3.1:q3.c",
+    "D3.2:q9"
+   ],
+   "why": "Evidence-based recommendations on education, regulation, incentives and support."
+  },
+  {
+   "id": "woah-vet-education",
+   "title": "Veterinary and veterinary paraprofessional education",
+   "citation": "World Organisation for Animal Health.",
+   "url": "https://www.woah.org/en/what-we-offer/improving-veterinary-services/pvs-pathway/veterinary-and-veterinary-paraprofessional-education/",
+   "year": null,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "D3.1:q7",
+    "D3.3:q3.c"
+   ],
+   "why": "Competencies and curricula for the animal health workforce."
+  },
+  {
+   "id": "who-ephf-competency",
+   "title": "Global competency and outcomes framework for the essential public health functions",
+   "citation": "World Health Organization. 2024.",
+   "url": "https://www.who.int/publications/i/item/9789240091214",
+   "year": 2024,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "D3.1:q2",
+    "D3.1:q2.b",
+    "D3.3:q1",
+    "D3.3:q3",
+    "D3.3:q2",
+    "D3.3:q4"
+   ],
+   "why": "Competencies for public health and emergency roles, usable for job descriptions and curricula."
+  },
+  {
+   "id": "who-ephf-roadmap",
+   "title": "National workforce capacity to implement the essential public health functions including emergency preparedness and response: roadmap",
+   "citation": "World Health Organization. 2022.",
+   "url": "https://apps.who.int/iris/handle/10665/354384",
+   "year": 2022,
+   "type": "strategy",
+   "addedBy": "search",
+   "questions": [
+    "D3.1:q1",
+    "D3.1:q8"
+   ],
+   "why": "Roadmap for building the public health and emergency workforce."
+  },
+  {
+   "id": "who-wisn",
+   "title": "Workload indicators of staffing need (WISN)",
+   "citation": "World Health Organization. 2010.",
+   "url": "https://www.who.int/publications/i/item/9789241500197",
+   "year": 2010,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "D3.2:q1"
+   ],
+   "why": "Method to calculate staffing needs per facility type."
+  },
+  {
+   "id": "tephinet-fetp",
+   "title": "FETP accreditation and quality improvement",
+   "citation": "TEPHINET.",
+   "url": "https://www.tephinet.org/what-we-do/fetp-accreditation-and-quality-improvement",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "D3.2:q5",
+    "D3.2:q7",
+    "D3.3:q3.e",
+    "D2.3:q2"
+   ],
+   "why": "Standards and accreditation for field epidemiology training programmes."
+  },
+  {
+   "id": "fetp-eval-2021",
+   "title": "Field epidemiology training program global evaluation application",
+   "citation": "RTI International.",
+   "url": "https://www.rti.org/publication/field-epidemiology-training-program-global-evaluation-application",
+   "year": null,
+   "type": "case-study",
+   "addedBy": "search",
+   "questions": [
+    "D3.2:q5",
+    "D3.2:q7",
+    "D2.3:q2"
+   ],
+   "why": "Approach and results of a global evaluation of field epidemiology training programmes."
+  },
+  {
+   "id": "who-ghec",
+   "title": "Global health emergency corps framework",
+   "citation": "World Health Organization. 2024.",
+   "url": "https://www.who.int/publications/i/item/9789240109445",
+   "year": 2024,
+   "type": "strategy",
+   "addedBy": "search",
+   "questions": [
+    "D3.2:q6",
+    "D3.4:q1",
+    "D3.4:q2",
+    "D3.4:q3",
+    "R1.4:q2",
+    "R1.4:q3",
+    "D3.2:q2"
+   ],
+   "why": "Framework for national emergency workforce and surge arrangements linked to international support."
+  },
+  {
+   "id": "who-euro-surge",
+   "title": "Surge planning tools",
+   "citation": "WHO Regional Office for Europe.",
+   "url": "https://www.who.int/europe/tools-and-toolkits/strengthening-the-health-system-response-to-covid-19/Surge-planning-tools",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "D3.4:q2",
+    "R1.4:q2"
+   ],
+   "why": "Tools to estimate surge needs for staff, beds and supplies."
+  },
+  {
+   "id": "who-hw-policy-covid",
+   "title": "Health workforce policy and management in the context of the COVID-19 pandemic response",
+   "citation": "World Health Organization. 2020.",
+   "url": "https://apps.who.int/iris/handle/10665/337333",
+   "year": 2020,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "D3.4:q1",
+    "R1.4:q1.d",
+    "R1.4:q1.e"
+   ],
+   "why": "Policy options on overtime, insurance, safety and welfare of surge staff."
+  },
+  {
+   "id": "cdc-phlp-training",
+   "title": "Public health law training and educational resources",
+   "citation": "CDC Public Health Law Program.",
+   "url": "https://www.cdc.gov/phlp/php/trainingandeducationalresources/index.html",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "D3.3:q8",
+    "D3.3:q9",
+    "D3.3:q10"
+   ],
+   "why": "Free training on public health and emergency law for legal staff."
+  },
+  {
+   "id": "naccho-law-competencies",
+   "title": "Public health emergency law minimum competencies",
+   "citation": "NACCHO.",
+   "url": "https://www.naccho.org/blog/articles/public-health-emergency-law-minimum-competencies",
+   "year": null,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "D3.3:q8",
+    "D3.3:q11"
+   ],
+   "why": "Competency set for legal staff working on emergency law."
+  },
+  {
+   "id": "openwho-pheoc",
+   "title": "Public Health Emergency Operations Centre (PHEOC) course",
+   "citation": "OpenWHO. 2020.",
+   "url": "https://openwho.org/courses/PHEOC-EN",
+   "year": 2020,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "D3.3:q5",
+    "R1.2:q7",
+    "R1.2:q7.a"
+   ],
+   "why": "Free online course on EOC functions and procedures."
+  },
+  {
+   "id": "undrr-nra",
+   "title": "Words into Action guidelines: national disaster risk assessment",
+   "citation": "UNDRR. 2017.",
+   "url": "https://www.undrr.org/publication/words-action-guidelines-national-disaster-risk-assessment",
+   "year": 2017,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R1.1:q1",
+    "R1.1:q1.c",
+    "R1.1:q1.e"
+   ],
+   "why": "Governance and methods for national multihazard risk assessment."
+  },
+  {
+   "id": "cadri-tool",
+   "title": "CADRI capacity diagnosis tool",
+   "citation": "Capacity for Disaster Reduction Initiative.",
+   "url": "https://www.cadri.net/cadritool/home",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "R1.1:q2",
+    "R1.1:q3"
+   ],
+   "why": "Multisectoral assessment of preparedness and readiness capacities."
+  },
+  {
+   "id": "who-dpm",
+   "title": "Dynamic preparedness metric: a paradigm shift to measure and act on preparedness",
+   "citation": "Kandel N, Chungong S, et al. Lancet Glob Health. 2022;10(5):e615-e616.",
+   "url": "https://doi.org/10.1016/S2214-109X(22)00097-3",
+   "year": 2022,
+   "type": "peer-reviewed",
+   "addedBy": "search",
+   "questions": [
+    "R1.1:q2",
+    "R1.1:q3"
+   ],
+   "why": "Approach for regularly measuring readiness and acting on gaps."
+  },
+  {
+   "id": "who-hospital-safety-index",
+   "title": "Hospital safety index: guide for evaluators, 2nd edition",
+   "citation": "WHO and PAHO. 2015.",
+   "url": "https://apps.who.int/iris/handle/10665/258966",
+   "year": 2015,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "R4.3:q3",
+    "R3.1:q3"
+   ],
+   "why": "Assessment of hospital safety and functionality in emergencies, including water and sanitation."
+  },
+  {
+   "id": "who-pheoc-framework",
+   "title": "Framework for a public health emergency operations centre",
+   "citation": "World Health Organization. 2015.",
+   "url": "https://apps.who.int/iris/handle/10665/196135",
+   "year": 2015,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R1.2:q1",
+    "R1.2:q1.d",
+    "R1.2:q2",
+    "R1.2:q2.a",
+    "R1.2:q6",
+    "R1.3:q2"
+   ],
+   "why": "Minimum requirements for an EOC: plans, procedures, staffing, communications and information systems."
+  },
+  {
+   "id": "who-pheoc-a",
+   "title": "Handbook for developing a public health emergency operations centre, part A: policies, plans and procedures",
+   "citation": "World Health Organization. 2018.",
+   "url": "https://www.who.int/publications/i/item/handbook-for-developing-a-public-health-emergency-operations-centre-part-a",
+   "year": 2018,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R1.2:q2",
+    "R1.2:q2.a",
+    "R1.2:q2.c",
+    "R1.2:q2.e",
+    "R1.2:q2.f",
+    "R1.2:q8"
+   ],
+   "why": "Templates for EOC plans, procedures and standard forms."
+  },
+  {
+   "id": "who-pheoc-c",
+   "title": "Handbook for developing a public health emergency operations centre, part C: training and exercises",
+   "citation": "World Health Organization. 2018.",
+   "url": "https://www.who.int/publications/i/item/handbook-for-developing-a-public-health-emergency-operations-centre-part-c",
+   "year": 2018,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R1.2:q5",
+    "R1.2:q7",
+    "R1.2:q7.a",
+    "R1.2:q7.b"
+   ],
+   "why": "Training curriculum and exercise programme for EOC staff."
+  },
+  {
+   "id": "afro-pheoc-handbook",
+   "title": "Handbook for public health emergency operations center operations and management",
+   "citation": "WHO Regional Office for Africa. 2021.",
+   "url": "https://www.afro.who.int/publications/handbook-public-health-emergency-operations-center-operations-and-management",
+   "year": 2021,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R1.2:q1",
+    "R1.2:q3",
+    "R1.2:q4",
+    "R1.2:q9"
+   ],
+   "why": "Operational guidance for national and subnational EOCs, activation and situation reports."
+  },
+  {
+   "id": "balajee-pheoc-2017",
+   "title": "Sustainable model for public health emergency operations centers for global settings",
+   "citation": "Balajee SA, et al. Emerg Infect Dis. 2017;23(13):S190-5.",
+   "url": "https://doi.org/10.3201/eid2313.170435",
+   "year": 2017,
+   "type": "peer-reviewed",
+   "addedBy": "search",
+   "questions": [
+    "R1.2:q1",
+    "R1.2:q4"
+   ],
+   "why": "Lessons from building EOCs in several countries."
+  },
+  {
+   "id": "openwho-ims",
+   "title": "Incident Management System (Tier 1) course",
+   "citation": "OpenWHO.",
+   "url": "https://openwho.org/courses/incident-management-system",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "R1.3:q1",
+    "R1.3:q3"
+   ],
+   "why": "Free course on the incident management system for health emergencies."
+  },
+  {
+   "id": "who-erf",
+   "title": "Emergency response framework (ERF), 2nd edition",
+   "citation": "World Health Organization. 2017.",
+   "url": "https://www.who.int/publications/i/item/9789241512299",
+   "year": 2017,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R1.3:q1",
+    "R1.3:q3"
+   ],
+   "why": "Incident management functions and procedures for health emergencies."
+  },
+  {
+   "id": "fema-nims",
+   "title": "National Incident Management System (NIMS) training",
+   "citation": "US Federal Emergency Management Agency.",
+   "url": "https://training.fema.gov/nims/",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "R1.3:q1"
+   ],
+   "why": "Example of a national all-hazards incident management system with standard training."
+  },
+  {
+   "id": "who-emt-standards",
+   "title": "Classification and minimum standards for emergency medical teams",
+   "citation": "World Health Organization. 2021.",
+   "url": "https://apps.who.int/iris/handle/10665/341857",
+   "year": 2021,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R1.4:q6",
+    "R1.4:q6.d",
+    "R1.4:q6.e",
+    "R1.4:q6.f"
+   ],
+   "why": "Standards and classification process for national and international medical teams."
+  },
+  {
+   "id": "who-emt-initiative",
+   "title": "Emergency Medical Teams initiative",
+   "citation": "World Health Organization.",
+   "url": "https://extranet.who.int/emt/",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "R1.4:q6",
+    "R1.4:q6.a",
+    "R1.4:q6.b",
+    "R1.4:q6.c"
+   ],
+   "why": "Network for focal points, training and peer support on emergency medical teams."
+  },
+  {
+   "id": "ifrc-emt-regulation",
+   "title": "The regulation and management of international emergency medical teams",
+   "citation": "WHO and IFRC. 2017.",
+   "url": "https://disasterlaw.ifrc.org/media/1328",
+   "year": 2017,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R1.4:q1",
+    "R1.4:q1.a",
+    "R1.4:q1.c"
+   ],
+   "why": "Legal issues for sending and receiving medical teams, such as licensing and liability."
+  },
+  {
+   "id": "who-i-mcm-net",
+   "title": "Interim Medical Countermeasures Network (i-MCM-Net)",
+   "citation": "World Health Organization.",
+   "url": "https://www.who.int/initiatives/i-mcm-net",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "R1.5:q5",
+    "R1.5:q6",
+    "R1.5:q7"
+   ],
+   "why": "Global network for coordinated access to vaccines, diagnostics and therapeutics in emergencies."
+  },
+  {
+   "id": "who-mcm-stockpile-flu",
+   "title": "Stockpiling of medical countermeasures for pandemic influenza: considerations brief",
+   "citation": "World Health Organization. 2024.",
+   "url": "https://www.who.int/publications/i/item/9789240117860",
+   "year": 2024,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R1.5:q3",
+    "R1.5:q3.c",
+    "R1.5:q3.d",
+    "R1.5:q10"
+   ],
+   "why": "Considerations for the size, content, rotation and financing of national stockpiles."
+  },
+  {
+   "id": "hiqa-stockpiling",
+   "title": "An overview of national approaches to stockpiling of medical countermeasures for public health emergencies",
+   "citation": "Health Information and Quality Authority (Ireland). 2023.",
+   "url": "https://www.hiqa.ie/sites/default/files/2023-11/An-overview-of-national-approaches-to-stockpiling-of-medical-countermeasures-for-public-health-emergencies.pdf",
+   "year": 2023,
+   "type": "case-study",
+   "addedBy": "search",
+   "questions": [
+    "R1.5:q3",
+    "R1.5:q4"
+   ],
+   "why": "Comparison of how several countries organise stockpiles and supplier agreements."
+  },
+  {
+   "id": "who-rd-blueprint",
+   "title": "An R&D Blueprint for action to prevent epidemics",
+   "citation": "World Health Organization. 2017.",
+   "url": "https://www.who.int/publications/m/item/an-r-d-blueprint-for-action-to-prevent-epidemics---update-2017",
+   "year": 2017,
+   "type": "strategy",
+   "addedBy": "search",
+   "questions": [
+    "R1.6:q1",
+    "R1.6:q4"
+   ],
+   "why": "Global framework for research and development preparedness."
+  },
+  {
+   "id": "who-edrm-research-methods",
+   "title": "WHO guidance on research methods for health emergency and disaster risk management",
+   "citation": "World Health Organization. 2021.",
+   "url": "https://apps.who.int/iris/handle/10665/345591",
+   "year": 2021,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R1.6:q1",
+    "R1.6:q2",
+    "R1.6:q3"
+   ],
+   "why": "How to plan and conduct research in and for emergencies."
+  },
+  {
+   "id": "essence-principles",
+   "title": "Seven principles for strengthening research capacity in low- and middle-income countries",
+   "citation": "ESSENCE on Health Research / TDR. 2014.",
+   "url": "https://tdr.who.int/publications/m/item/2014-06-19-seven-principles-for-strengthening-research-capacity-in-low-and-middle-income-countries-simple-ideas-in-a-complex-world",
+   "year": 2014,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R1.6:q4",
+    "R1.6:q7"
+   ],
+   "why": "Principles for building research capacity and staff."
+  },
+  {
+   "id": "essence-pme",
+   "title": "Planning, monitoring and evaluation framework for research capacity strengthening",
+   "citation": "ESSENCE on Health Research / TDR. 2016.",
+   "url": "https://tdr.who.int/docs/librariesprovider10/essence/essence-frwk-2016-web-pdf.pdf",
+   "year": 2016,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "R1.6:q5"
+   ],
+   "why": "Framework for tracking and sharing research capacity outputs."
+  },
+  {
+   "id": "who-ethics-outbreaks",
+   "title": "Guidance for managing ethical issues in infectious disease outbreaks",
+   "citation": "World Health Organization. 2016.",
+   "url": "https://www.who.int/publications-detail-redirect/9789241549837",
+   "year": 2016,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R1.6:q6"
+   ],
+   "why": "Ethics guidance for research and response, a basis for review committees."
+  },
+  {
+   "id": "who-civil-military",
+   "title": "National civil-military collaboration framework for strengthening health emergency preparedness",
+   "citation": "World Health Organization. 2021.",
+   "url": "https://apps.who.int/iris/handle/10665/343571",
+   "year": 2021,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R2.1:q1",
+    "R2.1:q3"
+   ],
+   "why": "How to formalise collaboration between health and military or security services."
+  },
+  {
+   "id": "fbi-jcei",
+   "title": "Joint criminal and epidemiological investigations handbook, international edition",
+   "citation": "FBI and partners. 2016.",
+   "url": "https://www.fbi.gov/file-repository/joint-criminal-and-epidemiological-investigations-handbook-2016-international-edition/view",
+   "year": 2016,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R2.1:q2",
+    "R2.1:q4",
+    "R2.1:q7",
+    "R2.1:q9",
+    "R2.1:q10"
+   ],
+   "why": "Model for joint investigations, information sharing and joint training between public health and law enforcement."
+  },
+  {
+   "id": "interpol-bioterrorism",
+   "title": "INTERPOL bioterrorism capacity building and training",
+   "citation": "INTERPOL.",
+   "url": "https://www.interpol.int/Crimes/Terrorism/Bioterrorism/Bioterrorism-Capacity-building-and-training",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "R2.1:q2",
+    "R2.1:q6",
+    "R2.1:q11"
+   ],
+   "why": "Training for police and health services on biological threats, delivered through INTERPOL national bureaus."
+  },
+  {
+   "id": "unoda-bwc",
+   "title": "Biological Weapons Convention",
+   "citation": "UNODA.",
+   "url": "https://disarmament.unoda.org/biological-weapons/",
+   "year": null,
+   "type": "strategy",
+   "addedBy": "search",
+   "questions": [
+    "R2.1:q8"
+   ],
+   "why": "Context for linking public health response to BWC obligations and assistance."
+  },
+  {
+   "id": "woah-btr",
+   "title": "Biological threat reduction strategy",
+   "citation": "World Organisation for Animal Health. 2015.",
+   "url": "https://www.woah.org/en/what-we-do/global-initiatives/biological-threat-reduction/",
+   "year": 2015,
+   "type": "strategy",
+   "addedBy": "search",
+   "questions": [
+    "R2.1:q6"
+   ],
+   "why": "Covers deliberate animal disease events and links to security services."
+  },
+  {
+   "id": "who-sari-toolkit",
+   "title": "Clinical care of severe acute respiratory infections: tool kit",
+   "citation": "World Health Organization. 2022.",
+   "url": "https://www.who.int/publications-detail-redirect/clinical-care-of-severe-acute-respiratory-infections-tool-kit",
+   "year": 2022,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R3.1:q1",
+    "R3.1:q2"
+   ],
+   "why": "Clinical management tools that can be adapted into national guidelines."
+  },
+  {
+   "id": "who-hospital-checklist",
+   "title": "Hospital emergency response checklist",
+   "citation": "WHO Regional Office for Europe. 2011.",
+   "url": "https://www.who.int/publications/i/item/hospital-emergency-response-checklist",
+   "year": 2011,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "R3.1:q3",
+    "R3.1:q4",
+    "R3.1:q5"
+   ],
+   "why": "Checklist for hospital readiness, surge and referral."
+  },
+  {
+   "id": "who-hs4hs",
+   "title": "Health systems for health security: a framework",
+   "citation": "World Health Organization. 2021.",
+   "url": "https://www.who.int/publications/i/item/9789240029682",
+   "year": 2021,
+   "type": "strategy",
+   "addedBy": "search",
+   "questions": [
+    "R3.1:q3",
+    "R3.2:q1"
+   ],
+   "why": "Links IHR capacities to health system functions, including service delivery and monitoring."
+  },
+  {
+   "id": "who-resilience-paper",
+   "title": "Building health systems resilience for universal health coverage and health security: WHO position paper",
+   "citation": "World Health Organization. 2021.",
+   "url": "https://www.who.int/publications/i/item/WHO-UHL-PHC-SP-2021.01",
+   "year": 2021,
+   "type": "strategy",
+   "addedBy": "search",
+   "questions": [
+    "R3.2:q1"
+   ],
+   "why": "Actions to keep services used and trusted before, during and after emergencies."
+  },
+  {
+   "id": "ehs-pulse-lessons",
+   "title": "Assessing capacities and resilience of health services during the COVID-19 pandemic: lessons from rapid key informant surveys",
+   "citation": "Front Public Health. 2023.",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9969144/",
+   "year": 2023,
+   "type": "peer-reviewed",
+   "addedBy": "search",
+   "questions": [
+    "R3.2:q1.b",
+    "R3.2:q2",
+    "R3.3:q5"
+   ],
+   "why": "Experience with rapid surveys to monitor service disruptions."
+  },
+  {
+   "id": "who-accreditation-brief",
+   "title": "Health care accreditation and quality of care: exploring the role of accreditation and external evaluation",
+   "citation": "World Health Organization. 2022.",
+   "url": "https://www.who.int/publications/i/item/9789240055230",
+   "year": 2022,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R3.2:q3",
+    "R3.2:q3.a"
+   ],
+   "why": "What accreditation can and cannot do for quality and trust, and policy options."
+  },
+  {
+   "id": "who-ehs-guidance",
+   "title": "Maintaining essential health services: operational guidance for the COVID-19 context",
+   "citation": "World Health Organization. 2020.",
+   "url": "https://www.who.int/publications/i/item/WHO-2019-nCoV-essential_health_services-2020.2",
+   "year": 2020,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R3.3:q1",
+    "R3.3:q1.a",
+    "R3.3:q2",
+    "R3.3:q3",
+    "R3.3:q3.a",
+    "R3.3:q5"
+   ],
+   "why": "How to define essential services, plan their continuity and monitor disruptions."
+  },
+  {
+   "id": "who-ehs-site",
+   "title": "Maintaining essential health services during emergencies",
+   "citation": "World Health Organization.",
+   "url": "https://www.who.int/teams/primary-health-care/health-systems-resilience/essential-services-during-emergencies",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "R3.3:q3",
+    "R3.3:q4"
+   ],
+   "why": "Collection of tools on continuity of essential services."
+  },
+  {
+   "id": "who-continuity-handbook",
+   "title": "Health service continuity planning for public health emergencies: a handbook for health facilities",
+   "citation": "World Health Organization. 2021.",
+   "url": "https://www.who.int/publications/i/item/9789240033337",
+   "year": 2021,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R3.3:q3",
+    "R3.3:q4",
+    "R3.3:q4.a",
+    "R3.3:q6"
+   ],
+   "why": "Facility continuity plans, including testing and review."
+  },
+  {
+   "id": "who-ipc-manual",
+   "title": "Interim practical manual supporting national implementation of the WHO guidelines on core components of IPC programmes",
+   "citation": "World Health Organization. 2017.",
+   "url": "https://www.who.int/publications/i/item/WHO-HIS-SDS-2017-8",
+   "year": 2017,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R4.1:q1",
+    "R4.1:q2"
+   ],
+   "why": "Step-by-step implementation of IPC programmes and plans."
+  },
+  {
+   "id": "who-ipc-minreq",
+   "title": "Minimum requirements for infection prevention and control programmes",
+   "citation": "World Health Organization. 2019.",
+   "url": "https://www.who.int/publications/i/item/9789241516945",
+   "year": 2019,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R4.1:q1",
+    "R4.1:q6",
+    "R4.3:q5",
+    "R4.3:q6"
+   ],
+   "why": "Minimum requirements at national and facility level, including staffing, isolation and sterilisation."
+  },
+  {
+   "id": "who-ipcat2",
+   "title": "National infection prevention and control assessment tool 2 (IPCAT2)",
+   "citation": "World Health Organization. 2017.",
+   "url": "https://apps.who.int/iris/handle/10665/330078",
+   "year": 2017,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "R4.1:q8"
+   ],
+   "why": "National assessment of IPC programme implementation."
+  },
+  {
+   "id": "who-ipcaf",
+   "title": "Infection prevention and control assessment framework at the facility level (IPCAF)",
+   "citation": "World Health Organization. 2018.",
+   "url": "https://www.who.int/publications/i/item/WHO-HIS-SDS-2018.9",
+   "year": 2018,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "R4.1:q2",
+    "R4.1:q4",
+    "R4.1:q8"
+   ],
+   "why": "Facility self-assessment with scoring, for local plans and monitoring."
+  },
+  {
+   "id": "who-hh-monitoring",
+   "title": "Hand hygiene monitoring tools and self-assessment framework",
+   "citation": "World Health Organization.",
+   "url": "https://www.who.int/teams/integrated-health-services/infection-prevention-control/hand-hygiene/monitoring-tools",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "R4.1:q7"
+   ],
+   "why": "Tools for measuring hand hygiene compliance and supplies."
+  },
+  {
+   "id": "who-ipc-competencies",
+   "title": "Core competencies for infection prevention and control professionals",
+   "citation": "World Health Organization. 2020.",
+   "url": "https://www.who.int/publications/i/item/9789240011656",
+   "year": 2020,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R4.1:q5",
+    "R4.1:q6",
+    "R4.3:q7"
+   ],
+   "why": "Competencies for IPC focal points and curricula."
+  },
+  {
+   "id": "africacdc-ipc-legal",
+   "title": "Policy brief for the legal framework on infection prevention and control",
+   "citation": "Africa CDC and African Union. 2022.",
+   "url": "https://africacdc.org/download/policy-brief-for-the-legal-framework-on-infection-prevention-and-control/",
+   "year": 2022,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R4.1:q1"
+   ],
+   "why": "Options for anchoring national IPC programmes in law."
+  },
+  {
+   "id": "who-ipc-outbreak-toolkit",
+   "title": "Framework and toolkit for infection prevention and control in outbreak preparedness, readiness and response at the national level",
+   "citation": "World Health Organization. 2021.",
+   "url": "https://www.who.int/publications/i/item/9789240032729",
+   "year": 2021,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "R4.1:q3",
+    "R4.1:q3.a"
+   ],
+   "why": "IPC planning for outbreaks, including transmission-based precautions."
+  },
+  {
+   "id": "who-hai-surveillance-2024",
+   "title": "Surveillance of health care-associated infections at national and facility levels",
+   "citation": "World Health Organization. 2024.",
+   "url": "https://www.who.int/publications/i/item/9789240101456",
+   "year": 2024,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R4.1:q9",
+    "R4.2:q1",
+    "R4.2:q2",
+    "R4.2:q3",
+    "R4.2:q4",
+    "R4.2:q6",
+    "R4.2:q7",
+    "R4.2:q8",
+    "R4.2:q9"
+   ],
+   "why": "Practical handbook with standard case definitions to set up HCAI surveillance and use the data."
+  },
+  {
+   "id": "who-washfit",
+   "title": "WASH FIT: a practical guide for improving quality of care through water, sanitation and hygiene in health care facilities, 2nd edition",
+   "citation": "World Health Organization. 2022.",
+   "url": "https://www.who.int/publications/i/item/9789240043237",
+   "year": 2022,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "R4.3:q2",
+    "R4.3:q3",
+    "R4.3:q4",
+    "R4.3:q8.a"
+   ],
+   "why": "Facility improvement cycle for water, sanitation, hygiene and waste."
+  },
+  {
+   "id": "jmp-wash",
+   "title": "WHO/UNICEF Joint Monitoring Programme for water supply, sanitation and hygiene",
+   "citation": "WHO and UNICEF.",
+   "url": "https://washdata.org/",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "R4.3:q2",
+    "R4.3:q4"
+   ],
+   "why": "National data on WASH in health care facilities to track progress."
+  },
+  {
+   "id": "who-health-env-compendium",
+   "title": "Compendium of WHO and other UN guidance on health and environment",
+   "citation": "World Health Organization.",
+   "url": "https://www.who.int/tools/compendium-on-health-and-environment",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "R4.3:q1"
+   ],
+   "why": "Standards for a safe environment in facilities."
+  },
+  {
+   "id": "who-decontamination",
+   "title": "Decontamination and reprocessing of medical devices for health-care facilities",
+   "citation": "World Health Organization. 2016.",
+   "url": "https://www.who.int/publications/i/item/9789241549851",
+   "year": 2016,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R4.3:q6",
+    "R4.3:q8.c"
+   ],
+   "why": "Standards for sterilisation services and staff training."
+  },
+  {
+   "id": "who-erc-guideline",
+   "title": "Communicating risk in public health emergencies: WHO guideline for emergency risk communication policy and practice",
+   "citation": "World Health Organization. 2018.",
+   "url": "https://www.who.int/publications/i/item/9789241550208",
+   "year": 2018,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R5.1:q1",
+    "R5.1:q3",
+    "R5.1:q5",
+    "R5.1:q7",
+    "R5.1:q9",
+    "R5.1:q10",
+    "R5.2:q1",
+    "R5.2:q5",
+    "R5.2:q6",
+    "R5.2:q7",
+    "R5.2:q8",
+    "R5.2:q12",
+    "R5.2:q14",
+    "R5.2:q9",
+    "R5.2:q10",
+    "R5.2:q11",
+    "R5.3:q5"
+   ],
+   "why": "Evidence-based recommendations on building trust, coordination, audience segmentation and message testing."
+  },
+  {
+   "id": "jha-2018-erc-review",
+   "title": "Integrating emergency risk communication into the public health system response: systematic review",
+   "citation": "Jha A, et al. PLoS One. 2018;13(10):e0205555.",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6209198/",
+   "year": 2018,
+   "type": "peer-reviewed",
+   "addedBy": "search",
+   "questions": [
+    "R5.1:q3",
+    "R5.2:q1",
+    "R5.2:q16"
+   ],
+   "why": "Evidence behind the WHO guideline on integrating risk communication and coordination."
+  },
+  {
+   "id": "who-infodemic-insights",
+   "title": "How to build an infodemic insights report in six steps",
+   "citation": "WHO and UNICEF. 2023.",
+   "url": "https://apps.who.int/iris/handle/10665/370317",
+   "year": 2023,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "R5.1:q2",
+    "R5.1:q8",
+    "R5.2:q2",
+    "R5.2:q4",
+    "R5.3:q11",
+    "R5.3:q13"
+   ],
+   "why": "Step-by-step method to turn social listening data into recommendations."
+  },
+  {
+   "id": "who-infodemic-competency",
+   "title": "WHO competency framework for health authorities and institutions to manage infodemics",
+   "citation": "Hum Resour Health. 2022.",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9077350/",
+   "year": 2022,
+   "type": "peer-reviewed",
+   "addedBy": "search",
+   "questions": [
+    "R5.1:q6",
+    "R5.1:q11",
+    "R5.1:q12",
+    "R5.1:q4"
+   ],
+   "why": "Competencies and roles for infodemic management staff."
+  },
+  {
+   "id": "who-social-listening-ethics",
+   "title": "Social listening in infodemic management for public health emergencies: guidance on ethical considerations",
+   "citation": "World Health Organization. 2024.",
+   "url": "https://www.who.int/publications/i/item/9789240108202",
+   "year": 2024,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R5.2:q2",
+    "R5.2:q4"
+   ],
+   "why": "How to monitor public perceptions and misinformation responsibly."
+  },
+  {
+   "id": "purnat-infodemic-insights",
+   "title": "Delivering actionable infodemic insights and recommendations for the COVID-19 pandemic response",
+   "citation": "Purnat T, et al. PubMed Central (PMC9593848).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9593848/",
+   "year": null,
+   "type": "peer-reviewed",
+   "addedBy": "search",
+   "questions": [
+    "R5.2:q3",
+    "R5.2:q4"
+   ],
+   "why": "WHO experience turning social listening into action against misinformation."
+  },
+  {
+   "id": "openwho-infodemic-101",
+   "title": "Infodemic management 101",
+   "citation": "OpenWHO. 2021.",
+   "url": "https://openwho.org/courses/infodemic-management-101",
+   "year": 2021,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "R5.1:q10",
+    "R5.1:q11"
+   ],
+   "why": "Free introductory course for staff."
+  },
+  {
+   "id": "rcce-collective",
+   "title": "The Collective Service: for a community-led response",
+   "citation": "RCCE Collective Service.",
+   "url": "https://www.rcce-collective.net/",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "R5.1:q13",
+    "R5.3:q11"
+   ],
+   "why": "Shared tools, data and coordination for risk communication and community engagement."
+  },
+  {
+   "id": "who-faith-strategy",
+   "title": "WHO strategy for engaging religious leaders, faith-based organizations and faith communities in health emergencies",
+   "citation": "World Health Organization. 2021.",
+   "url": "https://apps.who.int/iris/handle/10665/347871",
+   "year": 2021,
+   "type": "strategy",
+   "addedBy": "search",
+   "questions": [
+    "R5.2:q6",
+    "R5.3:q3"
+   ],
+   "why": "How to work with faith leaders to reach communities."
+  },
+  {
+   "id": "who-combi",
+   "title": "Communication for behavioural impact (COMBI): a toolkit for behavioural and social communication in outbreak response",
+   "citation": "WHO, FAO, UNICEF. 2012.",
+   "url": "https://apps.who.int/iris/handle/10665/75170",
+   "year": 2012,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "R5.2:q5",
+    "R5.2:q8",
+    "R5.2:q13"
+   ],
+   "why": "Planning method with audience research, message pretesting and monitoring of reach."
+  },
+  {
+   "id": "who-ce-guide",
+   "title": "Community engagement: a health promotion guide for universal health coverage in the hands of the people",
+   "citation": "World Health Organization. 2020.",
+   "url": "https://apps.who.int/iris/handle/10665/334379",
+   "year": 2020,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R5.3:q1",
+    "R5.3:q3",
+    "R5.3:q8",
+    "R5.3:q10",
+    "R5.3:q2",
+    "R5.3:q6"
+   ],
+   "why": "How to plan, run and measure community engagement."
+  },
+  {
+   "id": "who-ce-framework",
+   "title": "WHO community engagement framework for quality, people-centred and resilient health services",
+   "citation": "World Health Organization. 2017.",
+   "url": "https://apps.who.int/iris/handle/10665/259280",
+   "year": 2017,
+   "type": "strategy",
+   "addedBy": "search",
+   "questions": [
+    "R5.3:q8",
+    "R5.3:q10"
+   ],
+   "why": "Framework for routine community engagement that can be scaled up in emergencies."
+  },
+  {
+   "id": "unicef-ce-standards",
+   "title": "Minimum quality standards and indicators in community engagement",
+   "citation": "UNICEF. 2020.",
+   "url": "https://www.unicef.org/mena/reports/community-engagement-standards",
+   "year": 2020,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "R5.3:q10",
+    "R5.3:q12"
+   ],
+   "why": "Standards and indicators to measure the quality of engagement and trust."
+  },
+  {
+   "id": "ifrc-words-to-action",
+   "title": "From words to action: towards a community-centred approach to preparedness and response in health emergencies",
+   "citation": "IFRC. 2019.",
+   "url": "https://www.gpmb.org/annual-reports/overview/item/from-words-to-action-towards-a-community-centred-approach-to-preparedness-and-response-in-health-emergencies",
+   "year": 2019,
+   "type": "strategy",
+   "addedBy": "search",
+   "questions": [
+    "R5.3:q7",
+    "R5.3:q9"
+   ],
+   "why": "Case for community feedback loops and representation in governance."
+  },
+  {
+   "id": "ifrc-vca",
+   "title": "Enhanced vulnerability and capacity assessment toolbox",
+   "citation": "IFRC. 2018.",
+   "url": "https://www.ifrcvca.org/toolbox",
+   "year": 2018,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "R5.3:q4"
+   ],
+   "why": "Community-level assessment of risks, vulnerabilities and capacities, usable as a baseline."
+  },
+  {
+   "id": "brc-cea-toolkit",
+   "title": "Community engagement and accountability toolkit",
+   "citation": "British Red Cross.",
+   "url": "https://communityengagementhub.org/guides-and-tools/cea-toolkit/",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "R5.3:q7",
+    "R5.3:q9"
+   ],
+   "why": "Tools for setting up feedback mechanisms with communities."
+  },
+  {
+   "id": "who-ct-community",
+   "title": "Operational guide for engaging communities in contact tracing",
+   "citation": "WHO, IFRC, GOARN, UNICEF. 2021.",
+   "url": "https://www.who.int/publications/i/item/WHO-2019-nCoV-Contact_tracing-Community_engagement-2021.1-eng",
+   "year": 2021,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R5.3:q3"
+   ],
+   "why": "Practical example of community engagement in a response function."
+  },
+  {
+   "id": "unicef-sbc",
+   "title": "Social + behavioural change guidance",
+   "citation": "UNICEF.",
+   "url": "https://www.sbcguidance.org/",
+   "year": null,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R5.3:q13"
+   ],
+   "why": "Guidance on generating and using behavioural insights."
+  },
+  {
+   "id": "who-poe-assessment",
+   "title": "IHR (2005): assessment tool for core capacity requirements at designated airports, ports and ground crossings",
+   "citation": "World Health Organization. 2009.",
+   "url": "https://apps.who.int/iris/handle/10665/70839",
+   "year": 2009,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "PoE1:q1",
+    "PoE1:q2",
+    "PoE1:q3",
+    "PoE1:q4",
+    "PoE1:q9"
+   ],
+   "why": "Checklist to assess and improve routine PoE capacities."
+  },
+  {
+   "id": "who-poe-surveillance",
+   "title": "Coordinated public health surveillance between points of entry and national health surveillance systems: advising principles",
+   "citation": "World Health Organization. 2014.",
+   "url": "https://apps.who.int/iris/handle/10665/144805",
+   "year": 2014,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "PoE1:q8",
+    "PoE3:q2.b"
+   ],
+   "why": "How to integrate PoEs into national surveillance."
+  },
+  {
+   "id": "who-poe-vectors",
+   "title": "Vector surveillance and control at ports, airports and ground crossings",
+   "citation": "World Health Organization. 2016.",
+   "url": "https://apps.who.int/iris/handle/10665/204660",
+   "year": 2016,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "PoE1:q5"
+   ],
+   "why": "Programmes for vector and reservoir control at PoEs."
+  },
+  {
+   "id": "who-ship-inspection",
+   "title": "Handbook for inspection of ships and issuance of ship sanitation certificates",
+   "citation": "World Health Organization. 2011.",
+   "url": "https://apps.who.int/iris/handle/10665/44594",
+   "year": 2011,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "PoE1:q7"
+   ],
+   "why": "Training basis for conveyance inspectors."
+  },
+  {
+   "id": "who-ship-sanitation",
+   "title": "WHO guide to ship sanitation, 3rd edition",
+   "citation": "World Health Organization. 2011.",
+   "url": "https://apps.who.int/iris/handle/10665/43193",
+   "year": 2011,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "PoE1:q4"
+   ],
+   "why": "Standards for safe environments on ships and in ports."
+  },
+  {
+   "id": "who-aviation-hygiene",
+   "title": "Guide to hygiene and sanitation in aviation, 3rd edition",
+   "citation": "World Health Organization. 2009.",
+   "url": "https://apps.who.int/iris/handle/10665/44164",
+   "year": 2009,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "PoE1:q4"
+   ],
+   "why": "Standards for safe environments at airports and on aircraft."
+  },
+  {
+   "id": "who-aircraft-disinsection",
+   "title": "WHO aircraft disinsection methods and procedures",
+   "citation": "World Health Organization. 2021.",
+   "url": "https://www.who.int/publications/i/item/9789240014459",
+   "year": 2021,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "PoE1:q6"
+   ],
+   "why": "Recommended methods for treating aircraft."
+  },
+  {
+   "id": "who-ground-crossings",
+   "title": "Handbook for public health capacity-building at ground crossings and cross-border collaboration",
+   "citation": "World Health Organization. 2020.",
+   "url": "https://www.who.int/publications/i/item/handbook-for-public-health-capacity-building-at-ground-crossings-and-cross-border-collaboration",
+   "year": 2020,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "PoE1:q1",
+    "PoE1:q3",
+    "PoE2:q2",
+    "PoE3:q3"
+   ],
+   "why": "Capacity building at land borders, including agreements with neighbouring countries."
+  },
+  {
+   "id": "who-air-events",
+   "title": "Handbook for the management of public health events in air transport",
+   "citation": "World Health Organization. 2016.",
+   "url": "https://apps.who.int/iris/handle/10665/204628",
+   "year": 2016,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "PoE1:q3",
+    "PoE2:q3"
+   ],
+   "why": "Procedures for ill travellers on aircraft and at airports."
+  },
+  {
+   "id": "who-ship-events",
+   "title": "Handbook for management of public health events on board ships",
+   "citation": "World Health Organization. 2016.",
+   "url": "https://apps.who.int/iris/handle/10665/205796",
+   "year": 2016,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "PoE1:q3",
+    "PoE2:q3"
+   ],
+   "why": "Procedures for public health events on ships and in ports."
+  },
+  {
+   "id": "who-poe-contingency",
+   "title": "IHR (2005): a guide for public health emergency contingency planning at designated points of entry",
+   "citation": "World Health Organization. 2012.",
+   "url": "https://www.who.int/publications/i/item/9789290615668",
+   "year": 2012,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "PoE2:q1",
+    "PoE2:q2",
+    "PoE2:q2.a",
+    "PoE2:q2.b",
+    "PoE2:q2.c",
+    "PoE2:q4"
+   ],
+   "why": "How to write and test PoE contingency plans linked to national plans."
+  },
+  {
+   "id": "who-risk-based-travel",
+   "title": "Technical considerations for implementing a risk-based approach to international travel in the context of COVID-19",
+   "citation": "World Health Organization. 2021.",
+   "url": "https://www.who.int/publications/i/item/WHO-2019-nCoV-Risk-based-international-travel-2021.1",
+   "year": 2021,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "PoE3:q1",
+    "PoE3:q2",
+    "PoE3:q4",
+    "PoE3:q5",
+    "PoE3:q6"
+   ],
+   "why": "Multisectoral process and risk assessment for travel measures, including evaluation of their effect."
+  },
+  {
+   "id": "who-chem-incidents-manual",
+   "title": "WHO manual for the public health management of chemical incidents",
+   "citation": "World Health Organization. 2009.",
+   "url": "https://www.who.int/publications/i/item/9789241598149",
+   "year": 2009,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "CE1:q1",
+    "CE1:q2",
+    "CE1:q3",
+    "CE2:q4",
+    "CE2:q5",
+    "CE2:q6",
+    "CE1:q4",
+    "CE1:q9"
+   ],
+   "why": "Surveillance, assessment, planning and response for chemical incidents."
+  },
+  {
+   "id": "who-ihr-chemical",
+   "title": "International Health Regulations (2005) and chemical events",
+   "citation": "World Health Organization. 2015.",
+   "url": "https://apps.who.int/iris/handle/10665/249532",
+   "year": 2015,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "CE1:q2",
+    "CE1:q2.a",
+    "CE1:q2.b",
+    "CE2:q6.d"
+   ],
+   "why": "How chemical events fit into IHR surveillance and notification."
+  },
+  {
+   "id": "who-poison-centres",
+   "title": "Guidelines for establishing a poison centre",
+   "citation": "World Health Organization. 2020.",
+   "url": "https://apps.who.int/iris/handle/10665/338657",
+   "year": 2020,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "CE1:q2.c",
+    "CE1:q11",
+    "CE2:q9",
+    "CE1:q8"
+   ],
+   "why": "How to set up a poison centre and link it to surveillance and networks."
+  },
+  {
+   "id": "who-chem-outbreak-investigation",
+   "title": "Manual for investigating suspected outbreaks of illnesses of possible chemical etiology",
+   "citation": "World Health Organization. 2021.",
+   "url": "https://www.who.int/publications/i/item/9789240021754",
+   "year": 2021,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "CE1:q2",
+    "CE1:q7"
+   ],
+   "why": "Investigation procedures and reporting of chemical events."
+  },
+  {
+   "id": "who-chemical-weapons-clinical",
+   "title": "Initial clinical management of patients exposed to chemical weapons",
+   "citation": "World Health Organization. 2014.",
+   "url": "https://apps.who.int/iris/handle/10665/329541",
+   "year": 2014,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "CE1:q10"
+   ],
+   "why": "Clinical protocols for chemical exposures."
+  },
+  {
+   "id": "who-chem-risk-toolkit",
+   "title": "WHO human health risk assessment toolkit: chemical hazards, 2nd edition",
+   "citation": "World Health Organization. 2021.",
+   "url": "https://www.who.int/publications/i/item/9789240035720",
+   "year": 2021,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "CE1:q3"
+   ],
+   "why": "Methods for health risk assessment of chemical exposure."
+  },
+  {
+   "id": "who-chem-natural-hazards",
+   "title": "Chemical releases caused by natural hazard events and disasters: information for public health authorities",
+   "citation": "World Health Organization. 2018.",
+   "url": "https://apps.who.int/iris/handle/10665/272390",
+   "year": 2018,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "CE1:q1"
+   ],
+   "why": "Planning for chemical releases in natural disasters."
+  },
+  {
+   "id": "who-chem-roadmap",
+   "title": "Chemicals road map: workbook",
+   "citation": "World Health Organization. 2018.",
+   "url": "https://apps.who.int/iris/handle/10665/273136",
+   "year": 2018,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "CE2:q1",
+    "CE2:q3",
+    "CE1:q5",
+    "CE1:q6"
+   ],
+   "why": "Workbook for a national plan on chemicals and health and its coordination."
+  },
+  {
+   "id": "iomc-toolbox",
+   "title": "IOMC toolbox for decision making in chemicals management",
+   "citation": "Inter-Organization Programme for the Sound Management of Chemicals.",
+   "url": "https://www.iomctoolbox.org/",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "CE2:q2"
+   ],
+   "why": "Guidance on national chemicals legislation and management schemes."
+  },
+  {
+   "id": "ipcs-inchem",
+   "title": "IPCS INCHEM",
+   "citation": "International Programme on Chemical Safety.",
+   "url": "https://www.inchem.org",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "CE2:q10"
+   ],
+   "why": "Free database of chemical safety information."
+  },
+  {
+   "id": "ilo-icsc",
+   "title": "International Chemical Safety Cards (ICSC)",
+   "citation": "International Labour Organization.",
+   "url": "https://www.ilo.org/dyn/icsc/showcard.listCards3",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "CE2:q10"
+   ],
+   "why": "Quick reference cards on chemical hazards."
+  },
+  {
+   "id": "iaea-gsr7",
+   "title": "Preparedness and response for a nuclear or radiological emergency (IAEA GSR Part 7)",
+   "citation": "IAEA and co-sponsors. 2015.",
+   "url": "https://www.iaea.org/publications/10905/preparedness-and-response-for-a-nuclear-or-radiological-emergency",
+   "year": 2015,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "RE1:q1",
+    "RE1:q2",
+    "RE1:q4",
+    "RE2:q1",
+    "RE2:q2",
+    "RE2:q3",
+    "RE2:q4",
+    "RE2:q5",
+    "RE1:q8",
+    "RE1:q9",
+    "RE2:q6"
+   ],
+   "why": "International safety requirements for radiation emergency arrangements and coordination."
+  },
+  {
+   "id": "iaea-protection-strategy",
+   "title": "Considerations in the development of a protection strategy for a nuclear or radiological emergency",
+   "citation": "IAEA. 2021.",
+   "url": "https://www.iaea.org/publications/14801/considerations-in-the-development-of-a-protection-strategy-for-a-nuclear-or-radiological-emergency",
+   "year": 2021,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "RE1:q4",
+    "RE2:q4",
+    "RE2:q4.g"
+   ],
+   "why": "How to set criteria and protective actions for a response of suitable size."
+  },
+  {
+   "id": "who-itb",
+   "title": "Iodine thyroid blocking: guidelines for use in planning for and responding to radiological and nuclear emergencies",
+   "citation": "World Health Organization. 2017.",
+   "url": "https://www.who.int/publications/i/item/9789241550185",
+   "year": 2017,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "RE1:q12"
+   ],
+   "why": "Recommendations on stockpiling and use of potassium iodide."
+  },
+  {
+   "id": "who-rn-stockpiles",
+   "title": "National stockpiles for radiological and nuclear emergencies: policy advice",
+   "citation": "World Health Organization. 2023.",
+   "url": "https://www.who.int/publications/i/item/9789240067875",
+   "year": 2023,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "RE1:q12",
+    "RE2:q4.d"
+   ],
+   "why": "What to stockpile and how to manage it."
+  },
+  {
+   "id": "who-rempan",
+   "title": "Radiation Emergency Medical Preparedness and Assistance Network (REMPAN)",
+   "citation": "World Health Organization.",
+   "url": "https://www.who.int/groups/rempan",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "RE1:q6",
+    "RE1:q10",
+    "RE1:q11",
+    "RE2:q4.c",
+    "RE2:q10"
+   ],
+   "why": "Network of specialised centres for medical management of radiation exposure; source of assistance and training."
+  },
+  {
+   "id": "tmt-handbook",
+   "title": "TMT handbook: management of the public in the event of malevolent use of ionising radiation",
+   "citation": "Consortium incl. WHO. 2009.",
+   "url": "http://www.tmthandbook.org",
+   "year": 2009,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "RE1:q1",
+    "RE1:q7"
+   ],
+   "why": "Practical handbook for responders to radiological incidents."
+  },
+  {
+   "id": "iaea-iec",
+   "title": "IAEA Incident and Emergency Centre",
+   "citation": "IAEA.",
+   "url": "https://www.iaea.org/about/organizational-structure/department-of-nuclear-safety-and-security/incident-and-emergency-centre",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "RE1:q5",
+    "RE1:q6",
+    "RE2:q5"
+   ],
+   "why": "International assistance and laboratory network access in radiation emergencies."
+  },
+  {
+   "id": "who-simex-manual",
+   "title": "WHO simulation exercise manual",
+   "citation": "World Health Organization. 2017.",
+   "url": "https://apps.who.int/iris/handle/10665/254741",
+   "year": 2017,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P3.1:q2.h",
+    "P3.3:q2.o",
+    "P3.3:q2.q",
+    "P5.2:q7",
+    "P6.2:q11",
+    "R1.1:q2",
+    "R1.2:q5",
+    "R1.3:q4",
+    "R1.4:q4",
+    "R1.5:q2",
+    "R3.3:q6",
+    "R5.1:q15",
+    "R5.2:q15",
+    "PoE2:q4",
+    "CE2:q8",
+    "RE2:q7",
+    "RE2:q8",
+    "D3.3:q6"
+   ],
+   "why": "How to plan, run and evaluate tabletop, functional and full-scale exercises."
+  },
+  {
+   "id": "who-aar-guidance",
+   "title": "Guidance for after action review (AAR)",
+   "citation": "World Health Organization. 2019.",
+   "url": "https://apps.who.int/iris/handle/10665/311537",
+   "year": 2019,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P3.3:q2.r",
+    "P5.2:q7",
+    "P6.2:q12",
+    "R1.3:q4",
+    "R3.3:q6",
+    "R3.3:q6.c",
+    "R5.2:q16",
+    "CE2:q8",
+    "RE2:q7"
+   ],
+   "why": "How to review a real response and turn findings into corrective actions."
+  },
+  {
+   "id": "who-partners-platform",
+   "title": "Partners Platform for health emergencies",
+   "citation": "World Health Organization.",
+   "url": "https://partnersplatform.who.int/en/",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P2.1:q7",
+    "P2.2:q10"
+   ],
+   "why": "Online platform that maps resource needs and partner contributions in real time, for preparedness plans and responses."
+  },
+  {
+   "id": "who-amr-manufacturing",
+   "title": "Guidance on wastewater and solid waste management for manufacturing of antibiotics",
+   "citation": "World Health Organization. 2024.",
+   "url": "https://www.who.int/publications/i/item/9789240097254",
+   "year": 2024,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P4.2:q16",
+    "P4.2:q17"
+   ],
+   "why": "Targets and practices for limiting antibiotic pollution from manufacturing, which plans can address."
+  },
+  {
+   "id": "who-fbd-outbreaks",
+   "title": "Foodborne disease outbreaks: guidelines for investigation and control",
+   "citation": "World Health Organization. 2008.",
+   "url": "https://www.who.int/publications/i/item/9789241547222",
+   "year": 2008,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P6.1:q5",
+    "P6.1:q6",
+    "P6.1:q8"
+   ],
+   "why": "How to form and train outbreak teams, collect specimens and investigate foodborne outbreaks."
+  },
+  {
+   "id": "who-gisrs-nic",
+   "title": "Global Influenza Surveillance and Response System: National Influenza Centres",
+   "citation": "World Health Organization.",
+   "url": "https://www.who.int/initiatives/global-influenza-surveillance-and-response-system/national-influenza-centres",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "D1.1:q5"
+   ],
+   "why": "Example of a WHO laboratory network that national laboratories join, with terms of reference."
+  },
+  {
+   "id": "gmrln-2024",
+   "title": "The Global Measles and Rubella Laboratory Network supports high-quality surveillance",
+   "citation": "Peer-reviewed article, PubMed Central (PMC11359298).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11359298/",
+   "year": null,
+   "type": "peer-reviewed",
+   "addedBy": "search",
+   "questions": [
+    "D1.2:q5",
+    "D1.1:q5"
+   ],
+   "why": "Describes WHO network accreditation of measles and rubella laboratories."
+  },
+  {
+   "id": "aslm-quality-framework",
+   "title": "National laboratory quality framework, 2nd edition",
+   "citation": "African Society for Laboratory Medicine. 2024.",
+   "url": "https://aslm.org/wp-content/uploads/2026/01/National-Laboratory-Quality-Framework-_-2nd-Edition-2024.pdf",
+   "year": 2024,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "D1.2:q1",
+    "D1.2:q2",
+    "D1.2:q3",
+    "D1.2:q9"
+   ],
+   "why": "Guidance for national bodies on laboratory licensing, inspection, certification and supervision."
+  },
+  {
+   "id": "who-pq-ivd",
+   "title": "WHO prequalification of in vitro diagnostics",
+   "citation": "World Health Organization.",
+   "url": "https://extranet.who.int/pqweb/vitro-diagnostics",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "D1.3:q5",
+    "D1.3:q10",
+    "D1.4:q4"
+   ],
+   "why": "List of quality-assured diagnostics that procurement can rely on."
+  },
+  {
+   "id": "who-genomic-strategy",
+   "title": "Global genomic surveillance strategy for pathogens with pandemic and epidemic potential, 2022-2032",
+   "citation": "World Health Organization. 2022.",
+   "url": "https://www.who.int/publications/i/item/9789240046979",
+   "year": 2022,
+   "type": "strategy",
+   "addedBy": "search",
+   "questions": [
+    "D1.4:q5"
+   ],
+   "why": "Strategy for building national sequencing and advanced testing capacity."
+  },
+  {
+   "id": "ajlm-lis-2019",
+   "title": "Design and implementation of a clinical laboratory information system in a low-resource setting",
+   "citation": "Afr J Lab Med. 2019.",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6852617/",
+   "year": 2019,
+   "type": "case-study",
+   "addedBy": "search",
+   "questions": [
+    "D1.1:q4"
+   ],
+   "why": "Example of linking specimens, results and reporting electronically."
+  },
+  {
+   "id": "cdc-cerc",
+   "title": "Crisis and Emergency Risk Communication (CERC) manual",
+   "citation": "US Centers for Disease Control and Prevention.",
+   "url": "https://www.cdc.gov/cerc/php/cerc-manual/index.html",
+   "year": null,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "R5.2:q9",
+    "R5.2:q10",
+    "R5.2:q11",
+    "R5.2:q12",
+    "R5.2:q14",
+    "R5.1:q9"
+   ],
+   "why": "Practical manual on spokespersons, media teams, clearance and message coordination."
+  },
+  {
+   "id": "who-esft",
+   "title": "COVID-19 essential supplies forecasting tool (ESFT)",
+   "citation": "World Health Organization. 2020.",
+   "url": "https://www.who.int/publications/i/item/10665-333299",
+   "year": 2020,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "R1.5:q8",
+    "R1.5:q9"
+   ],
+   "why": "Example tool to forecast and track supply needs during an emergency."
+  },
+  {
+   "id": "woah-vaccine-banks",
+   "title": "Vaccine banks",
+   "citation": "World Organisation for Animal Health.",
+   "url": "https://www.woah.org/en/what-we-offer/improving-veterinary-services/vaccine-banks/",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "R1.5:q11",
+    "R1.5:q12"
+   ],
+   "why": "Regional animal vaccine banks that countries can draw on for animal countermeasures."
+  },
+  {
+   "id": "iaea-transport",
+   "title": "Regulations for the safe transport of radioactive material (IAEA SSR-6)",
+   "citation": "IAEA.",
+   "url": "https://iaea.org/publications/8851/regulations-for-the-safe-transport-of-radioactive-material-2012-edition",
+   "year": null,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "RE2:q9"
+   ],
+   "why": "International rules for transporting radioactive material.",
+   "note": "Link is the 2012 edition page; check for the latest edition."
+  },
+  {
+   "id": "who-radioactivity-food",
+   "title": "Radioactivity in food after a nuclear emergency (Q&A)",
+   "citation": "World Health Organization.",
+   "url": "https://www.who.int/news-room/questions-and-answers/item/radioactivity-in-food-after-a-nuclear-emergency",
+   "year": null,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "RE1:q3"
+   ],
+   "why": "Explains how food is monitored for radioactive contamination and which international guideline levels apply."
+  },
+  {
+   "id": "who-biodosenet",
+   "title": "WHO BioDoseNet: global biodosimetry laboratories network",
+   "citation": "World Health Organization.",
+   "url": "https://www.who.int/groups/biodosenet",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "RE1:q6",
+    "RE2:q10"
+   ],
+   "why": "Network of laboratories that assess radiation doses in exposed people."
+  },
+  {
+   "id": "israel-cre-2011",
+   "title": "Nationwide intervention to contain carbapenem-resistant Enterobacteriaceae in Israeli hospitals",
+   "citation": "Clin Infect Dis. 2011;52(7):848.",
+   "url": "https://academic.oup.com/cid/article/52/7/848/299188",
+   "year": 2011,
+   "type": "peer-reviewed",
+   "addedBy": "search",
+   "questions": [
+    "P4.3:q3",
+    "P4.3:q4",
+    "P4.3:q8",
+    "P4.3:q9"
+   ],
+   "why": "Country example of a centrally led programme (mandatory reporting, isolation and a national task force) that contained a nationwide CRE outbreak.",
+   "note": "Title paraphrased from the journal record; check the article for the exact title."
+  },
+  {
+   "id": "honduras-food-emergency",
+   "title": "How Honduras handled the unexpected (food safety emergency)",
+   "citation": "FAO/Codex, via Policy Commons.",
+   "url": "https://policycommons.net/artifacts/12517164/how-honduras-handled-the-unexpected/13415519",
+   "year": null,
+   "type": "case-study",
+   "addedBy": "search",
+   "questions": [
+    "P6.2:q1",
+    "P6.2:q7",
+    "P6.2:q12"
+   ],
+   "why": "Country example of managing a food safety emergency with Codex standards and multisectoral coordination."
+  },
+  {
+   "id": "bfr-food-crises",
+   "title": "Lessons learned from past food safety crises",
+   "citation": "German Federal Institute for Risk Assessment (BfR).",
+   "url": "https://www.BFR.bund.de/cm/343/lessons-learned-from-past-crises.pdf",
+   "year": null,
+   "type": "case-study",
+   "addedBy": "search",
+   "questions": [
+    "P6.2:q12",
+    "P6.2:q8"
+   ],
+   "why": "Review of past food crises and what they taught about response and communication."
+  },
+  {
+   "id": "phep-workforce-selfassessment",
+   "title": "Development of a workforce self-assessment tool for public health emergency preparedness",
+   "citation": "Peer-reviewed article, PubMed Central (PMC11161143).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11161143/",
+   "year": null,
+   "type": "peer-reviewed",
+   "addedBy": "search",
+   "questions": [
+    "D3.1:q1",
+    "D3.3:q2"
+   ],
+   "why": "Tool for staff to assess their own emergency competencies, useful for training needs."
+  },
+  {
+   "id": "afro-emt-review",
+   "title": "The emergency medical teams initiative in the WHO African region: a review of development and progress over the past 7 years",
+   "citation": "Peer-reviewed article, PubMed Central (PMC11231368).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11231368/",
+   "year": null,
+   "type": "peer-reviewed",
+   "addedBy": "search",
+   "questions": [
+    "R1.4:q6",
+    "R1.4:q6.a",
+    "R1.4:q6.b",
+    "R1.4:q6.d"
+   ],
+   "why": "Regional experience with building and classifying national emergency medical teams."
+  },
+  {
+   "id": "west-africa-emts",
+   "title": "Building national emergency medical teams in West Africa: lessons learnt and challenges 2017-2022",
+   "citation": "Prehosp Disaster Med.",
+   "url": "https://resolve.cambridge.org/core/journals/prehospital-and-disaster-medicine/article/building-national-emergency-medical-teams-in-west-africa-lessons-learnt-and-challenges-20172022/DD9D7658FF3C994DADD4833A18A9E9F5",
+   "year": null,
+   "type": "peer-reviewed",
+   "addedBy": "search",
+   "questions": [
+    "R1.4:q2",
+    "R1.4:q6",
+    "R1.4:q6.e"
+   ],
+   "why": "Country lessons on setting up, training and deploying national medical teams."
+  },
+  {
+   "id": "jee-rcce-analysis",
+   "title": "Key features of sustainable capacities for risk communication in health emergencies: analysis of Joint External Evaluation",
+   "citation": "Peer-reviewed article, PubMed Central (PMC12677237).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12677237/",
+   "year": null,
+   "type": "peer-reviewed",
+   "addedBy": "search",
+   "questions": [
+    "R5.1:*",
+    "R5.2:*",
+    "R5.3:*"
+   ],
+   "why": "Analysis of JEE reports showing what countries with sustainable risk communication capacity have in common."
+  },
+  {
+   "id": "kenya-zdu",
+   "title": "Evaluation of the implementation of One Health in Kenya: a case study of the Zoonotic Disease Unit",
+   "citation": "Iowa State University Digital Press (One Health proceedings).",
+   "url": "https://iastatedigitalpress.com/safepork/article/id/11151",
+   "year": null,
+   "type": "case-study",
+   "addedBy": "search",
+   "questions": [
+    "P3.2:q3",
+    "P5.1:q1",
+    "P5.2:q1",
+    "P5.2:q1.a"
+   ],
+   "why": "Country example of a joint human-animal health unit for zoonoses coordination."
+  },
+  {
+   "id": "brookings-ncdc",
+   "title": "Investing in national public health institutes for future pandemics: lessons from Nigeria",
+   "citation": "Brookings Institution. 2021.",
+   "url": "https://www.brookings.edu/articles/investing-in-national-public-health-institutes-for-future-pandemics-lessons-from-nigeria/",
+   "year": 2021,
+   "type": "case-study",
+   "addedBy": "search",
+   "questions": [
+    "R1.2:q1",
+    "R1.2:q4",
+    "R1.3:q1",
+    "R1.3:q2"
+   ],
+   "why": "How Nigeria built its national public health institute and emergency operations centre network."
+  },
+  {
+   "id": "jordan-ams-2023",
+   "title": "Four years after the implementation of antimicrobial stewardship program in Jordan: evaluation of core elements",
+   "citation": "Peer-reviewed article, PubMed Central (PMC10262748).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10262748/",
+   "year": null,
+   "type": "peer-reviewed",
+   "addedBy": "search",
+   "questions": [
+    "P4.4:q3",
+    "P4.4:q1.d"
+   ],
+   "why": "Country evaluation of a national stewardship programme against core elements."
+  },
+  {
+   "id": "lmic-ams-pharmacist-sr",
+   "title": "Evaluation of interventions led by pharmacists in antimicrobial stewardship programs in LMICs: a systematic literature review",
+   "citation": "Antimicrob Steward Healthc Epidemiol (PMC11574597).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11574597/",
+   "year": null,
+   "type": "systematic-review",
+   "addedBy": "search",
+   "questions": [
+    "P4.4:q3",
+    "P4.5:q4"
+   ],
+   "why": "Evidence on what pharmacist-led stewardship achieves in low-resource settings."
+  },
+  {
+   "id": "ldc-ams-sr",
+   "title": "Protocols, policies and practices for antimicrobial stewardship in hospitalized patients in least-developed and low-income countries: a systematic review",
+   "citation": "Peer-reviewed article, PubMed Central (PMC10666353).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10666353/",
+   "year": null,
+   "type": "systematic-review",
+   "addedBy": "search",
+   "questions": [
+    "P4.4:q1",
+    "P4.4:q3"
+   ],
+   "why": "Overview of stewardship approaches used in the poorest settings."
+  },
+  {
+   "id": "who-benchmarks-p1",
+   "title": "WHO benchmarks for strengthening health emergency capacities: legal instruments",
+   "citation": "World Health Organization. 2024 (benchmarks site).",
+   "url": "https://ihrbenchmark.who.int/document/1-legal-instruments",
+   "year": 2024,
+   "type": "WHO benchmark",
+   "addedBy": "search",
+   "questions": [
+    "P1.1:*",
+    "P1.2:*"
+   ],
+   "why": "Concrete actions to move from one capacity level to the next for this technical area, with a curated list of WHO tools."
+  },
+  {
+   "id": "who-benchmarks-p2",
+   "title": "WHO benchmarks for strengthening health emergency capacities: financing",
+   "citation": "World Health Organization. 2024 (benchmarks site).",
+   "url": "https://ihrbenchmark.who.int/document/2-financing",
+   "year": 2024,
+   "type": "WHO benchmark",
+   "addedBy": "search",
+   "questions": [
+    "P2.1:*",
+    "P2.2:*"
+   ],
+   "why": "Concrete actions to move from one capacity level to the next for this technical area, with a curated list of WHO tools."
+  },
+  {
+   "id": "who-benchmarks-p3",
+   "title": "WHO benchmarks for strengthening health emergency capacities: ihr coordination national ihr focal point functions and advocacy",
+   "citation": "World Health Organization. 2024 (benchmarks site).",
+   "url": "https://ihrbenchmark.who.int/document/3-ihr-coordination-national-ihr-focal-point-functions-and-advocacy",
+   "year": 2024,
+   "type": "WHO benchmark",
+   "addedBy": "search",
+   "questions": [
+    "P3.1:*",
+    "P3.2:*",
+    "P3.3:*"
+   ],
+   "why": "Concrete actions to move from one capacity level to the next for this technical area, with a curated list of WHO tools."
+  },
+  {
+   "id": "who-benchmarks-p4",
+   "title": "WHO benchmarks for strengthening health emergency capacities: antimicrobial resistance",
+   "citation": "World Health Organization. 2024 (benchmarks site).",
+   "url": "https://ihrbenchmark.who.int/document/4-antimicrobial-resistance",
+   "year": 2024,
+   "type": "WHO benchmark",
+   "addedBy": "search",
+   "questions": [
+    "P4.1:*",
+    "P4.2:*",
+    "P4.3:*",
+    "P4.4:*",
+    "P4.5:*"
+   ],
+   "why": "Concrete actions to move from one capacity level to the next for this technical area, with a curated list of WHO tools."
+  },
+  {
+   "id": "who-benchmarks-p5",
+   "title": "WHO benchmarks for strengthening health emergency capacities: zoonotic diseases",
+   "citation": "World Health Organization. 2024 (benchmarks site).",
+   "url": "https://ihrbenchmark.who.int/document/5-zoonotic-diseases",
+   "year": 2024,
+   "type": "WHO benchmark",
+   "addedBy": "search",
+   "questions": [
+    "P5.1:*",
+    "P5.2:*",
+    "P5.3:*"
+   ],
+   "why": "Concrete actions to move from one capacity level to the next for this technical area, with a curated list of WHO tools."
+  },
+  {
+   "id": "who-benchmarks-p6",
+   "title": "WHO benchmarks for strengthening health emergency capacities: food safety",
+   "citation": "World Health Organization. 2024 (benchmarks site).",
+   "url": "https://ihrbenchmark.who.int/document/6-food-safety",
+   "year": 2024,
+   "type": "WHO benchmark",
+   "addedBy": "search",
+   "questions": [
+    "P6.1:*",
+    "P6.2:*"
+   ],
+   "why": "Concrete actions to move from one capacity level to the next for this technical area, with a curated list of WHO tools."
+  },
+  {
+   "id": "who-benchmarks-p7",
+   "title": "WHO benchmarks for strengthening health emergency capacities: biosafety and biosecurity",
+   "citation": "World Health Organization. 2024 (benchmarks site).",
+   "url": "https://ihrbenchmark.who.int/document/8-biosafety-and-biosecurity",
+   "year": 2024,
+   "type": "WHO benchmark",
+   "addedBy": "search",
+   "questions": [
+    "P7.1:*",
+    "P7.2:*"
+   ],
+   "why": "Concrete actions to move from one capacity level to the next for this technical area, with a curated list of WHO tools."
+  },
+  {
+   "id": "who-benchmarks-p8",
+   "title": "WHO benchmarks for strengthening health emergency capacities: immunization",
+   "citation": "World Health Organization. 2024 (benchmarks site).",
+   "url": "https://ihrbenchmark.who.int/document/7-immunization",
+   "year": 2024,
+   "type": "WHO benchmark",
+   "addedBy": "search",
+   "questions": [
+    "P8.1:*",
+    "P8.2:*",
+    "P8.3:*"
+   ],
+   "why": "Concrete actions to move from one capacity level to the next for this technical area, with a curated list of WHO tools."
+  },
+  {
+   "id": "who-benchmarks-d1",
+   "title": "WHO benchmarks for strengthening health emergency capacities: national laboratory system",
+   "citation": "World Health Organization. 2024 (benchmarks site).",
+   "url": "https://ihrbenchmark.who.int/document/9-national-laboratory-system",
+   "year": 2024,
+   "type": "WHO benchmark",
+   "addedBy": "search",
+   "questions": [
+    "D1.1:*",
+    "D1.2:*",
+    "D1.3:*",
+    "D1.4:*"
+   ],
+   "why": "Concrete actions to move from one capacity level to the next for this technical area, with a curated list of WHO tools."
+  },
+  {
+   "id": "who-benchmarks-d2",
+   "title": "WHO benchmarks for strengthening health emergency capacities: surveillance",
+   "citation": "World Health Organization. 2024 (benchmarks site).",
+   "url": "https://ihrbenchmark.who.int/document/10-surveillance",
+   "year": 2024,
+   "type": "WHO benchmark",
+   "addedBy": "search",
+   "questions": [
+    "D2.1:*",
+    "D2.2:*",
+    "D2.3:*"
+   ],
+   "why": "Concrete actions to move from one capacity level to the next for this technical area, with a curated list of WHO tools."
+  },
+  {
+   "id": "who-benchmarks-d3",
+   "title": "WHO benchmarks for strengthening health emergency capacities: human resources",
+   "citation": "World Health Organization. 2024 (benchmarks site).",
+   "url": "https://ihrbenchmark.who.int/document/11-human-resources",
+   "year": 2024,
+   "type": "WHO benchmark",
+   "addedBy": "search",
+   "questions": [
+    "D3.1:*",
+    "D3.2:*",
+    "D3.3:*",
+    "D3.4:*"
+   ],
+   "why": "Concrete actions to move from one capacity level to the next for this technical area, with a curated list of WHO tools."
+  },
+  {
+   "id": "who-benchmarks-r1",
+   "title": "WHO benchmarks for strengthening health emergency capacities: health emergency management",
+   "citation": "World Health Organization. 2024 (benchmarks site).",
+   "url": "https://ihrbenchmark.who.int/document/12a-health-emergency-management",
+   "year": 2024,
+   "type": "WHO benchmark",
+   "addedBy": "search",
+   "questions": [
+    "R1.1:*",
+    "R1.2:*",
+    "R1.3:*",
+    "R1.4:*",
+    "R1.5:*",
+    "R1.6:*"
+   ],
+   "why": "Concrete actions to move from one capacity level to the next for this technical area, with a curated list of WHO tools."
+  },
+  {
+   "id": "who-benchmarks-r2",
+   "title": "WHO benchmarks for strengthening health emergency capacities: linking public health and security authorities",
+   "citation": "World Health Organization. 2024 (benchmarks site).",
+   "url": "https://ihrbenchmark.who.int/document/13-linking-public-health-and-security-authorities",
+   "year": 2024,
+   "type": "WHO benchmark",
+   "addedBy": "search",
+   "questions": [
+    "R2.1:*"
+   ],
+   "why": "Concrete actions to move from one capacity level to the next for this technical area, with a curated list of WHO tools."
+  },
+  {
+   "id": "who-benchmarks-r3",
+   "title": "WHO benchmarks for strengthening health emergency capacities: health services provision",
+   "citation": "World Health Organization. 2024 (benchmarks site).",
+   "url": "https://ihrbenchmark.who.int/document/14-health-services-provision",
+   "year": 2024,
+   "type": "WHO benchmark",
+   "addedBy": "search",
+   "questions": [
+    "R3.1:*",
+    "R3.2:*",
+    "R3.3:*"
+   ],
+   "why": "Concrete actions to move from one capacity level to the next for this technical area, with a curated list of WHO tools."
+  },
+  {
+   "id": "who-benchmarks-r4",
+   "title": "WHO benchmarks for strengthening health emergency capacities: infection prevention and control",
+   "citation": "World Health Organization. 2024 (benchmarks site).",
+   "url": "https://ihrbenchmark.who.int/document/15-infection-prevention-and-control",
+   "year": 2024,
+   "type": "WHO benchmark",
+   "addedBy": "search",
+   "questions": [
+    "R4.1:*",
+    "R4.2:*",
+    "R4.3:*"
+   ],
+   "why": "Concrete actions to move from one capacity level to the next for this technical area, with a curated list of WHO tools."
+  },
+  {
+   "id": "who-benchmarks-r5",
+   "title": "WHO benchmarks for strengthening health emergency capacities: risk communication",
+   "citation": "World Health Organization. 2024 (benchmarks site).",
+   "url": "https://ihrbenchmark.who.int/document/16a-risk-communication",
+   "year": 2024,
+   "type": "WHO benchmark",
+   "addedBy": "search",
+   "questions": [
+    "R5.1:*",
+    "R5.2:*",
+    "R5.3:*"
+   ],
+   "why": "Concrete actions to move from one capacity level to the next for this technical area, with a curated list of WHO tools."
+  },
+  {
+   "id": "who-benchmarks-poe",
+   "title": "WHO benchmarks for strengthening health emergency capacities: points of entry and border health",
+   "citation": "World Health Organization. 2024 (benchmarks site).",
+   "url": "https://ihrbenchmark.who.int/document/17-points-of-entry-and-border-health",
+   "year": 2024,
+   "type": "WHO benchmark",
+   "addedBy": "search",
+   "questions": [
+    "PoE1:*",
+    "PoE2:*",
+    "PoE3:*"
+   ],
+   "why": "Concrete actions to move from one capacity level to the next for this technical area, with a curated list of WHO tools."
+  },
+  {
+   "id": "who-benchmarks-ce",
+   "title": "WHO benchmarks for strengthening health emergency capacities: chemical events",
+   "citation": "World Health Organization. 2024 (benchmarks site).",
+   "url": "https://ihrbenchmark.who.int/document/18-chemical-events",
+   "year": 2024,
+   "type": "WHO benchmark",
+   "addedBy": "search",
+   "questions": [
+    "CE1:*",
+    "CE2:*"
+   ],
+   "why": "Concrete actions to move from one capacity level to the next for this technical area, with a curated list of WHO tools."
+  },
+  {
+   "id": "who-benchmarks-re",
+   "title": "WHO benchmarks for strengthening health emergency capacities: radiation emergencies",
+   "citation": "World Health Organization. 2024 (benchmarks site).",
+   "url": "https://ihrbenchmark.who.int/document/19-radiation-emergencies",
+   "year": 2024,
+   "type": "WHO benchmark",
+   "addedBy": "search",
+   "questions": [
+    "RE1:*",
+    "RE2:*"
+   ],
+   "why": "Concrete actions to move from one capacity level to the next for this technical area, with a curated list of WHO tools."
+  },
+  {
+   "id": "who-benchmarks-r5-ce",
+   "title": "WHO benchmarks: community engagement",
+   "citation": "World Health Organization.",
+   "url": "https://ihrbenchmark.who.int/document/16b-community-engagement",
+   "year": 2024,
+   "type": "WHO benchmark",
+   "addedBy": "search",
+   "questions": [
+    "R5.3:*"
+   ],
+   "why": "Actions per capacity level for community engagement."
+  },
+  {
+   "id": "who-benchmarks-r5-info",
+   "title": "WHO benchmarks: infodemic management",
+   "citation": "World Health Organization.",
+   "url": "https://ihrbenchmark.who.int/document/16c-infodemic-management",
+   "year": 2024,
+   "type": "WHO benchmark",
+   "addedBy": "search",
+   "questions": [
+    "R5.1:*",
+    "R5.2:*"
+   ],
+   "why": "Actions per capacity level for infodemic management."
+  },
+  {
+   "id": "who-benchmarks-r1b",
+   "title": "WHO benchmarks: health emergency management, additional benchmarks",
+   "citation": "World Health Organization.",
+   "url": "https://ihrbenchmark.who.int/document/12b-health-emergency-management-additional-bms",
+   "year": 2024,
+   "type": "WHO benchmark",
+   "addedBy": "search",
+   "questions": [
+    "R1.1:*",
+    "P3.3:*"
+   ],
+   "why": "Additional actions on risk management, safe hospitals and multisectoral planning."
   }
  ]
 }

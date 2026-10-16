@@ -115,7 +115,7 @@ const TABS=[["indicators","Indicators"],["questions","Technical questions"],["sc
 const D={}; const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const view=$("#view");
-const st={qq:"",qa:"",qf:"",q:"",fn:"",edition:"1",year:"",region:"",countries:null,mode:"dist",thr:2,self:{},evalId:""};
+const st={qq:"",qa:"",qf:"",qt:"",q:"",fn:"",edition:"1",year:"",region:"",countries:null,mode:"dist",thr:2,self:{},evalId:""};
 
 async function load(){
   const get=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(u+" "+r.status);return r.json()});
@@ -168,7 +168,7 @@ function vIndicators(open){
       html+=`<details class="ind" id="i-${i.id}" ${open===i.id?"open":""}><summary><span class="id">${i.id}</span><span>${esc(i.title)}</span>${pr.length?`<span class="badge" title="Linked practices">${pr.length} practice${pr.length>1?"s":""}</span>`:""}</summary><div class="body">
        <p class="small muted">WHO JEE tool, third edition · score table p. ${i.scorePageManual.join("–")}</p>
        <table class="lv"><caption class="sr">Score descriptions for ${i.id}</caption><thead><tr><th>Level</th><th>WHO description</th></tr></thead><tbody>${[1,2,3,4,5].map(n=>`<tr><td class="n"><span class="sw s${n}" style="display:inline-block;min-width:22px;text-align:center;border-radius:5px;padding:0 6px">${n}</span> ${LABELS[n]}</td><td>${esc(i.scoreAttributes[n])}</td></tr>`).join("")}</tbody></table>
-       <div class="q"><h3>Technical questions <span class="muted small">(prompts, manual p. ${i.technicalQuestions[0]?.page}–${i.technicalQuestions.at(-1)?.page})</span></h3><ol>${i.technicalQuestions.map(t=>`<li>${esc(t.text)}${t.sub.length?`<ol class="sub">${t.sub.map(s=>`<li>${esc(s.text)}</li>`).join("")}</ol>`:""}</li>`).join("")}</ol></div>
+       <p class="small"><a href="#/questions/${i.id}"><strong>Open the technical questions with sources and peer examples →</strong></a></p><div class="q"><h3>Technical questions <span class="muted small">(prompts, manual p. ${i.technicalQuestions[0]?.page}–${i.technicalQuestions.at(-1)?.page})</span></h3><ol>${i.technicalQuestions.map(t=>`<li>${esc(t.text)}${t.sub.length?`<ol class="sub">${t.sub.map(s=>`<li>${esc(s.text)}</li>`).join("")}</ol>`:""}</li>`).join("")}</ol></div>
        ${pr.length?`<h3>Practices that may help (candidate links)</h3><div class="grid2">${pr.map(practiceCard).join("")}</div>`:`<p class="small muted">No practice is linked to this indicator yet.</p>`}
        ${d.n?`<h3>Country scores in this indicator (v3)</h3><p class="small">${d.n} evaluation${d.n>1?"s":""}: ${d.c.map((c,k)=>`level ${k+1}: ${c}`).join(" · ")}. <a href="#/scores">Open the matrix</a>.</p>`:""}
       </div></details>`; } } }
@@ -183,7 +183,18 @@ function vIndicators(open){
 
 
 /* ---------- technical questions ---------- */
-function solHTML(list){ return list.map(x=>`<div class="sol"><span class="badge">${esc(x.type)}${x.addedBy==="user"?" · supplied by Mark":""}</span><a href="${esc(x.url)}" rel="noopener"><strong>${esc(x.title)}</strong></a> <span class="muted">${esc(x.citation)}</span>${x.note?`<div class="small muted">${esc(x.note)}</div>`:""}${x.why?`<div class="small">${esc(x.why)}</div>`:""}</div>`).join(""); }
+function solHTML(list){ if(st.qt) list=list.filter(x=>x.type===st.qt); return list.map(x=>`<div class="sol"><span class="badge">${esc(x.type)}${x.addedBy==="user"?" · supplied by Mark":""}</span><a href="${esc(x.url)}" rel="noopener"><strong>${esc(x.title)}</strong></a> <span class="muted">${esc(x.citation)}</span>${x.note?`<div class="small muted">${esc(x.note)}</div>`:""}${x.why?`<div class="small">${esc(x.why)}</div>`:""}</div>`).join(""); }
+
+function peersHTML(id){
+  if(!D.as) return "";
+  const ev=D.evals.filter(e=>String(e.edition)==="3"&&e.scores[id]&&e.scores[id][0]>=4).sort((a,b)=>b.scores[id][0]-a.scores[id][0]||a.country.localeCompare(b.country));
+  if(!ev.length) return `<p class="small muted">No country in the data scored level 4–5 on this indicator yet.</p>`;
+  return `<p class="small"><strong>Peer examples:</strong> ${ev.length} countr${ev.length===1?"y":"ies"} scored level 4–5 on ${id}. Their JEE reports describe strengths and best practices for this indicator: ${ev.map(e=>`<a href="${esc(e.pdfUrl)}#page=${e.scores[id][1]}" rel="noopener" title="${esc(e.title)}">${esc(e.country)} ${e.year}</a> <span class="muted">(${e.scores[id][0]})</span>`).join(", ")}.</p>`;
+}
+function indTop(i){
+  const gen=D.solByQ[i.id+":*"]||[];
+  return `${peersHTML(i.id)}${gen.length?`<details class="small" style="margin:6px 0"><summary>Sources for the whole indicator (${gen.length})</summary>${solHTML(gen)}</details>`:""}`;
+}
 function vQuestions(open){
   const q=st.qq.trim().toLowerCase(), fw=D.fw;
   const total=fw.indicators.reduce((n,i)=>n+i.technicalQuestions.length,0);
@@ -191,7 +202,8 @@ function vQuestions(open){
   let h=`<p class="lead">All ${total} technical questions of the WHO JEE tool (3rd edition), per technical area and indicator, in WHO's wording. Under a question you find publications, protocols or tools that can help answer it or close the gap it points to. <strong>${withSrc} of ${total} questions have at least one source so far</strong>; the others are shown as “no source yet”, not as “none exists”.</p>
   <div class="bar"><input id="qq" type="search" placeholder="Search questions…" aria-label="Search questions" value="${esc(st.qq)}" size="30">
    <select id="qa" aria-label="Technical area"><option value="">All technical areas</option>${fw.technicalAreas.map(a=>`<option value="${a.id}" ${st.qa===a.id?"selected":""}>${a.id} ${esc(a.name)}</option>`).join("")}</select>
-   <select id="qf" aria-label="Sources"><option value="">All questions</option><option value="with" ${st.qf==="with"?"selected":""}>With sources</option><option value="without" ${st.qf==="without"?"selected":""}>Without sources yet</option></select></div>`;
+   <select id="qf" aria-label="Sources"><option value="">All questions</option><option value="with" ${st.qf==="with"?"selected":""}>With sources</option><option value="without" ${st.qf==="without"?"selected":""}>Without sources yet</option></select>
+   <select id="qt" aria-label="Source type"><option value="">All source types</option>${[...new Set(D.sol.map(x=>x.type))].sort().map(t=>`<option ${st.qt===t?"selected":""}>${esc(t)}</option>`).join("")}</select></div>`;
   let shown=0;
   for(const a of fw.technicalAreas){ if(st.qa&&a.id!==st.qa) continue;
     let ah="";
@@ -200,13 +212,13 @@ function vQuestions(open){
         if(st.qf==="with"&&!has) return false; if(st.qf==="without"&&has) return false;
         return !q||[t.text,...t.sub.map(s=>s.text),i.id,i.title].join(" ").toLowerCase().includes(q)});
       if(!qs.length) continue; shown+=qs.length;
-      ah+=`<details class="ind" ${(open===i.id||q||st.qf)?"open":""} id="qi-${i.id}"><summary><span class="id">${i.id}</span><span>${esc(i.title)}</span><span class="badge">${qs.length} question${qs.length>1?"s":""}</span></summary><div class="body"><ol class="qs">${qs.map(t=>{const n=t.id.replace("q","");const ss=D.solByQ[i.id+":"+t.id]||[];
+      ah+=`<details class="ind" ${(open===i.id||q||st.qf)?"open":""} id="qi-${i.id}"><summary><span class="id">${i.id}</span><span>${esc(i.title)}</span><span class="badge">${qs.length} question${qs.length>1?"s":""} · ${qs.filter(t=>D.solByQ[i.id+":"+t.id]||t.sub.some(s=>D.solByQ[i.id+":"+t.id+"."+s.k])).length} with sources</span></summary><div class="body">${indTop(i)}<ol class="qs">${qs.map(t=>{const n=t.id.replace("q","");const inSub=new Set(t.sub.flatMap(s=>(D.solByQ[i.id+":"+t.id+"."+s.k]||[]).map(x=>x.id)));const ss=(D.solByQ[i.id+":"+t.id]||[]).filter(x=>!inSub.has(x.id));
         return `<li value="${n}">${esc(t.text)} <span class="small muted">(manual p. ${t.page})</span>${t.sub.length?`<ol class="sub">${t.sub.map(s=>{const sl=D.solByQ[i.id+":"+t.id+"."+s.k]||[];return `<li>${esc(s.text)}${sl.length?solHTML(sl):""}</li>`}).join("")}</ol>`:""}${ss.length?solHTML(ss):(t.sub.some(s=>D.solByQ[i.id+":"+t.id+"."+s.k])?"":`<div class="nosrc">no source yet</div>`)}</li>`}).join("")}</ol><p class="small"><a href="#/indicators/${i.id}">Indicator definition and level descriptions</a></p></div></details>`; }
     if(ah) h+=`<div class="areahead"><span class="fn">${a.function}</span><h2>${a.id} · ${esc(a.name)}</h2></div>`+ah; }
   if(!shown) h+=`<p class="muted">No question matches.</p>`;
   view.innerHTML=h+`<p class="note">${esc((D.solMeta&&D.solMeta.status)||"")}</p>`;
   $("#qq").oninput=e=>{st.qq=e.target.value;const p=e.target.selectionStart;vQuestions();const n=$("#qq");n.focus();n.setSelectionRange(p,p)};
-  $("#qa").onchange=e=>{st.qa=e.target.value;vQuestions()}; $("#qf").onchange=e=>{st.qf=e.target.value;vQuestions()};
+  $("#qa").onchange=e=>{st.qa=e.target.value;vQuestions()}; $("#qf").onchange=e=>{st.qf=e.target.value;vQuestions()}; $("#qt").onchange=e=>{st.qt=e.target.value;vQuestions()};
   if(open){const el=document.getElementById("qi-"+open); if(el) el.scrollIntoView();}
 }
 
@@ -355,7 +367,8 @@ function vGaps(){
 function gapList(gaps){
   if(!gaps.length) return `<h2>Gaps</h2><p class="muted">Nothing at or below this level yet. Rate indicators above, or raise the threshold.</p>`;
   const seen=new Set(); let out=`<h2>Gaps (${gaps.length}) and practices that may help</h2>`;
-  gaps.forEach(g=>{ const ps=D.pByInd[g.id]||[]; out+=`<div class="card"><h3><a href="#/indicators/${g.id}">${g.id}</a> ${esc(g.title)} <span class="badge">level ${g.score} · ${LABELS[g.score]}</span></h3>${ps.length?ps.map(p=>`<p class="small" style="margin:4px 0"><a href="#/practices/${esc(p.id)}"><strong>${esc(p.title)}</strong></a> — ${esc(p.summary)}</p>`).join(""):`<p class="small muted">No practice is linked to this indicator yet.</p>`}</div>`; ps.forEach(p=>seen.add(p.id)); });
+  gaps.forEach(g=>{ const ps=D.pByInd[g.id]||[]; const nq=D.fw.indicators.find(x=>x.id===g.id).technicalQuestions.filter(t=>D.solByQ[g.id+":"+t.id]||t.sub.some(s=>D.solByQ[g.id+":"+t.id+"."+s.k])).length;
+    out+=`<div class="card"><h3><a href="#/indicators/${g.id}">${g.id}</a> ${esc(g.title)} <span class="badge">level ${g.score} · ${LABELS[g.score]}</span></h3><p class="small"><a href="#/questions/${g.id}">Technical questions with sources (${nq} questions with sources) and peer examples →</a></p>${ps.length?ps.map(p=>`<p class="small" style="margin:4px 0"><a href="#/practices/${esc(p.id)}"><strong>${esc(p.title)}</strong></a> — ${esc(p.summary)}</p>`).join(""):`<p class="small muted">No practice is linked to this indicator yet.</p>`}</div>`; ps.forEach(p=>seen.add(p.id)); });
   return out;
 }
 
@@ -380,6 +393,7 @@ function vAbout(){
    <li>Scores were read from the official report PDFs listed in the <a href="data/assessments.json">data file</a>; each score keeps its report, edition basis and PDF page. ${as?esc(as.method||""):""}</li>
    <li>Editions differ in indicators and wording, so scores are not directly comparable across v1, v2 and v3. WHO warns that a lower later score need not mean capacity declined.</li>
    <li>Reports are listed from the WHO SPH document library${reg?` (${reg.entries.length} entries retrieved ${esc(reg.retrieved)})`:""}. Some countries or reports are missing; absence here does not mean a country has had no JEE.</li></ul>
+  <h2>Sources per technical question</h2><p>${esc((D.solMeta&&D.solMeta.status)||"")} ${D.solMeta&&D.solMeta.nSources?`The set holds ${D.solMeta.nSources} sources covering ${D.solMeta.nQuestionsCovered} of ${D.solMeta.nQuestions} questions.`:""} Each indicator also lists the WHO benchmark actions for its technical area and, as peer examples, the countries that scored level 4–5 on it in a third-edition JEE, with a link to the page of their report.</p>
   <h2>Practices</h2><p>${esc(D.prMeta.status)}</p>
   <h2>Using this for a JEE you are preparing</h2><p>Read each indicator's five level descriptions, use the technical questions as discussion prompts, and rate the indicators on the “Find solutions” page for a first, informal view of gaps. That rating is not a JEE score.</p>
   <h2>Corrections</h2><p>Spotted an error? Open an issue on <a href="https://github.com/mvanpassel-cmyk/mvanpassel-cmyk.github.io/issues">GitHub</a>.</p>`;
