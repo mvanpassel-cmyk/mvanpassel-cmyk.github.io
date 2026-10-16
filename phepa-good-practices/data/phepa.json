@@ -1,0 +1,4656 @@
+{
+ "meta": {
+  "title": "PHEPA Good Practices",
+  "built": "2026-10-16",
+  "interim": {
+   "title": "Preliminary findings from the first cycle of Public Health Emergency Preparedness Assessments (interim report)",
+   "date": "4 Jun 2026",
+   "url": "https://www.ecdc.europa.eu/en/publications-data/preliminary-findings-first-cycle-public-health-emergency-preparedness-assessments",
+   "pdf": "https://www.ecdc.europa.eu/sites/default/files/documents/PHEPAs-findings-interim-report.pdf",
+   "countries": "Belgium, Croatia, Estonia, Finland, France, Iceland, Latvia, Lithuania, Luxembourg, Malta, the Netherlands, Norway, Portugal, Spain and Sweden (visits May 2024 to September 2025)"
+  },
+  "eu": {
+   "title": "Overview of recommendations on preparedness and response to serious cross-border threats",
+   "date": "25 Mar 2026",
+   "url": "https://www.ecdc.europa.eu/en/publications-data/overview-recommendations-preparedness-and-response-serious-cross-border-threats",
+   "pdf": "https://health.ec.europa.eu/document/download/af6ba058-d7ae-4575-87ac-416d4a1fc902_en?filename=security_preparedness-response_cbht_recommendations_en.pdf"
+  },
+  "guide": {
+   "title": "Guide for countries undergoing an ECDC Public Health Emergency Preparedness Assessment",
+   "url": "https://www.ecdc.europa.eu/en/publications-data/guide-countries-undergoing-ecdc-public-health-emergency-preparedness-assessment",
+   "pdf": "https://www.ecdc.europa.eu/sites/default/files/documents/PHEPA-Country-Practical-Guide.pdf"
+  },
+  "home": "https://www.ecdc.europa.eu/en/about-us/what-we-do/public-health-emergency-preparedness-assessments"
+ },
+ "capacities": [
+  {
+   "id": 1,
+   "name": "IHR implementation and coordination"
+  },
+  {
+   "id": 2,
+   "name": "Financing"
+  },
+  {
+   "id": 3,
+   "name": "Laboratory"
+  },
+  {
+   "id": 4,
+   "name": "Surveillance"
+  },
+  {
+   "id": 5,
+   "name": "Human resources"
+  },
+  {
+   "id": 6,
+   "name": "Health emergency management"
+  },
+  {
+   "id": 7,
+   "name": "Health service provision"
+  },
+  {
+   "id": 8,
+   "name": "Risk communication and community engagement (RCCE)"
+  },
+  {
+   "id": 9,
+   "name": "Points of entry and border health"
+  },
+  {
+   "id": 10,
+   "name": "Zoonotic diseases and threats of environmental origin, including those due to the climate"
+  },
+  {
+   "id": 11,
+   "name": "Chemical events"
+  },
+  {
+   "id": 12,
+   "name": "Antimicrobial resistance (AMR) and healthcare-associated infections (HAIs)"
+  },
+  {
+   "id": 13,
+   "name": "Union level coordination and support functions"
+  },
+  {
+   "id": 14,
+   "name": "Research, development and evaluations to inform and accelerate emergency preparedness"
+  },
+  {
+   "id": 15,
+   "name": "Recovery elements"
+  },
+  {
+   "id": 16,
+   "name": "Actions taken to improve gaps found in the implementation of prevention, preparedness and response plans"
+  }
+ ],
+ "topics": [
+  {
+   "id": "plan",
+   "cap": 6,
+   "title": "Prevention, preparedness and response planning",
+   "jee": [
+    "R1.1",
+    "P3.3",
+    "R1.3"
+   ],
+   "opp": [
+    "Complete operational content (hazard-specific plans, SOPs)",
+    "Formalise cross-sector and cross-level coordination",
+    "Review legislation to require regular analysis of a multi-hazard, multi-sectoral framework"
+   ]
+  },
+  {
+   "id": "risk",
+   "cap": 6,
+   "title": "Risk profiling and rapid risk assessment",
+   "jee": [
+    "R1.1"
+   ],
+   "opp": [
+    "Establish an all-hazard, multi-sectoral profiling process with SOPs",
+    "Update outcomes routinely and rank risks to inform hazard-specific plans and training"
+   ]
+  },
+  {
+   "id": "ims",
+   "cap": 6,
+   "title": "Incident management system, EOC and situational awareness",
+   "jee": [
+    "R1.2",
+    "R1.3"
+   ],
+   "opp": [
+    "Formalise the incident management system with clear management roles",
+    "Establish EOCs with SOPs and digital situational-awareness tools"
+   ]
+  },
+  {
+   "id": "phsm",
+   "cap": 6,
+   "title": "Public health and social measures",
+   "jee": [
+    "R1.3"
+   ],
+   "opp": [
+    "Create a multidisciplinary mechanism to monitor and evaluate PHSMs, collecting data on effectiveness, timeliness and impact"
+   ]
+  },
+  {
+   "id": "ex",
+   "cap": 6,
+   "title": "Exercises and after-action reviews",
+   "jee": [
+    "R1.1",
+    "R1.3"
+   ],
+   "opp": [
+    "Build a structured multi-sector exercise programme with sustainable funding",
+    "Routinely conduct after-action reviews scaled to event complexity; add training in strategic decision-making"
+   ]
+  },
+  {
+   "id": "xb",
+   "cap": 6,
+   "title": "Cross-border collaboration and mutual aid",
+   "jee": [
+    "R1.4",
+    "P3.2"
+   ],
+   "opp": [
+    "Develop a clear framework for cross-border collaboration and mutual aid where not yet formalised"
+   ]
+  },
+  {
+   "id": "mcmid",
+   "cap": 6,
+   "title": "Identifying crisis-relevant medical countermeasures (MCMs)",
+   "jee": [
+    "R1.5"
+   ],
+   "opp": [
+    "Use formally documented methodologies anchored in risk profiling, aligned with EU definitions, reviewed regularly"
+   ]
+  },
+  {
+   "id": "mcmon",
+   "cap": 6,
+   "title": "Monitoring MCM supply and estimating demand",
+   "jee": [
+    "R1.5"
+   ],
+   "opp": [
+    "Interoperable tools for routine monitoring across MCM categories, aligned with Council Regulation (EU) 2022/2372, minimising reporting burden"
+   ]
+  },
+  {
+   "id": "sup",
+   "cap": 6,
+   "title": "Supply chain vulnerabilities, production scale-up and flexibility",
+   "jee": [
+    "R1.5"
+   ],
+   "opp": [
+    "Integrate vulnerability analysis, capacity mapping and scale-up preparedness into one framework; clarify the mix of national, regional and EU instruments"
+   ]
+  },
+  {
+   "id": "stock",
+   "cap": 6,
+   "title": "Strategic stockpiles",
+   "jee": [
+    "R1.5"
+   ],
+   "opp": [
+    "Coherent national stockpiling strategies aligned with risk profiling; mixed models (physical, virtual, rotating); shared arrangements across clusters"
+   ]
+  },
+  {
+   "id": "lscale",
+   "cap": 3,
+   "title": "Laboratory scale-up and crisis response",
+   "jee": [
+    "D1.3",
+    "D1.4"
+   ],
+   "opp": [
+    "A strategic multi-level scale-up approach within preparedness plans",
+    "Formal agreements and dedicated funding in advance; use lessons of simulation exercises"
+   ]
+  },
+  {
+   "id": "lnet",
+   "cap": 3,
+   "title": "Laboratory network and reference laboratory roles",
+   "jee": [
+    "D1.4"
+   ],
+   "opp": []
+  },
+  {
+   "id": "ldata",
+   "cap": 3,
+   "title": "Laboratory reporting, genomics and bioinformatics",
+   "jee": [
+    "D1.3",
+    "D2.3"
+   ],
+   "opp": [
+    "Automated national reporting integrating genomic data",
+    "Better bioinformatics and electronic laboratory systems; interoperability and data-sharing SOPs"
+   ]
+  },
+  {
+   "id": "lbio",
+   "cap": 3,
+   "title": "Biosafety, biosecurity and BSL-4 access",
+   "jee": [
+    "P7.1",
+    "P7.2"
+   ],
+   "opp": [
+    "Strengthen biosecurity guidelines and responsible bodies; legislate biosafety roles",
+    "Formalise BSL-4 access agreements for countries without one"
+   ]
+  },
+  {
+   "id": "lqa",
+   "cap": 3,
+   "title": "Laboratory quality, sample referral and transport",
+   "jee": [
+    "D1.1",
+    "D1.2"
+   ],
+   "opp": [
+    "Ensure a high proportion of national labs are accredited or licensed with quality systems fully implemented"
+   ]
+  },
+  {
+   "id": "sresp",
+   "cap": 4,
+   "title": "Respiratory infection surveillance",
+   "jee": [
+    "D2.1",
+    "D2.3"
+   ],
+   "opp": [
+    "Further digitise and automate",
+    "Enhance SARI surveillance, possibly using electronic health record data"
+   ]
+  },
+  {
+   "id": "scap",
+   "cap": 4,
+   "title": "Monitoring healthcare capacity",
+   "jee": [
+    "D2.3",
+    "R3.3"
+   ],
+   "opp": [
+    "Automated, routine capacity monitoring, with particular attention to ICUs"
+   ]
+  },
+  {
+   "id": "sww",
+   "cap": 4,
+   "title": "Wastewater-based surveillance",
+   "jee": [
+    "D2.1"
+   ],
+   "opp": [
+    "Secure sustainable funding and integration with national surveillance"
+   ]
+  },
+  {
+   "id": "sthr",
+   "cap": 4,
+   "title": "Threat assessment, modelling and vaccine effectiveness",
+   "jee": [
+    "D2.2",
+    "D2.3"
+   ],
+   "opp": [
+    "Routinely collect and strengthen complementary data, such as vaccination status"
+   ]
+  },
+  {
+   "id": "sews",
+   "cap": 4,
+   "title": "Early warning and event-based surveillance",
+   "jee": [
+    "D2.1",
+    "D2.2"
+   ],
+   "opp": [
+    "Develop a dedicated event-management tool or platform (e.g. Epi+)"
+   ]
+  },
+  {
+   "id": "sdig",
+   "cap": 4,
+   "title": "Digital, legal and data-linkage foundations for surveillance",
+   "jee": [
+    "D2.1",
+    "D2.3"
+   ],
+   "opp": []
+  },
+  {
+   "id": "nap",
+   "cap": 12,
+   "title": "National action plans for AMR and One Health coordination",
+   "jee": [
+    "P4.1"
+   ],
+   "opp": [
+    "Highlight transversal One Health actions",
+    "Add a public monitoring and evaluation framework",
+    "Ensure resources across sectors and levels, including local"
+   ]
+  },
+  {
+   "id": "ams",
+   "cap": 12,
+   "title": "Antimicrobial stewardship and prescriber feedback",
+   "jee": [
+    "P4.4",
+    "P4.5"
+   ],
+   "opp": [
+    "Use electronic prescription data for prescriber feedback, collecting indications; apply the WHO AWaRe classification",
+    "Establish and resource regional and local stewardship programmes"
+   ]
+  },
+  {
+   "id": "mdro",
+   "cap": 12,
+   "title": "Preparedness for multidrug-resistant organisms (MDROs)",
+   "jee": [
+    "P4.3",
+    "P4.2"
+   ],
+   "opp": [
+    "Identify priority MDROs; clarify notification processes",
+    "Build integrated analytical systems; set measurable CRE-control targets, timelines and monitoring"
+   ]
+  },
+  {
+   "id": "hai",
+   "cap": 12,
+   "title": "Healthcare-associated infection (HAI) and AMR surveillance",
+   "jee": [
+    "R4.2",
+    "P4.2"
+   ],
+   "opp": [
+    "Define the national strategy and its links to IPC; IT that integrates HAI and IPC data",
+    "Strengthen regional and professional-society collaboration; use outbreak-investigation outputs"
+   ]
+  },
+  {
+   "id": "ipc",
+   "cap": 12,
+   "title": "Infection prevention and control (IPC) programmes",
+   "jee": [
+    "R4.1",
+    "R4.3"
+   ],
+   "opp": [
+    "Formalise national IPC programmes",
+    "Strengthen regional and facility collaboration and evaluation; develop IPC training with education partners"
+   ]
+  },
+  {
+   "id": "oh",
+   "cap": 10,
+   "title": "One Health governance and coordination",
+   "jee": [
+    "P5.1",
+    "P5.2",
+    "P3.2"
+   ],
+   "opp": [
+    "Formalise One Health coordination and roles across sectors (interim report: often informal, ad hoc)"
+   ]
+  },
+  {
+   "id": "zsurv",
+   "cap": 10,
+   "title": "Joint zoonoses surveillance, laboratories and risk assessment",
+   "jee": [
+    "P5.1",
+    "P5.2"
+   ],
+   "opp": []
+  },
+  {
+   "id": "clim",
+   "cap": 10,
+   "title": "Climate and environmental health threats",
+   "jee": [
+    "P5.2"
+   ],
+   "opp": []
+  },
+  {
+   "id": "rcce",
+   "cap": 8,
+   "title": "Risk communication, community engagement and infodemic management",
+   "jee": [
+    "R5.1",
+    "R5.2",
+    "R5.3"
+   ],
+   "opp": []
+  },
+  {
+   "id": "hsp",
+   "cap": 7,
+   "title": "Health service provision and continuity of essential services",
+   "jee": [
+    "R3.3",
+    "R3.1",
+    "R3.2"
+   ],
+   "opp": []
+  },
+  {
+   "id": "union",
+   "cap": 13,
+   "title": "Union-level coordination and EU support functions",
+   "jee": [
+    "P3.1",
+    "P3.2"
+   ],
+   "opp": []
+  },
+  {
+   "id": "c1",
+   "cap": 1,
+   "title": "IHR implementation and coordination",
+   "jee": [
+    "P1.1",
+    "P3.2"
+   ],
+   "opp": []
+  },
+  {
+   "id": "c2",
+   "cap": 2,
+   "title": "Financing",
+   "jee": [
+    "P2.1",
+    "P2.2"
+   ],
+   "opp": []
+  },
+  {
+   "id": "c5",
+   "cap": 5,
+   "title": "Human resources",
+   "jee": [
+    "D3.1",
+    "D3.2",
+    "D3.3",
+    "D3.4"
+   ],
+   "opp": []
+  },
+  {
+   "id": "c9",
+   "cap": 9,
+   "title": "Points of entry and border health",
+   "jee": [
+    "PoE1",
+    "PoE2",
+    "PoE3"
+   ],
+   "opp": []
+  },
+  {
+   "id": "c11",
+   "cap": 11,
+   "title": "Chemical events",
+   "jee": [
+    "CE1",
+    "CE2"
+   ],
+   "opp": []
+  },
+  {
+   "id": "c14",
+   "cap": 14,
+   "title": "Research, development and evaluation",
+   "jee": [
+    "R1.6"
+   ],
+   "opp": []
+  },
+  {
+   "id": "c15",
+   "cap": 15,
+   "title": "Recovery elements",
+   "jee": [
+    "R1.3"
+   ],
+   "opp": []
+  },
+  {
+   "id": "c16",
+   "cap": 16,
+   "title": "Acting on gaps found in implementation of plans",
+   "jee": [
+    "P3.3"
+   ],
+   "opp": []
+  }
+ ],
+ "countries": [
+  {
+   "id": "be",
+   "name": "Belgium",
+   "year": "2024",
+   "visit": "May 2024",
+   "published": "11 Jul 2024",
+   "pdf": "https://www.ecdc.europa.eu/sites/default/files/documents/PHEPA-Belgium-2024.pdf",
+   "url": "https://www.ecdc.europa.eu/en/publications-data/public-health-emergency-preparedness-assessment-belgium-2024",
+   "caps": [
+    3,
+    4,
+    6,
+    10,
+    12
+   ],
+   "summary": "First assessment of Belgium's planning under Article 8 of Regulation (EU) 2022/2371."
+  },
+  {
+   "id": "ee",
+   "name": "Estonia",
+   "year": "2024",
+   "visit": "",
+   "published": "9 Apr 2025",
+   "pdf": "https://www.ecdc.europa.eu/sites/default/files/documents/country-report-public-health-emergency-preparedness-assessment-estonia-2024.pdf",
+   "url": "https://www.ecdc.europa.eu/en/publications-data/country-report-ecdc-public-health-emergency-preparedness-assessment-estonia-2024",
+   "caps": [
+    3,
+    4,
+    6,
+    10,
+    12
+   ],
+   "summary": "Post-COVID laboratory investments (incl. WGS) strengthen preparedness; budget cuts and workforce shortage are risks."
+  },
+  {
+   "id": "fi",
+   "name": "Finland",
+   "year": "2024",
+   "visit": "10–14 Jun 2024",
+   "published": "2025",
+   "pdf": "https://www.ecdc.europa.eu/sites/default/files/documents/PHEPA%20-%20Finland%202024%20-%20FINAL%20with%20covers.pdf",
+   "url": "https://www.ecdc.europa.eu/en/publications-data/country-report-ecdc-public-health-emergency-preparedness-assessment-finland-2024",
+   "caps": [
+    3,
+    4,
+    6,
+    10,
+    12
+   ],
+   "summary": "Desk review and five-day mission; Finland's own action plan was developed without ECDC input."
+  },
+  {
+   "id": "es",
+   "name": "Spain",
+   "year": "2024",
+   "visit": "14–18 Oct 2024",
+   "published": "24 Jul 2025",
+   "pdf": "https://www.ecdc.europa.eu/sites/default/files/documents/AAA-20240223-234%20-%20SPAIN%20final%20with%20covers%20v2%20JD2.pdf",
+   "url": "https://www.ecdc.europa.eu/en/publications-data/country-report-ecdc-public-health-emergency-preparedness-assessment-spain-2024",
+   "caps": [
+    3,
+    4,
+    6,
+    8,
+    12
+   ],
+   "summary": "Strong cross-sector collaboration; decentralised system needs stronger national–regional coordination; fifth capacity chosen: RCCE."
+  },
+  {
+   "id": "lu",
+   "name": "Luxembourg",
+   "year": "2025",
+   "visit": "Dec 2024",
+   "published": "2 Jul 2025",
+   "pdf": "https://www.ecdc.europa.eu/sites/default/files/documents/phepa-luxembourg-2025.pdf",
+   "url": "https://www.ecdc.europa.eu/en/publications-data/country-report-ecdc-public-health-emergency-preparedness-assessment-luxembourg",
+   "caps": [
+    3,
+    4,
+    6,
+    10,
+    12
+   ],
+   "summary": "Strengths in resource reallocation, lab and surveillance scale-up; weaknesses in database interoperability and specialised staff."
+  },
+  {
+   "id": "nl",
+   "name": "Netherlands",
+   "year": "2025",
+   "visit": "27–31 Jan 2025",
+   "published": "8 Sep 2025",
+   "pdf": "https://open.overheid.nl/documenten/148e19d5-5d1a-49c7-bb7c-a0d8722ce48e/file",
+   "url": "https://www.rijksoverheid.nl/documenten/rapporten/2025/09/08/jee-phepa-the-netherlands",
+   "caps": [
+    3,
+    4,
+    6,
+    10,
+    12
+   ],
+   "summary": "Combined WHO JEE and ECDC PHEPA mission report. Only the PHEPA recommendations and the AMR and zoonoses capacities were read in detail here."
+  },
+  {
+   "id": "lv",
+   "name": "Latvia",
+   "year": "2025",
+   "visit": "Mar 2025",
+   "published": "10 Oct 2025",
+   "pdf": "https://www.ecdc.europa.eu/sites/default/files/documents/PHEPA-report-Latvia.pdf",
+   "url": "https://www.ecdc.europa.eu/en/publications-data/country-report-ecdc-public-health-emergency-preparedness-assessment-latvia-2025",
+   "caps": [
+    3,
+    4,
+    6,
+    10,
+    12
+   ],
+   "summary": "Centralised system with a national health emergency plan; outdated surveillance system, BSL-4 access not formalised, CRE outbreak in hospitals."
+  },
+  {
+   "id": "is",
+   "name": "Iceland",
+   "year": "2025",
+   "visit": "early Jun 2025",
+   "published": "13 Oct 2025",
+   "pdf": "https://www.ecdc.europa.eu/sites/default/files/documents/phepa-iceland.pdf",
+   "url": "https://www.ecdc.europa.eu/en/publications-data/country-report-ecdc-public-health-emergency-preparedness-assessment-iceland-2025",
+   "caps": [
+    3,
+    4,
+    6,
+    10,
+    12
+   ],
+   "summary": "Strong cross-sector collaborative culture built through natural hazard responses; public health duties less consistently embedded in healthcare services."
+  },
+  {
+   "id": "fr",
+   "name": "France",
+   "year": "2025",
+   "visit": "Jun 2025",
+   "published": "27 Jan 2026",
+   "pdf": "https://www.ecdc.europa.eu/sites/default/files/documents/country-report-ECDC-public-health-emergency-preparedness-assessment-france.pdf",
+   "url": "https://www.ecdc.europa.eu/en/publications-data/country-report-ecdc-public-health-emergency-preparedness-assessment-france-2025",
+   "caps": [
+    3,
+    4,
+    6,
+    7,
+    12
+   ],
+   "summary": "Fifth in-depth capacity: health service provision."
+  },
+  {
+   "id": "lt",
+   "name": "Lithuania",
+   "year": "2025",
+   "visit": "15–19 Sep 2025",
+   "published": "16 Jun 2026",
+   "pdf": "https://www.ecdc.europa.eu/sites/default/files/documents/lithuania-phepa-report.pdf",
+   "url": "https://www.ecdc.europa.eu/en/publications-data/country-report-ecdc-public-health-emergency-preparedness-assessment-lithuania",
+   "caps": [
+    3,
+    4,
+    6,
+    10,
+    12
+   ],
+   "summary": "All 16 capacities reviewed against the Article 7 template and SPAR."
+  },
+  {
+   "id": "cy",
+   "name": "Cyprus",
+   "year": "2025",
+   "visit": "1–5 Dec 2025",
+   "published": "25 Jun 2026",
+   "pdf": "https://www.ecdc.europa.eu/sites/default/files/documents/ECDC%20Public%20Health%20Emergency%20Preparedness%20Assessment%20for%20Cyprus%202025_final_with_covers_public.pdf",
+   "url": "https://www.ecdc.europa.eu/en/publications-data/country-report-ecdc-public-health-emergency-preparedness-assessment-cyprus-2025",
+   "caps": [
+    3,
+    4,
+    6,
+    10,
+    12
+   ],
+   "summary": "All 16 capacities assessed; five in depth."
+  },
+  {
+   "id": "li",
+   "name": "Liechtenstein",
+   "year": "2026",
+   "visit": "2–6 Mar 2026",
+   "published": "9 Sep 2026",
+   "pdf": "https://www.ecdc.europa.eu/sites/default/files/documents/LIECHTENSTEIN-PHEPA.pdf",
+   "url": "https://www.ecdc.europa.eu/en/publications-data/country-report-ecdc-public-health-emergency-preparedness-assessment-liechtenstein",
+   "caps": [
+    3,
+    4,
+    6,
+    12,
+    13
+   ],
+   "summary": "Close integration with Swiss systems; fifth in-depth capacity: Union-level coordination."
+  }
+ ],
+ "eu": [
+  {
+   "area": "Prevention, preparedness and response planning",
+   "recs": [
+    {
+     "n": 1,
+     "x": "Plans should cover biological, chemical, environmental, unknown and other relevant threats.",
+     "topics": [
+      "plan"
+     ]
+    },
+    {
+     "n": 2,
+     "x": "Regular risk profiling should be built into planning.",
+     "topics": [
+      "risk"
+     ]
+    },
+    {
+     "n": 3,
+     "x": "The One Health approach should be strengthened, with cross-sector collaboration across human, animal and environmental health.",
+     "topics": [
+      "oh"
+     ]
+    },
+    {
+     "n": 4,
+     "x": "Recovery should be treated as an essential part of incident response and reflected in plans.",
+     "topics": [
+      "c15"
+     ]
+    },
+    {
+     "n": 5,
+     "x": "Crisis-relevant medical countermeasures should be part of plans (stockpiling, manufacturing, supply chains, innovation) with a clear account of how they complement each other.",
+     "topics": [
+      "mcmid",
+      "stock",
+      "sup"
+     ]
+    },
+    {
+     "n": 6,
+     "x": "Plans should set out emergency research and innovation strategies, including fast ways to assess and approve research and mobilise dedicated funding.",
+     "topics": [
+      "c14"
+     ]
+    },
+    {
+     "n": 7,
+     "x": "Plans should describe coordination with EU institutions and cross-border and EU-level support mechanisms.",
+     "topics": [
+      "xb",
+      "union"
+     ]
+    },
+    {
+     "n": 8,
+     "x": "Regular testing, including simulation exercises and in-action and after-action reviews, should inform plan updates.",
+     "topics": [
+      "ex"
+     ]
+    }
+   ]
+  },
+  {
+   "area": "Surveillance and early detection",
+   "recs": [
+    {
+     "n": 1,
+     "x": "Laboratory systems should scale up rapidly in emergencies: forecast surge testing needs, establish scale-up strategies (including the commercial sector) and test them regularly.",
+     "topics": [
+      "lscale"
+     ]
+    },
+    {
+     "n": 2,
+     "x": "Surveillance should be digital and interoperable, linking laboratory, clinical and epidemiological data across sectors for early warning and all-hazards monitoring.",
+     "topics": [
+      "sdig",
+      "sresp",
+      "ldata"
+     ]
+    },
+    {
+     "n": 3,
+     "x": "The One Health approach should be fully implemented, with stronger coordination, surveillance and information sharing, and attention to climate effects on zoonotic risks.",
+     "topics": [
+      "oh",
+      "zsurv",
+      "clim"
+     ]
+    },
+    {
+     "n": 4,
+     "x": "AMR National Action Plans should be current, funded and aligned with EU targets, backed by IPC and antimicrobial stewardship in all healthcare settings.",
+     "topics": [
+      "nap",
+      "ams",
+      "ipc"
+     ]
+    }
+   ]
+  },
+  {
+   "area": "Response, surge capacity and continuity of essential services",
+   "recs": [
+    {
+     "n": 1,
+     "x": "Health workforce surge plans should be reviewed and tested regularly; long-term workforce needs assessed; procedures set up to mobilise extra personnel, including cross-border deployments.",
+     "topics": [
+      "c5"
+     ]
+    },
+    {
+     "n": 2,
+     "x": "Crisis-relevant MCMs should be held in risk-based strategic stockpiles, managed sustainably (rotation, expiry management, virtual stocks) and supported by legal frameworks; supply monitored, demand assessed and production scaled up.",
+     "topics": [
+      "stock",
+      "mcmon",
+      "sup"
+     ]
+    },
+    {
+     "n": 3,
+     "x": "Public health and social measures should follow a clear evidence-based framework with real-time evaluation.",
+     "topics": [
+      "phsm"
+     ]
+    },
+    {
+     "n": 4,
+     "x": "Essential health services should continue under tested business continuity plans; border regions should have procedures for cross-border patient transfers when clinically required.",
+     "topics": [
+      "hsp"
+     ]
+    },
+    {
+     "n": 5,
+     "x": "Risk communication plans should be ready to activate, regularly evaluated and support inclusive community engagement.",
+     "topics": [
+      "rcce"
+     ]
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "c": "be",
+   "t": "lscale",
+   "k": "S",
+   "x": "Sciensano can coordinate reference labs, clinical labs and testing scale-up in a crisis under amended legislation",
+   "p": 5
+  },
+  {
+   "c": "be",
+   "t": "lscale",
+   "k": "S",
+   "x": "A federal PCR testing platform built during COVID-19 had a theoretical capacity of 48,000 tests per day",
+   "p": 5
+  },
+  {
+   "c": "be",
+   "t": "lnet",
+   "k": "S",
+   "x": "Tiered network of over 100 clinical labs works with reference labs for diagnosis and confirmation, with a legal basis and state funding",
+   "p": 6
+  },
+  {
+   "c": "be",
+   "t": "lqa",
+   "k": "S",
+   "x": "Reference labs must hold ISO 15189 accreditation, supervised by the national accreditation body",
+   "p": 6
+  },
+  {
+   "c": "be",
+   "t": "lbio",
+   "k": "S",
+   "x": "High biosafety standards: five BSL-3 labs at Sciensano and a formal agreement for BSL-4 sample referral",
+   "p": 6
+  },
+  {
+   "c": "be",
+   "t": "lqa",
+   "k": "S",
+   "x": "Category A and B sample transport is covered by standard routines and an agreement with international couriers",
+   "p": 6
+  },
+  {
+   "c": "be",
+   "t": "ldata",
+   "k": "S",
+   "x": "Whole genome sequencing capacity is spread across Sciensano, reference labs and some clinical labs",
+   "p": 6
+  },
+  {
+   "c": "be",
+   "t": "lscale",
+   "k": "R",
+   "x": "Finish the COVID-19 testing scale-up lessons learned and ensure a formal surge testing plan beyond 2025",
+   "p": 7
+  },
+  {
+   "c": "be",
+   "t": "ldata",
+   "k": "R",
+   "x": "Finish the be.Prepared platform for automated laboratory and epidemiological reporting, including genomic data and clinical lab onboarding",
+   "p": 7
+  },
+  {
+   "c": "be",
+   "t": "lbio",
+   "k": "R",
+   "x": "Strengthen biosecurity, which is less developed than biosafety, through guidance and possibly legislation",
+   "p": 7
+  },
+  {
+   "c": "be",
+   "t": "sresp",
+   "k": "S",
+   "x": "Robust surveillance of acute respiratory infections across primary care, hospitals and long-term care facilities",
+   "p": 7
+  },
+  {
+   "c": "be",
+   "t": "sresp",
+   "k": "S",
+   "x": "A sentinel network of about 50 clinical labs shares weekly positive-test data with Sciensano",
+   "p": 7
+  },
+  {
+   "c": "be",
+   "t": "sww",
+   "k": "S",
+   "x": "Wastewater monitoring since 2021 covers polio, influenza and RSV",
+   "p": 7
+  },
+  {
+   "c": "be",
+   "t": "sresp",
+   "k": "S",
+   "x": "Mortality monitoring (Be-MOMO), a weekly respiratory bulletin and a GP barometer with daily reporting from about 2% of the population",
+   "p": 7
+  },
+  {
+   "c": "be",
+   "t": "sthr",
+   "k": "S",
+   "x": "Modelling, transmission and vaccine-effectiveness capacity developed with academic partners",
+   "p": 8
+  },
+  {
+   "c": "be",
+   "t": "sdig",
+   "k": "R",
+   "x": "Digitise and automate surveillance systems to reduce reporting burden and improve nationwide coverage",
+   "p": 8
+  },
+  {
+   "c": "be",
+   "t": "sresp",
+   "k": "R",
+   "x": "Expand GP-based electronic ARI surveillance and automate SARI hospital reporting from electronic health records",
+   "p": 8
+  },
+  {
+   "c": "be",
+   "t": "sresp",
+   "k": "R",
+   "x": "Add surge plans for scaling up surveillance, such as more reporting sites and faster reporting",
+   "p": 8
+  },
+  {
+   "c": "be",
+   "t": "scap",
+   "k": "R",
+   "x": "Find and use alternative data sources to monitor healthcare capacity, including hospital beds",
+   "p": 8
+  },
+  {
+   "c": "be",
+   "t": "sww",
+   "k": "R",
+   "x": "Document wastewater monitoring governance and evaluate its outputs and cost-effectiveness",
+   "p": 8
+  },
+  {
+   "c": "be",
+   "t": "sthr",
+   "k": "R",
+   "x": "Define protocols for investigating new pathogens and set up vaccination-registry data-sharing agreements",
+   "p": 8
+  },
+  {
+   "c": "be",
+   "t": "sdig",
+   "k": "R",
+   "x": "Harmonise notifiable disease lists and case definitions across regions, in line with EU law",
+   "p": 8
+  },
+  {
+   "c": "be",
+   "t": "plan",
+   "k": "S",
+   "x": "The General Preparedness Plan (Dec 2023) is comprehensive",
+   "p": 9
+  },
+  {
+   "c": "be",
+   "t": "plan",
+   "k": "S",
+   "x": "The Viral Outbreak Plan groups pathogens by transmission mode, avoiding a separate plan for each pathogen",
+   "p": 9
+  },
+  {
+   "c": "be",
+   "t": "plan",
+   "k": "S",
+   "x": "Federated entities use a similar building-block approach to emergency planning, which simplifies understanding",
+   "p": 9
+  },
+  {
+   "c": "be",
+   "t": "risk",
+   "k": "S",
+   "x": "National risk profiling runs every three years, coordinated by the national crisis centre (NCCN)",
+   "p": 10
+  },
+  {
+   "c": "be",
+   "t": "risk",
+   "k": "S",
+   "x": "Roles of the Risk Assessment Group and Risk Management Group are clear",
+   "p": 10
+  },
+  {
+   "c": "be",
+   "t": "mcmid",
+   "k": "S",
+   "x": "Critical medical countermeasures for stockpiling were identified with guidance from a scientific committee",
+   "p": 10
+  },
+  {
+   "c": "be",
+   "t": "mcmon",
+   "k": "S",
+   "x": "A stock monitoring pilot began in November 2023 and covers eight active ingredients",
+   "p": 11
+  },
+  {
+   "c": "be",
+   "t": "stock",
+   "k": "S",
+   "x": "Physical stockpiles exist for CBRN and pandemic countermeasures, and at regional level for PPE",
+   "p": 12
+  },
+  {
+   "c": "be",
+   "t": "plan",
+   "k": "R",
+   "x": "Clarify the vision and scope of the emergency management framework and align federal and regional efforts",
+   "p": 9
+  },
+  {
+   "c": "be",
+   "t": "plan",
+   "k": "R",
+   "x": "Separate the strategic role of the General Preparedness Plan from the operational role of the Viral Outbreak Plan and link federal and regional plans",
+   "p": 9
+  },
+  {
+   "c": "be",
+   "t": "risk",
+   "k": "R",
+   "x": "Involve federated entities more in the next risk profiling cycle",
+   "p": 10
+  },
+  {
+   "c": "be",
+   "t": "xb",
+   "k": "R",
+   "x": "Map and formalise cross-border mutual aid agreements",
+   "p": 10
+  },
+  {
+   "c": "be",
+   "t": "ex",
+   "k": "R",
+   "x": "Build a programme of simulation exercises to test the new framework",
+   "p": 10
+  },
+  {
+   "c": "be",
+   "t": "mcmon",
+   "k": "R",
+   "x": "Coordinate federal and regional MCM monitoring and document it",
+   "p": 11
+  },
+  {
+   "c": "be",
+   "t": "sup",
+   "k": "R",
+   "x": "Add provisions for supply chain vulnerabilities and production capacity mapping",
+   "p": 11
+  },
+  {
+   "c": "be",
+   "t": "sup",
+   "k": "R",
+   "x": "Explore arrangements to scale up manufacturing of crisis-relevant MCMs",
+   "p": 11
+  },
+  {
+   "c": "be",
+   "t": "stock",
+   "k": "R",
+   "x": "Develop the stockpile strategy with clear responsibilities and better quantification methods",
+   "p": 12
+  },
+  {
+   "c": "be",
+   "t": "oh",
+   "k": "S",
+   "x": "Federal and regional bodies collaborate through established working groups on zoonoses, foodborne infections, heat and vectors",
+   "p": 13
+  },
+  {
+   "c": "be",
+   "t": "zsurv",
+   "k": "S",
+   "x": "Sciensano centralises zoonotic human data and acts as reference centre for some diseases in both animal and human health",
+   "p": 13
+  },
+  {
+   "c": "be",
+   "t": "zsurv",
+   "k": "S",
+   "x": "The RAG-V-EZ group, set up in 2023, scans and monitors emerging zoonoses",
+   "p": 14
+  },
+  {
+   "c": "be",
+   "t": "zsurv",
+   "k": "S",
+   "x": "Competent authorities publish guidance on handling dead wild animals",
+   "p": 14
+  },
+  {
+   "c": "be",
+   "t": "oh",
+   "k": "S",
+   "x": "One Health training is offered through academic courses",
+   "p": 14
+  },
+  {
+   "c": "be",
+   "t": "oh",
+   "k": "S",
+   "x": "The PREZODE Expert Group submitted One Health policy recommendations to ministers in 2023",
+   "p": 14
+  },
+  {
+   "c": "be",
+   "t": "clim",
+   "k": "S",
+   "x": "The NEHAP and the Ozone & Heat plan cover climate-related health risks including vectors; Flanders has a Climate Health Plan",
+   "p": 14
+  },
+  {
+   "c": "be",
+   "t": "oh",
+   "k": "R",
+   "x": "Establish a cross-sectoral prioritised list of zoonotic diseases for One Health surveillance",
+   "p": 15
+  },
+  {
+   "c": "be",
+   "t": "oh",
+   "k": "R",
+   "x": "Create formal One Health governance across animal health, public health and environment, including information sharing",
+   "p": 15
+  },
+  {
+   "c": "be",
+   "t": "zsurv",
+   "k": "R",
+   "x": "Finalise the zoonotic and vector modules of the Viral Outbreak Plan",
+   "p": 15
+  },
+  {
+   "c": "be",
+   "t": "clim",
+   "k": "R",
+   "x": "Link the General Preparedness Plan to climate and environmental health plans",
+   "p": 15
+  },
+  {
+   "c": "be",
+   "t": "oh",
+   "k": "R",
+   "x": "Run joint simulations and training for One Health professionals on non-foodborne zoonoses",
+   "p": 15
+  },
+  {
+   "c": "be",
+   "t": "nap",
+   "k": "S",
+   "x": "A One Health National Action Plan on AMR is in place and the 2025–2029 plan is being developed",
+   "p": 16
+  },
+  {
+   "c": "be",
+   "t": "nap",
+   "k": "S",
+   "x": "The BELMAP One Health report provides a strong basis for AMR and antimicrobial consumption monitoring",
+   "p": 16
+  },
+  {
+   "c": "be",
+   "t": "nap",
+   "k": "S",
+   "x": "BAPCOC has coordinated cross-sectoral antibiotic and AMR policy since 1999; public awareness campaigns are a strong point",
+   "p": 16
+  },
+  {
+   "c": "be",
+   "t": "hai",
+   "k": "S",
+   "x": "Long-standing, high-quality AMR surveillance coordinated by Sciensano; Belgium joins HAI point prevalence surveys",
+   "p": 16
+  },
+  {
+   "c": "be",
+   "t": "ams",
+   "k": "S",
+   "x": "Electronic prescribing feedback through an online barometer, with financial incentives, supports prescriber behaviour change",
+   "p": 16
+  },
+  {
+   "c": "be",
+   "t": "mdro",
+   "k": "S",
+   "x": "Dedicated outbreak support teams (HOST, OST) build capacity to manage MDRO outbreaks",
+   "p": 16
+  },
+  {
+   "c": "be",
+   "t": "nap",
+   "k": "R",
+   "x": "Formalise decision-making for the AMR action plan, involving federated entities early",
+   "p": 16
+  },
+  {
+   "c": "be",
+   "t": "nap",
+   "k": "R",
+   "x": "Highlight One Health aspects and set achievable, monitorable targets aligned with EU recommendations; add monitoring and evaluation",
+   "p": 16
+  },
+  {
+   "c": "be",
+   "t": "ams",
+   "k": "R",
+   "x": "Expand prescribing interventions such as clinical decision support and dispensing limits; consider the WHO AWaRe classification",
+   "p": 17
+  },
+  {
+   "c": "be",
+   "t": "mdro",
+   "k": "R",
+   "x": "Identify high-priority MDROs, clarify notification and response, and evaluate rapid detection and response systems",
+   "p": 17
+  },
+  {
+   "c": "be",
+   "t": "ipc",
+   "k": "R",
+   "x": "Establish a National IPC Programme to target priority HAIs and close national gaps",
+   "p": 17
+  },
+  {
+   "c": "ee",
+   "t": "lscale",
+   "k": "S",
+   "x": "Laboratory capability advanced quickly, including next-generation sequencing; the central communicable diseases lab is accredited with some capacity to scale up",
+   "p": 6
+  },
+  {
+   "c": "ee",
+   "t": "ldata",
+   "k": "S",
+   "x": "Post-COVID-19 investment created in-country WGS and bioinformatics, and BSL-3 capacity exists",
+   "p": 6
+  },
+  {
+   "c": "ee",
+   "t": "lscale",
+   "k": "R",
+   "x": "Add a clear strategy for scaling up laboratory testing in emergencies to the preparedness plan",
+   "p": 6
+  },
+  {
+   "c": "ee",
+   "t": "ldata",
+   "k": "R",
+   "x": "Secure sustainable funding for sequencing and bioinformatics, which relied on EU project funding ending in 2025; prioritise bioinformatics and electronic lab systems",
+   "p": 6
+  },
+  {
+   "c": "ee",
+   "t": "lbio",
+   "k": "R",
+   "x": "Strengthen biosecurity and issue guidelines through updated legislation or another suitable reference document",
+   "p": 7
+  },
+  {
+   "c": "ee",
+   "t": "ldata",
+   "k": "R",
+   "x": "Address legal limits on personal data handling by the communicable diseases lab when revising legislation",
+   "p": 7
+  },
+  {
+   "c": "ee",
+   "t": "lqa",
+   "k": "R",
+   "x": "Join international networks to obtain reference materials for accreditation and validated methods",
+   "p": 7
+  },
+  {
+   "c": "ee",
+   "t": "sresp",
+   "k": "S",
+   "x": "Respiratory surveillance (ARI, ILI, SARI, influenza, COVID-19, RSV) is comprehensive, largely automated from the eHealth system, with weekly public dashboards",
+   "p": 7
+  },
+  {
+   "c": "ee",
+   "t": "sews",
+   "k": "S",
+   "x": "Event-based surveillance covers a priority list of 17 diseases with immediate reporting",
+   "p": 7
+  },
+  {
+   "c": "ee",
+   "t": "sww",
+   "k": "S",
+   "x": "Wastewater surveillance for SARS-CoV-2 and COVID-19 surveillance in long-term care facilities are in place",
+   "p": 8
+  },
+  {
+   "c": "ee",
+   "t": "scap",
+   "k": "S",
+   "x": "Weekly data on hospital and ICU capacity support short-term forecasting",
+   "p": 8
+  },
+  {
+   "c": "ee",
+   "t": "sdig",
+   "k": "S",
+   "x": "Estonia participates in ECDC's electronic health data surveillance project",
+   "p": 8
+  },
+  {
+   "c": "ee",
+   "t": "sresp",
+   "k": "R",
+   "x": "Complete SARI data automation at admission, evaluate the sentinel ILI system and integrate ARI/influenza and COVID-19 dashboards",
+   "p": 8
+  },
+  {
+   "c": "ee",
+   "t": "sdig",
+   "k": "R",
+   "x": "Strengthen the surveillance mandate, funding and variable flexibility in the upcoming legislative revision; keep linking the eHealth system with NAKIS",
+   "p": 8
+  },
+  {
+   "c": "ee",
+   "t": "sdig",
+   "k": "R",
+   "x": "Secure sustainable funding for surveillance systems set up during COVID-19",
+   "p": 8
+  },
+  {
+   "c": "ee",
+   "t": "sews",
+   "k": "R",
+   "x": "Lower the threshold for using the SitRep tool for cross-sector coordination",
+   "p": 8
+  },
+  {
+   "c": "ee",
+   "t": "risk",
+   "k": "S",
+   "x": "The JEE scored risk assessment, risk management and personnel activation highly; preparedness is embedded in law",
+   "p": 8
+  },
+  {
+   "c": "ee",
+   "t": "plan",
+   "k": "S",
+   "x": "Plans are all-hazard, interlinked (local, regional, national), tested and regularly updated",
+   "p": 8
+  },
+  {
+   "c": "ee",
+   "t": "ex",
+   "k": "S",
+   "x": "Regular national and hospital-level simulation exercises are held",
+   "p": 8
+  },
+  {
+   "c": "ee",
+   "t": "xb",
+   "k": "S",
+   "x": "A Baltic cross-border mutual aid agreement covers joint procurement and loans of medicines",
+   "p": 8
+  },
+  {
+   "c": "ee",
+   "t": "ims",
+   "k": "S",
+   "x": "A structured Incident Management System with three activation levels is led by the Health Board, also the IHR focal point",
+   "p": 8
+  },
+  {
+   "c": "ee",
+   "t": "stock",
+   "k": "S",
+   "x": "Stockpiles of about 250 MCM types are hosted by regional hospitals, with distribution provisions",
+   "p": 8
+  },
+  {
+   "c": "ee",
+   "t": "plan",
+   "k": "R",
+   "x": "Update the emergency legislation and response plan: regional roles, plan interoperability, and a State of Emergency plan covering transition and recovery",
+   "p": 10
+  },
+  {
+   "c": "ee",
+   "t": "risk",
+   "k": "R",
+   "x": "Set up a scientific risk assessment methodology separate from crisis decision-making",
+   "p": 11
+  },
+  {
+   "c": "ee",
+   "t": "phsm",
+   "k": "R",
+   "x": "Monitor and evaluate public health and social measures, including logging decisions",
+   "p": 11
+  },
+  {
+   "c": "ee",
+   "t": "mcmid",
+   "k": "R",
+   "x": "Develop a methodology for compiling the strategic stockpile list",
+   "p": 11
+  },
+  {
+   "c": "ee",
+   "t": "mcmon",
+   "k": "R",
+   "x": "Build tools to monitor MCM supply and demand and explore ways to scale up manufacturing",
+   "p": 11
+  },
+  {
+   "c": "ee",
+   "t": "stock",
+   "k": "R",
+   "x": "Clarify the division of competences between the Health Board and the Estonian Stockpiling Agency",
+   "p": 12
+  },
+  {
+   "c": "ee",
+   "t": "zsurv",
+   "k": "S",
+   "x": "A collaborative human–animal framework covers zoonoses surveillance, risk assessment, response and communication; information exchange and outbreak investigation have proven effective",
+   "p": 12
+  },
+  {
+   "c": "ee",
+   "t": "oh",
+   "k": "S",
+   "x": "The Health Board and the Agriculture and Food Board have a revised operational guide for information exchange",
+   "p": 12
+  },
+  {
+   "c": "ee",
+   "t": "oh",
+   "k": "R",
+   "x": "Expand and formalise One Health coordination to include food and environment stakeholders; update the 2012 cooperation agreement",
+   "p": 13
+  },
+  {
+   "c": "ee",
+   "t": "zsurv",
+   "k": "R",
+   "x": "Improve and integrate genomic data exchange between human and animal laboratories",
+   "p": 12
+  },
+  {
+   "c": "ee",
+   "t": "clim",
+   "k": "R",
+   "x": "Include One Health and climate-related health risks in planned plans; run a One Health simulation exercise with all key sectors",
+   "p": 13
+  },
+  {
+   "c": "ee",
+   "t": "oh",
+   "k": "R",
+   "x": "Raise community and health professional awareness and create One Health training",
+   "p": 13
+  },
+  {
+   "c": "ee",
+   "t": "nap",
+   "k": "S",
+   "x": "Legal bases for AMR and HAI surveillance are in place; WGS at the national reference lab supports detection of multidrug-resistant outbreaks",
+   "p": 13
+  },
+  {
+   "c": "ee",
+   "t": "hai",
+   "k": "S",
+   "x": "Full EARS-Net participation, nearly complete hospital participation in ECDC point prevalence surveys and a national C. difficile report",
+   "p": 14
+  },
+  {
+   "c": "ee",
+   "t": "nap",
+   "k": "S",
+   "x": "Active AMR surveillance in food-producing animals is published",
+   "p": 14
+  },
+  {
+   "c": "ee",
+   "t": "nap",
+   "k": "R",
+   "x": "Finalise and publish the One Health AMR strategy and human health National Action Plan, and secure funding",
+   "p": 14
+  },
+  {
+   "c": "ee",
+   "t": "hai",
+   "k": "R",
+   "x": "Include AMR, HAI and antimicrobial consumption surveillance in legal updates and the next surveillance system, with adequate IT resources; use a lighter HAI survey for long-term care",
+   "p": 14
+  },
+  {
+   "c": "ee",
+   "t": "ams",
+   "k": "R",
+   "x": "Make e-prescription data routinely available and give feedback to prescribers",
+   "p": 15
+  },
+  {
+   "c": "ee",
+   "t": "ipc",
+   "k": "R",
+   "x": "Provide training and incentives in IPC, stewardship and epidemiology; share hospital IPC results nationally to enable benchmarking",
+   "p": 15
+  },
+  {
+   "c": "ee",
+   "t": "hsp",
+   "k": "S",
+   "x": "20 hospitals and 10 ambulance providers are designated vital services with tested continuity plans",
+   "p": 16
+  },
+  {
+   "c": "ee",
+   "t": "hsp",
+   "k": "R",
+   "x": "Define prioritisation criteria, include primary care in simulations and extend SitRep to primary care, pharmacies and laboratories",
+   "p": 17
+  },
+  {
+   "c": "ee",
+   "t": "rcce",
+   "k": "S",
+   "x": "The Health Board and the Health Insurance Fund run effective campaigns; stakeholder mapping exists",
+   "p": 18
+  },
+  {
+   "c": "ee",
+   "t": "rcce",
+   "k": "R",
+   "x": "Engage umbrella professional associations in joint reviews and simulations",
+   "p": 18
+  },
+  {
+   "c": "ee",
+   "t": "c1",
+   "k": "S",
+   "x": "Comprehensive legal and policy framework for IHR",
+   "p": 16
+  },
+  {
+   "c": "ee",
+   "t": "c1",
+   "k": "R",
+   "x": "Formalise multi-sectoral coordination for IHR implementation",
+   "p": 16
+  },
+  {
+   "c": "ee",
+   "t": "c2",
+   "k": "S",
+   "x": "High JEE score; emergencies are funded through budget reallocation",
+   "p": 16
+  },
+  {
+   "c": "ee",
+   "t": "c2",
+   "k": "R",
+   "x": "Test contingency funding mechanisms at least every three years",
+   "p": 16
+  },
+  {
+   "c": "ee",
+   "t": "c5",
+   "k": "S",
+   "x": "Public health specialisation and joint multidisciplinary exercises",
+   "p": 16
+  },
+  {
+   "c": "ee",
+   "t": "c5",
+   "k": "R",
+   "x": "Conduct a comprehensive public health workforce analysis and provide development incentives",
+   "p": 16
+  },
+  {
+   "c": "ee",
+   "t": "c9",
+   "k": "S",
+   "x": "Well-developed points of entry integrated into surveillance, with a digital passenger locator form",
+   "p": 18
+  },
+  {
+   "c": "ee",
+   "t": "c11",
+   "k": "S",
+   "x": "Hazard mapping, mass poisoning risk analysis, a 2023 exercise and a 24/7 Poison Centre",
+   "p": 18
+  },
+  {
+   "c": "ee",
+   "t": "c11",
+   "k": "R",
+   "x": "Develop a comprehensive chemical response plan",
+   "p": 19
+  },
+  {
+   "c": "ee",
+   "t": "union",
+   "k": "S",
+   "x": "Clearly defined roles and a 24/7 IHR focal point with an SOP",
+   "p": 19
+  },
+  {
+   "c": "ee",
+   "t": "union",
+   "k": "R",
+   "x": "Test SitRep/Incident Management System interoperability with EU coordination mechanisms",
+   "p": 19
+  },
+  {
+   "c": "ee",
+   "t": "c14",
+   "k": "S",
+   "x": "Transparent clinical trial registration",
+   "p": 19
+  },
+  {
+   "c": "ee",
+   "t": "c14",
+   "k": "R",
+   "x": "Include outbreak research in preparedness plans and train staff in outbreak investigation",
+   "p": 19
+  },
+  {
+   "c": "ee",
+   "t": "c15",
+   "k": "S",
+   "x": "Regular after-action reviews and a 2023 COVID-19 lessons-learned report",
+   "p": 19
+  },
+  {
+   "c": "ee",
+   "t": "c16",
+   "k": "R",
+   "x": "Develop and cost an action plan for JEE and PHEPA recommendations and integrate lessons into a National Action Plan for Health Security",
+   "p": 20
+  },
+  {
+   "c": "fi",
+   "t": "lnet",
+   "k": "S",
+   "x": "Tier-based diagnostic, confirmation and characterisation system with clearly defined roles",
+   "p": 6
+  },
+  {
+   "c": "fi",
+   "t": "ldata",
+   "k": "S",
+   "x": "Labs can characterise a novel pathogen by WGS; targeted amplification and metagenomics have been used in practice",
+   "p": 7
+  },
+  {
+   "c": "fi",
+   "t": "lqa",
+   "k": "S",
+   "x": "THL laboratories are accredited and mandatory licensing sets quality requirements for clinical labs",
+   "p": 7
+  },
+  {
+   "c": "fi",
+   "t": "lscale",
+   "k": "S",
+   "x": "A SARS-CoV-2 in-house test was operational within a week of primers and probe being published; funding mechanisms for scaling up testing exist",
+   "p": 7
+  },
+  {
+   "c": "fi",
+   "t": "lbio",
+   "k": "S",
+   "x": "BSL-3 facilities for diagnostics; BSL-4 testing is covered by an agreement with Sweden",
+   "p": 7
+  },
+  {
+   "c": "fi",
+   "t": "lqa",
+   "k": "S",
+   "x": "Sample transport is covered by contracts and international standards",
+   "p": 8
+  },
+  {
+   "c": "fi",
+   "t": "lqa",
+   "k": "R",
+   "x": "Keep clinical laboratory licensing running without service interruption and maintain quality, resources and knowledge transfer",
+   "p": 8
+  },
+  {
+   "c": "fi",
+   "t": "lscale",
+   "k": "R",
+   "x": "Document how COVID-19 testing capacity was built, include a scale-up strategy in preparedness plans and identify additional testing sources and agreements",
+   "p": 8
+  },
+  {
+   "c": "fi",
+   "t": "lbio",
+   "k": "R",
+   "x": "Define biosafety and biosecurity roles, responsibilities and legal requirements in the revised Communicable Diseases Act",
+   "p": 8
+  },
+  {
+   "c": "fi",
+   "t": "sdig",
+   "k": "S",
+   "x": "Robust surveillance with integrated laboratory and hospital data, electronic reporting and linkage to other registries; a permit authority regulates data access",
+   "p": 8
+  },
+  {
+   "c": "fi",
+   "t": "sews",
+   "k": "S",
+   "x": "Positive detections from normally sterile sites are reported to public health authorities for early detection",
+   "p": 8
+  },
+  {
+   "c": "fi",
+   "t": "sww",
+   "k": "S",
+   "x": "Wastewater surveillance covers several respiratory viruses and enteroviruses, with weekly publication",
+   "p": 8
+  },
+  {
+   "c": "fi",
+   "t": "sresp",
+   "k": "S",
+   "x": "Hospital-based SARI surveillance tests all cases for influenza, SARS-CoV-2 and RSV",
+   "p": 8
+  },
+  {
+   "c": "fi",
+   "t": "sresp",
+   "k": "R",
+   "x": "Set out in the amended Communicable Diseases Act the requirements for a primary-care sentinel system for acute respiratory infections and an integrated clinical and laboratory sentinel system for mild ARI",
+   "p": 9
+  },
+  {
+   "c": "fi",
+   "t": "sdig",
+   "k": "R",
+   "x": "Provide for rapid, secure access to more detailed clinical information during emergencies; define surveillance and outbreak investigation responsibilities between THL and the wellbeing services counties",
+   "p": 9
+  },
+  {
+   "c": "fi",
+   "t": "sresp",
+   "k": "R",
+   "x": "Create a mechanism for laboratories to report the number of tests performed so positivity can be calculated",
+   "p": 9
+  },
+  {
+   "c": "fi",
+   "t": "risk",
+   "k": "S",
+   "x": "Strong preparedness culture and a whole-of-government National Risk Assessment, updated every five years",
+   "p": 9
+  },
+  {
+   "c": "fi",
+   "t": "ims",
+   "k": "S",
+   "x": "Collaborative areas run 24/7 emergency operations centres with an incident management system and on-call infectious disease experts",
+   "p": 9
+  },
+  {
+   "c": "fi",
+   "t": "ims",
+   "k": "S",
+   "x": "A national Situational Awareness Group brings together relevant ministries, agencies and regional leaders",
+   "p": 9
+  },
+  {
+   "c": "fi",
+   "t": "plan",
+   "k": "S",
+   "x": "THL's central role across alerting, scientific advice, communication and technical support is seen as a key strength",
+   "p": 10
+  },
+  {
+   "c": "fi",
+   "t": "sup",
+   "k": "S",
+   "x": "The NESA network model supports supply chain preparedness and mobilisation of private capacity",
+   "p": 10
+  },
+  {
+   "c": "fi",
+   "t": "stock",
+   "k": "S",
+   "x": "NESA stockpile management is described as clear and effective; the rescEU stockpiling programme included a May 2024 deployment exercise",
+   "p": 11
+  },
+  {
+   "c": "fi",
+   "t": "risk",
+   "k": "R",
+   "x": "Develop a health-specific risk and vulnerability analysis that complements the National Risk Assessment",
+   "p": 11
+  },
+  {
+   "c": "fi",
+   "t": "plan",
+   "k": "R",
+   "x": "Align health preparedness plans with other sectors, clarify mandates, operationalise the National Pandemic Preparedness Plan and clarify THL's mandate in legislation",
+   "p": 11
+  },
+  {
+   "c": "fi",
+   "t": "ims",
+   "k": "R",
+   "x": "Include communicable disease expertise in the Situational Awareness Group",
+   "p": 11
+  },
+  {
+   "c": "fi",
+   "t": "ex",
+   "k": "R",
+   "x": "Develop an agreed national exercise plan for health preparedness",
+   "p": 12
+  },
+  {
+   "c": "fi",
+   "t": "phsm",
+   "k": "R",
+   "x": "Include cross-sectoral scientific advisory boards, with community representation, in preparedness plans",
+   "p": 12
+  },
+  {
+   "c": "fi",
+   "t": "mcmid",
+   "k": "R",
+   "x": "Update MCM lists over time and involve relevant stakeholders at national and local levels",
+   "p": 12
+  },
+  {
+   "c": "fi",
+   "t": "mcmon",
+   "k": "R",
+   "x": "Develop supply monitoring and demand estimation tools and align NESA and THL tools to avoid duplication",
+   "p": 12
+  },
+  {
+   "c": "fi",
+   "t": "sup",
+   "k": "R",
+   "x": "Map domestic MCM production capacity, monitor dependence on third-country producers and expand capacity reservation with domestic or EU producers",
+   "p": 12
+  },
+  {
+   "c": "fi",
+   "t": "stock",
+   "k": "R",
+   "x": "Involve stakeholders in the stockpiling strategy and ensure all healthcare levels can deploy stocks",
+   "p": 12
+  },
+  {
+   "c": "fi",
+   "t": "oh",
+   "k": "S",
+   "x": "Collaboration between human and animal health sectors rests on several laws and works well, including shared laboratory support; the Zoonosis Centre has supported cooperation since 2006",
+   "p": 12
+  },
+  {
+   "c": "fi",
+   "t": "zsurv",
+   "k": "S",
+   "x": "Collaboration between the Finnish Food Authority and THL covers surveillance and information sharing, as shown in the HPAI response",
+   "p": 12
+  },
+  {
+   "c": "fi",
+   "t": "oh",
+   "k": "S",
+   "x": "Zoonotic disease training is routinely offered across administrative levels with a cross-sectoral approach",
+   "p": 13
+  },
+  {
+   "c": "fi",
+   "t": "clim",
+   "k": "S",
+   "x": "Heatwave mortality is addressed through collaboration with the Finnish Meteorological Institute",
+   "p": 13
+  },
+  {
+   "c": "fi",
+   "t": "oh",
+   "k": "R",
+   "x": "Document how cross-sectoral collaboration is carried out in municipalities and wellbeing services counties, collaborate more systematically with the environmental sector and develop joint risk assessments and outbreak investigations",
+   "p": 13
+  },
+  {
+   "c": "fi",
+   "t": "oh",
+   "k": "R",
+   "x": "Redefine the future role of the Zoonosis Centre and reflect it in the pandemic plan and zoonosis strategy",
+   "p": 13
+  },
+  {
+   "c": "fi",
+   "t": "clim",
+   "k": "R",
+   "x": "Align the many climate change plans and ensure equitable funding for climate-related activities across sectors",
+   "p": 14
+  },
+  {
+   "c": "fi",
+   "t": "nap",
+   "k": "S",
+   "x": "A legal basis for AMR and HAI surveillance exists and the Communicable Diseases Act allows flexible surveillance",
+   "p": 14
+  },
+  {
+   "c": "fi",
+   "t": "mdro",
+   "k": "S",
+   "x": "Strong AMR outbreak detection and control, supported by routine WGS at THL; detailed and widely followed MDRO guidance",
+   "p": 14
+  },
+  {
+   "c": "fi",
+   "t": "hai",
+   "k": "S",
+   "x": "A long history of robust AMR and HAI surveillance",
+   "p": 14
+  },
+  {
+   "c": "fi",
+   "t": "nap",
+   "k": "R",
+   "x": "Ensure adequate resources for AMR at national and wellbeing services county level",
+   "p": 15
+  },
+  {
+   "c": "fi",
+   "t": "mdro",
+   "k": "R",
+   "x": "Maintain WGS capacity for MDRO and HAI outbreaks, with any change in scope decided collaboratively",
+   "p": 15
+  },
+  {
+   "c": "fi",
+   "t": "hai",
+   "k": "R",
+   "x": "Clarify the national strategy and roles for HAI surveillance and IPC; ensure IT resources and interoperability with county systems",
+   "p": 15
+  },
+  {
+   "c": "fi",
+   "t": "ams",
+   "k": "R",
+   "x": "Improve antimicrobial consumption data quality, consider adding AWaRe classification and explore indication data",
+   "p": 15
+  },
+  {
+   "c": "es",
+   "t": "ims",
+   "k": "S",
+   "x": "Coordination bodies link the Ministry's CCAES with regional public health authorities, and plans pass through a defined approval chain",
+   "p": 6
+  },
+  {
+   "c": "es",
+   "t": "plan",
+   "k": "S",
+   "x": "Response plans and protocols for several communicable threats were shared in advance; the draft national plan would allow a 'Public Health Emergency of National Concern' without a State of Alarm",
+   "p": 6
+  },
+  {
+   "c": "es",
+   "t": "plan",
+   "k": "S",
+   "x": "Civil Protection's national plan includes a scenario in which the health sector leads large health crises",
+   "p": 6
+  },
+  {
+   "c": "es",
+   "t": "stock",
+   "k": "S",
+   "x": "The national stockpile was expanded in scope and size, guided by a crisis-relevant MCM list",
+   "p": 7
+  },
+  {
+   "c": "es",
+   "t": "mcmon",
+   "k": "S",
+   "x": "The medicines agency (AEMPS) monitors critical medicines and can restrict exports based on supply and demand forecasts",
+   "p": 7
+  },
+  {
+   "c": "es",
+   "t": "xb",
+   "k": "S",
+   "x": "Cross-border collaboration with Portugal and France for outbreaks in bordering regions",
+   "p": 7
+  },
+  {
+   "c": "es",
+   "t": "plan",
+   "k": "R",
+   "x": "Finalise and approve the National Preparedness and Response Plan with formal threat prioritisation and a formal incident management system",
+   "p": 7
+  },
+  {
+   "c": "es",
+   "t": "risk",
+   "k": "R",
+   "x": "Formalise rapid risk assessment: triggers, external experts, policy interfaces, reassessment criteria and response activation",
+   "p": 7
+  },
+  {
+   "c": "es",
+   "t": "phsm",
+   "k": "R",
+   "x": "Develop a cross-sectoral list of feasible public health and social measures, with procedures to implement and evaluate them",
+   "p": 7
+  },
+  {
+   "c": "es",
+   "t": "ims",
+   "k": "R",
+   "x": "Strengthen the CCAES, which has few staff, until the National Public Health Agency is established; improve collaboration between public health and healthcare",
+   "p": 7
+  },
+  {
+   "c": "es",
+   "t": "mcmid",
+   "k": "R",
+   "x": "Sustain MCM preparedness including raw materials, formalise the method for identifying crisis-relevant MCMs and the governance of MCM working groups",
+   "p": 7
+  },
+  {
+   "c": "es",
+   "t": "mcmon",
+   "k": "R",
+   "x": "Share regional supply and demand data nationally and harmonise reporting methods",
+   "p": 7
+  },
+  {
+   "c": "es",
+   "t": "stock",
+   "k": "R",
+   "x": "Ensure the national stockpile is sustainable and define its format; update threat-specific protocols to include how MCM access will be facilitated",
+   "p": 8
+  },
+  {
+   "c": "es",
+   "t": "lnet",
+   "k": "S",
+   "x": "A tier-based laboratory system serves clinical diagnostics and public health; the National Centre for Microbiology coordinates 13 national reference laboratories",
+   "p": 8
+  },
+  {
+   "c": "es",
+   "t": "lscale",
+   "k": "S",
+   "x": "Scale-up was demonstrated in COVID-19 and the 2022 mpox outbreak, including rapid response teams and test prioritisation; new Oropouche assays were integrated within two weeks",
+   "p": 8
+  },
+  {
+   "c": "es",
+   "t": "ldata",
+   "k": "S",
+   "x": "Genomic sequencing is distributed across about 49 regional labs, with data flowing to the national level",
+   "p": 8
+  },
+  {
+   "c": "es",
+   "t": "lbio",
+   "k": "S",
+   "x": "The Biological Alert Laboratory Network (RE-LAB) supports the national security system; biosafety is well developed",
+   "p": 8
+  },
+  {
+   "c": "es",
+   "t": "lqa",
+   "k": "S",
+   "x": "About 70% of labs have voluntarily adopted quality systems or accreditation",
+   "p": 8
+  },
+  {
+   "c": "es",
+   "t": "lscale",
+   "k": "R",
+   "x": "Formalise the laboratory emergency response plan, establish formal funded cross-sector agreements for rapidly deploying additional lab capacity and include high-volume testing in stress tests",
+   "p": 8
+  },
+  {
+   "c": "es",
+   "t": "lbio",
+   "k": "R",
+   "x": "Formalise agreements for services that require BSL-4 labs (accessed abroad) and finalise biosecurity guidelines or regulation",
+   "p": 8
+  },
+  {
+   "c": "es",
+   "t": "lqa",
+   "k": "R",
+   "x": "Increase the share of clinical laboratories that meet quality standards or are accredited",
+   "p": 8
+  },
+  {
+   "c": "es",
+   "t": "sresp",
+   "k": "S",
+   "x": "The integrated respiratory surveillance system (SiVIRA) covers influenza, COVID-19 and RSV with syndromic and sentinel components; weekly reporting every Thursday",
+   "p": 9
+  },
+  {
+   "c": "es",
+   "t": "sresp",
+   "k": "S",
+   "x": "Broad reporting coverage (about 15% of primary care and 25% of hospital populations, 18 of 19 regions) supports scale-up",
+   "p": 9
+  },
+  {
+   "c": "es",
+   "t": "sww",
+   "k": "S",
+   "x": "SARS-CoV-2 wastewater monitoring has shown an early-warning lead of about a week in some regions",
+   "p": 9
+  },
+  {
+   "c": "es",
+   "t": "sthr",
+   "k": "S",
+   "x": "Infrastructure for assessing pandemic threats, participation in VEBIS vaccine-effectiveness studies and national vaccine-effectiveness studies",
+   "p": 9
+  },
+  {
+   "c": "es",
+   "t": "sews",
+   "k": "S",
+   "x": "National guidelines and SOPs exist and CCAES runs daily epidemic intelligence shared across sectors; expert working groups coordinate Ministry and regions",
+   "p": 10
+  },
+  {
+   "c": "es",
+   "t": "sresp",
+   "k": "R",
+   "x": "Improve data integration, automation and comparability across regions in respiratory surveillance",
+   "p": 10
+  },
+  {
+   "c": "es",
+   "t": "scap",
+   "k": "R",
+   "x": "Set up a systematic national process for sharing hospital and testing data during crises without requiring a State of Alarm",
+   "p": 10
+  },
+  {
+   "c": "es",
+   "t": "sww",
+   "k": "R",
+   "x": "Secure the sustainability of wastewater surveillance and harmonise it with other systems",
+   "p": 10
+  },
+  {
+   "c": "es",
+   "t": "sthr",
+   "k": "R",
+   "x": "Build sustainable mathematical modelling capacity for near-term forecasting in emergencies",
+   "p": 10
+  },
+  {
+   "c": "es",
+   "t": "sews",
+   "k": "R",
+   "x": "Convene working groups early in events and strengthen communication among regions to detect small local outbreaks",
+   "p": 10
+  },
+  {
+   "c": "es",
+   "t": "nap",
+   "k": "S",
+   "x": "The 2025–2027 AMR National Action Plan has clear process and outcome targets, public reporting and annual monitoring; multisectoral coordination has a decade of experience",
+   "p": 10
+  },
+  {
+   "c": "es",
+   "t": "nap",
+   "k": "S",
+   "x": "The plan adds a focus on long-term care facilities and on antifungal resistance and consumption surveillance",
+   "p": 10
+  },
+  {
+   "c": "es",
+   "t": "ams",
+   "k": "S",
+   "x": "Antimicrobial consumption surveillance and stewardship are strong, with continued efforts to give providers feedback",
+   "p": 10
+  },
+  {
+   "c": "es",
+   "t": "hai",
+   "k": "S",
+   "x": "Long-running HAI prevalence surveys (EPINE, since 1990), annual reporting to EARS-Net and a voluntary automated bloodstream infection surveillance effort",
+   "p": 10
+  },
+  {
+   "c": "es",
+   "t": "mdro",
+   "k": "S",
+   "x": "The RedLabRA laboratory network (2021) covers public and private labs with broad geographic reach",
+   "p": 11
+  },
+  {
+   "c": "es",
+   "t": "ipc",
+   "k": "S",
+   "x": "National patient safety, hand hygiene and 'Zero' programmes support multimodal IPC and stewardship; Spain has an international leadership role in HAI and AMR prevention",
+   "p": 11
+  },
+  {
+   "c": "es",
+   "t": "hai",
+   "k": "S",
+   "x": "A joint tuberculosis reporting model, where epidemiologists and microbiologists report together, is a good example of integrated data use",
+   "p": 12
+  },
+  {
+   "c": "es",
+   "t": "mdro",
+   "k": "R",
+   "x": "Ensure hospitals consistently screen for MDRO carriage, adopt ECDC/WHO/ESCMID guidance on carbapenem-resistant organisms and regularly reassess the national priority MDRO list, including resistant fungi",
+   "p": 11
+  },
+  {
+   "c": "es",
+   "t": "hai",
+   "k": "R",
+   "x": "Negotiate minimum mandatory patient-level reporting with all regions, ensure patient-level HAI and AMR data reach national level and report national data back to data providers",
+   "p": 11
+  },
+  {
+   "c": "es",
+   "t": "ipc",
+   "k": "R",
+   "x": "Strengthen engagement with regions and scientific societies, including on IPC in long-term care facilities; integrate local epidemiological and laboratory data for targeted IPC",
+   "p": 11
+  },
+  {
+   "c": "es",
+   "t": "nap",
+   "k": "R",
+   "x": "Add indicators to track regional engagement, such as outbreaks reported per year",
+   "p": 12
+  },
+  {
+   "c": "es",
+   "t": "rcce",
+   "k": "S",
+   "x": "Rich RCCE capacity at regional and local levels and good inter-regional coordination by CCAES; strong behavioural and cultural insights research (ISCIII)",
+   "p": 12
+  },
+  {
+   "c": "es",
+   "t": "rcce",
+   "k": "S",
+   "x": "The Ministry's Cabinet is developing a strategy for a network of central and regional journalists; routine RCCE in the HIV/STI/hepatitis/TB division produced positive results in the 2022 mpox response",
+   "p": 12
+  },
+  {
+   "c": "es",
+   "t": "rcce",
+   "k": "R",
+   "x": "Establish a formal national RCCE and infodemic management structure with strategies, SOPs, dedicated permanent staff, training and a predictable funding framework",
+   "p": 13
+  },
+  {
+   "c": "es",
+   "t": "rcce",
+   "k": "R",
+   "x": "Set up national and regional mechanisms to counter misinformation, formalise partnerships with civil society and at-risk populations, and make behavioural and cultural insights a structural pillar",
+   "p": 13
+  },
+  {
+   "c": "lu",
+   "t": "plan",
+   "k": "S",
+   "x": "Generic and topic-specific preparedness plans are being developed or updated; a framework for cross-border cooperation agreements has been developed; two new units for crisis preparedness and response were created at the Health Directorate",
+   "p": 5
+  },
+  {
+   "c": "lu",
+   "t": "ims",
+   "k": "S",
+   "x": "The system can reallocate resources quickly and adapt processes, as shown in COVID-19; a High Council of Infectious Diseases provides independent scientific advice",
+   "p": 5
+  },
+  {
+   "c": "lu",
+   "t": "xb",
+   "k": "S",
+   "x": "Agreements with neighbouring countries (notably France and Belgium) provide for mutual aid during health crises",
+   "p": 6
+  },
+  {
+   "c": "lu",
+   "t": "plan",
+   "k": "R",
+   "x": "Develop a public health preparedness and response plan with strategic and operational parts, generic and topic-specific modules and clear links to the national crisis plan; consider an alert phase for threats that could become serious cross-border threats",
+   "p": 5
+  },
+  {
+   "c": "lu",
+   "t": "xb",
+   "k": "R",
+   "x": "Specify cooperation agreements with neighbouring countries, which have not yet been discussed in detail",
+   "p": 5
+  },
+  {
+   "c": "lu",
+   "t": "ims",
+   "k": "R",
+   "x": "Develop a public health emergency operations centre with supporting procedures",
+   "p": 5
+  },
+  {
+   "c": "lu",
+   "t": "risk",
+   "k": "R",
+   "x": "Develop an SOP for public health risk analysis and independent scientific assessment of serious cross-border threats",
+   "p": 6
+  },
+  {
+   "c": "lu",
+   "t": "mcmon",
+   "k": "R",
+   "x": "Formalise the collection of MCM supply data, assess supply chain vulnerabilities and create a business continuity plan",
+   "p": 6
+  },
+  {
+   "c": "lu",
+   "t": "mcmid",
+   "k": "R",
+   "x": "Develop a methodology for drafting the list of critical MCMs and defining the national stock",
+   "p": 6
+  },
+  {
+   "c": "lu",
+   "t": "lnet",
+   "k": "S",
+   "x": "A strong public health microbiology system spans private, hospital and national labs; all labs are accredited to international standards",
+   "p": 6
+  },
+  {
+   "c": "lu",
+   "t": "lscale",
+   "k": "S",
+   "x": "Clinical and public health testing capacity is high with significant surge capacity; the lab system can quickly add new tests, as seen in COVID-19 and mpox",
+   "p": 6
+  },
+  {
+   "c": "lu",
+   "t": "ldata",
+   "k": "S",
+   "x": "Labs report notifications in near real time, including negative results that allow positivity rates to be tracked",
+   "p": 7
+  },
+  {
+   "c": "lu",
+   "t": "lbio",
+   "k": "S",
+   "x": "The national health lab has BSL-3 facilities and BSL-4 work is routinely done abroad with safe shipment; biosafety and biosecurity guidelines are embedded in accreditation requirements",
+   "p": 7
+  },
+  {
+   "c": "lu",
+   "t": "lscale",
+   "k": "R",
+   "x": "Include in the general preparedness plan how laboratory capacity can be scaled up in crises",
+   "p": 7
+  },
+  {
+   "c": "lu",
+   "t": "lnet",
+   "k": "R",
+   "x": "Set up protocols so private labs transfer relevant isolates to the national lab and link them with epidemiological data; describe how typing is ensured during outbreak investigations",
+   "p": 7
+  },
+  {
+   "c": "lu",
+   "t": "ldata",
+   "k": "R",
+   "x": "Finalise and implement the updated reporting system that allows molecular typing and sequencing data to be reported",
+   "p": 7
+  },
+  {
+   "c": "lu",
+   "t": "lbio",
+   "k": "R",
+   "x": "Put in place a written agreement for services requiring BSL-4 facilities",
+   "p": 7
+  },
+  {
+   "c": "lu",
+   "t": "sdig",
+   "k": "S",
+   "x": "A Grand-Ducal Regulation sets compulsory notifiable diseases, data content and reporting timelines; electronic lab reporting uses a common standard and is supported by an annual report and yearly meetings with labs",
+   "p": 7
+  },
+  {
+   "c": "lu",
+   "t": "sresp",
+   "k": "S",
+   "x": "The open-source SORMAS tool was adopted for COVID-19 and extended to RSV and influenza; a sentinel respiratory surveillance system has run since 2003 with typing and sequencing",
+   "p": 7
+  },
+  {
+   "c": "lu",
+   "t": "sww",
+   "k": "S",
+   "x": "Weekly wastewater sampling at eight treatment plants monitors respiratory viruses and norovirus, with multi-stakeholder governance and integration with other surveillance",
+   "p": 8
+  },
+  {
+   "c": "lu",
+   "t": "scap",
+   "k": "S",
+   "x": "The RASSUR system, using hospital EHR data for SARI, was piloted at one hospital covering about 24% of hospitalisations",
+   "p": 8
+  },
+  {
+   "c": "lu",
+   "t": "sthr",
+   "k": "S",
+   "x": "Modelling can assess transmission, the reproduction number and forecasts; a COVID-19 vaccination registry showed the country can build such systems",
+   "p": 8
+  },
+  {
+   "c": "lu",
+   "t": "sdig",
+   "k": "R",
+   "x": "Enhance the case reporting system with clinicians; continue implementing SORMAS for case and outbreak management",
+   "p": 9
+  },
+  {
+   "c": "lu",
+   "t": "scap",
+   "k": "R",
+   "x": "Develop a plan to monitor healthcare capacity and continue digitalising surveillance (SARI, bloodstream infections, STIs); improve routine collection of vaccination data",
+   "p": 9
+  },
+  {
+   "c": "lu",
+   "t": "nap",
+   "k": "S",
+   "x": "The first AMR National Action Plan has been evaluated and a second is planned; EU 2030 targets are already met for MRSA and third-generation cephalosporin-resistant E. coli bloodstream infections",
+   "p": 9
+  },
+  {
+   "c": "lu",
+   "t": "mdro",
+   "k": "S",
+   "x": "National guidance on MRSA and carbapenemase-producing Enterobacterales; bimonthly meetings between the Health Directorate and hospital infection prevention teams; the national lab identifies molecular clusters of MDRO cases in hospitals and alerts them",
+   "p": 10
+  },
+  {
+   "c": "lu",
+   "t": "ipc",
+   "k": "S",
+   "x": "A legal mandate allows the Sanitary Inspection to visit long-term care facilities",
+   "p": 10
+  },
+  {
+   "c": "lu",
+   "t": "hai",
+   "k": "S",
+   "x": "CRE, MRSA and VRE are notifiable and meet EU surveillance requirements",
+   "p": 10
+  },
+  {
+   "c": "lu",
+   "t": "nap",
+   "k": "R",
+   "x": "Strengthen intersectoral collaboration through regular AMR exchanges and focus the next plan on a few targets that translate into actions across human, animal and environmental health, including IPC actions",
+   "p": 10
+  },
+  {
+   "c": "lu",
+   "t": "mdro",
+   "k": "R",
+   "x": "Build national capacity to obtain and analyse laboratory and epidemiological MDRO data (including long-term care) with a legal basis and practise multidisciplinary MDRO alert and response focused on carbapenem resistance",
+   "p": 10
+  },
+  {
+   "c": "lu",
+   "t": "ams",
+   "k": "R",
+   "x": "Explore strategies for antibiotic prescriber feedback, ideally using indication data from electronic prescribing",
+   "p": 10
+  },
+  {
+   "c": "lu",
+   "t": "ipc",
+   "k": "R",
+   "x": "Document the national HAI and IPC strategy, use HAI surveillance data to set priorities and evaluate the IPC programme against WHO core components",
+   "p": 10
+  },
+  {
+   "c": "lu",
+   "t": "oh",
+   "k": "S",
+   "x": "The One Health approach aligns with Quadripartite guidance and EU strategies; a One Health Working Group at government level is developing a joint prioritisation list",
+   "p": 10
+  },
+  {
+   "c": "lu",
+   "t": "zsurv",
+   "k": "S",
+   "x": "Joint procedures for priority foodborne pathogen surveillance across human, animal and food-safety labs; joint risk assessments and information sharing during outbreaks; the PHRESH project builds a One Health exchange platform",
+   "p": 10
+  },
+  {
+   "c": "lu",
+   "t": "clim",
+   "k": "S",
+   "x": "The 2025–2035 climate adaptation plan includes health and One Health components; a national environmental health plan is being developed",
+   "p": 11
+  },
+  {
+   "c": "lu",
+   "t": "oh",
+   "k": "R",
+   "x": "Formalise and strengthen the One Health Working Group, embed One Health in the generic preparedness plan and legal frameworks (with SOPs for joint crisis management and risk assessment), involve the environment sector and assess occupational health",
+   "p": 12
+  },
+  {
+   "c": "lu",
+   "t": "zsurv",
+   "k": "R",
+   "x": "Formalise collaboration between animal and human health laboratories, continue developing PHRESH with a joint risk assessment module and run joint simulation exercises",
+   "p": 12
+  },
+  {
+   "c": "lu",
+   "t": "clim",
+   "k": "R",
+   "x": "Include One Health in climate adaptation strategies with resources and measurable indicators; improve public awareness of zoonotic risks and explore pooled funding",
+   "p": 12
+  },
+  {
+   "c": "nl",
+   "t": "nap",
+   "k": "S",
+   "x": "AMR rates remain relatively low and MDROs are mostly imported; a strong infection prevention culture supports rapid MDRO detection and outbreak containment",
+   "p": 22
+  },
+  {
+   "c": "nl",
+   "t": "nap",
+   "k": "S",
+   "x": "The AMR National Action Plan was developed with three ministries through a One Health approach; regional AMR networks give cross-sector cooperation and short communication lines",
+   "p": 23
+  },
+  {
+   "c": "nl",
+   "t": "hai",
+   "k": "S",
+   "x": "Human AMR surveillance is extensive, nearly nationwide and based on routine diagnostics; antimicrobial use is monitored in hospitals, long-term care and primary care; national reporting of healthcare-associated outbreaks enables targeted prevention",
+   "p": 24
+  },
+  {
+   "c": "nl",
+   "t": "nap",
+   "k": "S",
+   "x": "Animal AMR monitoring has run since 1998 and includes imported foods; veterinary antibiotic use fell by 76.4% since 2009 through public-private collaboration",
+   "p": 25
+  },
+  {
+   "c": "nl",
+   "t": "ams",
+   "k": "S",
+   "x": "A national committee develops antimicrobial use guidelines collaboratively; primary care prescribers receive systematic feedback on antibiotic use",
+   "p": 25
+  },
+  {
+   "c": "nl",
+   "t": "ipc",
+   "k": "S",
+   "x": "Long-standing infection prevention practices and professional society involvement support guideline adherence",
+   "p": 22
+  },
+  {
+   "c": "nl",
+   "t": "mdro",
+   "k": "S",
+   "x": "Pathogen surveillance for carbapenemase-producing bacteria and MRSA supports prevention",
+   "p": 24
+  },
+  {
+   "c": "nl",
+   "t": "nap",
+   "k": "R",
+   "x": "Formally establish the One Health AMR coordinating mechanism with a costed plan and monitoring",
+   "p": 25
+  },
+  {
+   "c": "nl",
+   "t": "hai",
+   "k": "R",
+   "x": "Ensure long-term sustainability of human AMR and antimicrobial use surveillance, improve data exchange between healthcare and public health institutions and add prescribing indications",
+   "p": 25
+  },
+  {
+   "c": "nl",
+   "t": "ams",
+   "k": "R",
+   "x": "Encourage prudent veterinary antimicrobial use and fund guideline updates",
+   "p": 25
+  },
+  {
+   "c": "nl",
+   "t": "hai",
+   "k": "R",
+   "x": "Expand HAI surveillance to make reports easier and more actionable",
+   "p": 9
+  },
+  {
+   "c": "nl",
+   "t": "ipc",
+   "k": "R",
+   "x": "Establish national IPC training standards, assess healthcare worker safety risks linked to IPC gaps, continue financing national IPC guidelines and emphasise IPC professionals in staffing policies",
+   "p": 9
+  },
+  {
+   "c": "nl",
+   "t": "oh",
+   "k": "S",
+   "x": "A formal structure detects, assesses and responds to zoonoses, integrated with human and veterinary systems; a multidisciplinary One Health surveillance network operates with strong cross-sector trust",
+   "p": 28
+  },
+  {
+   "c": "nl",
+   "t": "oh",
+   "k": "S",
+   "x": "The zoonotic National Action Plan has a dedicated budget across human, animal and environmental domains; veterinary and public health experts coordinate rapid local and regional responses through regional consultants",
+   "p": 29
+  },
+  {
+   "c": "nl",
+   "t": "zsurv",
+   "k": "S",
+   "x": "Livestock traceability is well regulated; several zoonoses (brucellosis, rabies, bovine TB) have been eradicated",
+   "p": 29
+  },
+  {
+   "c": "nl",
+   "t": "oh",
+   "k": "R",
+   "x": "Build a One Health data-sharing platform across environmental, public health and animal health institutions; map stakeholders and clarify governance and roles",
+   "p": 30
+  },
+  {
+   "c": "nl",
+   "t": "oh",
+   "k": "R",
+   "x": "Strengthen environmental expertise in the zoonoses structure and involve environmental experts in setting surveillance priorities",
+   "p": 30
+  },
+  {
+   "c": "nl",
+   "t": "lnet",
+   "k": "R",
+   "x": "Formalise and fund the outbreak assistance laboratory network and its surge capacity",
+   "p": 6
+  },
+  {
+   "c": "nl",
+   "t": "ldata",
+   "k": "R",
+   "x": "Finalise electronic laboratory reporting, including sequence data, for surveillance",
+   "p": 6
+  },
+  {
+   "c": "nl",
+   "t": "lbio",
+   "k": "R",
+   "x": "Set up a formal agreement for services requiring BSL-4 facilities",
+   "p": 6
+  },
+  {
+   "c": "nl",
+   "t": "sdig",
+   "k": "R",
+   "x": "Update the Public Health Act to allow secure sharing of personal data and samples, including linking laboratory, clinical and epidemiological data; integrate surveillance into national healthcare digitalisation",
+   "p": 6
+  },
+  {
+   "c": "nl",
+   "t": "sdig",
+   "k": "R",
+   "x": "Conduct a surveillance prioritisation exercise; document surveillance systems and establish regular performance evaluation",
+   "p": 6
+  },
+  {
+   "c": "nl",
+   "t": "plan",
+   "k": "R",
+   "x": "Develop an all-hazards National Health Emergency Response Plan aligned with EU Regulation 2022/2371",
+   "p": 7
+  },
+  {
+   "c": "nl",
+   "t": "risk",
+   "k": "R",
+   "x": "Add a routinely updated (every three years) emergency risk profile for serious cross-border threats",
+   "p": 7
+  },
+  {
+   "c": "nl",
+   "t": "ex",
+   "k": "R",
+   "x": "Create a multisectoral strategy with joint training and exercises, including intentional release scenarios; create a repository of assessments, plans, exercises and after-action reviews",
+   "p": 7
+  },
+  {
+   "c": "nl",
+   "t": "xb",
+   "k": "R",
+   "x": "Expand national surge capacity planning across deployment stages, including international mechanisms",
+   "p": 7
+  },
+  {
+   "c": "nl",
+   "t": "stock",
+   "k": "R",
+   "x": "Develop an all-hazards strategy for critical MCM supply, including stockpiling and logistics",
+   "p": 7
+  },
+  {
+   "c": "nl",
+   "t": "mcmon",
+   "k": "R",
+   "x": "Consider tools to monitor MCM supply and demand",
+   "p": 7
+  },
+  {
+   "c": "nl",
+   "t": "phsm",
+   "k": "R",
+   "x": "Define mechanisms to monitor and evaluate public health and social measures",
+   "p": 8
+  },
+  {
+   "c": "nl",
+   "t": "union",
+   "k": "R",
+   "x": "Explore further contribution to EU health security mechanisms",
+   "p": 11
+  },
+  {
+   "c": "nl",
+   "t": "c14",
+   "k": "R",
+   "x": "Expand operational research priorities and address barriers to rapid outbreak research",
+   "p": 11
+  },
+  {
+   "c": "nl",
+   "t": "c15",
+   "k": "R",
+   "x": "Include downscaling, lessons-learned and recovery services in the national response plan",
+   "p": 11
+  },
+  {
+   "c": "nl",
+   "t": "c16",
+   "k": "R",
+   "x": "Incorporate findings from other evaluations, such as the Dutch Safety Board's, into the action plan",
+   "p": 11
+  },
+  {
+   "c": "lv",
+   "t": "plan",
+   "k": "S",
+   "x": "The National Disaster Medicine Plan covers multiple hazards, is updated annually and addresses strategic and operational levels; legislation sets out responsibilities clearly",
+   "p": 8
+  },
+  {
+   "c": "lv",
+   "t": "ims",
+   "k": "S",
+   "x": "The incident management system can scale up and actors' roles are defined in law and plan; the State Operational Medical Commission has multi-sectoral membership",
+   "p": 8
+  },
+  {
+   "c": "lv",
+   "t": "xb",
+   "k": "S",
+   "x": "Cross-border emergency medical service mechanisms with Estonia and Lithuania have been tested in real events",
+   "p": 8
+  },
+  {
+   "c": "lv",
+   "t": "stock",
+   "k": "S",
+   "x": "Legal requirements for institutional stockpiles, a national health-sector stockpile and SAIRIS-based stock reallocation support coordination",
+   "p": 9
+  },
+  {
+   "c": "lv",
+   "t": "mcmon",
+   "k": "S",
+   "x": "The State Agency of Medicines receives daily wholesaler stock data and has shortage measures available",
+   "p": 9
+  },
+  {
+   "c": "lv",
+   "t": "phsm",
+   "k": "S",
+   "x": "A mechanism for public health and social measures exists and legal acts require an impact assessment",
+   "p": 8
+  },
+  {
+   "c": "lv",
+   "t": "risk",
+   "k": "R",
+   "x": "Develop a multi-sectoral methodology for health emergency risk profiling and consider a national risk registry",
+   "p": 9
+  },
+  {
+   "c": "lv",
+   "t": "ex",
+   "k": "R",
+   "x": "Hold regular exercises across all sectors and levels, feed findings into the annual plan update and create a dedicated funding mechanism for training and exercises",
+   "p": 9
+  },
+  {
+   "c": "lv",
+   "t": "phsm",
+   "k": "R",
+   "x": "Strengthen PHSM evaluation through a cross-sectoral working group and a more formal decision-making approach",
+   "p": 9
+  },
+  {
+   "c": "lv",
+   "t": "plan",
+   "k": "R",
+   "x": "Include primary care in continuity planning and exercises; develop SOPs and shared terminology for health–military roles and decision-support tools for strategic decisions",
+   "p": 9
+  },
+  {
+   "c": "lv",
+   "t": "stock",
+   "k": "R",
+   "x": "Pursue state-owned rotating stockpiles of critical medicines and consolidate the national stockpiling structure",
+   "p": 9
+  },
+  {
+   "c": "lv",
+   "t": "sup",
+   "k": "R",
+   "x": "Set up structured industry dialogue, map production capacity and assess supply-chain vulnerabilities including APIs and raw materials; consider supporting R&D of innovative MCMs",
+   "p": 9
+  },
+  {
+   "c": "lv",
+   "t": "lnet",
+   "k": "S",
+   "x": "A tiered laboratory network is defined in Cabinet regulations; labs are ISO-aligned and accredited; clinical labs work closely with the food, animal and environment institute (BIOR)",
+   "p": 10
+  },
+  {
+   "c": "lv",
+   "t": "lscale",
+   "k": "S",
+   "x": "COVID-19 testing scaled up rapidly, reaching over 3% of the population weekly",
+   "p": 10
+  },
+  {
+   "c": "lv",
+   "t": "ldata",
+   "k": "S",
+   "x": "WGS and bioinformatics exist at the national lab and BIOR, with BIOR sequencing over 1,000 isolates a year",
+   "p": 10
+  },
+  {
+   "c": "lv",
+   "t": "lbio",
+   "k": "S",
+   "x": "A BSL-3 diagnostic facility exists and working arrangements for BSL-4 access in another EU country include packing procedures for samples",
+   "p": 10
+  },
+  {
+   "c": "lv",
+   "t": "lscale",
+   "k": "R",
+   "x": "Define in the National Disaster Medicine Plan how laboratory capacity is scaled up in emergencies and develop a detailed deployment plan for the laboratory system",
+   "p": 11
+  },
+  {
+   "c": "lv",
+   "t": "lbio",
+   "k": "R",
+   "x": "Set up a formal agreement with an EU laboratory for BSL-4 services and clarify the regulatory framework for biosafety and biosecurity",
+   "p": 11
+  },
+  {
+   "c": "lv",
+   "t": "ldata",
+   "k": "R",
+   "x": "Define which isolates require sequencing, secure annual funding for it and modernise the laboratory reporting system, which cannot handle sequence data",
+   "p": 11
+  },
+  {
+   "c": "lv",
+   "t": "lqa",
+   "k": "R",
+   "x": "Establish an efficient sample transport system for outbreaks covering domestic referral and international high-containment shipment",
+   "p": 11
+  },
+  {
+   "c": "lv",
+   "t": "sdig",
+   "k": "S",
+   "x": "Surveillance rests on the Epidemiological Safety Law and Cabinet Regulations; case-based, event-based and aggregated reporting streams operate",
+   "p": 11
+  },
+  {
+   "c": "lv",
+   "t": "sresp",
+   "k": "S",
+   "x": "EPID works well for COVID-19, receives automated e-Health data and can add new respiratory pathogens quickly; SARI sentinel surveillance across 10 hospitals has near-complete testing coverage",
+   "p": 11
+  },
+  {
+   "c": "lv",
+   "t": "sww",
+   "k": "S",
+   "x": "Enterovirus wastewater monitoring has run for over 20 years at eight sites; COVID-19 wastewater monitoring at 14 sites feeds into the weekly respiratory report",
+   "p": 11
+  },
+  {
+   "c": "lv",
+   "t": "scap",
+   "k": "S",
+   "x": "SAIRIS provides continuous hospital capacity data and contact-tracing capacity can be monitored",
+   "p": 11
+  },
+  {
+   "c": "lv",
+   "t": "sthr",
+   "k": "S",
+   "x": "Weekly threat reports are published and reviewed in a weekly meeting; vaccine effectiveness is assessed and a vaccination register began in 2024",
+   "p": 12
+  },
+  {
+   "c": "lv",
+   "t": "sdig",
+   "k": "R",
+   "x": "Urgently strengthen national surveillance to be electronic, automated and resilient, covering genotyping and AMR data; expand EPID or build a new system under a resourced plan and consider linking it to vaccination and death registers",
+   "p": 12
+  },
+  {
+   "c": "lv",
+   "t": "sresp",
+   "k": "R",
+   "x": "Strengthen ILI and ARI surveillance by GPs including sample collection and testing; evaluate all epidemiological signals daily using a predefined methodology",
+   "p": 12
+  },
+  {
+   "c": "lv",
+   "t": "nap",
+   "k": "S",
+   "x": "The One Health AMR National Action Plan 2023–2027 spans human and animal health; legislation to formalise the One Health coordinating mechanism is in progress; a mid-term evaluation is underway",
+   "p": 12
+  },
+  {
+   "c": "lv",
+   "t": "ams",
+   "k": "S",
+   "x": "The AMR Competence Centre (2024) published empirical therapy guidance and prescriber feedback methods and promotes the WHO AWaRe classification",
+   "p": 12
+  },
+  {
+   "c": "lv",
+   "t": "mdro",
+   "k": "S",
+   "x": "Cabinet Regulations require 72-hour reporting of carbapenem-resistant Enterobacterales and quarterly reporting of resistant isolates",
+   "p": 13
+  },
+  {
+   "c": "lv",
+   "t": "ipc",
+   "k": "S",
+   "x": "Monthly IPC networking meetings coordinated by the AMR Centre share guidance; IPC specialists are involved in revising the Standard Hygienic Plan",
+   "p": 13
+  },
+  {
+   "c": "lv",
+   "t": "nap",
+   "k": "R",
+   "x": "Formalise the One Health coordinating mechanism through legislation, with a secretariat and terms of reference; include risks, barriers and funding gaps in the mid-term evaluation",
+   "p": 13
+  },
+  {
+   "c": "lv",
+   "t": "mdro",
+   "k": "R",
+   "x": "Address carbapenem-resistant organisms with a management plan containing actions, budget, targets, timelines and public reporting, plus legal and financial resources for screening",
+   "p": 13
+  },
+  {
+   "c": "lv",
+   "t": "hai",
+   "k": "R",
+   "x": "Develop automated integrated digital tools for timely national AMR surveillance and a national strategic plan for HAI surveillance",
+   "p": 14
+  },
+  {
+   "c": "lv",
+   "t": "ipc",
+   "k": "R",
+   "x": "Strengthen the national IPC programme using WHO tools and ensure the updated Standard Hygienic Plan sets enforceable built-environment standards",
+   "p": 14
+  },
+  {
+   "c": "lv",
+   "t": "oh",
+   "k": "S",
+   "x": "A robust legal framework and a cooperation agreement between public health and the Food and Veterinary Service set out routine and early-warning information sharing, with clear zoonotic response algorithms",
+   "p": 14
+  },
+  {
+   "c": "lv",
+   "t": "zsurv",
+   "k": "S",
+   "x": "Mandatory notification lists for human and animal diseases identify priority zoonoses; disease prioritisation considers public health significance, burden and annual sequencing data",
+   "p": 14
+  },
+  {
+   "c": "lv",
+   "t": "oh",
+   "k": "S",
+   "x": "Cross-sector collaboration succeeded in responses to COVID-19 in animal facilities, Legionella and tick monitoring",
+   "p": 14
+  },
+  {
+   "c": "lv",
+   "t": "clim",
+   "k": "S",
+   "x": "The Climate Change Adaptation Plan to 2030 addresses zoonotic impacts; monitoring includes wastewater, tick density and selected vector-borne diseases",
+   "p": 15
+  },
+  {
+   "c": "lv",
+   "t": "oh",
+   "k": "R",
+   "x": "Strengthen cooperation among public health, animal health and environmental sectors in national and regional One Health governance and formalise cross-sectoral planning beyond AMR",
+   "p": 15
+  },
+  {
+   "c": "lv",
+   "t": "zsurv",
+   "k": "R",
+   "x": "Establish a cross-sectoral priority list of zoonoses for molecular surveillance and data sharing and move towards sustainable programmes for prioritised diseases",
+   "p": 15
+  },
+  {
+   "c": "lv",
+   "t": "clim",
+   "k": "R",
+   "x": "Integrate meteorological data into vector-borne and zoonotic surveillance, seek EU funding and coordination for climate-related zoonotic analysis and hold regular joint exercises with local authorities and neighbouring countries",
+   "p": 15
+  },
+  {
+   "c": "is",
+   "t": "plan",
+   "k": "S",
+   "x": "Pandemic and CBRNe plans clearly assign roles at national, regional and local level and define three alert levels; shared templates for municipal and healthcare contingency plans are a good practice",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "ims",
+   "k": "S",
+   "x": "A single response system applies to all incidents, coordinated through the national crisis coordination centre; the Chief Epidemiologist and the National Commissioner of Police jointly decide on plan activation",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "ex",
+   "k": "S",
+   "x": "A 2017 manual sets out how health services and civil protection work together",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "xb",
+   "k": "S",
+   "x": "Nordic cooperation agreements provide cross-border assistance, including a well-developed burn casualty plan",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "mcmid",
+   "k": "S",
+   "x": "A legal framework identifies critical medicines for stockpiling and wholesalers must hold stock",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "stock",
+   "k": "S",
+   "x": "The PPE stockpile was deployed during COVID-19 without shortages; domestic medical oxygen production exists",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "sup",
+   "k": "S",
+   "x": "Iceland participates in EU joint procurement and advance purchase agreements for pandemic influenza vaccines",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "ims",
+   "k": "R",
+   "x": "Formalise response processes and stakeholder communication with checklists or SOPs; strengthen public health expertise in the crisis coordination centre and improve situation awareness tools",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "plan",
+   "k": "R",
+   "x": "Map intersectoral stakeholders and legislate regular reviews of preparedness plans based on an all-hazard risk prioritisation, with simulation cycles",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "risk",
+   "k": "R",
+   "x": "Develop or adapt a rapid health risk assessment process and templates",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "mcmid",
+   "k": "R",
+   "x": "Create a methodology for selecting crisis-relevant MCMs for the strategic stockpile",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "mcmon",
+   "k": "R",
+   "x": "Develop tools to monitor supply and estimate demand for crisis-relevant MCMs",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "stock",
+   "k": "R",
+   "x": "Develop a sustainable stockpile management plan with SOPs for deployment and reception; continue work towards a six-month supply of critical MCMs",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "lnet",
+   "k": "S",
+   "x": "Microbiology is centralised at the national hospital; designated national reference laboratories cover human, animal and food/environment sectors with strong informal collaboration for foodborne outbreaks",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "lscale",
+   "k": "S",
+   "x": "COVID-19 testing was successfully scaled up; new NAATs can be implemented within two to four weeks",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "ldata",
+   "k": "S",
+   "x": "The molecular lab has expanded including next-generation sequencing; electronic reporting of microbiology results exists on the human side",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "lqa",
+   "k": "S",
+   "x": "The national reference laboratory is accredited, provides sample packaging guidance to other labs and has a media production facility that could support a pandemic response",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "lnet",
+   "k": "R",
+   "x": "Support the NRL designation with legislation and dedicated budget, define its role in the pandemic plan and establish a formal national laboratory network covering public and private labs",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "lscale",
+   "k": "R",
+   "x": "Define a strategy for scaling laboratory capacity up and down in the national pandemic preparedness plan and secure sustainable funding for training, tools, sequencing and bioinformatics",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "ldata",
+   "k": "R",
+   "x": "Unify electronic laboratory systems, start an electronic reporting system for the animal sector and develop a national sequence database with data-sharing across One Health sectors",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "sdig",
+   "k": "S",
+   "x": "Surveillance has a clear legal basis; daily laboratory and ICD-10 data feed the national register with automatic validation and a unique patient identifier enabling linkage",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "sresp",
+   "k": "S",
+   "x": "Weekly respiratory dashboards are published in Icelandic and English; the system was resilient during COVID-19 with a digital testing and tracing platform",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "sthr",
+   "k": "S",
+   "x": "ICD-10 data were used to track the health effects of a volcanic eruption in near real time",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "sdig",
+   "k": "R",
+   "x": "Develop national reporting protocols aligned with EU requirements and data infrastructure linking notification with laboratory, vaccination, vital statistics, EHR, contact tracing and One Health data",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "sresp",
+   "k": "R",
+   "x": "Establish primary-care sentinel surveillance for acute respiratory infections with integrated microbiology; reintroduce respiratory disease thresholds and early warning indicators; integrate a contact tracing platform",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "nap",
+   "k": "S",
+   "x": "The One Health AMR National Action Plan 2025–2029 has political backing from three ministers, output indicators and quantitative 2029 targets; its information and education action is considered exemplary",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "ams",
+   "k": "S",
+   "x": "The STRAMA working group gives GPs peer-comparison reports and updates guidelines; the Gagnasýn system gives primary care prescribers feedback on antibiotic use",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "mdro",
+   "k": "S",
+   "x": "Admission screening is based on risk assessment; a dashboard on MRSA and ESBL/AmpC trends and real-time monitoring of VRE and carbapenemase-producing bacteria",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "hai",
+   "k": "S",
+   "x": "Participation in the E-BSI project highlights the potential of electronic HAI surveillance; participation in ECDC PPS, HALT and EU-JAMRAI 2",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "ipc",
+   "k": "S",
+   "x": "The two largest hospitals have dedicated IPC staff and IPC guidance is adapted locally",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "nap",
+   "k": "R",
+   "x": "Secure multi-year funding and ministry involvement to implement and monitor the national action plan",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "ams",
+   "k": "R",
+   "x": "Expand stewardship across all sectors, including accredited training, a prescription database and feedback dashboards, and hospital and long-term care interventions",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "hai",
+   "k": "R",
+   "x": "Develop national HAI prevention programmes and sustainable e-surveillance",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "ipc",
+   "k": "R",
+   "x": "Renew or establish IPC capacity at all healthcare facilities, including local adaptation workshops",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "oh",
+   "k": "S",
+   "x": "A statutory joint committee for epidemic prevention, chaired by the Chief Epidemiologist, coordinates zoonotic, food, chemical and radiation threats; guidelines define stakeholder roles for foodborne and waterborne outbreaks",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "zsurv",
+   "k": "S",
+   "x": "Intersectoral foodborne outbreak teams meet frequently, share files and produce joint reports; cross-sectoral tabletop simulations were held in 2022 and 2024",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "clim",
+   "k": "S",
+   "x": "Early warning systems for natural hazards, a cross-sectoral group monitoring volcanic air pollution, a Climate Atlas with vector-borne disease scenarios and a scientific committee on climate",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "oh",
+   "k": "R",
+   "x": "Establish One Health governance defining roles, communication, decision-making and resources; make the joint committee more active and operational and involve more organisations",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "zsurv",
+   "k": "R",
+   "x": "Develop integrated surveillance infrastructure for food-, water-, vector-borne and zoonotic diseases, potentially leading to an annual One Health zoonoses report; organise joint training and simulation exercises on priority zoonotic threats",
+   "p": null
+  },
+  {
+   "c": "is",
+   "t": "clim",
+   "k": "R",
+   "x": "Assess how extreme weather could disrupt health services, add health indicators to the Climate Atlas and cross-reference with the national adaptation plan and next pandemic plan",
+   "p": null
+  },
+  {
+   "c": "fr",
+   "t": "lnet",
+   "k": "S",
+   "x": "A well-coordinated network of national reference centres supported by Santé publique France; robust quality assurance with national and regional coordination",
+   "p": 9
+  },
+  {
+   "c": "fr",
+   "t": "lscale",
+   "k": "S",
+   "x": "The COVID-19 response showed rapid test development, deployment and regulatory adaptation",
+   "p": 9
+  },
+  {
+   "c": "fr",
+   "t": "ldata",
+   "k": "S",
+   "x": "The LABOé-SI electronic reporting system is scalable and interoperable, with pathogens being added by 2027; extensive BSL-3/BSL-4 and recognised next-generation sequencing capacity",
+   "p": 9
+  },
+  {
+   "c": "fr",
+   "t": "lnet",
+   "k": "R",
+   "x": "Formalise coordination across laboratory types and risk domains with protocols, referral pathways, joint exercises and capacity mapping; build an information system mapping laboratory capacities nationwide",
+   "p": 10
+  },
+  {
+   "c": "fr",
+   "t": "ldata",
+   "k": "R",
+   "x": "Strengthen laboratory reporting to LABOé-SI through feedback loops and timely addition of notifiable diseases; map BSL-3 labs' distribution, capabilities and surge potential",
+   "p": 10
+  },
+  {
+   "c": "fr",
+   "t": "sdig",
+   "k": "S",
+   "x": "More than 70 surveillance systems cover 38 mandatory and 31 voluntary reported pathogens and conditions; SurSaUD automatically integrates daily primary care, emergency department and mortality data for real-time alerts",
+   "p": 10
+  },
+  {
+   "c": "fr",
+   "t": "sresp",
+   "k": "S",
+   "x": "Respiratory surveillance draws on the RENAL, RELAB and 3-Labos lab networks, is highly automated and provides timely hospital capacity indicators",
+   "p": 10
+  },
+  {
+   "c": "fr",
+   "t": "sww",
+   "k": "S",
+   "x": "SUM'EAU wastewater surveillance covers 54 treatment plants and publishes weekly national and regional indicators",
+   "p": 11
+  },
+  {
+   "c": "fr",
+   "t": "sdig",
+   "k": "S",
+   "x": "The EMERGEN platform centralises sequencing data, Orchidée uses hospital electronic health records for near real-time surveillance and LABOé-SI receives daily automated lab results",
+   "p": 11
+  },
+  {
+   "c": "fr",
+   "t": "sdig",
+   "k": "R",
+   "x": "Prioritise high-quality data collection and linkage across epidemiological, laboratory and vaccine data; extend LABOé-SI to more pathogens and plan the sustainability of Orchidée",
+   "p": 12
+  },
+  {
+   "c": "fr",
+   "t": "sthr",
+   "k": "R",
+   "x": "Explore a comprehensive national vaccine monitoring system and develop a national guideline and information system for contact tracing in pandemics",
+   "p": 12
+  },
+  {
+   "c": "fr",
+   "t": "sww",
+   "k": "R",
+   "x": "Draft wastewater guidelines on response options and align SUM'EAU with the EU Urban Wastewater Treatment Directive",
+   "p": 12
+  },
+  {
+   "c": "fr",
+   "t": "plan",
+   "k": "S",
+   "x": "Intersectoral, all-hazards emergency plans cover all sectors and administrative levels and are regularly tested; a consolidated pandemic plan merges earlier smallpox, Ebola and pandemic influenza plans",
+   "p": 7
+  },
+  {
+   "c": "fr",
+   "t": "risk",
+   "k": "S",
+   "x": "A 2024 national health risk mapping, validated by an inter-ministerial committee, guides preparedness priorities",
+   "p": 7
+  },
+  {
+   "c": "fr",
+   "t": "xb",
+   "k": "S",
+   "x": "Regional collaboration has good examples based on transnational framework agreements",
+   "p": 7
+  },
+  {
+   "c": "fr",
+   "t": "sews",
+   "k": "S",
+   "x": "Event-based surveillance produces daily and weekly reports with a weekly review meeting that gathers stakeholder input",
+   "p": 7
+  },
+  {
+   "c": "fr",
+   "t": "ims",
+   "k": "S",
+   "x": "The Inter-ministerial Crisis Cell and CORRUSS allow scalable crisis management with four activation levels",
+   "p": 8
+  },
+  {
+   "c": "fr",
+   "t": "mcmid",
+   "k": "S",
+   "x": "The MCM list is reviewed annually and national stockpiles are established by Santé publique France",
+   "p": 8
+  },
+  {
+   "c": "fr",
+   "t": "sup",
+   "k": "S",
+   "x": "Regional tactical stock procurement can be pooled with national support; shortage monitoring includes annual manufacturer reports, a shortage committee and a legal duty to declare contingency stockpiles",
+   "p": 8
+  },
+  {
+   "c": "fr",
+   "t": "plan",
+   "k": "R",
+   "x": "Develop a framework helping Regional Health Agencies map their status and build regional ORSAN plans and cross-border support; clarify relationships between disease-specific and generic plans",
+   "p": 8
+  },
+  {
+   "c": "fr",
+   "t": "risk",
+   "k": "R",
+   "x": "Formalise methods and procedures for national risk profiling and risk assessment, including roles, tools, independence and communication; develop technical criteria for escalation and de-escalation",
+   "p": 8
+  },
+  {
+   "c": "fr",
+   "t": "phsm",
+   "k": "R",
+   "x": "Improve the collection and evaluation of public health and social measures, currently recorded as free text",
+   "p": 8
+  },
+  {
+   "c": "fr",
+   "t": "mcmon",
+   "k": "R",
+   "x": "Request regular targeted data from the national medicines agency on critical MCM stocks and supply chains; continue the move to a real-time stock tracking information system",
+   "p": 9
+  },
+  {
+   "c": "fr",
+   "t": "stock",
+   "k": "R",
+   "x": "Improve inter-ministerial MCM procurement coordination and assess the reliability of supply channels for products outside the agency's scope",
+   "p": 9
+  },
+  {
+   "c": "fr",
+   "t": "hsp",
+   "k": "S",
+   "x": "The Public Health Code sets the legal basis for health service provision in emergencies; hospitals must prepare operational plans to scale up capacity and maintain business continuity plans",
+   "p": 14
+  },
+  {
+   "c": "fr",
+   "t": "hsp",
+   "k": "S",
+   "x": "Five ORSAN operational plans, nine cross-cutting provisions and 2024 methodological guides support regional and local planning; reference health facilities support planning, training and care pathways",
+   "p": 14
+  },
+  {
+   "c": "fr",
+   "t": "hsp",
+   "k": "S",
+   "x": "The Operational Resource Directory and SI-ORSAN dashboard give real-time visibility of bed and ICU capacity; bilateral and multilateral agreements enable cross-border patient transfers",
+   "p": 16
+  },
+  {
+   "c": "fr",
+   "t": "hsp",
+   "k": "S",
+   "x": "Reserve health professionals, national solidarity mechanisms and a legal duty for medical professionals to prepare add surge capacity",
+   "p": 17
+  },
+  {
+   "c": "fr",
+   "t": "hsp",
+   "k": "R",
+   "x": "Strengthen support to regions for health service preparedness and enhance the role of primary care, including in regional exercises",
+   "p": 17
+  },
+  {
+   "c": "fr",
+   "t": "hsp",
+   "k": "R",
+   "x": "Support practice exchange among hospital networks, strengthen preparedness for mass-casualty crises, analyse exercise and after-action reports and address untested business continuity plans for outpatient care",
+   "p": 17
+  },
+  {
+   "c": "fr",
+   "t": "nap",
+   "k": "S",
+   "x": "The inter-ministerial AMR roadmap 2024–2034 serves as the One Health action plan with clear objectives and indicators; agencies have dedicated AMR budget lines; HAI and AMR sit within a broader prevention strategy",
+   "p": 12
+  },
+  {
+   "c": "fr",
+   "t": "ams",
+   "k": "S",
+   "x": "Twenty-six national antimicrobial guidelines are promoted through regional antibiotic therapy centres; public consumption data and prescribing indicators; hospital 'ambassadors' give real-time prescribing advice",
+   "p": 12
+  },
+  {
+   "c": "fr",
+   "t": "ipc",
+   "k": "S",
+   "x": "Regional infection prevention support centres have supported HAI prevention since 1990; annual quality indicators feed into the certification of healthcare establishments",
+   "p": 13
+  },
+  {
+   "c": "fr",
+   "t": "hai",
+   "k": "S",
+   "x": "Five national surveillance missions monitor antimicrobial consumption and resistance",
+   "p": 13
+  },
+  {
+   "c": "fr",
+   "t": "nap",
+   "k": "R",
+   "x": "Increase public visibility of One Health AMR through cross-sectoral activities and joint campaigns; track national AMR spending across agencies and study return on investment in prevention",
+   "p": 13
+  },
+  {
+   "c": "fr",
+   "t": "ams",
+   "k": "R",
+   "x": "Extend prescriber feedback and peer-to-peer approaches and ensure primary and medico-social sectors have access to antimicrobial expertise",
+   "p": 13
+  },
+  {
+   "c": "fr",
+   "t": "mdro",
+   "k": "R",
+   "x": "Ensure MDRO cluster information reaches regional authorities and facilities in real time and apply MDRO screening recommendations effectively",
+   "p": 13
+  },
+  {
+   "c": "fr",
+   "t": "hai",
+   "k": "R",
+   "x": "Automate and centralise AMR and HAI data from laboratories, including molecular data, to speed up outbreak detection",
+   "p": 14
+  },
+  {
+   "c": "fr",
+   "t": "ipc",
+   "k": "R",
+   "x": "Improve hospital support for meeting the WHO IPC core components using the IPCAF framework, with behavioural insights",
+   "p": 14
+  },
+  {
+   "c": "lt",
+   "t": "plan",
+   "k": "S",
+   "x": "A strong legal framework sets out crisis roles with the Ministry of Health as lead authority; clear arrangements exist for responding to intentional releases",
+   "p": 6
+  },
+  {
+   "c": "lt",
+   "t": "risk",
+   "k": "S",
+   "x": "The National Crisis Management Centre runs routine all-hazard risk profiling",
+   "p": 6
+  },
+  {
+   "c": "lt",
+   "t": "ims",
+   "k": "S",
+   "x": "Operation centres at state and municipal levels use functional groups; the national emergency situations centre has SOPs with decision algorithms and a 24/7 alert function",
+   "p": 6
+  },
+  {
+   "c": "lt",
+   "t": "ex",
+   "k": "S",
+   "x": "Simulation exercises are conducted regularly and an after-action review of COVID-19 contact tracing was completed",
+   "p": 7
+  },
+  {
+   "c": "lt",
+   "t": "xb",
+   "k": "S",
+   "x": "Lithuania contributes to the EU Civil Protection Mechanism and the WHO EMT initiative and has mutual-assistance arrangements with Estonia and Latvia",
+   "p": 7
+  },
+  {
+   "c": "lt",
+   "t": "plan",
+   "k": "R",
+   "x": "Finalise the revision of the respiratory pathogen pandemic plan using a One Health approach and use civil-military and international partnerships to add resources",
+   "p": 7
+  },
+  {
+   "c": "lt",
+   "t": "risk",
+   "k": "R",
+   "x": "Maintain and improve rapid risk assessments for high and very high risks from the 24/7 alert process or event-based surveillance",
+   "p": 7
+  },
+  {
+   "c": "lt",
+   "t": "ims",
+   "k": "R",
+   "x": "Log actions and decisions during incident management to support later reviews",
+   "p": 6
+  },
+  {
+   "c": "lt",
+   "t": "ex",
+   "k": "R",
+   "x": "Develop a strategic, priority-based exercise plan with defined objectives and a systematic way to integrate lessons learnt",
+   "p": 7
+  },
+  {
+   "c": "lt",
+   "t": "phsm",
+   "k": "R",
+   "x": "Standardise the interdisciplinary approach to public health and social measures, including monitoring, effectiveness evaluation and social impact assessment",
+   "p": 7
+  },
+  {
+   "c": "lt",
+   "t": "lnet",
+   "k": "S",
+   "x": "A robust legal framework defines the laboratory system; the central public health lab has BSL-3 capacity, advanced characterisation and WGS; national reference labs in human, food and veterinary sectors are accredited",
+   "p": 7
+  },
+  {
+   "c": "lt",
+   "t": "lscale",
+   "k": "S",
+   "x": "Laboratory capacity grew in COVID-19 and veterinary laboratories were licensed to support human testing during surge",
+   "p": 8
+  },
+  {
+   "c": "lt",
+   "t": "lqa",
+   "k": "S",
+   "x": "An SOP for validating and verifying clinical tests supports rapid setup of new diagnostics; most clinical labs are accredited or licensed",
+   "p": 8
+  },
+  {
+   "c": "lt",
+   "t": "lscale",
+   "k": "R",
+   "x": "Create a national plan for scaling up laboratory capacity during crises linked to the generic preparedness plan and including COVID-19 lessons",
+   "p": 8
+  },
+  {
+   "c": "lt",
+   "t": "lnet",
+   "k": "R",
+   "x": "Clarify national reference laboratory roles and strengthen the national lab network, using the ECDC core functions document as a reference",
+   "p": 8
+  },
+  {
+   "c": "lt",
+   "t": "lbio",
+   "k": "R",
+   "x": "Set up a formal agreement with an EU-based BSL-4 laboratory in peacetime and create a legal framework for biosafety and biosecurity for all labs working with communicable diseases, with training",
+   "p": 8
+  },
+  {
+   "c": "lt",
+   "t": "ldata",
+   "k": "R",
+   "x": "Strengthen human–food/animal laboratory collaboration, including a common database for critical surveillance and outbreak data",
+   "p": 8
+  },
+  {
+   "c": "lt",
+   "t": "sdig",
+   "k": "S",
+   "x": "The legal and institutional framework is robust and aligned with EU regulations; notifiable disease categories are defined and dedicated legislation covers specific diseases",
+   "p": 9
+  },
+  {
+   "c": "lt",
+   "t": "sresp",
+   "k": "S",
+   "x": "Syndromic surveillance is activated during mass gatherings; weekly ILI and ARI analyses are published; an interactive national dashboard was built during COVID-19",
+   "p": 9
+  },
+  {
+   "c": "lt",
+   "t": "sww",
+   "k": "S",
+   "x": "Wastewater surveillance has run weekly since 2022 in three major cities, with genomic sequencing",
+   "p": 9
+  },
+  {
+   "c": "lt",
+   "t": "sdig",
+   "k": "R",
+   "x": "Continue digitalising surveillance to enable automated indicator analysis for faster signal detection",
+   "p": 9
+  },
+  {
+   "c": "lt",
+   "t": "sthr",
+   "k": "R",
+   "x": "Expand analytical capacity (modelling, transmissibility, reproduction number, vaccine effectiveness) and integrate RSV and influenza into the dashboard",
+   "p": 9
+  },
+  {
+   "c": "lt",
+   "t": "sews",
+   "k": "R",
+   "x": "Strengthen event-based surveillance and adopt a dedicated event management IT platform",
+   "p": 9
+  },
+  {
+   "c": "lt",
+   "t": "sresp",
+   "k": "R",
+   "x": "Assess the representativeness of the sentinel respiratory network (about 3% of the population) and complete SARI surveillance",
+   "p": 9
+  },
+  {
+   "c": "lt",
+   "t": "nap",
+   "k": "S",
+   "x": "The One Health Interinstitutional Group on AMR, established in 2019, coordinates across human, animal and environmental sectors",
+   "p": 10
+  },
+  {
+   "c": "lt",
+   "t": "hai",
+   "k": "S",
+   "x": "HAI surveillance is comprehensive, with annual reporting that names non-reporting facilities; antimicrobial consumption is monitored through three data systems and published annually",
+   "p": 10
+  },
+  {
+   "c": "lt",
+   "t": "mdro",
+   "k": "S",
+   "x": "The national public health lab runs molecular and WGS of carbapenem-resistant isolates, detects clusters and alerts hospital labs; a multidisciplinary national CRE response team was recently set up",
+   "p": 10
+  },
+  {
+   "c": "lt",
+   "t": "ams",
+   "k": "S",
+   "x": "National 2023 recommendations on rational antimicrobial use exist and stewardship is piloted in 10 hospitals",
+   "p": 11
+  },
+  {
+   "c": "lt",
+   "t": "nap",
+   "k": "R",
+   "x": "Monitor and evaluate sectoral AMR plans, identify shared priorities for the next One Health plan and consider public progress reporting",
+   "p": 10
+  },
+  {
+   "c": "lt",
+   "t": "ams",
+   "k": "R",
+   "x": "Promote the WHO AWaRe classification among prescribers, use consumption data to set targets and address incomplete prescribing indication data",
+   "p": 11
+  },
+  {
+   "c": "lt",
+   "t": "ipc",
+   "k": "R",
+   "x": "Fully implement the WHO core components of IPC programmes and assess adherence to CRE screening guidelines",
+   "p": 11
+  },
+  {
+   "c": "lt",
+   "t": "hai",
+   "k": "R",
+   "x": "Establish regular synthesis of epidemiological and laboratory data to identify AMR and HAI risks and strengthen roles in cross-facility outbreak control",
+   "p": 12
+  },
+  {
+   "c": "lt",
+   "t": "oh",
+   "k": "S",
+   "x": "Human and animal health legislation both cover zoonoses; cross-sectoral cooperation was tested in COVID-19 mink farm outbreaks, leading to legal amendments and joint algorithms",
+   "p": 11
+  },
+  {
+   "c": "lt",
+   "t": "zsurv",
+   "k": "S",
+   "x": "Cross-sectoral response worked in foodborne salmonellosis and avian influenza outbreaks; joint simulation exercises are held periodically; a zoonotic influenza vaccine is stockpiled and offered free to occupational risk groups",
+   "p": 12
+  },
+  {
+   "c": "lt",
+   "t": "clim",
+   "k": "S",
+   "x": "The National Climate Change Adaptation Plan 2024–2030 includes 13 public health policies",
+   "p": 12
+  },
+  {
+   "c": "lt",
+   "t": "oh",
+   "k": "R",
+   "x": "Establish a clear One Health coordinating mechanism or authority and improve cross-sectoral procedures for data exchange, joint risk assessments and outbreak response; hold regular cross-sectoral meetings and joint training",
+   "p": 13
+  },
+  {
+   "c": "lt",
+   "t": "zsurv",
+   "k": "R",
+   "x": "Involve environmental and nature protection sectors in wildlife surveillance at human–animal–wildlife interfaces",
+   "p": 12
+  },
+  {
+   "c": "lt",
+   "t": "clim",
+   "k": "R",
+   "x": "Reassess climate-related public health risks and update mosquito vector monitoring to cover invasive species such as Aedes albopictus and West Nile virus vectors",
+   "p": 13
+  },
+  {
+   "c": "cy",
+   "t": "plan",
+   "k": "S",
+   "x": "A framework of emergency plans with colour-coded activation levels; crisis coordinators from each ministry convene at the National EOC when a plan is activated",
+   "p": 6
+  },
+  {
+   "c": "cy",
+   "t": "risk",
+   "k": "S",
+   "x": "A multi-hazard risk assessment (STAR methodology) brought together 46 experts from 19 bodies; the priority list guides updating of operational plans",
+   "p": 7
+  },
+  {
+   "c": "cy",
+   "t": "ex",
+   "k": "S",
+   "x": "Public hospitals keep their own preparedness plans, checked internally, and regularly hold drills and field exercises",
+   "p": 7
+  },
+  {
+   "c": "cy",
+   "t": "xb",
+   "k": "S",
+   "x": "Cross-border mutual aid and patient transfer agreements with Greece, Israel and Italy were tested in recent crises; an MoU with Greece's public health agency covers training and SOP sharing; Cyprus gave and received help through rescEU",
+   "p": 8
+  },
+  {
+   "c": "cy",
+   "t": "mcmid",
+   "k": "S",
+   "x": "A multidisciplinary Strategic Stockpile Management Committee (July 2025) produced a critical MCM list",
+   "p": 8
+  },
+  {
+   "c": "cy",
+   "t": "mcmon",
+   "k": "S",
+   "x": "Demand for several MCMs is monitored centrally across health institutions",
+   "p": 8
+  },
+  {
+   "c": "cy",
+   "t": "sup",
+   "k": "S",
+   "x": "National pharmaceutical production has been mapped; internal central procurement policies address supply chain vulnerabilities",
+   "p": 8
+  },
+  {
+   "c": "cy",
+   "t": "plan",
+   "k": "R",
+   "x": "Align revised operational plans with the national health emergency plan and the national umbrella plan, with the same structure and clear responsibilities; involve multiple sectors in all planning phases",
+   "p": 9
+  },
+  {
+   "c": "cy",
+   "t": "ims",
+   "k": "R",
+   "x": "Equip the planned PHEOC and National EOC with situational awareness tools (beds, ICU, workforce, cases, deaths, testing) and extend bed monitoring to the private sector",
+   "p": 9
+  },
+  {
+   "c": "cy",
+   "t": "mcmid",
+   "k": "R",
+   "x": "Develop a formal methodology for compiling the critical MCM list",
+   "p": 9
+  },
+  {
+   "c": "cy",
+   "t": "mcmon",
+   "k": "R",
+   "x": "Explore tools for monitoring MCM supply and use existing data to estimate demand",
+   "p": 9
+  },
+  {
+   "c": "cy",
+   "t": "stock",
+   "k": "R",
+   "x": "Develop a sustainable stockpile management plan, including laboratory consumables and SOPs for MCM deployment",
+   "p": 9
+  },
+  {
+   "c": "cy",
+   "t": "sup",
+   "k": "R",
+   "x": "Start discussions on bilateral arrangements for MCM availability in crises, such as scaled-up manufacturing or capacity reservation",
+   "p": 9
+  },
+  {
+   "c": "cy",
+   "t": "lnet",
+   "k": "S",
+   "x": "A tiered laboratory network covers all districts; reference labs work to ISO 15189 and 17025 and join external quality assessments; a defined legal framework governs lab operation, biosafety and quality",
+   "p": 9
+  },
+  {
+   "c": "cy",
+   "t": "lscale",
+   "k": "S",
+   "x": "Cyprus reached one of the EU's highest COVID-19 testing rates; a new NAAT could be deployed within about 2–4 weeks",
+   "p": 9
+  },
+  {
+   "c": "cy",
+   "t": "ldata",
+   "k": "S",
+   "x": "Molecular, culture, serology, wastewater and zoonotic testing plus NGS/WGS; metagenomics for novel pathogens with a dedicated bioinformatics group",
+   "p": 10
+  },
+  {
+   "c": "cy",
+   "t": "lqa",
+   "k": "S",
+   "x": "Reference labs have business continuity plans; specimen referral follows SOPs with validated shipping protocols and certified couriers",
+   "p": 10
+  },
+  {
+   "c": "cy",
+   "t": "lbio",
+   "k": "S",
+   "x": "BSL-3 capacity at three institutions; active participation in European and global lab networks",
+   "p": 10
+  },
+  {
+   "c": "cy",
+   "t": "lnet",
+   "k": "R",
+   "x": "Define pathogen-specific roles for reference laboratories and document governance pathways for emergencies",
+   "p": 10
+  },
+  {
+   "c": "cy",
+   "t": "lqa",
+   "k": "R",
+   "x": "Formalise specimen referral agreements nationally and internationally, evaluate courier services and secure BSL-4 technical support through partners; ensure some private labs become accredited for microbiology",
+   "p": 10
+  },
+  {
+   "c": "cy",
+   "t": "lscale",
+   "k": "R",
+   "x": "Put formal agreements and funding in place for surge laboratory capacity",
+   "p": 10
+  },
+  {
+   "c": "cy",
+   "t": "ldata",
+   "k": "R",
+   "x": "Broaden genomic and bioinformatic capability, clarify roles for uploading sequence data and complete national electronic laboratory reporting, making lab reporting mandatory",
+   "p": 10
+  },
+  {
+   "c": "cy",
+   "t": "lbio",
+   "k": "R",
+   "x": "Develop biosecurity protocols to complement biosafety guidelines for high-containment facilities",
+   "p": 10
+  },
+  {
+   "c": "cy",
+   "t": "sews",
+   "k": "S",
+   "x": "A passive mandatory notification system for 70 infectious diseases with all clinicians participating; a primary-care sentinel network of 42 GPs and paediatricians reports weekly on ARI",
+   "p": 10
+  },
+  {
+   "c": "cy",
+   "t": "sresp",
+   "k": "S",
+   "x": "A hospital sentinel system monitors lab-confirmed SARS-CoV-2, RSV and influenza; CIPHIS provides electronic weekly reporting, near real-time dashboards and feedback to GPs",
+   "p": 10
+  },
+  {
+   "c": "cy",
+   "t": "sww",
+   "k": "S",
+   "x": "Wastewater surveillance, mainly for SARS-CoV-2, is linked to European initiatives",
+   "p": 11
+  },
+  {
+   "c": "cy",
+   "t": "sdig",
+   "k": "S",
+   "x": "Pandemic-era platforms and agreements with academia showed Cyprus can set up digital surveillance quickly in an emergency",
+   "p": 11
+  },
+  {
+   "c": "cy",
+   "t": "sdig",
+   "k": "R",
+   "x": "Accelerate full CIPHIS deployment, replacing paper-based reporting, and link lab and epidemiological data with mandatory timely reporting from public and private laboratories",
+   "p": 11
+  },
+  {
+   "c": "cy",
+   "t": "sews",
+   "k": "R",
+   "x": "Formalise a national event-based surveillance system with governance, SOPs and verification workflows; institutionalise regular public surveillance reports",
+   "p": 11
+  },
+  {
+   "c": "cy",
+   "t": "nap",
+   "k": "S",
+   "x": "An interdisciplinary One Health Antibiotic Committee existed before the new plan",
+   "p": 12
+  },
+  {
+   "c": "cy",
+   "t": "hai",
+   "k": "S",
+   "x": "The national reference centre performs susceptibility testing, has MALDI-TOF and contributes to EARS-Net for about 82% of the population; Cyprus took part in the 2023–2024 ECDC point prevalence survey",
+   "p": 12
+  },
+  {
+   "c": "cy",
+   "t": "ams",
+   "k": "S",
+   "x": "Electronic prescribing gives feedback to prescribers; community and hospital antimicrobial use are reported separately",
+   "p": 12
+  },
+  {
+   "c": "cy",
+   "t": "ipc",
+   "k": "S",
+   "x": "Hospitals must have infection control committees; yearly IPC training and national IPC guidelines exist; the BIOCARE system supports both manual entry and automated import of IPC data",
+   "p": 12
+  },
+  {
+   "c": "cy",
+   "t": "nap",
+   "k": "R",
+   "x": "Launch and publish the One Health AMR Action Plan and the IPC Action Plan, securing funding; roll out BIOCARE gradually using EARS-Net, ESAC-Net and PPS data as baselines",
+   "p": 13
+  },
+  {
+   "c": "cy",
+   "t": "mdro",
+   "k": "R",
+   "x": "Integrate MDRO screening into IPC data collection and consider a priority MDRO list, including C. auris",
+   "p": 13
+  },
+  {
+   "c": "cy",
+   "t": "ams",
+   "k": "R",
+   "x": "Strengthen antimicrobial stewardship, endorsing national guidelines and combining them with consumption data",
+   "p": 13
+  },
+  {
+   "c": "cy",
+   "t": "ipc",
+   "k": "R",
+   "x": "Develop IPC specialisation and career paths for nurses and other professionals; address the lack of a structured IPC programme, a dedicated budget and systematic WASH monitoring",
+   "p": 12
+  },
+  {
+   "c": "cy",
+   "t": "oh",
+   "k": "S",
+   "x": "An intersectoral One Health ad hoc committee of human, veterinary and environmental experts meets monthly; academic institutions provide scientific and technical support",
+   "p": 13
+  },
+  {
+   "c": "cy",
+   "t": "zsurv",
+   "k": "S",
+   "x": "The Medical Entomology Laboratory (since 2023) runs entomological surveillance and integrated mosquito management; the EU4Health Cy-ESM programme links human, vector and animal surveillance data",
+   "p": 13
+  },
+  {
+   "c": "cy",
+   "t": "clim",
+   "k": "S",
+   "x": "Disease-specific plans (Aedes-borne diseases, avian influenza, Ebola/Marburg, foodborne), public mosquito-control campaigns, a Sterile Insect Technique pilot and a climate adaptation strategy with health provisions",
+   "p": 14
+  },
+  {
+   "c": "cy",
+   "t": "oh",
+   "k": "R",
+   "x": "Formalise the One Health coordination mechanism with defined roles and responsibilities; include occupational health stakeholders",
+   "p": 14
+  },
+  {
+   "c": "cy",
+   "t": "zsurv",
+   "k": "R",
+   "x": "Update and harmonise avian influenza and haemorrhagic fever plans, develop a One Health West Nile virus plan and add an automatic alert function to the Cy-ESM platform",
+   "p": 14
+  },
+  {
+   "c": "cy",
+   "t": "clim",
+   "k": "R",
+   "x": "Continue awareness campaigns on vector-borne, zoonotic and climate-related risks and maintain efforts against Aedes aegypti and Aedes albopictus with adequate resources",
+   "p": 14
+  },
+  {
+   "c": "li",
+   "t": "plan",
+   "k": "S",
+   "x": "A three-tier emergency structure (normal, special, extraordinary) mirrors Switzerland's system; short communication channels allow rapid informal coordination",
+   "p": 8
+  },
+  {
+   "c": "li",
+   "t": "ims",
+   "k": "S",
+   "x": "The pandemic staff worked well and is being formalised as an interdisciplinary health staff; a contracted crisis intervention team sustained contact tracing throughout COVID-19",
+   "p": 8
+  },
+  {
+   "c": "li",
+   "t": "xb",
+   "k": "S",
+   "x": "Liaison structures with Swiss, Austrian, German and EU bodies support rapid escalation and joint decision-making; connected to Swiss civil protection, disaster medicine and supply networks",
+   "p": 8
+  },
+  {
+   "c": "li",
+   "t": "risk",
+   "k": "S",
+   "x": "The 2024 hazard analysis used the Swiss methodology and covers likelihood, impact and scenarios",
+   "p": 8
+  },
+  {
+   "c": "li",
+   "t": "stock",
+   "k": "S",
+   "x": "National stockpiles are publicly owned and physical; participation in Swiss procurement enabled vaccine deliveries; the Swiss economic supply framework covers stockpiling and shortage monitoring",
+   "p": 9
+  },
+  {
+   "c": "li",
+   "t": "plan",
+   "k": "R",
+   "x": "Finalise the preparedness and response plan with defined roles and leadership; formalise and exercise the interdisciplinary health staff and set up a PHEOC at the Office of Public Health",
+   "p": 9
+  },
+  {
+   "c": "li",
+   "t": "mcmid",
+   "k": "R",
+   "x": "Develop a methodology, with criteria, stakeholders and volumes, for updating the national MCM stockpile list",
+   "p": 10
+  },
+  {
+   "c": "li",
+   "t": "stock",
+   "k": "R",
+   "x": "Assess a mixed stockpile model combining physical and virtual stock and monitor recommended stockpiles held by healthcare institutions",
+   "p": 10
+  },
+  {
+   "c": "li",
+   "t": "union",
+   "k": "S",
+   "x": "Clear information flow from the Health Security Committee representative to national actors; full participation in the HSC apart from voting; the Office of Public Health is the main interface with EU crisis mechanisms",
+   "p": 10
+  },
+  {
+   "c": "li",
+   "t": "union",
+   "k": "S",
+   "x": "HSC opinions and ECDC resources are applied in practice and adapted to the national context; the EU Health Task Force has been used",
+   "p": 10
+  },
+  {
+   "c": "li",
+   "t": "union",
+   "k": "R",
+   "x": "Develop an SOP to support analysis of EWRS notifications and a regular mechanism to monitor ECDC guidance and planned publications",
+   "p": 11
+  },
+  {
+   "c": "li",
+   "t": "ldata",
+   "k": "S",
+   "x": "The mandatory Swiss electronic laboratory reporting system (CH-ELM) is interoperable and supports automated recognition of laboratory criteria; a fully interoperable digital surveillance architecture has operated since 2024",
+   "p": 11
+  },
+  {
+   "c": "li",
+   "t": "lscale",
+   "k": "S",
+   "x": "Labs must notify the Office of Public Health within two hours for unknown pathogens; financial agility enabled rapid procurement of testing capacity in COVID-19; reliance on a primary private lab network with Swiss partner labs works well",
+   "p": 11
+  },
+  {
+   "c": "li",
+   "t": "lbio",
+   "k": "S",
+   "x": "Access to Swiss BSL-3 and BSL-4 facilities gives a reliable route for high-risk pathogen confirmation",
+   "p": 11
+  },
+  {
+   "c": "li",
+   "t": "sww",
+   "k": "S",
+   "x": "Wastewater surveillance is proactive, funded, integrated into the public dashboard and has informed policy decisions",
+   "p": 11
+  },
+  {
+   "c": "li",
+   "t": "lscale",
+   "k": "R",
+   "x": "Establish formal contracts with private laboratories and agreements with cross-sector laboratories to boost surge diagnostic capacity",
+   "p": 12
+  },
+  {
+   "c": "li",
+   "t": "lnet",
+   "k": "R",
+   "x": "Create a formal plan for referring high-threat pathogens to reference laboratories, with updated and accessible procedures",
+   "p": 12
+  },
+  {
+   "c": "li",
+   "t": "sww",
+   "k": "R",
+   "x": "Review the wastewater data model and analytics, inclusion criteria and pathogen targets, add rapidly activated targets and document governance and cost-effectiveness",
+   "p": 12
+  },
+  {
+   "c": "li",
+   "t": "sdig",
+   "k": "S",
+   "x": "Legal frameworks and guidelines cover 56 notifiable diseases and can be adapted quickly; the ISM system includes electronic lab reporting, deduplication and case-level integration",
+   "p": 12
+  },
+  {
+   "c": "li",
+   "t": "sews",
+   "k": "S",
+   "x": "Event-based surveillance uses EWRS, EpiPulse, a dedicated mailbox and 24/7 police-based triage; participation in the Epi+ pilot supports a multi-hazard event-based platform",
+   "p": 12
+  },
+  {
+   "c": "li",
+   "t": "sresp",
+   "k": "S",
+   "x": "Weekly respiratory surveillance is integrated with Swiss systems and published on a public dashboard; mandatory health insurance claims data can be reused for surveillance",
+   "p": 13
+  },
+  {
+   "c": "li",
+   "t": "sdig",
+   "k": "R",
+   "x": "Propose minimum data fields for clinical digital reporting in the future national platform, give reporting clinicians feedback, and document SOPs for retrieving, validating and analysing recurring surveillance data",
+   "p": 13
+  },
+  {
+   "c": "li",
+   "t": "scap",
+   "k": "R",
+   "x": "Use available health data such as insurance claims to monitor vaccination coverage and evaluate public health measures",
+   "p": 13
+  },
+  {
+   "c": "li",
+   "t": "sews",
+   "k": "R",
+   "x": "Continue participating in Epi+ and its interoperability with EpiPulse",
+   "p": 13
+  },
+  {
+   "c": "li",
+   "t": "nap",
+   "k": "S",
+   "x": "Liechtenstein takes part in Swiss One Health AMR strategy and action plan working groups; antibiotics are available only on prescription in human and veterinary sectors",
+   "p": 13
+  },
+  {
+   "c": "li",
+   "t": "hai",
+   "k": "S",
+   "x": "Blood culture data have been reported to EARS-Net since 2022 through a Swiss collaboration; AMR data are comprehensive across sample types",
+   "p": 13
+  },
+  {
+   "c": "li",
+   "t": "ipc",
+   "k": "S",
+   "x": "A newly appointed IPC professional is rebuilding IPC and stewardship programmes; trained link nurses in long-term care facilities follow Swiss IPC and stewardship guidelines; specialist ID advice from a neighbouring Swiss hospital",
+   "p": 14
+  },
+  {
+   "c": "li",
+   "t": "hai",
+   "k": "R",
+   "x": "Systematically request, retrieve and analyse data Switzerland already collects under cross-border agreements to strengthen national oversight of AMR, AMC and HAIs",
+   "p": 15
+  },
+  {
+   "c": "li",
+   "t": "ipc",
+   "k": "R",
+   "x": "Build a structured national IPC and stewardship framework with objectives, indicators and timelines aligned with the Swiss action plan and implement routine training integrated into continuing professional development",
+   "p": 15
+  },
+  {
+   "c": "interim",
+   "t": "sup",
+   "k": "S",
+   "x": "Netherlands: combines stockpiles with healthcare supply-chain reserves and advance purchase or production agreements, including at EU level",
+   "p": 10,
+   "cc": "NL"
+  },
+  {
+   "c": "interim",
+   "t": "ams",
+   "k": "S",
+   "x": "Netherlands: national requirements for hospital antimicrobial stewardship teams",
+   "p": 20,
+   "cc": "NL"
+  },
+  {
+   "c": "interim",
+   "t": "mdro",
+   "k": "S",
+   "x": "Netherlands: reimburses testing and outbreak-control costs; dedicated regional teams (also in Belgium and France) support outbreak investigation",
+   "p": 21,
+   "cc": "NL"
+  },
+  {
+   "c": "interim",
+   "t": "hai",
+   "k": "S",
+   "x": "Netherlands: nationally coordinated HAI surveillance network",
+   "p": 22,
+   "cc": "NL"
+  },
+  {
+   "c": "interim",
+   "t": "ipc",
+   "k": "S",
+   "x": "IPC team information-sharing networks in Belgium, France, Latvia, Luxembourg and the Netherlands",
+   "p": 23,
+   "cc": "NL"
+  },
+  {
+   "c": "interim",
+   "t": "risk",
+   "k": "S",
+   "x": "Norway: every administrative level must produce risk and vulnerability analyses",
+   "p": 7,
+   "cc": "NO"
+  },
+  {
+   "c": "interim",
+   "t": "ims",
+   "k": "S",
+   "x": "Sweden: 24/7 duty-officer system, formal regional mutual support and weekly coordination meetings",
+   "p": 7,
+   "cc": "SE"
+  },
+  {
+   "c": "interim",
+   "t": "phsm",
+   "k": "S",
+   "x": "Portugal, Sweden and Lithuania assessed COVID-19 public health and social measures through after-action reviews",
+   "p": 8,
+   "cc": "PT"
+  },
+  {
+   "c": "interim",
+   "t": "lscale",
+   "k": "S",
+   "x": "Portugal: COVID-19 scale-up across public and private labs coordinated by the national reference laboratory",
+   "p": 14,
+   "cc": "PT"
+  },
+  {
+   "c": "interim",
+   "t": "lscale",
+   "k": "S",
+   "x": "Malta: capacity-building vision, plans for molecular lab space, NGS investment and EU-funded projects",
+   "p": 13,
+   "cc": "MT"
+  },
+  {
+   "c": "interim",
+   "t": "lbio",
+   "k": "S",
+   "x": "Sweden: BSL-4 lab provides agreements for specimen analysis for several Nordic and Baltic states",
+   "p": 15,
+   "cc": "SE"
+  },
+  {
+   "c": "interim",
+   "t": "mcmon",
+   "k": "S",
+   "x": "Belgium: pilot Stock Monitoring Tool consolidating data across the supply chain",
+   "p": 10,
+   "cc": "BE"
+  },
+  {
+   "c": "interim",
+   "t": "nap",
+   "k": "S",
+   "x": "Luxembourg: mid-point evaluation of the AMR action plan; Spain and France document implementation with detailed objectives and indicators",
+   "p": 20,
+   "cc": "LU"
+  },
+  {
+   "c": "interim",
+   "t": "ams",
+   "k": "S",
+   "x": "Belgium: premium paid to primary-care doctors for electronic health tools; France: local antibiotic therapy teams; Lithuania: funded hospital AMS teams",
+   "p": 20,
+   "cc": "BE"
+  },
+  {
+   "c": "interim",
+   "t": "hai",
+   "k": "S",
+   "x": "Estonia: national electronic HAI surveillance system; Estonia and Lithuania legally require hospitals to run HAI surveillance",
+   "p": 22,
+   "cc": "EE"
+  },
+  {
+   "c": "interim",
+   "t": "sww",
+   "k": "S",
+   "x": "Finland: granular wastewater system covering respiratory and other pathogens with a public newsletter",
+   "p": 17,
+   "cc": "FI"
+  },
+  {
+   "c": "interim",
+   "t": "sthr",
+   "k": "S",
+   "x": "Belgium: Risk Assessment Group advising the federal Risk Management Group; Spain: national vaccine-effectiveness studies and VEBIS",
+   "p": 18,
+   "cc": "BE"
+  },
+  {
+   "c": "interim",
+   "t": "mdro",
+   "k": "S",
+   "x": "Finland: routine WGS for MDROs has detected clusters and controlled spread",
+   "p": 21,
+   "cc": "FI"
+  }
+ ]
+}

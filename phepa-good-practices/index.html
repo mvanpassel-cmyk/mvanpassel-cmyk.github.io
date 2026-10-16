@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PHEPA Good Practices</title>
+<meta name="description" content="Strengths, good practices and recommendations from ECDC Public Health Emergency Preparedness Assessments (PHEPA), organised by topic, so countries can find solutions to preparedness gaps.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231d3f8a'/%3E%3Cpath d='M16 6l8 3v7c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V9z' fill='none' stroke='%23f4c95d' stroke-width='2.4' stroke-linejoin='round'/%3E%3Cpath d='M12.5 16l2.5 2.5 5-5' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#f4f5f8;--ink:#1c1f26;--muted:#667085;--card:#fff;--line:#dfe2ea;--accent:#1d3f8a;--warn:#e0a526;--good:#1b6e2a;--goodbg:rgba(27,110,42,.09);--rec:#8a4b0f;--recbg:rgba(224,165,38,.14)}
+@media (prefers-color-scheme:dark){:root{--bg:#13161c;--ink:#eceae4;--muted:#9aa1ae;--card:#1c2028;--line:#2b303a;--accent:#8fb4ff;--good:#7fd68c;--goodbg:rgba(127,214,140,.1);--rec:#f0c070;--recbg:rgba(240,192,112,.1)}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:28px 16px 72px}
+a{color:var(--accent)}
+.back{font-size:14px;color:var(--muted);text-decoration:none}
+h1{font:600 clamp(26px,5vw,38px)/1.1 ui-serif,Georgia,serif;margin:10px 0 8px}
+h2{font:600 22px/1.2 ui-serif,Georgia,serif;margin:28px 0 10px}
+h3{font-size:16px;margin:14px 0 6px}
+.lead{color:var(--muted);max-width:75ch;margin:0 0 16px}
+nav.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0;border-bottom:1px solid var(--line);padding-bottom:10px}
+nav.tabs a{padding:6px 14px;border-radius:999px;border:1px solid var(--line);text-decoration:none;color:var(--ink);font-size:14px}
+nav.tabs a[aria-current="page"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 12px}
+.bar .lbl{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+input[type=search],select{font:inherit;font-size:14px;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);max-width:100%}
+button{font:inherit;font-size:14px;padding:6px 14px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--ink);cursor:pointer}
+button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+button:focus-visible,a:focus-visible,summary:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:0 0 12px}
+.note{border-left:3px solid var(--warn);padding:2px 12px;color:var(--muted);font-size:13px;margin:14px 0}
+.muted{color:var(--muted)}.small{font-size:13px}
+.badge{display:inline-block;border-radius:6px;padding:0 6px;font-size:11px;font-weight:600;letter-spacing:.04em;border:1px solid var(--line);color:var(--muted);margin-right:6px;white-space:nowrap}
+.badge.g{color:var(--good);border-color:var(--good)}.badge.r{color:var(--rec);border-color:var(--rec)}
+details.t{background:var(--card);border:1px solid var(--line);border-radius:12px;margin:0 0 8px}
+details.t>summary{cursor:pointer;padding:10px 14px;list-style:none;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+details.t>summary::-webkit-details-marker{display:none}
+details.t>summary::before{content:"▸";color:var(--muted)}details.t[open]>summary::before{content:"▾"}
+details.t .body{padding:2px 14px 14px;border-top:1px solid var(--line)}
+.caphead{margin:24px 0 8px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}.caphead h2{margin:0}
+.fn{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.it{margin:6px 0;padding:7px 10px;border-left:3px solid var(--line);border-radius:0 8px 8px 0;font-size:14px}
+.it.S{border-left-color:var(--good);background:var(--goodbg)}.it.R{border-left-color:var(--warn);background:var(--recbg)}
+.it .who{font-weight:700;margin-right:6px}
+.it .pg{color:var(--muted);font-size:12px;white-space:nowrap}
+.chip{display:inline-block;margin:2px 4px 2px 0;padding:1px 9px;border-radius:999px;border:1px solid var(--line);font-size:12.5px;text-decoration:none;color:var(--ink)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.stat{font:600 28px/1 ui-serif,Georgia,serif}
+.sol{margin:4px 0;padding:6px 10px;border-left:3px solid var(--accent);background:var(--card);border-radius:0 8px 8px 0;font-size:13px}
+.k{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 10px}
+ol.recs>li{margin:8px 0}
+table.cmp{border-collapse:collapse;width:100%;font-size:14px;background:var(--card)}
+table.cmp th,table.cmp td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+footer{margin-top:40px;color:var(--muted);font-size:13px}
+.sr{position:absolute;left:-9999px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../">← all tools</a>
+  <h1>PHEPA Good Practices</h1>
+  <p class="lead">Strengths, good practices and recommendations from the ECDC Public Health Emergency Preparedness Assessments (PHEPA) of EU/EEA countries, organised by topic. For countries preparing for a PHEPA, following up on one, or looking for peers who solved the same problem.</p>
+  <nav class="tabs" id="tabs" aria-label="Sections"></nav>
+  <main id="view" aria-live="polite"><p class="muted">Loading data…</p></main>
+  <footer>By <a href="https://github.com/mvanpassel-cmyk">Mark van Passel</a> · Content is summarised (paraphrased) from published ECDC and European Commission documents, with links to the originals · Sister tool: <a href="../jee-good-practices/">JEE Good Practices</a> · data in <a href="data/">data/</a></footer>
+</div>
+<script>
+"use strict";
+const TABS=[["start","Overview"],["topics","Good practices by topic"],["countries","Country reports"],["eu","EU recommendations"],["find","Find solutions"],["about","About & method"]];
+const $=s=>document.querySelector(s); const view=$("#view");
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const D={}; const st={q:"",cap:"",kind:"",cty:"",sel:new Set(),from:"",open:{}};
+const NAMES={NL:"Netherlands",NO:"Norway",SE:"Sweden",PT:"Portugal",MT:"Malta",BE:"Belgium",LU:"Luxembourg",EE:"Estonia",FI:"Finland"};
+const IN_DEPTH_FIRST=[6,3,4,12,10,8,7,13,1,2,5,9,11,14,15,16];
+async function load(){
+  const get=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(u+" "+r.status);return r.json()});
+  D.d=await get("data/phepa.json");
+  D.sol=(await get("../jee-good-practices/data/solutions.json").catch(()=>({solutions:[]}))).solutions;
+  D.fw=await get("../jee-good-practices/data/jee-v3-framework.json").catch(()=>null);
+  D.topic=Object.fromEntries(D.d.topics.map(t=>[t.id,t])); D.cty=Object.fromEntries(D.d.countries.map(c=>[c.id,c]));
+  D.cap=Object.fromEntries(D.d.capacities.map(c=>[c.id,c.name])); D.items=D.d.items;
+  D.items.forEach((it,i)=>{it.i=i; it.who=it.c==="interim"?(NAMES[it.cc]||it.cc):D.cty[it.c].name;});
+  D.ind=D.fw?Object.fromEntries(D.fw.indicators.map(i=>[i.id,i])):{};
+  route();
+}
+function nav(){const cur=(location.hash.replace(/^#\/?/,"").split("/")[0])||"start"; $("#tabs").innerHTML=TABS.map(([k,l])=>`<a href="#/${k}" ${k===cur?'aria-current="page"':""}>${l}</a>`).join(""); return cur;}
+function route(){const p=location.hash.replace(/^#\/?/,"").split("/"); const tab=nav(); ({start:vStart,topics:vTopics,countries:vCountries,eu:vEu,find:vFind,about:vAbout}[tab]||vStart)(p[1]); }
+window.addEventListener("hashchange",route);
+
+/* helpers */
+const nS=t=>D.items.filter(i=>i.t===t&&i.k==="S").length, nR=t=>D.items.filter(i=>i.t===t&&i.k==="R").length;
+function srcLink(it){ if(it.c==="interim") return `<a href="${esc(D.d.meta.interim.pdf)}" rel="noopener">ECDC interim report</a>`; const c=D.cty[it.c]; return `<a href="${esc(c.pdf)}" rel="noopener" title="${esc(c.name)} PHEPA report (PDF)">report</a>`; }
+function itemHTML(it,showTopic){
+  const t=D.topic[it.t];
+  return `<div class="it ${it.k}"><span class="who">${esc(it.who)}</span>${esc(it.x)} <span class="pg">${it.p?`p. ${it.p} · `:""}${srcLink(it)}${showTopic?` · <a href="#/topics/${it.t}">${esc(t.title)}</a>`:""}</span></div>`;
+}
+function matches(it){ const q=st.q.trim().toLowerCase(); if(st.cty&&it.c!==st.cty&&!(it.c==="interim"&&it.cc&&NAMES[it.cc]===(D.cty[st.cty]||{}).name)) return false; return !q||(it.x+" "+it.who+" "+D.topic[it.t].title).toLowerCase().includes(q); }
+function jeeBlock(t){
+  if(!t.jee.length) return "";
+  const rows=t.jee.map(id=>{const i=D.ind[id]; return `<a class="chip" href="../jee-good-practices/#/questions/${id}" title="Technical questions, WHO tools and JEE peer countries"><strong>${id}</strong>${i?" "+esc(i.title.length>46?i.title.slice(0,45)+"…":i.title):""}</a>`}).join("");
+  const want=new Set(t.jee), got=new Map();
+  D.sol.forEach(s=>{const hit=s.questions.filter(k=>want.has(k.split(":")[0])); if(hit.length) got.set(s.id,{s,n:hit.length+(hit.some(k=>k.endsWith(":*"))?5:0)});});
+  const top=[...got.values()].sort((a,b)=>b.n-a.n).slice(0,5).map(x=>x.s);
+  return `<h3>Related WHO JEE indicators, technical questions and tools</h3><div class="k">${rows}</div>${top.length?top.map(s=>`<div class="sol"><span class="badge">${esc(s.type)}</span><a href="${esc(s.url)}" rel="noopener"><strong>${esc(s.title)}</strong></a> <span class="muted">${esc(s.citation)}</span></div>`).join("")+`<p class="small muted">Selected from the JEE portal's source list; open an indicator there for all sources and the countries with the highest JEE level.</p>`:""}`;
+}
+function topicBody(t,opts){
+  opts=opts||{}; const its=D.items.filter(i=>i.t===t.id&&matches(i)); const S=its.filter(i=>i.k==="S"), R=its.filter(i=>i.k==="R");
+  let h="";
+  if(t.opp.length&&!opts.noOpp) h+=`<h3>Opportunities for improvement named in ECDC's interim report</h3><ul class="small">${t.opp.map(o=>`<li>${esc(o)}</li>`).join("")}</ul>`;
+  if(st.kind!=="R") h+=`<h3>Good practices and strengths found in assessed countries (${S.length})</h3>${S.length?S.map(i=>itemHTML(i)).join(""):`<p class="small muted">None recorded for this filter.</p>`}`;
+  if(st.kind!=="S") h+=`<h3>Recommendations ECDC gave to countries (${R.length})</h3>${R.length?`<details ${opts.openRec?"open":""}><summary class="small">Show ${R.length} recommendations</summary>${R.map(i=>itemHTML(i)).join("")}</details>`:`<p class="small muted">None recorded for this filter.</p>`}`;
+  return h+(opts.noJee?"":jeeBlock(t));
+}
+
+/* views */
+function vStart(){
+  const it=D.items, cs=D.d.countries.length;
+  view.innerHTML=`<p class="lead">The PHEPA is ECDC's assessment of how well each EU/EEA country has planned to prevent, prepare for and respond to serious cross-border health threats. Countries are assessed about every three years. The first cycle runs 2024–2026. ECDC then gives each country recommendations, and the reports also describe strengths. This tool collects those strengths and recommendations <strong>by topic</strong>, so you can see who already does something well and what ECDC advised others.</p>
+  <div class="grid2">
+   <div class="card"><div class="stat">${cs}</div><div class="small muted">country reports read (of the 15 countries ECDC lists in its interim report)</div></div>
+   <div class="card"><div class="stat">${it.filter(i=>i.k==="S").length}</div><div class="small muted">strengths and good practices summarised</div></div>
+   <div class="card"><div class="stat">${it.filter(i=>i.k==="R").length}</div><div class="small muted">recommendations summarised</div></div>
+   <div class="card"><div class="stat">${D.d.topics.filter(t=>t.cap!==undefined).length}</div><div class="small muted">topics across the 16 capacities (four assessed in depth in every country, a fifth chosen by the country)</div></div>
+  </div>
+  <h2>How to use it</h2>
+  <ol>
+   <li><a href="#/topics"><strong>Good practices by topic</strong></a>: pick a topic (for example “Strategic stockpiles” or “Laboratory scale-up”) and read what other countries do well, what ECDC recommended, and which WHO tools relate to it.</li>
+   <li><a href="#/find"><strong>Find solutions</strong></a>: choose an assessed country, or tick topics yourself, and get the matching good practices from other countries.</li>
+   <li><a href="#/countries"><strong>Country reports</strong></a> and <a href="#/eu"><strong>EU recommendations</strong></a>: the reports behind the data and the Commission's cross-cutting recommendations.</li>
+  </ol>
+  <div class="note"><strong>What this is not.</strong> PHEPA does not give numerical scores and ECDC has not published its list of guiding questions, so there is no equivalent of the JEE score matrix or technical-question list here. The unit of this tool is a <em>topic</em> (for example “Strategic stockpiles”), taken from the structure of ECDC's own interim report. Items are short summaries I wrote from the reports; check the report before you cite or copy anything. See <a href="#/about">About & method</a>.</div>
+  <h2>Key documents</h2>
+  <ul>
+   <li><a href="${esc(D.d.meta.home)}" rel="noopener">ECDC: Public health emergency preparedness assessments</a> (all country reports)</li>
+   <li><a href="${esc(D.d.meta.guide.url)}" rel="noopener">${esc(D.d.meta.guide.title)}</a> (<a href="${esc(D.d.meta.guide.pdf)}" rel="noopener">PDF</a>): four phases, 16 capacities, core documents, action plan template</li>
+   <li><a href="${esc(D.d.meta.interim.url)}" rel="noopener">${esc(D.d.meta.interim.title)}</a>, ${esc(D.d.meta.interim.date)} (<a href="${esc(D.d.meta.interim.pdf)}" rel="noopener">PDF</a>)</li>
+   <li><a href="${esc(D.d.meta.eu.url)}" rel="noopener">${esc(D.d.meta.eu.title)}</a>, ${esc(D.d.meta.eu.date)} (<a href="${esc(D.d.meta.eu.pdf)}" rel="noopener">PDF</a>)</li>
+  </ul>
+  <h2>The 16 capacities</h2>
+  <p class="small muted">Eleven follow the IHR (Article 7 self-assessment, SPAR-aligned); five come from Regulation (EU) 2022/2371. Food safety and radiation emergencies are not assessed. In the first cycle ECDC assessed four capacities in depth in every country (laboratory, surveillance, health emergency management, AMR and HAIs); the country chooses a fifth.</p>
+  <ol class="small">${D.d.capacities.map(c=>`<li>${esc(c.name)}${[3,4,6,12].includes(c.id)?` <span class="badge">in depth, all countries</span>`:""}</li>`).join("")}</ol>
+  <p class="small">Related: <a href="../jee-good-practices/">JEE Good Practices</a> (WHO Joint External Evaluation indicators, questions, scores and sources). Each topic here links to the matching JEE indicators.</p>`;
+}
+
+function vTopics(open){
+  const q=st.q;
+  let h=`<p class="lead">Topics follow the structure of ECDC's interim report on the first assessment cycle. Under each topic: ECDC's opportunities for improvement, good practices found in assessed countries, the recommendations given, and related WHO JEE material.</p>
+  <div class="bar"><input id="q" type="search" placeholder="Search topics and findings…" aria-label="Search" value="${esc(q)}" size="30">
+   <select id="cap" aria-label="Capacity"><option value="">All capacities</option>${IN_DEPTH_FIRST.map(id=>`<option value="${id}" ${String(st.cap)===String(id)?"selected":""}>${id}. ${esc(D.cap[id].length>48?D.cap[id].slice(0,47)+"…":D.cap[id])}</option>`).join("")}</select>
+   <select id="cty" aria-label="Country"><option value="">All countries</option>${D.d.countries.map(c=>`<option value="${c.id}" ${st.cty===c.id?"selected":""}>${esc(c.name)}</option>`).join("")}</select>
+   <span class="lbl">Show</span><button data-k="" aria-pressed="${st.kind===""}">Both</button><button data-k="S" aria-pressed="${st.kind==="S"}">Good practices</button><button data-k="R" aria-pressed="${st.kind==="R"}">Recommendations</button></div>`;
+  let shown=0;
+  for(const cid of IN_DEPTH_FIRST){ if(st.cap&&String(st.cap)!==String(cid)) continue;
+    const ts=D.d.topics.filter(t=>t.cap===cid); let body="";
+    for(const t of ts){ const its=D.items.filter(i=>i.t===t.id&&matches(i)); if((q||st.cty)&&!its.length) continue; shown++;
+      const s=its.filter(i=>i.k==="S").length, r=its.filter(i=>i.k==="R").length;
+      body+=`<details class="t" id="t-${t.id}" ${(open===t.id||q||st.cty)?"open":""}><summary><strong>${esc(t.title)}</strong><span class="badge g">${s} good practice${s===1?"":"s"}</span><span class="badge r">${r} recommendation${r===1?"":"s"}</span></summary><div class="body">${topicBody(t,{})}</div></details>`; }
+    if(body) h+=`<div class="caphead"><span class="fn">Capacity ${cid}</span><h2>${esc(D.cap[cid])}</h2></div>`+body; }
+  if(!shown) h+=`<p class="muted">Nothing matches.</p>`;
+  view.innerHTML=h+`<p class="note">Page numbers are as printed in the reports (approximate; check the PDF). Items marked “ECDC interim report” are country examples quoted in ECDC's cross-country report, mostly for countries whose own report I could not read in detail.</p>`;
+  $("#q").oninput=e=>{st.q=e.target.value;const p=e.target.selectionStart;vTopics();const n=$("#q");n.focus();n.setSelectionRange(p,p)};
+  $("#cap").onchange=e=>{st.cap=e.target.value;vTopics()}; $("#cty").onchange=e=>{st.cty=e.target.value;vTopics()};
+  view.querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>{st.kind=b.dataset.k;vTopics()});
+  if(open){const el=document.getElementById("t-"+open); if(el) el.scrollIntoView();}
+}
+
+function vCountries(id){
+  const cs=D.d.countries.slice().sort((a,b)=>a.name.localeCompare(b.name));
+  let h=`<p class="lead">The ${cs.length} country reports read for this tool. ECDC's interim report covers 15 countries (${esc(D.d.meta.interim.countries)}); for Croatia, Malta, Norway, Portugal and Sweden I found no published country report on ECDC's page, so they appear only through examples in the interim report.</p>
+  <div style="overflow-x:auto"><table class="cmp"><caption class="sr">PHEPA country reports</caption><thead><tr><th scope="col">Country</th><th scope="col">Country visit</th><th scope="col">Published</th><th scope="col">In-depth capacities</th><th scope="col">Items</th></tr></thead><tbody>${cs.map(c=>`<tr><th scope="row" style="text-align:left"><a href="#/countries/${c.id}">${esc(c.name)}</a></th><td>${esc(c.visit||"—")}</td><td>${esc(c.published)}</td><td class="small">${c.caps.map(k=>esc(D.cap[k].split(" (")[0].split(",")[0])).join(", ")}</td><td>${D.items.filter(i=>i.c===c.id).length}</td></tr>`).join("")}</tbody></table></div>`;
+  if(id&&D.cty[id]){ const c=D.cty[id]; const its=D.items.filter(i=>i.c===id);
+    h+=`<h2>${esc(c.name)}</h2><p>${esc(c.summary)}</p><p class="small"><a href="${esc(c.url)}" rel="noopener">ECDC page</a> · <a href="${esc(c.pdf)}" rel="noopener">Report (PDF)</a> · published ${esc(c.published)}${c.visit?` · country visit ${esc(c.visit)}`:""}</p>`;
+    const caps=[...new Set(its.map(i=>D.topic[i.t].cap))].sort((a,b)=>IN_DEPTH_FIRST.indexOf(a)-IN_DEPTH_FIRST.indexOf(b));
+    caps.forEach(cap=>{ h+=`<div class="caphead"><span class="fn">Capacity ${cap}</span><h3 style="margin:0">${esc(D.cap[cap])}</h3></div>`;
+      const ts=[...new Set(its.filter(i=>D.topic[i.t].cap===cap).map(i=>i.t))];
+      ts.forEach(t=>{ const x=its.filter(i=>i.t===t); h+=`<details class="t"><summary><strong>${esc(D.topic[t].title)}</strong><span class="badge g">${x.filter(i=>i.k==="S").length} strengths</span><span class="badge r">${x.filter(i=>i.k==="R").length} recommendations</span></summary><div class="body">${x.map(i=>itemHTML(i)).join("")}<p class="small"><a href="#/topics/${t}">Same topic in other countries →</a></p></div></details>`; }); });
+  } else h+=`<p class="small muted" style="margin-top:12px">Select a country to read its strengths and recommendations by capacity.</p>`;
+  view.innerHTML=h;
+}
+
+function vEu(){
+  const e=D.d.eu;
+  view.innerHTML=`<p class="lead">The Commission and ECDC published a set of cross-cutting recommendations on preparedness and response to serious cross-border threats (<a href="${esc(D.d.meta.eu.url)}" rel="noopener">${esc(D.d.meta.eu.date)}</a>, <a href="${esc(D.d.meta.eu.pdf)}" rel="noopener">PDF</a>). They draw on the updated plans EU/EEA countries reported in 2023 under Regulation (EU) 2022/2371. Below they are summarised in my wording, with links to the topics where assessed countries show good practices.</p>`+
+  e.map(a=>`<h2>${esc(a.area)}</h2><ol class="recs">${a.recs.map(r=>`<li>${esc(r.x)}<div class="k">${r.topics.map(t=>`<a class="chip" href="#/topics/${t}">${esc(D.topic[t].title)} <span class="muted">· ${nS(t)} good practice${nS(t)===1?"":"s"}</span></a>`).join("")}</div></li>`).join("")}</ol>`).join("")+
+  `<p class="note">These are EU-level recommendations, not the recommendations to individual countries. Those are in the country reports (see Country reports).</p>`;
+}
+
+function vFind(){
+  const cs=D.d.countries.slice().sort((a,b)=>a.name.localeCompare(b.name));
+  let h=`<p class="lead">Two ways in. Start from an assessed country's recommendations and see how other countries handle the same topics, or tick the topics where you see a gap.</p>
+  <div class="bar"><span class="lbl">Start from</span><select id="from" aria-label="Start from"><option value="">My own topics (tick below)</option>${cs.map(c=>`<option value="${c.id}" ${st.from===c.id?"selected":""}>${esc(c.name)}: recommendations in its PHEPA report</option>`).join("")}</select></div>`;
+  let topics;
+  if(st.from){ const ids=[...new Set(D.items.filter(i=>i.c===st.from&&i.k==="R").map(i=>i.t))]; topics=ids; h+=`<p class="small muted">${esc(D.cty[st.from].name)}'s report contains recommendations on ${ids.length} topics. For each topic: its recommendations, then good practices from <em>other</em> countries.</p>`; }
+  else { h+=`<div class="card">${IN_DEPTH_FIRST.map(cid=>{const ts=D.d.topics.filter(t=>t.cap===cid&&nS(t.id)); if(!ts.length) return ""; return `<fieldset style="border:0;margin:0 0 8px;padding:0"><legend class="small muted" style="padding:0">${esc(D.cap[cid])}</legend>${ts.map(t=>`<label style="display:inline-block;margin:2px 14px 2px 0;font-size:14px"><input type="checkbox" data-t="${t.id}" ${st.sel.has(t.id)?"checked":""}> ${esc(t.title)}</label>`).join("")}</fieldset>`}).join("")}</div>`; topics=[...st.sel]; if(!topics.length) h+=`<p class="muted">Tick one or more topics.</p>`; }
+  topics.sort((a,b)=>IN_DEPTH_FIRST.indexOf(D.topic[a].cap)-IN_DEPTH_FIRST.indexOf(D.topic[b].cap));
+  topics.forEach(tid=>{ const t=D.topic[tid];
+    const mine=st.from?D.items.filter(i=>i.t===tid&&i.c===st.from&&i.k==="R"):[];
+    const others=D.items.filter(i=>i.t===tid&&i.k==="S"&&i.c!==st.from);
+    h+=`<div class="card"><h3 style="margin-top:0"><a href="#/topics/${tid}">${esc(t.title)}</a> <span class="badge g">${others.length} good practice${others.length===1?"":"s"} elsewhere</span></h3>`;
+    if(mine.length) h+=`<div class="small muted">ECDC recommended to ${esc(D.cty[st.from].name)}:</div>${mine.map(i=>itemHTML(i)).join("")}`;
+    h+=`<div class="small muted" style="margin-top:8px">Good practices from other countries:</div>${others.slice(0,6).map(i=>itemHTML(i)).join("")||`<p class="small muted">None recorded yet.</p>`}${others.length>6?`<p class="small"><a href="#/topics/${tid}">All ${others.length} on this topic →</a></p>`:""}${t.jee.length?`<p class="small">WHO JEE: ${t.jee.map(id=>`<a href="../jee-good-practices/#/questions/${id}">${id}</a>`).join(", ")} (technical questions, tools and countries with the highest JEE level)</p>`:""}</div>`; });
+  view.innerHTML=h;
+  $("#from").onchange=e=>{st.from=e.target.value;vFind()};
+  view.querySelectorAll("[data-t]").forEach(c=>c.onchange=e=>{ if(e.target.checked) st.sel.add(c.dataset.t); else st.sel.delete(c.dataset.t); const y=scrollY; vFind(); scrollTo(0,y); });
+}
+
+function vAbout(){
+  const m=D.d.meta;
+  view.innerHTML=`<h2>What this tool does</h2><p>It turns the narrative of the published PHEPA country reports into a topic index of <strong>strengths (good practices)</strong> and <strong>recommendations</strong>, so that a country working on one topic can see how others handled it. It is the PHEPA counterpart of the <a href="../jee-good-practices/">JEE Good Practices</a> tool.</p>
+  <h2>Method</h2>
+  <ul>
+   <li><strong>Sources:</strong> ${D.d.countries.length} ECDC PHEPA country reports (Belgium, Cyprus, Estonia, Finland, France, Iceland, Latvia, Liechtenstein, Lithuania, Luxembourg, the Netherlands, Spain), the ECDC <a href="${esc(m.interim.url)}" rel="noopener">interim report</a> (${esc(m.interim.date)}), the Commission/ECDC <a href="${esc(m.eu.url)}" rel="noopener">overview of recommendations</a> and the ECDC <a href="${esc(m.guide.url)}" rel="noopener">guide for countries</a>.</li>
+   <li><strong>Items:</strong> each strength or recommendation is a short paraphrase of one finding, tagged with the report, a page number and a topic. Topics come from the structure of ECDC's interim report (planning, risk profiling, stockpiles, laboratory scale-up, and so on). Strengths in the reports are treated as good practices; ECDC does not label them “good practice” in a formal sense.</li>
+   <li><strong>Reading:</strong> reports were read through an automated text extraction and summarised by an AI assistant (Claude). Summaries can contain errors or lose nuance. Always check the report before citing.</li>
+   <li><strong>Related WHO material:</strong> each topic is linked by hand to the closest JEE v3 indicators; the tools listed come from the JEE portal's source list.</li>
+  </ul>
+  <h2>Limits</h2>
+  <ul>
+   <li>PHEPA reports describe each country in prose. There are <strong>no scores</strong> and no published list of guiding questions, so no country can be compared or ranked on a capacity. “Good practice” here means “described as a strength in the report”.</li>
+   <li>The Netherlands report is a combined WHO JEE and ECDC PHEPA mission report. Only its PHEPA recommendations and the AMR and zoonoses chapters were read in detail; its laboratory, surveillance and emergency-management strengths are missing.</li>
+   <li>Croatia, Malta, Norway, Portugal and Sweden are in ECDC's interim report but I found no published country report; they appear only through examples quoted in the interim report. Countries' own reports and actions plans may differ from the ECDC summary.</li>
+   <li>The interim report's section on zoonoses and environmental threats was cut off in the text I could read, so topics 'One Health' and 'Climate' have fewer ECDC-level opportunities listed.</li>
+   <li>Page numbers are as printed in each report and approximate.</li>
+   <li>PHEPA is run every three years and the first cycle is not finished; more reports will appear. Data retrieved ${esc(m.built)}.</li>
+  </ul>
+  <h2>Related</h2>
+  <ul><li><a href="../jee-good-practices/">JEE Good Practices</a>: WHO JEE indicators, ${"479"} technical questions with sources, country scores and the countries with the highest level per indicator.</li></ul>
+  <p class="small muted">Disclaimer: this is an independent personal tool. It is not an ECDC, European Commission or Ministry of Health product.</p>`;
+}
+load().catch(e=>{view.innerHTML=`<div class="note">Could not load data: ${esc(e.message)}</div>`});
+</script>
+</body>
+</html>
