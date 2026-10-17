@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IHR Benchmarks Good Practices</title>
+<meta name="description" content="For each WHO IHR benchmark: published studies, case studies and after-action reviews with good practices, plus the JEE indicator and countries to learn from.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231f3a5f'/%3E%3Cpath d='M8 17l5 5 11-12' fill='none' stroke='%23f4c95d' stroke-width='3'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#f6f4ef;--ink:#1c1f26;--muted:#667085;--card:#fff;--line:#e4e0d6;--accent:#1f3a5f;--warn:#e0a526;--l4:#3f78b5;--l5:#1f3a5f;--l4t:#fff;--l5t:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#14161b;--ink:#eceae4;--muted:#9aa1ae;--card:#1c1f26;--line:#2b303a;--accent:#f4c95d;--l4:#7fb0e0;--l5:#cfe5fb;--l4t:#0d1117;--l5t:#0d1117}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:28px 16px 72px}
+a{color:var(--accent)}
+.back{font-size:14px;color:var(--muted);text-decoration:none}
+h1{font:600 clamp(26px,5vw,38px)/1.1 ui-serif,Georgia,serif;margin:10px 0 8px}
+h2{font:600 22px/1.2 ui-serif,Georgia,serif;margin:0}
+h4{margin:10px 0 4px;font-size:14px}
+.lead{color:var(--muted);max-width:75ch;margin:0 0 16px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px}
+.lbl{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+input[type=search],select{font:inherit;font-size:14px;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);max-width:100%}
+input[type=search]{min-width:240px}
+label.ck{font-size:14px;display:inline-flex;gap:5px;align-items:center}
+a:focus-visible,summary:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.note{border-left:3px solid var(--warn);padding:2px 12px;color:var(--muted);font-size:13px;margin:14px 0}
+.muted{color:var(--muted)}.small{font-size:13px}
+.areahead{margin:26px 0 8px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.fn{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+details.bm{background:var(--card);border:1px solid var(--line);border-radius:12px;margin:0 0 8px}
+details.bm>summary{cursor:pointer;padding:10px 14px;list-style:none;display:flex;gap:10px;align-items:baseline}
+details.bm>summary::-webkit-details-marker{display:none}
+details.bm>summary .id{font-weight:700;min-width:48px;font-variant-numeric:tabular-nums}
+details.bm>summary .cnt{margin-left:auto;white-space:nowrap;font-size:12px;color:var(--muted)}
+details.bm .body{padding:0 14px 14px;border-top:1px solid var(--line)}
+.src{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0}
+.src .t{font-weight:600}
+.badge{display:inline-block;border-radius:6px;padding:0 6px;font-size:11px;font-weight:600;letter-spacing:.03em;border:1px solid var(--line);color:var(--muted);margin-right:6px;white-space:nowrap}
+.badge.pr{color:var(--accent);border-color:var(--accent)}
+.chip{display:inline-block;border-radius:999px;padding:0 9px;font-size:12px;font-weight:600;text-decoration:none;margin:0 4px 4px 0}
+.chip.l4{background:var(--l4);color:var(--l4t)}.chip.l5{background:var(--l5);color:var(--l5t)}
+.tag{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:0 8px;font-size:12px;margin:0 4px 4px 0;text-decoration:none}
+.empty{color:var(--muted);font-style:italic;margin:10px 0 0}
+footer{margin-top:40px;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="../">← Toolbox</a>
+<h1>IHR Benchmarks Good Practices</h1>
+<p class="lead">For each of the 62 WHO IHR benchmarks (second edition, 2023): published studies, case studies and after-action reviews that describe something that worked, or what got in the way. Each benchmark links to the matching JEE indicator and to countries with the highest JEE score on it.</p>
+<div class="bar">
+  <input id="q" type="search" placeholder="Search benchmark, title, country, takeaway…" aria-label="Search">
+  <select id="fa" aria-label="Area"><option value="">All areas</option></select>
+  <select id="ft" aria-label="Source type"><option value="">All source types</option></select>
+  <label class="ck"><input id="fp" type="checkbox"> Peer-reviewed only</label>
+  <label class="ck"><input id="fs" type="checkbox"> Only with sources</label>
+</div>
+<div id="stat" class="small muted"></div>
+<div id="view"><p class="muted">Loading…</p></div>
+<div class="note"><strong>How to read this.</strong> <span id="method"></span></div>
+<footer>Benchmark titles © WHO. Literature links go to the publisher or index record. Built with Claude for Mark van Passel. Check source details before citing.</footer>
+</div>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const LABELS={4:"Sustainable",5:"Sustainable"};
+let B,L,A=null,byBm={};
+const st={q:"",area:"",type:"",pr:false,only:false};
+function isPR(s){return s.pr!==undefined?s.pr:["peer-reviewed","systematic-review","review","perspective","case-study","iar"].includes(s.type)&&s.type!=="report"}
+Promise.all([
+  fetch("data/benchmarks.json").then(r=>r.json()),
+  fetch("data/literature.json").then(r=>r.json()),
+  fetch("../jee-good-practices/data/assessments.json").then(r=>r.ok?r.json():null).catch(()=>null)
+]).then(([b,l,a])=>{B=b;L=l;A=a;
+  L.sources.forEach(s=>s.bm.forEach(id=>(byBm[id]=byBm[id]||[]).push(s)));
+  init();render();
+}).catch(e=>{$("#view").innerHTML='<p class="note">Could not load data: '+esc(e.message)+'</p>'});
+function init(){
+  $("#fa").innerHTML+=B.areas.map(a=>`<option value="${a.id}">${a.id} · ${esc(a.name)}</option>`).join("");
+  $("#ft").innerHTML+=Object.entries(L.meta.types).map(([k,v])=>`<option value="${k}">${esc(v)}</option>`).join("");
+  $("#method").textContent=L.meta.status+" Scope: "+B.meta.scope+" "+B.meta.note+" Countries shown come from JEE third-edition reports scored 4 or 5 on the linked indicator; a high JEE score is a reason to look, not proof of good practice.";
+  ["q","fa","ft"].forEach(id=>$("#"+id).addEventListener("input",e=>{st[{q:"q",fa:"area",ft:"type"}[id]]=e.target.value.trim().toLowerCase();render()}));
+  $("#fp").onchange=e=>{st.pr=e.target.checked;render()};
+  $("#fs").onchange=e=>{st.only=e.target.checked;render()};
+  if(location.hash.length>1) st.q=decodeURIComponent(location.hash.slice(1)).toLowerCase(),$("#q").value=st.q;
+}
+function topHTML(ids){
+  if(!A) return "";
+  const ev=A.evaluations.filter(e=>String(e.edition)==="3");
+  return ids.map(id=>{
+    const l=ev.filter(e=>e.scores[id]&&e.scores[id][0]>=4).sort((a,b)=>b.scores[id][0]-a.scores[id][0]||a.country.localeCompare(b.country));
+    const chips=l.map(e=>`<a class="chip l${e.scores[id][0]}" href="${esc(e.pdfUrl)}#page=${e.scores[id][1]}" rel="noopener" title="${esc(e.title)}, level ${e.scores[id][0]}, opens report at PDF page ${e.scores[id][1]}">${esc(e.country)} ${e.year} · ${e.scores[id][0]}</a>`).join("");
+    return `<div><span class="small"><a href="../jee-good-practices/#/questions/${esc(id)}">${esc(id)} questions</a> · <a href="../jee-good-practices/#/indicators/${esc(id)}">scores and practices</a></span><div>${chips||'<span class="small muted">No JEE v3 country scored 4 or 5 yet on '+esc(id)+'.</span>'}</div></div>`;
+  }).join("");
+}
+function srcHTML(s){
+  const pr=(isPR(s)&&s.type!=="peer-reviewed")?'<span class="badge pr">peer-reviewed</span>':'';
+  return `<div class="src"><div><span class="badge">${esc(L.meta.types[s.type]||s.type)}</span>${pr}<span class="muted small">${esc(s.country)}${s.year?" · "+s.year:""}</span></div>
+  <div class="t"><a href="${esc(s.url)}" rel="noopener">${esc(s.title)}</a></div>
+  <div class="small muted">${esc([s.authors,s.journal].filter(Boolean).join(" · "))}</div>
+  <div>${esc(s.takeaway)}</div>${s.note?`<div class="small muted">Note: ${esc(s.note)}</div>`:""}</div>`;
+}
+function render(){
+  const q=st.q;
+  let shown=0,srcN=0;
+  let h="";
+  B.areas.forEach(a=>{
+    if(st.area&&a.id.toLowerCase()!==st.area) return;
+    const items=B.benchmarks.filter(b=>b.area===a.id).map(b=>{
+      let ss=(byBm[b.id]||[]).filter(s=>(!st.type||s.type===st.type)&&(!st.pr||isPR(s)));
+      return {b,ss};
+    }).filter(({b,ss})=>{
+      if(st.only&&!ss.length) return false;
+      if((st.type||st.pr)&&!ss.length) return false;
+      if(!q) return true;
+      const hay=(b.id+" "+b.title+" "+a.name+" "+ss.map(s=>s.title+" "+s.country+" "+s.takeaway+" "+s.journal).join(" ")).toLowerCase();
+      return hay.includes(q);
+    });
+    if(!items.length) return;
+    h+=`<div class="areahead"><h2>${esc(a.id)} · ${esc(a.name)}</h2><span class="fn">${esc(a.fn)}</span><a class="small" href="https://ihrbenchmark.who.int/document/${esc(a.slug)}" rel="noopener">WHO benchmark page</a></div>`;
+    items.forEach(({b,ss})=>{
+      shown++;srcN+=ss.length;
+      h+=`<details class="bm" ${q||items.length===1?"open":""}><summary><span class="id">${esc(b.id)}</span><span>${esc(b.title)}</span><span class="cnt">${ss.length?ss.length+" source"+(ss.length>1?"s":""):"no source yet"}</span></summary><div class="body">
+      ${b.jee.length?`<h4>JEE indicator and countries to learn from</h4>${topHTML(b.jee)}`:`<p class="small muted">No matching JEE indicator.</p>`}
+      <h4>Good practices in the literature</h4>${ss.length?ss.map(srcHTML).join(""):'<p class="empty">No source found yet for this benchmark. That does not mean none exists.</p>'}</div></details>`;
+    });
+  });
+  $("#view").innerHTML=h||'<p class="muted">Nothing matches.</p>';
+  $("#stat").textContent=`${shown} benchmarks, ${srcN} source links shown (${L.sources.length} sources in total).`;
+}
+</script>
+</body>
+</html>
