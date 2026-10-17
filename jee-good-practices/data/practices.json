@@ -1,145 +1,281 @@
 {
-  "meta": {
-    "status": "seed set, drafted 2026-10-16 from the implementation brief. Source landing pages were checked for title, year and scope; the full documents were not re-read. Indicator links are candidate mappings against the exact JEE v3 wording, not claims that a practice raises a score.",
-    "sourceTypes": {
-      "guideline": "Normative WHO/partner guidance. Recommends what to do; it is not itself an effectiveness study.",
-      "systematic-review": "Peer-reviewed or WHO-commissioned review of published studies.",
-      "tool": "Operational tool, handbook or surveillance system.",
-      "strategy": "Policy framework or action plan."
+ "meta": {
+  "status": "seed set, drafted 2026-10-16 from the implementation brief. Source landing pages were checked for title, year and scope; the full documents were not re-read. Indicator links are candidate mappings against the exact JEE v3 wording, not claims that a practice raises a score.",
+  "sourceTypes": {
+   "guideline": "Normative WHO/partner guidance. Recommends what to do; it is not itself an effectiveness study.",
+   "systematic-review": "Peer-reviewed or WHO-commissioned review of published studies.",
+   "tool": "Operational tool, handbook or surveillance system.",
+   "strategy": "Policy framework or action plan.",
+   "protocol": "Technical protocol for surveillance or investigation.",
+   "WHO benchmark": "WHO benchmark actions for the technical area.",
+   "peer-reviewed": "Research article in a peer-reviewed journal.",
+   "case-study": "Description of what one country or organisation did; not evidence that it works elsewhere.",
+   "conference abstract": "Short meeting abstract; peer review is light and the full study may not be published.",
+   "commentary": "Opinion or comment piece in a journal; not original research.",
+   "event page": "Web page about an event or meeting.",
+   "presentation": "Slide presentation."
+  }
+ },
+ "practices": [
+  {
+   "id": "one-health-coordination",
+   "title": "Multisectoral One Health coordination",
+   "summary": "Human, animal, food and environment sectors agree roles, share data and run joint surveillance, investigation and response, and test the arrangement in exercises and real events.",
+   "mechanism": "A standing mechanism with named responsibilities and agreed data-sharing lets signals from one sector trigger action in another, instead of relying on ad hoc contacts.",
+   "implementation": [
+    "Formal coordination body with a written mandate and focal points in each sector",
+    "Agreed protocols for data sharing and joint risk assessment",
+    "Joint investigation and response procedures for priority zoonoses",
+    "Exercises and after-action reviews that feed back into the plan"
+   ],
+   "indicators": [
+    "P3.2",
+    "P4.1",
+    "P5.1",
+    "P5.2",
+    "D2.1",
+    "D2.2",
+    "R2.1"
+   ],
+   "tags": [
+    "One Health",
+    "multisectoral",
+    "zoonoses"
+   ],
+   "evidenceType": "strategy",
+   "strength": "Normative and widely endorsed. The sources set out a framework and tools; they do not report outcome data on JEE scores or outbreak results.",
+   "context": "Written for all countries; the operational tool for zoonoses was designed to help national authorities start joint work between sectors.",
+   "limitations": "Governance arrangements differ by country, so mechanisms cannot be copied as they are. A mechanism on paper does not show that it functions; exercises and real events are the test.",
+   "sources": [
+    {
+     "citation": "FAO, UNEP, WHO and WOAH. One health joint plan of action (2022-2026): working together for the health of humans, animals, plants and the environment. 2022.",
+     "url": "https://www.who.int/publications/i/item/9789240059139",
+     "year": 2022,
+     "type": "strategy"
+    },
+    {
+     "citation": "FAO, OIE, WHO. Taking a multisectoral, One Health approach: a tripartite guide to addressing zoonotic diseases in countries. 2019.",
+     "url": "https://iris.who.int/handle/10665/325620",
+     "year": 2019,
+     "type": "tool"
     }
+   ]
   },
-  "practices": [
+  {
+   "id": "amr-surveillance-stewardship",
+   "title": "AMR surveillance linked to stewardship",
+   "summary": "Representative laboratory data on antimicrobial resistance and use is fed back to clinicians and public health programmes so that it changes prescribing and infection control, across human, animal and food sectors.",
+   "mechanism": "Surveillance only changes practice when results return to the sites that generate them and to the people who set policy.",
+   "implementation": [
+    "Standardised data collection through a shared system (for example WHO GLASS)",
+    "Feedback of results to reporting laboratories and facilities",
+    "Stewardship activities in human health, plus data and action in animal health and agriculture",
+    "Links to the national action plan on AMR"
+   ],
+   "indicators": [
+    "P4.2",
+    "P4.4",
+    "P4.5",
+    "D1.3",
+    "D1.4",
+    "D2.3",
+    "R4.2"
+   ],
+   "tags": [
+    "AMR",
+    "surveillance",
+    "laboratory",
+    "One Health"
+   ],
+   "evidenceType": "tool",
+   "strength": "GLASS is WHO's standardised system for AMR data; the Global Action Plan is the agreed policy framework. Neither is an effectiveness study.",
+   "context": "GLASS reports enrolment of more than 100 countries and territories and builds capacity to collect and share data, but the animal-health coverage is still being developed.",
+   "limitations": "Needs functioning laboratories and data systems first. Local implementation needs differ, and the sources do not show that enrolling in GLASS raises a JEE score.",
+   "sources": [
     {
-      "id": "one-health-coordination",
-      "title": "Multisectoral One Health coordination",
-      "summary": "Human, animal, food and environment sectors agree roles, share data and run joint surveillance, investigation and response, and test the arrangement in exercises and real events.",
-      "mechanism": "A standing mechanism with named responsibilities and agreed data-sharing lets signals from one sector trigger action in another, instead of relying on ad hoc contacts.",
-      "implementation": [
-        "Formal coordination body with a written mandate and focal points in each sector",
-        "Agreed protocols for data sharing and joint risk assessment",
-        "Joint investigation and response procedures for priority zoonoses",
-        "Exercises and after-action reviews that feed back into the plan"
-      ],
-      "indicators": ["P3.2", "P4.1", "P5.1", "P5.2", "D2.1", "D2.2", "R2.1"],
-      "tags": ["One Health", "multisectoral", "zoonoses"],
-      "evidenceType": "strategy",
-      "strength": "Normative and widely endorsed. The sources set out a framework and tools; they do not report outcome data on JEE scores or outbreak results.",
-      "context": "Written for all countries; the operational tool for zoonoses was designed to help national authorities start joint work between sectors.",
-      "limitations": "Governance arrangements differ by country, so mechanisms cannot be copied as they are. A mechanism on paper does not show that it functions; exercises and real events are the test.",
-      "sources": [
-        { "citation": "FAO, UNEP, WHO and WOAH. One health joint plan of action (2022-2026): working together for the health of humans, animals, plants and the environment. 2022.", "url": "https://www.who.int/publications/i/item/9789240059139", "year": 2022, "type": "strategy" },
-        { "citation": "FAO, OIE, WHO. Taking a multisectoral, One Health approach: a tripartite guide to addressing zoonotic diseases in countries. Operational tool, 2019.", "url": "https://iris.who.int/handle/10665/204571", "year": 2019, "type": "tool", "note": "Link as given in the brief; check the title on IRIS before citing." }
-      ]
+     "citation": "WHO. Global Antimicrobial Resistance and Use Surveillance System (GLASS).",
+     "url": "https://www.who.int/initiatives/glass",
+     "year": null,
+     "type": "tool"
     },
     {
-      "id": "amr-surveillance-stewardship",
-      "title": "AMR surveillance linked to stewardship",
-      "summary": "Representative laboratory data on antimicrobial resistance and use is fed back to clinicians and public health programmes so that it changes prescribing and infection control, across human, animal and food sectors.",
-      "mechanism": "Surveillance only changes practice when results return to the sites that generate them and to the people who set policy.",
-      "implementation": [
-        "Standardised data collection through a shared system (for example WHO GLASS)",
-        "Feedback of results to reporting laboratories and facilities",
-        "Stewardship activities in human health, plus data and action in animal health and agriculture",
-        "Links to the national action plan on AMR"
-      ],
-      "indicators": ["P4.2", "P4.4", "P4.5", "D1.3", "D1.4", "D2.3", "R4.2"],
-      "tags": ["AMR", "surveillance", "laboratory", "One Health"],
-      "evidenceType": "tool",
-      "strength": "GLASS is WHO's standardised system for AMR data; the Global Action Plan is the agreed policy framework. Neither is an effectiveness study.",
-      "context": "GLASS reports enrolment of more than 100 countries and territories and builds capacity to collect and share data, but the animal-health coverage is still being developed.",
-      "limitations": "Needs functioning laboratories and data systems first. Local implementation needs differ, and the sources do not show that enrolling in GLASS raises a JEE score.",
-      "sources": [
-        { "citation": "WHO. Global Antimicrobial Resistance and Use Surveillance System (GLASS).", "url": "https://www.who.int/initiatives/glass", "year": null, "type": "tool" },
-        { "citation": "WHO. Global action plan on antimicrobial resistance. 2015.", "url": "https://www.who.int/publications/i/item/9789241509763", "year": 2015, "type": "strategy" }
-      ]
-    },
-    {
-      "id": "laboratory-quality-referral",
-      "title": "Laboratory quality and referral network",
-      "summary": "A tiered diagnostic network with validated specimen referral and transport, a quality management system, external quality assessment and documented biosafety risk assessment, with a loop for corrective action.",
-      "mechanism": "Reliable results depend on specimens reaching the right laboratory in good condition and on laboratories that detect and correct their own errors.",
-      "implementation": [
-        "Map laboratory tiers and the referral routes between them",
-        "Quality management system with external quality assessment",
-        "Biosafety risk assessment and corrective-action tracking",
-        "Specimen transport arrangements tested in practice"
-      ],
-      "indicators": ["D1.1", "D1.2", "D1.4", "P7.1", "P7.2"],
-      "tags": ["laboratory", "quality", "biosafety"],
-      "evidenceType": "guideline",
-      "strength": "Authoritative WHO guidance and handbooks. These describe accepted practice; they are not studies of outcomes.",
-      "context": "Written for laboratories at different levels of resource; the biosafety manual uses a risk-based approach.",
-      "limitations": "Quality systems take sustained funding and staff. The handbook list in the brief should be checked for the current edition before reuse.",
-      "sources": [
-        { "citation": "WHO. Laboratory quality management system: handbook. 2011.", "url": "https://iris.who.int/handle/10665/44665", "year": 2011, "type": "tool" },
-        { "citation": "WHO. Laboratory biosafety manual, 4th edition. 2020.", "url": "https://www.who.int/publications/i/item/9789240011311", "year": 2020, "type": "guideline" }
-      ]
-    },
-    {
-      "id": "pheoc-readiness",
-      "title": "Public health emergency operations centre readiness",
-      "summary": "Defined activation levels, incident management roles, interoperable situation reporting, rosters and logistics, tested through regular exercises with tracked corrective actions.",
-      "mechanism": "A centre that is activated, staffed and exercised on a routine basis can coordinate faster than one designed on paper and used first in a crisis.",
-      "implementation": [
-        "Activation criteria and levels written into procedures",
-        "Incident management structure with trained, rostered staff",
-        "Situation reporting that other sectors can use",
-        "Discussion-based and functional exercises, followed by tracked corrective actions"
-      ],
-      "indicators": ["R1.1", "R1.2", "R1.3", "R1.4", "R2.1", "D3.4"],
-      "tags": ["emergency management", "workforce", "exercises"],
-      "evidenceType": "systematic-review",
-      "strength": "WHO's 2013 review is the main evidence source in the brief; the landing page does not state the number of studies or findings, so read the full report before relying on it. The handbook is operational guidance.",
-      "context": "The handbook is meant for countries building a centre; the review looks at how centres are described and run.",
-      "limitations": "The review is more than ten years old. Evidence on whether a centre improves outcomes is thin, so use these as sources of design options.",
-      "sources": [
-        { "citation": "WHO. A systematic review of public health emergency operations centres (EOC). 2013.", "url": "https://www.who.int/publications-detail-redirect/a-systematic-review-of-public-health-emergency-operations-centres-%28-eoc%29", "year": 2013, "type": "systematic-review" },
-        { "citation": "WHO. Handbook for developing a public health emergency operations centre, part C.", "url": "https://www.who.int/publications/i/item/handbook-for-developing-a-public-health-emergency-operations-centre-part-c", "year": null, "type": "tool" }
-      ]
-    },
-    {
-      "id": "rcce-community-feedback",
-      "title": "Emergency risk communication and community feedback",
-      "summary": "Trusted local partnerships set up before an emergency, two-way feedback, audience segmentation, accessible multilingual channels, and a way to change messages based on questions and rumours.",
-      "mechanism": "Messages reach and are acted on when they are shaped with the people they are for, and when the system listens as well as broadcasts.",
-      "implementation": [
-        "Build relationships with community and civil society groups in advance",
-        "Collect and use community questions and rumours",
-        "Segment audiences and use accessible, multilingual channels",
-        "Integrate risk communication into preparedness and response structures and exercise it"
-      ],
-      "indicators": ["R5.1", "R5.2", "R5.3", "P1.2"],
-      "tags": ["risk communication", "community engagement", "equity", "gender", "vulnerable populations"],
-      "evidenceType": "systematic-review",
-      "strength": "The WHO guideline is normative. The systematic review behind it included 21 studies for integrating risk communication into the response and 24 for information sharing and coordination; the authors rated confidence in the synthesised findings as moderate.",
-      "context": "Evidence comes mostly from qualitative and case-based studies, with few from low- and middle-income countries.",
-      "limitations": "Evidence quality is limited. The Novak et al. (2019) community engagement synthesis named in the brief could not be verified in this session and is not listed.",
-      "sources": [
-        { "citation": "WHO. Communicating risk in public health emergencies: a WHO guideline for emergency risk communication (ERC) policy and practice. 2018.", "url": "https://www.who.int/publications/i/item/9789241550208", "year": 2018, "type": "guideline" },
-        { "citation": "Jha A, Lin L, Short SM, Argentini G, Gamhewage G, Savoia E. Integrating emergency risk communication (ERC) into the public health system response: systematic review of literature to aid formulation of the 2017 WHO guideline for ERC policy and practice. PLoS One 2018;13(10):e0205555.", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6209198/", "year": 2018, "type": "systematic-review", "peerReviewed": true }
-      ]
-    },
-    {
-      "id": "ipc-programme-monitoring",
-      "title": "Infection prevention and control programme with monitoring",
-      "summary": "A multimodal IPC programme with governance, guidance, training, supplies and infrastructure, and monitoring or audit with feedback, supported by surveillance of health care-associated infections that feeds improvement.",
-      "mechanism": "Programme components reinforce each other: guidance and training only stick when supplies exist and audit results are fed back to staff.",
-      "implementation": [
-        "National IPC programme with a trained lead and a budget",
-        "Evidence-based guidance and training for health workers",
-        "Surveillance of health care-associated infections with feedback",
-        "Monitoring and audit of practice, and a safe, supplied facility environment"
-      ],
-      "indicators": ["P4.3", "R3.3", "R4.1", "R4.2", "R4.3"],
-      "tags": ["infection prevention and control", "health facilities", "surveillance"],
-      "evidenceType": "guideline",
-      "strength": "WHO describes its 2016 guideline as the first international evidence-based guidance on IPC core components, for the national and acute health care facility level. The 2022 global report describes status, not effectiveness.",
-      "context": "The guideline is described as applicable to any country with local adaptation; it covers national level and acute care facilities.",
-      "limitations": "The guideline covers acute care facilities, not all levels of care. The sources do not show that a programme raises a JEE score.",
-      "sources": [
-        { "citation": "WHO. Guidelines on core components of infection prevention and control programmes at the national and acute health care facility level. 2016.", "url": "https://www.who.int/publications/i/item/9789241549929", "year": 2016, "type": "guideline" },
-        { "citation": "WHO. Global report on infection prevention and control. 2022.", "url": "https://www.who.int/publications/i/item/9789240051164", "year": 2022, "type": "guideline" }
-      ]
+     "citation": "WHO. Global action plan on antimicrobial resistance. 2015.",
+     "url": "https://www.who.int/publications/i/item/9789241509763",
+     "year": 2015,
+     "type": "strategy"
     }
-  ]
+   ]
+  },
+  {
+   "id": "laboratory-quality-referral",
+   "title": "Laboratory quality and referral network",
+   "summary": "A tiered diagnostic network with validated specimen referral and transport, a quality management system, external quality assessment and documented biosafety risk assessment, with a loop for corrective action.",
+   "mechanism": "Reliable results depend on specimens reaching the right laboratory in good condition and on laboratories that detect and correct their own errors.",
+   "implementation": [
+    "Map laboratory tiers and the referral routes between them",
+    "Quality management system with external quality assessment",
+    "Biosafety risk assessment and corrective-action tracking",
+    "Specimen transport arrangements tested in practice"
+   ],
+   "indicators": [
+    "D1.1",
+    "D1.2",
+    "D1.4",
+    "P7.1",
+    "P7.2"
+   ],
+   "tags": [
+    "laboratory",
+    "quality",
+    "biosafety"
+   ],
+   "evidenceType": "guideline",
+   "strength": "Authoritative WHO guidance and handbooks. These describe accepted practice; they are not studies of outcomes.",
+   "context": "Written for laboratories at different levels of resource; the biosafety manual uses a risk-based approach.",
+   "limitations": "Quality systems take sustained funding and staff.",
+   "sources": [
+    {
+     "citation": "WHO. Laboratory quality management system: handbook. 2011.",
+     "url": "https://www.who.int/publications/i/item/9789241548274",
+     "year": 2011,
+     "type": "tool"
+    },
+    {
+     "citation": "WHO. Laboratory biosafety manual, 4th edition. 2020.",
+     "url": "https://www.who.int/publications/i/item/9789240011311",
+     "year": 2020,
+     "type": "guideline"
+    }
+   ]
+  },
+  {
+   "id": "pheoc-readiness",
+   "title": "Public health emergency operations centre readiness",
+   "summary": "Defined activation levels, incident management roles, interoperable situation reporting, rosters and logistics, tested through regular exercises with tracked corrective actions.",
+   "mechanism": "A centre that is activated, staffed and exercised on a routine basis can coordinate faster than one designed on paper and used first in a crisis.",
+   "implementation": [
+    "Activation criteria and levels written into procedures",
+    "Incident management structure with trained, rostered staff",
+    "Situation reporting that other sectors can use",
+    "Discussion-based and functional exercises, followed by tracked corrective actions"
+   ],
+   "indicators": [
+    "R1.1",
+    "R1.2",
+    "R1.3",
+    "R1.4",
+    "R2.1",
+    "D3.4"
+   ],
+   "tags": [
+    "emergency management",
+    "workforce",
+    "exercises"
+   ],
+   "evidenceType": "systematic-review",
+   "strength": "WHO's 2013 systematic review is the main evidence source; its landing page does not state the number of studies or the findings, which were not read for this page. The handbook is operational guidance.",
+   "context": "The handbook is meant for countries building a centre; the review looks at how centres are described and run.",
+   "limitations": "The review is more than ten years old. Evidence on whether a centre improves outcomes is thin, so use these as sources of design options.",
+   "sources": [
+    {
+     "citation": "WHO. A systematic review of public health emergency operations centres (EOC). 2013.",
+     "url": "https://www.who.int/publications-detail-redirect/a-systematic-review-of-public-health-emergency-operations-centres-%28-eoc%29",
+     "year": 2013,
+     "type": "systematic-review"
+    },
+    {
+     "citation": "WHO. Handbook for developing a public health emergency operations centre, part C.",
+     "url": "https://www.who.int/publications/i/item/handbook-for-developing-a-public-health-emergency-operations-centre-part-c",
+     "year": 2018,
+     "type": "tool"
+    }
+   ]
+  },
+  {
+   "id": "rcce-community-feedback",
+   "title": "Emergency risk communication and community feedback",
+   "summary": "Trusted local partnerships set up before an emergency, two-way feedback, audience segmentation, accessible multilingual channels, and a way to change messages based on questions and rumours.",
+   "mechanism": "Messages reach and are acted on when they are shaped with the people they are for, and when the system listens as well as broadcasts.",
+   "implementation": [
+    "Build relationships with community and civil society groups in advance",
+    "Collect and use community questions and rumours",
+    "Segment audiences and use accessible, multilingual channels",
+    "Integrate risk communication into preparedness and response structures and exercise it"
+   ],
+   "indicators": [
+    "R5.1",
+    "R5.2",
+    "R5.3",
+    "P1.2"
+   ],
+   "tags": [
+    "risk communication",
+    "community engagement",
+    "equity",
+    "gender",
+    "vulnerable populations"
+   ],
+   "evidenceType": "systematic-review",
+   "strength": "The WHO guideline is normative. The systematic review behind it included 21 studies for integrating risk communication into the response and 24 for information sharing and coordination; the authors rated confidence in the synthesised findings as moderate.",
+   "context": "Evidence comes mostly from qualitative and case-based studies, with few from low- and middle-income countries.",
+   "limitations": "Evidence quality is limited.",
+   "sources": [
+    {
+     "citation": "WHO. Communicating risk in public health emergencies: a WHO guideline for emergency risk communication (ERC) policy and practice. 2018.",
+     "url": "https://www.who.int/publications/i/item/9789241550208",
+     "year": 2018,
+     "type": "guideline"
+    },
+    {
+     "citation": "Jha A, Lin L, Short SM, Argentini G, Gamhewage G, Savoia E. Integrating emergency risk communication (ERC) into the public health system response: systematic review of literature to aid formulation of the 2017 WHO guideline for ERC policy and practice. PLoS One 2018;13(10):e0205555.",
+     "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6209198/",
+     "year": 2018,
+     "type": "systematic-review",
+     "peerReviewed": true
+    }
+   ]
+  },
+  {
+   "id": "ipc-programme-monitoring",
+   "title": "Infection prevention and control programme with monitoring",
+   "summary": "A multimodal IPC programme with governance, guidance, training, supplies and infrastructure, and monitoring or audit with feedback, supported by surveillance of health care-associated infections that feeds improvement.",
+   "mechanism": "Programme components reinforce each other: guidance and training only stick when supplies exist and audit results are fed back to staff.",
+   "implementation": [
+    "National IPC programme with a trained lead and a budget",
+    "Evidence-based guidance and training for health workers",
+    "Surveillance of health care-associated infections with feedback",
+    "Monitoring and audit of practice, and a safe, supplied facility environment"
+   ],
+   "indicators": [
+    "P4.3",
+    "R3.3",
+    "R4.1",
+    "R4.2",
+    "R4.3"
+   ],
+   "tags": [
+    "infection prevention and control",
+    "health facilities",
+    "surveillance"
+   ],
+   "evidenceType": "guideline",
+   "strength": "WHO describes its 2016 guideline as the first international evidence-based guidance on IPC core components, for the national and acute health care facility level. The 2022 global report describes status, not effectiveness.",
+   "context": "The guideline is described as applicable to any country with local adaptation; it covers national level and acute care facilities.",
+   "limitations": "The guideline covers acute care facilities, not all levels of care. The sources do not show that a programme raises a JEE score.",
+   "sources": [
+    {
+     "citation": "WHO. Guidelines on core components of infection prevention and control programmes at the national and acute health care facility level. 2016.",
+     "url": "https://www.who.int/publications/i/item/9789241549929",
+     "year": 2016,
+     "type": "guideline"
+    },
+    {
+     "citation": "WHO. Global report on infection prevention and control. 2022.",
+     "url": "https://www.who.int/publications/i/item/9789240051164",
+     "year": 2022,
+     "type": "report"
+    }
+   ]
+  }
+ ]
 }

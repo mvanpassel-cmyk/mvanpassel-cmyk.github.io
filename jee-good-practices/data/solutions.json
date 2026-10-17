@@ -1,10 +1,26 @@
 {
  "meta": {
-  "status": "Sources were found by searching WHO, partner and peer-reviewed literature for each technical question (October 2026), starting from the tools that WHO lists in its benchmarks for each technical area. Relevance is judged from each source's title and summary, not from reading every document in full. A source can help answer a question or close the gap behind it; it is not a claim that it raises a JEE score. Questions without a source are shown as 'no source yet'.",
+  "status": "Sources were found by searching WHO, partner and peer-reviewed literature for each technical question (October 2026), starting from the tools that WHO lists in its benchmarks for each technical area. Relevance is judged from each source's title and summary, not from reading every document in full. A source can help answer a question or close the gap behind it; it is not a claim that it raises a JEE score. Questions without a source are shown as 'no source yet'. An independent review (18 October 2026) checked every literature item, about 65 other sources and all 1,039 question links; verified corrections were applied and 10 links that did not fit the question were removed. 43 WHO IRIS links and a few publisher pages could not be checked automatically.",
   "built": "2026-10-17",
   "nSources": 322,
-  "nQuestionsCovered": 473,
-  "nQuestions": 479
+  "nQuestionsCovered": 467,
+  "nQuestions": 479,
+  "sourceTypes": {
+   "guideline": "Normative WHO or partner guidance. Says what to do; not itself evidence that it works.",
+   "tool": "Operational tool, handbook, database or surveillance system. Helps to do something; not evidence that it was done.",
+   "strategy": "Policy framework or action plan.",
+   "protocol": "Technical protocol for surveillance or investigation.",
+   "WHO benchmark": "WHO benchmark actions for the technical area.",
+   "peer-reviewed": "Research article in a peer-reviewed journal.",
+   "systematic-review": "Systematic review of published studies.",
+   "case-study": "Description of what one country or organisation did; not evidence that it works elsewhere.",
+   "conference abstract": "Short meeting abstract; peer review is light and the full study may not be published.",
+   "commentary": "Opinion or comment piece in a journal; not original research.",
+   "event page": "Web page about an event or meeting.",
+   "presentation": "Slide presentation."
+  },
+  "nSubQuestions": 391,
+  "nSubQuestionsCovered": 148
  },
  "solutions": [
   {
@@ -27,8 +43,8 @@
   {
    "id": "brizee-2019-uganda-inventory",
    "title": "Establishment of a National Inventory of Dangerous Pathogens in the Republic of Uganda",
-   "citation": "Brizee S, Kwehangana M, Mwesigwa C, et al. Health Secur. 2019;17(2):169-173.",
-   "url": "https://pubmed.ncbi.nlm.nih.gov/31033346/",
+   "citation": "Brizee S, Kwehangana M, Mwesigwa C, Bleijs DA, van den Berg HHJL, Kampert E, Makoba MW, van Passel MWJ, et al. Establishment of a National Inventory of Dangerous Pathogens in the Republic of Uganda. Health Secur. 2019;17(3):169-173. doi:10.1089/hs.2018.0112",
+   "url": "https://doi.org/10.1089/hs.2018.0112",
    "year": 2019,
    "type": "case-study",
    "addedBy": "user",
@@ -46,7 +62,7 @@
    "title": "International Health Regulations (2005) toolkit for implementation in national legislation",
    "citation": "World Health Organization.",
    "url": "https://www.who.int/publications/m/item/international-health-regulations-(2005)-toolkit-for-implementation-in-national-legislation",
-   "year": null,
+   "year": 2009,
    "type": "tool",
    "addedBy": "search",
    "questions": [
@@ -319,7 +335,7 @@
    "title": "NAPHS for all: a country implementation guide for national action plans for health security",
    "citation": "World Health Organization.",
    "url": "https://www.who.int/publications/i/item/naphs-for-all---a-country-implementation-guide-for-naphs",
-   "year": null,
+   "year": 2019,
    "type": "guideline",
    "addedBy": "search",
    "questions": [
@@ -378,7 +394,6 @@
    "type": "strategy",
    "addedBy": "search",
    "questions": [
-    "P2.1:q13",
     "P2.1:q14"
    ],
    "why": "Explains the multilateral grant mechanism for prevention, preparedness and response investments and how countries apply."
@@ -587,11 +602,11 @@
   },
   {
    "id": "who-ipu-parliament",
-   "title": "WHO-IPU parliamentary conference on strengthening health security preparedness (Africa)",
+   "title": "WHO-IPU African parliamentary high-level conference on strengthening health security preparedness",
    "citation": "WHO Regional Office for Africa and Inter-Parliamentary Union.",
    "url": "https://www.afro.who.int/fr/node/18355",
-   "year": null,
-   "type": "case-study",
+   "year": 2023,
+   "type": "event page",
    "addedBy": "search",
    "questions": [
     "P3.3:q3",
@@ -647,9 +662,9 @@
   {
    "id": "amr-costing-paper",
    "title": "The WHO costing and budgeting tool for national action plans on AMR: a practical addition to the toolkit",
-   "citation": "Peer-reviewed article, PubMed Central (PMC10210613).",
-   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10210613/",
-   "year": null,
+   "citation": "Glover RE, Naylor NR. The WHO costing and budgeting tool for national action plans on antimicrobial resistance-a practical addition to the toolkit. JAC Antimicrob Resist. 2023;5(3):dlad064. doi:10.1093/jacamr/dlad064",
+   "url": "https://doi.org/10.1093/jacamr/dlad064",
+   "year": 2023,
    "type": "peer-reviewed",
    "addedBy": "search",
    "questions": [
@@ -966,7 +981,8 @@
     "P4.4:q6",
     "P4.5:q5"
    ],
-   "why": "Model list of essential medicines with AWaRe grouping; supports selection and access."
+   "why": "Model list of essential medicines with AWaRe grouping; supports selection and access.",
+   "note": "Superseded by the 24th WHO Model List of Essential Medicines (2025); this link opens only the executive summary of the 2021 report."
   },
   {
    "id": "who-gsms",
@@ -1051,7 +1067,8 @@
    "questions": [
     "P4.5:q8"
    ],
-   "why": "List used to restrict antimicrobials most important for human medicine in animal production."
+   "why": "List used to restrict antimicrobials most important for human medicine in animal production.",
+   "note": "Superseded in substance by the WHO Medically Important Antimicrobials list (2024)."
   },
   {
    "id": "tzg-sis-ot",
@@ -1112,8 +1129,8 @@
   {
    "id": "eid-2017-ohzdp",
    "title": "Prioritizing zoonoses for global health capacity building: themes from One Health zoonotic disease workshops in 7 countries",
-   "citation": "Emerg Infect Dis. 2017;23(13).",
-   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5711306/",
+   "citation": "Salyer SJ, Silver R, Simone K, Barton Behravesh C. Prioritizing zoonoses for global health capacity building-themes from One Health zoonotic disease workshops in 7 countries, 2014-2016. Emerg Infect Dis. 2017;23(13):S55-S64. doi:10.3201/eid2313.170418",
+   "url": "https://doi.org/10.3201/eid2313.170418",
    "year": 2017,
    "type": "peer-reviewed",
    "addedBy": "search",
@@ -1227,9 +1244,7 @@
    "year": 2022,
    "type": "strategy",
    "addedBy": "search",
-   "questions": [
-    "P5.3:q2"
-   ],
+   "questions": [],
    "why": "Action track on preventing spillover at the human-animal-environment interface."
   },
   {
@@ -1245,7 +1260,8 @@
     "P6.1:q3",
     "P6.1:q4"
    ],
-   "why": "First step to set up surveillance that detects foodborne events."
+   "why": "First step to set up surveillance that detects foodborne events.",
+   "note": "A 2025 edition of the stage 1 manual exists; this is the 2017 booklet."
   },
   {
    "id": "who-fbd-stage2",
@@ -1259,7 +1275,8 @@
     "P6.1:q1",
     "P6.1:q2"
    ],
-   "why": "Case definitions and indicator-based surveillance for priority foodborne diseases."
+   "why": "Case definitions and indicator-based surveillance for priority foodborne diseases.",
+   "note": "A 2025 edition of the stage 2 manual exists; this is the 2017 booklet."
   },
   {
    "id": "infosan",
@@ -1364,9 +1381,7 @@
    "year": 2018,
    "type": "guideline",
    "addedBy": "search",
-   "questions": [
-    "P6.1:q7"
-   ],
+   "questions": [],
    "why": "Options for laboratory methods in foodborne outbreak detection."
   },
   {
@@ -1428,7 +1443,7 @@
    "id": "who-biosecurity-2024",
    "title": "WHO laboratory biosecurity guidance (2024)",
    "citation": "World Health Organization. 2024.",
-   "url": "https://www.who.int/news/item/04-07-2024-who-updates-laboratory-biosecurity-guidance",
+   "url": "https://www.who.int/publications/i/item/9789240095113",
    "year": 2024,
    "type": "guideline",
    "addedBy": "search",
@@ -1478,7 +1493,7 @@
    "title": "List of human and animal pathogens and toxins for export control",
    "citation": "The Australia Group. 2022.",
    "url": "https://www.dfat.gov.au/publications/minisite/theaustraliagroupnet/site/en/human_animal_pathogens.html",
-   "year": 2022,
+   "year": 2023,
    "type": "tool",
    "addedBy": "search",
    "questions": [
@@ -1490,8 +1505,8 @@
   {
    "id": "rivm-biosecurity-checklist",
    "title": "Development of a biosecurity checklist for laboratory assessment and monitoring",
-   "citation": "Brizee S, van Passel MWJ, van den Berg LM, et al. Appl Biosaf. 2019;24(2):83-89.",
-   "url": "https://www.rivm.nl/publicaties/development-of-biosecurity-checklist-for-laboratory-assessment-and-monitoring",
+   "citation": "Brizee S, van Passel MWJ, van den Berg LM, Feakes D, Izar A, Tham Bee Lin K, Podin Y, Yunus Z, Bleijs DA. Development of a biosecurity checklist for laboratory assessment and monitoring. Appl Biosaf. 2019;24(2):83-89. doi:10.1177/1535676019838077",
+   "url": "https://doi.org/10.1177/1535676019838077",
    "year": 2019,
    "type": "peer-reviewed",
    "addedBy": "search",
@@ -1509,7 +1524,7 @@
    "id": "rivm-vulnerability-scan",
    "title": "The Vulnerability Scan, a web tool to increase institutional biosecurity resilience",
    "citation": "Meulenbelt SE, van Passel MWJ, de Bruin A, et al. Front Public Health. 2019;7:47.",
-   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6422864/",
+   "url": "https://doi.org/10.3389/fpubh.2019.00047",
    "year": 2019,
    "type": "peer-reviewed",
    "addedBy": "search",
@@ -1524,9 +1539,9 @@
   {
    "id": "multilingual-biorisk-tool",
    "title": "A multilingual tool for standardized laboratory biosafety and biosecurity assessment and monitoring",
-   "citation": "Peer-reviewed article, PubMed Central (PMC9805837).",
-   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9805837/",
-   "year": null,
+   "citation": "Orelle A, Nikiema A, Zakaryan A, Albetkova AA, Keita MS, Rayfield MA, Peruski LF, Pierson A. A multilingual tool for standardized laboratory biosafety and biosecurity assessment and monitoring. Health Secur. 2022;20(6):488-496. doi:10.1089/hs.2022.0030",
+   "url": "https://doi.org/10.1089/hs.2022.0030",
+   "year": 2022,
    "type": "peer-reviewed",
    "addedBy": "search",
    "questions": [
@@ -1552,7 +1567,7 @@
   {
    "id": "aiha-uganda-bsc",
    "title": "Biosafety cabinet calibration and certification training programme in Uganda opens national calibration center",
-   "citation": "AIHA. 2017.",
+   "citation": "American International Health Alliance (AIHA). AIHA concludes biosafety cabinet calibration and certification training program in Uganda, opens national calibration center. 18 August 2017.",
    "url": "https://www.aiha.com/2017/08/18/aiha-concludes-biosafety-cabinet-calibration-and-certification-training-program-in-uganda-opens-national-calibration-center/",
    "year": 2017,
    "type": "case-study",
@@ -1597,7 +1612,7 @@
   {
    "id": "canada-lab-exposures",
    "title": "Surveillance of laboratory exposures to human pathogens and toxins, Canada, 2022",
-   "citation": "Abalos C, Gauthier A, Davis A, Ellis C, Balbontin N, Kapur A, Bonti-Ankomah S. Surveillance of laboratory exposures to human pathogens and toxins, Canada, 2022. Can Commun Dis Rep 2023;49(9). doi:10.14745/ccdr.v49i09a06 (PMC10919944).",
+   "citation": "Abalos C, Gauthier A, Davis A, Ellis C, Balbontin N, Kapur A, Bonti-Ankomah S. Surveillance of laboratory exposures to human pathogens and toxins, Canada, 2022. Can Commun Dis Rep. 2023;49(9):398-405. doi:10.14745/ccdr.v49i09a06",
    "url": "https://doi.org/10.14745/ccdr.v49i09a06",
    "year": 2023,
    "type": "case-study",
@@ -1774,8 +1789,8 @@
    "id": "evm-tool",
    "title": "Effective Vaccine Management (EVM) assessment tool",
    "citation": "WHO and UNICEF (via TechNet-21).",
-   "url": "https://www.technet-21.org/fr/ressources/outil/effective-vaccine-management-evm-assessment-tool",
-   "year": null,
+   "url": "https://www.technet-21.org/en/resources/tool/effective-vaccine-management-evm-assessment-tool",
+   "year": 2020,
    "type": "tool",
    "addedBy": "search",
    "questions": [
@@ -1891,9 +1906,9 @@
   {
    "id": "dno-paper",
    "title": "Bringing data analytics to the design of optimized diagnostic networks in low- and middle-income countries",
-   "citation": "Peer-reviewed article, PubMed Central (PMC7823670).",
-   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7823670/",
-   "year": null,
+   "citation": "Nichols K, Girdwood SJ, Inglis A, Ondoa P, Sy KTL, Benade M, Tusiime AB, Kao K, Carmona S, Albert H, Nichols BE. Bringing data analytics to the design of optimized diagnostic networks in low- and middle-income countries: process, terms and definitions. Diagnostics (Basel). 2021;11(1):22. doi:10.3390/diagnostics11010022",
+   "url": "https://doi.org/10.3390/diagnostics11010022",
+   "year": 2021,
    "type": "peer-reviewed",
    "addedBy": "search",
    "questions": [
@@ -1907,10 +1922,10 @@
   },
   {
    "id": "ghsc-specimen-transport",
-   "title": "Leveraging private sector transport and logistics services to improve national integrated specimen referral",
-   "citation": "USAID Global Health Supply Chain Program.",
+   "title": "Leveraging private sector transportation/logistics services to improve the national integrated specimen referral network in Nigeria",
+   "citation": "USAID Global Health Supply Chain Program - Procurement and Supply Management (GHSC-PSM). 2019.",
    "url": "https://www.ghsupplychain.org/leveraging-private-sector-transportationlogistics-services-improve-national-integrated-specimen",
-   "year": null,
+   "year": 2019,
    "type": "case-study",
    "addedBy": "search",
    "questions": [
@@ -1963,7 +1978,6 @@
    "type": "tool",
    "addedBy": "search",
    "questions": [
-    "D1.2:q4.b",
     "D1.2:q6"
    ],
    "why": "Training and mentoring programme that has brought many laboratories to accreditation."
@@ -1976,10 +1990,7 @@
    "year": 2016,
    "type": "guideline",
    "addedBy": "search",
-   "questions": [
-    "D1.2:q3",
-    "D1.2:q4"
-   ],
+   "questions": [],
    "why": "Adapts ISO 15189 into a stepwise path towards accreditation."
   },
   {
@@ -2126,7 +2137,7 @@
    "title": "Africa CDC event-based surveillance framework",
    "citation": "Africa CDC.",
    "url": "https://stacks.cdc.gov/view/cdc/95823",
-   "year": null,
+   "year": 2018,
    "type": "guideline",
    "addedBy": "search",
    "questions": [
@@ -2196,10 +2207,10 @@
   {
    "id": "rtsl-717",
    "title": "7-1-7: the promise of tangible results through agility and accountability",
-   "citation": "Peer-reviewed article, PubMed Central (PMC10097505).",
-   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10097505/",
-   "year": null,
-   "type": "peer-reviewed",
+   "citation": "Mayigane LN, Vedrasco L, Chungong S. 7-1-7: the promise of tangible results through agility and accountability. Lancet Glob Health. 2023;11(6):e805-e806. doi:10.1016/S2214-109X(23)00167-5",
+   "url": "https://doi.org/10.1016/S2214-109X(23)00167-5",
+   "year": 2023,
+   "type": "commentary",
    "addedBy": "search",
    "questions": [
     "D2.1:q7",
@@ -2421,10 +2432,10 @@
   },
   {
    "id": "fetp-eval-2021",
-   "title": "Field epidemiology training program global evaluation application",
-   "citation": "RTI International.",
+   "title": "Field Epidemiology Training Program global evaluation: application of graduates' skills",
+   "citation": "Moore E, Remy WL, Courtney L, Lucido B, Pinto M, Albanna S, Martel L. Field Epidemiology Training Program global evaluation: application of graduates' skills. Hum Resour Health. 2026.",
    "url": "https://www.rti.org/publication/field-epidemiology-training-program-global-evaluation-application",
-   "year": null,
+   "year": 2026,
    "type": "case-study",
    "addedBy": "search",
    "questions": [
@@ -2439,7 +2450,7 @@
    "title": "Global health emergency corps framework",
    "citation": "World Health Organization. 2024.",
    "url": "https://www.who.int/publications/i/item/9789240109445",
-   "year": 2024,
+   "year": 2025,
    "type": "strategy",
    "addedBy": "search",
    "questions": [
@@ -2558,7 +2569,7 @@
   {
    "id": "who-dpm",
    "title": "Dynamic preparedness metric: a paradigm shift to measure and act on preparedness",
-   "citation": "Kandel N, Chungong S, et al. Lancet Glob Health. 2022;10(5):e615-e616.",
+   "citation": "Kandel N, Chungong S. Dynamic preparedness metric: a paradigm shift to measure and act on preparedness. Lancet Glob Health. 2022;10(5):e615-e616. doi:10.1016/S2214-109X(22)00097-3",
    "url": "https://doi.org/10.1016/S2214-109X(22)00097-3",
    "year": 2022,
    "type": "peer-reviewed",
@@ -2773,7 +2784,7 @@
    "title": "Stockpiling of medical countermeasures for pandemic influenza: considerations brief",
    "citation": "World Health Organization. 2024.",
    "url": "https://www.who.int/publications/i/item/9789240117860",
-   "year": 2024,
+   "year": 2025,
    "type": "guideline",
    "addedBy": "search",
    "questions": [
@@ -2998,8 +3009,8 @@
   {
    "id": "ehs-pulse-lessons",
    "title": "Assessing capacities and resilience of health services during the COVID-19 pandemic: lessons from rapid key informant surveys",
-   "citation": "Front Public Health. 2023.",
-   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9969144/",
+   "citation": "Rivas-Morello B, Horemans D, Viswanathan K, et al. Assessing capacities and resilience of health services during the COVID-19 pandemic: lessons learned from use of rapid key informant surveys. Front Public Health. 2023;11:1102507. doi:10.3389/fpubh.2023.1102507",
+   "url": "https://doi.org/10.3389/fpubh.2023.1102507",
    "year": 2023,
    "type": "peer-reviewed",
    "addedBy": "search",
@@ -3295,10 +3306,10 @@
   {
    "id": "jha-2018-erc-review",
    "title": "Integrating emergency risk communication into the public health system response: systematic review",
-   "citation": "Jha A, et al. PLoS One. 2018;13(10):e0205555.",
+   "citation": "Jha A, Lin L, Short SM, Argentini G, Gamhewage G, Savoia E. Integrating emergency risk communication (ERC) into the public health system response: systematic review of literature to aid formulation of the 2017 WHO Guideline for ERC policy and practice. PLoS One. 2018;13(10):e0205555. doi:10.1371/journal.pone.0205555",
    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6209198/",
    "year": 2018,
-   "type": "peer-reviewed",
+   "type": "systematic-review",
    "addedBy": "search",
    "questions": [
     "R5.1:q3",
@@ -3328,8 +3339,8 @@
   {
    "id": "who-infodemic-competency",
    "title": "WHO competency framework for health authorities and institutions to manage infodemics",
-   "citation": "Hum Resour Health. 2022.",
-   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9077350/",
+   "citation": "Rubinelli S, Purnat TD, Wilhelm E, Traicoff D, Namageyo-Funa A, Thomson A, Wardle C, Lamichhane J, Briand S, Nguyen T. WHO competency framework for health authorities and institutions to manage infodemics: its development and features. Hum Resour Health. 2022;20(1):35. doi:10.1186/s12960-022-00733-0",
+   "url": "https://doi.org/10.1186/s12960-022-00733-0",
    "year": 2022,
    "type": "peer-reviewed",
    "addedBy": "search",
@@ -3346,7 +3357,7 @@
    "title": "Social listening in infodemic management for public health emergencies: guidance on ethical considerations",
    "citation": "World Health Organization. 2024.",
    "url": "https://www.who.int/publications/i/item/9789240108202",
-   "year": 2024,
+   "year": 2025,
    "type": "guideline",
    "addedBy": "search",
    "questions": [
@@ -3358,10 +3369,10 @@
   {
    "id": "purnat-infodemic-insights",
    "title": "Delivering actionable infodemic insights and recommendations for the COVID-19 pandemic response",
-   "citation": "Purnat T, et al. PubMed Central (PMC9593848).",
+   "citation": "Purnat TD, Ishizumi A, Yau B, White B, Bertrand-Ferrandis C, Briand S, Nguyen T. Delivering actionable infodemic insights and recommendations for the COVID-19 pandemic response. Eur J Public Health. 2022;32(Suppl 3):ckac129.645. doi:10.1093/eurpub/ckac129.645",
    "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9593848/",
-   "year": null,
-   "type": "peer-reviewed",
+   "year": 2022,
+   "type": "conference abstract",
    "addedBy": "search",
    "questions": [
     "R5.2:q3",
@@ -3865,7 +3876,7 @@
    "id": "ilo-icsc",
    "title": "International Chemical Safety Cards (ICSC)",
    "citation": "International Labour Organization.",
-   "url": "https://www.ilo.org/dyn/icsc/showcard.listCards3",
+   "url": "https://chemicalsafety.ilo.org/dyn/icsc/showcard.listCards3",
    "year": null,
    "type": "tool",
    "addedBy": "search",
@@ -3960,7 +3971,7 @@
    "id": "tmt-handbook",
    "title": "TMT handbook: management of the public in the event of malevolent use of ionising radiation",
    "citation": "Consortium incl. WHO. 2009.",
-   "url": "http://www.tmthandbook.org",
+   "url": "https://www.sckcen.be/en/tmthandbook",
    "year": 2009,
    "type": "guideline",
    "addedBy": "search",
@@ -4108,8 +4119,8 @@
   },
   {
    "id": "aslm-quality-framework",
-   "title": "National laboratory quality framework, 2nd edition",
-   "citation": "African Society for Laboratory Medicine. 2024.",
+   "title": "Guidance for establishing a national laboratory quality framework, 2nd edition",
+   "citation": "Africa CDC and African Society for Laboratory Medicine. 2024.",
    "url": "https://aslm.org/wp-content/uploads/2026/01/National-Laboratory-Quality-Framework-_-2nd-Edition-2024.pdf",
    "year": 2024,
    "type": "guideline",
@@ -4189,10 +4200,7 @@
    "year": 2020,
    "type": "tool",
    "addedBy": "search",
-   "questions": [
-    "R1.5:q8",
-    "R1.5:q9"
-   ],
+   "questions": [],
    "why": "Example tool to forecast and track supply needs during an emergency."
   },
   {
@@ -4213,7 +4221,7 @@
    "id": "iaea-transport",
    "title": "Regulations for the safe transport of radioactive material (IAEA SSR-6)",
    "citation": "IAEA.",
-   "url": "https://iaea.org/publications/8851/regulations-for-the-safe-transport-of-radioactive-material-2012-edition",
+   "url": "https://www.iaea.org/publications/12288/regulations-for-the-safe-transport-of-radioactive-material",
    "year": null,
    "type": "guideline",
    "addedBy": "search",
@@ -4252,9 +4260,9 @@
   },
   {
    "id": "israel-cre-2011",
-   "title": "Nationwide intervention to contain carbapenem-resistant Enterobacteriaceae in Israeli hospitals",
-   "citation": "Clin Infect Dis. 2011;52(7):848.",
-   "url": "https://academic.oup.com/cid/article/52/7/848/299188",
+   "title": "Containment of a country-wide outbreak of carbapenem-resistant Klebsiella pneumoniae in Israeli hospitals via a nationally implemented intervention",
+   "citation": "Schwaber MJ, Lev B, Israeli A, Solter E, Smollan G, Rubinovitch B, Shalit I, Carmeli Y; Israel Carbapenem-Resistant Enterobacteriaceae Working Group. Clin Infect Dis. 2011;52(7):848-855. doi:10.1093/cid/cir025",
+   "url": "https://doi.org/10.1093/cid/cir025",
    "year": 2011,
    "type": "peer-reviewed",
    "addedBy": "search",
@@ -4269,8 +4277,8 @@
   },
   {
    "id": "honduras-food-emergency",
-   "title": "How Honduras handled the unexpected (food safety emergency)",
-   "citation": "FAO/Codex, via Policy Commons.",
+   "title": "Codex case study: Honduras, 2021 Salmonella Braenderup outbreak linked to melons",
+   "citation": "Codex Alimentarius Commission (FAO/WHO). Codex case study: Honduras. Rome: FAO/WHO.",
    "url": "https://policycommons.net/artifacts/12517164/how-honduras-handled-the-unexpected/13415519",
    "year": null,
    "type": "case-study",
@@ -4280,15 +4288,16 @@
     "P6.2:q7",
     "P6.2:q12"
    ],
-   "why": "Country example of managing a food safety emergency with Codex standards and multisectoral coordination."
+   "why": "Country example of managing a food safety emergency with Codex standards and multisectoral coordination.",
+   "note": "Mirror copy on PolicyCommons; the original is a FAO/WHO Codex publication (CD1005EN)."
   },
   {
    "id": "bfr-food-crises",
-   "title": "Lessons learned from past food safety crises",
-   "citation": "German Federal Institute for Risk Assessment (BfR).",
+   "title": "Lessons learned from past food crises (INFOSAN slide presentation)",
+   "citation": "World Health Organization, Department of Food Safety and Zoonoses, with FAO (INFOSAN). Lessons learned from past crises [slide presentation]. October 2012.",
    "url": "https://www.BFR.bund.de/cm/343/lessons-learned-from-past-crises.pdf",
-   "year": null,
-   "type": "case-study",
+   "year": 2012,
+   "type": "presentation",
    "addedBy": "search",
    "questions": [
     "P6.2:q12",
@@ -4299,9 +4308,9 @@
   {
    "id": "phep-workforce-selfassessment",
    "title": "Development of a workforce self-assessment tool for public health emergency preparedness",
-   "citation": "Peer-reviewed article, PubMed Central (PMC11161143).",
-   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11161143/",
-   "year": null,
+   "citation": "Hayes JS, Barreto M, Kalin-Manttari L, Mexia R, Connolly MA, Voutilainen L. Development of a workforce self-assessment tool for public health emergency preparedness. Eur J Public Health. 2024;34(3):482-489. doi:10.1093/eurpub/ckae030",
+   "url": "https://doi.org/10.1093/eurpub/ckae030",
+   "year": 2024,
    "type": "peer-reviewed",
    "addedBy": "search",
    "questions": [
@@ -4313,9 +4322,9 @@
   {
    "id": "afro-emt-review",
    "title": "The emergency medical teams initiative in the WHO African region: a review of development and progress over the past 7 years",
-   "citation": "Peer-reviewed article, PubMed Central (PMC11231368).",
-   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11231368/",
-   "year": null,
+   "citation": "Balde T, Oyugi B, Mbasha JJ, Kamara R, Martinez-Monterrey LG, Relan P, et al. The emergency medical teams initiative in the WHO African region: a review of the development and progress over the past 7 years. Front Public Health. 2024;12:1387034. doi:10.3389/fpubh.2024.1387034",
+   "url": "https://doi.org/10.3389/fpubh.2024.1387034",
+   "year": 2024,
    "type": "peer-reviewed",
    "addedBy": "search",
    "questions": [
@@ -4329,10 +4338,10 @@
   {
    "id": "west-africa-emts",
    "title": "Building national emergency medical teams in West Africa: lessons learnt and challenges 2017-2022",
-   "citation": "Prehosp Disaster Med.",
-   "url": "https://resolve.cambridge.org/core/journals/prehospital-and-disaster-medicine/article/building-national-emergency-medical-teams-in-west-africa-lessons-learnt-and-challenges-20172022/DD9D7658FF3C994DADD4833A18A9E9F5",
-   "year": null,
-   "type": "peer-reviewed",
+   "citation": "Lokossou VK, Catraye SO, Sogbossi L. Building national emergency medical teams in West Africa: lessons learnt and challenges (2017-2022). Prehosp Disaster Med. 2022;37(S2):s56. doi:10.1017/S1049023X22001558",
+   "url": "https://doi.org/10.1017/S1049023X22001558",
+   "year": 2022,
+   "type": "conference abstract",
    "addedBy": "search",
    "questions": [
     "R1.4:q2",
@@ -4344,9 +4353,9 @@
   {
    "id": "jee-rcce-analysis",
    "title": "Key features of sustainable capacities for risk communication in health emergencies: analysis of Joint External Evaluation",
-   "citation": "Peer-reviewed article, PubMed Central (PMC12677237).",
-   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12677237/",
-   "year": null,
+   "citation": "Takeda A, Seino K, Okuda H, Saito T, Tomio J. Key features of sustainable capacities for risk communication in health emergencies: analysis of Joint External Evaluation. J Glob Health. 2025;15:04331. doi:10.7189/jogh.15.04331",
+   "url": "https://doi.org/10.7189/jogh.15.04331",
+   "year": 2025,
    "type": "peer-reviewed",
    "addedBy": "search",
    "questions": [
@@ -4354,7 +4363,7 @@
     "R5.2:*",
     "R5.3:*"
    ],
-   "why": "Analysis of JEE reports showing what countries with sustainable risk communication capacity have in common."
+   "why": "Analysis of JEE reports showing what countries with sustainable risk communication capacity have in common. Note: based on first- and second-edition JEE reports (81 and 22 countries), not the third edition used on this site."
   },
   {
    "id": "kenya-zdu",
@@ -4391,41 +4400,39 @@
   {
    "id": "jordan-ams-2023",
    "title": "Four years after the implementation of antimicrobial stewardship program in Jordan: evaluation of core elements",
-   "citation": "Peer-reviewed article, PubMed Central (PMC10262748).",
-   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10262748/",
-   "year": null,
+   "citation": "Hassan SK, Dahmash EZ, Madi T, Tarawneh O, Jomhawi T, Alkhob W, Ghanem R, Halasa Z. Four years after the implementation of antimicrobial stewardship program in Jordan: evaluation of program's core elements. Front Public Health. 2023;11:1078596. doi:10.3389/fpubh.2023.1078596",
+   "url": "https://doi.org/10.3389/fpubh.2023.1078596",
+   "year": 2023,
    "type": "peer-reviewed",
    "addedBy": "search",
    "questions": [
     "P4.4:q3",
     "P4.4:q1.d"
    ],
-   "why": "Country evaluation of a national stewardship programme against core elements."
+   "why": "Cross-sectional assessment of 27 Jordanian public hospitals against the WHO core elements for stewardship; adherence ranged from about 53% (leadership commitment) to 72% (AMS actions)."
   },
   {
    "id": "lmic-ams-pharmacist-sr",
    "title": "Evaluation of interventions led by pharmacists in antimicrobial stewardship programs in LMICs: a systematic literature review",
-   "citation": "Antimicrob Steward Healthc Epidemiol (PMC11574597).",
-   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11574597/",
-   "year": null,
+   "citation": "Marins TA, de Jesus GR, Holubar M, Salinas JL, Guglielmi GP, Lin V, de Almeida SM. Evaluation of interventions led by pharmacists in antimicrobial stewardship programs in low- and middle-income countries: a systematic literature review. Antimicrob Steward Healthc Epidemiol. 2024;4:e342(?). doi:10.1017/ash.2024.342",
+   "url": "https://doi.org/10.1017/ash.2024.342",
+   "year": 2024,
    "type": "systematic-review",
    "addedBy": "search",
    "questions": [
-    "P4.4:q3",
-    "P4.5:q4"
+    "P4.4:q3"
    ],
    "why": "Evidence on what pharmacist-led stewardship achieves in low-resource settings."
   },
   {
    "id": "ldc-ams-sr",
    "title": "Protocols, policies and practices for antimicrobial stewardship in hospitalized patients in least-developed and low-income countries: a systematic review",
-   "citation": "Peer-reviewed article, PubMed Central (PMC10666353).",
-   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10666353/",
-   "year": null,
+   "citation": "Mzumara GW, Mambiya M, Iroh Tam PY. Protocols, policies and practices for antimicrobial stewardship in hospitalized patients in least-developed and low-income countries: a systematic review. Antimicrob Resist Infect Control. 2023;12(1):131. doi:10.1186/s13756-023-01335-8",
+   "url": "https://doi.org/10.1186/s13756-023-01335-8",
+   "year": 2023,
    "type": "systematic-review",
    "addedBy": "search",
    "questions": [
-    "P4.4:q1",
     "P4.4:q3"
    ],
    "why": "Overview of stewardship approaches used in the poorest settings."
@@ -4810,7 +4817,7 @@
   {
    "id": "lestari-2021-iso35001-indonesia",
    "title": "Implementation of bio-risk management system in a national clinical and medical referral centre laboratories",
-   "citation": "Lestari F, Kadir A, Miswary T, et al. Int J Environ Res Public Health. 2021;18(5):2308.",
+   "citation": "Lestari F, Kadir A, Miswary T, Maharani CF, Bowolaksono A, Paramitasari D. Implementation of bio-risk management system in a national clinical and medical referral centre laboratories. Int J Environ Res Public Health. 2021;18(5):2308. doi:10.3390/ijerph18052308",
    "url": "https://www.mdpi.com/1660-4601/18/5/2308",
    "year": 2021,
    "type": "case-study",
@@ -4820,7 +4827,7 @@
     "P7.1:q3.g",
     "P7.2:q7"
    ],
-   "why": "Gap analysis of Indonesia's national referral laboratories against ISO 35001: over half of elements in place, weakest on leadership, support and performance evaluation; shows how to use the standard as an audit frame."
+   "why": "Gap analysis of eight laboratories at one Indonesian national referral centre against ISO 35001: about 84% of checklist items met on average, weakest on context of the organisation (64%), leadership (75%) and performance evaluation; shows how to use the standard as an audit frame."
   },
   {
    "id": "iso-35001-2019",

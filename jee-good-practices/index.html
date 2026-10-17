@@ -192,7 +192,7 @@ function vIndicators(open){
 
 
 /* ---------- technical questions ---------- */
-function solHTML(list){ if(st.qt) list=list.filter(x=>x.type===st.qt); return list.map(x=>`<div class="sol"><span class="badge">${esc(x.type)}${x.addedBy==="user"?" · supplied by Mark":""}</span><a href="${esc(x.url)}" rel="noopener"><strong>${esc(x.title)}</strong></a> <span class="muted">${esc(x.citation)}</span>${x.note?`<div class="small muted">${esc(x.note)}</div>`:""}${x.why?`<div class="small">${esc(x.why)}</div>`:""}</div>`).join(""); }
+function solHTML(list){ if(st.qt) list=list.filter(x=>x.type===st.qt); return list.map(x=>`<div class="sol"><span class="badge" title="${esc((D.solMeta&&D.solMeta.sourceTypes&&D.solMeta.sourceTypes[x.type])||"")}">${esc(x.type)}${x.addedBy==="user"?" · supplied by Mark":""}</span><a href="${esc(x.url)}" rel="noopener"><strong>${esc(x.title)}</strong></a> <span class="muted">${esc(x.citation)}</span>${x.note?`<div class="small muted">${esc(x.note)}</div>`:""}${x.why?`<div class="small">${esc(x.why)}</div>`:""}</div>`).join(""); }
 
 function topList(id){
   if(!D.as) return [];
@@ -224,7 +224,8 @@ function vQuestions(open){
   const q=st.qq.trim().toLowerCase(), fw=D.fw;
   const total=fw.indicators.reduce((n,i)=>n+i.technicalQuestions.length,0);
   const withSrc=fw.indicators.reduce((n,i)=>n+i.technicalQuestions.filter(t=>D.solByQ[i.id+":"+t.id]||t.sub.some(s=>D.solByQ[i.id+":"+t.id+"."+s.k])).length,0);
-  let h=`<p class="lead">All ${total} technical questions of the WHO JEE tool (3rd edition), per technical area and indicator, in WHO's wording. Under a question you find publications, protocols or tools that can help answer it or close the gap it points to. <strong>${withSrc} of ${total} questions have at least one source so far</strong>; the others are shown as “no source yet”, not as “none exists”.</p>
+  const subTot=fw.indicators.reduce((n,i)=>n+i.technicalQuestions.reduce((m,t)=>m+t.sub.length,0),0), subSrc=fw.indicators.reduce((n,i)=>n+i.technicalQuestions.reduce((m,t)=>m+t.sub.filter(x=>D.solByQ[i.id+":"+t.id+"."+x.k]).length,0),0);
+  let h=`<p class="lead">All ${total} technical questions of the WHO JEE tool (3rd edition), per technical area and indicator, in WHO's wording. Under a question you find publications, protocols or tools that can help answer it or close the gap it points to. <strong>${withSrc} of ${total} questions have at least one source so far</strong> (counting a source on any of its sub-questions); of the ${subTot} sub-questions, ${subSrc} have a source of their own; the others are shown as “no source yet”, not as “none exists”.</p>
   <div class="bar"><input id="qq" type="search" placeholder="Search questions…" aria-label="Search questions" value="${esc(st.qq)}" size="30">
    <select id="qa" aria-label="Technical area"><option value="">All technical areas</option>${fw.technicalAreas.map(a=>`<option value="${a.id}" ${st.qa===a.id?"selected":""}>${a.id} ${esc(a.name)}</option>`).join("")}</select>
    <select id="qf" aria-label="Sources"><option value="">All questions</option><option value="with" ${st.qf==="with"?"selected":""}>With sources</option><option value="without" ${st.qf==="without"?"selected":""}>Without sources yet</option></select>
@@ -418,7 +419,7 @@ function vAbout(){
    <li>Scores were read from the official report PDFs listed in the <a href="data/assessments.json">data file</a>; each score keeps its report, edition basis and PDF page. ${as?esc(as.method||""):""}</li>
    <li>Editions differ in indicators and wording, so scores are not directly comparable across v1, v2 and v3. WHO warns that a lower later score need not mean capacity declined.</li>
    <li>Reports are listed from the WHO SPH document library${reg?` (${reg.entries.length} entries retrieved ${esc(reg.retrieved)})`:""}. Some countries or reports are missing; absence here does not mean a country has had no JEE.</li></ul>
-  <h2>Sources per technical question</h2><p>${esc((D.solMeta&&D.solMeta.status)||"")} ${D.solMeta&&D.solMeta.nSources?`The set holds ${D.solMeta.nSources} sources covering ${D.solMeta.nQuestionsCovered} of ${D.solMeta.nQuestions} questions.`:""} Each indicator also lists the WHO benchmark actions for its technical area and, as peer examples, the countries that scored level 4–5 on it in a third-edition JEE, with a link to the page of their report.</p>
+  <h2>Sources per technical question</h2><p>${esc((D.solMeta&&D.solMeta.status)||"")} ${D.solMeta&&D.solMeta.nSources?`The set holds ${D.solMeta.nSources} sources covering ${D.solMeta.nQuestionsCovered} of ${D.solMeta.nQuestions} questions${D.solMeta.nSubQuestions?` and ${D.solMeta.nSubQuestionsCovered} of ${D.solMeta.nSubQuestions} sub-questions`:""}.`:""} Each indicator also lists the WHO benchmark actions for its technical area and, as peer examples, the countries that scored level 4–5 on it in a third-edition JEE, with a link to the page of their report.</p>
   <h2>Practices</h2><p>${esc(D.prMeta.status)}</p>
   <h2>Using this for a JEE you are preparing</h2><p>Read each indicator's five level descriptions, use the technical questions as discussion prompts, and rate the indicators on the “Find solutions” page for a first, informal view of gaps. That rating is not a JEE score.</p>
   <h2>Corrections</h2><p>Spotted an error? Open an issue on <a href="https://github.com/mvanpassel-cmyk/mvanpassel-cmyk.github.io/issues">GitHub</a>.</p>`;
