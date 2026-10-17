@@ -65,9 +65,9 @@ footer{margin-top:40px;color:var(--muted);font-size:13px}
 <div class="bar">
   <input id="q" type="search" placeholder="Search guide, country, takeaway…" aria-label="Search">
   <select id="fg" aria-label="Group"><option value="">All topics</option></select>
-  <select id="ft" aria-label="Source type"><option value="">All source types</option><option value="cs">Country cases (case studies, peer evaluations)</option></select>
+  <select id="ft" aria-label="Type"><option value="">All types</option><option value="cs">Country cases (case studies, peer evaluations)</option></select>
   <label class="ck"><input id="fp" type="checkbox"> Peer-reviewed only</label>
-  <label class="ck"><input id="fs" type="checkbox"> Only with sources</label>
+  <label class="ck"><input id="fs" type="checkbox"> Only with good practices</label>
 </div>
 <div id="stat" class="small muted"></div>
 <div id="view"><p class="muted">Loading…</p></div>
@@ -96,7 +96,7 @@ function init(){
   $("#intro").textContent=D.meta.source;
   $("#stages").innerHTML=D.meta.stages.map(s=>`<div><b>${esc(s[0])}</b>${esc(s[1])}</div>`).join("");
   $("#docs").innerHTML=D.meta.docs.map(x=>`<li><a href="${esc(x.u)}" rel="noopener">${esc(x.t)}</a>. ${esc(x.d)}</li>`).join("");
-  $("#method").textContent=D.meta.note+" "+L.meta.note+" A source can appear under several topics. Peer evaluation reports and case studies show what one institute did; they are not evidence that it works elsewhere.";
+  $("#method").textContent=D.meta.note+" "+L.meta.note+" A good practice can appear under several topics. Peer evaluation reports and case studies show what one institute did; they are not evidence that it works elsewhere.";
   $("#q").oninput=e=>{st.q=e.target.value.trim().toLowerCase();render()};
   $("#fg").oninput=e=>{st.grp=e.target.value;render()};
   $("#ft").oninput=e=>{st.type=e.target.value;render()};
@@ -133,16 +133,16 @@ function render(){
     if(t.group!==lastG){h+=`<div class="areahead"><h2>${esc(t.group)}</h2><span class="fn">${t.group==="Cross-cutting"?"added by this page":"SDT discussion guides"}</span></div>`;lastG=t.group}
     shown++;srcN+=ss.length;
     const rows=t.rows?`<h4>What the stages mean (paraphrased)</h4><table class="lv"><tbody>${t.rows.map(r=>`<tr><td class="n">${esc(r.name)}</td><td><b>Basic:</b> ${esc(r.basic)}<br><b>Leading Edge:</b> ${esc(r.lead)}</td></tr>`).join("")}</tbody></table>`:(t.guide?`<p class="small muted">Stage descriptions for this guide were not read for this page; see the guide itself.</p>`:"");
-    h+=`<details class="bm" ${q||shown===1&&st.grp?"open":""}><summary><span class="id">${esc(t.id)}</span><span>${esc(t.title)}</span><span class="cnt">${ss.length?ss.length+" source"+(ss.length>1?"s":""):"no source yet"}</span></summary><div class="body">
+    h+=`<details class="bm" ${q||shown===1&&st.grp?"open":""}><summary><span class="id">${esc(t.id)}</span><span>${esc(t.title)}</span><span class="cnt">${ss.length?ss.length+" good practice"+(ss.length>1?"s":""):"no good practice yet"}</span></summary><div class="body">
     <p>${esc(t.what)}</p>
     ${t.guide?`<p class="small"><a href="${esc(t.guide)}" rel="noopener">Open the discussion guide (PDF, English)</a></p>`:""}
     ${rows}
     <h4>Matching items in other frameworks (our crosswalk)</h4><div>${xwalk(t)}</div>
     ${window.Programmes?Programmes.html(t.prog,{includeAll:false}):""}
-    <h4>Good practices and literature</h4>${ss.length?ss.map(srcHTML).join(""):'<p class="empty">No source found yet for this topic. That does not mean none exists.</p>'}</div></details>`;
+    <h4>Good practices and literature</h4>${ss.length?ss.map(srcHTML).join(""):'<p class="empty">No good practice found yet for this topic. That does not mean none exists.</p>'}</div></details>`;
   });
   $("#view").innerHTML=h||'<p class="muted">Nothing matches.</p>';
-  $("#stat").textContent=`${shown} topics, ${srcN} source links shown.`;
+  $("#stat").textContent=`${shown} topics, ${srcN} good practice links shown.`;
 }
 </script>
 </body>

@@ -53,9 +53,9 @@ footer{margin-top:40px;color:var(--muted);font-size:13px}
 <div class="bar">
   <input id="q" type="search" placeholder="Search benchmark, title, country, takeaway…" aria-label="Search">
   <select id="fa" aria-label="Area"><option value="">All areas</option></select>
-  <select id="ft" aria-label="Source type"><option value="">All source types</option></select>
+  <select id="ft" aria-label="Type"><option value="">All types</option></select>
   <label class="ck"><input id="fp" type="checkbox"> Peer-reviewed only</label>
-  <label class="ck"><input id="fs" type="checkbox"> Only with sources</label>
+  <label class="ck"><input id="fs" type="checkbox"> Only with good practices</label>
 </div>
 <div id="stat" class="small muted"></div>
 <div id="view"><p class="muted">Loading…</p></div>
@@ -94,7 +94,7 @@ function topHTML(ids){
   return ids.map(id=>{
     const l=ev.filter(e=>e.scores[id]&&e.scores[id][0]>=4).sort((a,b)=>b.scores[id][0]-a.scores[id][0]||a.country.localeCompare(b.country));
     const chips=l.map(e=>`<a class="chip l${e.scores[id][0]}" href="${esc(e.pdfUrl)}#page=${e.scores[id][1]}" rel="noopener" title="${esc(e.title)}, level ${e.scores[id][0]}, opens report at PDF page ${e.scores[id][1]}">${esc(e.country)} ${e.year} · ${e.scores[id][0]}</a>`).join("");
-    return `<div><span class="small"><a href="../jee-good-practices/#/questions/${esc(id)}">${esc(id)} questions</a> · <a href="../jee-good-practices/#/indicators/${esc(id)}">scores and practices</a></span><div>${chips||'<span class="small muted">No JEE v3 country scored 4 or 5 yet on '+esc(id)+'.</span>'}</div></div>`;
+    return `<div><span class="small"><a href="../jee-good-practices/#/questions/${esc(id)}">${esc(id)} questions</a> · <a href="../jee-good-practices/#/indicators/${esc(id)}">scores and good practices</a></span><div>${chips||'<span class="small muted">No JEE v3 country scored 4 or 5 yet on '+esc(id)+'.</span>'}</div></div>`;
   }).join("");
 }
 function srcHTML(s){
@@ -125,13 +125,13 @@ function render(){
     h+=window.Programmes?Programmes.html(B.benchmarks.filter(b=>b.area===a.id).flatMap(b=>b.jee),{includeAll:true}):"";
     items.forEach(({b,ss})=>{
       shown++;srcN+=ss.length;
-      h+=`<details class="bm" ${q||items.length===1?"open":""}><summary><span class="id">${esc(b.id)}</span><span>${esc(b.title)}</span><span class="cnt">${ss.length?ss.length+" source"+(ss.length>1?"s":""):"no source yet"}</span></summary><div class="body">
+      h+=`<details class="bm" ${q||items.length===1?"open":""}><summary><span class="id">${esc(b.id)}</span><span>${esc(b.title)}</span><span class="cnt">${ss.length?ss.length+" good practice"+(ss.length>1?"s":""):"no good practice yet"}</span></summary><div class="body">
       ${b.jee.length?`<h4>Matching JEE indicator and peer countries to learn from</h4>${topHTML(b.jee)}`:`<p class="small muted">No matching JEE indicator.</p>`}
-      <h4>Good practices and literature</h4>${ss.length?ss.map(srcHTML).join(""):'<p class="empty">No source found yet for this benchmark. That does not mean none exists.</p>'}</div></details>`;
+      <h4>Good practices and literature</h4>${ss.length?ss.map(srcHTML).join(""):'<p class="empty">No good practice found yet for this benchmark. That does not mean none exists.</p>'}</div></details>`;
     });
   });
   $("#view").innerHTML=h||'<p class="muted">Nothing matches.</p>';
-  $("#stat").textContent=`${shown} benchmarks, ${srcN} source links shown (${L.sources.length} sources in total).`;
+  $("#stat").textContent=`${shown} benchmarks, ${srcN} good practice links shown (${L.sources.length} sources in total).`;
 }
 </script>
 </body>

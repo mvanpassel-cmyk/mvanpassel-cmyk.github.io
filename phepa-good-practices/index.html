@@ -103,7 +103,7 @@ function jeeBlock(t){
   const want=new Set(t.jee), got=new Map();
   D.sol.forEach(s=>{const hit=s.questions.filter(k=>want.has(k.split(":")[0])); if(hit.length) got.set(s.id,{s,n:hit.length+(hit.some(k=>k.endsWith(":*"))?5:0)});});
   const top=[...got.values()].sort((a,b)=>b.n-a.n).slice(0,5).map(x=>x.s);
-  return `<h3>Related WHO JEE indicators, technical questions and tools</h3><div class="k">${rows}</div>${top.length?top.map(s=>`<div class="sol"><span class="badge">${esc(s.type)}</span><a href="${esc(s.url)}" rel="noopener"><strong>${esc(s.title)}</strong></a> <span class="muted">${esc(s.citation)}</span></div>`).join("")+`<p class="small muted">Selected from the JEE portal's source list; open an indicator there for all sources and the countries with the highest JEE level.</p>`:""}`;
+  return `<h3>Related WHO JEE indicators, technical questions and tools</h3><div class="k">${rows}</div>${top.length?top.map(s=>`<div class="sol"><span class="badge">${esc(s.type)}</span><a href="${esc(s.url)}" rel="noopener"><strong>${esc(s.title)}</strong></a> <span class="muted">${esc(s.citation)}</span></div>`).join("")+`<p class="small muted">Selected from the JEE portal's good practice list; open an indicator there for all sources and the countries with the highest JEE level.</p>`:""}`;
 }
 function topicBody(t,opts){
   opts=opts||{}; const its=D.items.filter(i=>i.t===t.id&&matches(i)); const S=its.filter(i=>i.k==="S"), R=its.filter(i=>i.k==="R");
@@ -141,7 +141,7 @@ function vStart(){
   <h2>The 16 capacities</h2>
   <p class="small muted">Eleven follow the IHR (Article 7 self-assessment, SPAR-aligned); five come from Regulation (EU) 2022/2371. Food safety and radiation emergencies are not assessed. In the first cycle ECDC assessed four capacities in depth in every country (laboratory, surveillance, health emergency management, AMR and HAIs); the country chooses a fifth.</p>
   <ol class="small">${D.d.capacities.map(c=>`<li>${esc(c.name)}${[3,4,6,12].includes(c.id)?` <span class="badge">in depth, all countries</span>`:""}</li>`).join("")}</ol>
-  <p class="small">Related: <a href="../jee-good-practices/">JEE Good Practices</a> (WHO Joint External Evaluation indicators, questions, scores and sources). Each topic here links to the matching JEE indicators.</p>`;
+  <p class="small">Related: <a href="../jee-good-practices/">JEE Good Practices</a> (WHO Joint External Evaluation indicators, questions, scores and good practices). Each topic here links to the matching JEE indicators.</p>`;
 }
 
 function vTopics(open){
@@ -214,7 +214,7 @@ function vAbout(){
    <li><strong>Sources:</strong> ${D.d.countries.length} ECDC PHEPA country reports (Belgium, Cyprus, Czechia, Estonia, Finland, France, Iceland, Latvia, Liechtenstein, Lithuania, Luxembourg, the Netherlands, Spain), the ECDC <a href="${esc(m.interim.url)}" rel="noopener">interim report</a> (${esc(m.interim.date)}), the Commission/ECDC <a href="${esc(m.eu.url)}" rel="noopener">overview of recommendations</a> and the ECDC <a href="${esc(m.guide.url)}" rel="noopener">guide for countries</a>.</li>
    <li><strong>Items:</strong> each strength or recommendation is a short paraphrase of one finding, tagged with the report, a page number and a topic. Topics come from the structure of ECDC's interim report (planning, risk profiling, stockpiles, laboratory scale-up, and so on). Strengths in the reports are treated as good practices; ECDC does not label them “good practice” in a formal sense.</li>
    <li><strong>Reading:</strong> reports were read through an automated text extraction and summarised by an AI assistant (Claude). Summaries can contain errors or lose nuance. Always check the report before citing.</li>
-   <li><strong>Related WHO material:</strong> each topic is linked by hand to the closest JEE v3 indicators; the tools listed come from the JEE portal's source list.</li>
+   <li><strong>Related WHO material:</strong> each topic is linked by hand to the closest JEE v3 indicators; the tools listed come from the JEE portal's good practice list.</li>
   </ul>
   <h2>Limits</h2>
   <ul>
@@ -226,7 +226,7 @@ function vAbout(){
    <li>PHEPA is run every three years and the first cycle is not finished; more reports will appear. Data retrieved ${esc(m.built)}.</li>
   </ul>
   <h2>Related</h2>
-  <ul><li><a href="../jee-good-practices/">JEE Good Practices</a>: WHO JEE indicators, ${"479"} technical questions with sources, country scores and the countries with the highest level per indicator.</li></ul>
+  <ul><li><a href="../jee-good-practices/">JEE Good Practices</a>: WHO JEE indicators, ${"479"} technical questions with good practices, country scores and the countries with the highest level per indicator.</li></ul>
   <p class="small muted">Disclaimer: this is an independent personal tool. It is not an ECDC, European Commission or Ministry of Health product.</p>`;
 }
 load().catch(e=>{view.innerHTML=`<div class="note">Could not load data: ${esc(e.message)}</div>`});

@@ -67,9 +67,9 @@ footer{margin-top:40px;color:var(--muted);font-size:13px}
 <div class="bar">
   <input id="q" type="search" placeholder="Search indicator, country, takeaway…" aria-label="Search">
   <select id="fa" aria-label="Capacity"><option value="">All capacities</option></select>
-  <select id="ft" aria-label="Source type"><option value="">All source types</option><option value="cs">Country cases (case studies, after-action reviews)</option></select>
+  <select id="ft" aria-label="Type"><option value="">All types</option><option value="cs">Country cases (case studies, after-action reviews)</option></select>
   <label class="ck"><input id="fp" type="checkbox"> Peer-reviewed only</label>
-  <label class="ck"><input id="fs" type="checkbox"> Only with sources</label>
+  <label class="ck"><input id="fs" type="checkbox"> Only with good practices</label>
 </div>
 <div id="stat" class="small muted"></div>
 <div id="view"><p class="muted">Loading…</p></div>
@@ -100,7 +100,7 @@ function init(){
   $("#fa").innerHTML+=S.caps.map(c=>`<option value="${c.id}">${c.id} · ${esc(c.name)}</option>`).join("");
   $("#ft").innerHTML+=Object.entries(TYPES).map(([k,v])=>`<option value="${k}">${esc(v)}</option>`).join("");
   $("#general").innerHTML=L.sources.filter(s=>s.general).map(srcHTML).join("");
-  $("#method").textContent=S.meta.note+" Sources per indicator come from two places: this page's own search, and the sources of the matching IHR benchmarks (marked with the benchmark number). "+BL.meta.status+" Countries shown come from JEE third-edition reports scored 4 or 5 on the linked indicator; a high JEE score is a reason to look, not proof of good practice. SPAR scores themselves are self-reported.";
+  $("#method").textContent=S.meta.note+" Good practices per indicator come from two places: this page's own search, and the good practices of the matching IHR benchmarks (marked with the benchmark number). "+BL.meta.status+" Countries shown come from JEE third-edition reports scored 4 or 5 on the linked indicator; a high JEE score is a reason to look, not proof of good practice. SPAR scores themselves are self-reported.";
   $("#q").oninput=e=>{st.q=e.target.value.trim().toLowerCase();render()};
   $("#fa").oninput=e=>{st.cap=e.target.value;render()};
   $("#ft").oninput=e=>{st.type=e.target.value;render()};
@@ -113,7 +113,7 @@ function jeeHTML(ids){
   return ids.map(id=>{
     const l=ev.filter(e=>e.scores[id]&&e.scores[id][0]>=4).sort((a,b)=>b.scores[id][0]-a.scores[id][0]||a.country.localeCompare(b.country));
     const chips=l.map(e=>`<a class="chip l${e.scores[id][0]}" href="${esc(e.pdfUrl)}#page=${e.scores[id][1]}" rel="noopener" title="${esc(e.title)}, level ${e.scores[id][0]}, opens report at PDF page ${e.scores[id][1]}">${esc(e.country)} ${e.year} · ${e.scores[id][0]}</a>`).join("");
-    return `<div><span class="small">JEE ${esc(id)}: <a href="../jee-good-practices/#/questions/${esc(id)}">questions</a> · <a href="../jee-good-practices/#/indicators/${esc(id)}">scores and practices</a></span><div>${chips||'<span class="small muted">No JEE v3 country scored 4 or 5 yet.</span>'}</div></div>`;
+    return `<div><span class="small">JEE ${esc(id)}: <a href="../jee-good-practices/#/questions/${esc(id)}">questions</a> · <a href="../jee-good-practices/#/indicators/${esc(id)}">scores and good practices</a></span><div>${chips||'<span class="small muted">No JEE v3 country scored 4 or 5 yet.</span>'}</div></div>`;
   }).join("");
 }
 function srcHTML(s){
@@ -149,15 +149,15 @@ function render(){
       shown++;srcN+=ss.length;
       const lv=i.l1?`<table class="lv"><tbody><tr><td class="n">Level 1</td><td>${esc(i.l1)}</td></tr><tr><td class="n">Level 3</td><td>${esc(i.l3)}</td></tr><tr><td class="n">Level 5</td><td>${esc(i.l5)}</td></tr></tbody></table>${i.step?`<p class="small muted">Step from 2 to 3: ${esc(i.step)}</p>`:""}`:`<p class="small muted">Level descriptions for this indicator were not read from the PDF; see the <a href="${esc(S.meta.pdf)}">SPAR questionnaire</a>.</p>`;
       const bms=i.bm.map(b=>BM[b]?`<span class="tag" title="${esc(BM[b].title)}">IHR benchmark ${esc(b)}</span>`:"").join("");
-      h+=`<details class="bm" ${q||items.length===1?"open":""}><summary><span class="id">${esc(i.id)}</span><span>${esc(i.title)}</span><span class="cnt">${ss.length?ss.length+" source"+(ss.length>1?"s":""):"no source yet"}</span></summary><div class="body">
+      h+=`<details class="bm" ${q||items.length===1?"open":""}><summary><span class="id">${esc(i.id)}</span><span>${esc(i.title)}</span><span class="cnt">${ss.length?ss.length+" good practice"+(ss.length>1?"s":""):"no good practice yet"}</span></summary><div class="body">
       <h4>What the levels mean (paraphrased)</h4>${lv}
       <h4>Matching JEE indicator and peer countries to learn from</h4>${jeeHTML(i.jee)}
       <h4>Matching IHR benchmarks</h4><div>${bms} <a class="small" href="../ihr-benchmarks-good-practices/">open benchmarks page</a></div>
-      <h4>Good practices and literature</h4>${ss.length?ss.map(srcHTML).join(""):'<p class="empty">No source found yet for this indicator. That does not mean none exists.</p>'}</div></details>`;
+      <h4>Good practices and literature</h4>${ss.length?ss.map(srcHTML).join(""):'<p class="empty">No good practice found yet for this indicator. That does not mean none exists.</p>'}</div></details>`;
     });
   });
   $("#view").innerHTML=h||'<p class="muted">Nothing matches.</p>';
-  $("#stat").textContent=`${shown} indicators, ${srcN} source links shown.`;
+  $("#stat").textContent=`${shown} indicators, ${srcN} good practice links shown.`;
 }
 </script>
 </body>

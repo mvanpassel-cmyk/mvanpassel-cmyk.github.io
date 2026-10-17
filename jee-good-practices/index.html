@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>JEE Good Practices</title>
-<meta name="description" content="WHO JEE indicators, technical questions, country capacity scores and evidence-based practices, linked to help countries find solutions to capacity gaps.">
+<meta name="description" content="WHO JEE indicators, technical questions, country capacity scores and evidence-based good practices, linked to help countries find solutions to capacity gaps.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231f3a5f'/%3E%3Cpath d='M7 20h5v-5h5v-5h8' fill='none' stroke='%23f4c95d' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
 :root{
@@ -107,11 +107,11 @@ svg.pc .mut{fill:var(--muted)}
 <body>
 <div class="wrap">
   <h1>JEE Good Practices</h1>
-  <p class="lead">WHO Joint External Evaluation indicators, technical questions and country capacity scores, linked to evidence-based practices. For countries that have had a JEE and for those preparing one.</p>
+  <p class="lead">WHO Joint External Evaluation indicators, technical questions and country capacity scores, linked to evidence-based good practices. For countries that have had a JEE and for those preparing one.</p>
   <p style="color:var(--muted);font-size:14px;max-width:75ch;margin:-8px 0 16px">Source: <a href="https://www.who.int/publications/i/item/9789240051980" rel="noopener">WHO JEE tool, third edition (2022), publication page</a> · <a href="https://iris.who.int/server/api/core/bitstreams/f9a1d72f-d8e4-4abe-900f-040829de686d/content" rel="noopener">PDF</a> · <a href="https://www.who.int/emergencies/operations/international-health-regulations-monitoring-evaluation-framework/joint-external-evaluations" rel="noopener">WHO JEE website</a></p>
   <nav class="tabs" id="tabs" aria-label="Sections"></nav>
   <main id="view" aria-live="polite"><p class="muted">Loading data…</p></main>
-  <footer>WHO wording and scores are reproduced from WHO publications with citations; practices are a curated seed set · data in <a href="data/">data/</a></footer>
+  <footer>WHO wording and scores are reproduced from WHO publications with citations; good practice summaries are a curated seed set · data in <a href="data/">data/</a></footer>
 </div>
 
 <script src="../shared/programmes.js"></script>
@@ -119,7 +119,7 @@ svg.pc .mut{fill:var(--muted)}
 "use strict";
 const LABELS={1:"No capacity",2:"Limited capacity",3:"Developed capacity",4:"Demonstrated capacity",5:"Sustainable capacity"};
 const FUNCS=["Prevent","Detect","Respond","Other hazards"];
-const TABS=[["indicators","Indicators"],["questions","Technical questions"],["scores","Country scores"],["chart","Profile chart"],["gaps","Find solutions"],["practices","Practice summaries"],["about","About & method"]];
+const TABS=[["indicators","Indicators"],["questions","Technical questions"],["scores","Country scores"],["chart","Profile chart"],["gaps","Find solutions"],["practices","Good practice summaries"],["about","About & method"]];
 const D={}; const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const view=$("#view");
@@ -174,11 +174,11 @@ function vIndicators(open){
     html+=(window.Programmes?Programmes.html([a.id],{includeAll:true}):"")+`<p class="small muted" style="margin:0 0 8px">Good practices and literature per topic: <a href="../ihr-benchmarks-good-practices/">IHR Benchmarks Good Practices</a> · <a href="../spar-good-practices/">SPAR Good Practices</a></p>`;
     html+=`<details class="small" style="margin:0 0 8px"><summary>Target, measure and desired impact (WHO)</summary><dl class="kv"><dt>Target</dt><dd>${esc(a.target||"")}</dd><dt>As measured by</dt><dd>${esc(a.measuredBy||"")}</dd><dt>Desired impact</dt><dd>${esc(a.desiredImpact||"")}</dd></dl>${a.contextualQuestions.length?`<p class="muted">Contextual questions (area level, manual p. ${a.contextualQuestions[0].page}):</p><ol>${a.contextualQuestions.map(c=>`<li>${esc(c.text)}${c.sub.length?`<ol class="sub">${c.sub.map(s=>`<li>${esc(s.text)}</li>`).join("")}</ol>`:""}</li>`).join("")}</ol>`:""}</details>`;
     for(const i of list){ const d=dist(i.id); const pr=D.pByInd[i.id]||[];
-      html+=`<details class="ind" id="i-${i.id}" ${open===i.id?"open":""}><summary><span class="id">${i.id}</span><span>${esc(i.title)}</span>${pr.length?`<span class="badge" title="Linked practices">${pr.length} practice${pr.length>1?"s":""}</span>`:""}</summary><div class="body">
+      html+=`<details class="ind" id="i-${i.id}" ${open===i.id?"open":""}><summary><span class="id">${i.id}</span><span>${esc(i.title)}</span>${pr.length?`<span class="badge" title="Linked good practice summaries">${pr.length} good practice summar${pr.length>1?"ies":"y"}</span>`:""}</summary><div class="body">
        <p class="small muted">WHO JEE tool, third edition · score table p. ${i.scorePageManual.join("–")}</p>
        <table class="lv"><caption class="sr">Score descriptions for ${i.id}</caption><thead><tr><th>Level</th><th>WHO description</th></tr></thead><tbody>${[1,2,3,4,5].map(n=>`<tr><td class="n"><span class="sw s${n}" style="display:inline-block;min-width:22px;text-align:center;border-radius:5px;padding:0 6px">${n}</span> ${LABELS[n]}</td><td>${esc(i.scoreAttributes[n])}</td></tr>`).join("")}</tbody></table>
-       <p class="small"><a href="#/questions/${i.id}"><strong>Open the technical questions with sources and peer examples →</strong></a></p><div class="q"><h3>Technical questions <span class="muted small">(prompts, manual p. ${i.technicalQuestions[0]?.page}–${i.technicalQuestions.at(-1)?.page})</span></h3><ol>${i.technicalQuestions.map(t=>`<li>${esc(t.text)}${t.sub.length?`<ol class="sub">${t.sub.map(s=>`<li>${esc(s.text)}</li>`).join("")}</ol>`:""}</li>`).join("")}</ol></div>
-       ${pr.length?`<h3>Practice summaries that may help (candidate links)</h3><div class="grid2">${pr.map(practiceCard).join("")}</div>`:`<p class="small muted">No practice is linked to this indicator yet.</p>`}
+       <p class="small"><a href="#/questions/${i.id}"><strong>Open the technical questions with good practices and peer examples →</strong></a></p><div class="q"><h3>Technical questions <span class="muted small">(prompts, manual p. ${i.technicalQuestions[0]?.page}–${i.technicalQuestions.at(-1)?.page})</span></h3><ol>${i.technicalQuestions.map(t=>`<li>${esc(t.text)}${t.sub.length?`<ol class="sub">${t.sub.map(s=>`<li>${esc(s.text)}</li>`).join("")}</ol>`:""}</li>`).join("")}</ol></div>
+       ${pr.length?`<h3>Good practice summaries that may help (candidate links)</h3><div class="grid2">${pr.map(practiceCard).join("")}</div>`:`<p class="small muted">No good practice summary is linked to this indicator yet.</p>`}
        ${d.n?`<h3>Country scores in this indicator (v3)</h3>${topHTML(i.id)}<p class="small">${d.n} evaluation${d.n>1?"s":""}: ${d.c.map((c,k)=>`level ${k+1}: ${c}`).join(" · ")}. <a href="#/scores">Open the matrix</a>.</p>`:""}
       </div></details>`; } } }
   if(!shown) html+=`<p class="muted">No indicator matches.</p>`;
@@ -226,11 +226,11 @@ function vQuestions(open){
   const total=fw.indicators.reduce((n,i)=>n+i.technicalQuestions.length,0);
   const withSrc=fw.indicators.reduce((n,i)=>n+i.technicalQuestions.filter(t=>D.solByQ[i.id+":"+t.id]||t.sub.some(s=>D.solByQ[i.id+":"+t.id+"."+s.k])).length,0);
   const subTot=fw.indicators.reduce((n,i)=>n+i.technicalQuestions.reduce((m,t)=>m+t.sub.length,0),0), subSrc=fw.indicators.reduce((n,i)=>n+i.technicalQuestions.reduce((m,t)=>m+t.sub.filter(x=>D.solByQ[i.id+":"+t.id+"."+x.k]).length,0),0);
-  let h=`<p class="lead">All ${total} technical questions of the WHO JEE tool (3rd edition), per technical area and indicator, in WHO's wording. Under a question you find publications, protocols or tools that can help answer it or close the gap it points to. <strong>${withSrc} of ${total} questions have at least one source so far</strong> (counting a source on any of its sub-questions); of the ${subTot} sub-questions, ${subSrc} have a source of their own; the others are shown as “no source yet”, not as “none exists”.</p>
+  let h=`<p class="lead">All ${total} technical questions of the WHO JEE tool (3rd edition), per technical area and indicator, in WHO's wording. Under a question you find publications, protocols or tools that can help answer it or close the gap it points to. <strong>${withSrc} of ${total} questions have at least one good practice so far</strong> (counting a good practice on any of its sub-questions); of the ${subTot} sub-questions, ${subSrc} have a good practice of their own; the others are shown as “no good practice yet”, not as “none exists”.</p>
   <div class="bar"><input id="qq" type="search" placeholder="Search questions…" aria-label="Search questions" value="${esc(st.qq)}" size="30">
    <select id="qa" aria-label="Technical area"><option value="">All technical areas</option>${fw.technicalAreas.map(a=>`<option value="${a.id}" ${st.qa===a.id?"selected":""}>${a.id} ${esc(a.name)}</option>`).join("")}</select>
-   <select id="qf" aria-label="Sources"><option value="">All questions</option><option value="with" ${st.qf==="with"?"selected":""}>With sources</option><option value="without" ${st.qf==="without"?"selected":""}>Without sources yet</option></select>
-   <select id="qt" aria-label="Source type"><option value="">All source types</option>${[...new Set(D.sol.map(x=>x.type))].sort().map(t=>`<option value="${esc(t)}" ${st.qt===t?"selected":""}>${esc(tl(t))}</option>`).join("")}</select></div>`;
+   <select id="qf" aria-label="Good practices"><option value="">All questions</option><option value="with" ${st.qf==="with"?"selected":""}>With good practices</option><option value="without" ${st.qf==="without"?"selected":""}>Without good practices yet</option></select>
+   <select id="qt" aria-label="Type"><option value="">All types</option>${[...new Set(D.sol.map(x=>x.type))].sort().map(t=>`<option value="${esc(t)}" ${st.qt===t?"selected":""}>${esc(tl(t))}</option>`).join("")}</select></div>`;
   let shown=0;
   for(const a of fw.technicalAreas){ if(st.qa&&a.id!==st.qa) continue;
     let ah="";
@@ -240,7 +240,7 @@ function vQuestions(open){
         return !q||[t.text,...t.sub.map(s=>s.text),i.id,i.title].join(" ").toLowerCase().includes(q)});
       if(!qs.length) continue; shown+=qs.length;
       ah+=`<details class="ind" ${(open===i.id||q||st.qf)?"open":""} id="qi-${i.id}"><summary><span class="id">${i.id}</span><span>${esc(i.title)}</span><span class="badge">${qs.length} question${qs.length>1?"s":""} · ${qs.filter(t=>D.solByQ[i.id+":"+t.id]||t.sub.some(s=>D.solByQ[i.id+":"+t.id+"."+s.k])).length} with sources</span></summary><div class="body">${indTop(i)}<ol class="qs">${qs.map(t=>{const n=t.id.replace("q","");const inSub=new Set(t.sub.flatMap(s=>(D.solByQ[i.id+":"+t.id+"."+s.k]||[]).map(x=>x.id)));const ss=(D.solByQ[i.id+":"+t.id]||[]).filter(x=>!inSub.has(x.id));
-        return `<li value="${n}">${esc(t.text)} <span class="small muted">(manual p. ${t.page})</span>${t.sub.length?`<ol class="sub">${t.sub.map(s=>{const sl=D.solByQ[i.id+":"+t.id+"."+s.k]||[];return `<li>${esc(s.text)}${sl.length?solHTML(sl):""}</li>`}).join("")}</ol>`:""}${ss.length?solHTML(ss):(t.sub.some(s=>D.solByQ[i.id+":"+t.id+"."+s.k])?"":`<div class="nosrc">no source yet</div>`)}</li>`}).join("")}</ol><p class="small"><a href="#/indicators/${i.id}">Indicator definition and level descriptions</a></p></div></details>`; }
+        return `<li value="${n}">${esc(t.text)} <span class="small muted">(manual p. ${t.page})</span>${t.sub.length?`<ol class="sub">${t.sub.map(s=>{const sl=D.solByQ[i.id+":"+t.id+"."+s.k]||[];return `<li>${esc(s.text)}${sl.length?solHTML(sl):""}</li>`}).join("")}</ol>`:""}${ss.length?solHTML(ss):(t.sub.some(s=>D.solByQ[i.id+":"+t.id+"."+s.k])?"":`<div class="nosrc">no good practice yet</div>`)}</li>`}).join("")}</ol><p class="small"><a href="#/indicators/${i.id}">Indicator definition and level descriptions</a></p></div></details>`; }
     if(ah) h+=`<div class="areahead"><span class="fn">${a.function}</span><h2>${a.id} · ${esc(a.name)}</h2></div>`+ah; }
   if(!shown) h+=`<p class="muted">No question matches.</p>`;
   view.innerHTML=h+`<p class="note">${esc((D.solMeta&&D.solMeta.status)||"")}</p>`;
@@ -336,7 +336,7 @@ function distHTML(ev,E,ed){
       h+=`<tr class="${k===0?"first":""}">${k===0?`<td class="ar" rowspan="${inds.length}" title="${esc(a.name)}">${esc(a.id)} · ${esc(a.name)}</td>`:""}<th scope="row" class="ix" title="${esc(i.title)}">${has(i.id)?`<a href="#/indicators/${esc(i.id)}">${esc(i.id)}</a>`:esc(i.id)}</th>${c.map((v,x)=>{const p=n?v/n:0;return `<td class="b l${x+1}"><i style="height:${p?Math.max(2,Math.round(p*26)):0}px"></i><span>${n?Math.round(p*100)+"%":""}<span class="sr"> ${v} of ${n} evaluations at level ${x+1}, ${LABELS[x+1]}</span></span></td>`}).join("")}<td class="n">${n}</td>${ed==="3"?`<td class="small">${(()=>{const t=topList(i.id);if(!t.length)return `<span class="muted">none at 4–5</span>`;const b=t[0].scores[i.id][0];const bb=t.filter(e=>e.scores[i.id][0]===b);return `<span class="lvb s${b}">${b}</span>`+bb.slice(0,3).map(e=>chip(e,i.id)).join("")+(bb.length>3?` <a href="#/indicators/${esc(i.id)}">+${bb.length-3}</a>`:"")})()}</td>`:""}</tr>`; }); }
   h+=`</tbody></table></div>`;
   const worst=stats.filter(s=>s.n>=3).map(s=>({...s,low:(s.c[0]+s.c[1])/s.n})).sort((a,b)=>b.low-a.low).slice(0,10);
-  h+=`<h2>Where the gaps are largest</h2><p class="small muted">Indicators with the highest share of evaluations at level 1–2 (at least 3 evaluations scored). These are the entry points to the technical questions and good practices.</p><ol class="gapl">${worst.map(w=>{const pr=D.pByInd[w.i.id]||[];return `<li>${has(w.i.id)?`<a href="#/indicators/${esc(w.i.id)}"><strong>${esc(w.i.id)}</strong></a>`:`<strong>${esc(w.i.id)}</strong>`} ${esc(w.i.title)} <span class="badge">${Math.round(w.low*100)}% at level 1–2</span>${has(w.i.id)?` <span class="small muted">${pr.length?pr.length+" linked practice"+(pr.length>1?"s":""):"no practice linked yet"} · ${D.ind[w.i.id].technicalQuestions.length} technical questions</span>`:""}</li>`}).join("")}</ol>`;
+  h+=`<h2>Where the gaps are largest</h2><p class="small muted">Indicators with the highest share of evaluations at level 1–2 (at least 3 evaluations scored). These are the entry points to the technical questions and good practices.</p><ol class="gapl">${worst.map(w=>{const pr=D.pByInd[w.i.id]||[];return `<li>${has(w.i.id)?`<a href="#/indicators/${esc(w.i.id)}"><strong>${esc(w.i.id)}</strong></a>`:`<strong>${esc(w.i.id)}</strong>`} ${esc(w.i.title)} <span class="badge">${Math.round(w.low*100)}% at level 1–2</span>${has(w.i.id)?` <span class="small muted">${pr.length?pr.length+" linked good practice summar"+(pr.length>1?"ies":"y"):"no good practice summary linked yet"} · ${D.ind[w.i.id].technicalQuestions.length} technical questions</span>`:""}</li>`}).join("")}</ol>`;
   return h;
 }
 function bindScores(ev,E){
@@ -349,7 +349,7 @@ function bindScores(ev,E){
   view.querySelectorAll("button.cell").forEach(b=>b.onclick=()=>{
     const e=D.evals.find(x=>x.id===b.dataset.e); const id=b.dataset.i; const sc=e.scores[id]; const ind=E.indicators.find(i=>i.id===id);
     const p=$("#panel"); p.hidden=false;
-    p.innerHTML=`<h3>${esc(e.country)} ${e.year} · ${esc(id)} · level ${sc[0]} (${LABELS[sc[0]]})</h3><dl class="kv"><dt>Indicator</dt><dd>${esc(ind.title)}</dd><dt>Edition</dt><dd>JEE v${e.edition} <span class="muted small">(${esc(e.editionBasis||"")})</span></dd><dt>Report</dt><dd>${esc(e.title)} · <a href="${esc(e.pdfUrl)}#page=${sc[1]}" rel="noopener">open PDF at page ${sc[1]}</a> · <a href="${esc(e.libraryUrl)}" rel="noopener">WHO library entry</a></dd><dt>Page</dt><dd>PDF page ${sc[1]} (page number in the PDF file, not the printed number)</dd></dl>`+(String(e.edition)==="3"&&D.ind[id]?`<p><a href="#/indicators/${esc(id)}">Open indicator definition, questions and practices</a></p>`:"");
+    p.innerHTML=`<h3>${esc(e.country)} ${e.year} · ${esc(id)} · level ${sc[0]} (${LABELS[sc[0]]})</h3><dl class="kv"><dt>Indicator</dt><dd>${esc(ind.title)}</dd><dt>Edition</dt><dd>JEE v${e.edition} <span class="muted small">(${esc(e.editionBasis||"")})</span></dd><dt>Report</dt><dd>${esc(e.title)} · <a href="${esc(e.pdfUrl)}#page=${sc[1]}" rel="noopener">open PDF at page ${sc[1]}</a> · <a href="${esc(e.libraryUrl)}" rel="noopener">WHO library entry</a></dd><dt>Page</dt><dd>PDF page ${sc[1]} (page number in the PDF file, not the printed number)</dd></dl>`+(String(e.edition)==="3"&&D.ind[id]?`<p><a href="#/indicators/${esc(id)}">Open indicator definition, questions and good practices</a></p>`:"");
     p.scrollIntoView({block:"nearest"});
   });
 }
@@ -367,7 +367,7 @@ const XWALK={ // v1/v2 area -> v3 areas (matched by name; indicators differ)
  "PoE":["PoE"],"CE":["CE"],"RE":["RE"]};
 function vGaps(){
   const e3=evalsFor("3"), all=D.evals;
-  let html=`<p class="lead">Find practices for capacity gaps. Pick a completed evaluation, or rate the indicators yourself if you are preparing for a JEE. The tool lists indicators at or below your threshold and the practices linked to them.</p>
+  let html=`<p class="lead">Find good practices for capacity gaps. Pick a completed evaluation, or rate the indicators yourself if you are preparing for a JEE. The tool lists indicators at or below your threshold and the good practices linked to them.</p>
   <div class="bar"><span class="lbl">Start from</span><select id="ev"><option value="">Self-assessment (v3 indicators)</option>${["3","2","1"].map(k=>`<optgroup label="JEE v${k}">${evalsFor(k).sort((a,b)=>a.country.localeCompare(b.country)).map(e=>`<option value="${e.id}" ${st.evalId===e.id?"selected":""}>${esc(e.country)} ${e.year}</option>`).join("")}</optgroup>`).join("")}</select>
    <span class="lbl">Show levels up to</span><select id="thr">${[1,2,3].map(n=>`<option value="${n}" ${st.thr===n?"selected":""}>${n} · ${LABELS[n]}</option>`).join("")}</select></div>`;
   const ev=all.find(e=>e.id===st.evalId);
@@ -378,14 +378,14 @@ function vGaps(){
     html+=gapList(gaps.map(i=>({id:i.id,title:i.title,score:+st.self[i.id]})),"v3");
   } else if(String(ev.edition)==="3"){
     const gaps=D.fw.indicators.filter(i=>ev.scores[i.id]&&ev.scores[i.id][0]<=st.thr).map(i=>({id:i.id,title:i.title,score:ev.scores[i.id][0],page:ev.scores[i.id][1]}));
-    html+=`<p class="small muted">${esc(ev.title)} · <a href="${esc(ev.pdfUrl)}" rel="noopener">report</a>. Priority actions in the report are country-specific; practices below are general, evidence-informed options.</p>`+gapList(gaps,"v3",ev);
+    html+=`<p class="small muted">${esc(ev.title)} · <a href="${esc(ev.pdfUrl)}" rel="noopener">report</a>. Priority actions in the report are country-specific; good practices below are general, evidence-informed options.</p>`+gapList(gaps,"v3",ev);
   } else {
     const E=D.as.editions[ev.edition]; const gaps=E.indicators.filter(i=>ev.scores[i.id]&&ev.scores[i.id][0]<=st.thr);
     const areaSet=new Set(); gaps.forEach(i=>(XWALK[i.area]||[]).forEach(a=>areaSet.add(a)));
-    html+=`<div class="note">This is a v${ev.edition} evaluation. Indicators were redefined in v3, so practices are matched at <strong>area level</strong> (by area name), not indicator by indicator.</div>
+    html+=`<div class="note">This is a v${ev.edition} evaluation. Indicators were redefined in v3, so good practices are matched at <strong>area level</strong> (by area name), not indicator by indicator.</div>
     <h2>Indicators at level ≤ ${st.thr}</h2><table class="lv"><tbody>${gaps.map(i=>`<tr><td><strong>${esc(i.id)}</strong> ${esc(i.title)}</td><td class="n">level ${ev.scores[i.id][0]} · <a href="${esc(ev.pdfUrl)}#page=${ev.scores[i.id][1]}" rel="noopener">p. ${ev.scores[i.id][1]}</a></td><td class="small">${(XWALK[i.area]||[]).map(a=>`<a class="tag" href="#/indicators">${a}</a>`).join("")}</td></tr>`).join("")||`<tr><td class="muted">No indicator at or below this level.</td></tr>`}</tbody></table>`;
     const ps=D.pr.filter(p=>p.indicators.some(i=>areaSet.has(D.ind[i].areaId)));
-    html+=`<h2>Practice summaries for the matching v3 areas</h2>${ps.length?`<div class="grid2">${ps.map(practiceCard).join("")}</div>`:`<p class="muted">No linked practice yet for these areas. The seed set is small and will grow.</p>`}`;
+    html+=`<h2>Good practice summaries for the matching v3 areas</h2>${ps.length?`<div class="grid2">${ps.map(practiceCard).join("")}</div>`:`<p class="muted">No linked practice yet for these areas. The seed set is small and will grow.</p>`}`;
   }
   view.innerHTML=html;
   $("#ev").onchange=e=>{st.evalId=e.target.value;vGaps()}; $("#thr").onchange=e=>{st.thr=+e.target.value;vGaps()};
@@ -395,14 +395,14 @@ function gapList(gaps){
   if(!gaps.length) return `<h2>Gaps</h2><p class="muted">Nothing at or below this level yet. Rate indicators above, or raise the threshold.</p>`;
   const seen=new Set(); let out=partnerHTML(gaps.map(g=>g.id))+(window.Programmes&&gaps.length?`<h2>Programmes, networks and funders for these areas</h2>`+Programmes.html(gaps.map(g=>g.id),{includeAll:true}):"")+`<h2>Gaps (${gaps.length}) and practices that may help</h2>`;
   gaps.forEach(g=>{ const ps=D.pByInd[g.id]||[]; const nq=D.fw.indicators.find(x=>x.id===g.id).technicalQuestions.filter(t=>D.solByQ[g.id+":"+t.id]||t.sub.some(s=>D.solByQ[g.id+":"+t.id+"."+s.k])).length;
-    out+=`<div class="card"><h3><a href="#/indicators/${g.id}">${g.id}</a> ${esc(g.title)} <span class="badge">level ${g.score} · ${LABELS[g.score]}</span></h3><p class="small"><a href="#/questions/${g.id}">Technical questions with sources (${nq} questions with sources) and peer examples →</a></p>${topHTML(g.id,true)}${ps.length?ps.map(p=>`<p class="small" style="margin:4px 0"><a href="#/practices/${esc(p.id)}"><strong>${esc(p.title)}</strong></a> — ${esc(p.summary)}</p>`).join(""):`<p class="small muted">No practice is linked to this indicator yet.</p>`}</div>`; ps.forEach(p=>seen.add(p.id)); });
+    out+=`<div class="card"><h3><a href="#/indicators/${g.id}">${g.id}</a> ${esc(g.title)} <span class="badge">level ${g.score} · ${LABELS[g.score]}</span></h3><p class="small"><a href="#/questions/${g.id}">Technical questions with sources (${nq} questions with sources) and peer examples →</a></p>${topHTML(g.id,true)}${ps.length?ps.map(p=>`<p class="small" style="margin:4px 0"><a href="#/practices/${esc(p.id)}"><strong>${esc(p.title)}</strong></a> — ${esc(p.summary)}</p>`).join(""):`<p class="small muted">No good practice summary is linked to this indicator yet.</p>`}</div>`; ps.forEach(p=>seen.add(p.id)); });
   return out;
 }
 
 /* ---------- practices ---------- */
 function vPractices(openId){
   const types=["guideline","systematic-review","tool","strategy"]; const tags=[...new Set(D.pr.flatMap(p=>p.tags))].sort();
-  let html=`<p class="lead">A seed set of evidence-informed practices linked to JEE v3 indicators. <strong>Links are candidates, not promises:</strong> no source shows that a practice raises a JEE score. Source types are shown on every card: WHO guidance recommends; it is not an effectiveness study.</p>
+  let html=`<p class="lead">A seed set of evidence-informed good practice summaries linked to JEE v3 indicators. <strong>Links are candidates, not promises:</strong> no source shows that a practice raises a JEE score. Types are shown on every card: WHO guidance recommends; it is not an effectiveness study.</p>
   <div class="bar"><span class="lbl">Evidence</span><select id="pt"><option value="">All</option>${types.map(t=>`<option value="${esc(t)}" ${st.pt===t?"selected":""}>${esc(tl(t))}</option>`).join("")}</select><span class="lbl">Tag</span><select id="pg"><option value="">All</option>${tags.map(t=>`<option ${st.pg===t?"selected":""}>${esc(t)}</option>`).join("")}</select></div>`;
   const list=D.pr.filter(p=>(!st.pt||p.sources.some(s=>s.type===st.pt))&&(!st.pg||p.tags.includes(st.pg)));
   html+=`<div class="grid2">${list.map(practiceCard).join("")}</div><p class="note">${esc(D.prMeta.status)}</p>`;
@@ -413,15 +413,15 @@ function vPractices(openId){
 /* ---------- about ---------- */
 function vAbout(){
   const f=D.fw.framework, as=D.as&&D.as.meta, reg=D.reg;
-  view.innerHTML=`<h2>What this is</h2><p>A public, source-linked view of the WHO Joint External Evaluation (JEE): the indicator definitions, the technical questions, the capacity levels countries received, and practices that may help close gaps. It is a personal project, not a WHO product.</p>
+  view.innerHTML=`<h2>What this is</h2><p>A public, source-linked view of the WHO Joint External Evaluation (JEE): the indicator definitions, the technical questions, the capacity levels countries received, and good practices that may help close gaps. It is a personal project, not a WHO product.</p>
   <h2>Framework (v3)</h2><p>${esc(f.name)}, ISBN ${esc(f.isbn)}. <a href="${esc(f.sourceUrl)}" rel="noopener">WHO publication page</a> · <a href="${esc(f.pdfUrl)}" rel="noopener">PDF</a>. Text was extracted from the PDF (accessed ${esc(f.dateAccessed)}, SHA-256 <code class="small">${esc(f.pdfSha256.slice(0,16))}…</code>) and checked against it: 19 areas, 56 unique indicators, ${D.fw.indicators.reduce((n,i)=>n+i.technicalQuestions.length,0)} technical questions. Footnote markers were removed; WHO wording is otherwise kept. Page numbers are the printed page numbers of the manual.</p>
   <h2>Country scores</h2><ul>
    <li>JEE scores are consensus judgements by a joint team, informed by evidence and context. They are levels, not percentages, and not a league table.</li>
    <li>Scores were read from the official report PDFs listed in the <a href="data/assessments.json">data file</a>; each score keeps its report, edition basis and PDF page. ${as?esc(as.method||""):""}</li>
    <li>Editions differ in indicators and wording, so scores are not directly comparable across v1, v2 and v3. WHO warns that a lower later score need not mean capacity declined.</li>
    <li>Reports are listed from the WHO SPH document library${reg?` (${reg.entries.length} entries retrieved ${esc(reg.retrieved)})`:""}. Some countries or reports are missing; absence here does not mean a country has had no JEE.</li></ul>
-  <h2>Good practices and literature per technical question</h2><p>${esc((D.solMeta&&D.solMeta.status)||"")} ${D.solMeta&&D.solMeta.nSources?`The set holds ${D.solMeta.nSources} sources covering ${D.solMeta.nQuestionsCovered} of ${D.solMeta.nQuestions} questions${D.solMeta.nSubQuestions?` and ${D.solMeta.nSubQuestionsCovered} of ${D.solMeta.nSubQuestions} sub-questions`:""}.`:""} Each indicator also lists the WHO benchmark actions for its technical area and, as peer examples, the countries that scored level 4–5 on it in a third-edition JEE, with a link to the page of their report.</p>
-  <h2>Practice summaries</h2><p>${esc(D.prMeta.status)}</p>
+  <h2>Good practices and literature per technical question</h2><p>${esc((D.solMeta&&D.solMeta.status)||"")} ${D.solMeta&&D.solMeta.nSources?`The set holds ${D.solMeta.nSources} good practices covering ${D.solMeta.nQuestionsCovered} of ${D.solMeta.nQuestions} questions${D.solMeta.nSubQuestions?` and ${D.solMeta.nSubQuestionsCovered} of ${D.solMeta.nSubQuestions} sub-questions`:""}.`:""} Each indicator also lists the WHO benchmark actions for its technical area and, as peer examples, the countries that scored level 4–5 on it in a third-edition JEE, with a link to the page of their report.</p>
+  <h2>Good practice summaries</h2><p>${esc(D.prMeta.status)}</p>
   <h2>Using this for a JEE you are preparing</h2><p>Read each indicator's five level descriptions, use the technical questions as discussion prompts, and rate the indicators on the “Find solutions” page for a first, informal view of gaps. That rating is not a JEE score.</p>
   <h2>Corrections</h2><p>Spotted an error? Open an issue on <a href="https://github.com/mvanpassel-cmyk/mvanpassel-cmyk.github.io/issues">GitHub</a>.</p>`;
 }
