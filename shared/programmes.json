@@ -1,0 +1,423 @@
+{
+ "meta": {
+  "built": "2026-10-17",
+  "note": "Programmes, networks and funders that help countries close gaps in a technical area. Area codes follow the JEE third edition. A listing is a pointer, not an endorsement; check each programme's current eligibility and status."
+ },
+ "programmes": [
+  {
+   "id": "who-sph",
+   "name": "WHO Strategic Partnership for Health Security and Emergency Preparedness (SPH) portal",
+   "org": "WHO",
+   "kind": "Coordination platform",
+   "url": "https://extranet.who.int/sph/",
+   "desc": "Maps assessments (JEE, SPAR, AAR), national action plans and which partners fund what, per country.",
+   "areas": [
+    "all"
+   ]
+  },
+  {
+   "id": "ghsa",
+   "name": "Global Health Security Agenda (GHSA)",
+   "org": "70+ countries and partners",
+   "kind": "Partnership",
+   "url": "https://globalhealthsecurityagenda.org/",
+   "desc": "Coalition of countries and organisations with action packages per technical area; a route to find peer countries and donors.",
+   "areas": [
+    "all"
+   ]
+  },
+  {
+   "id": "pandemic-fund",
+   "name": "The Pandemic Fund",
+   "org": "World Bank (WHO technical lead)",
+   "kind": "Funding",
+   "url": "https://www.thepandemicfund.org/",
+   "desc": "Grants to strengthen surveillance, laboratories and workforce in low- and middle-income countries.",
+   "areas": [
+    "D1",
+    "D2",
+    "D3",
+    "P2"
+   ]
+  },
+  {
+   "id": "ianphi",
+   "name": "International Association of National Public Health Institutes (IANPHI)",
+   "org": "IANPHI",
+   "kind": "Network",
+   "url": "https://www.ianphi.org/",
+   "desc": "Peer support to create and strengthen national public health institutes, including staff exchange and twinning.",
+   "areas": [
+    "D3",
+    "P3",
+    "all"
+   ]
+  },
+  {
+   "id": "nl-ghpp",
+   "name": "Global Health Partnerships Programme (GHPP-NL)",
+   "org": "Netherlands Ministry of Health, Welfare and Sport",
+   "kind": "Bilateral (NL)",
+   "url": "https://www.globalhealthhub.nl/over-de-global-health-hub/het-global-health-partnerships-programma",
+   "desc": "Government-to-government partnerships since 2023 with Kenya, China, Colombia, Indonesia, South Africa, India and Egypt on pandemic preparedness, AMR and climate and health.",
+   "areas": [
+    "P4",
+    "D2",
+    "R1",
+    "all"
+   ],
+   "nl": true
+  },
+  {
+   "id": "rivm-ghs",
+   "name": "RIVM global health security programmes",
+   "org": "RIVM (Netherlands)",
+   "kind": "Bilateral and EU projects (NL)",
+   "url": "https://www.rivm.nl/en/global-health-security",
+   "desc": "Dutch national institute's international work on AMR, biosecurity, CBRN preparedness and IHR, often as WHO Collaborating Centre.",
+   "areas": [
+    "P4",
+    "P7",
+    "R2",
+    "CE",
+    "RE",
+    "all"
+   ],
+   "nl": true
+  },
+  {
+   "id": "de-ghpp",
+   "name": "Global Health Protection Programme (GHPP-DE)",
+   "org": "German Federal Ministry of Health",
+   "kind": "Bilateral (DE)",
+   "url": "https://ghpp.de/en/",
+   "desc": "German programme in which RKI, BfR, FLI, PEI and others run partnerships on outbreaks, laboratories, One Health and emergency medical teams.",
+   "areas": [
+    "all"
+   ]
+  },
+  {
+   "id": "ukhsa-ihr",
+   "name": "IHR Strengthening Project",
+   "org": "UK Health Security Agency (UK FCDO funded)",
+   "kind": "Bilateral (UK)",
+   "url": "https://devtracker.fcdo.gov.uk/projects/GB-GOV-10-IHR-PHE",
+   "desc": "UK support to partner countries' IHR core capacities, mainly in Africa and Asia.",
+   "areas": [
+    "P3",
+    "D2",
+    "R1"
+   ]
+  },
+  {
+   "id": "ja-ghi",
+   "name": "Joint Action Global Health Impact (JA GHI)",
+   "org": "EU4Health joint action of EU member states",
+   "kind": "EU joint action",
+   "url": "https://nijz.si/en/projects/ja-ghi/",
+   "desc": "EU member states working together to maximise the impact of the EU Global Health Strategy, including communities of practice in health security.",
+   "areas": [
+    "all"
+   ],
+   "eu": true
+  },
+  {
+   "id": "sharp-ja",
+   "name": "SHARP Joint Action (Strengthened International Health Regulations and Preparedness in the EU)",
+   "org": "EU4Health/3rd Health Programme, coordinated by Finland (THL)",
+   "kind": "EU joint action",
+   "url": "https://www.rivm.nl/en/international-projects/sharp-ja",
+   "desc": "EU joint action (2021–2024) on IHR core capacities, preparedness planning, laboratories and training in EU and neighbouring countries.",
+   "areas": [
+    "P3",
+    "R1",
+    "D1",
+    "D3",
+    "PoE",
+    "CE"
+   ],
+   "eu": true
+  },
+  {
+   "id": "eu-jamrai2",
+   "name": "EU-JAMRAI 2 (Joint Action on AMR and healthcare-associated infections)",
+   "org": "EU4Health joint action",
+   "kind": "EU joint action",
+   "url": "https://nijz.si/en/projects/eu-jamrai-2/",
+   "desc": "Helps EU countries put One Health AMR action plans into practice: stewardship, infection prevention, surveillance.",
+   "areas": [
+    "P4",
+    "R4"
+   ],
+   "eu": true
+  },
+  {
+   "id": "fleming-fund",
+   "name": "The Fleming Fund",
+   "org": "UK Department of Health and Social Care",
+   "kind": "Funding (UK)",
+   "url": "https://www.flemingfund.org/",
+   "desc": "Funds AMR surveillance in human and animal health in low- and middle-income countries.",
+   "areas": [
+    "P4"
+   ]
+  },
+  {
+   "id": "woah-pvs",
+   "name": "WOAH PVS Pathway and IHR-PVS National Bridging Workshops",
+   "org": "World Organisation for Animal Health (with WHO)",
+   "kind": "Assessment and support",
+   "url": "https://www.woah.org/en/what-we-offer/improving-veterinary-services/pvs-pathway/",
+   "desc": "Evaluates veterinary services and links them to IHR capacities through joint human–animal workshops.",
+   "areas": [
+    "P5",
+    "P3"
+   ]
+  },
+  {
+   "id": "ohjpa",
+   "name": "One Health Joint Plan of Action (2022–2026)",
+   "org": "FAO, UNEP, WHO, WOAH (Quadripartite)",
+   "kind": "Framework",
+   "url": "https://www.who.int/publications/i/item/9789240059139",
+   "desc": "Joint plan and tools for multisectoral One Health coordination on zoonoses, food safety and AMR.",
+   "areas": [
+    "P5",
+    "P6",
+    "P4"
+   ]
+  },
+  {
+   "id": "infosan",
+   "name": "INFOSAN (International Food Safety Authorities Network)",
+   "org": "FAO and WHO",
+   "kind": "Network",
+   "url": "https://www.who.int/groups/fao-who-international-food-safety-authorities-network-infosan/about",
+   "desc": "Network of national food safety authorities for rapid information exchange during international food safety events.",
+   "areas": [
+    "P6"
+   ]
+  },
+  {
+   "id": "gpwmd",
+   "name": "Global Partnership against the Spread of Weapons and Materials of Mass Destruction",
+   "org": "G7-led partnership",
+   "kind": "Partnership",
+   "url": "https://www.gpwmd.com/",
+   "desc": "Funds and matches biosecurity and CBRN projects; a route for biosafety and biosecurity support.",
+   "areas": [
+    "P7",
+    "R2",
+    "CE",
+    "RE"
+   ]
+  },
+  {
+   "id": "eu-cbrn-coe",
+   "name": "EU CBRN Risk Mitigation Centres of Excellence",
+   "org": "European Commission and UNICRI",
+   "kind": "EU programme",
+   "url": "https://cbrn-risk-mitigation.network.europa.eu/eu-cbrn-centres-excellence_pl",
+   "desc": "Regional secretariats and projects on biosafety, biosecurity, chemical and radiological preparedness in 60+ partner countries.",
+   "areas": [
+    "P7",
+    "R2",
+    "CE",
+    "RE",
+    "PoE"
+   ],
+   "eu": true
+  },
+  {
+   "id": "who-biohub",
+   "name": "WHO BioHub System",
+   "org": "WHO (with Spiez Laboratory, Switzerland)",
+   "kind": "WHO programme",
+   "url": "https://www.who.int/news/item/23-10-2025-mers-cov-virus-isolate-added-to-the-who-biohub-system-enabling-further-research-and-pandemic-preparedness",
+   "desc": "Safe, voluntary sharing of pathogen materials between laboratories under agreed biosafety and biosecurity conditions.",
+   "areas": [
+    "P7",
+    "D1"
+   ]
+  },
+  {
+   "id": "ifba",
+   "name": "International Federation of Biosafety Associations (IFBA)",
+   "org": "IFBA",
+   "kind": "Network",
+   "url": "https://internationalbiosafety.org/",
+   "desc": "Biosafety associations, professional certification and training in biorisk management.",
+   "areas": [
+    "P7"
+   ]
+  },
+  {
+   "id": "aslm",
+   "name": "African Society for Laboratory Medicine (ASLM)",
+   "org": "ASLM",
+   "kind": "Network",
+   "url": "https://aslm.org/",
+   "desc": "Pan-African laboratory network: quality management (SLMTA), accreditation, AMR laboratory capacity.",
+   "areas": [
+    "D1",
+    "P4"
+   ]
+  },
+  {
+   "id": "tephinet",
+   "name": "TEPHINET (field epidemiology training network)",
+   "org": "TEPHINET",
+   "kind": "Network",
+   "url": "https://www.tephinet.org/",
+   "desc": "Global network of field epidemiology training programmes (FETP) and their graduates.",
+   "areas": [
+    "D3",
+    "D2"
+   ]
+  },
+  {
+   "id": "ecdc-fellowship",
+   "name": "ECDC Fellowship Programme (EPIET/EUPHEM)",
+   "org": "ECDC",
+   "kind": "EU programme",
+   "url": "https://www.ecdc.europa.eu/en/epiet-euphem",
+   "desc": "Two-year field epidemiology and public health microbiology training for EU/EEA countries.",
+   "areas": [
+    "D3",
+    "D1"
+   ],
+   "eu": true
+  },
+  {
+   "id": "who-hub",
+   "name": "WHO Hub for Pandemic and Epidemic Intelligence",
+   "org": "WHO (Berlin)",
+   "kind": "WHO programme",
+   "url": "https://pandemichub.who.int/",
+   "desc": "Collaborative surveillance: data sharing, analytics and decision-support tools for countries.",
+   "areas": [
+    "D2"
+   ]
+  },
+  {
+   "id": "united4surveillance",
+   "name": "UNITED4Surveillance",
+   "org": "EU4Health joint action",
+   "kind": "EU joint action",
+   "url": "https://nijz.si/en/projects/united4surveillance",
+   "desc": "EU joint action on integrated surveillance of infectious diseases, including digital and genomic surveillance.",
+   "areas": [
+    "D2",
+    "D1"
+   ],
+   "eu": true
+  },
+  {
+   "id": "717",
+   "name": "7-1-7 Alliance",
+   "org": "Resolve to Save Lives and partners",
+   "kind": "Network",
+   "url": "https://717alliance.org/",
+   "desc": "Countries use the 7-1-7 target (detect in 7 days, notify in 1, respond in 7) to find and fix bottlenecks.",
+   "areas": [
+    "D2",
+    "R1"
+   ]
+  },
+  {
+   "id": "goarn",
+   "name": "GOARN (Global Outbreak Alert and Response Network)",
+   "org": "WHO",
+   "kind": "Network",
+   "url": "https://goarn.who.int/",
+   "desc": "Deploys experts from partner institutions to outbreaks; also offers training for responders.",
+   "areas": [
+    "R1",
+    "D3"
+   ]
+  },
+  {
+   "id": "who-emt",
+   "name": "WHO Emergency Medical Teams (EMT) initiative",
+   "org": "WHO",
+   "kind": "WHO programme",
+   "url": "https://extranet.who.int/emt/content/emt-classification",
+   "desc": "Standards, classification and mentoring for national and international emergency medical teams.",
+   "areas": [
+    "R1",
+    "R3"
+   ]
+  },
+  {
+   "id": "eu-health-task-force",
+   "name": "EU Health Task Force",
+   "org": "ECDC",
+   "kind": "EU programme",
+   "url": "https://www.ecdc.europa.eu/sites/default/files/documents/20231221_EUHTF_webpage_pdf.pdf",
+   "desc": "ECDC experts who support EU and non-EU countries in preparedness and response.",
+   "areas": [
+    "R1",
+    "D2"
+   ],
+   "eu": true
+  },
+  {
+   "id": "hera-stockpiles",
+   "name": "HERA procurement and stockpiling (incl. rescEU)",
+   "org": "European Commission (HERA)",
+   "kind": "EU programme",
+   "url": "https://health.ec.europa.eu/health-emergency-preparedness-and-response-hera/preparedness/procurement-and-stockpiling_en",
+   "desc": "Joint procurement and EU-level stockpiles of medical countermeasures.",
+   "areas": [
+    "R1"
+   ],
+   "eu": true
+  },
+  {
+   "id": "ja-terror",
+   "name": "JA TERROR (joint action on biological and chemical terror attacks)",
+   "org": "3rd EU Health Programme",
+   "kind": "EU joint action",
+   "url": "https://www.rivm.nl/en/global-health-security/cbrn-preparedness-response/ja-terror",
+   "desc": "EU joint action (2019–2021) linking health and security sectors for biological and chemical attacks.",
+   "areas": [
+    "R2",
+    "CE"
+   ],
+   "eu": true
+  },
+  {
+   "id": "rcce-collective",
+   "name": "RCCE Collective Service",
+   "org": "IFRC, UNICEF, WHO and GOARN",
+   "kind": "Partnership",
+   "url": "https://www.rcce-collective.net/",
+   "desc": "Tools, case studies and support for risk communication and community engagement.",
+   "areas": [
+    "R5"
+   ]
+  },
+  {
+   "id": "iaea-eprev",
+   "name": "IAEA Emergency Preparedness Review (EPREV)",
+   "org": "IAEA",
+   "kind": "Assessment and support",
+   "url": "https://iaea.org/services/review-missions/emergency-preparedness-review-eprev-service",
+   "desc": "Peer review of national arrangements for nuclear and radiological emergencies.",
+   "areas": [
+    "RE"
+   ]
+  },
+  {
+   "id": "gavi",
+   "name": "Gavi, the Vaccine Alliance",
+   "org": "Gavi",
+   "kind": "Funding",
+   "url": "https://www.gavi.org/",
+   "desc": "Vaccine funding, supply and outbreak stockpiles (with ICG) for lower-income countries.",
+   "areas": [
+    "P8"
+   ]
+  }
+ ]
+}

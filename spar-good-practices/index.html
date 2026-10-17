@@ -76,6 +76,7 @@ footer{margin-top:40px;color:var(--muted);font-size:13px}
 <div class="note"><strong>How to read this.</strong> <span id="method"></span></div>
 <footer>SPAR is a WHO tool; level descriptions here are short paraphrases. Literature links go to the publisher or index record. Built with Claude for Mark van Passel. Check source details before citing.</footer>
 </div>
+<script src="../shared/programmes.js"></script>
 <script>
 const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -89,7 +90,8 @@ Promise.all([
   fetch("data/literature.json").then(r=>r.json()),
   fetch("../ihr-benchmarks-good-practices/data/benchmarks.json").then(r=>r.json()),
   fetch("../ihr-benchmarks-good-practices/data/literature.json").then(r=>r.json()),
-  fetch("../jee-good-practices/data/assessments.json").then(r=>r.ok?r.json():null).catch(()=>null)
+  fetch("../jee-good-practices/data/assessments.json").then(r=>r.ok?r.json():null).catch(()=>null),
+  window.Programmes?Programmes.load("../shared/"):null
 ]).then(([s,l,bm,bl,a])=>{S=s;L=l;BM={};bm.benchmarks.forEach(b=>BM[b.id]=b);BL=bl;A=a;TYPES=bl.meta.types;
   bl.sources.forEach(x=>x.bm.forEach(id=>(byBm[id]=byBm[id]||[]).push(x)));
   init();render();
@@ -142,6 +144,7 @@ function render(){
     });
     if(!items.length) return;
     h+=`<div class="areahead"><h2>${esc(c.id)} · ${esc(c.name)}</h2><span class="fn">${esc(c.fn)}</span></div>`;
+    h+=window.Programmes?Programmes.html(S.indicators.filter(i=>i.cap===c.id).flatMap(i=>i.jee),{includeAll:true}):"";
     items.forEach(({i,ss})=>{
       shown++;srcN+=ss.length;
       const lv=i.l1?`<table class="lv"><tbody><tr><td class="n">Level 1</td><td>${esc(i.l1)}</td></tr><tr><td class="n">Level 3</td><td>${esc(i.l3)}</td></tr><tr><td class="n">Level 5</td><td>${esc(i.l5)}</td></tr></tbody></table>${i.step?`<p class="small muted">Step from 2 to 3: ${esc(i.step)}</p>`:""}`:`<p class="small muted">Level descriptions for this indicator were not read from the PDF; see the <a href="${esc(S.meta.pdf)}">SPAR questionnaire</a>.</p>`;

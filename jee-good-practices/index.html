@@ -113,6 +113,7 @@ svg.pc .mut{fill:var(--muted)}
   <footer>WHO wording and scores are reproduced from WHO publications with citations; practices are a curated seed set · data in <a href="data/">data/</a></footer>
 </div>
 
+<script src="../shared/programmes.js"></script>
 <script>
 "use strict";
 const LABELS={1:"No capacity",2:"Limited capacity",3:"Developed capacity",4:"Demonstrated capacity",5:"Sustainable capacity"};
@@ -125,7 +126,7 @@ const st={qq:"",qa:"",qf:"",qt:"",q:"",fn:"",edition:"1",year:"",region:"",count
 
 async function load(){
   const get=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(u+" "+r.status);return r.json()});
-  const [fw,pr,as,rg,sol]=await Promise.all([get("data/jee-v3-framework.json"),get("data/practices.json"),get("data/assessments.json").catch(()=>null),get("data/jee-register.json").catch(()=>null),get("data/solutions.json").catch(()=>({meta:{},solutions:[]}))]);D.sol=sol.solutions;D.solMeta=sol.meta;D.solByQ={};D.sol.forEach(x=>x.questions.forEach(k=>(D.solByQ[k]=D.solByQ[k]||[]).push(x)));
+  const [fw,pr,as,rg,sol]=await Promise.all([get("data/jee-v3-framework.json"),get("data/practices.json"),get("data/assessments.json").catch(()=>null),get("data/jee-register.json").catch(()=>null),get("data/solutions.json").catch(()=>({meta:{},solutions:[]})),window.Programmes?Programmes.load("../shared/"):null]);D.sol=sol.solutions;D.solMeta=sol.meta;D.solByQ={};D.sol.forEach(x=>x.questions.forEach(k=>(D.solByQ[k]=D.solByQ[k]||[]).push(x)));
   D.fw=fw;D.pr=pr.practices;D.prMeta=pr.meta;D.as=as;D.reg=rg;
   D.areas=Object.fromEntries(fw.technicalAreas.map(a=>[a.id,a]));
   D.ind=Object.fromEntries(fw.indicators.map(i=>[i.id,i]));
@@ -169,6 +170,7 @@ function vIndicators(open){
   for(const f of FUNCS){ for(const a of fw.technicalAreas.filter(a=>a.function===f)){
     const list=fw.indicators.filter(i=>i.areaId===a.id&&match(i)); if(!list.length) continue; shown+=list.length;
     html+=`<div class="areahead"><span class="fn">${f}</span><h2>${a.id} · ${esc(a.name)}</h2></div>`;
+    html+=(window.Programmes?Programmes.html([a.id],{includeAll:true}):"")+`<p class="small muted" style="margin:0 0 8px">Literature case studies per topic: <a href="../ihr-benchmarks-good-practices/">IHR Benchmarks Good Practices</a> · <a href="../spar-good-practices/">SPAR Good Practices</a></p>`;
     html+=`<details class="small" style="margin:0 0 8px"><summary>Target, measure and desired impact (WHO)</summary><dl class="kv"><dt>Target</dt><dd>${esc(a.target||"")}</dd><dt>As measured by</dt><dd>${esc(a.measuredBy||"")}</dd><dt>Desired impact</dt><dd>${esc(a.desiredImpact||"")}</dd></dl>${a.contextualQuestions.length?`<p class="muted">Contextual questions (area level, manual p. ${a.contextualQuestions[0].page}):</p><ol>${a.contextualQuestions.map(c=>`<li>${esc(c.text)}${c.sub.length?`<ol class="sub">${c.sub.map(s=>`<li>${esc(s.text)}</li>`).join("")}</ol>`:""}</li>`).join("")}</ol>`:""}</details>`;
     for(const i of list){ const d=dist(i.id); const pr=D.pByInd[i.id]||[];
       html+=`<details class="ind" id="i-${i.id}" ${open===i.id?"open":""}><summary><span class="id">${i.id}</span><span>${esc(i.title)}</span>${pr.length?`<span class="badge" title="Linked practices">${pr.length} practice${pr.length>1?"s":""}</span>`:""}</summary><div class="body">
@@ -388,7 +390,7 @@ function vGaps(){
 }
 function gapList(gaps){
   if(!gaps.length) return `<h2>Gaps</h2><p class="muted">Nothing at or below this level yet. Rate indicators above, or raise the threshold.</p>`;
-  const seen=new Set(); let out=partnerHTML(gaps.map(g=>g.id))+`<h2>Gaps (${gaps.length}) and practices that may help</h2>`;
+  const seen=new Set(); let out=partnerHTML(gaps.map(g=>g.id))+(window.Programmes&&gaps.length?`<h2>Programmes, networks and funders for these areas</h2>`+Programmes.html(gaps.map(g=>g.id),{includeAll:true}):"")+`<h2>Gaps (${gaps.length}) and practices that may help</h2>`;
   gaps.forEach(g=>{ const ps=D.pByInd[g.id]||[]; const nq=D.fw.indicators.find(x=>x.id===g.id).technicalQuestions.filter(t=>D.solByQ[g.id+":"+t.id]||t.sub.some(s=>D.solByQ[g.id+":"+t.id+"."+s.k])).length;
     out+=`<div class="card"><h3><a href="#/indicators/${g.id}">${g.id}</a> ${esc(g.title)} <span class="badge">level ${g.score} · ${LABELS[g.score]}</span></h3><p class="small"><a href="#/questions/${g.id}">Technical questions with sources (${nq} questions with sources) and peer examples →</a></p>${topHTML(g.id,true)}${ps.length?ps.map(p=>`<p class="small" style="margin:4px 0"><a href="#/practices/${esc(p.id)}"><strong>${esc(p.title)}</strong></a> — ${esc(p.summary)}</p>`).join(""):`<p class="small muted">No practice is linked to this indicator yet.</p>`}</div>`; ps.forEach(p=>seen.add(p.id)); });
   return out;

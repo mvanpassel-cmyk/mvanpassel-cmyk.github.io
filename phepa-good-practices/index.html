@@ -63,6 +63,7 @@ footer{margin-top:40px;color:var(--muted);font-size:13px}
   <main id="view" aria-live="polite"><p class="muted">Loading data…</p></main>
   <footer>Content is summarised (paraphrased) from published ECDC and European Commission documents, with links to the originals · Sister tool: <a href="../jee-good-practices/">JEE Good Practices</a> · data in <a href="data/">data/</a></footer>
 </div>
+<script src="../shared/programmes.js"></script>
 <script>
 "use strict";
 const TABS=[["start","Overview"],["topics","Good practices by topic"],["countries","Country reports"],["eu","EU recommendations"],["find","Find solutions"],["about","About & method"]];
@@ -74,6 +75,7 @@ const IN_DEPTH_FIRST=[6,3,4,12,10,8,7,13,1,2,5,9,11,14,15,16];
 async function load(){
   const get=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(u+" "+r.status);return r.json()});
   D.d=await get("data/phepa.json");
+  if(window.Programmes) await Programmes.load("../shared/");
   D.sol=(await get("../jee-good-practices/data/solutions.json").catch(()=>({solutions:[]}))).solutions;
   D.fw=await get("../jee-good-practices/data/jee-v3-framework.json").catch(()=>null);
   D.topic=Object.fromEntries(D.d.topics.map(t=>[t.id,t])); D.cty=Object.fromEntries(D.d.countries.map(c=>[c.id,c]));
@@ -154,7 +156,7 @@ function vTopics(open){
     for(const t of ts){ const its=D.items.filter(i=>i.t===t.id&&matches(i)); if((q||st.cty)&&!its.length) continue; shown++;
       const s=its.filter(i=>i.k==="S").length, r=its.filter(i=>i.k==="R").length;
       body+=`<details class="t" id="t-${t.id}" ${(open===t.id||q||st.cty)?"open":""}><summary><strong>${esc(t.title)}</strong><span class="badge g">${s} good practice${s===1?"":"s"}</span><span class="badge r">${r} recommendation${r===1?"":"s"}</span></summary><div class="body">${topicBody(t,{})}</div></details>`; }
-    if(body) h+=`<div class="caphead"><span class="fn">Capacity ${cid}</span><h2>${esc(D.cap[cid])}</h2></div>`+body; }
+    if(body) h+=`<div class="caphead"><span class="fn">Capacity ${cid}</span><h2>${esc(D.cap[cid])}</h2></div>`+(window.Programmes?Programmes.html(ts.flatMap(t=>t.jee||[]),{includeAll:true}):"")+body; }
   if(!shown) h+=`<p class="muted">Nothing matches.</p>`;
   view.innerHTML=h+`<p class="note">Page numbers are as printed in the reports (approximate; check the PDF). Items marked “ECDC interim report” are country examples quoted in ECDC's cross-country report, mostly for countries whose own report I could not read in detail.</p>`;
   $("#q").oninput=e=>{st.q=e.target.value;const p=e.target.selectionStart;vTopics();const n=$("#q");n.focus();n.setSelectionRange(p,p)};
