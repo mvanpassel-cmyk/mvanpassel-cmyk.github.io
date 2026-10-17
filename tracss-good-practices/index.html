@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TrACSS Good Practices</title>
+<meta name="description" content="TrACSS questions on antimicrobial resistance grouped by topic, with literature and links to JEE, SPAR and PHEPA.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231f3a5f'/%3E%3Cpath d='M7 23h4v-5h4v-5h4V9h4' fill='none' stroke='%23f4c95d' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#f6f4ef;--ink:#1c1f26;--muted:#667085;--card:#fff;--line:#e4e0d6;--accent:#1f3a5f;--warn:#e0a526}
+@media (prefers-color-scheme:dark){:root{--bg:#14161b;--ink:#eceae4;--muted:#9aa1ae;--card:#1c1f26;--line:#2b303a;--accent:#f4c95d}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:28px 16px 72px}
+a{color:var(--accent)}
+h1{font:600 clamp(26px,5vw,38px)/1.1 ui-serif,Georgia,serif;margin:10px 0 8px}
+h2{font:600 22px/1.2 ui-serif,Georgia,serif;margin:0}
+h4{margin:12px 0 4px;font-size:14px}
+.lead{color:var(--muted);max-width:75ch;margin:0 0 16px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px}
+input[type=search],select{font:inherit;font-size:14px;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);max-width:100%}
+input[type=search]{min-width:240px}
+label.ck{font-size:14px;display:inline-flex;gap:5px;align-items:center}
+a:focus-visible,summary:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.note{border-left:3px solid var(--warn);padding:2px 12px;color:var(--muted);font-size:13px;margin:14px 0}
+.muted{color:var(--muted)}.small{font-size:13px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:0 0 14px}
+.box ul{margin:6px 0 0 18px;padding:0}
+.stages{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin:8px 0 0}
+.stages div{border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:13px}
+.stages b{display:block;font-size:14px}
+.areahead{margin:26px 0 8px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.fn{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+details.bm{background:var(--card);border:1px solid var(--line);border-radius:12px;margin:0 0 8px}
+details.bm>summary{cursor:pointer;padding:10px 14px;list-style:none;display:flex;gap:10px;align-items:baseline}
+details.bm>summary::-webkit-details-marker{display:none}
+details.bm>summary .id{font-weight:700;min-width:40px;font-variant-numeric:tabular-nums}
+details.bm>summary .cnt{margin-left:auto;white-space:nowrap;font-size:12px;color:var(--muted)}
+details.bm .body{padding:0 14px 14px;border-top:1px solid var(--line)}
+table.lv{border-collapse:collapse;width:100%;font-size:14px;margin:8px 0}
+table.lv th,table.lv td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+table.lv td.n{width:130px;font-weight:600}
+.src{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0}
+.src .t{font-weight:600}
+.badge{display:inline-block;border-radius:6px;padding:0 6px;font-size:11px;font-weight:600;letter-spacing:.03em;border:1px solid var(--line);color:var(--muted);margin-right:6px;white-space:nowrap}
+.badge.pr{color:var(--accent);border-color:var(--accent)}
+.tag{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:0 8px;font-size:12px;margin:0 4px 4px 0;text-decoration:none}
+.tag.core{border-color:var(--accent);color:var(--accent);font-weight:600}
+.empty{color:var(--muted);font-style:italic;margin:10px 0 0}
+footer{margin-top:40px;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>TrACSS Good Practices</h1>
+<p class="lead">The questions of the Tracking AMR Country Self-assessment Survey grouped by topic, with literature on what the results show and the matching JEE, SPAR and PHEPA items.</p>
+
+<div class="box">
+  <strong>The instrument and its documents</strong>
+  <p class="small muted" id="intro"></p>
+  <div class="stages" id="stages"></div>
+  <ul class="small" id="docs"></ul>
+</div>
+
+<div class="bar">
+  <input id="q" type="search" placeholder="Search topic, question, country, takeaway…" aria-label="Search">
+  <select id="fg" aria-label="Group"><option value="">All groups</option></select>
+  <select id="ft" aria-label="Source type"><option value="">All source types</option><option value="cs">Case studies</option></select>
+  <label class="ck"><input id="fp" type="checkbox"> Peer-reviewed only</label>
+  <label class="ck"><input id="fs" type="checkbox"> Only with sources</label>
+</div>
+<div id="stat" class="small muted"></div>
+<div id="view"><p class="muted">Loading…</p></div>
+<div class="note"><strong>How to read this.</strong> <span id="method"></span></div>
+<footer>Descriptions here are our own short paraphrases of the official documents. Literature links go to the publisher or issuing organisation. Built with Claude for Mark van Passel. Check source details before citing.</footer>
+</div>
+<script src="../shared/programmes.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let D,L,TYPES={};
+const st={q:"",grp:"",type:"",pr:false,only:false};
+const PRT=["peer-reviewed","systematic-review","scoping-review"];
+const isPR=s=>s.pr!==undefined?s.pr:PRT.includes(s.type);
+const isCS=s=>s.type==="case-study"||s.type==="peer-review-report";
+Promise.all([
+  fetch("data/data.json").then(r=>r.json()),
+  fetch("data/literature.json").then(r=>r.json()),
+  window.Programmes?Programmes.load("../shared/"):null
+]).then(([d,l])=>{D=d;L=l;TYPES=l.meta.types;init();render()})
+.catch(e=>{$("#view").innerHTML='<p class="note">Could not load data: '+esc(e.message)+'</p>'});
+function init(){
+  const groups=[...new Set(D.topics.map(t=>t.group))];
+  $("#fg").innerHTML+=groups.map(g=>`<option>${esc(g)}</option>`).join("");
+  $("#ft").innerHTML+=Object.entries(TYPES).map(([k,v])=>`<option value="${k}">${esc(v)}</option>`).join("");
+  $("#intro").textContent=D.meta.source;
+  $("#stages").innerHTML=D.meta.scale.map(s=>`<div><b>${esc(s[0])}</b>${esc(s[1])}</div>`).join("")+`<p class="small muted" style="grid-column:1/-1;margin:0">${esc(D.meta.scaleNote)}</p>`;
+  $("#docs").innerHTML=D.meta.docs.map(x=>`<li><a href="${esc(x.u)}" rel="noopener">${esc(x.t)}</a>. ${esc(x.d)}</li>`).join("");
+  $("#method").textContent=D.meta.note+" "+L.meta.note+" A source can appear under several topics. Case studies show what one country did; they are not evidence that it works elsewhere.";
+  $("#q").oninput=e=>{st.q=e.target.value.trim().toLowerCase();render()};
+  $("#fg").oninput=e=>{st.grp=e.target.value;render()};
+  $("#ft").oninput=e=>{st.type=e.target.value;render()};
+  $("#fp").onchange=e=>{st.pr=e.target.checked;render()};
+  $("#fs").onchange=e=>{st.only=e.target.checked;render()};
+}
+function srcHTML(s){
+  const pr=(isPR(s)&&s.type!=="peer-reviewed")?'<span class="badge pr">peer-reviewed</span>':'';
+  return `<div class="src"><div><span class="badge">${esc(TYPES[s.type]||s.type)}</span>${pr}<span class="muted small">${esc(s.country)}${s.year?" · "+s.year:""}</span></div>
+  <div class="t"><a href="${esc(s.url)}" rel="noopener">${esc(s.title)}</a></div>
+  <div class="small muted">${esc([s.authors,s.journal].filter(Boolean).join(" · "))}</div>
+  <div>${esc(s.takeaway)}</div>${s.note?`<div class="small muted">Note: ${esc(s.note)}</div>`:""}</div>`;
+}
+function xwalk(t){
+  const j=t.jee.map(id=>`<a class="tag" href="../jee-good-practices/#/indicators/${esc(id)}">JEE ${esc(id)}</a>`).join("");
+  const sp=t.spar.map(c=>`<a class="tag" href="../spar-good-practices/">SPAR ${esc(c)}</a>`).join("");
+  const ph=t.phepa.map(c=>`<a class="tag" href="../phepa-good-practices/">PHEPA ${c}</a>`).join("");
+  const ex=(t.extra||[]).map(e=>`<a class="tag" href="${esc(e[1])}">${esc(e[0])}</a>`).join("");
+  const all=j+sp+ph+ex;
+  return all?all:'<span class="small muted">No close match in JEE, SPAR or PHEPA.</span>';
+}
+function render(){
+  const q=st.q;let shown=0,srcN=0,h="",lastG="";
+  D.topics.forEach(t=>{
+    if(st.grp&&t.group!==st.grp) return;
+    const ss=L.sources.filter(s=>s.t.includes(t.id)&&(!st.type||(st.type==="cs"?isCS(s):s.type===st.type))&&(!st.pr||isPR(s)));
+    if(st.only&&!ss.length) return;
+    if((st.type||st.pr)&&!ss.length) return;
+    if(q){
+      const hay=(t.id+" "+t.title+" "+t.what+" "+(t.items||[]).map(r=>r[0]+" "+r[1]).join(" ")+" "+ss.map(s=>s.title+" "+s.country+" "+s.takeaway+" "+(s.journal||"")).join(" ")).toLowerCase();
+      if(!hay.includes(q)) return;
+    }
+    if(t.group!==lastG){h+=`<div class="areahead"><h2>${esc(t.group)}</h2><span class="fn">${t.group==="Cross-cutting"?"added by this page":esc(D.meta.groupsNote)}</span></div>`;lastG=t.group}
+    shown++;srcN+=ss.length;
+    const rows=t.items&&t.items.length?`<h4>${esc(D.meta.itemsLabel)}</h4><table class="lv"><tbody>${t.items.map(r=>`<tr><td class="n">${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("")}</tbody></table>`:"";
+    h+=`<details class="bm" ${q||shown===1&&st.grp?"open":""}><summary><span class="id">${esc(t.id)}</span><span>${esc(t.title)}</span><span class="cnt">${ss.length?ss.length+" source"+(ss.length>1?"s":""):"no source yet"}</span></summary><div class="body">
+    <p>${esc(t.what)}</p>
+        ${rows}
+    <h4>Matching items in other frameworks (our crosswalk)</h4><div>${xwalk(t)}</div>
+    ${window.Programmes?Programmes.html(t.prog,{includeAll:false}):""}
+    <h4>Case studies and literature</h4>${ss.length?ss.map(srcHTML).join(""):'<p class="empty">No source found yet for this topic. That does not mean none exists.</p>'}</div></details>`;
+  });
+  $("#view").innerHTML=h||'<p class="muted">Nothing matches.</p>';
+  $("#stat").textContent=`${shown} topics, ${srcN} source links shown.`;
+}
+</script>
+</body>
+</html>

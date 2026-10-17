@@ -1,0 +1,538 @@
+{
+ "meta": {
+  "title": "TrACSS Good Practices",
+  "source": "TrACSS (Tracking AMR Country Self-assessment Survey) is run jointly by FAO, UNEP, WHO and WOAH (the Quadripartite) and tracks progress on multisectoral national action plans on antimicrobial resistance each year. National authorities and technical focal points fill it in online. WHO hosts the system. The 2025 round (the ninth) opened on 15 April 2025 in all six UN languages, after a record 186 countries (96%) responded in 2024.",
+  "docs": [
+   {
+    "t": "TrACSS Global Database",
+    "u": "https://amrcountryprogress.org",
+    "d": "Country results and the questionnaire download."
+   },
+   {
+    "t": "WHO: 2025 edition of the survey launches",
+    "u": "https://www.who.int/news/item/15-05-2025-2025-edition-of-global-survey-to-track-antimicrobial-resistance-launches",
+    "d": "Background on the 2025 round. Questions to tracss@who.int."
+   }
+  ],
+  "scale": [
+   [
+    "A",
+    "None"
+   ],
+   [
+    "B",
+    "Limited"
+   ],
+   [
+    "C",
+    "Developed"
+   ],
+   [
+    "D",
+    "Demonstrated"
+   ],
+   [
+    "E",
+    "Sustained"
+   ]
+  ],
+  "scaleNote": "Progress levels A to E as shown in a country trend report; some questions are Yes or No. The scale and wording can change between rounds.",
+  "itemsLabel": "Questions in this topic (paraphrased, 2024 numbering)",
+  "note": "The question list comes from one country trend report (Kazakhstan 2024), which shows selected indicators only; Section 1 questions were not seen and some questions in other sections may be missing. Wording is paraphrased. Check the official questionnaire for the round you work with. The crosswalk to JEE, SPAR and PHEPA is our own and is not official.",
+  "groupsNote": "Sections of the questionnaire"
+ },
+ "topics": [
+  {
+   "id": "2a",
+   "group": "Section 2: Multisectoral",
+   "title": "Coordination and the national action plan",
+   "what": "Whether the country has a functioning One Health coordination mechanism, a national AMR action plan, and uses survey data to follow up on it.",
+   "items": [
+    [
+     "2.1",
+     "Multisector and One Health collaboration and coordination"
+    ],
+    [
+     "2.3",
+     "Progress in developing a national AMR action plan"
+    ],
+    [
+     "2.4.b",
+     "Whether the coordination mechanism reviews current and prior-year TrACSS data to monitor the plan"
+    ],
+    [
+     "2.6",
+     "Whether AMR planning is integrated with other plans or strategies"
+    ]
+   ],
+   "jee": [
+    "P4.1",
+    "P3.2",
+    "P3.3"
+   ],
+   "spar": [
+    "C2.2"
+   ],
+   "phepa": [
+    1,
+    12
+   ],
+   "prog": [
+    "fleming-fund",
+    "eu-jamrai2",
+    "ohjpa"
+   ]
+  },
+  {
+   "id": "2b",
+   "group": "Section 2: Multisectoral",
+   "title": "Laws on antimicrobial sale and use",
+   "what": "Legislation on prescribing and sale of antimicrobials in humans and animals, on growth promotion, and on antimicrobial pesticides.",
+   "items": [
+    [
+     "2.8.1",
+     "Laws on prescribing and sale of human antimicrobials"
+    ],
+    [
+     "2.8.2",
+     "Laws on prescribing and sale of antimicrobials for terrestrial animals"
+    ],
+    [
+     "2.8.3",
+     "Laws on prescribing and sale of antimicrobials for aquatic animals"
+    ],
+    [
+     "2.8.5",
+     "Laws banning antibiotic growth promotion in terrestrial animals absent risk analysis"
+    ],
+    [
+     "2.8.6",
+     "Legislation on registration and use of antimicrobial pesticides in plant production"
+    ]
+   ],
+   "jee": [
+    "P1.1",
+    "P4.4",
+    "P4.5"
+   ],
+   "spar": [
+    "C1.1"
+   ],
+   "phepa": [
+    1
+   ],
+   "prog": [
+    "woah-pvs",
+    "eu-jamrai2"
+   ]
+  },
+  {
+   "id": "2c",
+   "group": "Section 2: Multisectoral",
+   "title": "Awareness and education",
+   "what": "Public awareness of AMR risks and education of young people.",
+   "items": [
+    [
+     "2.9",
+     "Raising awareness and understanding of AMR risks"
+    ],
+    [
+     "2.10",
+     "Youth education on AMR"
+    ]
+   ],
+   "jee": [
+    "R5.2",
+    "R5.3"
+   ],
+   "spar": [],
+   "phepa": [
+    8
+   ],
+   "prog": [
+    "rcce-collective"
+   ]
+  },
+  {
+   "id": "2d",
+   "group": "Section 2: Multisectoral",
+   "title": "Using data for decisions; integrated surveillance",
+   "what": "Whether consumption, use and resistance data feed policy decisions, and whether an integrated AMR surveillance system exists or is starting.",
+   "items": [
+    [
+     "2.11",
+     "Use of antimicrobial consumption and use data to inform decisions and policy"
+    ],
+    [
+     "2.12",
+     "Use of AMR surveillance data to inform decisions and policy"
+    ],
+    [
+     "2.13",
+     "Established or starting an integrated AMR surveillance system"
+    ]
+   ],
+   "jee": [
+    "P4.2",
+    "D2.3"
+   ],
+   "spar": [
+    "C5.1"
+   ],
+   "phepa": [
+    4,
+    12
+   ],
+   "prog": [
+    "fleming-fund",
+    "united4surveillance"
+   ]
+  },
+  {
+   "id": "3a",
+   "group": "Section 3: Human health",
+   "title": "Human health: surveillance and laboratory capacity",
+   "what": "National AMR surveillance in people, susceptibility testing for key bacteria and fungi, and continuity of clinical laboratory services.",
+   "items": [
+    [
+     "3.3",
+     "National AMR surveillance system in humans"
+    ],
+    [
+     "3.4.2b",
+     "Capacity to perform susceptibility testing for critically important bacteria"
+    ],
+    [
+     "3.4.3b",
+     "Capacity to perform susceptibility testing for critically important fungi"
+    ],
+    [
+     "3.4.5b",
+     "Continuity of services in clinical bacteriology laboratories, including stockout reporting"
+    ]
+   ],
+   "jee": [
+    "P4.2",
+    "D1.2",
+    "D1.3",
+    "D1.4"
+   ],
+   "spar": [
+    "C4.3",
+    "C4.5"
+   ],
+   "phepa": [
+    3,
+    12
+   ],
+   "prog": [
+    "aslm",
+    "fleming-fund"
+   ]
+  },
+  {
+   "id": "3b",
+   "group": "Section 3: Human health",
+   "title": "Human health: stewardship, use and training",
+   "what": "Monitoring of antimicrobial consumption, optimising use, adopting the WHO AWaRe classification and training health workers.",
+   "items": [
+    [
+     "3.1",
+     "Training and professional education on AMR"
+    ],
+    [
+     "3.2",
+     "National monitoring of antimicrobial consumption and rational use"
+    ],
+    [
+     "3.6",
+     "Optimizing antimicrobial use in human health"
+    ],
+    [
+     "3.7",
+     "Adoption of the AWaRe classification in the national essential medicines list"
+    ]
+   ],
+   "jee": [
+    "P4.4",
+    "D3.3"
+   ],
+   "spar": [],
+   "phepa": [
+    5,
+    12
+   ],
+   "prog": [
+    "eu-jamrai2"
+   ]
+  },
+  {
+   "id": "3c",
+   "group": "Section 3: Human health",
+   "title": "Human health: infection prevention and control",
+   "what": "IPC programmes in health care as a way to reduce the need for antimicrobials.",
+   "items": [
+    [
+     "3.5",
+     "Infection prevention and control (IPC) in health care"
+    ]
+   ],
+   "jee": [
+    "P4.3",
+    "R4.1",
+    "R4.2",
+    "R4.3"
+   ],
+   "spar": [
+    "C9"
+   ],
+   "phepa": [
+    12
+   ],
+   "prog": []
+  },
+  {
+   "id": "4a",
+   "group": "Section 4: Animal health",
+   "title": "Animal health: services and training",
+   "what": "Professional education on AMR for veterinarians and aquatic animal health staff, and strengthening of veterinary and aquatic animal health services.",
+   "items": [
+    [
+     "4.1",
+     "Training and professional education on AMR in the veterinary sector"
+    ],
+    [
+     "4.2",
+     "Training and professional education on AMR in aquatic animal health"
+    ],
+    [
+     "4.3",
+     "Strengthening veterinary services"
+    ],
+    [
+     "4.4",
+     "Strengthening aquatic animal health services"
+    ]
+   ],
+   "jee": [
+    "P5.1",
+    "D3.3"
+   ],
+   "spar": [],
+   "phepa": [
+    10
+   ],
+   "prog": [
+    "woah-pvs",
+    "ohjpa"
+   ]
+  },
+  {
+   "id": "4b",
+   "group": "Section 4: Animal health",
+   "title": "Animal health: AMR surveillance",
+   "what": "National AMR surveillance in live terrestrial and aquatic animals.",
+   "items": [
+    [
+     "4.7",
+     "National AMR surveillance system in live terrestrial animals"
+    ],
+    [
+     "4.8",
+     "National AMR surveillance system in live aquatic animals"
+    ]
+   ],
+   "jee": [
+    "P4.2",
+    "P5.1"
+   ],
+   "spar": [
+    "C12"
+   ],
+   "phepa": [
+    10,
+    12
+   ],
+   "prog": [
+    "woah-pvs"
+   ]
+  },
+  {
+   "id": "4c",
+   "group": "Section 4: Animal health",
+   "title": "Animal health: biosecurity and optimising use",
+   "what": "Biosecurity and husbandry practices that reduce antimicrobial use, and optimising use in terrestrial and aquatic animals.",
+   "items": [
+    [
+     "4.9",
+     "Biosecurity and husbandry practices to reduce antimicrobial use in terrestrial animal production"
+    ],
+    [
+     "4.10",
+     "Biosecurity and husbandry practices to reduce antimicrobial use in aquatic animal production"
+    ],
+    [
+     "4.11",
+     "Optimizing antimicrobial use in terrestrial animal health"
+    ],
+    [
+     "4.12",
+     "Optimizing antimicrobial use in aquatic animal health"
+    ]
+   ],
+   "jee": [
+    "P4.5",
+    "P5.3"
+   ],
+   "spar": [],
+   "phepa": [
+    10,
+    12
+   ],
+   "prog": [
+    "woah-pvs"
+   ]
+  },
+  {
+   "id": "5a",
+   "group": "Section 5: Food and agriculture",
+   "title": "Food and agriculture: laboratory network",
+   "what": "Integration, standardisation and data management of laboratories in the AMR surveillance network (animal health and food safety).",
+   "items": [
+    [
+     "5.4a",
+     "Effective integration of laboratories in the AMR surveillance network"
+    ],
+    [
+     "5.4b",
+     "Standardization and harmonization of laboratory procedures"
+    ],
+    [
+     "5.4c",
+     "Relevance of diagnostic techniques used by laboratories"
+    ],
+    [
+     "5.4d",
+     "Technical level of data management in the laboratory network"
+    ]
+   ],
+   "jee": [
+    "D1.1",
+    "D1.2",
+    "D1.4",
+    "P6.1"
+   ],
+   "spar": [
+    "C4.3",
+    "C4.5",
+    "C13"
+   ],
+   "phepa": [
+    3
+   ],
+   "prog": [
+    "aslm"
+   ]
+  },
+  {
+   "id": "5b",
+   "group": "Section 5: Food and agriculture",
+   "title": "Food and agriculture: training, pesticides, hygiene",
+   "what": "Training outside the health sector, monitoring and optimising antimicrobial pesticide use in plants, and good manufacturing and hygiene practice.",
+   "items": [
+    [
+     "5.1",
+     "Training on AMR for agriculture, food production, food safety and environment sectors"
+    ],
+    [
+     "5.2",
+     "National monitoring of antimicrobial-pesticide use in plant production"
+    ],
+    [
+     "5.5",
+     "Good manufacturing and hygiene practices in food processing"
+    ],
+    [
+     "5.6",
+     "Optimizing antimicrobial pesticide use in plant production"
+    ]
+   ],
+   "jee": [
+    "P4.5",
+    "P6.1",
+    "P6.2"
+   ],
+   "spar": [
+    "C13"
+   ],
+   "phepa": [],
+   "prog": [
+    "infosan"
+   ]
+  },
+  {
+   "id": "6",
+   "group": "Section 6: Environment",
+   "title": "Environment",
+   "what": "Risk assessment, legislation and monitoring of antimicrobial residues and resistant organisms in the environment.",
+   "items": [
+    [
+     "6.1",
+     "National risk assessment of antimicrobial residues and resistant pathogens in the environment"
+    ],
+    [
+     "6.2",
+     "Legislation to prevent environmental contamination by antimicrobials and their metabolites"
+    ],
+    [
+     "6.3",
+     "Regular monitoring (passive surveillance) of antimicrobial residues and resistance in water quality"
+    ]
+   ],
+   "jee": [],
+   "spar": [],
+   "phepa": [
+    10
+   ],
+   "prog": []
+  },
+  {
+   "id": "X1",
+   "group": "Cross-cutting",
+   "title": "How TrACSS relates to JEE, SPAR and PVS",
+   "what": "TrACSS is a yearly country self-assessment by the four Quadripartite organisations. JEE, SPAR and PVS are different instruments: JEE is an external evaluation, SPAR a yearly self-assessment of IHR capacities, PVS an external evaluation of veterinary services. A country can use the AMR parts of each to cross-check the others.",
+   "items": [
+    [
+     "Overlap",
+     "JEE P4 (AMR), SPAR capacity C12 and PVS critical competency II-9 (AMR and antimicrobial use) cover the same ground as TrACSS sections 2 to 4."
+    ],
+    [
+     "Difference",
+     "TrACSS scores are self-reported by country focal points. They are not an external check."
+    ]
+   ],
+   "jee": [
+    "P4.1",
+    "P4.2",
+    "P4.3",
+    "P4.4",
+    "P4.5"
+   ],
+   "spar": [
+    "C12"
+   ],
+   "phepa": [
+    12
+   ],
+   "prog": [
+    "woah-pvs"
+   ],
+   "extra": [
+    [
+     "PVS Pathway",
+     "../woah-pvs-good-practices/"
+    ]
+   ]
+  }
+ ]
+}

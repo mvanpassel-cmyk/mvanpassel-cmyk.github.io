@@ -1,0 +1,548 @@
+{
+ "meta": {
+  "title": "WOAH PVS Pathway Good Practices",
+  "source": "The PVS (Performance of Veterinary Services) Pathway is the World Organisation for Animal Health (WOAH) programme that helps Members assess and improve their Veterinary Services against WOAH international standards. Steps: orientation, PVS Evaluation, planning (PVS Gap Analysis, strategic planning support), and targeted support (such as One Health integration, the Veterinary Legislation Support Programme, sustainable laboratories and workforce development), with PVS Follow-up missions. WOAH counted 448 PVS activities in 2006 to 2021. The PVS Tool has 45 critical competencies (CCs) in four fundamental components; each CC receives a level of advancement from 1 to 5.",
+  "docs": [
+   {
+    "t": "WOAH: PVS Pathway fact sheet",
+    "u": "https://woah.org/app/uploads/2022/12/factsheet-pvs.pdf",
+    "d": "Overview and activity numbers."
+   },
+   {
+    "t": "WOAH: overview of the PVS Pathway (slides)",
+    "u": "https://rr-europe.woah.org/app/uploads/2023/05/3_woah_overview_pvs_pathway.pdf",
+    "d": "Pathway steps and tools."
+   },
+   {
+    "t": "WOAH: quick overview of the 45 critical competencies (slides)",
+    "u": "https://rr-asia.woah.org/app/uploads/2019/12/4-the-oie-pvs-tool-quick-overview-of-the-45-critical-competencies_jw-th.pdf",
+    "d": "Source of the list of competencies below."
+   },
+   {
+    "t": "WOAH: One Health capacity building",
+    "u": "https://woah.org/en/what-we-offer/improving-veterinary-services/pvs-pathway/one-health-capacity-building",
+    "d": "IHR-PVS National Bridging Workshops and joint tools."
+   }
+  ],
+  "scale": [
+   [
+    "Level 1",
+    "Lowest"
+   ],
+   [
+    "Level 2",
+    ""
+   ],
+   [
+    "Level 3",
+    ""
+   ],
+   [
+    "Level 4",
+    ""
+   ],
+   [
+    "Level 5",
+    "Highest"
+   ]
+  ],
+  "scaleNote": "The Pathway documents say each competency gets a level of advancement from 1 to 5; the wording of each level was not found in the material read, so only the ends of the scale are labelled here.",
+  "itemsLabel": "Critical competencies in this topic (WOAH wording)",
+  "note": "The list of competencies follows a WOAH slide set from 2019 (the A and B parts are counted separately to reach 45); later editions of the PVS Tool may word things differently. The crosswalk to JEE, SPAR and PHEPA is our own and is not official. WOAH PVS reports are often confidential to the Member unless it publishes them.",
+  "groupsNote": "Fundamental components of the PVS Tool"
+ },
+ "topics": [
+  {
+   "id": "I-a",
+   "group": "I. Human, physical and financial resources",
+   "title": "Staffing, competence and continuing education",
+   "what": "Whether the Veterinary Services have enough qualified veterinarians and paraprofessionals, trained to the right level and kept up to date.",
+   "items": [
+    [
+     "CC I-1A&B",
+     "Staffing: veterinary and other professionals (university qualified) / veterinary paraprofessionals"
+    ],
+    [
+     "CC I-2A&B",
+     "Competency and education of veterinarians / veterinary paraprofessionals"
+    ],
+    [
+     "CC I-3",
+     "Continuing education"
+    ]
+   ],
+   "jee": [
+    "D3.1",
+    "D3.2",
+    "D3.3"
+   ],
+   "spar": [
+    "C6.1"
+   ],
+   "phepa": [
+    5
+   ],
+   "prog": []
+  },
+  {
+   "id": "I-b",
+   "group": "I. Human, physical and financial resources",
+   "title": "Independence, planning and coordination",
+   "what": "Technical independence of the Veterinary Services, planning and management of policies and programmes, and internal and external coordination (including One Health).",
+   "items": [
+    [
+     "CC I-4",
+     "Technical independence"
+    ],
+    [
+     "CC I-5",
+     "Planning, sustainability and management of policies and programmes"
+    ],
+    [
+     "CC I-6A&B",
+     "Coordination capability: internal (chain of command) / external (including the One Health approach)"
+    ]
+   ],
+   "jee": [
+    "P3.2",
+    "P3.3",
+    "P4.1",
+    "P5.1"
+   ],
+   "spar": [
+    "C2.2"
+   ],
+   "phepa": [
+    1
+   ],
+   "prog": [
+    "ohjpa",
+    "woah-pvs"
+   ]
+  },
+  {
+   "id": "I-c",
+   "group": "I. Human, physical and financial resources",
+   "title": "Physical resources and funding",
+   "what": "Buildings, equipment and capital investment, operational funding and emergency funding.",
+   "items": [
+    [
+     "CC I-7",
+     "Physical resources and capital investment"
+    ],
+    [
+     "CC I-8",
+     "Operational funding"
+    ],
+    [
+     "CC I-9",
+     "Emergency funding"
+    ]
+   ],
+   "jee": [
+    "P2.1",
+    "P2.2"
+   ],
+   "spar": [
+    "C3.1",
+    "C3.2"
+   ],
+   "phepa": [
+    2
+   ],
+   "prog": [
+    "pandemic-fund"
+   ]
+  },
+  {
+   "id": "II-a",
+   "group": "II. Technical authority and capability",
+   "title": "Veterinary laboratories",
+   "what": "Access to laboratory diagnosis, whether the national laboratory system is suitable, and laboratory quality management.",
+   "items": [
+    [
+     "CC II-1A",
+     "Access to veterinary laboratory diagnosis"
+    ],
+    [
+     "CC II-1B",
+     "Suitability of the national laboratory system"
+    ],
+    [
+     "CC II-1C",
+     "Laboratory quality management systems (QMS)"
+    ]
+   ],
+   "jee": [
+    "D1.1",
+    "D1.2",
+    "D1.3",
+    "D1.4"
+   ],
+   "spar": [
+    "C4.1",
+    "C4.3",
+    "C4.4",
+    "C4.5"
+   ],
+   "phepa": [
+    3
+   ],
+   "prog": [
+    "aslm",
+    "woah-pvs"
+   ]
+  },
+  {
+   "id": "II-b",
+   "group": "II. Technical authority and capability",
+   "title": "Risk analysis, surveillance and early detection",
+   "what": "Risk analysis and epidemiology, passive surveillance and outbreak investigation, and active surveillance and monitoring.",
+   "items": [
+    [
+     "CC II-2",
+     "Risk analysis and epidemiology"
+    ],
+    [
+     "CC II-4A",
+     "Surveillance and early detection: passive surveillance, early detection and epidemiological outbreak investigation"
+    ],
+    [
+     "CC II-4B",
+     "Surveillance and early detection: active surveillance and monitoring"
+    ]
+   ],
+   "jee": [
+    "P5.1",
+    "D2.1",
+    "D2.2",
+    "D2.3"
+   ],
+   "spar": [
+    "C5.1",
+    "C5.2",
+    "C12"
+   ],
+   "phepa": [
+    4,
+    10
+   ],
+   "prog": [
+    "woah-pvs"
+   ]
+  },
+  {
+   "id": "II-c",
+   "group": "II. Technical authority and capability",
+   "title": "Emergency response, disease control and borders",
+   "what": "Quarantine and border security, emergency preparedness and response, and disease prevention, control and eradication.",
+   "items": [
+    [
+     "CC II-3",
+     "Quarantine and border security"
+    ],
+    [
+     "CC II-5",
+     "Emergency preparedness and response"
+    ],
+    [
+     "CC II-6",
+     "Disease prevention, control and eradication"
+    ]
+   ],
+   "jee": [
+    "P5.2",
+    "R1.1",
+    "R1.3",
+    "PoE1",
+    "PoE2"
+   ],
+   "spar": [
+    "C7.1",
+    "C7.2",
+    "C11"
+   ],
+   "phepa": [
+    6,
+    9,
+    10
+   ],
+   "prog": [
+    "gpwmd",
+    "woah-pvs"
+   ]
+  },
+  {
+   "id": "II-d",
+   "group": "II. Technical authority and capability",
+   "title": "Food of animal origin, residues and feed",
+   "what": "Inspection and authorisation of food establishments, ante- and post-mortem inspection, residue testing and animal feed safety.",
+   "items": [
+    [
+     "CC II-7A",
+     "Regulation, inspection, authorisation and supervision of establishments for production and processing of food of animal origin"
+    ],
+    [
+     "CC II-7B",
+     "Ante- and post-mortem inspection"
+    ],
+    [
+     "CC II-10",
+     "Residue testing, monitoring and management"
+    ],
+    [
+     "CC II-11",
+     "Animal feed safety"
+    ]
+   ],
+   "jee": [
+    "P6.1",
+    "P6.2"
+   ],
+   "spar": [
+    "C13"
+   ],
+   "phepa": [],
+   "prog": [
+    "infosan"
+   ]
+  },
+  {
+   "id": "II-e",
+   "group": "II. Technical authority and capability",
+   "title": "Veterinary medicines and AMR",
+   "what": "Control of veterinary medicines and biologicals, and antimicrobial resistance and antimicrobial use.",
+   "items": [
+    [
+     "CC II-8",
+     "Veterinary medicines and biologicals"
+    ],
+    [
+     "CC II-9",
+     "Antimicrobial resistance and antimicrobial use"
+    ]
+   ],
+   "jee": [
+    "P4.2",
+    "P4.5"
+   ],
+   "spar": [
+    "C12"
+   ],
+   "phepa": [
+    12
+   ],
+   "prog": [
+    "eu-jamrai2",
+    "fleming-fund",
+    "woah-pvs"
+   ]
+  },
+  {
+   "id": "II-f",
+   "group": "II. Technical authority and capability",
+   "title": "Identification, traceability and animal welfare",
+   "what": "Identification and movement control of animals and premises, traceability of animal products, and animal welfare.",
+   "items": [
+    [
+     "CC II-12A",
+     "Premises, herd, batch and animal identification, tracing and movement control"
+    ],
+    [
+     "CC II-12B",
+     "Identification, traceability and control of products of animal origin"
+    ],
+    [
+     "CC II-13",
+     "Animal welfare"
+    ]
+   ],
+   "jee": [
+    "P5.3"
+   ],
+   "spar": [],
+   "phepa": [
+    10
+   ],
+   "prog": [
+    "woah-pvs"
+   ]
+  },
+  {
+   "id": "III-a",
+   "group": "III. Interaction with stakeholders",
+   "title": "Communication and consultation",
+   "what": "Communication, consultation with stakeholders, and participation of producers in joint programmes.",
+   "items": [
+    [
+     "CC III-1",
+     "Communication"
+    ],
+    [
+     "CC III-2",
+     "Consultation with stakeholders"
+    ],
+    [
+     "CC III-6",
+     "Participation of producers and other stakeholders in joint programmes"
+    ]
+   ],
+   "jee": [
+    "R5.1",
+    "R5.2",
+    "R5.3"
+   ],
+   "spar": [
+    "C10"
+   ],
+   "phepa": [
+    8
+   ],
+   "prog": [
+    "rcce-collective"
+   ]
+  },
+  {
+   "id": "III-b",
+   "group": "III. Interaction with stakeholders",
+   "title": "International role, delegation and the profession",
+   "what": "Official representation and international collaboration, accreditation and delegation, regulation of the profession, and veterinary clinical services.",
+   "items": [
+    [
+     "CC III-3",
+     "Official representation and international collaboration"
+    ],
+    [
+     "CC III-4",
+     "Accreditation, authorisation, delegation"
+    ],
+    [
+     "CC III-5",
+     "Regulation of the profession by the Veterinary Statutory Body"
+    ],
+    [
+     "CC III-7",
+     "Veterinary clinical services"
+    ]
+   ],
+   "jee": [
+    "P3.1"
+   ],
+   "spar": [],
+   "phepa": [],
+   "prog": [
+    "woah-pvs"
+   ]
+  },
+  {
+   "id": "IV-a",
+   "group": "IV. Access to markets",
+   "title": "Veterinary legislation",
+   "what": "Legal quality and coverage of veterinary legislation, and how well it is implemented and complied with.",
+   "items": [
+    [
+     "CC IV-1A",
+     "Veterinary legislation: legal quality and coverage"
+    ],
+    [
+     "CC IV-1B",
+     "Veterinary legislation: implementation and compliance"
+    ]
+   ],
+   "jee": [
+    "P1.1"
+   ],
+   "spar": [
+    "C1.1"
+   ],
+   "phepa": [
+    1
+   ],
+   "prog": [
+    "woah-pvs"
+   ]
+  },
+  {
+   "id": "IV-b",
+   "group": "IV. Access to markets",
+   "title": "Trade standards, certification and zoning",
+   "what": "International harmonisation, certification, equivalence agreements, transparency, zoning and compartmentalisation.",
+   "items": [
+    [
+     "CC IV-2",
+     "International harmonisation"
+    ],
+    [
+     "CC IV-3",
+     "International certification"
+    ],
+    [
+     "CC IV-4",
+     "Equivalence and other types of sanitary agreements"
+    ],
+    [
+     "CC IV-5",
+     "Transparency"
+    ],
+    [
+     "CC IV-6",
+     "Zoning"
+    ],
+    [
+     "CC IV-7",
+     "Compartmentalisation"
+    ]
+   ],
+   "jee": [],
+   "spar": [],
+   "phepa": [],
+   "prog": [
+    "woah-pvs"
+   ]
+  },
+  {
+   "id": "X1",
+   "group": "Cross-cutting",
+   "title": "One Health bridge: IHR-PVS workshops and JEE",
+   "what": "JEE is the human-health counterpart of the PVS Evaluation. IHR-PVS National Bridging Workshops (NBWs) put the two reports side by side so human and animal health can agree a joint roadmap.",
+   "items": [
+    [
+     "Format",
+     "Three-day workshop with about 60 to 90 people from human and animal health; other sectors such as environment, wildlife, media and police often join."
+    ],
+    [
+     "Best timing",
+     "After a JEE and before a national action plan; a recent PVS Evaluation or Follow-up is preferred."
+    ],
+    [
+     "Output",
+     "A diagnosis of strengths and weaknesses across 16 joint technical areas and a joint roadmap agreed by prioritisation vote."
+    ]
+   ],
+   "jee": [
+    "P3.2",
+    "P4.1",
+    "P5.1",
+    "P5.2"
+   ],
+   "spar": [
+    "C2.2",
+    "C12"
+   ],
+   "phepa": [
+    1,
+    10
+   ],
+   "prog": [
+    "woah-pvs",
+    "ohjpa"
+   ],
+   "extra": [
+    [
+     "TrACSS",
+     "../tracss-good-practices/"
+    ]
+   ]
+  }
+ ]
+}
