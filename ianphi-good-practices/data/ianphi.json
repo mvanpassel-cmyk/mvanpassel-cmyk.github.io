@@ -1,0 +1,601 @@
+{
+ "meta": {
+  "source": "IANPHI Staged Development Tool (SDT), developed with the US CDC. 20 discussion guides, four stages: Basic, Developing, Advanced, Leading Edge.",
+  "retrieved": "2026-10-17",
+  "note": "Guide titles, grouping and PDF links are from the IANPHI SDT page. Short descriptions are our own, written from the titles. Stage text is paraphrased only for guide 1, the only guide we could read in full; for the others open the PDF. The crosswalk to JEE, SPAR, PHEPA and the WHO essential public health functions (EPHF) is ours, not an official one. Cross-cutting topics X1 to X3 are added by this page and are not SDT guides.",
+  "stages": [
+   [
+    "Basic",
+    "Limited capacity and impact"
+   ],
+   [
+    "Developing",
+    "Gradual improvement"
+   ],
+   [
+    "Advanced",
+    "Structured and proactive approaches"
+   ],
+   [
+    "Leading Edge",
+    "Best practices and innovations adopted nationally and globally"
+   ]
+  ],
+  "ephf": {
+   "1": "Monitoring and surveillance of population health",
+   "2": "Public health emergency management",
+   "3": "Public health stewardship, including organising the public health network",
+   "5": "Health protection",
+   "6": "Disease prevention and early detection",
+   "7": "Health promotion",
+   "9": "Public health workforce development",
+   "11": "Public health research, evaluation and knowledge"
+  },
+  "core": [
+   1,
+   2,
+   3,
+   5,
+   6,
+   7,
+   9,
+   11
+  ],
+  "docs": [
+   {
+    "t": "SDT page at US CDC",
+    "u": "https://www.cdc.gov/globalhealth/healthprotection/nphi/sdt/",
+    "d": "Process in three steps: assess gaps, prioritise, plan. A trained outside facilitator is recommended."
+   },
+   {
+    "t": "SDT guides, forms and definitions (IANPHI)",
+    "u": "https://ianphi.org/tools-resources/sdt-old-and-new/sdt-new-version.html",
+    "d": "Guides in English, French, Portuguese and Spanish, Assessment Form and Next Steps Form."
+   },
+   {
+    "t": "Framework for NPHI Development (IANPHI)",
+    "u": "https://ianphi.org/_includes/documents/sections/tools-resources/ianphi_framework_final-online.pdf",
+    "d": "Built on the 12 essential public health functions; recommends 8 as core functions for an NPHI."
+   },
+   {
+    "t": "NPHI core functions and attributes (IANPHI summary)",
+    "u": "https://ianphi.org/_includes/documents/sections/tools-resources/nphi-core-functions-and-attributes.pdf",
+    "d": "Earlier list: 11 core functions and 9 attributes such as national recognition, limits on political influence and accountability."
+   },
+   {
+    "t": "Peer-to-peer evaluation tool (IANPHI)",
+    "u": "https://ianphi.org/_includes/documents/sections/tools-resources/peer-to-peer-evaluationtool.pdf",
+    "d": "Eight sections, A to H: identity, planning and accountability, relations with the ministry, other organisations, stakeholders, HR, quality management and an EPHF capacity assessment."
+   },
+   {
+    "t": "WHO/IANPHI handbook on the essential public health functions",
+    "u": "https://iris.who.int/server/api/core/bitstreams/30dd7677-2993-4ad8-8c21-ca1d352d09db/content",
+    "d": "Background to the 12 EPHFs used in the framework."
+   }
+  ]
+ },
+ "topics": [
+  {
+   "id": "G1",
+   "group": "Internal-facing",
+   "title": "Organizational leadership and management",
+   "what": "How the institute sets direction, runs its systems and resources, delivers quality work, engages partners and staff, and shows impact.",
+   "guide": "https://ianphi.org/_includes/documents/sections/tools-resources/sdt/en/1-org-leaders-eng.pdf",
+   "ephf": [
+    3
+   ],
+   "jee": [
+    "P1.1",
+    "P3.3"
+   ],
+   "spar": [
+    "C1",
+    "C2"
+   ],
+   "phepa": [
+    1
+   ],
+   "prog": [
+    "P3"
+   ],
+   "rows": [
+    {
+     "name": "Strategic direction",
+     "basic": "Few long-term goals; leaders absorbed by daily tasks.",
+     "lead": "Staff share a long-term vision and can switch to emergencies without losing it."
+    },
+    {
+     "name": "Systems",
+     "basic": "Few management systems; hiring often mismatches skills; weak data and feedback.",
+     "lead": "Strong systems track goals, support hiring and retention, give good data and regular feedback."
+    },
+    {
+     "name": "Resources",
+     "basic": "Opportunistic, donor-driven funding; resources used inefficiently.",
+     "lead": "Reliable funding for the institute's goals, efficient operation, investment in staff careers."
+    },
+    {
+     "name": "Quality",
+     "basic": "Key projects not prioritised, many unfinished, finished work often poor.",
+     "lead": "Clear goals, resources and committed staff produce high-quality work that earns trust."
+    },
+    {
+     "name": "Engagement",
+     "basic": "Ad hoc external communication, sporadic staff communication, low morale unaddressed.",
+     "lead": "A valued partner across organisations; two-way communication makes staff feel valued."
+    },
+    {
+     "name": "Impact",
+     "basic": "Limited by weak leadership, systems and lack of long-term goals.",
+     "lead": "Consistently meets long-term goals, measurably improves population health, leads nationally and internationally."
+    }
+   ]
+  },
+  {
+   "id": "G2",
+   "group": "Internal-facing",
+   "title": "Human resources (HR) management",
+   "what": "Recruiting, retaining, developing and supporting the institute's own staff.",
+   "guide": "https://ianphi.org/_includes/documents/sections/tools-resources/sdt/en/2-hr-eng.pdf",
+   "ephf": [
+    9
+   ],
+   "jee": [
+    "D3.2"
+   ],
+   "spar": [
+    "C6"
+   ],
+   "phepa": [
+    5
+   ],
+   "prog": [
+    "D3"
+   ]
+  },
+  {
+   "id": "G3",
+   "group": "Internal-facing",
+   "title": "Financial management",
+   "what": "Budgeting, predictable funding, donor dependence, financial control and reporting.",
+   "guide": "https://ianphi.org/_includes/documents/sections/tools-resources/sdt/en/3-financial-eng.pdf",
+   "ephf": [
+    3
+   ],
+   "jee": [
+    "P2.1",
+    "P2.2"
+   ],
+   "spar": [
+    "C3"
+   ],
+   "phepa": [
+    2
+   ],
+   "prog": [
+    "P2"
+   ]
+  },
+  {
+   "id": "G4",
+   "group": "Internal-facing",
+   "title": "Information technology (IT) and management of organizational information",
+   "what": "IT systems, data security and how the institute stores and shares its own information.",
+   "guide": "https://ianphi.org/_includes/documents/sections/tools-resources/sdt/en/4-it-and-org-info-eng.pdf",
+   "ephf": [
+    1
+   ],
+   "jee": [
+    "D2.3"
+   ],
+   "spar": [
+    "C5"
+   ],
+   "phepa": [
+    4
+   ],
+   "prog": [
+    "D2"
+   ]
+  },
+  {
+   "id": "G5",
+   "group": "Internal-facing",
+   "title": "Health and safety",
+   "what": "Occupational health and safety for the institute's own staff and facilities.",
+   "guide": "https://ianphi.org/_includes/documents/sections/tools-resources/sdt/en/5-hlth-safety-eng.pdf",
+   "ephf": [],
+   "jee": [],
+   "spar": [],
+   "phepa": [],
+   "prog": []
+  },
+  {
+   "id": "G6",
+   "group": "Internal-facing",
+   "title": "Laboratory safety",
+   "what": "Biosafety, biosecurity and safe working practices in the institute's own laboratories.",
+   "guide": "https://ianphi.org/_includes/documents/sections/tools-resources/sdt/en/6-lab-safety-eng.pdf",
+   "ephf": [
+    5
+   ],
+   "jee": [
+    "P7.1",
+    "P7.2"
+   ],
+   "spar": [
+    "C4"
+   ],
+   "phepa": [
+    3
+   ],
+   "prog": [
+    "P7"
+   ]
+  },
+  {
+   "id": "G7",
+   "group": "Internal-facing",
+   "title": "Internal communication",
+   "what": "How information, decisions and feedback flow between leadership and staff.",
+   "guide": "https://ianphi.org/_includes/documents/sections/tools-resources/sdt/en/7-int-comm-eng.pdf",
+   "ephf": [],
+   "jee": [],
+   "spar": [],
+   "phepa": [],
+   "prog": []
+  },
+  {
+   "id": "G8",
+   "group": "Internal-facing",
+   "title": "External communication about the NPHI and its activities",
+   "what": "How the institute presents itself and its work to the public, government, media and partners.",
+   "guide": "https://ianphi.org/_includes/documents/sections/tools-resources/sdt/en/8-ext-comm-eng.pdf",
+   "ephf": [
+    3,
+    7
+   ],
+   "jee": [
+    "R5.2"
+   ],
+   "spar": [
+    "C10"
+   ],
+   "phepa": [
+    8
+   ],
+   "prog": [
+    "R5"
+   ]
+  },
+  {
+   "id": "G9",
+   "group": "External-facing",
+   "title": "Population health status",
+   "what": "Collecting and analysing data to describe population health, set priorities and inform policy.",
+   "guide": "https://ianphi.org/_includes/documents/sections/tools-resources/sdt/en/9-pop-hlth-eng.pdf",
+   "ephf": [
+    1
+   ],
+   "jee": [
+    "D2.3"
+   ],
+   "spar": [
+    "C5"
+   ],
+   "phepa": [
+    4
+   ],
+   "prog": [
+    "D2"
+   ]
+  },
+  {
+   "id": "G10",
+   "group": "External-facing",
+   "title": "Health communication and promotion",
+   "what": "Public health messaging, campaigns and programmes that help people protect their health.",
+   "guide": "https://ianphi.org/_includes/documents/sections/tools-resources/sdt/en/10-hlth-prom-eng.pdf",
+   "ephf": [
+    7
+   ],
+   "jee": [
+    "R5.1",
+    "R5.3"
+   ],
+   "spar": [
+    "C10"
+   ],
+   "phepa": [
+    8
+   ],
+   "prog": [
+    "R5"
+   ]
+  },
+  {
+   "id": "G11",
+   "group": "External-facing",
+   "title": "Laboratory systems",
+   "what": "The national laboratory network: capacity, referral, quality and links with surveillance.",
+   "guide": "https://ianphi.org/_includes/documents/sections/tools-resources/sdt/en/11-lab-sys-eng.pdf",
+   "ephf": [
+    1,
+    2,
+    5
+   ],
+   "jee": [
+    "D1.1",
+    "D1.2",
+    "D1.3",
+    "D1.4"
+   ],
+   "spar": [
+    "C4"
+   ],
+   "phepa": [
+    3
+   ],
+   "prog": [
+    "D1"
+   ]
+  },
+  {
+   "id": "G12",
+   "group": "External-facing",
+   "title": "Surveillance",
+   "what": "Detecting, verifying and analysing disease and health events across the country.",
+   "guide": "https://ianphi.org/_includes/documents/sections/tools-resources/sdt/en/12-surveillance-eng.pdf",
+   "ephf": [
+    1,
+    6
+   ],
+   "jee": [
+    "D2.1",
+    "D2.2",
+    "D2.3"
+   ],
+   "spar": [
+    "C5"
+   ],
+   "phepa": [
+    4
+   ],
+   "prog": [
+    "D2"
+   ]
+  },
+  {
+   "id": "G13",
+   "group": "External-facing",
+   "title": "Emergency preparedness and response (EPR)",
+   "what": "Plans, operations centres, teams and exercises for public health emergencies.",
+   "guide": "https://ianphi.org/_includes/documents/sections/tools-resources/sdt/en/13-emerg-prep-eng.pdf",
+   "ephf": [
+    2
+   ],
+   "jee": [
+    "R1.1",
+    "R1.2",
+    "R1.3",
+    "R1.5"
+   ],
+   "spar": [
+    "C7"
+   ],
+   "phepa": [
+    6
+   ],
+   "prog": [
+    "R1"
+   ]
+  },
+  {
+   "id": "G14",
+   "group": "External-facing",
+   "title": "Data-to-action",
+   "what": "Turning analysed data into recommendations, policy and programme decisions.",
+   "guide": "https://ianphi.org/_includes/documents/sections/tools-resources/sdt/en/14-data-to-act-eng.pdf",
+   "ephf": [
+    1,
+    3
+   ],
+   "jee": [
+    "D2.3",
+    "R1.1"
+   ],
+   "spar": [
+    "C5"
+   ],
+   "phepa": [
+    4
+   ],
+   "prog": [
+    "D2"
+   ]
+  },
+  {
+   "id": "G15",
+   "group": "External-facing",
+   "title": "Public health workforce (WF) development",
+   "what": "Training and deploying the national public health workforce, including field epidemiology programmes.",
+   "guide": "https://ianphi.org/_includes/documents/sections/tools-resources/sdt/en/15-ph-wf-eng.pdf",
+   "ephf": [
+    9
+   ],
+   "jee": [
+    "D3.1",
+    "D3.3",
+    "D3.4"
+   ],
+   "spar": [
+    "C6"
+   ],
+   "phepa": [
+    5
+   ],
+   "prog": [
+    "D3"
+   ]
+  },
+  {
+   "id": "G16",
+   "group": "External-facing",
+   "title": "Public health research",
+   "what": "Setting a research agenda, carrying out studies and using results for policy.",
+   "guide": "https://ianphi.org/_includes/documents/sections/tools-resources/sdt/en/16-research-eng.pdf",
+   "ephf": [
+    11
+   ],
+   "jee": [
+    "R1.6"
+   ],
+   "spar": [],
+   "phepa": [
+    14
+   ],
+   "prog": [
+    "R1"
+   ]
+  },
+  {
+   "id": "G17",
+   "group": "External-facing",
+   "title": "Multisectoral collaboration",
+   "what": "Working with other ministries, academia, civil society and the private sector.",
+   "guide": "https://ianphi.org/_includes/documents/sections/tools-resources/sdt/en/17-multisect-eng.pdf",
+   "ephf": [
+    3
+   ],
+   "jee": [
+    "P3.2"
+   ],
+   "spar": [
+    "C2",
+    "C12"
+   ],
+   "phepa": [
+    1,
+    10
+   ],
+   "prog": [
+    "P3",
+    "P5"
+   ]
+  },
+  {
+   "id": "G18",
+   "group": "External-facing",
+   "title": "Linkages with subnational public health",
+   "what": "Links with provincial and local health authorities, so national work reaches districts.",
+   "guide": "https://ianphi.org/_includes/documents/sections/tools-resources/sdt/en/18-subnat-lnkage-eng.pdf",
+   "ephf": [
+    3
+   ],
+   "jee": [
+    "P3.2"
+   ],
+   "spar": [
+    "C2"
+   ],
+   "phepa": [
+    1
+   ],
+   "prog": [
+    "P3"
+   ]
+  },
+  {
+   "id": "G19",
+   "group": "External-facing",
+   "title": "Noncommunicable diseases (NCDs)",
+   "what": "Surveillance, prevention and coalition work on NCDs, injuries and risk factors.",
+   "guide": "https://ianphi.org/_includes/documents/sections/tools-resources/sdt/en/19-ncd-eng.pdf",
+   "ephf": [
+    6,
+    7
+   ],
+   "jee": [],
+   "spar": [],
+   "phepa": [],
+   "prog": []
+  },
+  {
+   "id": "G20",
+   "group": "External-facing",
+   "title": "Generic discussion guide",
+   "what": "A blank template to assess any topic the other 19 guides do not cover.",
+   "guide": "https://ianphi.org/_includes/documents/sections/tools-resources/sdt/en/20-generic-eng.pdf",
+   "ephf": [],
+   "jee": [],
+   "spar": [],
+   "phepa": [],
+   "prog": []
+  },
+  {
+   "id": "X1",
+   "group": "Cross-cutting",
+   "title": "Establishing and governing an NPHI",
+   "what": "Legal mandate, governance model (line agency, parastatal, hybrid), mergers and political backing. Not an SDT guide; this page adds it because it is the question most countries ask first.",
+   "guide": null,
+   "ephf": [
+    3
+   ],
+   "jee": [
+    "P1.1",
+    "P3.1"
+   ],
+   "spar": [
+    "C1",
+    "C2"
+   ],
+   "phepa": [
+    1
+   ],
+   "prog": [
+    "P3"
+   ]
+  },
+  {
+   "id": "X2",
+   "group": "Cross-cutting",
+   "title": "Peer review and peer-to-peer learning",
+   "what": "IANPHI peer evaluations of institutes, study tours, twinning and mentorship between institutes.",
+   "guide": null,
+   "ephf": [
+    3,
+    9
+   ],
+   "jee": [],
+   "spar": [],
+   "phepa": [],
+   "prog": [
+    "D3",
+    "P3"
+   ]
+  },
+  {
+   "id": "X3",
+   "group": "Cross-cutting",
+   "title": "Emerging themes: climate, equity, One Health",
+   "what": "How institutes take on climate and heat, health inequities and One Health. Not an SDT guide.",
+   "guide": null,
+   "ephf": [
+    3,
+    7
+   ],
+   "jee": [
+    "P5.1"
+   ],
+   "spar": [
+    "C12"
+   ],
+   "phepa": [
+    10
+   ],
+   "prog": [
+    "P5"
+   ]
+  }
+ ]
+}
