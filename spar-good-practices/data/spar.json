@@ -1,0 +1,610 @@
+{
+ "meta": {
+  "source": "WHO, IHR (2005) States Parties Self-Assessment Annual Reporting Tool (SPAR), 2nd edition, 2021: 15 capacities, 35 indicators, each scored at 5 levels.",
+  "pdf": "https://cdn.who.int/media/docs/default-source/health-security-preparedness/cap/spar/9789240040120-eng-new.pdf",
+  "retrieved": "2026-10-17",
+  "note": "Level texts are short paraphrases (not WHO's wording) of levels 1, 3 and 5, written from the 2021 edition. For indicators C12.1, C13.1, C14.1 and C15.1 the level text could not be read; see the PDF. Levels build on each other: all attributes of a level must be in place before the next level counts. The links to JEE indicators and IHR benchmarks are a topic crosswalk made for this tool, not an official WHO mapping."
+ },
+ "caps": [
+  {
+   "id": "C1",
+   "name": "Policy, legal and normative instruments to implement IHR",
+   "fn": "Prevent"
+  },
+  {
+   "id": "C2",
+   "name": "IHR coordination, National IHR Focal Point functions and advocacy",
+   "fn": "Prevent"
+  },
+  {
+   "id": "C3",
+   "name": "Financing",
+   "fn": "Prevent"
+  },
+  {
+   "id": "C4",
+   "name": "Laboratory",
+   "fn": "Detect"
+  },
+  {
+   "id": "C5",
+   "name": "Surveillance",
+   "fn": "Detect"
+  },
+  {
+   "id": "C6",
+   "name": "Human resources",
+   "fn": "Detect"
+  },
+  {
+   "id": "C7",
+   "name": "Health emergency management",
+   "fn": "Respond"
+  },
+  {
+   "id": "C8",
+   "name": "Health services provision",
+   "fn": "Respond"
+  },
+  {
+   "id": "C9",
+   "name": "Infection prevention and control (IPC)",
+   "fn": "Respond"
+  },
+  {
+   "id": "C10",
+   "name": "Risk communication and community engagement (RCCE)",
+   "fn": "Respond"
+  },
+  {
+   "id": "C11",
+   "name": "Points of entry (PoEs) and border health",
+   "fn": "Other hazards and borders"
+  },
+  {
+   "id": "C12",
+   "name": "Zoonotic diseases",
+   "fn": "Other hazards and borders"
+  },
+  {
+   "id": "C13",
+   "name": "Food safety",
+   "fn": "Other hazards and borders"
+  },
+  {
+   "id": "C14",
+   "name": "Chemical events",
+   "fn": "Other hazards and borders"
+  },
+  {
+   "id": "C15",
+   "name": "Radiation emergencies",
+   "fn": "Other hazards and borders"
+  }
+ ],
+ "indicators": [
+  {
+   "id": "C1.1",
+   "cap": "C1",
+   "title": "Policy, legal and normative instruments",
+   "jee": [
+    "P1.1"
+   ],
+   "bm": [
+    "1.1"
+   ],
+   "l1": "No legal mapping of relevant instruments has been done.",
+   "l3": "Gaps in the health sector are reviewed and the needed legal instruments and policies are developed or revised.",
+   "l5": "Gaps are reviewed across all sectors and levels of government, and instruments are regularly evaluated and improved.",
+   "step": "Level 2 has a legal analysis; level 3 adds identifying health-sector gaps and acting on them."
+  },
+  {
+   "id": "C1.2",
+   "cap": "C1",
+   "title": "Gender equality in health emergencies",
+   "jee": [
+    "P1.2"
+   ],
+   "bm": [
+    "1.2"
+   ],
+   "l1": "No systematic assessment of gender gaps has been done in any IHR capacity.",
+   "l3": "An action plan covers high-priority gender gaps in at least one capacity and sits in the annual workplan.",
+   "l5": "Gender analysis is funded and action plans cover at least three capacities, with monitoring.",
+   "step": "Level 2 has a gender assessment in at least one capacity; level 3 adds an action plan in the annual workplans."
+  },
+  {
+   "id": "C2.1",
+   "cap": "C2",
+   "title": "National IHR Focal Point functions",
+   "jee": [
+    "P3.1"
+   ],
+   "bm": [
+    "3.1"
+   ],
+   "l1": "The focal point lacks terms of reference, authority, resources or round-the-clock access.",
+   "l3": "The focal point has a clear mandate, resources and 24/7 access to WHO, but coordination with other sectors is still weak.",
+   "l5": "The focal point is well positioned, trained and equipped, and its set-up is regularly reviewed.",
+   "step": "Level 2 has a duty officer system but weak instruments; level 3 has a clear mandate and resources."
+  },
+  {
+   "id": "C2.2",
+   "cap": "C2",
+   "title": "Multisectoral coordination mechanisms",
+   "jee": [
+    "P3.2"
+   ],
+   "bm": [
+    "3.2"
+   ],
+   "l1": "Mechanisms are missing or under development; coordination is ad hoc.",
+   "l3": "Mechanisms are in place, shared and used nationally.",
+   "l5": "Mechanisms work at all levels and are regularly exercised, reviewed and updated.",
+   "step": "Level 2 has mechanisms that are not yet disseminated; level 3 disseminates and implements them nationally."
+  },
+  {
+   "id": "C2.3",
+   "cap": "C2",
+   "title": "Advocacy for IHR implementation",
+   "jee": [
+    "P3.3"
+   ],
+   "bm": [
+    "3.3"
+   ],
+   "l1": "Advocacy mechanisms are missing and activities are ad hoc.",
+   "l3": "Advocacy mechanisms are in place, shared and used nationally.",
+   "l5": "Mechanisms work at all levels in a whole-of-society approach and are updated from lessons learned.",
+   "step": "Level 2 has mechanisms that are not yet disseminated; level 3 disseminates and implements them nationally."
+  },
+  {
+   "id": "C3.1",
+   "cap": "C3",
+   "title": "Financing for IHR implementation",
+   "jee": [
+    "P2.1"
+   ],
+   "bm": [
+    "2.1"
+   ],
+   "l1": "There is no financial planning or budget line; funding is extrabudgetary.",
+   "l3": "Planning is based on identified gaps and needs, with budget or external funding and some monitoring.",
+   "l5": "Budget is sufficient, predictable and flexible at all levels and monitored against objectives; the country can support others.",
+   "step": "Level 2 has limited planning and funding for some sectors; level 3 bases planning on gaps and needs."
+  },
+  {
+   "id": "C3.2",
+   "cap": "C3",
+   "title": "Financing for public health emergency response",
+   "jee": [
+    "P2.2"
+   ],
+   "bm": [
+    "2.2"
+   ],
+   "l1": "Emergency financing is not identified; funds are allocated ad hoc.",
+   "l3": "Funds for immediate mobilisation are identified in advance for all relevant sectors.",
+   "l5": "Emergency funds are available at all levels for timely use across sectors; the country can aid others.",
+   "step": "Level 2 has structured reception and rapid use of funds; level 3 identifies funds in advance."
+  },
+  {
+   "id": "C4.1",
+   "cap": "C4",
+   "title": "Specimen referral and transport system",
+   "jee": [
+    "D1.1"
+   ],
+   "bm": [
+    "9.1"
+   ],
+   "l1": "No system exists and transport is ad hoc, without SOPs.",
+   "l3": "Referral and transport are organised for most priority diseases from subnational to national level.",
+   "l5": "A sustainable, regularly reviewed system covers all specimen types at all levels.",
+   "step": "Level 2 covers some priority diseases; level 3 covers most, from subnational to national."
+  },
+  {
+   "id": "C4.2",
+   "cap": "C4",
+   "title": "Laboratory biosafety and biosecurity regime",
+   "jee": [
+    "P7.1",
+    "P7.2"
+   ],
+   "bm": [
+    "8.1",
+    "8.2"
+   ],
+   "l1": "National guidelines or regulations are under development.",
+   "l3": "Guidelines or regulations are in place and used by all laboratories.",
+   "l5": "Regulations are regularly updated and exercised, with an oversight system.",
+   "step": "Level 2 is implemented by some laboratories; level 3 by all."
+  },
+  {
+   "id": "C4.3",
+   "cap": "C4",
+   "title": "Laboratory quality system",
+   "jee": [
+    "D1.2"
+   ],
+   "bm": [
+    "9.2"
+   ],
+   "l1": "National quality standards are missing or under development.",
+   "l3": "Standards are developed and implemented nationally, including licensing of laboratories.",
+   "l5": "All laboratories are licensed to international standards at all levels, with regular review.",
+   "step": "Level 2 has standards but no implementation; level 3 adds implementation and licensing."
+  },
+  {
+   "id": "C4.4",
+   "cap": "C4",
+   "title": "Laboratory testing capacity modalities",
+   "jee": [
+    "D1.3"
+   ],
+   "bm": [
+    "9.3"
+   ],
+   "l1": "The system supports only one or two modalities, such as rapid tests or microscopy.",
+   "l3": "Nucleic acid testing and culture with sensitivity testing under quality assurance, plus access to sequencing.",
+   "l5": "Full capacity including whole genome sequencing, in integrated networks with maximum coverage.",
+   "step": "Level 2 adds serological tests with quality assurance; level 3 adds nucleic acid testing, culture and sequencing access."
+  },
+  {
+   "id": "C4.5",
+   "cap": "C4",
+   "title": "Effective national diagnostic network",
+   "jee": [
+    "D1.4"
+   ],
+   "bm": [
+    "9.4"
+   ],
+   "l1": "Tier-specific diagnostic testing strategies are missing or under development.",
+   "l3": "Tier-specific strategies are being implemented nationally.",
+   "l5": "Strategies are implemented at national, intermediate and local levels and regularly exercised and updated.",
+   "step": "Level 2 has developed strategies; level 3 starts implementing them."
+  },
+  {
+   "id": "C5.1",
+   "cap": "C5",
+   "title": "Early warning surveillance function",
+   "jee": [
+    "D2.1"
+   ],
+   "bm": [
+    "10.1"
+   ],
+   "l1": "National surveillance guidelines or SOPs are missing or under development.",
+   "l3": "Guidelines are implemented nationally and give immediate and weekly reporting of events or data.",
+   "l5": "Guidelines are implemented at all levels and the system is regularly exercised, reviewed and improved.",
+   "step": "Level 2 has guidelines but no systematic immediate or weekly reporting; level 3 implements them."
+  },
+  {
+   "id": "C5.2",
+   "cap": "C5",
+   "title": "Event management",
+   "jee": [
+    "D2.2"
+   ],
+   "bm": [
+    "10.2"
+   ],
+   "l1": "No process for managing detected events exists or it is under development.",
+   "l3": "The process for managing detected events is implemented nationally.",
+   "l5": "The process is implemented at all levels and regularly exercised, reviewed and updated.",
+   "step": "Level 2 has a process that is not implemented; level 3 implements it nationally."
+  },
+  {
+   "id": "C6.1",
+   "cap": "C6",
+   "title": "Human resources for implementation of IHR",
+   "jee": [
+    "D3.2"
+   ],
+   "bm": [
+    "11.2"
+   ],
+   "l1": "Staff in relevant sectors to detect, assess, report and respond to events are lacking.",
+   "l3": "Qualified staff are available in all relevant sectors at national and intermediate levels.",
+   "l5": "Staffing policies are documented, sustained and reviewed, and shared to help other countries.",
+   "step": "Level 2 covers only the national level; level 3 extends to intermediate levels."
+  },
+  {
+   "id": "C6.2",
+   "cap": "C6",
+   "title": "Workforce surge during a public health event",
+   "jee": [
+    "D3.4"
+   ],
+   "bm": [
+    "11.4",
+    "12A.4"
+   ],
+   "l1": "No national multisectoral surge plan exists, or it is still being drafted.",
+   "l3": "The surge plan is implemented nationally, with limited ability to move staff around the country.",
+   "l5": "The plan works at all levels, with strong staff-sharing capacity, and is reviewed yearly.",
+   "step": "Level 2 has a written plan; level 3 puts it into practice."
+  },
+  {
+   "id": "C7.1",
+   "cap": "C7",
+   "title": "Planning for health emergencies",
+   "jee": [
+    "R1.1"
+   ],
+   "bm": [
+    "12A.1",
+    "12B.1",
+    "12B.3",
+    "12B.4"
+   ],
+   "l1": "No all-hazard, risk-informed emergency plan exists or it is in development.",
+   "l3": "The plan is developed and being implemented nationally.",
+   "l5": "The plan is implemented at all levels and improved through simulations and real events.",
+   "step": "Level 2 has a plan that is not yet implemented; level 3 implements it nationally."
+  },
+  {
+   "id": "C7.2",
+   "cap": "C7",
+   "title": "Management of health emergency response",
+   "jee": [
+    "R1.2",
+    "R1.3"
+   ],
+   "bm": [
+    "12A.2",
+    "12A.3"
+   ],
+   "l1": "No incident management system linked to an emergency operations centre exists, or it is in development.",
+   "l3": "The system is operational at the national level.",
+   "l5": "The system supports all levels and is tested and improved through exercises and real events.",
+   "step": "Level 2 has a developed but non-operational system; level 3 makes it operational nationally."
+  },
+  {
+   "id": "C7.3",
+   "cap": "C7",
+   "title": "Emergency logistic and supply chain management",
+   "jee": [
+    "R1.5"
+   ],
+   "bm": [
+    "12A.5"
+   ],
+   "l1": "The system is under development or cannot adequately support health emergencies.",
+   "l3": "The system is developed and can adequately support emergencies nationally.",
+   "l5": "The system operates at all levels and is regularly exercised and updated.",
+   "step": "Level 2 is developed but still inadequate; level 3 is adequate at national level."
+  },
+  {
+   "id": "C8.1",
+   "cap": "C8",
+   "title": "Case management",
+   "jee": [
+    "R3.1"
+   ],
+   "bm": [
+    "14.1"
+   ],
+   "l1": "National clinical guidelines for priority health events are missing or in development.",
+   "l3": "Guidelines are developed and implemented nationally.",
+   "l5": "Guidelines are implemented at all levels and regularly reviewed and updated.",
+   "step": "Level 2 has guidelines that are not implemented; level 3 implements them nationally."
+  },
+  {
+   "id": "C8.2",
+   "cap": "C8",
+   "title": "Trusted and utilized health services",
+   "jee": [
+    "R3.2"
+   ],
+   "bm": [
+    "14.3"
+   ],
+   "l1": "Outpatient use is very low (under 1 visit per person per year).",
+   "l3": "Outpatient use is satisfactory (2.0 or more visits per person per year) in urban and rural areas.",
+   "l5": "Use is strong (3.0 or more visits) and utilisation and patient-experience data are reviewed yearly.",
+   "step": "Level 2 is low use (1.0 to under 2.0 visits); level 3 is 2.0 or more."
+  },
+  {
+   "id": "C8.3",
+   "cap": "C8",
+   "title": "Continuity of essential health services (EHS)",
+   "jee": [
+    "R3.3"
+   ],
+   "bm": [
+    "14.2"
+   ],
+   "l1": "No essential services package or emergency continuity plans exist.",
+   "l3": "Essential services and continuity plans are defined, with national monitoring.",
+   "l5": "Continuity mechanisms work at all levels and are tested and improved through simulations and real events.",
+   "step": "Level 2 defines the services but has no continuity plans; level 3 adds plans and monitoring."
+  },
+  {
+   "id": "C9.1",
+   "cap": "C9",
+   "title": "IPC programmes",
+   "jee": [
+    "R4.1"
+   ],
+   "bm": [
+    "15.1"
+   ],
+   "l1": "No active national IPC programme or operational plan meeting WHO minimum requirements exists, or it is in development.",
+   "l3": "A national IPC plan and guidelines exist, and selected facilities use multimodal strategies.",
+   "l5": "IPC programmes work at national and facility level, with compliance reviewed, published and updated regularly.",
+   "step": "Level 2 has a programme and guidelines that are not fully implemented; level 3 adds a national plan and facility implementation."
+  },
+  {
+   "id": "C9.2",
+   "cap": "C9",
+   "title": "Health care-associated infections (HCAI) surveillance",
+   "jee": [
+    "R4.2"
+   ],
+   "bm": [
+    "15.2"
+   ],
+   "l1": "No national HCAI surveillance programme or strategic plan exists, or one is being drafted.",
+   "l3": "A national plan runs through a national system, with selected secondary and tertiary facilities reporting and receiving feedback.",
+   "l5": "Nationwide surveillance data are used continuously to guide prevention, and the quality of the system is regularly evaluated."
+  },
+  {
+   "id": "C9.3",
+   "cap": "C9",
+   "title": "Safe environment in health facilities",
+   "jee": [
+    "R4.3"
+   ],
+   "bm": [
+    "15.3",
+    "12B.2"
+   ],
+   "l1": "National standards for safe facility environments (WASH, IPC infrastructure, crowding, staffing) are missing or under development.",
+   "l3": "The standards are applied in health facilities nationwide under a national plan.",
+   "l5": "The standards are applied nationally and subnationally, regularly exercised, monitored and improved."
+  },
+  {
+   "id": "C10.1",
+   "cap": "C10",
+   "title": "RCCE system for emergencies",
+   "jee": [
+    "R5.1"
+   ],
+   "bm": [
+    "16A.1",
+    "16C.1"
+   ],
+   "l1": "Coordination of risk communication and community engagement is ad hoc or in development.",
+   "l3": "Coordination plans, SOPs and government arrangements are being implemented nationally.",
+   "l5": "The mechanisms are built into emergency response at all levels and regularly reviewed."
+  },
+  {
+   "id": "C10.2",
+   "cap": "C10",
+   "title": "Risk communication",
+   "jee": [
+    "R5.2"
+   ],
+   "bm": [
+    "16A.2",
+    "16C.1"
+   ],
+   "l1": "Public communication and media relations, including infodemic management, are ad hoc or in development.",
+   "l3": "Communication mechanisms are developed and activities run nationally.",
+   "l5": "Activities are coordinated across sectors at all levels, information is shared promptly and mechanisms are updated."
+  },
+  {
+   "id": "C10.3",
+   "cap": "C10",
+   "title": "Community engagement",
+   "jee": [
+    "R5.3"
+   ],
+   "bm": [
+    "16B.1",
+    "16B.2",
+    "16B.3"
+   ],
+   "l1": "Community engagement is ad hoc, or its guidelines are in development.",
+   "l3": "Guidelines and SOPs are developed, shared and supported nationally.",
+   "l5": "Engagement works at all levels, draws on socio-behavioural research and is regularly reviewed."
+  },
+  {
+   "id": "C11.1",
+   "cap": "C11",
+   "title": "Core capacity requirements at all times for PoEs",
+   "jee": [
+    "PoE1"
+   ],
+   "bm": [
+    "17.1"
+   ],
+   "l1": "A strategic risk assessment for individual points of entry, as part of the national risk assessment, is not yet complete.",
+   "l3": "Some designated points of entry run core capacities that feed national biological or all-hazards surveillance.",
+   "l5": "Core capacities at all designated points of entry are exercised, reviewed and improved regularly."
+  },
+  {
+   "id": "C11.2",
+   "cap": "C11",
+   "title": "Public health response at points of entry",
+   "jee": [
+    "PoE2"
+   ],
+   "bm": [
+    "17.2"
+   ],
+   "l1": "Designated points of entry are developing public health emergency contingency plans.",
+   "l3": "All designated points of entry have contingency plans for biological events, integrated into national response plans.",
+   "l5": "All-hazard contingency plans at all designated points of entry are exercised, reviewed and updated regularly."
+  },
+  {
+   "id": "C11.3",
+   "cap": "C11",
+   "title": "Risk-based approach to international travel-related measures",
+   "jee": [
+    "PoE3"
+   ],
+   "bm": [
+    "17.3",
+    "20.1"
+   ],
+   "l1": "A national multisectoral, risk-based process for adopting travel measures is missing or in development.",
+   "l3": "The process is developed and implemented at national level.",
+   "l5": "The process is implemented at all levels and updated after events or emergencies."
+  },
+  {
+   "id": "C12.1",
+   "cap": "C12",
+   "title": "One Health collaborative efforts across sectors on activities to address zoonoses",
+   "jee": [
+    "P5.1",
+    "P5.2"
+   ],
+   "bm": [
+    "5.1",
+    "5.2",
+    "5.3",
+    "3.2"
+   ]
+  },
+  {
+   "id": "C13.1",
+   "cap": "C13",
+   "title": "Multisectoral collaboration mechanism for food safety events",
+   "jee": [
+    "P6.1",
+    "P6.2"
+   ],
+   "bm": [
+    "6.1",
+    "6.2"
+   ]
+  },
+  {
+   "id": "C14.1",
+   "cap": "C14",
+   "title": "Resources for detection and alert (chemical events)",
+   "jee": [
+    "CE1",
+    "CE2"
+   ],
+   "bm": [
+    "18.1"
+   ]
+  },
+  {
+   "id": "C15.1",
+   "cap": "C15",
+   "title": "Capacity and resources (radiation emergencies)",
+   "jee": [
+    "RE1",
+    "RE2"
+   ],
+   "bm": [
+    "19.1"
+   ]
+  }
+ ]
+}
