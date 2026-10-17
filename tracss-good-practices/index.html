@@ -69,6 +69,7 @@ details.links>summary{cursor:pointer;font-size:13px;color:var(--accent)}
 .src{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0;background:var(--card)}
 .src .t{font-weight:600}
 .badge{display:inline-block;border-radius:6px;padding:0 6px;font-size:11px;font-weight:600;letter-spacing:.03em;border:1px solid var(--line);color:var(--muted);margin-right:6px;white-space:nowrap}
+.badge.pr{color:var(--accent);border-color:var(--accent)}
 .tag{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:0 8px;font-size:12px;margin:0 4px 4px 0;text-decoration:none}
 footer{margin-top:40px;color:var(--muted);font-size:13px}
 @media (max-width:640px){.bar{position:static}label.lb{flex-wrap:wrap;width:100%}label.lb select{flex:1;min-width:0;width:100%}.ctext,.det,.dist,.dl,.opts{margin-left:0}.rows{margin-left:0;width:100%}.rows td.c{width:70px}.rows td.a{width:80px}.q .id{min-width:36px}}
@@ -77,7 +78,7 @@ footer{margin-top:40px;color:var(--muted);font-size:13px}
 <body>
 <div class="wrap">
 <h1>TrACSS 2025</h1>
-<p class="lead">Every question of the 2025 Tracking AMR Country Self-assessment Survey, with what each country answered and how that compares with other countries. Each topic links to the matching JEE, SPAR and PHEPA items and to literature.</p>
+<p class="lead">Every question of the 2025 Tracking AMR Country Self-assessment Survey, with what each country answered and how that compares with other countries. Each topic has good practices from the literature (peer-reviewed studies and country cases first), the peers at the top levels, and the matching JEE, SPAR and PHEPA items.</p>
 
 <div class="box">
   <strong>The survey and its documents</strong>
@@ -137,7 +138,7 @@ function groups(){
 }
 function members(){const c=D.countries[ci];return D.countries.map((x,i)=>grp==="all"||(grp==="who"&&x.who===c.who)||(grp==="inc"&&x.inc===c.inc)||(grp==="eu"&&x.eu)?i:-1).filter(i=>i>=0)}
 function letter(o){return o.includes("|")?o.split("|")[0]:null}
-function otext(o){return o.includes("|")?o.split("|").slice(1).join("|"):o}
+function otext(o){return (o.includes("|")?o.split("|").slice(1).join("|"):o).replace(/[†‡§]/g,"")}
 function ansCls(t){return t==="Yes"?"yes":t==="No"?"no":""}
 function median(arr){const s=arr.slice().sort((a,b)=>a-b);return s.length?s[Math.floor((s.length-1)/2)]:null}
 function rated(q){return q.kind==="rating"}
@@ -167,7 +168,9 @@ function distRating(q,M){
   const rows=q.opts.map((o,k)=>{const l=L5[k];const li=l?"ABCDE".indexOf(l):-1;
     const c=M.filter(i=>q.a[i]===k).length;
     return `<div class="opt ${k===me?"me":""}"><span class="lt" style="${li>=0?`background:${LV[li]};color:${TX[li]}`:"background:var(--na)"}">${esc(l||"–")}</span><span>${esc(otext(o))}${k===me?" ◂":""}</span><span class="pc">${c} · ${pct(c,n)}%</span></div>`}).join("");
-  return `<div class="dist" role="img" aria-label="Distribution of levels in the comparison group">${segs}</div><div class="dl">${n} of ${M.length} countries in the group gave a level. The outlined block is the selected country.</div><details class="opts"><summary>All levels with counts</summary>${rows}</details>`;
+  const top=[4,3].map(li=>({l:"ABCDE"[li],cs:M.filter(i=>lvIdx(q,q.a[i])===li).map(i=>D.countries[i].n).sort()})).filter(x=>x.cs.length);
+  const tp=top.length?`<details class="opts"><summary>Peers at the top levels (${top.map(x=>x.l+": "+x.cs.length).join(", ")})</summary>${top.map(x=>`<p class="small" style="margin:6px 0"><b>${x.l}</b> · ${x.cs.map(esc).join(", ")}</p>`).join("")}<p class="small muted" style="margin:4px 0 0">Self-reported levels. Useful to find countries to ask how they did it, not proof of quality.</p></details>`:"";
+  return `<div class="dist" role="img" aria-label="Distribution of levels in the comparison group">${segs}</div><div class="dl">${n} of ${M.length} countries in the group gave a level. The outlined block is the selected country.</div><details class="opts"><summary>All levels with counts</summary>${rows}</details>${tp}`;
 }
 function distChoice(q,M){
   let n=0;const cnt=q.opts.map(()=>0);M.forEach(i=>{const v=q.a[i];if(v>=0){cnt[v]++;n++}});
@@ -182,14 +185,15 @@ function subs(q,M){
     return `<tr><td>${esc(s.label)}</td><td class="c"><div class="mb" title="${esc(s.opts[yes])}: ${y} of ${valid.length}"><i style="width:${pct(y,valid.length)}%"></i></div></td><td class="p">${pct(y,valid.length)}%</td><td class="a ${ansCls(t)}">${esc(t)}</td></tr>`}).join("")+`</table><div class="dl" style="margin-top:4px">Bar: share answering “${esc(q.subs[0].opts.includes("Yes")?"Yes":q.subs[0].opts[0])}”, among countries for which the item applies.</div>`;
 }
 function nums(q){return `<table class="rows">${q.nums.map(([l,a])=>`<tr><td>${esc(l)}</td><td class="a">${esc(a[ci]||"–")}</td></tr>`).join("")}</table><div class="dl" style="margin-top:4px">Numbers as the country entered them; not compared across countries.</div>`}
+function pr_n(l){const n=l.filter(s=>["peer-reviewed","systematic-review","scoping-review","case-study"].includes(s.type)).length;return n?`, of which ${n} studies or country cases`:""}
 function block(b){
-  const lit=L.sources.filter(s=>s.t.includes(b.id));
+  const RK={"peer-reviewed":0,"systematic-review":0,"scoping-review":1,"case-study":1,"report":2,"guidance":3,"legal":3,"data":4};const lit=L.sources.filter(s=>s.t.includes(b.id)).sort((a,c)=>(RK[a.type]??5)-(RK[c.type]??5)||(c.year||0)-(a.year||0));
   const j=b.jee.map(id=>`<a class="tag" href="../jee-good-practices/#/indicators/${esc(id)}">JEE ${esc(id)}</a>`).join("")+b.spar.map(c=>`<a class="tag" href="../spar-good-practices/">SPAR ${esc(c)}</a>`).join("")+b.phepa.map(c=>`<a class="tag" href="../phepa-good-practices/">PHEPA ${c}</a>`).join("")+(b.extra||[]).map(e=>`<a class="tag" href="${esc(e[1])}">${esc(e[0])}</a>`).join("");
   const pr=window.Programmes&&b.prog.length?Programmes.html(b.prog,{includeAll:false}):"";
-  const lh=lit.map(s=>`<div class="src"><div><span class="badge">${esc(L.meta.types[s.type]||s.type)}</span><span class="muted small">${esc(s.country)}${s.year?" · "+s.year:""}</span></div><div class="t"><a href="${esc(s.url)}" rel="noopener">${esc(s.title)}</a></div><div class="small muted">${esc([s.authors,s.journal].filter(Boolean).join(" · "))}</div><div class="small">${esc(s.takeaway)}</div>${s.note?`<div class="small muted">Note: ${esc(s.note)}</div>`:""}</div>`).join("");
-  if(!j&&!pr&&!lh) return "";
-  return `<details class="links"><summary>Matching JEE, SPAR and PHEPA items, programmes and literature${lit.length?` (${lit.length} source${lit.length>1?"s":""})`:""}</summary>
-  <h4>Matching items in other frameworks (our crosswalk)</h4><div>${j||'<span class="small muted">No close match in JEE, SPAR or PHEPA.</span>'}</div>${pr}${lh?`<h4>Literature</h4>${lh}`:""}</details>`;
+  const lh=lit.map(s=>`<div class="src"><div><span class="badge${["peer-reviewed","systematic-review","scoping-review"].includes(s.type)?" pr":""}">${esc(L.meta.types[s.type]||s.type)}</span><span class="muted small">${esc(s.country)}${s.year?" · "+s.year:""}</span></div><div class="t"><a href="${esc(s.url)}" rel="noopener">${esc(s.title)}</a></div><div class="small muted">${esc([s.authors,s.journal].filter(Boolean).join(" · "))}</div><div class="small">${esc(s.takeaway)}</div>${s.note?`<div class="small muted">Note: ${esc(s.note)}</div>`:""}</div>`).join("");
+  
+  return `<details class="links"><summary>Good practices and literature${lit.length?` (${lit.length}${pr_n(lit)})`:""} · JEE, SPAR, PHEPA · programmes</summary>
+  <h4>Matching items in other frameworks (our crosswalk)</h4><div>${j||'<span class="small muted">No close match in JEE, SPAR or PHEPA.</span>'}</div>${pr}${lh?`<h4>Good practices and literature</h4>${lh}`:`<p class="small muted">No good practice found yet for this topic. That does not mean none exists.</p>`}</details>`;
 }
 function render(){
   const M=members();profile(M);

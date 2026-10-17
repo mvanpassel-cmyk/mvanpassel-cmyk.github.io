@@ -4,9 +4,13 @@
    "peer-reviewed": "Peer-reviewed",
    "report": "Report",
    "guidance": "Guidance",
-   "data": "Data and tools"
+   "data": "Data and tools",
+   "systematic-review": "Systematic review",
+   "scoping-review": "Scoping review",
+   "case-study": "Country case study",
+   "legal": "Legislation"
   },
-  "note": "Sources were found by web search in October 2026. One-line takeaways are in our own words and based on the page that was read. Items marked as not read were listed from titles only."
+  "note": "Sources were found by web search in October 2026, with peer-reviewed country examples first. One-line takeaways are in our own words; where marked, they are based on the abstract or publisher page only. Items marked as not read were listed from titles only."
  },
  "sources": [
   {
@@ -122,6 +126,447 @@
    "type": "report",
    "takeaway": "Earlier version of the survey and its results.",
    "note": "Contents not read; listed from the title."
+  },
+  {
+   "id": "nl-vet-2015",
+   "t": [
+    "4-use",
+    "4-surv",
+    "2-law",
+    "2-coord"
+   ],
+   "title": "Reduction of veterinary antimicrobial use in the Netherlands. The Dutch success model",
+   "url": "https://doi.org/10.1111/zph.12167",
+   "authors": "Speksnijder DC, Mevius DJ, Bruschke CJ, Wagenaar JA",
+   "journal": "Zoonoses and Public Health 62 Suppl 1",
+   "year": 2015,
+   "country": "Netherlands",
+   "type": "peer-reviewed",
+   "takeaway": "A public-private approach with national reduction targets, an independent authority that benchmarks farms and veterinarians on use, mandatory recording and restrictions on critically important antibiotics brought a large fall in veterinary antibiotic sales.",
+   "note": "Takeaway based on the abstract or publisher page; full text not read."
+  },
+  {
+   "id": "dk-yellow-2020",
+   "t": [
+    "4-use",
+    "2-law"
+   ],
+   "title": "Close to a decade of decrease in antimicrobial usage in Danish pig production: evaluating the effect of the Yellow Card scheme",
+   "url": "https://doi.org/10.3389/fvets.2020.00109",
+   "authors": "Lopes Antunes AC, Jensen VF",
+   "journal": "Frontiers in Veterinary Science 7:109",
+   "year": 2020,
+   "country": "Denmark",
+   "type": "peer-reviewed",
+   "takeaway": "Herd-level thresholds with sanctions for high users (Yellow Card, 2010) coincided with a fall of about half in use in high-consuming weaner and finisher herds within a year; observational design, so not proof of cause."
+  },
+  {
+   "id": "pig-alt-2020",
+   "t": [
+    "4-prev",
+    "4-use"
+   ],
+   "title": "Effectiveness of alternative measures to reduce antimicrobial usage in pig production in four European countries",
+   "url": "https://doi.org/10.1186/s40813-020-0145-6",
+   "authors": "Raasch S, Collineau L, Postma M, et al.",
+   "journal": "Porcine Health Management 6:6",
+   "year": 2020,
+   "country": "Belgium, France, Germany, Sweden",
+   "type": "peer-reviewed",
+   "takeaway": "Farm-specific packages (biosecurity, vaccination, management, feed) in 68 herds cut treatment incidence by about 35%, more in weaned pigs, without major harm to pig health."
+  },
+  {
+   "id": "fr-campaign-2009",
+   "t": [
+    "2-aware",
+    "3-use"
+   ],
+   "title": "Significant reduction of antibiotic use in the community after a nationwide campaign in France, 2002-2007",
+   "url": "https://doi.org/10.1371/journal.pmed.1000084",
+   "authors": "Sabuncu E, David J, Bernède-Bauduin C, et al.",
+   "journal": "PLoS Medicine 6(6):e1000084",
+   "year": 2009,
+   "country": "France",
+   "type": "peer-reviewed",
+   "takeaway": "The national campaign “Les antibiotiques c'est pas automatique” was followed by a marked fall in outpatient antibiotic prescriptions, largest in young children.",
+   "note": "Takeaway based on the abstract or publisher page; full text not read."
+  },
+  {
+   "id": "uk-feedback-2016",
+   "t": [
+    "2-aware",
+    "3-use"
+   ],
+   "title": "Provision of social norm feedback to high prescribers of antibiotics in general practice: a pragmatic national randomised controlled trial",
+   "url": "https://doi.org/10.1016/S0140-6736(16)00215-4",
+   "authors": "Hallsworth M, Chadborn T, Sallis A, et al.",
+   "journal": "The Lancet 387",
+   "year": 2016,
+   "country": "England",
+   "type": "peer-reviewed",
+   "takeaway": "A letter from the Chief Medical Officer telling the highest-prescribing practices they prescribed more than most peers cut their antibiotic prescribing by about 3% over six months, at very low cost: an example of evidence-based behaviour change (question 2.21).",
+   "note": "Takeaway based on the abstract or publisher page; full text not read."
+  },
+  {
+   "id": "ebug-2010",
+   "t": [
+    "2-aware"
+   ],
+   "title": "Evaluation of e-Bug, an educational pack, teaching about prudent antibiotic use and hygiene, in the Czech Republic, France and England",
+   "url": "https://academic.oup.com/jac/article/65/12/2674/753414",
+   "authors": "Lecky DM, McNulty CAM, Touboul P, et al.",
+   "journal": "Journal of Antimicrobial Chemotherapy 65(12)",
+   "year": 2010,
+   "country": "Czech Republic, France, England",
+   "type": "peer-reviewed",
+   "takeaway": "School pack on microbes, hygiene and antibiotics improved pupils' knowledge; an example for youth education (question 2.25).",
+   "note": "Title and journal from the publisher listing; takeaway not checked against the article."
+  },
+  {
+   "id": "strama-2017",
+   "t": [
+    "2-coord",
+    "2-nap",
+    "3-use"
+   ],
+   "title": "Lessons learnt during 20 years of the Swedish strategic programme against antibiotic resistance",
+   "url": "https://doi.org/10.2471/BLT.16.184374",
+   "authors": "Mölstad S, Löfmark S, Carlin K, et al.",
+   "journal": "Bulletin of the World Health Organization 95",
+   "year": 2017,
+   "country": "Sweden",
+   "type": "case-study",
+   "takeaway": "Strama combined a national coordinating body with local multidisciplinary groups in every county, prescribing data fed back to prescribers and treatment guidance; outpatient use fell while resistance stayed low.",
+   "note": "Takeaway based on the abstract or publisher page; full text not read."
+  },
+  {
+   "id": "th-nap-2021",
+   "t": [
+    "2-nap",
+    "2-coord"
+   ],
+   "title": "Thailand's national strategic plan on antimicrobial resistance: progress and challenges",
+   "url": "https://doi.org/10.2471/BLT.20.280644",
+   "authors": "Sumpradit N, Wongkongkathep S, Malathum K, et al.",
+   "journal": "Bulletin of the World Health Organization 99",
+   "year": 2021,
+   "country": "Thailand",
+   "type": "case-study",
+   "takeaway": "Mid-term review of a plan with national targets for use and resistance: governance and some targets moved, others lagged, and the paper names what helped and what blocked progress.",
+   "note": "Takeaway based on the abstract or publisher page; full text not read."
+  },
+  {
+   "id": "ke-nap-2025",
+   "t": [
+    "2-nap",
+    "2-coord"
+   ],
+   "title": "Kenya's National Action Plan on antimicrobial resistance: measuring implementation progress",
+   "url": "https://doi.org/10.3389/fitd.2025.1540713",
+   "authors": "Mukoko J, Wesangula E, Gitonga N, et al.",
+   "journal": "Frontiers in Tropical Diseases",
+   "year": 2025,
+   "country": "Kenya",
+   "type": "peer-reviewed",
+   "takeaway": "Of 85 planned activities, 29 were completed, 37 ongoing and 19 not started; human health moved faster than animal and crop sectors. Funding, cross-sector collaboration and laboratory supplies were the main obstacles and shaped the 2023-2027 plan."
+  },
+  {
+   "id": "davey-2017",
+   "t": [
+    "3-use"
+   ],
+   "title": "Interventions to improve antibiotic prescribing practices for hospital inpatients",
+   "url": "https://doi.org/10.1002/14651858.CD003543.pub4",
+   "authors": "Davey P, Marwick CA, Scott CL, et al.",
+   "journal": "Cochrane Database of Systematic Reviews",
+   "year": 2017,
+   "country": "Global",
+   "type": "systematic-review",
+   "takeaway": "Stewardship interventions in hospitals increase adherence to antibiotic policies and shorten treatment without raising mortality; enabling interventions (feedback, advice) add to restrictive ones.",
+   "note": "Takeaway based on the abstract or publisher page; full text not read."
+  },
+  {
+   "id": "cyh-2012",
+   "t": [
+    "3-prev"
+   ],
+   "title": "Evaluation of the national Cleanyourhands campaign to reduce Staphylococcus aureus bacteraemia and Clostridium difficile infection in hospitals in England and Wales by improved hand hygiene",
+   "url": "https://doi.org/10.1136/bmj.e3005",
+   "authors": "Stone SP, Fuller C, Savage J, et al.",
+   "journal": "BMJ 344:e3005",
+   "year": 2012,
+   "country": "England and Wales",
+   "type": "peer-reviewed",
+   "takeaway": "A national hand-hygiene campaign raised soap and alcohol rub use; higher soap use was linked with lower C. difficile and higher rub use with lower MRSA bacteraemia, alongside other national measures.",
+   "note": "Takeaway based on the abstract or publisher page; full text not read."
+  },
+  {
+   "id": "il-cre-2011",
+   "t": [
+    "3-prev"
+   ],
+   "title": "Nationwide intervention to contain carbapenem-resistant Enterobacteriaceae in Israeli hospitals",
+   "url": "https://academic.oup.com/cid/article/52/7/848/299188",
+   "authors": "Schwaber MJ, Lev B, Israeli A, et al.",
+   "journal": "Clinical Infectious Diseases 52(7)",
+   "year": 2011,
+   "country": "Israel",
+   "type": "peer-reviewed",
+   "takeaway": "A national task force with mandatory reporting, isolation of carriers and dedicated staff, enforced by the ministry, brought a national CRE outbreak under control.",
+   "note": "Takeaway based on the abstract or publisher page; full text not read."
+  },
+  {
+   "id": "maap-2025",
+   "t": [
+    "3-lab",
+    "3-surv"
+   ],
+   "title": "Bacteriology testing and antimicrobial resistance detection capacity of national tiered laboratory networks in sub-Saharan Africa: an analysis from 14 countries",
+   "url": "https://doi.org/10.1016/j.lanmic.2024.100976",
+   "authors": "MAAP study group; Ondoa P, Kapoor G, et al.",
+   "journal": "The Lancet Microbe 6(1)",
+   "year": 2025,
+   "country": "14 African countries",
+   "type": "peer-reviewed",
+   "takeaway": "78% of 504 laboratories reported susceptibility testing, but in seven countries they reached under half of the population; 12 of 14 national action plans gave less than a fifth of their actions to testing capacity."
+  },
+  {
+   "id": "sewage-2019",
+   "t": [
+    "6-surv",
+    "2-surv"
+   ],
+   "title": "Global monitoring of antimicrobial resistance based on metagenomics analyses of urban sewage",
+   "url": "https://doi.org/10.1038/s41467-019-08853-3",
+   "authors": "Hendriksen RS, Munk P, Njage P, et al.",
+   "journal": "Nature Communications 10",
+   "year": 2019,
+   "country": "60 countries",
+   "type": "peer-reviewed",
+   "takeaway": "Sewage from 74 cities showed clear regional differences in resistance genes, linked to sanitation and health factors; shows sewage as a cheap, ethically simple route to national and global AMR surveillance in the environment.",
+   "note": "Takeaway based on the abstract or publisher page; full text not read."
+  },
+  {
+   "id": "pharma-effluent-2007",
+   "t": [
+    "6-prev"
+   ],
+   "title": "Effluent from drug manufactures contains extremely high levels of pharmaceuticals",
+   "url": "https://doi.org/10.1016/j.jhazmat.2007.07.008",
+   "authors": "Larsson DGJ, de Pedro C, Paxeus N",
+   "journal": "Journal of Hazardous Materials 148",
+   "year": 2007,
+   "country": "India",
+   "type": "peer-reviewed",
+   "takeaway": "Treated effluent from a plant serving antibiotic manufacturers near Hyderabad contained antibiotics at concentrations above therapeutic levels in blood; a founding case for controls on manufacturing discharges (questions 6.3 to 6.5).",
+   "note": "Takeaway based on the abstract or publisher page; full text not read."
+  },
+  {
+   "id": "plant-ab-2024",
+   "t": [
+    "5-use",
+    "5-surv"
+   ],
+   "title": "The use and impact of antibiotics in plant agriculture: a review",
+   "url": "https://doi.org/10.1094/PHYTO-10-23-0357-IA",
+   "authors": "Batuman O, Britt-Ugartemendia K, Kunwar S, et al.",
+   "journal": "Phytopathology",
+   "year": 2024,
+   "country": "Global",
+   "type": "scoping-review",
+   "takeaway": "Reviews which antibiotics are used on crops (mainly streptomycin and oxytetracycline), where, how they are regulated and the evidence on resistance; useful for questions 5.2, 5.10 and 5.11.",
+   "note": "Listed from the title and publisher record; contents not read."
+  },
+  {
+   "id": "takeback-2021",
+   "t": [
+    "6-use"
+   ],
+   "title": "A scoping review of disposal of unused medicines in take-back programs",
+   "url": "https://jurnal.ugm.ac.id/jmpf/article/view/61343",
+   "authors": "",
+   "journal": "Jurnal Manajemen dan Pelayanan Farmasi",
+   "year": 2021,
+   "country": "Global",
+   "type": "scoping-review",
+   "takeaway": "Overview of how take-back schemes for unused medicines are organised and used.",
+   "note": "Contents not read; listed from the title."
+  },
+  {
+   "id": "who-costing",
+   "t": [
+    "2-nap"
+   ],
+   "title": "WHO costing and budgeting tool for national action plans on antimicrobial resistance",
+   "url": "https://www.who.int/publications/i/item/9789240036901",
+   "authors": "WHO",
+   "journal": "",
+   "year": 2021,
+   "country": "Global",
+   "type": "guidance",
+   "takeaway": "Tool to cost and budget a national action plan; relevant for the investment case (2.7) and financing (2.3.a level D)."
+  },
+  {
+   "id": "oh-research",
+   "t": [
+    "2-nap"
+   ],
+   "title": "A one health priority research agenda for antimicrobial resistance",
+   "url": "https://iris.who.int/handle/10665/370279",
+   "authors": "WHO, FAO, UNEP, WOAH",
+   "journal": "",
+   "year": 2023,
+   "country": "Global",
+   "type": "guidance",
+   "takeaway": "The research agenda the questionnaire points to for question 2.6."
+  },
+  {
+   "id": "who-ipc-core",
+   "t": [
+    "3-prev"
+   ],
+   "title": "Guidelines on core components of infection prevention and control programmes at the national and acute health care facility level",
+   "url": "https://www.who.int/publications/i/item/9789241549929",
+   "authors": "WHO",
+   "journal": "",
+   "year": 2016,
+   "country": "Global",
+   "type": "guidance",
+   "takeaway": "The core components that question 3.14 measures against."
+  },
+  {
+   "id": "who-aware",
+   "t": [
+    "3-use"
+   ],
+   "title": "The WHO AWaRe (Access, Watch, Reserve) antibiotic book",
+   "url": "https://iris.who.int/handle/10665/365237",
+   "authors": "WHO",
+   "journal": "",
+   "year": 2022,
+   "country": "Global",
+   "type": "guidance",
+   "takeaway": "Guidance behind the AWaRe classification asked about in question 3.17."
+  },
+  {
+   "id": "glass",
+   "t": [
+    "3-surv",
+    "2-surv"
+   ],
+   "title": "Global Antimicrobial Resistance and Use Surveillance System (GLASS)",
+   "url": "https://www.who.int/initiatives/glass",
+   "authors": "WHO",
+   "journal": "",
+   "year": null,
+   "country": "Global",
+   "type": "data",
+   "takeaway": "WHO system for national reporting of resistance and use in humans; the reference for questions 3.2 and 3.5."
+  },
+  {
+   "id": "animuse",
+   "t": [
+    "4-surv"
+   ],
+   "title": "ANIMUSE: WOAH database on antimicrobial agents intended for use in animals",
+   "url": "https://amu.woah.org/amu-system-portal",
+   "authors": "WOAH",
+   "journal": "",
+   "year": null,
+   "country": "Global",
+   "type": "data",
+   "takeaway": "Where countries report animal use data (questions 4.5.b and 4.6)."
+  },
+  {
+   "id": "atlass",
+   "t": [
+    "5-surv"
+   ],
+   "title": "FAO Assessment Tool for Laboratories and AMR Surveillance Systems (FAO-ATLASS)",
+   "url": "https://www.fao.org/antimicrobial-resistance/resources/tools/fao-atlass/en/",
+   "authors": "FAO",
+   "journal": "",
+   "year": 2020,
+   "country": "Global",
+   "type": "guidance",
+   "takeaway": "The assessment tool named in question 5.7 for laboratory networks and surveillance in food and agriculture."
+  },
+  {
+   "id": "infarm",
+   "t": [
+    "5-surv"
+   ],
+   "title": "The International FAO Antimicrobial Resistance Monitoring (InFARM) system: manual for implementation 2024",
+   "url": "https://doi.org/10.4060/cd0805en",
+   "authors": "FAO",
+   "journal": "",
+   "year": 2024,
+   "country": "Global",
+   "type": "guidance",
+   "takeaway": "How to report animal and food AMR data to FAO (questions 5.6 and 5.6.a)."
+  },
+  {
+   "id": "eu-2020-1729",
+   "t": [
+    "5-surv",
+    "4-surv"
+   ],
+   "title": "Commission Implementing Decision (EU) 2020/1729 on the monitoring and reporting of AMR in zoonotic and commensal bacteria",
+   "url": "https://legislation.gov.uk/eudn/2020/1729/data.pdf",
+   "authors": "European Commission",
+   "journal": "",
+   "year": 2020,
+   "country": "EU",
+   "type": "legal",
+   "takeaway": "The EU's harmonised monitoring of resistance in food-producing animals and meat; a worked example of what level E in 4.7 and 5.3 looks like."
+  },
+  {
+   "id": "who-manuf-2024",
+   "t": [
+    "6-prev"
+   ],
+   "title": "Guidance on wastewater and solid waste management for manufacturing of antibiotics",
+   "url": "https://www.who.int/publications/i/item/9789240097254",
+   "authors": "WHO",
+   "journal": "",
+   "year": 2024,
+   "country": "Global",
+   "type": "guidance",
+   "takeaway": "First WHO guidance with targets for antibiotic discharges from manufacturing."
+  },
+  {
+   "id": "prepare-vet-2021",
+   "t": [
+    "4-aware",
+    "5-aware"
+   ],
+   "title": "Towards a better and harmonized education in antimicrobial stewardship in European veterinary curricula",
+   "url": "https://research-portal.uu.nl/en/publications/towards-a-better-and-harmonized-education-in-antimicrobial-stewar/",
+   "authors": "PREPARE-VET working group",
+   "journal": "Antibiotics",
+   "year": 2021,
+   "country": "Europe",
+   "type": "peer-reviewed",
+   "takeaway": "Survey of European veterinary schools on how stewardship is taught, with proposals for shared learning outcomes; a reference for question 4.1 level E (AMR systematically in curricula).",
+   "note": "Listed from the title and repository record; contents not read."
+  },
+  {
+   "id": "unep-2023",
+   "t": [
+    "6-aware",
+    "6-surv",
+    "6-prev",
+    "5-prev"
+   ],
+   "title": "Bracing for superbugs: strengthening environmental action in the One Health response to antimicrobial resistance",
+   "url": "https://www.unep.org/resources/superbugs/environmental-action",
+   "authors": "UNEP",
+   "journal": "",
+   "year": 2023,
+   "country": "Global",
+   "type": "report",
+   "takeaway": "UNEP report on the environmental drivers of AMR (manufacturing, health care, agriculture and municipal waste) and the policy actions countries can take; the background for Section VI.",
+   "note": "Contents not read in full."
   }
  ]
 }
