@@ -126,8 +126,8 @@ function render(){
     items.forEach(({b,ss})=>{
       shown++;srcN+=ss.length;
       h+=`<details class="bm" ${q||items.length===1?"open":""}><summary><span class="id">${esc(b.id)}</span><span>${esc(b.title)}</span><span class="cnt">${ss.length?ss.length+" source"+(ss.length>1?"s":""):"no source yet"}</span></summary><div class="body">
-      ${b.jee.length?`<h4>JEE indicator and countries to learn from</h4>${topHTML(b.jee)}`:`<p class="small muted">No matching JEE indicator.</p>`}
-      <h4>Good practices in the literature</h4>${ss.length?ss.map(srcHTML).join(""):'<p class="empty">No source found yet for this benchmark. That does not mean none exists.</p>'}</div></details>`;
+      ${b.jee.length?`<h4>Matching JEE indicator and peer countries to learn from</h4>${topHTML(b.jee)}`:`<p class="small muted">No matching JEE indicator.</p>`}
+      <h4>Good practices and literature</h4>${ss.length?ss.map(srcHTML).join(""):'<p class="empty">No source found yet for this benchmark. That does not mean none exists.</p>'}</div></details>`;
     });
   });
   $("#view").innerHTML=h||'<p class="muted">Nothing matches.</p>';

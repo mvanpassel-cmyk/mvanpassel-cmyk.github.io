@@ -169,7 +169,7 @@ function distRating(q,M){
     const c=M.filter(i=>q.a[i]===k).length;
     return `<div class="opt ${k===me?"me":""}"><span class="lt" style="${li>=0?`background:${LV[li]};color:${TX[li]}`:"background:var(--na)"}">${esc(l||"–")}</span><span>${esc(otext(o))}${k===me?" ◂":""}</span><span class="pc">${c} · ${pct(c,n)}%</span></div>`}).join("");
   const top=[4,3].map(li=>({l:"ABCDE"[li],cs:M.filter(i=>lvIdx(q,q.a[i])===li).map(i=>D.countries[i].n).sort()})).filter(x=>x.cs.length);
-  const tp=top.length?`<details class="opts"><summary>Peers at the top levels (${top.map(x=>x.l+": "+x.cs.length).join(", ")})</summary>${top.map(x=>`<p class="small" style="margin:6px 0"><b>${x.l}</b> · ${x.cs.map(esc).join(", ")}</p>`).join("")}<p class="small muted" style="margin:4px 0 0">Self-reported levels. Useful to find countries to ask how they did it, not proof of quality.</p></details>`:"";
+  const tp=top.length?`<details class="opts"><summary>Peer countries at the top levels (${top.map(x=>x.l+": "+x.cs.length).join(", ")})</summary>${top.map(x=>`<p class="small" style="margin:6px 0"><b>${x.l}</b> · ${x.cs.map(esc).join(", ")}</p>`).join("")}<p class="small muted" style="margin:4px 0 0">Self-reported levels. Useful to find countries to ask how they did it, not proof of quality.</p></details>`:"";
   return `<div class="dist" role="img" aria-label="Distribution of levels in the comparison group">${segs}</div><div class="dl">${n} of ${M.length} countries in the group gave a level. The outlined block is the selected country.</div><details class="opts"><summary>All levels with counts</summary>${rows}</details>${tp}`;
 }
 function distChoice(q,M){

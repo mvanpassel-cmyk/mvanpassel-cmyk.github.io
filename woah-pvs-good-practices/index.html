@@ -65,7 +65,7 @@ footer{margin-top:40px;color:var(--muted);font-size:13px}
 <div class="bar">
   <input id="q" type="search" placeholder="Search topic, question, country, takeaway…" aria-label="Search">
   <select id="fg" aria-label="Group"><option value="">All groups</option></select>
-  <select id="ft" aria-label="Source type"><option value="">All source types</option><option value="cs">Case studies</option></select>
+  <select id="ft" aria-label="Source type"><option value="">All source types</option><option value="cs">Country cases (case studies)</option></select>
   <label class="ck"><input id="fp" type="checkbox"> Peer-reviewed only</label>
   <label class="ck"><input id="fs" type="checkbox"> Only with sources</label>
 </div>
@@ -137,7 +137,7 @@ function render(){
         ${rows}
     <h4>Matching items in other frameworks (our crosswalk)</h4><div>${xwalk(t)}</div>
     ${window.Programmes?Programmes.html(t.prog,{includeAll:false}):""}
-    <h4>Case studies and literature</h4>${ss.length?ss.map(srcHTML).join(""):'<p class="empty">No source found yet for this topic. That does not mean none exists.</p>'}</div></details>`;
+    <h4>Good practices and literature</h4>${ss.length?ss.map(srcHTML).join(""):'<p class="empty">No source found yet for this topic. That does not mean none exists.</p>'}</div></details>`;
   });
   $("#view").innerHTML=h||'<p class="muted">Nothing matches.</p>';
   $("#stat").textContent=`${shown} topics, ${srcN} source links shown.`;

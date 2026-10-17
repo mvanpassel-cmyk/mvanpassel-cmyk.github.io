@@ -67,7 +67,7 @@ footer{margin-top:40px;color:var(--muted);font-size:13px}
 <div class="bar">
   <input id="q" type="search" placeholder="Search indicator, country, takeaway…" aria-label="Search">
   <select id="fa" aria-label="Capacity"><option value="">All capacities</option></select>
-  <select id="ft" aria-label="Source type"><option value="">All source types</option><option value="cs">Case studies and after-action reviews</option></select>
+  <select id="ft" aria-label="Source type"><option value="">All source types</option><option value="cs">Country cases (case studies, after-action reviews)</option></select>
   <label class="ck"><input id="fp" type="checkbox"> Peer-reviewed only</label>
   <label class="ck"><input id="fs" type="checkbox"> Only with sources</label>
 </div>
@@ -151,9 +151,9 @@ function render(){
       const bms=i.bm.map(b=>BM[b]?`<span class="tag" title="${esc(BM[b].title)}">IHR benchmark ${esc(b)}</span>`:"").join("");
       h+=`<details class="bm" ${q||items.length===1?"open":""}><summary><span class="id">${esc(i.id)}</span><span>${esc(i.title)}</span><span class="cnt">${ss.length?ss.length+" source"+(ss.length>1?"s":""):"no source yet"}</span></summary><div class="body">
       <h4>What the levels mean (paraphrased)</h4>${lv}
-      <h4>Matching JEE indicator and countries to learn from</h4>${jeeHTML(i.jee)}
+      <h4>Matching JEE indicator and peer countries to learn from</h4>${jeeHTML(i.jee)}
       <h4>Matching IHR benchmarks</h4><div>${bms} <a class="small" href="../ihr-benchmarks-good-practices/">open benchmarks page</a></div>
-      <h4>Case studies and good practices in the literature</h4>${ss.length?ss.map(srcHTML).join(""):'<p class="empty">No source found yet for this indicator. That does not mean none exists.</p>'}</div></details>`;
+      <h4>Good practices and literature</h4>${ss.length?ss.map(srcHTML).join(""):'<p class="empty">No source found yet for this indicator. That does not mean none exists.</p>'}</div></details>`;
     });
   });
   $("#view").innerHTML=h||'<p class="muted">Nothing matches.</p>';
