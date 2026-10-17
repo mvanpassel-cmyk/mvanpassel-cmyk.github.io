@@ -3,144 +3,216 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TrACSS Good Practices</title>
-<meta name="description" content="TrACSS questions on antimicrobial resistance grouped by topic, with literature and links to JEE, SPAR and PHEPA.">
+<title>TrACSS 2025</title>
+<meta name="description" content="All questions of the 2025 Tracking AMR Country Self-assessment Survey with every country's answer, comparison groups, links to JEE, SPAR and PHEPA, and literature.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231f3a5f'/%3E%3Cpath d='M7 23h4v-5h4v-5h4V9h4' fill='none' stroke='%23f4c95d' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
-:root{--bg:#f6f4ef;--ink:#1c1f26;--muted:#667085;--card:#fff;--line:#e4e0d6;--accent:#1f3a5f;--warn:#e0a526}
-@media (prefers-color-scheme:dark){:root{--bg:#14161b;--ink:#eceae4;--muted:#9aa1ae;--card:#1c1f26;--line:#2b303a;--accent:#f4c95d}}
+:root{--bg:#f6f4ef;--ink:#1c1f26;--muted:#667085;--card:#fff;--line:#e4e0d6;--accent:#1f3a5f;--warn:#e0a526;--na:#d9d6cd;
+--l0:#dbe7f5;--l1:#a9c6ea;--l2:#6f9fd8;--l3:#3a73b8;--l4:#1d4b85;--t0:#1d3557;--t3:#fff;--mark:#1c1f26}
+@media (prefers-color-scheme:dark){:root{--bg:#14161b;--ink:#eceae4;--muted:#9aa1ae;--card:#1c1f26;--line:#2b303a;--accent:#f4c95d;--na:#3a3f4a;
+--l0:#22344d;--l1:#2c4f7c;--l2:#3e6ea8;--l3:#6c9bd6;--l4:#a9c8ee;--t0:#dbe7f5;--t3:#0f1a2b;--mark:#f4c95d}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
 .wrap{max-width:1000px;margin:0 auto;padding:28px 16px 72px}
 a{color:var(--accent)}
 h1{font:600 clamp(26px,5vw,38px)/1.1 ui-serif,Georgia,serif;margin:10px 0 8px}
-h2{font:600 22px/1.2 ui-serif,Georgia,serif;margin:0}
+h2{font:600 22px/1.2 ui-serif,Georgia,serif;margin:34px 0 4px}
+h3{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:22px 0 8px;font-weight:600}
 h4{margin:12px 0 4px;font-size:14px}
 .lead{color:var(--muted);max-width:75ch;margin:0 0 16px}
-.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px}
-input[type=search],select{font:inherit;font-size:14px;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);max-width:100%}
-input[type=search]{min-width:240px}
-label.ck{font-size:14px;display:inline-flex;gap:5px;align-items:center}
-a:focus-visible,summary:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.note{border-left:3px solid var(--warn);padding:2px 12px;color:var(--muted);font-size:13px;margin:14px 0}
 .muted{color:var(--muted)}.small{font-size:13px}
 .box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:0 0 14px}
 .box ul{margin:6px 0 0 18px;padding:0}
-.stages{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin:8px 0 0}
-.stages div{border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:13px}
-.stages b{display:block;font-size:14px}
-.areahead{margin:26px 0 8px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
-.fn{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
-details.bm{background:var(--card);border:1px solid var(--line);border-radius:12px;margin:0 0 8px}
-details.bm>summary{cursor:pointer;padding:10px 14px;list-style:none;display:flex;gap:10px;align-items:baseline}
-details.bm>summary::-webkit-details-marker{display:none}
-details.bm>summary .id{font-weight:700;min-width:40px;font-variant-numeric:tabular-nums}
-details.bm>summary .cnt{margin-left:auto;white-space:nowrap;font-size:12px;color:var(--muted)}
-details.bm .body{padding:0 14px 14px;border-top:1px solid var(--line)}
-table.lv{border-collapse:collapse;width:100%;font-size:14px;margin:8px 0}
-table.lv th,table.lv td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
-table.lv td.n{width:130px;font-weight:600}
-.src{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px;position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line)}
+input[type=search],select{font:inherit;font-size:14px;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);max-width:100%}
+input[type=search]{min-width:200px;flex:1}
+label.lb{font-size:13px;color:var(--muted);display:inline-flex;gap:6px;align-items:center;max-width:100%}
+label.lb select{max-width:260px}
+a:focus-visible,summary:focus-visible,select:focus-visible,input:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.note{border-left:3px solid var(--warn);padding:2px 12px;color:var(--muted);font-size:13px;margin:14px 0}
+.scale{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;margin:8px 0 4px}
+.scale div{border-radius:6px;padding:4px 6px;font-size:12px;text-align:center}
+.prof{display:flex;flex-wrap:wrap;gap:3px;margin:8px 0}
+.prof .sep{width:10px}
+.chip{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:24px;border-radius:5px;font-size:12px;font-weight:700;text-decoration:none;font-variant-numeric:tabular-nums;border:1px solid transparent}
+.chip.na{background:var(--na);color:var(--muted)}
+.chip.up{box-shadow:inset 0 -3px 0 #2e9e5b}.chip.down{box-shadow:inset 0 -3px 0 #d0463b}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin:8px 0}
+.kpi{background:var(--bg);border-radius:8px;padding:8px 10px}
+.kpi b{display:block;font-size:22px;font-variant-numeric:tabular-nums}
+.q{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:0 0 10px;scroll-margin-top:70px}
+.q .hd{display:flex;gap:10px;align-items:baseline}
+.q .id{font-weight:700;min-width:44px;font-variant-numeric:tabular-nums;color:var(--muted)}
+.q .tt{font-weight:600;flex:1}
+.ans{display:inline-block;border-radius:6px;padding:1px 8px;font-size:13px;font-weight:700;white-space:nowrap}
+.ctext{margin:6px 0 0 54px;font-size:14px}
+.det{margin:2px 0 0 54px;font-size:13px;color:var(--muted)}
+.dist{display:flex;height:22px;border-radius:6px;overflow:hidden;margin:10px 0 2px 54px;gap:2px}
+.dist span{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;min-width:0;overflow:hidden;white-space:nowrap}
+.dist span.me{outline:2.5px solid var(--mark);outline-offset:-2.5px}
+.dl{margin:0 0 0 54px;font-size:12px;color:var(--muted)}
+.opts{margin:6px 0 0 54px}
+.opts summary{cursor:pointer;font-size:13px;color:var(--accent)}
+.opt{display:grid;grid-template-columns:28px 1fr 56px;gap:8px;font-size:13px;padding:4px 0;border-top:1px solid var(--line)}
+.opt.me{font-weight:600}
+.opt .lt{font-weight:700;text-align:center;border-radius:4px;height:20px}
+.opt .pc{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+.rows{margin:8px 0 0 54px;font-size:13px;width:calc(100% - 54px);border-collapse:collapse}
+.rows td{padding:4px 6px 4px 0;border-top:1px solid var(--line);vertical-align:middle}
+.rows td.c{width:110px}.rows td.p{width:46px;text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+.rows td.a{width:110px;text-align:right}
+.mb{height:8px;background:var(--na);border-radius:4px;overflow:hidden}.mb i{display:block;height:100%;background:var(--l3)}
+.yes{color:#2e7d4f;font-weight:700}.no{color:#b3412f;font-weight:700}
+@media (prefers-color-scheme:dark){.yes{color:#7fd3a1}.no{color:#f0a08f}}
+details.links{margin:0 0 12px}
+details.links>summary{cursor:pointer;font-size:13px;color:var(--accent)}
+.src{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0;background:var(--card)}
 .src .t{font-weight:600}
 .badge{display:inline-block;border-radius:6px;padding:0 6px;font-size:11px;font-weight:600;letter-spacing:.03em;border:1px solid var(--line);color:var(--muted);margin-right:6px;white-space:nowrap}
-.badge.pr{color:var(--accent);border-color:var(--accent)}
 .tag{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:0 8px;font-size:12px;margin:0 4px 4px 0;text-decoration:none}
-.tag.core{border-color:var(--accent);color:var(--accent);font-weight:600}
-.empty{color:var(--muted);font-style:italic;margin:10px 0 0}
 footer{margin-top:40px;color:var(--muted);font-size:13px}
+@media (max-width:640px){.bar{position:static}label.lb{flex-wrap:wrap;width:100%}label.lb select{flex:1;min-width:0;width:100%}.ctext,.det,.dist,.dl,.opts{margin-left:0}.rows{margin-left:0;width:100%}.rows td.c{width:70px}.rows td.a{width:80px}.q .id{min-width:36px}}
 </style>
 </head>
 <body>
 <div class="wrap">
-<h1>TrACSS Good Practices</h1>
-<p class="lead">The questions of the Tracking AMR Country Self-assessment Survey grouped by topic, with literature on what the results show and the matching JEE, SPAR and PHEPA items.</p>
+<h1>TrACSS 2025</h1>
+<p class="lead">Every question of the 2025 Tracking AMR Country Self-assessment Survey, with what each country answered and how that compares with other countries. Each topic links to the matching JEE, SPAR and PHEPA items and to literature.</p>
 
 <div class="box">
-  <strong>The instrument and its documents</strong>
-  <p class="small muted" id="intro"></p>
-  <div class="stages" id="stages"></div>
-  <ul class="small" id="docs"></ul>
+  <strong>The survey and its documents</strong>
+  <p class="small muted" style="margin:6px 0">TrACSS is the yearly self-assessment on national action plans on antimicrobial resistance, run since 2017 by FAO, UNEP, WHO and WOAH (the Quadripartite); WHO coordinates it. Each country submits one consolidated answer agreed by all sectors. This page uses the ninth round: questionnaire version 9.0 (26 March 2025, deadline 15 June 2025) and the data export of 1 October 2025, covering <span id="nC">184</span> countries. The 2024 UN political declaration on AMR sets a target of 95% of countries answering every year.</p>
+  <ul class="small">
+    <li><a href="https://amrcountryprogress.org" rel="noopener">TrACSS Global Database</a>: country results, the questionnaire and the data download.</li>
+    <li><a href="https://www.who.int/news/item/15-05-2025-2025-edition-of-global-survey-to-track-antimicrobial-resistance-launches" rel="noopener">WHO: 2025 edition of the survey launches</a>. Questions to tracss@who.int.</li>
+  </ul>
+  <p class="small muted" style="margin:8px 0 0">Rated questions use five levels. A higher level assumes the lower ones are reached (a country choosing D should also meet B and C). The wording of each level differs per question; open a question to see it.</p>
+  <div class="scale" id="scale"></div>
+  <p class="small muted" style="margin:6px 0 0">Section I (contact details) is not published and not shown here.</p>
 </div>
 
 <div class="bar">
-  <input id="q" type="search" placeholder="Search topic, question, country, takeaway…" aria-label="Search">
-  <select id="fg" aria-label="Group"><option value="">All groups</option></select>
-  <select id="ft" aria-label="Source type"><option value="">All source types</option><option value="cs">Case studies</option></select>
-  <label class="ck"><input id="fp" type="checkbox"> Peer-reviewed only</label>
-  <label class="ck"><input id="fs" type="checkbox"> Only with sources</label>
+  <label class="lb">Country <select id="cty" aria-label="Country"></select></label>
+  <label class="lb">Compare with <select id="grp" aria-label="Comparison group"></select></label>
+  <select id="fs" aria-label="Section"><option value="">All sections</option></select>
+  <input id="q" type="search" placeholder="Search questions and answers…" aria-label="Search">
 </div>
-<div id="stat" class="small muted"></div>
+
+<div class="box" id="profile"></div>
 <div id="view"><p class="muted">Loading…</p></div>
-<div class="note"><strong>How to read this.</strong> <span id="method"></span></div>
-<footer>Descriptions here are our own short paraphrases of the official documents. Literature links go to the publisher or issuing organisation. Built with Claude for Mark van Passel. Check source details before citing.</footer>
+
+<div class="note"><strong>How to read this.</strong> Answers are self-reported by national focal points and are not checked externally; two countries choosing the same level can be in different situations. Percentages are of countries in the comparison group that answered the question. The crosswalk to JEE, SPAR and PHEPA per topic is our own and not official. Literature takeaways are our own words; items marked as not read were listed from titles only.</div>
+<footer>Questions and answer options are taken from the TrACSS 2025 questionnaire (version 9.0) and the data export of 1 October 2025 published by the Quadripartite; some long answer texts are shortened in the bars but shown in full under each question. Free-text answers and uploaded files are left out; links countries gave to their national documents are shown. Built with Claude for Mark van Passel. Check details before citing.</footer>
 </div>
 <script src="../shared/programmes.js"></script>
 <script>
 const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-let D,L,TYPES={};
-const st={q:"",grp:"",type:"",pr:false,only:false};
-const PRT=["peer-reviewed","systematic-review","scoping-review"];
-const isPR=s=>s.pr!==undefined?s.pr:PRT.includes(s.type);
-const isCS=s=>s.type==="case-study"||s.type==="peer-review-report";
-Promise.all([
-  fetch("data/data.json").then(r=>r.json()),
-  fetch("data/literature.json").then(r=>r.json()),
-  window.Programmes?Programmes.load("../shared/"):null
-]).then(([d,l])=>{D=d;L=l;TYPES=l.meta.types;init();render()})
-.catch(e=>{$("#view").innerHTML='<p class="note">Could not load data: '+esc(e.message)+'</p>'});
+const LV=["var(--l0)","var(--l1)","var(--l2)","var(--l3)","var(--l4)"],TX=["var(--t0)","var(--t0)","var(--t0)","var(--t3)","var(--t3)"];
+const INC={HIC:"high income",UMC:"upper-middle income",LMC:"lower-middle income",LIC:"low income"};
+let D,L,ci=0,grp="all",sec="",qq="";
+const pct=(n,d)=>d?Math.round(100*n/d):0;
+Promise.all([fetch("data/tracss-2025.json").then(r=>r.json()),fetch("data/literature.json").then(r=>r.json()),window.Programmes?Programmes.load("../shared/"):null])
+.then(([d,l])=>{D=d;L=l;init();render()}).catch(e=>{$("#view").innerHTML='<p class="note">Could not load data: '+esc(e.message)+'</p>'});
 function init(){
-  const groups=[...new Set(D.topics.map(t=>t.group))];
-  $("#fg").innerHTML+=groups.map(g=>`<option>${esc(g)}</option>`).join("");
-  $("#ft").innerHTML+=Object.entries(TYPES).map(([k,v])=>`<option value="${k}">${esc(v)}</option>`).join("");
-  $("#intro").textContent=D.meta.source;
-  $("#stages").innerHTML=D.meta.scale.map(s=>`<div><b>${esc(s[0])}</b>${esc(s[1])}</div>`).join("")+`<p class="small muted" style="grid-column:1/-1;margin:0">${esc(D.meta.scaleNote)}</p>`;
-  $("#docs").innerHTML=D.meta.docs.map(x=>`<li><a href="${esc(x.u)}" rel="noopener">${esc(x.t)}</a>. ${esc(x.d)}</li>`).join("");
-  $("#method").textContent=D.meta.note+" "+L.meta.note+" A source can appear under several topics. Case studies show what one country did; they are not evidence that it works elsewhere.";
-  $("#q").oninput=e=>{st.q=e.target.value.trim().toLowerCase();render()};
-  $("#fg").oninput=e=>{st.grp=e.target.value;render()};
-  $("#ft").oninput=e=>{st.type=e.target.value;render()};
-  $("#fp").onchange=e=>{st.pr=e.target.checked;render()};
-  $("#fs").onchange=e=>{st.only=e.target.checked;render()};
+  $("#nC").textContent=D.countries.length;
+  $("#scale").innerHTML="ABCDE".split("").map((l,i)=>`<div style="background:${LV[i]};color:${TX[i]}">${l}</div>`).join("");
+  const idx=D.countries.map((c,i)=>[c.n,i]).sort((a,b)=>a[0].localeCompare(b[0]));
+  $("#cty").innerHTML=idx.map(([n,i])=>`<option value="${i}">${esc(n)}</option>`).join("");
+  const h=(new URLSearchParams(location.search).get("c")||"").toUpperCase();
+  let st=D.countries.findIndex(c=>c.iso===(h||"NLD"));if(st<0)st=D.countries.findIndex(c=>c.iso==="NLD");ci=Math.max(0,st);
+  $("#cty").value=ci;
+  $("#fs").innerHTML+=Object.entries(D.sections).map(([k,v])=>`<option value="${k}">${esc(v)}</option>`).join("");
+  $("#cty").onchange=e=>{ci=+e.target.value;history.replaceState(null,"","?c="+D.countries[ci].iso+location.hash);groups();render()};
+  $("#grp").onchange=e=>{grp=e.target.value;render()};
+  $("#fs").onchange=e=>{sec=e.target.value;render()};
+  $("#q").oninput=e=>{qq=e.target.value.trim().toLowerCase();render()};
+  groups();
 }
-function srcHTML(s){
-  const pr=(isPR(s)&&s.type!=="peer-reviewed")?'<span class="badge pr">peer-reviewed</span>':'';
-  return `<div class="src"><div><span class="badge">${esc(TYPES[s.type]||s.type)}</span>${pr}<span class="muted small">${esc(s.country)}${s.year?" · "+s.year:""}</span></div>
-  <div class="t"><a href="${esc(s.url)}" rel="noopener">${esc(s.title)}</a></div>
-  <div class="small muted">${esc([s.authors,s.journal].filter(Boolean).join(" · "))}</div>
-  <div>${esc(s.takeaway)}</div>${s.note?`<div class="small muted">Note: ${esc(s.note)}</div>`:""}</div>`;
+function groups(){
+  const c=D.countries[ci],old=grp;
+  const g=[["all",`All ${D.countries.length} countries`],["who",`WHO region: ${c.who}`],["inc",`Income group: ${INC[c.inc]||c.inc}`],["eu","EU 27"]];
+  $("#grp").innerHTML=g.map(([k,v])=>`<option value="${k}">${esc(v)}</option>`).join("");
+  grp=g.some(x=>x[0]===old)?old:"all";$("#grp").value=grp;
 }
-function xwalk(t){
-  const j=t.jee.map(id=>`<a class="tag" href="../jee-good-practices/#/indicators/${esc(id)}">JEE ${esc(id)}</a>`).join("");
-  const sp=t.spar.map(c=>`<a class="tag" href="../spar-good-practices/">SPAR ${esc(c)}</a>`).join("");
-  const ph=t.phepa.map(c=>`<a class="tag" href="../phepa-good-practices/">PHEPA ${c}</a>`).join("");
-  const ex=(t.extra||[]).map(e=>`<a class="tag" href="${esc(e[1])}">${esc(e[0])}</a>`).join("");
-  const all=j+sp+ph+ex;
-  return all?all:'<span class="small muted">No close match in JEE, SPAR or PHEPA.</span>';
+function members(){const c=D.countries[ci];return D.countries.map((x,i)=>grp==="all"||(grp==="who"&&x.who===c.who)||(grp==="inc"&&x.inc===c.inc)||(grp==="eu"&&x.eu)?i:-1).filter(i=>i>=0)}
+function letter(o){return o.includes("|")?o.split("|")[0]:null}
+function otext(o){return o.includes("|")?o.split("|").slice(1).join("|"):o}
+function ansCls(t){return t==="Yes"?"yes":t==="No"?"no":""}
+function median(arr){const s=arr.slice().sort((a,b)=>a-b);return s.length?s[Math.floor((s.length-1)/2)]:null}
+function rated(q){return q.kind==="rating"}
+function lvIdx(q,v){if(v<0)return -1;const l=letter(q.opts[v]||"");return l?"ABCDE".indexOf(l):-1}
+function profile(M){
+  const c=D.countries[ci];let up=0,eq=0,dn=0,n=0,h="",last=0;
+  D.questions.filter(rated).forEach(q=>{
+    if(q.sec!==last){if(last)h+='<span class="sep"></span>';last=q.sec}
+    const v=lvIdx(q,q.a[ci]);
+    const g=M.map(i=>lvIdx(q,q.a[i])).filter(x=>x>=0),md=median(g);
+    let cls="";if(v>=0&&md!=null){n++;if(v>md){up++;cls="up"}else if(v<md){dn++;cls="down"}else eq++}
+    const tip=`${q.id} ${q.title}: ${v>=0?"ABCDE"[v]:"no level"}${md!=null?" · group median "+"ABCDE"[md]:""}`;
+    h+=v>=0?`<a class="chip ${cls}" href="#q-${q.id}" title="${esc(tip)}" style="background:${LV[v]};color:${TX[v]}">${q.id}</a>`:`<a class="chip na" href="#q-${q.id}" title="${esc(tip)}">${q.id}</a>`;
+  });
+  const dc=(D.docs[c.iso]||[]);
+  $("#profile").innerHTML=`<strong>${esc(c.n)}</strong> <span class="small muted">${esc(c.who)} region · ${esc(INC[c.inc]||c.inc||"")}${c.eu?" · EU":""}</span>
+  <div class="kpis"><div class="kpi"><b>${up}</b><span class="small muted">rated questions above the group median</span></div><div class="kpi"><b>${eq}</b><span class="small muted">at the median</span></div><div class="kpi"><b>${dn}</b><span class="small muted">below the median</span></div></div>
+  <div class="small muted">Each box is one rated question, coloured by the level the country chose; a green line means above, a red line below the median of the comparison group (${M.length} countries). Grey: not answered or not applicable.</div>
+  <div class="prof">${h}</div>
+  ${dc.length?`<h4>Documents this country linked in its answer</h4><ul class="small" style="margin:0 0 0 18px;padding:0">${dc.map(x=>`<li>${esc(x[0])}: <a href="${esc(x[1])}" rel="noopener">${esc(x[1].replace(/^https?:\/\//,"").slice(0,70))}</a></li>`).join("")}</ul>`:""}`;
+}
+function distRating(q,M){
+  const L5=q.opts.map(letter),cnt=q.opts.map(()=>0);let n=0;
+  M.forEach(i=>{const v=q.a[i];if(v>=0&&L5[v]){cnt[v]++;n++}});
+  const me=q.a[ci];
+  const segs=q.opts.map((o,k)=>{if(!L5[k])return"";const li="ABCDE".indexOf(L5[k]),p=n?100*cnt[k]/n:0;if(!cnt[k])return"";return `<span class="${k===me?"me":""}" style="flex:${p};background:${LV[li]};color:${TX[li]}" title="${L5[k]}: ${cnt[k]} countries (${Math.round(p)}%)">${p>=7?L5[k]+" "+Math.round(p)+"%":p>=3?L5[k]:""}</span>`}).join("");
+  const rows=q.opts.map((o,k)=>{const l=L5[k];const li=l?"ABCDE".indexOf(l):-1;
+    const c=M.filter(i=>q.a[i]===k).length;
+    return `<div class="opt ${k===me?"me":""}"><span class="lt" style="${li>=0?`background:${LV[li]};color:${TX[li]}`:"background:var(--na)"}">${esc(l||"–")}</span><span>${esc(otext(o))}${k===me?" ◂":""}</span><span class="pc">${c} · ${pct(c,n)}%</span></div>`}).join("");
+  return `<div class="dist" role="img" aria-label="Distribution of levels in the comparison group">${segs}</div><div class="dl">${n} of ${M.length} countries in the group gave a level. The outlined block is the selected country.</div><details class="opts"><summary>All levels with counts</summary>${rows}</details>`;
+}
+function distChoice(q,M){
+  let n=0;const cnt=q.opts.map(()=>0);M.forEach(i=>{const v=q.a[i];if(v>=0){cnt[v]++;n++}});
+  const me=q.a[ci];
+  return `<table class="rows">${q.opts.map((o,k)=>`<tr><td>${esc(o)}${k===me?" ◂":""}</td><td class="c"><div class="mb"><i style="width:${pct(cnt[k],n)}%"></i></div></td><td class="p">${pct(cnt[k],n)}%</td></tr>`).join("")}</table><div class="dl" style="margin-top:4px">${n} of ${M.length} countries in the group answered.</div>`;
+}
+function subs(q,M){
+  return `<table class="rows"><tr><td class="small muted" style="border-top:0">Item</td><td class="c small muted" style="border-top:0">Group</td><td class="p" style="border-top:0"></td><td class="a small muted" style="border-top:0">${esc(D.countries[ci].iso)}</td></tr>`+q.subs.map(s=>{
+    const yes=s.opts.indexOf("Yes")>=0?s.opts.indexOf("Yes"):0;
+    const valid=M.filter(i=>s.a[i]>=0&&s.opts[s.a[i]]!=="N/A");const y=valid.filter(i=>s.a[i]===yes).length;
+    const v=s.a[ci],t=v>=0?s.opts[v]:"–";
+    return `<tr><td>${esc(s.label)}</td><td class="c"><div class="mb" title="${esc(s.opts[yes])}: ${y} of ${valid.length}"><i style="width:${pct(y,valid.length)}%"></i></div></td><td class="p">${pct(y,valid.length)}%</td><td class="a ${ansCls(t)}">${esc(t)}</td></tr>`}).join("")+`</table><div class="dl" style="margin-top:4px">Bar: share answering “${esc(q.subs[0].opts.includes("Yes")?"Yes":q.subs[0].opts[0])}”, among countries for which the item applies.</div>`;
+}
+function nums(q){return `<table class="rows">${q.nums.map(([l,a])=>`<tr><td>${esc(l)}</td><td class="a">${esc(a[ci]||"–")}</td></tr>`).join("")}</table><div class="dl" style="margin-top:4px">Numbers as the country entered them; not compared across countries.</div>`}
+function block(b){
+  const lit=L.sources.filter(s=>s.t.includes(b.id));
+  const j=b.jee.map(id=>`<a class="tag" href="../jee-good-practices/#/indicators/${esc(id)}">JEE ${esc(id)}</a>`).join("")+b.spar.map(c=>`<a class="tag" href="../spar-good-practices/">SPAR ${esc(c)}</a>`).join("")+b.phepa.map(c=>`<a class="tag" href="../phepa-good-practices/">PHEPA ${c}</a>`).join("")+(b.extra||[]).map(e=>`<a class="tag" href="${esc(e[1])}">${esc(e[0])}</a>`).join("");
+  const pr=window.Programmes&&b.prog.length?Programmes.html(b.prog,{includeAll:false}):"";
+  const lh=lit.map(s=>`<div class="src"><div><span class="badge">${esc(L.meta.types[s.type]||s.type)}</span><span class="muted small">${esc(s.country)}${s.year?" · "+s.year:""}</span></div><div class="t"><a href="${esc(s.url)}" rel="noopener">${esc(s.title)}</a></div><div class="small muted">${esc([s.authors,s.journal].filter(Boolean).join(" · "))}</div><div class="small">${esc(s.takeaway)}</div>${s.note?`<div class="small muted">Note: ${esc(s.note)}</div>`:""}</div>`).join("");
+  if(!j&&!pr&&!lh) return "";
+  return `<details class="links"><summary>Matching JEE, SPAR and PHEPA items, programmes and literature${lit.length?` (${lit.length} source${lit.length>1?"s":""})`:""}</summary>
+  <h4>Matching items in other frameworks (our crosswalk)</h4><div>${j||'<span class="small muted">No close match in JEE, SPAR or PHEPA.</span>'}</div>${pr}${lh?`<h4>Literature</h4>${lh}`:""}</details>`;
 }
 function render(){
-  const q=st.q;let shown=0,srcN=0,h="",lastG="";
-  D.topics.forEach(t=>{
-    if(st.grp&&t.group!==st.grp) return;
-    const ss=L.sources.filter(s=>s.t.includes(t.id)&&(!st.type||(st.type==="cs"?isCS(s):s.type===st.type))&&(!st.pr||isPR(s)));
-    if(st.only&&!ss.length) return;
-    if((st.type||st.pr)&&!ss.length) return;
-    if(q){
-      const hay=(t.id+" "+t.title+" "+t.what+" "+(t.items||[]).map(r=>r[0]+" "+r[1]).join(" ")+" "+ss.map(s=>s.title+" "+s.country+" "+s.takeaway+" "+(s.journal||"")).join(" ")).toLowerCase();
-      if(!hay.includes(q)) return;
-    }
-    if(t.group!==lastG){h+=`<div class="areahead"><h2>${esc(t.group)}</h2><span class="fn">${t.group==="Cross-cutting"?"added by this page":esc(D.meta.groupsNote)}</span></div>`;lastG=t.group}
-    shown++;srcN+=ss.length;
-    const rows=t.items&&t.items.length?`<h4>${esc(D.meta.itemsLabel)}</h4><table class="lv"><tbody>${t.items.map(r=>`<tr><td class="n">${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("")}</tbody></table>`:"";
-    h+=`<details class="bm" ${q||shown===1&&st.grp?"open":""}><summary><span class="id">${esc(t.id)}</span><span>${esc(t.title)}</span><span class="cnt">${ss.length?ss.length+" source"+(ss.length>1?"s":""):"no source yet"}</span></summary><div class="body">
-    <p>${esc(t.what)}</p>
-        ${rows}
-    <h4>Matching items in other frameworks (our crosswalk)</h4><div>${xwalk(t)}</div>
-    ${window.Programmes?Programmes.html(t.prog,{includeAll:false}):""}
-    <h4>Case studies and literature</h4>${ss.length?ss.map(srcHTML).join(""):'<p class="empty">No source found yet for this topic. That does not mean none exists.</p>'}</div></details>`;
+  const M=members();profile(M);
+  let h="",lastS=0,shown=0;
+  D.blocks.forEach(b=>{
+    if(sec&&String(b.sec)!==sec) return;
+    const qs=D.questions.filter(q=>q.b===b.id&&(!qq||(q.id+" "+q.title+" "+q.detail+" "+(q.opts||[]).join(" ")+" "+q.subs.map(s=>s.label).join(" ")).toLowerCase().includes(qq)));
+    if(!qs.length) return;
+    if(b.sec!==lastS){h+=`<h2>${esc(D.sections[b.sec])}</h2>`;lastS=b.sec}
+    h+=`<h3>${esc(b.title)}</h3>`+block(b);
+    qs.forEach(q=>{
+      shown++;
+      const v=q.a?q.a[ci]:-1;let badge="",ct="";
+      if(q.kind==="rating"){const li=lvIdx(q,v);badge=li>=0?`<span class="ans" style="background:${LV[li]};color:${TX[li]}">${"ABCDE"[li]}</span>`:`<span class="ans" style="background:var(--na)">${v>=0?esc(q.opts[v]):"no answer"}</span>`;if(li>=0)ct=`<div class="ctext">${esc(otext(q.opts[v]))}</div>`}
+      else if(q.kind==="choice"){const t=v>=0?q.opts[v]:"no answer";badge=t.length<=14?`<span class="ans ${ansCls(t)}" style="background:var(--bg)">${esc(t)}</span>`:"";if(t.length>14)ct=`<div class="ctext">${esc(t)}</div>`}
+      let body="";
+      if(q.kind==="rating") body+=distRating(q,M); else if(q.kind==="choice") body+=distChoice(q,M);
+      if(q.subs.length) body+=subs(q,M);
+      if(q.nums) body+=nums(q);
+      h+=`<div class="q" id="q-${esc(q.id)}"><div class="hd"><span class="id">${esc(q.id)}</span><span class="tt">${esc(q.title)}</span>${badge}</div>${q.detail?`<div class="det">${esc(q.detail)}</div>`:""}${ct}${body}</div>`;
+    });
   });
   $("#view").innerHTML=h||'<p class="muted">Nothing matches.</p>';
-  $("#stat").textContent=`${shown} topics, ${srcN} source links shown.`;
 }
 </script>
 </body>
