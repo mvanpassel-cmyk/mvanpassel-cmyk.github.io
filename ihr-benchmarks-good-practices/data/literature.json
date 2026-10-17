@@ -1,86 +1,1692 @@
 {
-  "meta": {
-    "built": "2026-10-17",
-    "status": "Sources were found by searching the literature for each benchmark (October 2026). For each source the title, year, journal and setting were read on the publisher or index page; the takeaway is a one-line summary in our own words from the abstract or summary, not from the full text. A source shows how something was done or evaluated in a setting; it is not proof that the practice raises a JEE or SPAR score. Benchmarks without a source are shown as 'no source yet', not as 'none exists'.",
-    "types": {
-      "peer-reviewed": "Peer-reviewed journal article",
-      "systematic-review": "Systematic review",
-      "review": "Scoping or narrative review",
-      "perspective": "Perspective or viewpoint",
-      "case-study": "Case study or field report",
-      "iar": "After- or intra-action review",
-      "report": "Report or meeting report (not a journal study)",
-      "conference-abstract": "Conference abstract"
-    }
+ "meta": {
+  "built": "2026-10-17",
+  "status": "Sources were found by searching the literature for each benchmark (October 2026). For each source the title, year, journal and setting were read on the publisher or index page; the takeaway is a one-line summary in our own words from the abstract or summary, not from the full text. A source shows how something was done or evaluated in a setting; it is not proof that the practice raises a JEE or SPAR score. Benchmarks without a source are shown as 'no source yet', not as 'none exists'.",
+  "types": {
+   "peer-reviewed": "Peer-reviewed journal article",
+   "systematic-review": "Systematic review",
+   "review": "Scoping or narrative review",
+   "perspective": "Perspective or viewpoint",
+   "case-study": "Case study or field report",
+   "iar": "After- or intra-action review",
+   "report": "Report or meeting report (not a journal study)",
+   "conference-abstract": "Conference abstract"
+  }
+ },
+ "sources": [
+  {
+   "id": "attal-juncqua-2019",
+   "title": "Legislative assessments as a tool for strengthening health security capacity: the example of Guinea post-2014 Ebola outbreak",
+   "authors": "Attal-Juncqua A, et al.",
+   "journal": "Journal of Global Health Reports 3",
+   "year": 2019,
+   "country": "Guinea",
+   "type": "peer-reviewed",
+   "url": "https://doaj.org/article/fde92da3d2ea4a1b886c9241bb10ac2b",
+   "takeaway": "A structured legislative assessment after Ebola found gaps in 14 of 19 topic areas, especially rules for sharing data within the country and across borders.",
+   "bm": [
+    "1.1"
+   ]
   },
-  "sources": [
-    {"id":"attal-juncqua-2019","title":"Legislative assessments as a tool for strengthening health security capacity: the example of Guinea post-2014 Ebola outbreak","authors":"Attal-Juncqua A, et al.","journal":"Journal of Global Health Reports 3","year":2019,"country":"Guinea","type":"peer-reviewed","url":"https://doaj.org/article/fde92da3d2ea4a1b886c9241bb10ac2b","takeaway":"A structured legislative assessment after Ebola found gaps in 14 of 19 topic areas, especially rules for sharing data within the country and across borders.","bm":["1.1"]},
-    {"id":"smith-2019-gender","title":"Overcoming the 'tyranny of the urgent': integrating gender into disease outbreak preparedness and response","authors":"Smith J","journal":"Gender & Development","year":2019,"country":"Sierra Leone","type":"case-study","pr":true,"url":"https://doi.org/10.1080/13552074.2019.1615288","takeaway":"Case study from Kailahun during Ebola: gender assumptions made globally shaped national and local response, and equity-based approaches looked promising.","bm":["1.2"]},
-    {"id":"naphs-costing-2024","title":"An incomplete picture: data limitations in costed National Action Plans for Health Security (NAPHS)","authors":"","journal":"BMJ Global Health 9(2)","year":2024,"country":"Global (countries with a completed NAPHS)","type":"peer-reviewed","url":"https://gh.bmj.com/content/9/2/e014067","takeaway":"Few countries with a finished health security plan published itemised costs, so reported funding needs are probably too low.","note":"Title taken from the search listing; authors not read. Summary from the BMJ Global Health page.","bm":["2.1"]},
-    {"id":"who-cfe-2017","title":"Contingency fund for emergencies: 2017 year in review","authors":"World Health Organization","journal":"WHO/WHE/EXR/2018.1","year":2018,"country":"Global","type":"report","url":"https://www.who.int/publications/i/item/who-whe-exr-2018.1","takeaway":"Annual review of WHO's Contingency Fund for Emergencies, the pooled fund used to start responses quickly.","note":"Summary based on the title and listing; document not read in full.","bm":["2.2"]},
-    {"id":"packer-2021","title":"A survey of International Health Regulations National Focal Points experiences in carrying out their functions","authors":"Packer C, et al.","journal":"Globalization and Health","year":2021,"country":"Multi-country (121 States Parties)","type":"peer-reviewed","url":"https://doi.org/10.1186/s12992-021-00675-7","takeaway":"Focal points knew the Regulations and how to reach WHO, but struggled with cross-ministry coordination, communication systems and limited authority.","bm":["3.1"]},
-    {"id":"osman-2024","title":"IHR-PVS National Bridging Workshop for Somalia: an interactive and participatory approach for operationalizing the One Health roadmap","authors":"Osman AY, et al.","journal":"One Health","year":2024,"country":"Somalia","type":"case-study","pr":true,"url":"https://doi.org/10.1016/j.onehlt.2024.100858","takeaway":"A three-day workshop with human, animal, agriculture and environment officials produced a joint One Health roadmap, with joint surveillance ranked first.","bm":["3.2"]},
-    {"id":"sekamatte-2018","title":"Multisectoral prioritization of zoonotic diseases in Uganda, 2017: a One Health perspective","authors":"Sekamatte M, et al.","journal":"PLoS ONE 13(5)","year":2018,"country":"Uganda","type":"peer-reviewed","url":"https://doi.org/10.1371/journal.pone.0196799","takeaway":"A national workshop ranked seven priority zoonoses with a structured tool; the ranking held up under different weightings, so cross-sector prioritisation was robust.","bm":["3.2","5.1"]},
-    {"id":"njuguna-2023","title":"Improving global health security through implementation of the National Action Plan for Health Security in Sierra Leone, 2018–2021: lessons from the field","authors":"Njuguna C, et al.","journal":"BMC Public Health","year":2023,"country":"Sierra Leone","type":"peer-reviewed","url":"https://doi.org/10.1186/s12889-023-17103-7","takeaway":"Yearly operational planning and quarterly tracking of the health security plan raised capacity scores, though funding, staffing and infrastructure gaps remained.","bm":["3.3","2.1"]},
-    {"id":"ahmed-2022","title":"The implementation of National Action Plan (NAP) on antimicrobial resistance in Bangladesh: challenges and lessons learned from a cross-sectional qualitative study","authors":"Ahmed SM, et al.","journal":"Antibiotics","year":2022,"country":"Bangladesh","type":"peer-reviewed","url":"https://doi.org/10.3390/antibiotics11050690","takeaway":"Interviews with 17 stakeholders show the AMR action plan advancing slowly: limited staff and money, weak monitoring and little involvement of the environment sector.","bm":["4.1"]},
-    {"id":"walia-2019","title":"Establishing antimicrobial resistance surveillance & research network in India: journey so far","authors":"Walia K, et al.","journal":"Indian Journal of Medical Research 149(2)","year":2019,"country":"India","type":"peer-reviewed","url":"https://doi.org/10.4103/ijmr.IJMR_226_18","takeaway":"Describes how a national hospital-based AMR surveillance and research network was built and what it showed: rising resistance in Gram-negative bacteria, so data must drive action.","bm":["4.2"]},
-    {"id":"schwaber-2011","title":"Containment of a country-wide outbreak of carbapenem-resistant Klebsiella pneumoniae in Israeli hospitals via a nationally implemented intervention","authors":"Schwaber MJ, et al.","journal":"Clinical Infectious Diseases","year":2011,"country":"Israel","type":"peer-reviewed","url":"https://doi.org/10.1093/cid/cir025","takeaway":"A coordinated national programme with strict isolation rules, reporting and oversight stopped an outbreak that individual hospitals had not been able to contain.","bm":["4.3"]},
-    {"id":"price-2018","title":"Effectiveness of national and subnational infection prevention and control interventions in high-income and upper-middle-income countries: a systematic review","authors":"Price L, et al.","journal":"The Lancet Infectious Diseases 18(5)","year":2018,"country":"High- and upper-middle-income countries","type":"systematic-review","url":"https://doi.org/10.1016/S1473-3099(17)30479-6","takeaway":"Across 29 studies, national infection control programmes generally helped, most clearly multi-part approaches and surveillance with feedback.","bm":["4.3","15.1"]},
-    {"id":"who-responsible-medicines-2012","title":"The pursuit of responsible use of medicines: sharing and learning from country experiences","authors":"World Health Organization","journal":"WHO","year":2012,"country":"Multi-country","type":"report","url":"https://apps.who.int/iris/handle/10665/75828","takeaway":"WHO compilation of country experiences with policies that improved how medicines are used, including enforcement of prescription-only sales.","bm":["4.4"]},
-    {"id":"groot-2021","title":"The next step to further decrease veterinary antibiotic applications: phytogenic alternatives and effective monitoring; the Dutch approach","authors":"Groot MJ, et al.","journal":"Frontiers in Veterinary Science","year":2021,"country":"Netherlands","type":"perspective","url":"https://doi.org/10.3389/fvets.2021.709750","takeaway":"Antibiotic use on Dutch farms fell sharply after national reduction goals but is levelling off; the authors point to alternatives and better monitoring as the next step.","bm":["4.5"]},
-    {"id":"falzon-2019","title":"One Health in action: operational aspects of an integrated surveillance system for zoonoses in western Kenya","authors":"Falzon LC, et al.","journal":"Frontiers in Veterinary Science","year":2019,"country":"Kenya","type":"case-study","pr":true,"url":"https://doi.org/10.3389/fvets.2019.00252","takeaway":"A field pilot of integrated zoonoses surveillance showed that engaging local stakeholders and feeding results back quickly keeps participants involved.","bm":["5.1"]},
-    {"id":"eid-2017-ohzdp","title":"Prioritizing zoonoses for global health capacity building: themes from One Health zoonotic disease workshops in 7 countries","authors":"","journal":"Emerging Infectious Diseases 23(13)","year":2017,"country":"Seven countries","type":"peer-reviewed","url":"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5711306/","takeaway":"Lessons from seven country workshops that prioritised zoonoses with a One Health approach.","note":"Authors not read; record taken from the JEE tool's source list.","bm":["5.1"]},
-    {"id":"youssef-2021","title":"The effectiveness of biosecurity interventions in reducing the transmission of bacteria from livestock to humans at the farm level: a systematic literature review","authors":"Youssef DM, et al.","journal":"Zoonoses and Public Health","year":2021,"country":"Farm level (various)","type":"systematic-review","url":"https://www.ilri.org/knowledge/publications/effectiveness-biosecurity-interventions-reducing-transmission-bacteria","takeaway":"In 14 studies, farm biosecurity measures may reduce spread of bacteria from animals to people, but good evidence on which measures work best is scarce.","bm":["5.3"]},
-    {"id":"gomes-2025","title":"Advances in whole genome sequencing for foodborne pathogens: implications for clinical infectious disease surveillance and public health","authors":"Gomes E, et al.","journal":"Frontiers in Cellular and Infection Microbiology","year":2025,"country":"Global","type":"review","url":"https://doi.org/10.3389/fcimb.2025.1593219","takeaway":"Whole genome sequencing traces foodborne outbreak sources in far finer detail than older methods; cost, skills and data sharing remain barriers.","bm":["6.1"]},
-    {"id":"moore-2024","title":"Multinational collaboration in solving a European Salmonella Braenderup outbreak linked to imported melons, 2021","authors":"Moore HL, et al.","journal":"Eurosurveillance 29(1)","year":2024,"country":"EU/EEA countries and the UK","type":"peer-reviewed","url":"https://edoc.rki.de/handle/176904/13678","takeaway":"Cross-border data sharing quickly traced a multi-country Salmonella outbreak to imported melons from Honduras.","note":"Journal name inferred from the file name on the repository record.","bm":["6.2"]},
-    {"id":"oyo-ita-2023","title":"Interventions for improving coverage of childhood immunisation in low- and middle-income countries","authors":"Oyo-Ita A, et al.","journal":"Cochrane Database of Systematic Reviews","year":2023,"country":"Low- and middle-income countries","type":"systematic-review","url":"https://doi.org/10.1002/14651858.CD008145.pub4","takeaway":"Strategies such as health education, home-based records and involving community leaders may raise vaccination coverage, though certainty of evidence is mostly low.","bm":["7.1","7.2"]},
-    {"id":"msyamboza-2016","title":"Feasibility and acceptability of oral cholera vaccine mass vaccination campaign in response to an outbreak and floods in Malawi","authors":"Msyamboza KP, et al.","journal":"Pan African Medical Journal 23:203","year":2016,"country":"Malawi","type":"case-study","pr":true,"url":"https://doi.org/10.11604/pamj.2016.23.203.8346","takeaway":"A reactive cholera vaccination campaign after floods in Nsanje reached most of its target group, was well accepted and caused no serious adverse events.","bm":["7.3"]},
-    {"id":"vennis-2021","title":"Systematic approach towards establishing a National Inventory of Dangerous Pathogens","authors":"Vennis IM, et al.","journal":"Global Health Action 14(1)","year":2021,"country":"Netherlands and others","type":"peer-reviewed","url":"https://www.tandfonline.com/doi/full/10.1080/16549716.2021.1971866","takeaway":"Step-by-step method to set up and maintain a national record of facilities that hold dangerous pathogens; it also shows where collections can be consolidated.","note":"Supplied by Mark van Passel (co-author).","bm":["8.1"]},
-    {"id":"brizee-2019","title":"Establishment of a National Inventory of Dangerous Pathogens in the Republic of Uganda","authors":"Brizee S, et al.","journal":"Health Security 17(2)","year":2019,"country":"Uganda","type":"case-study","pr":true,"url":"https://pubmed.ncbi.nlm.nih.gov/31033346/","takeaway":"Country example of building a national pathogen inventory in a low-resource setting, including the facility survey.","note":"Supplied by Mark van Passel; authors as listed by the RIVM WHO Collaborating Centre.","bm":["8.1"]},
-    {"id":"brizee-2019-checklist","title":"Development of a biosecurity checklist for laboratory assessment and monitoring","authors":"Brizee S, et al.","journal":"Applied Biosafety 24(2)","year":2019,"country":"Netherlands","type":"peer-reviewed","url":"https://www.rivm.nl/publicaties/development-of-biosecurity-checklist-for-laboratory-assessment-and-monitoring","takeaway":"A checklist to assess and monitor laboratory biosecurity, usable for audits.","bm":["8.1","8.2"]},
-    {"id":"meulenbelt-2019","title":"The Vulnerability Scan, a web tool to increase institutional biosecurity resilience","authors":"Meulenbelt SE, et al.","journal":"Frontiers in Public Health 7","year":2019,"country":"Netherlands","type":"peer-reviewed","url":"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6422864/","takeaway":"A free web-based self-assessment of an institution's biosecurity vulnerabilities.","bm":["8.1"]},
-    {"id":"canada-lai-2022","title":"Laboratory-acquired infections in Canada, 2016 to 2021","authors":"Public Health Agency of Canada","journal":"Canada Communicable Disease Report","year":2022,"country":"Canada","type":"report","url":"https://www.canada.ca/en/public-health/services/reports-publications/canada-communicable-disease-report-ccdr/monthly-issue/2022-48/issue-7-8-july-august-2022/laboratory-acquired-infections-canada-2016-2021.html","takeaway":"National analysis of laboratory-acquired infections reported to Canada's mandatory reporting system, useful as a model for learning from incidents.","bm":["8.2"]},
-    {"id":"kiyaga-2013","title":"Uganda's new national laboratory sample transport system: a successful model for improving access to diagnostic services for early infant HIV diagnosis and other programs","authors":"Kiyaga C, et al.","journal":"PLoS ONE 8(11)","year":2013,"country":"Uganda","type":"peer-reviewed","url":"https://doi.org/10.1371/journal.pone.0078609","takeaway":"A courier network linking regional hubs to 616 facilities cut delays and transport costs for infant HIV tests and widened access.","bm":["9.1"]},
-    {"id":"yao-2014","title":"Evidence from 617 laboratories in 47 countries for SLMTA-driven improvement in quality management systems","authors":"Yao K, et al.","journal":"African Journal of Laboratory Medicine 3(2)","year":2014,"country":"47 countries","type":"peer-reviewed","url":"https://doi.org/10.4102/ajlm.v3i2.262","takeaway":"Audit scores in 617 laboratories rose substantially after SLMTA training, suggesting lasting quality improvement in low-resource laboratories.","bm":["9.2"]},
-    {"id":"nkwawir-2014","title":"From grass to grace: how SLMTA revolutionised the Bamenda Regional Hospital Laboratory in Cameroon","authors":"Nkwawir SC, et al.","journal":"African Journal of Laboratory Medicine 3(2)","year":2014,"country":"Cameroon","type":"case-study","pr":true,"url":"https://doi.org/10.4102/ajlm.v3i2.203","takeaway":"A hospital laboratory went from lowest to highest score in the quality programme through training, on-site mentoring and team effort.","bm":["9.2"]},
-    {"id":"kennedy-2016","title":"The laboratory health system and its response to the Ebola virus disease outbreak in Liberia","authors":"Kennedy SB, et al.","journal":"African Journal of Laboratory Medicine 5(3)","year":2016,"country":"Liberia","type":"peer-reviewed","url":"https://doi.org/10.4102/ajlm.v5i3.509","takeaway":"A fragmented laboratory system with no local testing for dangerous fevers slowed the Ebola response; rebuilding capacity, training and accreditation are the lessons.","bm":["9.3","9.4"]},
-    {"id":"kuehne-2019","title":"Event-based surveillance at health facility and community level in low-income and middle-income countries: a systematic review","authors":"Kuehne A, et al.","journal":"BMJ Global Health 4(6)","year":2019,"country":"Low- and middle-income countries","type":"systematic-review","url":"https://gh.bmj.com/content/4/6/e001878","takeaway":"In 13 systems reviewed, facility and community event-based surveillance strengthened early warning, especially when linked to existing response structures.","bm":["10.1","10.2"]},
-    {"id":"beebeejaun-2021","title":"Evaluation of national event-based surveillance, Nigeria, 2016–2018","authors":"Beebeejaun K, et al.","journal":"Emerging Infectious Diseases 27(3)","year":2021,"country":"Nigeria","type":"peer-reviewed","url":"https://doi.org/10.3201/eid2703.200141","takeaway":"The system picked up real outbreaks well, but weak logging and the lack of written procedures limited oversight and follow-up.","note":"First author as shown on the EID page.","bm":["10.1","10.2"]},
-    {"id":"mremi-2021","title":"Twenty years of integrated disease surveillance and response in Sub-Saharan Africa: challenges and opportunities for effective management of infectious disease epidemics","authors":"Mremi IR, et al.","journal":"One Health Outlook 3","year":2021,"country":"Sub-Saharan Africa","type":"systematic-review","url":"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8575546/","takeaway":"IDSR is still mostly facility- and indicator-based; broader data sources and multisector platforms are needed to use surveillance data better.","bm":["10.1","10.3"]},
-    {"id":"popmed-2023","title":"Public health workforce capacities and the challenges for preparedness","authors":"","journal":"Population Medicine (conference supplement, PANDEM-2)","year":2023,"country":"International","type":"conference-abstract","pr":false,"url":"https://www.populationmedicine.eu/Public-health-workforce-capacities-and-the-challenges-for-preparedness,164364,0,2.html","takeaway":"Scoping review: many countries have no dedicated public health workforce policy or plan, so defining and monitoring the workforce is a first step for preparedness.","note":"Authors not listed on the page read.","bm":["11.1"]},
-    {"id":"shoman-2017","title":"The link between the West African Ebola outbreak and health systems in Guinea, Liberia and Sierra Leone: a systematic review","authors":"Shoman H, et al.","journal":"Globalization and Health 13","year":2017,"country":"Guinea, Liberia, Sierra Leone","type":"systematic-review","url":"https://doi.org/10.1186/s12992-016-0224-2","takeaway":"Health-worker shortages hampered Ebola control and were themselves made worse by the outbreak, so staffing and basic health-system capacity need strengthening.","bm":["11.2"]},
-    {"id":"alnsour-2024","title":"Evaluation of field epidemiology training programs: a scoping review","authors":"Al Nsour M, et al.","journal":"Frontiers in Epidemiology","year":2024,"country":"Global","type":"review","url":"https://doi.org/10.3389/fepid.2024.1376071","takeaway":"Across 12 evaluations, field epidemiology training seems to build trainee skills in several formats, but standard metrics and better evaluation tools are needed.","bm":["11.3"]},
-    {"id":"casey-2023","title":"Emergency medical teams in WHO's Western Pacific Region","authors":"Casey A, et al.","journal":"Western Pacific Surveillance and Response 14(6)","year":2023,"country":"WHO Western Pacific Region","type":"peer-reviewed","url":"https://doi.org/10.5365/wpsar.2023.14.6.1184","takeaway":"Emergency medical teams now exist in almost all Western Pacific countries; steady funding, cooperation and research are needed to keep them effective.","bm":["11.4","12A.4"]},
-    {"id":"vadi-2025","title":"What do 32 COVID-19 deployments of emergency medical teams tell us about challenges and lessons learned?","authors":"Vadi R, et al.","journal":"Report from the Field, Cambridge University Press (Society for Disaster Medicine and Public Health)","year":2025,"country":"International (UK-Med and PCPM teams)","type":"case-study","pr":true,"url":"https://core-prod.cambridgecore.org/core/product/F13403C38A9D93CCDB54480A94071351/core-reader","takeaway":"Deployments called for large, flexible staff rosters, better needs assessments and closer coordination with health ministries.","bm":["11.4","12A.4"]},
-    {"id":"who-dpm-2022","title":"Dynamic preparedness metric: a paradigm shift to measure and act on preparedness","authors":"Kandel N, Chungong S, et al.","journal":"The Lancet Global Health 10(5)","year":2022,"country":"Global","type":"peer-reviewed","url":"https://doi.org/10.1016/S2214-109X(22)00097-3","takeaway":"An approach for measuring readiness regularly and acting on the gaps found.","bm":["12A.1"]},
-    {"id":"balajee-2017","title":"Sustainable model for public health emergency operations centers for global settings","authors":"Balajee SA, et al.","journal":"Emerging Infectious Diseases 23(13)","year":2017,"country":"Several countries","type":"peer-reviewed","url":"https://doi.org/10.3201/eid2313.170435","takeaway":"Lessons from building emergency operations centres in several countries, distilled into a sustainable model.","bm":["12A.2"]},
-    {"id":"shuaib-2014","title":"Ebola virus disease outbreak — Nigeria, July–September 2014","authors":"Shuaib F, et al.","journal":"MMWR 63(39)","year":2014,"country":"Nigeria","type":"case-study","pr":false,"url":"https://www.cdc.gov/Mmwr/preview/mmwrhtml/mm6339a5.htm","takeaway":"An emergency operations centre using an incident management system coordinated the response and helped contain Ebola early.","bm":["12A.2","12A.3"]},
-    {"id":"brookings-2021","title":"Investing in national public health institutes for future pandemics: lessons from Nigeria","authors":"Brookings Institution","journal":"Brookings","year":2021,"country":"Nigeria","type":"report","url":"https://www.brookings.edu/articles/investing-in-national-public-health-institutes-for-future-pandemics-lessons-from-nigeria/","takeaway":"How Nigeria built its national public health institute and a network of emergency operations centres.","bm":["12A.3"]},
-    {"id":"hiqa-2023","title":"An overview of national approaches to stockpiling of medical countermeasures for public health emergencies","authors":"Health Information and Quality Authority (Ireland)","journal":"HIQA","year":2023,"country":"Several countries","type":"report","url":"https://www.hiqa.ie/sites/default/files/2023-11/An-overview-of-national-approaches-to-stockpiling-of-medical-countermeasures-for-public-health-emergencies.pdf","takeaway":"Compares how countries organise stockpiles and supplier agreements for medical countermeasures.","bm":["12A.5"]},
-    {"id":"kilmarx-2024","title":"Building research capacity in low- and middle-income countries and pandemic preparedness: lessons learned and future directions","authors":"Kilmarx PH, et al.","journal":"American Journal of Tropical Medicine and Hygiene","year":2024,"country":"Low- and middle-income countries","type":"perspective","url":"https://doi.org/10.4269/ajtmh.23-0675","takeaway":"Local research capacity (trained staff, genomic sequencing, partnerships) is essential for responding to pandemics in low- and middle-income countries.","bm":["12A.6"]},
-    {"id":"olu-2016","title":"Strengthening health disaster risk management in Africa: multi-sectoral and people-centred approaches are required in the post-Hyogo Framework of Action era","authors":"Olu O, et al.","journal":"BMC Public Health","year":2016,"country":"WHO African Region","type":"peer-reviewed","url":"https://doi.org/10.1186/s12889-016-3390-5","takeaway":"The regional health disaster strategy fell behind its targets, mainly through weak political commitment and funding; the authors call for multisectoral, people-centred approaches.","bm":["12B.1","12B.4"]},
-    {"id":"sunindijo-2019","title":"Hospital safety index: assessing the readiness and resiliency of hospitals in Indonesia","authors":"Sunindijo RY, et al.","journal":"Facilities 38(1-2)","year":2019,"country":"Indonesia","type":"peer-reviewed","url":"https://doi.org/10.1108/F-12-2018-0149","takeaway":"In 15 hospitals the average Hospital Safety Index grade suggested emergency functioning could be at risk, so short-term fixes were needed.","bm":["12B.2"]},
-    {"id":"heydari-2024","title":"Hospital safety index: evaluation of the readiness and safety of hospitals in Isfahan province, Iran","authors":"Heydari F, et al.","journal":"Frontiers in Emergency Medicine","year":2024,"country":"Iran","type":"peer-reviewed","url":"https://doi.org/10.18502/fem.v8i2.15459","takeaway":"The 55 hospitals became safer between 2017 and 2022 on the WHO Hospital Safety Index, but disaster readiness still has room to improve.","bm":["12B.2"]},
-    {"id":"sane-2023","title":"Key lessons learnt from COVID-19 intra-action reviews in the Republic of Moldova, Montenegro, Kosovo and North Macedonia 2020–2021: a qualitative study","authors":"Sane J, et al.","journal":"BMJ Open 13(3)","year":2023,"country":"Moldova, Montenegro, Kosovo, North Macedonia","type":"iar","pr":true,"url":"https://bmjopen.bmj.com/content/13/3/e066279","takeaway":"Across four reviews staff shortages were a key barrier, and learning together across sectors strengthened preparedness.","bm":["12B.3","12B.4"]},
-    {"id":"shimizu-2023","title":"First COVID-19 intra-action review: experience from Kenya","authors":"Shimizu K, et al.","journal":"Journal of Global Health 13","year":2023,"country":"Kenya","type":"iar","pr":true,"url":"https://doi.org/10.7189/jogh.13.03043","takeaway":"Kenya's 2021 review found good practices but also funding, data and supply gaps; regular reviews can strengthen future preparedness.","bm":["12B.3","12B.4","3.3"]},
-    {"id":"who-sph-cambodia","title":"WHO SPH portal record: partnership to link public health and security authorities in Cambodia (US Indo-Pacific Command, FAO, WHO)","authors":"WHO Strategic Partnership for Health Security","journal":"WHO SPH portal","year":null,"country":"Cambodia","type":"case-study","pr":false,"url":"https://extranet.who.int/sph/resource-landscape-details/28643","takeaway":"A partnership supports Cambodia, with FAO and WHO as implementers, to connect public health and security authorities when a deliberate biological event is suspected.","note":"Portal record; date not shown.","bm":["13.1"]},
-    {"id":"olu-2015-ccc","title":"Community Care Centre (CCC) as adjunct in the management of Ebola virus disease (EVD) cases during outbreaks: experience from Sierra Leone","authors":"Olu O, et al.","journal":"Pan African Medical Journal (supplement)","year":2015,"country":"Sierra Leone","type":"case-study","pr":false,"url":"https://www.panafrican-med-journal.com/content/series/22/1/14/pdf/14.pdf","takeaway":"Community care centres helped sick people isolate and get care near home, but exposed uninfected patients to risk and lacked staff support.","bm":["14.1"]},
-    {"id":"guha-2025","title":"Maintaining essential health services during COVID-19: cross-country lessons of health system resilience from Asia, Sub-Saharan Africa and Latin America","authors":"Guha M, et al.","journal":"BMJ Global Health 8(Suppl 6)","year":2025,"country":"Six low- and middle-income countries","type":"peer-reviewed","url":"https://doi.org/10.1136/bmjgh-2023-013392","takeaway":"Strong primary care, earlier epidemic experience and public trust helped keep essential services running.","bm":["14.2"]},
-    {"id":"ehs-pulse-2023","title":"Assessing capacities and resilience of health services during the COVID-19 pandemic: lessons from rapid key informant surveys","authors":"","journal":"Frontiers in Public Health","year":2023,"country":"Multi-country","type":"peer-reviewed","url":"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9969144/","takeaway":"Experience with rapid surveys to monitor service disruptions during the pandemic.","note":"Authors not read; record taken from the JEE tool's source list.","bm":["14.2"]},
-    {"id":"moynihan-2021","title":"Impact of COVID-19 pandemic on utilisation of healthcare services: a systematic review","authors":"Moynihan R, et al.","journal":"BMJ Open 11(3)","year":2021,"country":"Multi-country (81 studies, 20 countries)","type":"systematic-review","url":"https://bmjopen.bmj.com/content/11/3/e045343","takeaway":"Use of health services fell by about a third in the first months of the pandemic, more so for milder conditions.","bm":["14.3"]},
-    {"id":"storr-2017","title":"Core components for effective infection prevention and control programmes: new WHO evidence-based recommendations","authors":"Storr J, et al.","journal":"Antimicrobial Resistance and Infection Control 6","year":2017,"country":"Global","type":"peer-reviewed","url":"https://doi.org/10.1186/s13756-016-0149-9","takeaway":"The WHO guideline sets out eleven recommendations on what national and facility IPC programmes need to be effective.","bm":["15.1"]},
-    {"id":"mathur-2020","title":"Surveillance of healthcare-associated bloodstream and urinary tract infections in a national level network of Indian hospitals","authors":"Mathur P, et al.","journal":"Infection Control & Hospital Epidemiology (conference abstract)","year":2020,"country":"India","type":"conference-abstract","pr":false,"url":"https://www.cambridge.org/core/journals/infection-control-and-hospital-epidemiology/article/surveillance-of-healthcareassociated-bloodstream-and-urinary-tract-infections-in-a-national-level-network-of-indian-hospitals/BB7D8DF499A8358EE8422B76E14EE3FF","takeaway":"A network of 37 hospitals tracked bloodstream and urinary infections with adapted protocols and found high drug resistance and two outbreaks.","bm":["15.2"]},
-    {"id":"cronk-2018","title":"Environmental conditions in health care facilities in low- and middle-income countries: coverage and inequalities","authors":"Cronk R, et al.","journal":"International Journal of Hygiene and Environmental Health","year":2018,"country":"78 low- and middle-income countries","type":"peer-reviewed","url":"https://sph.unc.edu/?p=314231","takeaway":"Only about 2% of health facilities had water, sanitation, hygiene and waste services all in place.","note":"Link goes to the university's news item on the study.","bm":["15.3"]},
-    {"id":"jha-2018","title":"Integrating emergency risk communication (ERC) into the public health system response: systematic review of literature to aid formulation of the 2017 WHO guideline","authors":"Jha A, et al.","journal":"PLoS ONE 13(10)","year":2018,"country":"Multi-country","type":"systematic-review","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC6209198/","takeaway":"The evidence behind the WHO guideline on integrating risk communication into emergency response.","bm":["16A.1","16A.2"]},
-    {"id":"gillespie-2016","title":"Social mobilization and community engagement central to the Ebola response in West Africa: lessons for future public health emergencies","authors":"Gillespie AM, et al.","journal":"Global Health: Science and Practice 4(4)","year":2016,"country":"Guinea, Liberia, Sierra Leone","type":"peer-reviewed","url":"https://doi.org/10.9745/GHSP-D-16-00226","takeaway":"Trusted local messengers, flexible but coordinated communication and sustained community involvement were central to the response.","bm":["16B.1","16B.2"]},
-    {"id":"nyagah-2023","title":"The importance of community health workers as frontline responders during the COVID-19 pandemic, Somalia, 2020–2021","authors":"Nyagah L, et al.","journal":"Frontiers in Public Health","year":2023,"country":"Somalia","type":"peer-reviewed","url":"https://doi.org/10.3389/fpubh.2023.1215620","takeaway":"Community health workers found about a third of suspected cases and traced more contacts than facilities did, which helps in hard-to-reach areas.","bm":["16B.3"]},
-    {"id":"lohiniva-2022","title":"Infodemic management using digital information and knowledge cocreation to address COVID-19 vaccine hesitancy: case study from Ghana","authors":"Lohiniva AL, et al.","journal":"JMIR Infodemiology","year":2022,"country":"Ghana","type":"case-study","pr":true,"url":"https://doi.org/10.2196/37134","takeaway":"Ghana built a weekly, human-verified social listening workflow to spot and answer COVID-19 vaccine misinformation in near real time.","bm":["16C.1"]},
-    {"id":"who-infodemic-2022","title":"WHO competency framework for health authorities and institutions to manage infodemics","authors":"","journal":"Human Resources for Health","year":2022,"country":"Global","type":"peer-reviewed","url":"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9077350/","takeaway":"Competencies and roles needed in staff who manage infodemics.","note":"Authors not read; record taken from the JEE tool's source list.","bm":["16C.1"]},
-    {"id":"fossouo-2022","title":"Assessing core capacities for addressing public health emergencies of international concern at designated points of entry in Cameroon during the COVID-19 pandemic","authors":"Fossouo Ndoungué V, et al.","journal":"BMC Public Health","year":2022,"country":"Cameroon","type":"peer-reviewed","url":"https://doi.org/10.1186/s12889-022-14614-7","takeaway":"All five designated points of entry fell short of standards, mainly through unstructured communication, missing emergency plans and too few trained staff.","bm":["17.1"]},
-    {"id":"mouchtouri-2019","title":"Exit and entry screening practices for infectious diseases among travelers at points of entry: looking for evidence on public health impact","authors":"Mouchtouri VA, et al.","journal":"International Journal of Environmental Research and Public Health 16(23)","year":2019,"country":"Global","type":"systematic-review","url":"https://ideas.repec.org/a/gam/jijerp/v16y2019i23p4638-d289612.html","takeaway":"Border screening rarely caught infected travellers but may raise awareness; it works best combined with other outbreak measures.","bm":["17.2"]},
-    {"id":"burns-2020","title":"Travel-related control measures to contain the COVID-19 pandemic: a rapid review","authors":"Burns J, et al.","journal":"Cochrane Database of Systematic Reviews","year":2020,"country":"Global","type":"systematic-review","url":"https://paho-covid-prod.atmire.com/handle/20.500.12663/2601","takeaway":"Rapid review of travel measures for COVID-19 using observational and modelling studies, with SARS and MERS as indirect evidence; see the review for effect estimates.","note":"Authors and year are from memory of the Cochrane record; the page read did not show them. Results not read.","bm":["17.3"]},
-    {"id":"haug-2020","title":"Ranking the effectiveness of worldwide COVID-19 government interventions","authors":"Haug N, et al.","journal":"Nature Human Behaviour","year":2020,"country":"79 territories","type":"peer-reviewed","url":"https://doi.org/10.1038/s41562-020-01009-0","takeaway":"No single measure pushed the reproduction number below one; well-timed combinations worked best, with limits on gatherings and school closures among the most effective.","bm":["20.1","17.3"]},
-    {"id":"emhj-2015","title":"Responding to chemical events: a multisectoral responsibility","authors":"WHO Eastern Mediterranean Region","journal":"Eastern Mediterranean Health Journal 21(4)","year":2015,"country":"Eastern Mediterranean Region (18 countries)","type":"report","pr":false,"url":"https://www.emro.who.int/emhj-volume-21-2015/volume-21-issue-4/responding-to-chemical-events-a-multisectoral-responsibility.html","takeaway":"Report of a regional consultation: chemical emergencies need a multisectoral response and health ministries must ensure coordinated national capacity, which many countries lack.","bm":["18.1"]},
-    {"id":"yasui-2018","title":"Lessons learned from radiation protection for emergency response and remediation/decontamination work relating to the Fukushima accident","authors":"Yasui S","journal":"Journal of the National Institute of Public Health 67(1)","year":2018,"country":"Japan","type":"review","url":"https://doi.org/10.20683/jniph.67.1_84","takeaway":"Narrative review of 2012–2017 papers: worker radiation protection is rarely reported, and lessons should shape preparedness for future nuclear accidents.","note":"Title as abbreviated on the journal page.","bm":["19.1"]}
-  ]
+  {
+   "id": "smith-2019-gender",
+   "title": "Overcoming the 'tyranny of the urgent': integrating gender into disease outbreak preparedness and response",
+   "authors": "Smith J",
+   "journal": "Gender & Development",
+   "year": 2019,
+   "country": "Sierra Leone",
+   "type": "case-study",
+   "pr": true,
+   "url": "https://doi.org/10.1080/13552074.2019.1615288",
+   "takeaway": "Case study from Kailahun during Ebola: gender assumptions made globally shaped national and local response, and equity-based approaches looked promising.",
+   "bm": [
+    "1.2"
+   ]
+  },
+  {
+   "id": "naphs-costing-2024",
+   "title": "An incomplete picture: data limitations in costed National Action Plans for Health Security (NAPHS)",
+   "authors": "",
+   "journal": "BMJ Global Health 9(2)",
+   "year": 2024,
+   "country": "Global (countries with a completed NAPHS)",
+   "type": "peer-reviewed",
+   "url": "https://gh.bmj.com/content/9/2/e014067",
+   "takeaway": "Few countries with a finished health security plan published itemised costs, so reported funding needs are probably too low.",
+   "note": "Title taken from the search listing; authors not read. Summary from the BMJ Global Health page.",
+   "bm": [
+    "2.1"
+   ]
+  },
+  {
+   "id": "who-cfe-2017",
+   "title": "Contingency fund for emergencies: 2017 year in review",
+   "authors": "World Health Organization",
+   "journal": "WHO/WHE/EXR/2018.1",
+   "year": 2018,
+   "country": "Global",
+   "type": "report",
+   "url": "https://www.who.int/publications/i/item/who-whe-exr-2018.1",
+   "takeaway": "Annual review of WHO's Contingency Fund for Emergencies, the pooled fund used to start responses quickly.",
+   "note": "Summary based on the title and listing; document not read in full.",
+   "bm": [
+    "2.2"
+   ]
+  },
+  {
+   "id": "packer-2021",
+   "title": "A survey of International Health Regulations National Focal Points experiences in carrying out their functions",
+   "authors": "Packer C, et al.",
+   "journal": "Globalization and Health",
+   "year": 2021,
+   "country": "Multi-country (121 States Parties)",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.1186/s12992-021-00675-7",
+   "takeaway": "Focal points knew the Regulations and how to reach WHO, but struggled with cross-ministry coordination, communication systems and limited authority.",
+   "bm": [
+    "3.1"
+   ]
+  },
+  {
+   "id": "osman-2024",
+   "title": "IHR-PVS National Bridging Workshop for Somalia: an interactive and participatory approach for operationalizing the One Health roadmap",
+   "authors": "Osman AY, et al.",
+   "journal": "One Health",
+   "year": 2024,
+   "country": "Somalia",
+   "type": "case-study",
+   "pr": true,
+   "url": "https://doi.org/10.1016/j.onehlt.2024.100858",
+   "takeaway": "A three-day workshop with human, animal, agriculture and environment officials produced a joint One Health roadmap, with joint surveillance ranked first.",
+   "bm": [
+    "3.2"
+   ]
+  },
+  {
+   "id": "sekamatte-2018",
+   "title": "Multisectoral prioritization of zoonotic diseases in Uganda, 2017: a One Health perspective",
+   "authors": "Sekamatte M, et al.",
+   "journal": "PLoS ONE 13(5)",
+   "year": 2018,
+   "country": "Uganda",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.1371/journal.pone.0196799",
+   "takeaway": "A national workshop ranked seven priority zoonoses with a structured tool; the ranking held up under different weightings, so cross-sector prioritisation was robust.",
+   "bm": [
+    "3.2",
+    "5.1"
+   ]
+  },
+  {
+   "id": "njuguna-2023",
+   "title": "Improving global health security through implementation of the National Action Plan for Health Security in Sierra Leone, 2018–2021: lessons from the field",
+   "authors": "Njuguna C, et al.",
+   "journal": "BMC Public Health",
+   "year": 2023,
+   "country": "Sierra Leone",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.1186/s12889-023-17103-7",
+   "takeaway": "Yearly operational planning and quarterly tracking of the health security plan raised capacity scores, though funding, staffing and infrastructure gaps remained.",
+   "bm": [
+    "3.3",
+    "2.1"
+   ]
+  },
+  {
+   "id": "ahmed-2022",
+   "title": "The implementation of National Action Plan (NAP) on antimicrobial resistance in Bangladesh: challenges and lessons learned from a cross-sectional qualitative study",
+   "authors": "Ahmed SM, et al.",
+   "journal": "Antibiotics",
+   "year": 2022,
+   "country": "Bangladesh",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.3390/antibiotics11050690",
+   "takeaway": "Interviews with 17 stakeholders show the AMR action plan advancing slowly: limited staff and money, weak monitoring and little involvement of the environment sector.",
+   "bm": [
+    "4.1"
+   ]
+  },
+  {
+   "id": "walia-2019",
+   "title": "Establishing antimicrobial resistance surveillance & research network in India: journey so far",
+   "authors": "Walia K, et al.",
+   "journal": "Indian Journal of Medical Research 149(2)",
+   "year": 2019,
+   "country": "India",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.4103/ijmr.IJMR_226_18",
+   "takeaway": "Describes how a national hospital-based AMR surveillance and research network was built and what it showed: rising resistance in Gram-negative bacteria, so data must drive action.",
+   "bm": [
+    "4.2"
+   ]
+  },
+  {
+   "id": "schwaber-2011",
+   "title": "Containment of a country-wide outbreak of carbapenem-resistant Klebsiella pneumoniae in Israeli hospitals via a nationally implemented intervention",
+   "authors": "Schwaber MJ, et al.",
+   "journal": "Clinical Infectious Diseases",
+   "year": 2011,
+   "country": "Israel",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.1093/cid/cir025",
+   "takeaway": "A coordinated national programme with strict isolation rules, reporting and oversight stopped an outbreak that individual hospitals had not been able to contain.",
+   "bm": [
+    "4.3"
+   ]
+  },
+  {
+   "id": "price-2018",
+   "title": "Effectiveness of national and subnational infection prevention and control interventions in high-income and upper-middle-income countries: a systematic review",
+   "authors": "Price L, et al.",
+   "journal": "The Lancet Infectious Diseases 18(5)",
+   "year": 2018,
+   "country": "High- and upper-middle-income countries",
+   "type": "systematic-review",
+   "url": "https://doi.org/10.1016/S1473-3099(17)30479-6",
+   "takeaway": "Across 29 studies, national infection control programmes generally helped, most clearly multi-part approaches and surveillance with feedback.",
+   "bm": [
+    "4.3",
+    "15.1"
+   ]
+  },
+  {
+   "id": "who-responsible-medicines-2012",
+   "title": "The pursuit of responsible use of medicines: sharing and learning from country experiences",
+   "authors": "World Health Organization",
+   "journal": "WHO",
+   "year": 2012,
+   "country": "Multi-country",
+   "type": "report",
+   "url": "https://apps.who.int/iris/handle/10665/75828",
+   "takeaway": "WHO compilation of country experiences with policies that improved how medicines are used, including enforcement of prescription-only sales.",
+   "bm": [
+    "4.4"
+   ]
+  },
+  {
+   "id": "groot-2021",
+   "title": "The next step to further decrease veterinary antibiotic applications: phytogenic alternatives and effective monitoring; the Dutch approach",
+   "authors": "Groot MJ, et al.",
+   "journal": "Frontiers in Veterinary Science",
+   "year": 2021,
+   "country": "Netherlands",
+   "type": "perspective",
+   "url": "https://doi.org/10.3389/fvets.2021.709750",
+   "takeaway": "Antibiotic use on Dutch farms fell sharply after national reduction goals but is levelling off; the authors point to alternatives and better monitoring as the next step.",
+   "bm": [
+    "4.5"
+   ]
+  },
+  {
+   "id": "falzon-2019",
+   "title": "One Health in action: operational aspects of an integrated surveillance system for zoonoses in western Kenya",
+   "authors": "Falzon LC, et al.",
+   "journal": "Frontiers in Veterinary Science",
+   "year": 2019,
+   "country": "Kenya",
+   "type": "case-study",
+   "pr": true,
+   "url": "https://doi.org/10.3389/fvets.2019.00252",
+   "takeaway": "A field pilot of integrated zoonoses surveillance showed that engaging local stakeholders and feeding results back quickly keeps participants involved.",
+   "bm": [
+    "5.1"
+   ]
+  },
+  {
+   "id": "eid-2017-ohzdp",
+   "title": "Prioritizing zoonoses for global health capacity building: themes from One Health zoonotic disease workshops in 7 countries",
+   "authors": "",
+   "journal": "Emerging Infectious Diseases 23(13)",
+   "year": 2017,
+   "country": "Seven countries",
+   "type": "peer-reviewed",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5711306/",
+   "takeaway": "Lessons from seven country workshops that prioritised zoonoses with a One Health approach.",
+   "note": "Authors not read; record taken from the JEE tool's source list.",
+   "bm": [
+    "5.1"
+   ]
+  },
+  {
+   "id": "youssef-2021",
+   "title": "The effectiveness of biosecurity interventions in reducing the transmission of bacteria from livestock to humans at the farm level: a systematic literature review",
+   "authors": "Youssef DM, et al.",
+   "journal": "Zoonoses and Public Health",
+   "year": 2021,
+   "country": "Farm level (various)",
+   "type": "systematic-review",
+   "url": "https://www.ilri.org/knowledge/publications/effectiveness-biosecurity-interventions-reducing-transmission-bacteria",
+   "takeaway": "In 14 studies, farm biosecurity measures may reduce spread of bacteria from animals to people, but good evidence on which measures work best is scarce.",
+   "bm": [
+    "5.3"
+   ]
+  },
+  {
+   "id": "gomes-2025",
+   "title": "Advances in whole genome sequencing for foodborne pathogens: implications for clinical infectious disease surveillance and public health",
+   "authors": "Gomes E, et al.",
+   "journal": "Frontiers in Cellular and Infection Microbiology",
+   "year": 2025,
+   "country": "Global",
+   "type": "review",
+   "url": "https://doi.org/10.3389/fcimb.2025.1593219",
+   "takeaway": "Whole genome sequencing traces foodborne outbreak sources in far finer detail than older methods; cost, skills and data sharing remain barriers.",
+   "bm": [
+    "6.1"
+   ]
+  },
+  {
+   "id": "moore-2024",
+   "title": "Multinational collaboration in solving a European Salmonella Braenderup outbreak linked to imported melons, 2021",
+   "authors": "Moore HL, et al.",
+   "journal": "Eurosurveillance 29(1)",
+   "year": 2024,
+   "country": "EU/EEA countries and the UK",
+   "type": "peer-reviewed",
+   "url": "https://edoc.rki.de/handle/176904/13678",
+   "takeaway": "Cross-border data sharing quickly traced a multi-country Salmonella outbreak to imported melons from Honduras.",
+   "note": "Journal name inferred from the file name on the repository record.",
+   "bm": [
+    "6.2"
+   ]
+  },
+  {
+   "id": "oyo-ita-2023",
+   "title": "Interventions for improving coverage of childhood immunisation in low- and middle-income countries",
+   "authors": "Oyo-Ita A, et al.",
+   "journal": "Cochrane Database of Systematic Reviews",
+   "year": 2023,
+   "country": "Low- and middle-income countries",
+   "type": "systematic-review",
+   "url": "https://doi.org/10.1002/14651858.CD008145.pub4",
+   "takeaway": "Strategies such as health education, home-based records and involving community leaders may raise vaccination coverage, though certainty of evidence is mostly low.",
+   "bm": [
+    "7.1",
+    "7.2"
+   ]
+  },
+  {
+   "id": "msyamboza-2016",
+   "title": "Feasibility and acceptability of oral cholera vaccine mass vaccination campaign in response to an outbreak and floods in Malawi",
+   "authors": "Msyamboza KP, et al.",
+   "journal": "Pan African Medical Journal 23:203",
+   "year": 2016,
+   "country": "Malawi",
+   "type": "case-study",
+   "pr": true,
+   "url": "https://doi.org/10.11604/pamj.2016.23.203.8346",
+   "takeaway": "A reactive cholera vaccination campaign after floods in Nsanje reached most of its target group, was well accepted and caused no serious adverse events.",
+   "bm": [
+    "7.3"
+   ]
+  },
+  {
+   "id": "vennis-2021",
+   "title": "Systematic approach towards establishing a National Inventory of Dangerous Pathogens",
+   "authors": "Vennis IM, et al.",
+   "journal": "Global Health Action 14(1)",
+   "year": 2021,
+   "country": "Netherlands and others",
+   "type": "peer-reviewed",
+   "url": "https://www.tandfonline.com/doi/full/10.1080/16549716.2021.1971866",
+   "takeaway": "Step-by-step method to set up and maintain a national record of facilities that hold dangerous pathogens; it also shows where collections can be consolidated.",
+   "note": "Supplied by Mark van Passel (co-author).",
+   "bm": [
+    "8.1"
+   ]
+  },
+  {
+   "id": "brizee-2019",
+   "title": "Establishment of a National Inventory of Dangerous Pathogens in the Republic of Uganda",
+   "authors": "Brizee S, et al.",
+   "journal": "Health Security 17(2)",
+   "year": 2019,
+   "country": "Uganda",
+   "type": "case-study",
+   "pr": true,
+   "url": "https://pubmed.ncbi.nlm.nih.gov/31033346/",
+   "takeaway": "Country example of building a national pathogen inventory in a low-resource setting, including the facility survey.",
+   "note": "Supplied by Mark van Passel; authors as listed by the RIVM WHO Collaborating Centre.",
+   "bm": [
+    "8.1"
+   ]
+  },
+  {
+   "id": "brizee-2019-checklist",
+   "title": "Development of a biosecurity checklist for laboratory assessment and monitoring",
+   "authors": "Brizee S, et al.",
+   "journal": "Applied Biosafety 24(2)",
+   "year": 2019,
+   "country": "Netherlands",
+   "type": "peer-reviewed",
+   "url": "https://www.rivm.nl/publicaties/development-of-biosecurity-checklist-for-laboratory-assessment-and-monitoring",
+   "takeaway": "A checklist to assess and monitor laboratory biosecurity, usable for audits.",
+   "bm": [
+    "8.1",
+    "8.2"
+   ]
+  },
+  {
+   "id": "meulenbelt-2019",
+   "title": "The Vulnerability Scan, a web tool to increase institutional biosecurity resilience",
+   "authors": "Meulenbelt SE, et al.",
+   "journal": "Frontiers in Public Health 7",
+   "year": 2019,
+   "country": "Netherlands",
+   "type": "peer-reviewed",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6422864/",
+   "takeaway": "A free web-based self-assessment of an institution's biosecurity vulnerabilities.",
+   "bm": [
+    "8.1"
+   ]
+  },
+  {
+   "id": "canada-lai-2022",
+   "title": "Laboratory-acquired infections in Canada, 2016 to 2021",
+   "authors": "Public Health Agency of Canada",
+   "journal": "Canada Communicable Disease Report",
+   "year": 2022,
+   "country": "Canada",
+   "type": "report",
+   "url": "https://www.canada.ca/en/public-health/services/reports-publications/canada-communicable-disease-report-ccdr/monthly-issue/2022-48/issue-7-8-july-august-2022/laboratory-acquired-infections-canada-2016-2021.html",
+   "takeaway": "National analysis of laboratory-acquired infections reported to Canada's mandatory reporting system, useful as a model for learning from incidents.",
+   "bm": [
+    "8.2"
+   ]
+  },
+  {
+   "id": "kiyaga-2013",
+   "title": "Uganda's new national laboratory sample transport system: a successful model for improving access to diagnostic services for early infant HIV diagnosis and other programs",
+   "authors": "Kiyaga C, et al.",
+   "journal": "PLoS ONE 8(11)",
+   "year": 2013,
+   "country": "Uganda",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.1371/journal.pone.0078609",
+   "takeaway": "A courier network linking regional hubs to 616 facilities cut delays and transport costs for infant HIV tests and widened access.",
+   "bm": [
+    "9.1"
+   ]
+  },
+  {
+   "id": "yao-2014",
+   "title": "Evidence from 617 laboratories in 47 countries for SLMTA-driven improvement in quality management systems",
+   "authors": "Yao K, et al.",
+   "journal": "African Journal of Laboratory Medicine 3(2)",
+   "year": 2014,
+   "country": "47 countries",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.4102/ajlm.v3i2.262",
+   "takeaway": "Audit scores in 617 laboratories rose substantially after SLMTA training, suggesting lasting quality improvement in low-resource laboratories.",
+   "bm": [
+    "9.2"
+   ]
+  },
+  {
+   "id": "nkwawir-2014",
+   "title": "From grass to grace: how SLMTA revolutionised the Bamenda Regional Hospital Laboratory in Cameroon",
+   "authors": "Nkwawir SC, et al.",
+   "journal": "African Journal of Laboratory Medicine 3(2)",
+   "year": 2014,
+   "country": "Cameroon",
+   "type": "case-study",
+   "pr": true,
+   "url": "https://doi.org/10.4102/ajlm.v3i2.203",
+   "takeaway": "A hospital laboratory went from lowest to highest score in the quality programme through training, on-site mentoring and team effort.",
+   "bm": [
+    "9.2"
+   ]
+  },
+  {
+   "id": "kennedy-2016",
+   "title": "The laboratory health system and its response to the Ebola virus disease outbreak in Liberia",
+   "authors": "Kennedy SB, et al.",
+   "journal": "African Journal of Laboratory Medicine 5(3)",
+   "year": 2016,
+   "country": "Liberia",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.4102/ajlm.v5i3.509",
+   "takeaway": "A fragmented laboratory system with no local testing for dangerous fevers slowed the Ebola response; rebuilding capacity, training and accreditation are the lessons.",
+   "bm": [
+    "9.3",
+    "9.4"
+   ]
+  },
+  {
+   "id": "kuehne-2019",
+   "title": "Event-based surveillance at health facility and community level in low-income and middle-income countries: a systematic review",
+   "authors": "Kuehne A, et al.",
+   "journal": "BMJ Global Health 4(6)",
+   "year": 2019,
+   "country": "Low- and middle-income countries",
+   "type": "systematic-review",
+   "url": "https://gh.bmj.com/content/4/6/e001878",
+   "takeaway": "In 13 systems reviewed, facility and community event-based surveillance strengthened early warning, especially when linked to existing response structures.",
+   "bm": [
+    "10.1",
+    "10.2"
+   ]
+  },
+  {
+   "id": "beebeejaun-2021",
+   "title": "Evaluation of national event-based surveillance, Nigeria, 2016–2018",
+   "authors": "Beebeejaun K, et al.",
+   "journal": "Emerging Infectious Diseases 27(3)",
+   "year": 2021,
+   "country": "Nigeria",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.3201/eid2703.200141",
+   "takeaway": "The system picked up real outbreaks well, but weak logging and the lack of written procedures limited oversight and follow-up.",
+   "note": "First author as shown on the EID page.",
+   "bm": [
+    "10.1",
+    "10.2"
+   ]
+  },
+  {
+   "id": "mremi-2021",
+   "title": "Twenty years of integrated disease surveillance and response in Sub-Saharan Africa: challenges and opportunities for effective management of infectious disease epidemics",
+   "authors": "Mremi IR, et al.",
+   "journal": "One Health Outlook 3",
+   "year": 2021,
+   "country": "Sub-Saharan Africa",
+   "type": "systematic-review",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8575546/",
+   "takeaway": "IDSR is still mostly facility- and indicator-based; broader data sources and multisector platforms are needed to use surveillance data better.",
+   "bm": [
+    "10.1",
+    "10.3"
+   ]
+  },
+  {
+   "id": "popmed-2023",
+   "title": "Public health workforce capacities and the challenges for preparedness",
+   "authors": "",
+   "journal": "Population Medicine (conference supplement, PANDEM-2)",
+   "year": 2023,
+   "country": "International",
+   "type": "conference-abstract",
+   "pr": false,
+   "url": "https://www.populationmedicine.eu/Public-health-workforce-capacities-and-the-challenges-for-preparedness,164364,0,2.html",
+   "takeaway": "Scoping review: many countries have no dedicated public health workforce policy or plan, so defining and monitoring the workforce is a first step for preparedness.",
+   "note": "Authors not listed on the page read.",
+   "bm": [
+    "11.1"
+   ]
+  },
+  {
+   "id": "shoman-2017",
+   "title": "The link between the West African Ebola outbreak and health systems in Guinea, Liberia and Sierra Leone: a systematic review",
+   "authors": "Shoman H, et al.",
+   "journal": "Globalization and Health 13",
+   "year": 2017,
+   "country": "Guinea, Liberia, Sierra Leone",
+   "type": "systematic-review",
+   "url": "https://doi.org/10.1186/s12992-016-0224-2",
+   "takeaway": "Health-worker shortages hampered Ebola control and were themselves made worse by the outbreak, so staffing and basic health-system capacity need strengthening.",
+   "bm": [
+    "11.2"
+   ]
+  },
+  {
+   "id": "alnsour-2024",
+   "title": "Evaluation of field epidemiology training programs: a scoping review",
+   "authors": "Al Nsour M, et al.",
+   "journal": "Frontiers in Epidemiology",
+   "year": 2024,
+   "country": "Global",
+   "type": "review",
+   "url": "https://doi.org/10.3389/fepid.2024.1376071",
+   "takeaway": "Across 12 evaluations, field epidemiology training seems to build trainee skills in several formats, but standard metrics and better evaluation tools are needed.",
+   "bm": [
+    "11.3"
+   ]
+  },
+  {
+   "id": "casey-2023",
+   "title": "Emergency medical teams in WHO's Western Pacific Region",
+   "authors": "Casey A, et al.",
+   "journal": "Western Pacific Surveillance and Response 14(6)",
+   "year": 2023,
+   "country": "WHO Western Pacific Region",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.5365/wpsar.2023.14.6.1184",
+   "takeaway": "Emergency medical teams now exist in almost all Western Pacific countries; steady funding, cooperation and research are needed to keep them effective.",
+   "bm": [
+    "11.4",
+    "12A.4"
+   ]
+  },
+  {
+   "id": "vadi-2025",
+   "title": "What do 32 COVID-19 deployments of emergency medical teams tell us about challenges and lessons learned?",
+   "authors": "Vadi R, et al.",
+   "journal": "Report from the Field, Cambridge University Press (Society for Disaster Medicine and Public Health)",
+   "year": 2025,
+   "country": "International (UK-Med and PCPM teams)",
+   "type": "case-study",
+   "pr": true,
+   "url": "https://core-prod.cambridgecore.org/core/product/F13403C38A9D93CCDB54480A94071351/core-reader",
+   "takeaway": "Deployments called for large, flexible staff rosters, better needs assessments and closer coordination with health ministries.",
+   "bm": [
+    "11.4",
+    "12A.4"
+   ]
+  },
+  {
+   "id": "who-dpm-2022",
+   "title": "Dynamic preparedness metric: a paradigm shift to measure and act on preparedness",
+   "authors": "Kandel N, Chungong S, et al.",
+   "journal": "The Lancet Global Health 10(5)",
+   "year": 2022,
+   "country": "Global",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.1016/S2214-109X(22)00097-3",
+   "takeaway": "An approach for measuring readiness regularly and acting on the gaps found.",
+   "bm": [
+    "12A.1"
+   ]
+  },
+  {
+   "id": "balajee-2017",
+   "title": "Sustainable model for public health emergency operations centers for global settings",
+   "authors": "Balajee SA, et al.",
+   "journal": "Emerging Infectious Diseases 23(13)",
+   "year": 2017,
+   "country": "Several countries",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.3201/eid2313.170435",
+   "takeaway": "Lessons from building emergency operations centres in several countries, distilled into a sustainable model.",
+   "bm": [
+    "12A.2"
+   ]
+  },
+  {
+   "id": "shuaib-2014",
+   "title": "Ebola virus disease outbreak — Nigeria, July–September 2014",
+   "authors": "Shuaib F, et al.",
+   "journal": "MMWR 63(39)",
+   "year": 2014,
+   "country": "Nigeria",
+   "type": "case-study",
+   "pr": false,
+   "url": "https://www.cdc.gov/Mmwr/preview/mmwrhtml/mm6339a5.htm",
+   "takeaway": "An emergency operations centre using an incident management system coordinated the response and helped contain Ebola early.",
+   "bm": [
+    "12A.2",
+    "12A.3"
+   ]
+  },
+  {
+   "id": "brookings-2021",
+   "title": "Investing in national public health institutes for future pandemics: lessons from Nigeria",
+   "authors": "Brookings Institution",
+   "journal": "Brookings",
+   "year": 2021,
+   "country": "Nigeria",
+   "type": "report",
+   "url": "https://www.brookings.edu/articles/investing-in-national-public-health-institutes-for-future-pandemics-lessons-from-nigeria/",
+   "takeaway": "How Nigeria built its national public health institute and a network of emergency operations centres.",
+   "bm": [
+    "12A.3"
+   ]
+  },
+  {
+   "id": "hiqa-2023",
+   "title": "An overview of national approaches to stockpiling of medical countermeasures for public health emergencies",
+   "authors": "Health Information and Quality Authority (Ireland)",
+   "journal": "HIQA",
+   "year": 2023,
+   "country": "Several countries",
+   "type": "report",
+   "url": "https://www.hiqa.ie/sites/default/files/2023-11/An-overview-of-national-approaches-to-stockpiling-of-medical-countermeasures-for-public-health-emergencies.pdf",
+   "takeaway": "Compares how countries organise stockpiles and supplier agreements for medical countermeasures.",
+   "bm": [
+    "12A.5"
+   ]
+  },
+  {
+   "id": "kilmarx-2024",
+   "title": "Building research capacity in low- and middle-income countries and pandemic preparedness: lessons learned and future directions",
+   "authors": "Kilmarx PH, et al.",
+   "journal": "American Journal of Tropical Medicine and Hygiene",
+   "year": 2024,
+   "country": "Low- and middle-income countries",
+   "type": "perspective",
+   "url": "https://doi.org/10.4269/ajtmh.23-0675",
+   "takeaway": "Local research capacity (trained staff, genomic sequencing, partnerships) is essential for responding to pandemics in low- and middle-income countries.",
+   "bm": [
+    "12A.6"
+   ]
+  },
+  {
+   "id": "olu-2016",
+   "title": "Strengthening health disaster risk management in Africa: multi-sectoral and people-centred approaches are required in the post-Hyogo Framework of Action era",
+   "authors": "Olu O, et al.",
+   "journal": "BMC Public Health",
+   "year": 2016,
+   "country": "WHO African Region",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.1186/s12889-016-3390-5",
+   "takeaway": "The regional health disaster strategy fell behind its targets, mainly through weak political commitment and funding; the authors call for multisectoral, people-centred approaches.",
+   "bm": [
+    "12B.1",
+    "12B.4"
+   ]
+  },
+  {
+   "id": "sunindijo-2019",
+   "title": "Hospital safety index: assessing the readiness and resiliency of hospitals in Indonesia",
+   "authors": "Sunindijo RY, et al.",
+   "journal": "Facilities 38(1-2)",
+   "year": 2019,
+   "country": "Indonesia",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.1108/F-12-2018-0149",
+   "takeaway": "In 15 hospitals the average Hospital Safety Index grade suggested emergency functioning could be at risk, so short-term fixes were needed.",
+   "bm": [
+    "12B.2"
+   ]
+  },
+  {
+   "id": "heydari-2024",
+   "title": "Hospital safety index: evaluation of the readiness and safety of hospitals in Isfahan province, Iran",
+   "authors": "Heydari F, et al.",
+   "journal": "Frontiers in Emergency Medicine",
+   "year": 2024,
+   "country": "Iran",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.18502/fem.v8i2.15459",
+   "takeaway": "The 55 hospitals became safer between 2017 and 2022 on the WHO Hospital Safety Index, but disaster readiness still has room to improve.",
+   "bm": [
+    "12B.2"
+   ]
+  },
+  {
+   "id": "sane-2023",
+   "title": "Key lessons learnt from COVID-19 intra-action reviews in the Republic of Moldova, Montenegro, Kosovo and North Macedonia 2020–2021: a qualitative study",
+   "authors": "Sane J, et al.",
+   "journal": "BMJ Open 13(3)",
+   "year": 2023,
+   "country": "Moldova, Montenegro, Kosovo, North Macedonia",
+   "type": "iar",
+   "pr": true,
+   "url": "https://bmjopen.bmj.com/content/13/3/e066279",
+   "takeaway": "Across four reviews staff shortages were a key barrier, and learning together across sectors strengthened preparedness.",
+   "bm": [
+    "12B.3",
+    "12B.4"
+   ]
+  },
+  {
+   "id": "shimizu-2023",
+   "title": "First COVID-19 intra-action review: experience from Kenya",
+   "authors": "Shimizu K, et al.",
+   "journal": "Journal of Global Health 13",
+   "year": 2023,
+   "country": "Kenya",
+   "type": "iar",
+   "pr": true,
+   "url": "https://doi.org/10.7189/jogh.13.03043",
+   "takeaway": "Kenya's 2021 review found good practices but also funding, data and supply gaps; regular reviews can strengthen future preparedness.",
+   "bm": [
+    "12B.3",
+    "12B.4",
+    "3.3"
+   ]
+  },
+  {
+   "id": "who-sph-cambodia",
+   "title": "WHO SPH portal record: partnership to link public health and security authorities in Cambodia (US Indo-Pacific Command, FAO, WHO)",
+   "authors": "WHO Strategic Partnership for Health Security",
+   "journal": "WHO SPH portal",
+   "year": null,
+   "country": "Cambodia",
+   "type": "case-study",
+   "pr": false,
+   "url": "https://extranet.who.int/sph/resource-landscape-details/28643",
+   "takeaway": "A partnership supports Cambodia, with FAO and WHO as implementers, to connect public health and security authorities when a deliberate biological event is suspected.",
+   "note": "Portal record; date not shown.",
+   "bm": [
+    "13.1"
+   ]
+  },
+  {
+   "id": "olu-2015-ccc",
+   "title": "Community Care Centre (CCC) as adjunct in the management of Ebola virus disease (EVD) cases during outbreaks: experience from Sierra Leone",
+   "authors": "Olu O, et al.",
+   "journal": "Pan African Medical Journal (supplement)",
+   "year": 2015,
+   "country": "Sierra Leone",
+   "type": "case-study",
+   "pr": false,
+   "url": "https://www.panafrican-med-journal.com/content/series/22/1/14/pdf/14.pdf",
+   "takeaway": "Community care centres helped sick people isolate and get care near home, but exposed uninfected patients to risk and lacked staff support.",
+   "bm": [
+    "14.1"
+   ]
+  },
+  {
+   "id": "guha-2025",
+   "title": "Maintaining essential health services during COVID-19: cross-country lessons of health system resilience from Asia, Sub-Saharan Africa and Latin America",
+   "authors": "Guha M, et al.",
+   "journal": "BMJ Global Health 8(Suppl 6)",
+   "year": 2025,
+   "country": "Six low- and middle-income countries",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.1136/bmjgh-2023-013392",
+   "takeaway": "Strong primary care, earlier epidemic experience and public trust helped keep essential services running.",
+   "bm": [
+    "14.2"
+   ]
+  },
+  {
+   "id": "ehs-pulse-2023",
+   "title": "Assessing capacities and resilience of health services during the COVID-19 pandemic: lessons from rapid key informant surveys",
+   "authors": "",
+   "journal": "Frontiers in Public Health",
+   "year": 2023,
+   "country": "Multi-country",
+   "type": "peer-reviewed",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9969144/",
+   "takeaway": "Experience with rapid surveys to monitor service disruptions during the pandemic.",
+   "note": "Authors not read; record taken from the JEE tool's source list.",
+   "bm": [
+    "14.2"
+   ]
+  },
+  {
+   "id": "moynihan-2021",
+   "title": "Impact of COVID-19 pandemic on utilisation of healthcare services: a systematic review",
+   "authors": "Moynihan R, et al.",
+   "journal": "BMJ Open 11(3)",
+   "year": 2021,
+   "country": "Multi-country (81 studies, 20 countries)",
+   "type": "systematic-review",
+   "url": "https://bmjopen.bmj.com/content/11/3/e045343",
+   "takeaway": "Use of health services fell by about a third in the first months of the pandemic, more so for milder conditions.",
+   "bm": [
+    "14.3"
+   ]
+  },
+  {
+   "id": "storr-2017",
+   "title": "Core components for effective infection prevention and control programmes: new WHO evidence-based recommendations",
+   "authors": "Storr J, et al.",
+   "journal": "Antimicrobial Resistance and Infection Control 6",
+   "year": 2017,
+   "country": "Global",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.1186/s13756-016-0149-9",
+   "takeaway": "The WHO guideline sets out eleven recommendations on what national and facility IPC programmes need to be effective.",
+   "bm": [
+    "15.1"
+   ]
+  },
+  {
+   "id": "mathur-2020",
+   "title": "Surveillance of healthcare-associated bloodstream and urinary tract infections in a national level network of Indian hospitals",
+   "authors": "Mathur P, et al.",
+   "journal": "Infection Control & Hospital Epidemiology (conference abstract)",
+   "year": 2020,
+   "country": "India",
+   "type": "conference-abstract",
+   "pr": false,
+   "url": "https://www.cambridge.org/core/journals/infection-control-and-hospital-epidemiology/article/surveillance-of-healthcareassociated-bloodstream-and-urinary-tract-infections-in-a-national-level-network-of-indian-hospitals/BB7D8DF499A8358EE8422B76E14EE3FF",
+   "takeaway": "A network of 37 hospitals tracked bloodstream and urinary infections with adapted protocols and found high drug resistance and two outbreaks.",
+   "bm": [
+    "15.2"
+   ]
+  },
+  {
+   "id": "cronk-2018",
+   "title": "Environmental conditions in health care facilities in low- and middle-income countries: coverage and inequalities",
+   "authors": "Cronk R, et al.",
+   "journal": "International Journal of Hygiene and Environmental Health",
+   "year": 2018,
+   "country": "78 low- and middle-income countries",
+   "type": "peer-reviewed",
+   "url": "https://sph.unc.edu/?p=314231",
+   "takeaway": "Only about 2% of health facilities had water, sanitation, hygiene and waste services all in place.",
+   "note": "Link goes to the university's news item on the study.",
+   "bm": [
+    "15.3"
+   ]
+  },
+  {
+   "id": "jha-2018",
+   "title": "Integrating emergency risk communication (ERC) into the public health system response: systematic review of literature to aid formulation of the 2017 WHO guideline",
+   "authors": "Jha A, et al.",
+   "journal": "PLoS ONE 13(10)",
+   "year": 2018,
+   "country": "Multi-country",
+   "type": "systematic-review",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6209198/",
+   "takeaway": "The evidence behind the WHO guideline on integrating risk communication into emergency response.",
+   "bm": [
+    "16A.1",
+    "16A.2"
+   ]
+  },
+  {
+   "id": "gillespie-2016",
+   "title": "Social mobilization and community engagement central to the Ebola response in West Africa: lessons for future public health emergencies",
+   "authors": "Gillespie AM, et al.",
+   "journal": "Global Health: Science and Practice 4(4)",
+   "year": 2016,
+   "country": "Guinea, Liberia, Sierra Leone",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.9745/GHSP-D-16-00226",
+   "takeaway": "Trusted local messengers, flexible but coordinated communication and sustained community involvement were central to the response.",
+   "bm": [
+    "16B.1",
+    "16B.2"
+   ]
+  },
+  {
+   "id": "nyagah-2023",
+   "title": "The importance of community health workers as frontline responders during the COVID-19 pandemic, Somalia, 2020–2021",
+   "authors": "Nyagah L, et al.",
+   "journal": "Frontiers in Public Health",
+   "year": 2023,
+   "country": "Somalia",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.3389/fpubh.2023.1215620",
+   "takeaway": "Community health workers found about a third of suspected cases and traced more contacts than facilities did, which helps in hard-to-reach areas.",
+   "bm": [
+    "16B.3"
+   ]
+  },
+  {
+   "id": "lohiniva-2022",
+   "title": "Infodemic management using digital information and knowledge cocreation to address COVID-19 vaccine hesitancy: case study from Ghana",
+   "authors": "Lohiniva AL, et al.",
+   "journal": "JMIR Infodemiology",
+   "year": 2022,
+   "country": "Ghana",
+   "type": "case-study",
+   "pr": true,
+   "url": "https://doi.org/10.2196/37134",
+   "takeaway": "Ghana built a weekly, human-verified social listening workflow to spot and answer COVID-19 vaccine misinformation in near real time.",
+   "bm": [
+    "16C.1"
+   ]
+  },
+  {
+   "id": "who-infodemic-2022",
+   "title": "WHO competency framework for health authorities and institutions to manage infodemics",
+   "authors": "",
+   "journal": "Human Resources for Health",
+   "year": 2022,
+   "country": "Global",
+   "type": "peer-reviewed",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9077350/",
+   "takeaway": "Competencies and roles needed in staff who manage infodemics.",
+   "note": "Authors not read; record taken from the JEE tool's source list.",
+   "bm": [
+    "16C.1"
+   ]
+  },
+  {
+   "id": "fossouo-2022",
+   "title": "Assessing core capacities for addressing public health emergencies of international concern at designated points of entry in Cameroon during the COVID-19 pandemic",
+   "authors": "Fossouo Ndoungué V, et al.",
+   "journal": "BMC Public Health",
+   "year": 2022,
+   "country": "Cameroon",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.1186/s12889-022-14614-7",
+   "takeaway": "All five designated points of entry fell short of standards, mainly through unstructured communication, missing emergency plans and too few trained staff.",
+   "bm": [
+    "17.1"
+   ]
+  },
+  {
+   "id": "mouchtouri-2019",
+   "title": "Exit and entry screening practices for infectious diseases among travelers at points of entry: looking for evidence on public health impact",
+   "authors": "Mouchtouri VA, et al.",
+   "journal": "International Journal of Environmental Research and Public Health 16(23)",
+   "year": 2019,
+   "country": "Global",
+   "type": "systematic-review",
+   "url": "https://ideas.repec.org/a/gam/jijerp/v16y2019i23p4638-d289612.html",
+   "takeaway": "Border screening rarely caught infected travellers but may raise awareness; it works best combined with other outbreak measures.",
+   "bm": [
+    "17.2"
+   ]
+  },
+  {
+   "id": "burns-2020",
+   "title": "Travel-related control measures to contain the COVID-19 pandemic: a rapid review",
+   "authors": "Burns J, et al.",
+   "journal": "Cochrane Database of Systematic Reviews",
+   "year": 2020,
+   "country": "Global",
+   "type": "systematic-review",
+   "url": "https://paho-covid-prod.atmire.com/handle/20.500.12663/2601",
+   "takeaway": "Rapid review of travel measures for COVID-19 using observational and modelling studies, with SARS and MERS as indirect evidence; see the review for effect estimates.",
+   "note": "Authors and year are from memory of the Cochrane record; the page read did not show them. Results not read.",
+   "bm": [
+    "17.3"
+   ]
+  },
+  {
+   "id": "haug-2020",
+   "title": "Ranking the effectiveness of worldwide COVID-19 government interventions",
+   "authors": "Haug N, et al.",
+   "journal": "Nature Human Behaviour",
+   "year": 2020,
+   "country": "79 territories",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.1038/s41562-020-01009-0",
+   "takeaway": "No single measure pushed the reproduction number below one; well-timed combinations worked best, with limits on gatherings and school closures among the most effective.",
+   "bm": [
+    "20.1",
+    "17.3"
+   ]
+  },
+  {
+   "id": "emhj-2015",
+   "title": "Responding to chemical events: a multisectoral responsibility",
+   "authors": "WHO Eastern Mediterranean Region",
+   "journal": "Eastern Mediterranean Health Journal 21(4)",
+   "year": 2015,
+   "country": "Eastern Mediterranean Region (18 countries)",
+   "type": "report",
+   "pr": false,
+   "url": "https://www.emro.who.int/emhj-volume-21-2015/volume-21-issue-4/responding-to-chemical-events-a-multisectoral-responsibility.html",
+   "takeaway": "Report of a regional consultation: chemical emergencies need a multisectoral response and health ministries must ensure coordinated national capacity, which many countries lack.",
+   "bm": [
+    "18.1"
+   ]
+  },
+  {
+   "id": "yasui-2018",
+   "title": "Lessons learned from radiation protection for emergency response and remediation/decontamination work relating to the Fukushima accident",
+   "authors": "Yasui S",
+   "journal": "Journal of the National Institute of Public Health 67(1)",
+   "year": 2018,
+   "country": "Japan",
+   "type": "review",
+   "url": "https://doi.org/10.20683/jniph.67.1_84",
+   "takeaway": "Narrative review of 2012–2017 papers: worker radiation protection is rarely reported, and lessons should shape preparedness for future nuclear accidents.",
+   "note": "Title as abbreviated on the journal page.",
+   "bm": [
+    "19.1"
+   ]
+  },
+  {
+   "id": "ndhine-2016",
+   "title": "A biosecurity survey in Kenya, November 2014 to February 2015",
+   "authors": "Ndhine EO, Slotved HC, Osoro EM, et al.",
+   "journal": "Health Security 14(4)",
+   "year": 2016,
+   "country": "Kenya (with Denmark)",
+   "type": "case-study",
+   "pr": true,
+   "url": "https://journals.sagepub.com/doi/10.1089/hs.2016.0009",
+   "takeaway": "A survey of 86 laboratories found dangerous agents with weak access control and frequent confusion between biosafety and biosecurity; it led to a call for a national legal framework.",
+   "bm": [
+    "8.1"
+   ]
+  },
+  {
+   "id": "lestari-2021",
+   "title": "Implementation of bio-risk management system in a national clinical and medical referral centre laboratories",
+   "authors": "Lestari F, Kadir A, Miswary T, et al.",
+   "journal": "Int J Environ Res Public Health 18(5):2308",
+   "year": 2021,
+   "country": "Indonesia",
+   "type": "case-study",
+   "pr": true,
+   "url": "https://www.mdpi.com/1660-4601/18/5/2308",
+   "takeaway": "A gap analysis against ISO 35001 found over half the elements in place, with leadership, support and performance evaluation weakest; a template for laboratory biorisk audits.",
+   "bm": [
+    "8.2"
+   ]
+  },
+  {
+   "id": "blacksell-2024",
+   "title": "Laboratory-acquired infections and pathogen escapes worldwide between 2000 and 2021: a scoping review",
+   "authors": "Blacksell SD, Dhawan S, Kusumoto M, et al.",
+   "journal": "Lancet Microbe 5(2)",
+   "year": 2024,
+   "country": "Global",
+   "type": "review",
+   "url": "https://boris.unibe.ch/190442",
+   "takeaway": "309 laboratory infections and 16 pathogen escapes were found in public sources; most incidents go unreported, so countries need formal incident reporting.",
+   "bm": [
+    "8.2"
+   ]
+  },
+  {
+   "id": "siengsanan-lamont-2018",
+   "title": "A review of laboratory-acquired infections in the Asia-Pacific: understanding risk and the need for improved biosafety for veterinary and zoonotic diseases",
+   "authors": "Siengsanan-Lamont J, Blacksell SD",
+   "journal": "Trop Med Infect Dis 3(2):36",
+   "year": 2018,
+   "country": "Asia-Pacific",
+   "type": "review",
+   "url": "https://www.mdpi.com/2414-6366/3/2/36",
+   "takeaway": "Only 27 laboratory infections were reported over 34 years, mostly from high-income countries; under-reporting hides the risk in veterinary and zoonotic laboratories.",
+   "bm": [
+    "8.2"
+   ]
+  },
+  {
+   "id": "chatham-sli-2019",
+   "title": "The Chatham House Sustainable Laboratories Initiative: prior assessment tool",
+   "authors": "Harper D, Ross E, Wakefield B",
+   "journal": "Chatham House",
+   "year": 2019,
+   "country": "Africa",
+   "type": "report",
+   "url": "https://www.chathamhouse.org/2019/06/chatham-house-sustainable-laboratories-initiative-prior-assessment-tool",
+   "takeaway": "Guides funders and countries to plan laboratories that fit local risks and running budgets, so biosafety does not collapse after the donor leaves.",
+   "bm": [
+    "8.1",
+    "9.4"
+   ]
+  },
+  {
+   "id": "wenham-2020",
+   "title": "COVID-19: the gendered impacts of the outbreak",
+   "authors": "Wenham C, Smith J, Morgan R",
+   "journal": "The Lancet 395(10227)",
+   "year": 2020,
+   "country": "Global",
+   "type": "perspective",
+   "url": "https://doi.org/10.1016/S0140-6736(20)30526-2",
+   "takeaway": "Argues that outbreak policies must account for the different burdens on women (care work, frontline health jobs, violence) and that sex-disaggregated data are needed.",
+   "bm": [
+    "1.2"
+   ]
+  },
+  {
+   "id": "chua-2021",
+   "title": "An analysis of national action plans on antimicrobial resistance in Southeast Asia using a governance framework approach",
+   "authors": "Chua AQ, et al.",
+   "journal": "Lancet Regional Health – Western Pacific",
+   "year": 2021,
+   "country": "10 ASEAN countries",
+   "type": "peer-reviewed",
+   "url": "https://doaj.org/article/30f2dfab88894f35b18647730e34eea0",
+   "takeaway": "Compares ten AMR action plans with a governance framework; accountability, equity, sustainability, transparency and the environment sector need strengthening.",
+   "bm": [
+    "4.1"
+   ]
+  },
+  {
+   "id": "glass-2020",
+   "title": "GLASS report: early implementation 2020",
+   "authors": "World Health Organization",
+   "journal": "WHO",
+   "year": 2020,
+   "country": "Global",
+   "type": "report",
+   "url": "https://www.who.int/publications/i/item/9789240005587",
+   "takeaway": "Describes how 82 countries enrolled in WHO's global AMR surveillance system and what data they could report; useful as a roadmap for setting up national AMR surveillance.",
+   "bm": [
+    "4.2"
+   ]
+  },
+  {
+   "id": "vandijck-2018",
+   "title": "Antibiotic stewardship interventions in hospitals in low- and middle-income countries: a systematic review",
+   "authors": "Van Dijck C, Vlieghe E, Cox JA",
+   "journal": "Bulletin of the World Health Organization 96(4)",
+   "year": 2018,
+   "country": "Low- and middle-income countries",
+   "type": "systematic-review",
+   "url": "https://research.itg.be/en/publications/antibiotic-stewardship-interventions-in-hospitals-in-low-and-midd/",
+   "takeaway": "Most of 27 hospital stewardship programmes improved prescribing and outcomes, but study quality was too weak for firm conclusions.",
+   "bm": [
+    "4.4"
+   ]
+  },
+  {
+   "id": "speksnijder-2015",
+   "title": "Reduction of veterinary antimicrobial use in the Netherlands. The Dutch success model",
+   "authors": "Speksnijder DC, Mevius DJ, Bruschke CJ, Wagenaar JA",
+   "journal": "Zoonoses and Public Health 62 (Suppl 1)",
+   "year": 2015,
+   "country": "Netherlands",
+   "type": "case-study",
+   "pr": true,
+   "url": "https://reactgroup.org/toolbox/prevent-infection/examples-from-the-field/the-dutch-success-model",
+   "takeaway": "Describes how public-private agreements, reduction targets, benchmarking of farms and vets, and transparency cut Dutch farm antibiotic use sharply from 2007 onwards.",
+   "note": "Authors and journal from the PubMed record (PMID 25421382), which could not be opened from here; the link goes to a ReAct summary.",
+   "bm": [
+    "4.5"
+   ]
+  },
+  {
+   "id": "osman-2023",
+   "title": "Prioritization of zoonoses for multisectoral, One Health collaboration in Somalia, 2023",
+   "authors": "Osman AY, et al.",
+   "journal": "One Health 17:100634",
+   "year": 2023,
+   "country": "Somalia",
+   "type": "case-study",
+   "pr": true,
+   "url": "https://www.ilri.org/knowledge/publications/prioritization-zoonoses-multisectoral-one-health-collaboration-somalia-2023",
+   "takeaway": "Human, animal, agriculture and environment sectors ranked 33 candidate zoonoses and agreed seven priorities for joint surveillance and preparedness.",
+   "bm": [
+    "5.1",
+    "3.2"
+   ]
+  },
+  {
+   "id": "hassan-2020-rvf",
+   "title": "Epidemiological investigation of a Rift Valley fever outbreak in humans and livestock in Kenya, 2018",
+   "authors": "Hassan A, Muturi M, Mwatondo A, et al.",
+   "journal": "Am J Trop Med Hyg 103(4)",
+   "year": 2020,
+   "country": "Kenya",
+   "type": "case-study",
+   "pr": true,
+   "url": "https://www.ilri.org/knowledge/publications/epidemiological-investigation-rift-valley-fever-outbreak-humans-and",
+   "takeaway": "Livestock deaths picked up by community surveillance triggered a joint animal–human investigation that found 106 human cases; a working example of a joint zoonoses response.",
+   "bm": [
+    "5.2"
+   ]
+  },
+  {
+   "id": "rtsl-rvf-2024",
+   "title": "7-1-7 helps Kenya quickly contain Rift Valley fever outbreak",
+   "authors": "Resolve to Save Lives",
+   "journal": "RTSL case story",
+   "year": 2024,
+   "country": "Kenya (Marsabit)",
+   "type": "case-study",
+   "pr": false,
+   "url": "https://resolvetosavelives.org/strategies-in-action/7-1-7-helps-kenya-quickly-contain-rift-valley-fever-outbreak/",
+   "takeaway": "Animal health surveillance alerted human health staff within a day; slow national lab confirmation led the county to stock local testing supplies.",
+   "bm": [
+    "5.2"
+   ]
+  },
+  {
+   "id": "singhai-2021-nipah",
+   "title": "Nipah virus disease: recent perspective and One Health approach",
+   "authors": "Singhai M, Jain R, Jain S, et al.",
+   "journal": "Annals of Global Health 87(1)",
+   "year": 2021,
+   "country": "India (Kerala)",
+   "type": "review",
+   "url": "https://doaj.org/article/53241562896a479b81229da1fe0ba90d",
+   "takeaway": "Reviews the 2018 and 2019 Kerala Nipah outbreaks and credits coordinated multisectoral response with containing the 2019 outbreak quickly.",
+   "bm": [
+    "5.2"
+   ]
+  },
+  {
+   "id": "eid-2020-lbm",
+   "title": "Association of biosecurity and hygiene practices with environmental contamination with influenza A viruses in live bird markets, Bangladesh",
+   "authors": "",
+   "journal": "Emerging Infectious Diseases (Sept 2020)",
+   "year": 2020,
+   "country": "Bangladesh",
+   "type": "peer-reviewed",
+   "url": "https://wwwnc.cdc.gov/eid/article/26/9/19-1029",
+   "takeaway": "In 800 poultry shops, on-site slaughter, keeping birds overnight and mixing sick and healthy birds raised influenza contamination, while monthly cleaning appeared protective.",
+   "note": "Authors not read.",
+   "bm": [
+    "5.3"
+   ]
+  },
+  {
+   "id": "nadon-2017",
+   "title": "PulseNet International: vision for the implementation of whole genome sequencing (WGS) for global food-borne disease surveillance",
+   "authors": "Nadon C, Van Walle I, Gerner-Smidt P, et al.",
+   "journal": "Eurosurveillance 22(23)",
+   "year": 2017,
+   "country": "Global",
+   "type": "perspective",
+   "url": "https://www.eurosurveillance.org/content/10.2807/1560-7917.ES.2017.22.23.30544",
+   "takeaway": "Sets out how the global PulseNet network moves to standardised genome sequencing so that foodborne clusters can be linked across countries.",
+   "bm": [
+    "6.1"
+   ]
+  },
+  {
+   "id": "thomas-2020",
+   "title": "Outbreak of listeriosis in South Africa associated with processed meat",
+   "authors": "Thomas J, Govender N, McCarthy KM, et al.",
+   "journal": "New England Journal of Medicine 382(7)",
+   "year": 2020,
+   "country": "South Africa",
+   "type": "case-study",
+   "pr": true,
+   "url": "https://stacks.cdc.gov/view/cdc/89525",
+   "takeaway": "Genome sequencing and a case-control study traced 937 cases to one factory's ready-to-eat meat; the recall was followed by a sharp drop in cases.",
+   "bm": [
+    "6.2",
+    "6.1"
+   ]
+  },
+  {
+   "id": "duron-2025",
+   "title": "Lessons learned in the implementation of measles and rubella vaccination campaigns in the Americas",
+   "authors": "Durón R, et al.",
+   "journal": "Pan American Journal of Public Health",
+   "year": 2025,
+   "country": "Region of the Americas",
+   "type": "review",
+   "url": "https://journal.paho.org/en/articles/lessons-learned-implementation-measles-and-rubella-vaccination-campaigns-americas",
+   "takeaway": "Regular follow-up campaigns helped keep measles and rubella eliminated in the Americas and strengthened routine immunisation.",
+   "bm": [
+    "7.1"
+   ]
+  },
+  {
+   "id": "prosser-2017",
+   "title": "System redesign of the immunization supply chain: experiences from Benin and Mozambique",
+   "authors": "Prosser W, Jaillard P, Assy E, et al.",
+   "journal": "Vaccine 35(17)",
+   "year": 2017,
+   "country": "Benin, Mozambique",
+   "type": "case-study",
+   "pr": true,
+   "url": "https://www.technet-21.org/en/resources/journal-article/system-redesign-of-the-immunization-supply-chain-experiences-from-benin-and-mozambique",
+   "takeaway": "An informed-push model, fewer storage tiers, transport loops and dedicated logistics staff improved vaccine availability in both countries.",
+   "bm": [
+    "7.2"
+   ]
+  },
+  {
+   "id": "casey-2019",
+   "title": "Immunogenicity of fractional-dose vaccine during a yellow fever outbreak — final report",
+   "authors": "Casey RM, Harris JB, Ahuka-Mundeke S, et al.",
+   "journal": "New England Journal of Medicine 381(5)",
+   "year": 2019,
+   "country": "DR Congo (Kinshasa)",
+   "type": "peer-reviewed",
+   "url": "https://stacks.cdc.gov/view/cdc/85845",
+   "takeaway": "During a vaccine shortage, one-fifth doses gave seroconversion in 98% and protection lasting a year, supporting fractional dosing in outbreak campaigns.",
+   "bm": [
+    "7.3"
+   ]
+  },
+  {
+   "id": "nkrumah-2025",
+   "title": "Improving the specimen referral system in Ghana: findings from a landscape assessment",
+   "authors": "Nkrumah C, Forson PK, Nkrumah B, et al.",
+   "journal": "Frontiers in Public Health",
+   "year": 2025,
+   "country": "Ghana",
+   "type": "peer-reviewed",
+   "url": "https://www.frontiersin.org/journals/public-health/articles/10.3389/fpubh.2025.1645873/full",
+   "takeaway": "A survey of 265 facilities found fragmented transport, low biosafety compliance and 12-day turnaround; the authors recommend an integrated hub-and-spoke network.",
+   "bm": [
+    "9.1"
+   ]
+  },
+  {
+   "id": "wilkinson-2021",
+   "title": "A year of genomic surveillance reveals how the SARS-CoV-2 pandemic unfolded in Africa",
+   "authors": "Wilkinson E, et al.",
+   "journal": "Science 374(6566)",
+   "year": 2021,
+   "country": "33 African countries",
+   "type": "peer-reviewed",
+   "url": "https://eprints.gla.ac.uk/254036",
+   "takeaway": "A continental network sequenced 8,746 genomes in a year, showing how fast African sequencing capacity could grow with regional hubs and data sharing.",
+   "bm": [
+    "9.3"
+   ]
+  },
+  {
+   "id": "albert-2023-dno",
+   "title": "Optimizing diagnostic networks to increase patient access to TB diagnostic services: development of the diagnostic network optimization (DNO) approach and learnings from its application in Kenya, India and the Philippines",
+   "authors": "Albert H, Rupani S, Masini E, et al.",
+   "journal": "PLoS ONE 18(11)",
+   "year": 2023,
+   "country": "Kenya, India, Philippines",
+   "type": "case-study",
+   "pr": true,
+   "url": "https://doaj.org/article/b35f29343a3b467ea06373c8802ad3a9",
+   "takeaway": "Geospatial network modelling helped three countries decide where to place diagnostic devices and how to route samples to widen access.",
+   "bm": [
+    "9.4"
+   ]
+  },
+  {
+   "id": "who-ephf-workforce-2022",
+   "title": "Action plan: national workforce capacity to implement the essential public health functions, including a focus on emergency preparedness and response",
+   "authors": "World Health Organization",
+   "journal": "WHO",
+   "year": 2022,
+   "country": "Global",
+   "type": "report",
+   "url": "https://www.who.int/publications/i/item/9789240060364",
+   "takeaway": "WHO roadmap for countries to map, plan and build their public health and emergency workforce.",
+   "bm": [
+    "11.1",
+    "11.2"
+   ]
+  },
+  {
+   "id": "hung-2021",
+   "title": "Health workforce development in health emergency and disaster risk management: the need for evidence-based recommendations",
+   "authors": "Hung KKC, Mashino S, Chan EYY, et al.",
+   "journal": "Int J Environ Res Public Health 18:3382",
+   "year": 2021,
+   "country": "Global",
+   "type": "perspective",
+   "url": "https://doi.org/10.3390/ijerph18073382",
+   "takeaway": "Describes a WHO-linked project (reviews, case studies, Delphi) to build evidence-based recommendations for the disaster-risk-management workforce.",
+   "bm": [
+    "12B.1",
+    "11.1"
+   ]
+  },
+  {
+   "id": "guinea-fetp-2022",
+   "title": "Evaluation of the first two cohorts of the Frontline Field Epidemiology Training Program in Guinea",
+   "authors": "",
+   "journal": "Human Resources for Health (2022), article s12960-022-00729-w",
+   "year": 2022,
+   "country": "Guinea",
+   "type": "peer-reviewed",
+   "url": "https://human-resources-health.biomedcentral.com/articles/10.1186/s12960-022-00729-w",
+   "takeaway": "Graduates gained surveillance skills and reporting timeliness improved, but gender imbalance and gaps in event-based surveillance remained.",
+   "note": "Title and authors not shown on the page read; the title here describes the paper.",
+   "bm": [
+    "11.3"
+   ]
+  },
+  {
+   "id": "who-star-2024",
+   "title": "EPI-WIN digest 23: STAR experience in managing health emergencies and disasters, including climate crisis, in countries",
+   "authors": "World Health Organization",
+   "journal": "WHO",
+   "year": 2024,
+   "country": "Multi-country",
+   "type": "report",
+   "url": "https://www.who.int/publications/m/item/epi-win-digest-23-star-experience-in-managing-health-emergencies-and-disasters-including-climate-crisis-in-countries",
+   "takeaway": "How countries have adapted WHO's all-hazards risk profiling toolkit (STAR) at district, hospital and hazard level.",
+   "bm": [
+    "12A.1"
+   ]
+  },
+  {
+   "id": "sl-nerc-lessons",
+   "title": "Lessons from the response to the Ebola virus disease outbreak in Sierra Leone, May 2014–November 2015: summary report",
+   "authors": "National Ebola Response Centre, Sierra Leone, with UN partners",
+   "journal": "WHO AFRO",
+   "year": 2016,
+   "country": "Sierra Leone",
+   "type": "iar",
+   "pr": false,
+   "url": "https://www.afro.who.int/sites/default/files/2017-05/evdlessonslearned.pdf",
+   "takeaway": "Shared district logistics hubs cut storage costs, and verified lists plus mobile cash transfers fixed responder payments.",
+   "note": "Publication year not stated; lessons exercise Sept–Dec 2015.",
+   "bm": [
+    "12A.5",
+    "12A.3"
+   ]
+  },
+  {
+   "id": "goossens-2022",
+   "title": "The European clinical research response to optimise treatment of patients with COVID-19: lessons learned, future perspective, and recommendations",
+   "authors": "Goossens H, Derde L, Horby P, Bonten M",
+   "journal": "Lancet Infectious Diseases 22(5)",
+   "year": 2022,
+   "country": "Europe",
+   "type": "perspective",
+   "url": "https://researchinformation.umcutrecht.nl/en/publications/the-european-clinical-research-response-to-optimise-treatment-of-/",
+   "takeaway": "RECOVERY and REMAP-CAP showed what platform trials can do; Europe needs standing trial networks, funding and simpler contracting before the next pandemic.",
+   "bm": [
+    "12A.6"
+   ]
+  },
+  {
+   "id": "cdc-forensic-epi-2003",
+   "title": "Forensic epidemiology: joint training for law enforcement and public health officials on investigative responses to bioterrorism",
+   "authors": "CDC Public Health Law Program",
+   "journal": "CDC",
+   "year": 2003,
+   "country": "United States",
+   "type": "report",
+   "url": "https://stacks.cdc.gov/view/cdc/42410",
+   "takeaway": "Joint course in which police and public health officials work through bioterrorism scenarios to practise coordinated investigations.",
+   "bm": [
+    "13.1"
+   ]
+  },
+  {
+   "id": "lamontagne-2018",
+   "title": "Evidence-based guidelines for supportive care of patients with Ebola virus disease",
+   "authors": "Lamontagne F, Fowler RA, Adhikari NK, et al.",
+   "journal": "The Lancet 391(10121)",
+   "year": 2018,
+   "country": "West Africa (lessons)",
+   "type": "systematic-review",
+   "url": "https://research.lstmed.ac.uk/en/publications/evidence-based-guidelines-for-supportive-care-of-patients-with-eb-5/",
+   "takeaway": "GRADE-based recommendations on fluids, monitoring and staffing in Ebola treatment units, built from the 2014–16 experience.",
+   "bm": [
+    "14.1"
+   ]
+  },
+  {
+   "id": "ribacke-2016",
+   "title": "Effects of the West Africa Ebola virus disease on health-care utilization – a systematic review",
+   "authors": "Ribacke KJB, Saulnier DD, Eriksson A, von Schreeb J",
+   "journal": "Frontiers in Public Health 4",
+   "year": 2016,
+   "country": "Guinea, Liberia, Sierra Leone",
+   "type": "systematic-review",
+   "url": "https://doaj.org/article/caaee56b886e4576937d08e28b486604",
+   "takeaway": "Use of routine maternal, child and malaria care fell sharply during Ebola, causing indirect harm beyond Ebola deaths.",
+   "bm": [
+    "14.3",
+    "14.2"
+   ]
+  },
+  {
+   "id": "geubbels-2006",
+   "title": "Reduced risk of surgical site infections through surveillance in a network",
+   "authors": "Geubbels ELPE, Nagelkerke NJD, Mintjes-de Groot AJ, et al.",
+   "journal": "Int J Qual Health Care 18(2)",
+   "year": 2006,
+   "country": "Netherlands",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.1093/intqhc/mzi103",
+   "takeaway": "In 37 Dutch hospitals in the national PREZIES network, surgical infection risk fell, but only after four to five years of taking part.",
+   "bm": [
+    "15.2"
+   ]
+  },
+  {
+   "id": "jmp-wash-hcf-2023",
+   "title": "WASH in health care facilities: 2023 data update",
+   "authors": "WHO/UNICEF Joint Monitoring Programme",
+   "journal": "WHO and UNICEF",
+   "year": 2024,
+   "country": "Global",
+   "type": "report",
+   "url": "https://www.who.int/publications/m/item/wash-in-health-care-facilities-2023-data-update",
+   "takeaway": "National, regional and global estimates of water, sanitation, hygiene and waste services in health facilities, with a focus on primary care; a baseline for safe-environment plans.",
+   "bm": [
+    "15.3"
+   ]
+  },
+  {
+   "id": "wong-jensen-2020",
+   "title": "The paradox of trust: perceived risk and public compliance during the COVID-19 pandemic in Singapore",
+   "authors": "Wong CML, Jensen O",
+   "journal": "Journal of Risk Research 23(7–8)",
+   "year": 2020,
+   "country": "Singapore",
+   "type": "peer-reviewed",
+   "url": "https://www.dare.uva.nl/id/55503d00-5d1e-42ea-82e4-b77023ba4880",
+   "takeaway": "High trust in government did not by itself raise risk perception or compliance; risk communication must also engage people's own role and social context.",
+   "bm": [
+    "16A.2",
+    "16A.1"
+   ]
+  },
+  {
+   "id": "abramowitz-2015",
+   "title": "Community-centered responses to Ebola in urban Liberia: the view from below",
+   "authors": "Abramowitz SA, McLean KE, McKune SL, et al.",
+   "journal": "PLoS Neglected Tropical Diseases 9(4)",
+   "year": 2015,
+   "country": "Liberia",
+   "type": "peer-reviewed",
+   "url": "https://doaj.org/article/721896c4d91d4c9aa738d7a8972c6039",
+   "takeaway": "Focus groups with 386 community leaders show communities organised their own Ebola controls when systems failed; responders should build on these structures.",
+   "bm": [
+    "16B.1",
+    "16B.2"
+   ]
+  },
+  {
+   "id": "miller-2018",
+   "title": "Community health workers during the Ebola outbreak in Guinea, Liberia, and Sierra Leone",
+   "authors": "Miller NP, Milsom P, Johnson G, et al.",
+   "journal": "Journal of Global Health 8(2)",
+   "year": 2018,
+   "country": "Guinea, Liberia, Sierra Leone",
+   "type": "peer-reviewed",
+   "url": "https://jogha.org/documents/issue201802/jogh-08-020601.htm",
+   "takeaway": "Community health workers stayed engaged and were more trusted than outsiders, but weak supplies, supervision and late involvement limited their role.",
+   "bm": [
+    "16B.3",
+    "16B.1"
+   ]
+  },
+  {
+   "id": "musoke-2024",
+   "title": "Enhancing the capacity of community health workers in prevention and control of epidemics and pandemics in Wakiso district, Uganda: evaluation of a pilot project",
+   "authors": "Musoke D, Lubega GB, Twesigye B, et al.",
+   "journal": "2024",
+   "year": 2024,
+   "country": "Uganda",
+   "type": "case-study",
+   "pr": true,
+   "url": "https://chwcentral.org/resources/enhancing-the-capacity-of-community-health-workers-in-prevention-and-control-of-epidemics-and-pandemics-in-wakiso-district-uganda-evaluation-of-a-pilot-project/",
+   "takeaway": "Training 766 community health workers improved outbreak knowledge, skills and confidence; ongoing refresher training is needed.",
+   "note": "Journal name not shown on the page read; link goes to CHW Central.",
+   "bm": [
+    "16B.3"
+   ]
+  },
+  {
+   "id": "derooij-2021",
+   "title": "Assessing training needs in infectious disease management at major ports, airports and ground-crossings in Europe",
+   "authors": "de Rooij D, Belfroid E, Hadjichristodoulou C, et al.",
+   "journal": "BMC Public Health 21",
+   "year": 2021,
+   "country": "Europe (50 points of entry)",
+   "type": "peer-reviewed",
+   "url": "https://bmcpublichealth.biomedcentral.com/articles/10.1186/s12889-021-11008-z",
+   "takeaway": "RIVM-led survey under the EU HEALTHY GATEWAYS joint action: handling ill travellers and public health measures were the top training needs; simulations preferred.",
+   "bm": [
+    "17.1",
+    "17.2"
+   ]
+  },
+  {
+   "id": "praekunatham-2023",
+   "title": "An evaluation of national capacity regarding chemical event management under the International Health Regulations: a case of Thailand, 2022",
+   "authors": "Praekunatham H, Boonmephong K",
+   "journal": "OSIR Journal 16(3)",
+   "year": 2023,
+   "country": "Thailand",
+   "type": "case-study",
+   "pr": true,
+   "url": "https://he02.tci-thaijo.org/index.php/OSIR/article/view/262562",
+   "takeaway": "Strong national and intermediate chemical event capacity but weak primary level and points of entry; recommends an action plan and training.",
+   "bm": [
+    "18.1"
+   ]
+  },
+  {
+   "id": "shaw-2010",
+   "title": "The international follow-up of individuals potentially exposed to polonium-210 in London 2006",
+   "authors": "Shaw K, Anders K, Olowokure B, et al.",
+   "journal": "Public Health 124(6)",
+   "year": 2010,
+   "country": "United Kingdom and 50+ countries",
+   "type": "case-study",
+   "pr": true,
+   "url": "https://researchportal.ukhsa.gov.uk/en/publications/the-international-follow-up-of-individuals-potentially-exposed-to/",
+   "takeaway": "664 people abroad were followed up after the polonium-210 poisoning; few were contaminated, but the event needed wide cross-border cooperation.",
+   "bm": [
+    "19.1"
+   ]
+  },
+  {
+   "id": "iaea-goiania-1988",
+   "title": "The radiological accident in Goiânia",
+   "authors": "IAEA",
+   "journal": "IAEA STI/PUB/815",
+   "year": 1988,
+   "country": "Brazil",
+   "type": "report",
+   "url": "https://www-pub.iaea.org/MTCD/publications/PubDetAR.asp?pubId=3684",
+   "takeaway": "Classic case report on a stolen radiotherapy source: chronology, medical and remedial response, and recommendations.",
+   "bm": [
+    "19.1"
+   ]
+  },
+  {
+   "id": "hale-2021",
+   "title": "A global panel database of pandemic policies (Oxford COVID-19 Government Response Tracker)",
+   "authors": "Hale T, Angrist N, Goldszmidt R, et al.",
+   "journal": "Nature Human Behaviour 5(4)",
+   "year": 2021,
+   "country": "180+ countries",
+   "type": "peer-reviewed",
+   "url": "https://ideas.repec.org/a/nat/nathum/v5y2021i4d10.1038_s41562-021-01079-8.html",
+   "takeaway": "A daily database of closure, containment, health and economic measures that lets countries compare and review their own public health and social measures.",
+   "bm": [
+    "20.1"
+   ]
+  },
+  {
+   "id": "wilson-2021-nfp",
+   "title": "National focal points and implementation of the International Health Regulations",
+   "authors": "Wilson K, Halabi SF, Hollmeyer H, et al.",
+   "journal": "Bulletin of the World Health Organization 99(7)",
+   "year": 2021,
+   "country": "Global",
+   "type": "peer-reviewed",
+   "url": "https://scholarship.law.georgetown.edu/facpub/2393",
+   "takeaway": "Interviews and surveys show many focal points lack authority and resources to report and coordinate; recommends a stronger mandate and support.",
+   "bm": [
+    "3.1"
+   ]
+  },
+  {
+   "id": "rtsl-rof-2025",
+   "title": "Rapid outbreak financing to prevent epidemics (issue brief)",
+   "authors": "Resolve to Save Lives",
+   "journal": "RTSL",
+   "year": 2026,
+   "country": "Six African countries",
+   "type": "report",
+   "url": "https://resolvetosavelives.org/wp-content/uploads/2026/02/ROF-Issue-Brief-2025-Final.pdf",
+   "takeaway": "Missing rapid response money is the main reason countries miss the 7-day response target; small flexible funds close to outbreaks helped in pilots.",
+   "bm": [
+    "2.2"
+   ]
+  },
+  {
+   "id": "rtsl-ihr-legal-checklist",
+   "title": "Checklist and template for IHR legal analysis",
+   "authors": "Resolve to Save Lives",
+   "journal": "RTSL",
+   "year": 2025,
+   "country": "Global",
+   "type": "report",
+   "url": "https://resolvetosavelives.org/wp-content/uploads/2025/12/RTSL_Checklist-and-Template-for-IHR-Legal-Analysis_English_Final.pdf",
+   "takeaway": "Step-by-step template to check national laws against IHR requirements, building on country legal assessments such as Guinea's.",
+   "bm": [
+    "1.1"
+   ]
+  }
+ ]
 }

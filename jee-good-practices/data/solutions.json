@@ -2,7 +2,7 @@
  "meta": {
   "status": "Sources were found by searching WHO, partner and peer-reviewed literature for each technical question (October 2026), starting from the tools that WHO lists in its benchmarks for each technical area. Relevance is judged from each source's title and summary, not from reading every document in full. A source can help answer a question or close the gap behind it; it is not a claim that it raises a JEE score. Questions without a source are shown as 'no source yet'.",
   "built": "2026-10-16",
-  "nSources": 312,
+  "nSources": 322,
   "nQuestionsCovered": 471,
   "nQuestions": 479
  },
@@ -4754,6 +4754,168 @@
     "P3.3:*"
    ],
    "why": "Additional actions on risk management, safe hospitals and multisectoral planning."
+  },
+  {
+   "id": "blacksell-2024-lai-scoping",
+   "title": "Laboratory-acquired infections and pathogen escapes worldwide between 2000 and 2021: a scoping review",
+   "citation": "Blacksell SD, Dhawan S, Kusumoto M, et al. Lancet Microbe. 2024;5(2):e194–e202. doi:10.1016/S2666-5247(23)00319-1",
+   "url": "https://boris.unibe.ch/190442",
+   "year": 2024,
+   "type": "peer-reviewed",
+   "addedBy": "search",
+   "questions": [
+    "P7.1:q12",
+    "P7.1:q17",
+    "P7.1:q17.a",
+    "P7.1:q17.b"
+   ],
+   "why": "Found 309 laboratory-acquired infections and 16 pathogen escapes in public sources over two decades; argues for a formal national and global reporting system because most incidents are never published."
+  },
+  {
+   "id": "siengsanan-lamont-2018-lai-asia",
+   "title": "A review of laboratory-acquired infections in the Asia-Pacific: understanding risk and the need for improved biosafety for veterinary and zoonotic diseases",
+   "citation": "Siengsanan-Lamont J, Blacksell SD. Trop Med Infect Dis. 2018;3(2):36. doi:10.3390/tropicalmed3020036",
+   "url": "https://www.mdpi.com/2414-6366/3/2/36",
+   "year": 2018,
+   "type": "peer-reviewed",
+   "addedBy": "search",
+   "questions": [
+    "P7.1:q17",
+    "P7.1:q12",
+    "P7.2:q1"
+   ],
+   "why": "Only 27 laboratory infections were reported in the Asia-Pacific in 34 years, mostly from high-income countries; shows under-reporting and the need for incident reporting and training in veterinary and zoonotic labs."
+  },
+  {
+   "id": "ndhine-2016-kenya-biosecurity-survey",
+   "title": "A biosecurity survey in Kenya, November 2014 to February 2015",
+   "citation": "Ndhine EO, Slotved HC, Osoro EM, et al. Health Secur. 2016;14(4):205–213. doi:10.1089/hs.2016.0009",
+   "url": "https://journals.sagepub.com/doi/10.1089/hs.2016.0009",
+   "year": 2016,
+   "type": "case-study",
+   "addedBy": "search",
+   "questions": [
+    "P7.1:q1",
+    "P7.1:q1.a",
+    "P7.1:q2",
+    "P7.1:q2.a",
+    "P7.1:q3",
+    "P7.1:q3.a",
+    "P7.1:q3.d",
+    "P7.2:q2",
+    "P7.2:q2.a"
+   ],
+   "why": "Kenyan–Danish survey of 86 laboratories: dangerous agents were held with weak access control and biosafety and biosecurity were often confused; a model for a national baseline before writing legislation and training."
+  },
+  {
+   "id": "lestari-2021-iso35001-indonesia",
+   "title": "Implementation of bio-risk management system in a national clinical and medical referral centre laboratories",
+   "citation": "Lestari F, Kadir A, Miswary T, et al. Int J Environ Res Public Health. 2021;18(5):2308.",
+   "url": "https://www.mdpi.com/1660-4601/18/5/2308",
+   "year": 2021,
+   "type": "case-study",
+   "addedBy": "search",
+   "questions": [
+    "P7.1:q3.f",
+    "P7.1:q3.g",
+    "P7.2:q7"
+   ],
+   "why": "Gap analysis of Indonesia's national referral laboratories against ISO 35001: over half of elements in place, weakest on leadership, support and performance evaluation; shows how to use the standard as an audit frame."
+  },
+  {
+   "id": "iso-35001-2019",
+   "title": "ISO 35001:2019 Biorisk management for laboratories and other related organisations",
+   "citation": "International Organization for Standardization. ISO 35001:2019.",
+   "url": "https://www.iso.org/standard/71293.html",
+   "year": 2019,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P7.1:q3",
+    "P7.1:q3.f",
+    "P7.1:q3.g",
+    "P7.1:q6.a",
+    "P7.2:q7"
+   ],
+   "why": "International management-system standard for biorisk; gives laboratories and regulators a common frame for audits, competence and continual improvement.",
+   "note": "Paid standard."
+  },
+  {
+   "id": "ifba-certification",
+   "title": "IFBA professional certification in biorisk management",
+   "citation": "International Federation of Biosafety Associations (IFBA). Professional certification programme (ISO/IEC 17024).",
+   "url": "https://internationalbiosafety.org/certification/about-the-program/",
+   "year": null,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P7.2:q3",
+    "P7.2:q6",
+    "P7.2:q7",
+    "P7.2:q2.b"
+   ],
+   "why": "Internationally recognised certification of individual competence in biorisk management, biosecurity, waste, biosafety cabinets and containment facility operation, with exams in several languages."
+  },
+  {
+   "id": "bwc-nim-database",
+   "title": "BWC National Implementation Measures Database",
+   "citation": "UNIDIR and VERTIC. Biological Weapons Convention National Implementation Measures Database. Launched 2023.",
+   "url": "https://bwcimplementation.org/",
+   "year": 2023,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P7.1:q2",
+    "P7.1:q2.a",
+    "P7.1:q2.b",
+    "P7.1:q2.c",
+    "P7.1:q6.a"
+   ],
+   "why": "Searchable database of the laws and regulations States Parties use to implement the BWC; lets a country compare its biosecurity legislation with others and find gaps."
+  },
+  {
+   "id": "chatham-sli-prior-assessment",
+   "title": "The Chatham House Sustainable Laboratories Initiative: prior assessment tool",
+   "citation": "Harper D, Ross E, Wakefield B. Chatham House; 2019 (updated 2020).",
+   "url": "https://www.chathamhouse.org/2019/06/chatham-house-sustainable-laboratories-initiative-prior-assessment-tool",
+   "year": 2019,
+   "type": "tool",
+   "addedBy": "search",
+   "questions": [
+    "P7.1:q7",
+    "P7.1:q9",
+    "P7.2:q4"
+   ],
+   "why": "Structures early talks between funders and recipient countries before building or repurposing a laboratory, so design, running costs and maintenance fit local risks and resources."
+  },
+  {
+   "id": "woah-sustainable-labs-2018",
+   "title": "OIE consultation on sustainable laboratory biosafety and biosecurity",
+   "citation": "World Organisation for Animal Health (OIE). Consultation report, March 2018.",
+   "url": "https://www.woah.org/app/uploads/2021/03/oie-sust-labs-report-final.pdf",
+   "year": 2018,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P7.1:q7",
+    "P7.1:q9",
+    "P7.1:q6.b",
+    "P7.2:q4"
+   ],
+   "why": "Recommends laboratories that are fit for purpose locally, with long-term operating budgets, integrated biosafety, biosecurity and quality management, and regional networks to share costs."
+  },
+  {
+   "id": "who-lbm4-waste",
+   "title": "Laboratory biosafety manual, 4th edition: decontamination and waste management (monograph)",
+   "citation": "World Health Organization. Geneva: WHO; 2020.",
+   "url": "https://www.who.int/publications/i/item/9789240011359",
+   "year": 2020,
+   "type": "guideline",
+   "addedBy": "search",
+   "questions": [
+    "P7.1:q10"
+   ],
+   "why": "WHO monograph on decontamination methods and laboratory waste streams; the practical companion to the waste section of the manual."
   }
  ]
 }
