@@ -3,7 +3,7 @@
   "source": "WHO, IHR (2005) States Parties Self-Assessment Annual Reporting Tool (SPAR), 2nd edition, 2021: 15 capacities, 35 indicators, each scored at 5 levels.",
   "pdf": "https://cdn.who.int/media/docs/default-source/health-security-preparedness/cap/spar/9789240040120-eng-new.pdf",
   "retrieved": "2026-10-17",
-  "note": "Level texts are short paraphrases (not WHO's wording) of levels 1, 3 and 5, written from the 2021 edition. For indicators C12.1, C13.1, C14.1 and C15.1 the level text could not be read; see the PDF. Levels build on each other: all attributes of a level must be in place before the next level counts. The links to JEE indicators and IHR benchmarks are a topic crosswalk made for this tool, not an official WHO mapping."
+  "note": "Level texts are short paraphrases (not WHO's wording) of levels 1, 3 and 5, written from the 2021 edition of the SPAR tool; each indicator has five levels. Levels build on each other: all attributes of a level must be in place before the next level counts. In the tool, countries can also tick \"strength/best practice\" next to their comments, so a country's own SPAR report may point to good practices. The links to JEE indicators and IHR benchmarks are a topic crosswalk made for this tool, not an official WHO mapping."
  },
  "caps": [
   {
@@ -567,7 +567,11 @@
     "5.2",
     "5.3",
     "3.2"
-   ]
+   ],
+   "l1": "Human, animal and environment sectors work together on zoonoses only on an ad hoc basis.",
+   "l3": "The sectors collaborate regularly at national level on one or more prioritised zoonoses, and have shown they can detect new or emerging ones at least occasionally.",
+   "l5": "Joint prevention, detection and response capacities for endemic and emerging zoonoses are exercised, reviewed and improved regularly.",
+   "step": "Level 2 has jointly mapped collaboration and agreed priority zoonoses; level 3 turns that into regular joint work at national level."
   },
   {
    "id": "C13.1",
@@ -580,7 +584,11 @@
    "bm": [
     "6.1",
     "6.2"
-   ]
+   ],
+   "l1": "A multisectoral mechanism with an INFOSAN Emergency Contact Point is being developed and used ad hoc.",
+   "l3": "The mechanism and its communication channels exist at national, intermediate and local level where the country's structure calls for it.",
+   "l5": "Mechanism and channels, nationally and internationally, are exercised, reviewed, evaluated and updated.",
+   "step": "Level 2 has the mechanism and channels between the contact point, the IHR Focal Point and sectors nationally; level 3 extends them to lower levels."
   },
   {
    "id": "C14.1",
@@ -592,7 +600,11 @@
    ],
    "bm": [
     "18.1"
-   ]
+   ],
+   "l1": "Surveillance mechanisms and resources for chemical events or poisoning are under development.",
+   "l3": "A poisons information service or equivalent national service does surveillance for chemical exposures and alerts, on a 24/7 basis.",
+   "l5": "An integrated public health surveillance system linked with environmental monitoring captures chemical exposure data from several sources (under development or in place).",
+   "step": "Level 2 has ad hoc surveillance, for example a poison service that works office hours only; level 3 is a 24/7 national service."
   },
   {
    "id": "C15.1",
@@ -604,7 +616,11 @@
    ],
    "bm": [
     "19.1"
-   ]
+   ],
+   "l1": "Surveillance mechanisms and resources for radiation emergencies are under development.",
+   "l3": "Access to specialised care for radiation injuries and to laboratory testing to assess radiation exposure is in place.",
+   "l5": "Radiation emergency arrangements are formally exercised, reviewed and evaluated regularly, with improvements made.",
+   "step": "Level 2 has inventoried radiation sources and mapped risks; level 3 adds care for radiation injuries and laboratory capacity. Level 4 adds expert advice and a stockpile."
   }
  ]
 }
