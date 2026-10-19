@@ -81,7 +81,7 @@ async function load(){
   D.fw=await get("../jee-good-practices/data/jee-v3-framework.json").catch(()=>null);
   D.topic=Object.fromEntries(D.d.topics.map(t=>[t.id,t])); D.cty=Object.fromEntries(D.d.countries.map(c=>[c.id,c]));
   D.cap=Object.fromEntries(D.d.capacities.map(c=>[c.id,c.name])); D.items=D.d.items;
-  D.items.forEach((it,i)=>{it.i=i; it.who=it.c==="interim"?(NAMES[it.cc]||it.cc):D.cty[it.c].name;});
+  D.items.forEach((it,i)=>{it.i=i; it.who=it.c==="interim"?"ECDC interim report":D.cty[it.c].name;});
   D.ind=D.fw?Object.fromEntries(D.fw.indicators.map(i=>[i.id,i])):{};
   route();
 }
@@ -119,7 +119,7 @@ function vStart(){
   const it=D.items, cs=D.d.countries.length;
   view.innerHTML=`<p class="lead">The PHEPA is ECDC's assessment of how well each EU/EEA country has planned to prevent, prepare for and respond to serious cross-border health threats. Countries are assessed about every three years. The first cycle runs 2024–2026. ECDC then gives each country recommendations, and the reports also describe strengths. This tool collects those strengths and recommendations <strong>by topic</strong>, so you can see who already does something well and what ECDC advised others.</p>
   <div class="grid2">
-   <div class="card"><div class="stat">${cs}</div><div class="small muted">country reports read (of the 15 countries ECDC lists in its interim report)</div></div>
+   <div class="card"><div class="stat">${cs}</div><div class="small muted">country reports read (10 of the 15 countries in ECDC's interim report, plus Cyprus, Czechia and Liechtenstein)</div></div>
    <div class="card"><div class="stat">${it.filter(i=>i.k==="S").length}</div><div class="small muted">strengths and good practices summarised</div></div>
    <div class="card"><div class="stat">${it.filter(i=>i.k==="R").length}</div><div class="small muted">recommendations summarised</div></div>
    <div class="card"><div class="stat">${D.d.topics.filter(t=>t.cap!==undefined).length}</div><div class="small muted">topics across the 16 capacities (four assessed in depth in every country, a fifth chosen by the country)</div></div>

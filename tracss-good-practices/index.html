@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TrACSS 2025</title>
-<meta name="description" content="All questions of the 2025 Tracking AMR Country Self-assessment Survey with every country's answer, comparison groups, links to JEE, SPAR and PHEPA, and literature.">
+<meta name="description" content="All questions of the 2025 Tracking AMR Country Self-assessment Survey with every country's answer, comparison groups, links to JEE, SPAR and PHEPA, and good practices.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231f3a5f'/%3E%3Cpath d='M7 23h4v-5h4v-5h4V9h4' fill='none' stroke='%23f4c95d' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
 :root{--bg:#f6f4ef;--ink:#1c1f26;--muted:#667085;--card:#fff;--line:#e4e0d6;--accent:#1f3a5f;--warn:#e0a526;--na:#d9d6cd;
@@ -82,7 +82,7 @@ footer{margin-top:40px;color:var(--muted);font-size:13px}
 
 <div class="box">
   <strong>The survey and its documents</strong>
-  <p class="small muted" style="margin:6px 0">TrACSS is the yearly self-assessment on national action plans on antimicrobial resistance, run since 2017 by FAO, UNEP, WHO and WOAH (the Quadripartite); WHO coordinates it. Each country submits one consolidated answer agreed by all sectors. This page uses the ninth round: questionnaire version 9.0 (26 March 2025, deadline 15 June 2025) and the data export of 1 October 2025, covering <span id="nC">184</span> countries. The 2024 UN political declaration on AMR sets a target of 95% of countries answering every year.</p>
+  <p class="small muted" style="margin:6px 0">TrACSS is the yearly self-assessment on national action plans on antimicrobial resistance, run since 2017 by the Tripartite (FAO, OIE, WHO) and since 2022 by the Quadripartite (FAO, UNEP, WHO and WOAH); WHO administers it. Each country submits one consolidated answer agreed by all sectors. This page uses the ninth round: questionnaire version 9.0 (launched April 2025, responses due June 2025) and the data export of 1 October 2025, covering <span id="nC">184</span> countries. The 2024 UN political declaration on AMR sets a target of 95% of countries answering every year by 2030.</p>
   <ul class="small">
     <li><a href="https://amrcountryprogress.org" rel="noopener">TrACSS Global Database</a>: country results, the questionnaire and the data download.</li>
     <li><a href="https://www.who.int/news/item/15-05-2025-2025-edition-of-global-survey-to-track-antimicrobial-resistance-launches" rel="noopener">WHO: 2025 edition of the survey launches</a>. Questions to tracss@who.int.</li>
@@ -132,7 +132,7 @@ function init(){
 }
 function groups(){
   const c=D.countries[ci],old=grp;
-  const g=[["all",`All ${D.countries.length} countries`],["who",`WHO region: ${c.who}`],["inc",`Income group: ${INC[c.inc]||c.inc}`],["eu",`EU (${D.countries.filter(x=>x.eu).length} of 27 answered)`]];
+  const g=[["all",`All ${D.countries.length} countries`],["who",`WHO region: ${c.who}`],["inc",`Income group: ${INC[c.inc]||c.inc||"not classified"}`],["eu",`EU (${D.countries.filter(x=>x.eu).length} of 27 answered)`]];
   $("#grp").innerHTML=g.map(([k,v])=>`<option value="${k}">${esc(v)}</option>`).join("");
   grp=g.some(x=>x[0]===old)?old:"all";$("#grp").value=grp;
 }
