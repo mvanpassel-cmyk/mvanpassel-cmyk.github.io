@@ -87,7 +87,7 @@ footer{margin-top:40px;color:var(--muted);font-size:13px}
     <li><a href="https://amrcountryprogress.org" rel="noopener">TrACSS Global Database</a>: country results, the questionnaire and the data download.</li>
     <li><a href="https://www.who.int/news/item/15-05-2025-2025-edition-of-global-survey-to-track-antimicrobial-resistance-launches" rel="noopener">WHO: 2025 edition of the survey launches</a>. Questions to tracss@who.int.</li>
   </ul>
-  <p class="small muted" style="margin:8px 0 0">Rated questions use five levels. A higher level assumes the lower ones are reached (a country choosing D should also meet B and C). The wording of each level differs per question; open a question to see it.</p>
+  <p class="small muted" style="margin:8px 0 0">Rated questions use five levels (A to E); 5.7 and 5.9 use four (A to D). A higher level assumes the lower ones are reached (a country choosing D should also meet B and C). The wording of each level differs per question; open a question to see it.</p>
   <div class="scale" id="scale"></div>
   <p class="small muted" style="margin:6px 0 0">Section I (contact details) is not published and not shown here.</p>
 </div>
@@ -132,7 +132,7 @@ function init(){
 }
 function groups(){
   const c=D.countries[ci],old=grp;
-  const g=[["all",`All ${D.countries.length} countries`],["who",`WHO region: ${c.who}`],["inc",`Income group: ${INC[c.inc]||c.inc}`],["eu","EU 27"]];
+  const g=[["all",`All ${D.countries.length} countries`],["who",`WHO region: ${c.who}`],["inc",`Income group: ${INC[c.inc]||c.inc}`],["eu",`EU (${D.countries.filter(x=>x.eu).length} of 27 answered)`]];
   $("#grp").innerHTML=g.map(([k,v])=>`<option value="${k}">${esc(v)}</option>`).join("");
   grp=g.some(x=>x[0]===old)?old:"all";$("#grp").value=grp;
 }

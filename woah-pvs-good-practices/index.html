@@ -100,7 +100,7 @@ function init(){
   $("#q").oninput=e=>{st.q=e.target.value.trim().toLowerCase();render()};
   $("#fg").oninput=e=>{st.grp=e.target.value;render()};
   $("#ft").oninput=e=>{st.type=e.target.value;render()};
-  $("#fp").onchange=e=>{st.pr=e.target.checked;render()};
+  $("#fp").onchange=e=>{st.pr=e.target.checked;render()};if(!L.sources.some(isPR))$("#fp").closest("label").style.display="none";
   $("#fs").onchange=e=>{st.only=e.target.checked;render()};
 }
 function srcHTML(s){

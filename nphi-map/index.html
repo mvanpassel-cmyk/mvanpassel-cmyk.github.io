@@ -92,7 +92,7 @@ const OVR={"France":[2.3,46.6],"United States of America":[-98,39],"Norway":[9,6
 const W=960,H=500;
 const svg=d3.select("#map").attr("viewBox",[0,0,W,H]);
 const proj=d3.geoNaturalEarth1().fitExtent([[6,6],[W-6,H-6]],{type:"Sphere"});
-const path=d3.geoPath(proj);
+const path=d3.geoPath(proj).pointRadius(3.2);
 const g=svg.append("g");
 const gl=g.append("g"),ga=g.append("g"),gd=g.append("g");
 const tip=document.getElementById("tip");
@@ -157,6 +157,10 @@ Promise.all([d3.json(ATLAS),d3.json("projects.json")]).then(([topo,pj])=>{
   data=pj.projects;data.forEach(p=>p.kind=kind(p.type));
   document.getElementById("upd").textContent="Data last updated "+pj.updated+".";
   feats=topojson.feature(topo,topo.objects.countries).features.filter(f=>f.properties.name!=="Antarctica");
+  // Small states missing from the 110m atlas are drawn as dots so their collaborations stay clickable.
+  const SMALL={"Singapore":[103.8,1.35],"Tonga":[-175.2,-21.2],"Samoa":[-172.1,-13.8],"Kiribati":[173,1.4],"Palau":[134.5,7.5],"Nauru":[166.9,-0.53],"Tuvalu":[179.2,-8.5],"Niue":[-169.9,-19.05],"Marshall Is.":[171.2,7.1]};
+  const have=new Set(feats.map(f=>f.properties.name));
+  Object.entries(SMALL).forEach(([n,c])=>{if(!have.has(n))feats.push({type:"Feature",properties:{name:n},geometry:{type:"Point",coordinates:c}})});
   feats.forEach(f=>{cent[f.properties.name]=OVR[f.properties.name]||d3.geoCentroid(f)});
   cent["Ethiopia"]=cent["Ethiopia"];
   gl.selectAll("path").data(feats).join("path").attr("d",path)
