@@ -66,10 +66,10 @@ footer{margin-top:40px;color:var(--muted);font-size:13px}
 <script>
 const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const LABELS={4:"Sustainable",5:"Sustainable"};
+const LABELS={4:"Demonstrated capacity",5:"Sustainable capacity"};
 let B,L,A=null,byBm={};
 const st={q:"",area:"",type:"",pr:false,only:false};
-function isPR(s){return s.pr!==undefined?s.pr:["peer-reviewed","systematic-review","review","perspective","case-study","iar"].includes(s.type)&&s.type!=="report"}
+function isPR(s){return s.pr!==undefined?s.pr:["peer-reviewed","systematic-review","review","perspective","case-study","iar"].includes(s.type)}
 Promise.all([
   fetch("data/benchmarks.json").then(r=>r.json()),
   fetch("data/literature.json").then(r=>r.json()),
@@ -131,7 +131,7 @@ function render(){
     });
   });
   $("#view").innerHTML=h||'<p class="muted">Nothing matches.</p>';
-  $("#stat").textContent=`${shown} benchmarks, ${srcN} good practice links shown (${L.sources.length} sources in total).`;
+  $("#stat").textContent=`${shown} benchmarks, ${srcN} good practice links shown (${L.sources.length} good practices in total).`;
 }
 </script>
 </body>

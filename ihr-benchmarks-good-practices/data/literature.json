@@ -1,7 +1,7 @@
 {
  "meta": {
   "built": "2026-10-17",
-  "status": "Good practices were found by searching the literature for each benchmark (October 2026). For each good practice the title, year, journal and setting were read on the publisher or index page; the takeaway is a one-line summary in our own words from the abstract or summary, not from the full text. A source shows how something was done or evaluated in a setting; it is not proof that the practice raises a JEE or SPAR score. Benchmarks without a good practice are shown as 'no good practice yet', not as 'none exists'.",
+  "status": "Good practices were found by searching the literature for each benchmark (October 2026). For each good practice the title, year, journal and setting were read on the publisher or index page; the takeaway is a one-line summary in our own words from the abstract or summary, not from the full text. A good practice shows how something was done or evaluated in a setting; it is not proof that the practice raises a JEE or SPAR score. Benchmarks without a good practice are shown as 'no good practice yet', not as 'none exists'.",
   "types": {
    "peer-reviewed": "Peer-reviewed study",
    "systematic-review": "Systematic review",
@@ -235,14 +235,14 @@
   {
    "id": "eid-2017-ohzdp",
    "title": "Prioritizing zoonoses for global health capacity building: themes from One Health zoonotic disease workshops in 7 countries",
-   "authors": "",
+   "authors": "Salyer SJ, Silver R, Simone K, Barton Behravesh C",
    "journal": "Emerging Infectious Diseases 23(13)",
    "year": 2017,
    "country": "Seven countries",
    "type": "peer-reviewed",
-   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5711306/",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5711306/",
    "takeaway": "Lessons from seven country workshops that prioritised zoonoses with a One Health approach.",
-   "note": "Authors not read; record taken from the JEE tool's source list.",
+   "note": "Record taken from the JEE Good Practices list.",
    "bm": [
     "5.1"
    ]
@@ -374,7 +374,7 @@
    "year": 2019,
    "country": "Netherlands",
    "type": "peer-reviewed",
-   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6422864/",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6422864/",
    "takeaway": "A free web-based self-assessment of an institution's biosecurity vulnerabilities.",
    "bm": [
     "8.1"
@@ -383,8 +383,8 @@
   {
    "id": "canada-lai-2022",
    "title": "Laboratory-acquired infections in Canada, 2016 to 2021",
-   "authors": "Public Health Agency of Canada",
-   "journal": "Canada Communicable Disease Report",
+   "authors": "El Jaouhari M, Striha M, Edjoc R, Bonti-Ankomah S",
+   "journal": "Canada Communicable Disease Report 48(7/8):303-7",
    "year": 2022,
    "country": "Canada",
    "type": "report",
@@ -491,7 +491,7 @@
    "year": 2021,
    "country": "Sub-Saharan Africa",
    "type": "systematic-review",
-   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8575546/",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8575546/",
    "takeaway": "IDSR is still mostly facility- and indicator-based; broader data sources and multisector platforms are needed to use surveillance data better.",
    "bm": [
     "10.1",
@@ -560,13 +560,13 @@
   {
    "id": "vadi-2025",
    "title": "What do 32 COVID-19 deployments of emergency medical teams tell us about challenges and lessons learned?",
-   "authors": "Vadi R, et al.",
-   "journal": "Report from the Field, Cambridge University Press (Society for Disaster Medicine and Public Health)",
+   "authors": "Vadi R, Wilk W, Radecka A, Maddah D",
+   "journal": "Disaster Medicine and Public Health Preparedness (Report from the Field)",
    "year": 2025,
    "country": "International (UK-Med and PCPM teams)",
    "type": "case-study",
    "pr": true,
-   "url": "https://core-prod.cambridgecore.org/core/product/F13403C38A9D93CCDB54480A94071351/core-reader",
+   "url": "https://www.cambridge.org/core/product/F13403C38A9D93CCDB54480A94071351",
    "takeaway": "Deployments called for large, flexible staff rosters, better needs assessments and closer coordination with health ministries.",
    "bm": [
     "11.4",
@@ -576,11 +576,11 @@
   {
    "id": "who-dpm-2022",
    "title": "Dynamic preparedness metric: a paradigm shift to measure and act on preparedness",
-   "authors": "Kandel N, Chungong S, et al.",
-   "journal": "The Lancet Global Health 10(5)",
+   "authors": "Kandel N, Chungong S",
+   "journal": "The Lancet Global Health 10(5):e615-e616",
    "year": 2022,
    "country": "Global",
-   "type": "peer-reviewed",
+   "type": "perspective",
    "url": "https://doi.org/10.1016/S2214-109X(22)00097-3",
    "takeaway": "An approach for measuring readiness regularly and acting on the gaps found.",
    "bm": [
@@ -620,8 +620,8 @@
   {
    "id": "brookings-2021",
    "title": "Investing in national public health institutes for future pandemics: lessons from Nigeria",
-   "authors": "Brookings Institution",
-   "journal": "Brookings",
+   "authors": "Ihekweazu C",
+   "journal": "Brookings Institution (commentary), 10 Feb 2021",
    "year": 2021,
    "country": "Nigeria",
    "type": "report",
@@ -788,9 +788,9 @@
    "year": 2023,
    "country": "Multi-country",
    "type": "peer-reviewed",
-   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9969144/",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9969144/",
    "takeaway": "Experience with rapid surveys to monitor service disruptions during the pandemic.",
-   "note": "Authors not read; record taken from the JEE tool's source list.",
+   "note": "Record taken from the JEE Good Practices list.",
    "bm": [
     "14.2"
    ]
@@ -841,12 +841,12 @@
   {
    "id": "cronk-2018",
    "title": "Environmental conditions in health care facilities in low- and middle-income countries: coverage and inequalities",
-   "authors": "Cronk R, et al.",
+   "authors": "Cronk R, Bartram J",
    "journal": "International Journal of Hygiene and Environmental Health",
    "year": 2018,
    "country": "78 low- and middle-income countries",
    "type": "peer-reviewed",
-   "url": "https://sph.unc.edu/?p=314231",
+   "url": "https://doi.org/10.1016/j.ijheh.2018.01.004",
    "takeaway": "Only about 2% of health facilities had water, sanitation, hygiene and waste services all in place.",
    "note": "Link goes to the university's news item on the study.",
    "bm": [
@@ -914,15 +914,15 @@
   },
   {
    "id": "who-infodemic-2022",
-   "title": "WHO competency framework for health authorities and institutions to manage infodemics",
-   "authors": "",
+   "title": "WHO competency framework for health authorities and institutions to manage infodemics: its development and features",
+   "authors": "Rubinelli S, Purnat TD, Wilhelm E, et al.",
    "journal": "Human Resources for Health",
    "year": 2022,
    "country": "Global",
    "type": "peer-reviewed",
-   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9077350/",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9077350/",
    "takeaway": "Competencies and roles needed in staff who manage infodemics.",
-   "note": "Authors not read; record taken from the JEE tool's source list.",
+   "note": "Record taken from the JEE Good Practices list.",
    "bm": [
     "16C.1"
    ]
@@ -958,14 +958,13 @@
   {
    "id": "burns-2020",
    "title": "Travel-related control measures to contain the COVID-19 pandemic: a rapid review",
-   "authors": "Burns J, et al.",
+   "authors": "Burns J, Movsisyan A, Stratil JM, et al.",
    "journal": "Cochrane Database of Systematic Reviews",
    "year": 2020,
    "country": "Global",
    "type": "systematic-review",
-   "url": "https://paho-covid-prod.atmire.com/handle/20.500.12663/2601",
+   "url": "https://doi.org/10.1002/14651858.CD013717",
    "takeaway": "Rapid review of travel measures for COVID-19 using observational and modelling studies, with SARS and MERS as indirect evidence; see the review for effect estimates.",
-   "note": "Authors and year are from memory of the Cochrane record; the page read did not show them. Results not read.",
    "bm": [
     "17.3"
    ]
@@ -1383,15 +1382,14 @@
   },
   {
    "id": "guinea-fetp-2022",
-   "title": "Evaluation of the first two cohorts of the Frontline Field Epidemiology Training Program in Guinea",
-   "authors": "",
-   "journal": "Human Resources for Health (2022), article s12960-022-00729-w",
+   "title": "Evaluation of the first two Frontline cohorts of the field epidemiology training program in Guinea, West Africa",
+   "authors": "Collins D, Diallo BI, Bah MB, Bah M, et al.",
+   "journal": "Human Resources for Health 20:40",
    "year": 2022,
    "country": "Guinea",
    "type": "peer-reviewed",
    "url": "https://human-resources-health.biomedcentral.com/articles/10.1186/s12960-022-00729-w",
-   "takeaway": "Graduates gained surveillance skills and reporting timeliness improved, but gender imbalance and gaps in event-based surveillance remained.",
-   "note": "Title and authors not shown on the page read; the title here describes the paper.",
+   "takeaway": "Graduates and supervisors reported better skills and more systematic, higher-quality case reporting; transport and staff shortages were barriers, and the authors call for refresher training and better gender balance.",
    "bm": [
     "11.3"
    ]
@@ -1443,7 +1441,7 @@
   },
   {
    "id": "cdc-forensic-epi-2003",
-   "title": "Forensic epidemiology: joint training for law enforcement and public health officials on investigative responses to bioterrorism",
+   "title": "Forensic epidemiology: joint training for law enforcement and public health officials on investigative responses to bioterrorism: course manager's guide",
    "authors": "CDC Public Health Law Program",
    "journal": "CDC",
    "year": 2003,
@@ -1561,7 +1559,7 @@
    "id": "musoke-2024",
    "title": "Enhancing the capacity of community health workers in prevention and control of epidemics and pandemics in Wakiso district, Uganda: evaluation of a pilot project",
    "authors": "Musoke D, Lubega GB, Twesigye B, et al.",
-   "journal": "2024",
+   "journal": "CHW Central (resource record)",
    "year": 2024,
    "country": "Uganda",
    "type": "case-study",
@@ -1665,18 +1663,19 @@
    "title": "Rapid outbreak financing to prevent epidemics (issue brief)",
    "authors": "Resolve to Save Lives",
    "journal": "RTSL",
-   "year": 2026,
+   "year": 2025,
    "country": "Six African countries",
    "type": "report",
    "url": "https://resolvetosavelives.org/wp-content/uploads/2026/02/ROF-Issue-Brief-2025-Final.pdf",
    "takeaway": "Missing rapid response money is the main reason countries miss the 7-day response target; small flexible funds close to outbreaks helped in pilots.",
    "bm": [
     "2.2"
-   ]
+   ],
+   "note": "Issue brief is undated; file name says 2025."
   },
   {
    "id": "rtsl-ihr-legal-checklist",
-   "title": "Checklist and template for IHR legal analysis",
+   "title": "Checklist and Template Report for IHR (2005) Legal Analysis",
    "authors": "Resolve to Save Lives",
    "journal": "RTSL",
    "year": 2025,

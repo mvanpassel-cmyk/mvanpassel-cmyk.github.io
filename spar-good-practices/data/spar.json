@@ -64,12 +64,12 @@
   {
    "id": "C12",
    "name": "Zoonotic diseases",
-   "fn": "Other hazards and borders"
+   "fn": "Prevent"
   },
   {
    "id": "C13",
    "name": "Food safety",
-   "fn": "Other hazards and borders"
+   "fn": "Prevent"
   },
   {
    "id": "C14",
@@ -206,7 +206,7 @@
   {
    "id": "C4.2",
    "cap": "C4",
-   "title": "Laboratory biosafety and biosecurity regime",
+   "title": "Implementation of a laboratory biosafety and biosecurity regime",
    "jee": [
     "P7.1",
     "P7.2"
@@ -216,9 +216,9 @@
     "8.2"
    ],
    "l1": "National guidelines or regulations are under development.",
-   "l3": "Guidelines or regulations are in place and used by all laboratories.",
+   "l3": "Guidelines or regulations are in place and used by all national laboratories.",
    "l5": "Regulations are regularly updated and exercised, with an oversight system.",
-   "step": "Level 2 is implemented by some laboratories; level 3 by all."
+   "step": "Level 2 is implemented by some national laboratories; level 3 by all national laboratories."
   },
   {
    "id": "C4.3",
@@ -261,9 +261,9 @@
     "9.4"
    ],
    "l1": "Tier-specific diagnostic testing strategies are missing or under development.",
-   "l3": "Tier-specific strategies are being implemented nationally.",
+   "l3": "Tier-specific testing strategies exist but are not yet fully implemented.",
    "l5": "Strategies are implemented at national, intermediate and local levels and regularly exercised and updated.",
-   "step": "Level 2 has developed strategies; level 3 starts implementing them."
+   "step": "Level 2 has developed strategies; level 3 has them in place but not yet fully implemented."
   },
   {
    "id": "C5.1",
@@ -315,7 +315,8 @@
    "cap": "C6",
    "title": "Workforce surge during a public health event",
    "jee": [
-    "D3.4"
+    "D3.4",
+    "R1.4"
    ],
    "bm": [
     "11.4",
@@ -394,7 +395,7 @@
   {
    "id": "C8.2",
    "cap": "C8",
-   "title": "Trusted and utilized health services",
+   "title": "Utilization of health services",
    "jee": [
     "R3.2"
    ],
@@ -424,7 +425,7 @@
   {
    "id": "C9.1",
    "cap": "C9",
-   "title": "IPC programmes",
+   "title": "Infection prevention and control programmes",
    "jee": [
     "R4.1"
    ],
@@ -458,8 +459,7 @@
     "R4.3"
    ],
    "bm": [
-    "15.3",
-    "12B.2"
+    "15.3"
    ],
    "l1": "National standards for safe facility environments (WASH, IPC infrastructure, crowding, staffing) are missing or under development.",
    "l3": "The standards are applied in health facilities nationwide under a national plan.",
@@ -473,8 +473,7 @@
     "R5.1"
    ],
    "bm": [
-    "16A.1",
-    "16C.1"
+    "16A.1"
    ],
    "l1": "Coordination of risk communication and community engagement is ad hoc or in development.",
    "l3": "Coordination plans, SOPs and government arrangements are being implemented nationally.",
@@ -514,7 +513,7 @@
   {
    "id": "C11.1",
    "cap": "C11",
-   "title": "Core capacity requirements at all times for PoEs",
+   "title": "Core capacity requirements at all times for PoEs (airports, ports and ground crossings)",
    "jee": [
     "PoE1"
    ],
@@ -547,8 +546,7 @@
     "PoE3"
    ],
    "bm": [
-    "17.3",
-    "20.1"
+    "17.3"
    ],
    "l1": "A national multisectoral, risk-based process for adopting travel measures is missing or in development.",
    "l3": "The process is developed and implemented at national level.",
@@ -564,9 +562,7 @@
    ],
    "bm": [
     "5.1",
-    "5.2",
-    "5.3",
-    "3.2"
+    "5.2"
    ],
    "l1": "Human, animal and environment sectors work together on zoonoses only on an ad hoc basis.",
    "l3": "The sectors collaborate regularly at national level on one or more prioritised zoonoses, and have shown they can detect new or emerging ones at least occasionally.",
@@ -595,8 +591,7 @@
    "cap": "C14",
    "title": "Resources for detection and alert (chemical events)",
    "jee": [
-    "CE1",
-    "CE2"
+    "CE1"
    ],
    "bm": [
     "18.1"
