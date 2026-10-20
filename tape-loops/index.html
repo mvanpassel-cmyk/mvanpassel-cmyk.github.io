@@ -7,7 +7,7 @@
 <style>
 :root{
   --bg:#0e0f12; --fg:#e8e6e1; --mute:#8a8780; --card:#17181c; --line:#2a2b31;
-  --c1:#e9b872; --c2:#7fc4b8; --c3:#c98fd1; --c4:#e0735f; --c5:#8fb4e8;
+  --c1:#e9b872; --c2:#7fc4b8; --c3:#c98fd1; --c4:#e0735f; --c5:#8fb4e8; --c6:#f08a8a;
 }
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
@@ -21,6 +21,7 @@ h1{font-size:1.5rem;font-weight:600;letter-spacing:.02em;margin:0 0 4px}
 .btn.rec.on{background:var(--c4);border-color:var(--c4);color:#fff}
 .btn.small{padding:6px 10px;font-size:.8rem;border-radius:8px}
 .btn[hidden]{display:none}
+.btn.tog.on{background:var(--c6);border-color:var(--c6);color:var(--bg);font-weight:600}
 .slider{display:flex;align-items:center;gap:8px;color:var(--mute);font-size:.85rem}
 input[type=range]{accent-color:var(--fg);width:110px}
 .stage{display:flex;justify-content:center;margin:6px 0 14px}
@@ -41,6 +42,7 @@ canvas{display:block;max-width:100%;touch-action:none}
 .card input[type=range]{width:100%}
 .sm{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:8px;font-size:.8rem;color:var(--mute)}
 .card.wide{grid-column:1/-1}
+.heartcard{margin-top:10px}
 .sname{flex:1;min-width:80px;overflow-wrap:anywhere}
 .softbtn{background:transparent;color:var(--mute);border:1px solid var(--line);border-radius:6px;height:26px;padding:0 9px;cursor:pointer;font-size:.75rem;font-family:inherit}
 .softbtn.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
@@ -63,6 +65,7 @@ kbd{border:1px solid var(--line);border-radius:4px;padding:0 5px}
   <div class="row">
     <button id="play" class="btn primary">Play</button>
     <button id="gen" class="btn">Generate</button>
+    <button id="hb" class="btn tog">Heartbeat</button>
     <button id="rec" class="btn rec">Record mix</button>
     <label class="slider">Reverb <input id="rev" type="range" min="0" max="1.2" step="0.01" value="0.9"></label>
     <label class="slider">Master <input id="mst" type="range" min="0" max="1" step="0.01" value="0.8"></label>
@@ -78,6 +81,14 @@ kbd{border:1px solid var(--line);border-radius:4px;padding:0 5px}
   </div>
 
   <div class="cards" id="cards"></div>
+
+  <div class="card heartcard">
+    <div class="ch"><span class="dot" style="background:var(--c6)"></span><strong>Heartbeat</strong><span class="len" id="hbBpm">58 bpm</span><button class="softbtn" id="hbOn">Off</button><button class="mute" id="hbMute" title="Mute">M</button></div>
+    <label class="prm"><span>Tempo</span><input type="range" id="hbTempo" min="30" max="120" step="1" value="58"></label>
+    <label class="prm"><span>Noise</span><input type="range" id="hbNoise" min="0" max="1" step="0.01" value="0.25"></label>
+    <label class="prm"><span>Volume</span><input type="range" id="hbVol" min="0" max="1" step="0.01" value="0.6"></label>
+    <label class="prm"><span>Style</span><select id="hbStyle"><option value="lubdub">Heartbeat (lub-dub)</option><option value="steady">Steady pulse</option></select></label>
+  </div>
 
   <div class="rec-panel" id="recPanel">
     <span id="recStatus">Press Record mix to capture what you hear.</span>
@@ -144,6 +155,7 @@ function initAudio() {
   const d = noiseBuf.getChannelData(0);
   for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
   loops.forEach(makeLoopOut);
+  makeHeartOut();
 }
 
 function makeImpulse(seconds, decay) {
@@ -275,6 +287,82 @@ function trigger(L, ev, t) {
   if (L.buffer) playSample(L, ev, t); else VOICES[L.kind](L.in, ev, t, L);
 }
 
+/* ---------- heartbeat drum ---------- */
+const heart = { on: false, bpm: 58, style: 'lubdub', noise: 0.25, vol: 0.6, muted: false, start: 0, cursor: 0, out: null, in: null, beats: [] };
+
+function makeHeartOut() {
+  const old = heart.out;
+  if (old) {
+    old.gain.cancelScheduledValues(ctx.currentTime);
+    old.gain.setTargetAtTime(0, ctx.currentTime, 0.03);
+    setTimeout(() => { try { old.disconnect(); old.inNode.disconnect(); } catch (e) {} }, 1500);
+  }
+  const o = ctx.createGain(); o.gain.value = heart.muted ? 0 : heart.vol;
+  const f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = 5000; f.Q.value = 0.3;
+  f.connect(o); o.connect(bus);
+  o.inNode = f; heart.out = o; heart.in = f;
+}
+
+function heartHit(t, vel, which) {
+  const N = heart.noise;
+  const lub = which === 'lub';
+  const o = ctx.createOscillator(), g = ctx.createGain();
+  const dec = lub ? 0.28 : 0.2;
+  o.frequency.setValueAtTime(lub ? 95 : 115, t);
+  o.frequency.exponentialRampToValueAtTime(lub ? 46 : 58, t + 0.12);
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.linearRampToValueAtTime(0.7 * vel, t + 0.006);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + dec);
+  o.connect(g); g.connect(heart.in); o.start(t); o.stop(t + dec + 0.05);
+  if (N > 0.02) {                       // noise layer: a muffled thud at low settings, a rough rattle at high ones
+    const s = ctx.createBufferSource(), bp = ctx.createBiquadFilter(), ng = ctx.createGain();
+    s.buffer = noiseBuf; bp.type = 'bandpass'; bp.frequency.value = 180 + N * 1700; bp.Q.value = 0.8;
+    ng.gain.setValueAtTime(0.45 * N * vel, t); ng.gain.exponentialRampToValueAtTime(0.0001, t + 0.05 + N * 0.1);
+    s.connect(bp); bp.connect(ng); ng.connect(heart.in); s.start(t); s.stop(t + 0.2);
+  }
+  if (N > 0.5) {                        // mechanical click on top
+    const c = ctx.createOscillator(), cg = ctx.createGain();
+    c.type = 'square'; c.frequency.value = 1400;
+    cg.gain.setValueAtTime(Math.max(0.0002, 0.18 * (N - 0.5) * 2 * vel), t); cg.gain.exponentialRampToValueAtTime(0.0001, t + 0.012);
+    c.connect(cg); cg.connect(heart.in); c.start(t); c.stop(t + 0.03);
+  }
+  heart.beats.push({ t, v: lub ? 1 : 0.6 });
+}
+
+function tickHeart(now, horizon) {
+  if (!heart.on) return;
+  if (heart.cursor < now - 0.5) heart.cursor = now;
+  const P = 60 / heart.bpm, from = heart.cursor;
+  const k0 = Math.max(0, Math.floor((from - heart.start) / P)), k1 = Math.floor((horizon - heart.start) / P);
+  for (let k = k0; k <= k1; k++) {
+    const t = heart.start + k * P;
+    if (t >= from && t < horizon) heartHit(t, 1, 'lub');
+    if (heart.style === 'lubdub') {
+      const t2 = t + Math.min(0.32, P * 0.3);
+      if (t2 >= from && t2 < horizon) heartHit(t2, 0.65, 'dub');
+    }
+  }
+  heart.cursor = horizon;
+  heart.beats = heart.beats.filter(b => b.t > now - 1);
+}
+
+function setHeart(on) {
+  heart.on = on;
+  $('#hb').classList.toggle('on', on); $('#hbOn').classList.toggle('on', on);
+  $('#hbOn').textContent = on ? 'On' : 'Off';
+  if (!on) heart.beats = [];
+  if (ctx) {
+    if (on) { heart.start = ctx.currentTime + 0.1; heart.cursor = heart.start; }
+    makeHeartOut();                      // new chain; anything already queued fades out
+  }
+}
+// After a change: drop queued beats and reschedule from now with the new settings (phase is kept).
+function refreshHeart() {
+  if (!ctx || !heart.on || !playing) return;
+  makeHeartOut();
+  heart.cursor = ctx.currentTime + 0.02;
+}
+
 /* ---------- scheduler ---------- */
 const LOOKAHEAD = 1.5;
 function tick() {
@@ -293,6 +381,7 @@ function tick() {
     }
     L.cursor = horizon;
   }
+  tickHeart(now, horizon);
 }
 setInterval(tick, 100);
 
@@ -548,6 +637,7 @@ async function togglePlay() {
       started = true;
       const now = ctx.currentTime;
       loops.forEach(L => { L.start = now + 0.15; L.cursor = L.start; });
+      heart.start = now + 0.15; heart.cursor = heart.start;
     }
     playing = true;
     await ctx.resume();
@@ -560,6 +650,26 @@ async function togglePlay() {
 let started = false;
 
 $('#play').addEventListener('click', togglePlay);
+$('#hb').addEventListener('click', () => setHeart(!heart.on));
+$('#hbOn').addEventListener('click', () => setHeart(!heart.on));
+$('#hbMute').addEventListener('click', () => {
+  heart.muted = !heart.muted;
+  $('#hbMute').classList.toggle('on', heart.muted);
+  if (heart.out) heart.out.gain.setTargetAtTime(heart.muted ? 0 : heart.vol, ctx.currentTime, 0.02);
+});
+$('#hbTempo').addEventListener('input', e => { $('#hbBpm').textContent = e.target.value + ' bpm'; });
+$('#hbTempo').addEventListener('change', e => {
+  heart.bpm = parseInt(e.target.value, 10);
+  $('#hbBpm').textContent = heart.bpm + ' bpm';
+  if (ctx && heart.on) { heart.start = ctx.currentTime + 0.05; heart.cursor = heart.start; makeHeartOut(); }
+});
+$('#hbNoise').addEventListener('input', e => { heart.noise = parseFloat(e.target.value); });
+$('#hbNoise').addEventListener('change', refreshHeart);
+$('#hbVol').addEventListener('input', e => {
+  heart.vol = parseFloat(e.target.value);
+  if (heart.out && !heart.muted) heart.out.gain.setTargetAtTime(heart.vol, ctx.currentTime, 0.02);
+});
+$('#hbStyle').addEventListener('change', e => { heart.style = e.target.value; refreshHeart(); });
 $('#gen').addEventListener('click', generate);
 $('#rev').addEventListener('input', e => { if (revOut) revOut.gain.value = parseFloat(e.target.value); });
 $('#warm').addEventListener('input', e => { if (soft) soft.frequency.value = warmHz(e.target.value); });
@@ -623,6 +733,17 @@ function draw() {
     g2.globalAlpha = dim; g2.fillStyle = COL[i];
     g2.beginPath(); g2.arc(c + r * Math.cos(a), c + r * Math.sin(a), 6, 0, Math.PI * 2); g2.fill();
   });
+  if (heart.on) {
+    g2.fillStyle = '#f08a8a'; g2.globalAlpha = 0.35;
+    g2.beginPath(); g2.arc(c, c, 5, 0, Math.PI * 2); g2.fill();
+    for (const b of heart.beats) {
+      const age = now - b.t;
+      if (age >= 0 && age < 0.45) {
+        g2.globalAlpha = (1 - age / 0.45) * 0.85 * b.v;
+        g2.beginPath(); g2.arc(c, c, 6 + age * 45 * b.v, 0, Math.PI * 2); g2.fill();
+      }
+    }
+  }
   g2.globalAlpha = 1;
   requestAnimationFrame(draw);
 }
