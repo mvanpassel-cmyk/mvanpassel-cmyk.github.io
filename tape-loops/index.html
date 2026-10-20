@@ -24,7 +24,8 @@ h1{font-size:1.5rem;font-weight:600;letter-spacing:.02em;margin:0 0 4px}
 .slider{display:flex;align-items:center;gap:8px;color:var(--mute);font-size:.85rem}
 input[type=range]{accent-color:var(--fg);width:110px}
 .stage{display:flex;justify-content:center;margin:6px 0 14px}
-canvas{display:block;max-width:100%}
+canvas{display:block;max-width:100%;touch-action:none}
+.hint{color:var(--mute);font-size:.8rem;text-align:center;margin:0 0 12px}
 .info{display:flex;flex-wrap:wrap;gap:6px 18px;color:var(--mute);font-size:.85rem;margin-bottom:16px;justify-content:center;text-align:center}
 .info b{color:var(--fg);font-weight:500}
 .cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -67,6 +68,7 @@ kbd{border:1px solid var(--line);border-radius:4px;padding:0 5px}
   </div>
 
   <div class="stage"><canvas id="viz"></canvas></div>
+  <p class="hint">Tap a ring to add a dot · drag a dot to move it · double-tap a dot to delete it · Lock keeps a loop when you press Generate</p>
   <div class="info">
     <span>Key: <b id="key">–</b></span>
     <span>Loops realign after: <b id="align">–</b></span>
@@ -115,7 +117,7 @@ const DEFAULTS = {
   pulse: { oct: 0, tone: 0.3, att: 0.5, dec: 0.6, det: 0, wave: 'sine' },
   sample: { oct: 0, tone: 0.5, att: 0.6, dec: 0.5, det: 0, wave: 'sine' }
 };
-loops.forEach(L => { L.len = 10; L.events = []; L.muted = false; L.buffer = null; L.sampleName = ''; L.start = 0; L.cursor = 0; L.out = null; L.in = null; L.soft = L.kind === 'bell'; L.p = { ...DEFAULTS[L.kind] }; });
+loops.forEach(L => { L.len = 10; L.events = []; L.muted = false; L.buffer = null; L.sampleName = ''; L.start = 0; L.cursor = 0; L.out = null; L.in = null; L.soft = L.kind === 'bell'; L.locked = false; L.p = { ...DEFAULTS[L.kind] }; });
 const state = { root: 50, scale: 'dorian' };
 
 /* ---------- audio engine ---------- */
@@ -307,17 +309,22 @@ function euclid(k, n) {
 }
 
 function generate() {
-  state.root = pick([45,46,47,48,50,52,53]);
-  state.scale = pick(Object.keys(SCALES));
+  const anyLock = loops.some(L => L.locked);
+  if (!anyLock) {
+    state.root = pick([45,46,47,48,50,52,53]);
+    state.scale = pick(Object.keys(SCALES));
+  }
   const scale = SCALES[state.scale];
   const note = oct => state.root + 12 * oct + pick(scale);
-  const pool = shuffle(MEL_LENS.slice());
-  const melLens = pool.slice(0, 3).sort((a, b) => b - a);
-  const sLen = pool[3];
+  const taken = new Set(loops.filter(L => L.locked).map(L => L.len));
+  const pool = shuffle(MEL_LENS.filter(x => !taken.has(x)));
+  const free = loops.filter(L => !L.locked && L.kind !== 'pulse').length;
+  const lens = pool.slice(0, free).sort((a, b) => b - a);
   const pLen = pick(PULSE_LENS);
 
   loops.forEach((L, i) => {
-    L.len = L.kind === 'pulse' ? pLen : L.kind === 'sample' ? sLen : melLens[i];
+    if (L.locked) return;
+    L.len = L.kind === 'pulse' ? pLen : lens.shift();
     const ev = [];
     if (L.kind === 'pad') {
       const n = 3;
@@ -393,17 +400,18 @@ function buildCards() {
   loops.forEach(L => {
     const d = document.createElement('div');
     d.className = 'card' + (L.kind === 'sample' ? ' wide' : '');
-    d.innerHTML = `<div class="ch"><span class="dot" style="background:var(${L.color})"></span><strong>${L.name}</strong><span class="len"></span><button class="softbtn" title="Soften the tone">Soft</button><button class="mute" title="Mute">M</button></div>
+    d.innerHTML = `<div class="ch"><span class="dot" style="background:var(${L.color})"></span><strong>${L.name}</strong><span class="len"></span><button class="softbtn lock" title="Keep this loop when you press Generate">Lock</button><button class="softbtn soft" title="Soften the tone">Soft</button><button class="mute" title="Mute">M</button></div>
       <input type="range" class="vol" min="0" max="1" step="0.01">
       <div class="sm"><label class="btn small">Load sample<input type="file" accept="audio/*" hidden></label><button class="btn small rec" title="Record a short sound (max 8 s)">Rec</button><span class="sname">Synth</span><button class="btn small clear" hidden>Clear</button></div>${soundHTML(L)}`;
     wrap.appendChild(d);
-    L.el = { soft: d.querySelector('.softbtn'), len: d.querySelector('.len'), mute: d.querySelector('.mute'), vol: d.querySelector('.vol'),
+    L.el = { lock: d.querySelector('.softbtn.lock'), soft: d.querySelector('.softbtn.soft'), len: d.querySelector('.len'), mute: d.querySelector('.mute'), vol: d.querySelector('.vol'),
              name: d.querySelector('.sname'), clear: d.querySelector('.clear'), rec: d.querySelector('.rec'), file: d.querySelector('input[type=file]') };
     L.el.vol.value = L.vol;
     L.el.vol.addEventListener('input', () => {
       L.vol = parseFloat(L.el.vol.value);
       if (L.out && !L.muted) L.out.gain.setTargetAtTime(L.vol, ctx.currentTime, 0.02);
     });
+    L.el.lock.addEventListener('click', () => { L.locked = !L.locked; updateCards(); });
     L.el.soft.addEventListener('click', () => {
       L.soft = !L.soft;
       if (ctx) { makeLoopOut(L); if (playing) L.cursor = ctx.currentTime + 0.02; }
@@ -444,6 +452,7 @@ function updateCards() {
     L.el.len.textContent = L.len + ' s';
     L.el.mute.classList.toggle('on', L.muted);
     L.el.soft.classList.toggle('on', L.soft);
+    L.el.lock.classList.toggle('on', L.locked);
     L.el.name.textContent = L.buffer ? L.sampleName : (L.kind === 'sample' ? 'Load or record a sound' : 'Synth');
     L.el.clear.hidden = !L.buffer;
   });
@@ -583,7 +592,9 @@ function draw() {
       const a = -Math.PI / 2 + Math.PI * 2 * ev.t / L.len;
       const x = c + r * Math.cos(a), y = c + r * Math.sin(a);
       g2.fillStyle = COL[i]; g2.globalAlpha = 0.65 * dim;
-      g2.beginPath(); g2.arc(x, y, ev.drum === 'hat' && ev.vel < 0.5 ? 2 : 3.5, 0, Math.PI * 2); g2.fill();
+      const dragging = drag && drag.ev === ev;
+      if (dragging) g2.globalAlpha = 1;
+      g2.beginPath(); g2.arc(x, y, dragging ? 8 : (ev.drum === 'hat' && ev.vel < 0.5 ? 2.5 : 4.5), 0, Math.PI * 2); g2.fill();
       if (ev.lastT !== undefined) {
         const age = now - ev.lastT;
         if (age >= 0 && age < 0.8) {
@@ -603,6 +614,96 @@ function draw() {
   g2.globalAlpha = 1;
   requestAnimationFrame(draw);
 }
+
+/* ---------- editing dots on the rings ---------- */
+let drag = null, lastTap = null;
+const ringR = i => (S / 2) * (0.93 - i * 0.165);
+
+function canvasPos(e) {
+  const r = cv.getBoundingClientRect();
+  return { x: (e.clientX - r.left) * (S / r.width), y: (e.clientY - r.top) * (S / r.height) };
+}
+function angleFrac(p) {
+  const c = S / 2;
+  let a = Math.atan2(p.y - c, p.x - c) + Math.PI / 2;
+  a = ((a % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
+  return a / (Math.PI * 2);
+}
+// Returns { L, i, ev } for a dot, { L, i } for an empty spot on a ring, or null.
+function hitTest(p) {
+  const c = S / 2, d = Math.hypot(p.x - c, p.y - c);
+  let best = null, bestDist = 16;
+  loops.forEach((L, i) => {
+    const r = ringR(i);
+    for (const ev of L.events) {
+      const a = -Math.PI / 2 + Math.PI * 2 * ev.t / L.len;
+      const dist = Math.hypot(p.x - (c + r * Math.cos(a)), p.y - (c + r * Math.sin(a)));
+      if (dist < bestDist) { bestDist = dist; best = { L, i, ev }; }
+    }
+  });
+  if (best) return best;
+  let ring = null, tol = (S / 2) * 0.165 / 2;
+  loops.forEach((L, i) => { const dd = Math.abs(d - ringR(i)); if (dd < tol) { tol = dd; ring = { L, i }; } });
+  return ring;
+}
+function newEvent(L, t) {
+  const scale = SCALES[state.scale], note = oct => state.root + 12 * oct + pick(scale);
+  if (L.kind === 'pad') return { t, midi: note(pick([0, 1])), dur: (L.len / 3) * 1.5 };
+  if (L.kind === 'bell') return { t, midi: note(pick([1, 1, 2])), dur: 3 };
+  if (L.kind === 'pluck') return { t, midi: note(pick([0, 1, 1])), dur: 1.8 };
+  if (L.kind === 'sample') return { t, midi: note(pick([1, 1, 1, 0])), dur: 4 };
+  return { t, drum: pick(['kick', 'rim', 'hat']), vel: rnd(0.6, 0.9) };
+}
+function audition(L, ev) {
+  if (!ctx || !playing) return;
+  if (L.kind === 'sample' && !L.buffer) return;
+  trigger(L, ev, ctx.currentTime + 0.02);
+}
+function removeEvent(L, ev) {
+  const k = L.events.indexOf(ev);
+  if (k >= 0) L.events.splice(k, 1);
+  refreshLoop(L);
+}
+
+function onDown(e) {
+  const p = canvasPos(e), h = hitTest(p);
+  if (!h) return;
+  e.preventDefault();
+  let ev = h.ev, added = false;
+  if (!ev) { ev = newEvent(h.L, angleFrac(p) * h.L.len); h.L.events.push(ev); added = true; }
+  drag = { L: h.L, ev, moved: false, added, x0: e.clientX, y0: e.clientY };
+  if (cv.setPointerCapture) cv.setPointerCapture(e.pointerId);
+}
+function onMove(e) {
+  const p = canvasPos(e);
+  if (!drag) { const h = hitTest(p); cv.style.cursor = h ? (h.ev ? 'grab' : 'crosshair') : 'default'; return; }
+  if (!drag.moved && Math.hypot(e.clientX - drag.x0, e.clientY - drag.y0) < 4) return;
+  drag.moved = true; cv.style.cursor = 'grabbing';
+  drag.ev.t = Math.min(drag.L.len * 0.999, angleFrac(p) * drag.L.len);
+}
+function onUp() {
+  if (!drag) return;
+  const { L, ev, moved, added } = drag;
+  drag = null; cv.style.cursor = 'default';
+  L.events.sort((a, b) => a.t - b.t);
+  const now = performance.now();
+  if (!moved && !added && lastTap && lastTap.ev === ev && now - lastTap.time < 400) {
+    lastTap = null; removeEvent(L, ev); return;
+  }
+  lastTap = (moved || added) ? null : { ev, time: now };   // only plain taps count towards a double-tap
+  if (moved || added) refreshLoop(L);
+  audition(L, ev);
+}
+function onContext(e) {
+  e.preventDefault();
+  const h = hitTest(canvasPos(e));
+  if (h && h.ev) removeEvent(h.L, h.ev);
+}
+cv.addEventListener('pointerdown', onDown);
+cv.addEventListener('pointermove', onMove);
+cv.addEventListener('pointerup', onUp);
+cv.addEventListener('pointercancel', () => { drag = null; });
+cv.addEventListener('contextmenu', onContext);
 
 /* ---------- recording and export ---------- */
 let rec = null, lastRec = null, recTimer = null;
