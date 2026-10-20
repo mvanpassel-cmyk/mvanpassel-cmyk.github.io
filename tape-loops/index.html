@@ -25,7 +25,9 @@ h1{font-size:1.5rem;font-weight:600;letter-spacing:.02em;margin:0 0 4px}
 input[type=range]{accent-color:var(--fg);width:110px}
 .stage{display:flex;justify-content:center;margin:6px 0 14px}
 canvas{display:block;max-width:100%;touch-action:none}
-.hint{color:var(--mute);font-size:.8rem;text-align:center;margin:0 0 12px}
+.hint{color:var(--mute);font-size:.8rem;text-align:center;margin:0 0 10px}
+.edit{justify-content:center}
+.btn:disabled{opacity:.4;cursor:default}
 .info{display:flex;flex-wrap:wrap;gap:6px 18px;color:var(--mute);font-size:.85rem;margin-bottom:16px;justify-content:center;text-align:center}
 .info b{color:var(--fg);font-weight:500}
 .cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -68,7 +70,8 @@ kbd{border:1px solid var(--line);border-radius:4px;padding:0 5px}
   </div>
 
   <div class="stage"><canvas id="viz"></canvas></div>
-  <p class="hint">Tap a ring to add a dot · drag a dot to move it · double-tap a dot to delete it · Lock keeps a loop when you press Generate</p>
+  <p class="hint">Tap a ring to add a dot · drag a dot to move it · tap a dot to select it, then press Delete (or drag it off the ring) · Lock keeps a loop when you press Generate</p>
+  <div class="row edit"><button id="delDot" class="btn small" disabled>Delete dot</button><button id="undo" class="btn small" disabled>Undo</button></div>
   <div class="info">
     <span>Key: <b id="key">–</b></span>
     <span>Loops realign after: <b id="align">–</b></span>
@@ -309,6 +312,7 @@ function euclid(k, n) {
 }
 
 function generate() {
+  history.length = 0; sel = null; updateEditUI();
   const anyLock = loops.some(L => L.locked);
   if (!anyLock) {
     state.root = pick([45,46,47,48,50,52,53]);
@@ -592,9 +596,17 @@ function draw() {
       const a = -Math.PI / 2 + Math.PI * 2 * ev.t / L.len;
       const x = c + r * Math.cos(a), y = c + r * Math.sin(a);
       g2.fillStyle = COL[i]; g2.globalAlpha = 0.65 * dim;
-      const dragging = drag && drag.ev === ev;
-      if (dragging) g2.globalAlpha = 1;
-      g2.beginPath(); g2.arc(x, y, dragging ? 8 : (ev.drum === 'hat' && ev.vel < 0.5 ? 2.5 : 4.5), 0, Math.PI * 2); g2.fill();
+      const dragging = drag && drag.ev === ev, removing = dragging && drag.removing;
+      if (dragging) g2.globalAlpha = removing ? 0.3 : 1;
+      g2.beginPath(); g2.arc(x, y, dragging ? (removing ? 6 : 8) : (ev.drum === 'hat' && ev.vel < 0.5 ? 2.5 : 4.5), 0, Math.PI * 2); g2.fill();
+      if (sel && sel.ev === ev) {
+        g2.globalAlpha = 1; g2.strokeStyle = '#fff'; g2.lineWidth = 2;
+        g2.beginPath(); g2.arc(x, y, 9, 0, Math.PI * 2); g2.stroke();
+      }
+      if (removing) {
+        g2.globalAlpha = 1; g2.strokeStyle = '#e0735f'; g2.lineWidth = 2.5;
+        g2.beginPath(); g2.moveTo(x - 7, y - 7); g2.lineTo(x + 7, y + 7); g2.moveTo(x + 7, y - 7); g2.lineTo(x - 7, y + 7); g2.stroke();
+      }
       if (ev.lastT !== undefined) {
         const age = now - ev.lastT;
         if (age >= 0 && age < 0.8) {
@@ -616,7 +628,29 @@ function draw() {
 }
 
 /* ---------- editing dots on the rings ---------- */
-let drag = null, lastTap = null;
+let drag = null, lastTap = null, sel = null;
+const history = [];
+function updateEditUI() {
+  $('#delDot').disabled = !sel;
+  $('#undo').disabled = history.length === 0;
+}
+function pushHistory() {
+  history.push(JSON.stringify(loops.map(L => L.events)));
+  if (history.length > 40) history.shift();
+  updateEditUI();
+}
+function undo() {
+  const snap = history.pop();
+  if (!snap) return;
+  const all = JSON.parse(snap);
+  loops.forEach((L, i) => { L.events = all[i]; });
+  sel = null;
+  loops.forEach(refreshLoop);
+  updateEditUI();
+}
+function deleteSelected() {
+  if (sel) removeEvent(sel.L, sel.ev);
+}
 const ringR = i => (S / 2) * (0.93 - i * 0.165);
 
 function canvasPos(e) {
@@ -630,9 +664,9 @@ function angleFrac(p) {
   return a / (Math.PI * 2);
 }
 // Returns { L, i, ev } for a dot, { L, i } for an empty spot on a ring, or null.
-function hitTest(p) {
+function hitTest(p, rad = 16) {
   const c = S / 2, d = Math.hypot(p.x - c, p.y - c);
-  let best = null, bestDist = 16;
+  let best = null, bestDist = rad;
   loops.forEach((L, i) => {
     const r = ringR(i);
     for (const ev of L.events) {
@@ -659,39 +693,48 @@ function audition(L, ev) {
   if (L.kind === 'sample' && !L.buffer) return;
   trigger(L, ev, ctx.currentTime + 0.02);
 }
-function removeEvent(L, ev) {
+function removeEvent(L, ev, skipPush) {
+  if (!skipPush) pushHistory();
   const k = L.events.indexOf(ev);
   if (k >= 0) L.events.splice(k, 1);
+  if (sel && sel.ev === ev) sel = null;
   refreshLoop(L);
+  updateEditUI();
 }
 
 function onDown(e) {
-  const p = canvasPos(e), h = hitTest(p);
-  if (!h) return;
+  const p = canvasPos(e), h = hitTest(p, e.pointerType === 'touch' ? 24 : 16);
+  if (!h) { if (sel) { sel = null; updateEditUI(); } return; }
   e.preventDefault();
   let ev = h.ev, added = false;
-  if (!ev) { ev = newEvent(h.L, angleFrac(p) * h.L.len); h.L.events.push(ev); added = true; }
-  drag = { L: h.L, ev, moved: false, added, x0: e.clientX, y0: e.clientY };
+  if (!ev) { pushHistory(); ev = newEvent(h.L, angleFrac(p) * h.L.len); h.L.events.push(ev); added = true; }
+  drag = { L: h.L, ev, moved: false, added, pushed: added, removing: false, x0: e.clientX, y0: e.clientY };
   if (cv.setPointerCapture) cv.setPointerCapture(e.pointerId);
 }
 function onMove(e) {
   const p = canvasPos(e);
   if (!drag) { const h = hitTest(p); cv.style.cursor = h ? (h.ev ? 'grab' : 'crosshair') : 'default'; return; }
   if (!drag.moved && Math.hypot(e.clientX - drag.x0, e.clientY - drag.y0) < 4) return;
+  if (!drag.pushed) { pushHistory(); drag.pushed = true; }
   drag.moved = true; cv.style.cursor = 'grabbing';
-  drag.ev.t = Math.min(drag.L.len * 0.999, angleFrac(p) * drag.L.len);
+  const c = S / 2, off = Math.abs(Math.hypot(p.x - c, p.y - c) - ringR(loops.indexOf(drag.L)));
+  drag.removing = off > c * 0.165 * 1.3;          // dragged well off its ring: release to delete
+  if (!drag.removing) drag.ev.t = Math.min(drag.L.len * 0.999, angleFrac(p) * drag.L.len);
 }
 function onUp() {
   if (!drag) return;
-  const { L, ev, moved, added } = drag;
+  const { L, ev, moved, added, removing } = drag;
   drag = null; cv.style.cursor = 'default';
+  if (removing) { removeEvent(L, ev, true); return; }
   L.events.sort((a, b) => a.t - b.t);
   const now = performance.now();
   if (!moved && !added && lastTap && lastTap.ev === ev && now - lastTap.time < 400) {
     lastTap = null; removeEvent(L, ev); return;
   }
   lastTap = (moved || added) ? null : { ev, time: now };   // only plain taps count towards a double-tap
+  sel = { L, ev };
   if (moved || added) refreshLoop(L);
+  updateEditUI();
   audition(L, ev);
 }
 function onContext(e) {
@@ -704,6 +747,13 @@ cv.addEventListener('pointermove', onMove);
 cv.addEventListener('pointerup', onUp);
 cv.addEventListener('pointercancel', () => { drag = null; });
 cv.addEventListener('contextmenu', onContext);
+$('#delDot').addEventListener('click', deleteSelected);
+$('#undo').addEventListener('click', undo);
+document.addEventListener('keydown', e => {
+  if (/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) return;
+  if ((e.key === 'Delete' || e.key === 'Backspace') && sel) { e.preventDefault(); deleteSelected(); }
+  else if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'z') { e.preventDefault(); undo(); }
+});
 
 /* ---------- recording and export ---------- */
 let rec = null, lastRec = null, recTimer = null;
