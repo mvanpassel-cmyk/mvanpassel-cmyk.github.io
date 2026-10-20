@@ -70,6 +70,8 @@ kbd{border:1px solid var(--line);border-radius:4px;padding:0 5px}
     <label class="slider">Reverb <input id="rev" type="range" min="0" max="1.2" step="0.01" value="0.9"></label>
     <label class="slider">Master <input id="mst" type="range" min="0" max="1" step="0.01" value="0.8"></label>
     <label class="slider">Warmth <input id="warm" type="range" min="0" max="1" step="0.01" value="0.6"></label>
+    <label class="slider">Delay time <input id="dtime" type="range" min="0.1" max="1.5" step="0.01" value="0.45"></label>
+    <label class="slider">Feedback <input id="dfbk" type="range" min="0" max="0.85" step="0.01" value="0.4"></label>
   </div>
 
   <div class="stage"><canvas id="viz"></canvas></div>
@@ -88,6 +90,11 @@ kbd{border:1px solid var(--line);border-radius:4px;padding:0 5px}
     <label class="prm"><span>Noise</span><input type="range" id="hbNoise" min="0" max="1" step="0.01" value="0.25"></label>
     <label class="prm"><span>Volume</span><input type="range" id="hbVol" min="0" max="1" step="0.01" value="0.6"></label>
     <label class="prm"><span>Style</span><select id="hbStyle"><option value="lubdub">Heartbeat (lub-dub)</option><option value="steady">Steady pulse</option></select></label>
+    <label class="prm"><span>Tone</span><select id="hbTone"><option value="classic">Classic</option><option value="sub">Deep sub (808)</option><option value="felt">Felt / muffled</option><option value="taiko">Taiko / tom</option></select></label>
+    <label class="prm"><span>Organic</span><input type="range" id="hbOrg" min="0" max="1" step="0.01" value="0"></label>
+    <label class="prm"><span>Semitones</span><input type="range" id="hbSemi" min="-12" max="12" step="1" value="0"></label>
+    <label class="prm"><span>Fine</span><input type="range" id="hbFine" min="-50" max="50" step="1" value="0"></label>
+    <label class="prm"><span>Delay</span><input type="range" id="hbDelay" min="0" max="1" step="0.01" value="0"></label>
   </div>
 
   <div class="rec-panel" id="recPanel">
@@ -125,17 +132,17 @@ const loops = [
   { name:'Sample', kind:'sample', color:'--c5', vol:0.6 }
 ];
 const DEFAULTS = {
-  pad:   { oct: 0, tone: 0.35, att: 0.7, dec: 0.6, det: 8, wave: 'sine' },
-  bell:  { oct: 0, tone: 0.3, att: 0.75, dec: 0.65, det: 0, wave: 'sine' },
-  pluck: { oct: 0, tone: 0.3, att: 0.8, dec: 0.6, det: 5, wave: 'sine' },
-  pulse: { oct: 0, tone: 0.3, att: 0.5, dec: 0.6, det: 0, wave: 'sine' },
-  sample: { oct: 0, tone: 0.5, att: 0.6, dec: 0.5, det: 0, wave: 'sine' }
+  pad:   { oct: 0, semi: 0, fine: 0, del: 0, tone: 0.35, att: 0.7, dec: 0.6, det: 8, wave: 'sine' },
+  bell:  { oct: 0, semi: 0, fine: 0, del: 0, tone: 0.3, att: 0.75, dec: 0.65, det: 0, wave: 'sine' },
+  pluck: { oct: 0, semi: 0, fine: 0, del: 0, tone: 0.3, att: 0.8, dec: 0.6, det: 5, wave: 'sine' },
+  pulse: { oct: 0, semi: 0, fine: 0, del: 0, tone: 0.3, att: 0.5, dec: 0.6, det: 0, wave: 'sine' },
+  sample: { oct: 0, semi: 0, fine: 0, del: 0, tone: 0.5, att: 0.6, dec: 0.5, det: 0, wave: 'sine' }
 };
 loops.forEach(L => { L.len = 10; L.events = []; L.muted = false; L.buffer = null; L.sampleName = ''; L.start = 0; L.cursor = 0; L.out = null; L.in = null; L.soft = L.kind === 'bell'; L.locked = false; L.p = { ...DEFAULTS[L.kind] }; });
 const state = { root: 50, scale: 'dorian' };
 
 /* ---------- audio engine ---------- */
-let ctx = null, bus, comp, soft, masterGain, conv, revOut, noiseBuf, playing = false;
+let ctx = null, bus, comp, soft, masterGain, conv, revOut, dly, dfb, noiseBuf, playing = false;
 const warmHz = v => 800 * Math.pow(2, parseFloat(v) * 4.4);
 
 function initAudio() {
@@ -151,6 +158,14 @@ function initAudio() {
   conv = ctx.createConvolver(); conv.buffer = makeImpulse(5, 2.2);
   revOut = ctx.createGain(); revOut.gain.value = parseFloat($('#rev').value);
   conv.connect(revOut); revOut.connect(bus);
+  // shared delay: loops and the heartbeat feed it through their own send amounts
+  dly = ctx.createDelay(2.5); dly.delayTime.value = parseFloat($('#dtime').value);
+  dfb = ctx.createGain(); dfb.gain.value = parseFloat($('#dfbk').value);
+  const dtone = ctx.createBiquadFilter(); dtone.type = 'lowpass'; dtone.frequency.value = 3200; dtone.Q.value = 0.3;
+  const dout = ctx.createGain(); dout.gain.value = 0.8;
+  dly.connect(dtone); dtone.connect(dfb); dfb.connect(dly);
+  dtone.connect(dout); dout.connect(bus);
+  const dverb = ctx.createGain(); dverb.gain.value = 0.35; dout.connect(dverb); dverb.connect(conv);
   noiseBuf = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate);
   const d = noiseBuf.getChannelData(0);
   for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
@@ -173,25 +188,27 @@ function makeLoopOut(L) {
   if (old) {
     old.gain.cancelScheduledValues(ctx.currentTime);
     old.gain.setTargetAtTime(0, ctx.currentTime, 0.04);
-    setTimeout(() => { try { old.disconnect(); old.send.disconnect(); old.inNode.disconnect(); } catch (e) {} }, 2000);
+    setTimeout(() => { try { old.disconnect(); old.send.disconnect(); old.dsend.disconnect(); old.inNode.disconnect(); } catch (e) {} }, 2000);
   }
   const o = ctx.createGain();
   o.gain.value = L.muted ? 0 : L.vol;
   const send = ctx.createGain(); send.gain.value = 0.6;
   o.connect(bus); o.connect(send); send.connect(conv);
+  const dsend = ctx.createGain(); dsend.gain.value = L.p.del * 0.9; o.connect(dsend); dsend.connect(dly);
   const f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.Q.value = 0.3; f.frequency.value = L.soft ? 2200 : 20000;
   f.connect(o);
-  o.send = send; o.inNode = f; L.out = o; L.in = f;
+  o.send = send; o.dsend = dsend; o.inNode = f; L.out = o; L.in = f;
 }
 
 /* ---------- voices ---------- */
 const mult = (v, range) => Math.pow(2, (v - 0.5) * range);
 const LV = { sine: 1, triangle: 1, sawtooth: 0.55, square: 0.5 };
+const shiftOf = P => 12 * P.oct + P.semi + P.fine / 100;   // total pitch shift in semitones
 const clampF = (f, hi) => Math.max(40, Math.min(hi, f));
 
 const VOICES = {
   pad(out, ev, t, L) {
-    const P = L.p, f = midiHz(ev.midi + 12 * P.oct);
+    const P = L.p, f = midiHz(ev.midi + shiftOf(P));
     const dur = Math.min(ev.dur * mult(P.dec, 4), L.len * 1.5);
     const a = Math.min(0.9, 0.4 * mult(P.att, 4)) * dur;
     const g = ctx.createGain(), lp = ctx.createBiquadFilter();
@@ -206,7 +223,7 @@ const VOICES = {
     g.connect(lp); lp.connect(out);
   },
   bell(out, ev, t, L) {
-    const P = L.p, f = midiHz(ev.midi + 12 * P.oct), D = mult(P.dec, 4);
+    const P = L.p, f = midiHz(ev.midi + shiftOf(P)), D = mult(P.dec, 4);
     const a = Math.min(0.5, 0.005 * mult(P.att, 10) * (L.soft ? 2.5 : 1));
     const c = ctx.createOscillator(), m = ctx.createOscillator(), mg = ctx.createGain(), g = ctx.createGain();
     c.type = P.wave; c.frequency.value = f; m.frequency.value = f * ((L.soft ? 2 : 3.5) + P.det / 50);
@@ -220,7 +237,7 @@ const VOICES = {
     c.start(t); m.start(t); c.stop(end); m.stop(end);
   },
   pluck(out, ev, t, L) {
-    const P = L.p, f = midiHz(ev.midi + 12 * P.oct), D = mult(P.dec, 4), T = mult(P.tone, 6) * (L.soft ? 0.6 : 1);
+    const P = L.p, f = midiHz(ev.midi + shiftOf(P)), D = mult(P.dec, 4), T = mult(P.tone, 6) * (L.soft ? 0.6 : 1);
     const a = Math.min(0.5, 0.008 * mult(P.att, 10) * (L.soft ? 2 : 1));
     const o = ctx.createOscillator(), o2 = ctx.createOscillator(), lp = ctx.createBiquadFilter(), g = ctx.createGain();
     o.type = P.wave; o2.type = P.wave; o.frequency.value = f; o2.frequency.value = f; o2.detune.value = P.det;
@@ -234,7 +251,7 @@ const VOICES = {
     o.start(t); o2.start(t); o.stop(end); o2.stop(end);
   },
   pulse(out, ev, t, L) {
-    const P = L.p, v = ev.vel, k = Math.pow(2, P.oct), T = mult(P.tone, 6), D = mult(P.dec, 4);
+    const P = L.p, v = ev.vel, k = Math.pow(2, shiftOf(P) / 12), T = mult(P.tone, 6), D = mult(P.dec, 4);
     if (ev.drum === 'kick') {
       const o = ctx.createOscillator(), g = ctx.createGain();
       o.frequency.setValueAtTime(90 * k * Math.sqrt(T), t); o.frequency.exponentialRampToValueAtTime(46 * k, t + 0.18);
@@ -262,13 +279,13 @@ function playSample(L, ev, t) {
   lp.type = 'lowpass'; lp.frequency.value = 22000 * Math.min(1, mult(P.tone, 12));
   let rate, dur;
   if (L.kind === 'pulse') {
-    rate = Math.pow(2, P.oct);
+    rate = Math.pow(2, shiftOf(P) / 12);
     dur = L.buffer.duration / rate * Math.min(1, D);
     g.gain.setValueAtTime(ev.vel, t);
     if (D < 1) g.gain.linearRampToValueAtTime(0.0001, t + dur);
   } else {
     const ref = L.kind === 'sample' ? midiHz(state.root + 12) : 261.63;
-    rate = Math.min(8, Math.max(0.125, midiHz(ev.midi + 12 * P.oct) / ref));
+    rate = Math.min(8, Math.max(0.125, midiHz(ev.midi + shiftOf(P)) / ref));
     dur = Math.min((ev.dur || 3) * D, L.buffer.duration / rate);
     const a = Math.min(dur * 0.5, 0.02 * mult(P.att, 6));
     g.gain.setValueAtTime(0.0001, t);
@@ -288,36 +305,64 @@ function trigger(L, ev, t) {
 }
 
 /* ---------- heartbeat drum ---------- */
-const heart = { on: false, bpm: 58, style: 'lubdub', noise: 0.25, vol: 0.6, muted: false, start: 0, cursor: 0, out: null, in: null, beats: [] };
+const heart = { on: false, bpm: 58, style: 'lubdub', tone: 'classic', organic: 0, semi: 0, fine: 0, del: 0, noise: 0.25, vol: 0.6, muted: false, start: 0, cursor: 0, out: null, in: null, beats: [] };
 
 function makeHeartOut() {
   const old = heart.out;
   if (old) {
     old.gain.cancelScheduledValues(ctx.currentTime);
     old.gain.setTargetAtTime(0, ctx.currentTime, 0.03);
-    setTimeout(() => { try { old.disconnect(); old.inNode.disconnect(); } catch (e) {} }, 1500);
+    setTimeout(() => { try { old.disconnect(); old.dsend.disconnect(); old.inNode.disconnect(); } catch (e) {} }, 1500);
   }
   const o = ctx.createGain(); o.gain.value = heart.muted ? 0 : heart.vol;
   const f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = 5000; f.Q.value = 0.3;
   f.connect(o); o.connect(bus);
-  o.inNode = f; heart.out = o; heart.in = f;
+  const ds = ctx.createGain(); ds.gain.value = heart.del * 0.9; o.connect(ds); ds.connect(dly);
+  o.dsend = ds; o.inNode = f; heart.out = o; heart.in = f;
 }
 
+const TONES = {
+  classic: { lub: { f0: 95,  f1: 46, sw: 0.12, dec: 0.28, pk: 0.7, wave: 'sine', atk: 0.006 },
+             dub: { f0: 115, f1: 58, sw: 0.12, dec: 0.2,  pk: 0.7, wave: 'sine', atk: 0.006 } },
+  sub:     { lub: { f0: 110, f1: 36, sw: 0.22, dec: 0.75, pk: 0.9, wave: 'sine', atk: 0.004, h2: 0.18 },
+             dub: { f0: 130, f1: 44, sw: 0.18, dec: 0.5,  pk: 0.9, wave: 'sine', atk: 0.004, h2: 0.18 } },
+  felt:    { lub: { f0: 80,  f1: 50, sw: 0.1,  dec: 0.4,  pk: 0.8, wave: 'sine', atk: 0.025, lp: 260 },
+             dub: { f0: 92,  f1: 58, sw: 0.1,  dec: 0.3,  pk: 0.8, wave: 'sine', atk: 0.025, lp: 260 } },
+  taiko:   { lub: { f0: 170, f1: 72, sw: 0.09, dec: 0.5,  pk: 0.7, wave: 'triangle', atk: 0.003, slap: 0.3 },
+             dub: { f0: 200, f1: 90, sw: 0.08, dec: 0.32, pk: 0.7, wave: 'triangle', atk: 0.003, slap: 0.3 } }
+};
+
 function heartHit(t, vel, which) {
-  const N = heart.noise;
-  const lub = which === 'lub';
-  const o = ctx.createOscillator(), g = ctx.createGain();
-  const dec = lub ? 0.28 : 0.2;
-  o.frequency.setValueAtTime(lub ? 95 : 115, t);
-  o.frequency.exponentialRampToValueAtTime(lub ? 46 : 58, t + 0.12);
+  const N = heart.noise, lub = which === 'lub';
+  const v = TONES[heart.tone][lub ? 'lub' : 'dub'];
+  const pm = Math.pow(2, (heart.semi + heart.fine / 100) / 12);
+  const g = ctx.createGain();
+  const layers = [[v.wave, 1, 1]];
+  if (v.h2) layers.push(['triangle', 2, v.h2]);       // a little overtone so deep tones still carry on small speakers
+  layers.forEach(([type, mul, lvl]) => {
+    const o = ctx.createOscillator(); o.type = type;
+    o.frequency.setValueAtTime(v.f0 * pm * mul, t);
+    o.frequency.exponentialRampToValueAtTime(v.f1 * pm * mul, t + v.sw);
+    if (lvl !== 1) { const lg = ctx.createGain(); lg.gain.value = lvl; o.connect(lg); lg.connect(g); } else o.connect(g);
+    o.start(t); o.stop(t + v.dec + 0.05);
+  });
   g.gain.setValueAtTime(0.0001, t);
-  g.gain.linearRampToValueAtTime(0.7 * vel, t + 0.006);
-  g.gain.exponentialRampToValueAtTime(0.0001, t + dec);
-  o.connect(g); g.connect(heart.in); o.start(t); o.stop(t + dec + 0.05);
+  g.gain.linearRampToValueAtTime(v.pk * vel, t + v.atk);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + v.dec);
+  let dest = heart.in;
+  if (v.lp) { const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = v.lp; lp.Q.value = 0.5; lp.connect(heart.in); dest = lp; }
+  g.connect(dest);
+  if (v.slap) {                         // skin slap on the tom
+    const s = ctx.createBufferSource(), bp = ctx.createBiquadFilter(), sg = ctx.createGain();
+    s.buffer = noiseBuf; bp.type = 'bandpass'; bp.frequency.value = 1100; bp.Q.value = 1;
+    sg.gain.setValueAtTime(v.slap * vel, t); sg.gain.exponentialRampToValueAtTime(0.0001, t + 0.06);
+    s.connect(bp); bp.connect(sg); sg.connect(heart.in); s.start(t); s.stop(t + 0.1);
+  }
   if (N > 0.02) {                       // noise layer: a muffled thud at low settings, a rough rattle at high ones
     const s = ctx.createBufferSource(), bp = ctx.createBiquadFilter(), ng = ctx.createGain();
+    const scale = heart.tone === 'felt' ? 0.5 : 1;
     s.buffer = noiseBuf; bp.type = 'bandpass'; bp.frequency.value = 180 + N * 1700; bp.Q.value = 0.8;
-    ng.gain.setValueAtTime(0.45 * N * vel, t); ng.gain.exponentialRampToValueAtTime(0.0001, t + 0.05 + N * 0.1);
+    ng.gain.setValueAtTime(0.45 * N * vel * scale, t); ng.gain.exponentialRampToValueAtTime(0.0001, t + 0.05 + N * 0.1);
     s.connect(bp); bp.connect(ng); ng.connect(heart.in); s.start(t); s.stop(t + 0.2);
   }
   if (N > 0.5) {                        // mechanical click on top
@@ -336,10 +381,12 @@ function tickHeart(now, horizon) {
   const k0 = Math.max(0, Math.floor((from - heart.start) / P)), k1 = Math.floor((horizon - heart.start) / P);
   for (let k = k0; k <= k1; k++) {
     const t = heart.start + k * P;
-    if (t >= from && t < horizon) heartHit(t, 1, 'lub');
+    const jit = () => (Math.random() * 2 - 1) * heart.organic * 0.025;     // up to +-25 ms
+    const vj = () => 1 + (Math.random() * 2 - 1) * heart.organic * 0.18;   // up to +-18% in strength
+    if (t >= from && t < horizon) heartHit(Math.max(now + 0.001, t + jit()), vj(), 'lub');
     if (heart.style === 'lubdub') {
       const t2 = t + Math.min(0.32, P * 0.3);
-      if (t2 >= from && t2 < horizon) heartHit(t2, 0.65, 'dub');
+      if (t2 >= from && t2 < horizon) heartHit(Math.max(now + 0.001, t2 + jit()), 0.65 * vj(), 'dub');
     }
   }
   heart.cursor = horizon;
@@ -481,10 +528,11 @@ function soundHTML(L) {
   const sl = (k, label, min, max, step) => `<label class="prm"><span>${label}</span><input type="range" data-k="${k}" min="${min}" max="${max}" step="${step}"></label>`;
   const octSel = label => `<label class="prm"><span>${label}</span><select data-k="oct">${[-2, -1, 0, 1, 2].map(n => `<option value="${n}">${n > 0 ? '+' + n : n}</option>`).join('')}</select></label>`;
   const waveSel = `<label class="prm"><span>Wave</span><select data-k="wave">${WAVES.map(w => `<option value="${w}">${w}</option>`).join('')}</select></label>`;
-  let h = octSel(L.kind === 'pulse' ? 'Pitch' : 'Octave') + sl('tone', 'Tone', 0, 1, 0.01);
+  let h = octSel('Octave') + sl('semi', 'Semitones', -12, 12, 1) + sl('fine', 'Fine', -50, 50, 1) + sl('tone', 'Tone', 0, 1, 0.01);
   if (L.kind !== 'pulse') h += sl('att', 'Attack', 0, 1, 0.01);
   h += sl('dec', 'Decay', 0, 1, 0.01);
   if (L.kind !== 'pulse' && L.kind !== 'sample') h += sl('det', L.kind === 'bell' ? 'Shimmer' : 'Detune', 0, 50, 1) + waveSel;
+  h += sl('del', 'Delay', 0, 1, 0.01);
   return `<details class="snd"><summary>Sound</summary>${h}<button class="btn small reset" style="margin-top:8px">Reset sound</button></details>`;
 }
 
@@ -534,9 +582,10 @@ function buildCards() {
       const el = e.target, k = el.dataset && el.dataset.k;
       if (!k) return;
       L.p[k] = k === 'wave' ? el.value : parseFloat(el.value);
+      if (k === 'del' && L.out && L.out.dsend) L.out.dsend.gain.setTargetAtTime(L.p.del * 0.9, ctx.currentTime, 0.03);
     };
     box.addEventListener('input', setP);
-    box.addEventListener('change', e => { setP(e); refreshLoop(L); });
+    box.addEventListener('change', e => { setP(e); if (e.target.dataset.k !== 'del') refreshLoop(L); });
     box.querySelector('.reset').addEventListener('click', () => { L.p = { ...DEFAULTS[L.kind] }; sync(); refreshLoop(L); });
   });
 }
@@ -670,6 +719,18 @@ $('#hbVol').addEventListener('input', e => {
   if (heart.out && !heart.muted) heart.out.gain.setTargetAtTime(heart.vol, ctx.currentTime, 0.02);
 });
 $('#hbStyle').addEventListener('change', e => { heart.style = e.target.value; refreshHeart(); });
+$('#hbTone').addEventListener('change', e => { heart.tone = e.target.value; refreshHeart(); });
+$('#hbOrg').addEventListener('input', e => { heart.organic = parseFloat(e.target.value); });
+$('#hbSemi').addEventListener('input', e => { heart.semi = parseInt(e.target.value, 10); });
+$('#hbSemi').addEventListener('change', refreshHeart);
+$('#hbFine').addEventListener('input', e => { heart.fine = parseInt(e.target.value, 10); });
+$('#hbFine').addEventListener('change', refreshHeart);
+$('#hbDelay').addEventListener('input', e => {
+  heart.del = parseFloat(e.target.value);
+  if (heart.out && heart.out.dsend) heart.out.dsend.gain.setTargetAtTime(heart.del * 0.9, ctx.currentTime, 0.03);
+});
+$('#dtime').addEventListener('input', e => { if (dly) dly.delayTime.setTargetAtTime(parseFloat(e.target.value), ctx.currentTime, 0.08); });
+$('#dfbk').addEventListener('input', e => { if (dfb) dfb.gain.setTargetAtTime(parseFloat(e.target.value), ctx.currentTime, 0.03); });
 $('#gen').addEventListener('click', generate);
 $('#rev').addEventListener('input', e => { if (revOut) revOut.gain.value = parseFloat(e.target.value); });
 $('#warm').addEventListener('input', e => { if (soft) soft.frequency.value = warmHz(e.target.value); });
