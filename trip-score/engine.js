@@ -75,15 +75,15 @@
   }
 
   /* ---------- voices ---------- */
-  function voiceOut(L, pan) {
+  function voiceOut(L, pan, dest) {
     const ctx = L.ctx;
     const g = ctx.createGain();
     g.gain.value = 0;
     if (ctx.createStereoPanner) {
       const p = ctx.createStereoPanner();
       p.pan.value = clamp(pan || 0, -1, 1);
-      g.connect(p); p.connect(L.bus);
-    } else g.connect(L.bus);
+      g.connect(p); p.connect(dest || L.bus);
+    } else g.connect(dest || L.bus);
     return g;
   }
   function nearest(notes, midi) {
@@ -100,6 +100,7 @@
     const b = L.e.bank.get(inst);
     if (!b) return 0;
     const ctx = L.ctx;
+    t = Math.max(0, t);   // humanised timing may nudge the first note before zero
     const n = midi == null ? b.notes[o.i == null ? Math.floor(R() * b.notes.length) : o.i] : nearest(b.notes, midi);
     const rate = midi == null ? (o.rate || 1) : Math.pow(2, (midi - n.m) / 12);
     const skip = o.skip || 0;
@@ -108,7 +109,7 @@
     src.buffer = b.buffer;
     src.playbackRate.value = rate;
     src.detune.value = (R() - 0.5) * (o.human == null ? 6 : o.human);
-    const g = voiceOut(L, o.pan == null ? rpan(0.35) : o.pan);
+    const g = voiceOut(L, o.pan == null ? rpan(0.35) : o.pan, o.dest);
     let node = src;
     if (o.cutoff) {
       const f = ctx.createBiquadFilter(); f.type = "lowpass"; f.frequency.value = o.cutoff; f.Q.value = 0.5;
@@ -158,30 +159,259 @@
   const strum = (L, inst, notes, t, o = {}) =>
     notes.forEach((m, i) => play(L, inst, m, t + i * (o.spread || 0.03), Object.assign({}, o, { pan: (i / notes.length - 0.5) * 0.7 })));
 
+  /* ---------- composer (fase 1): form, tension arc, voice leading, themes, swells ---------- */
+
+  // Instruments recorded at two dynamics: [soft, loud]. A swell crossfades between them,
+  // so the tone itself brightens as the music grows, as a real section would.
+  const DYN = {
+    violins: ["violins_p", "violins"], violas: ["violas", "violas_f"], cellos: ["cellos", "cellos_f"],
+    basses: ["basses", "basses_f"], horn: ["horn", "horn_f"], harmon: ["harmon", "harmon_f"],
+  };
+  const layersOf = (names) => names.flatMap((n) => DYN[n] || [n]);
+  const pcs = (chord) => chord.map((n) => ((n % 12) + 12) % 12);
+
+  // Expression envelope: dynamic d runs d0 -> d1 with a breath (swell) in the middle.
+  // Returns [softNode, loudNode] gain nodes with complementary, equal-power curves.
+  function expression(L, t, dur, o) {
+    const ctx = L.ctx, a = o.a || 0.6, r = o.r || 1.2, peak = o.gain || 0.2;
+    const d0 = clamp(o.d0 == null ? 0.4 : o.d0, 0, 1), d1 = clamp(o.d1 == null ? d0 : o.d1, 0, 1), sw = o.swell || 0;
+    return [0, 1].map((layer) => {
+      const g = ctx.createGain();
+      g.connect(L.bus);
+      const lvl = (x) => {
+        const d = clamp(d0 + (d1 - d0) * x + sw * Math.sin(Math.PI * x), 0, 1);
+        const amt = peak * (0.15 + 0.85 * d);                     // overall loudness follows dynamic
+        return amt * (layer ? Math.sin(d * Math.PI / 2) : Math.cos(d * Math.PI / 2));
+      };
+      g.gain.setValueAtTime(0, t);
+      g.gain.linearRampToValueAtTime(lvl(0), t + Math.min(a, dur * 0.5));
+      const pts = Math.max(2, Math.ceil(dur / 0.6));
+      for (let i = 1; i <= pts; i++) {
+        const x = i / pts, at = t + Math.max(Math.min(a, dur * 0.5), dur * x);
+        g.gain.linearRampToValueAtTime(lvl(x), at);
+      }
+      g.gain.linearRampToValueAtTime(0, t + dur + r);
+      return g;
+    });
+  }
+
+  // A bowed / blown note with real dynamics: both recorded layers, shaped by `expression`.
+  function bowed(L, inst, midi, t, dur, o = {}) {
+    const pair = DYN[inst];
+    const pan = o.pan == null ? rpan(0.4) : o.pan;
+    const t0 = t + (o.late || 0);
+    if (!pair || !L.e.bank.get(pair[0]) || !L.e.bank.get(pair[1])) {
+      hold(L, inst, midi, t0, dur, Object.assign({}, o, { gain: (o.gain || 0.2) * 0.8, pan }));
+      return;
+    }
+    const nodes = expression(L, t0, dur, o);
+    const r = o.r || 1.2;
+    pair.forEach((name, i) => hold(L, name, midi, t0, dur + r, { gain: 1, a: 0.02, r: 0.05, pan, dest: nodes[i], cutoff: o.cutoff }));
+  }
+
+  // Voice leading: move each voice to the nearest tone of the next chord, keep common tones,
+  // avoid crossing and leaving a voice's range. Brute force over assignments (voices <= 5).
+  function voiceLead(prev, chord, ranges) {
+    const tones = pcs(chord);
+    const n = ranges.length;
+    const cands = ranges.map(([lo, hi], v) => {
+      const out = [];
+      for (let m = lo; m <= hi; m++) if (tones.includes(m % 12)) out.push(m);
+      return out;
+    });
+    let best = null, bestCost = Infinity;
+    const cur = new Array(n);
+    const rec = (v) => {
+      if (v === n) {
+        const used = new Set(cur.map((m) => m % 12));
+        let cost = 0;
+        for (let i = 0; i < n; i++) cost += prev ? Math.abs(cur[i] - prev[i]) : Math.abs(cur[i] - (ranges[i][0] + ranges[i][1]) / 2) * 0.3;
+        cost += (Math.min(tones.length, n) - used.size) * 4;        // prefer complete chords
+        if (!used.has(tones[0])) cost += 3;                         // keep the root somewhere
+        if (cost < bestCost) { bestCost = cost; best = cur.slice(); }
+        return;
+      }
+      for (const m of cands[v]) {
+        if (v && m <= cur[v - 1]) continue;                         // no crossing / unisons
+        if (prev && Math.abs(m - prev[v]) > 7) continue;            // no big leaps inside the harmony
+        cur[v] = m; rec(v + 1);
+      }
+    };
+    rec(0);
+    if (!best) { prev = null; rec(0); }
+    return best || ranges.map(([lo, hi]) => (lo + hi) >> 1);
+  }
+
+  // Bend a melody note onto the harmony when it lands on a strong beat and clashes (a semitone above a chord tone).
+  function fit(m, chord, strong) {
+    if (!strong) return m;
+    const t = pcs(chord), pc = ((m % 12) + 12) % 12;
+    if (t.includes(pc)) return m;
+    if (t.includes((pc + 11) % 12)) return m - 1;
+    return m;
+  }
+
+  // Diatonic transpose of a key-relative note by `steps` scale degrees.
+  function diatonic(n, steps, scale) {
+    const oct = Math.floor(n / 12), pc = ((n % 12) + 12) % 12;
+    let idx = scale.indexOf(pc);
+    if (idx < 0) return n + steps * 2;
+    idx += steps;
+    return scale[((idx % scale.length) + scale.length) % scale.length] + 12 * (oct + Math.floor(idx / scale.length));
+  }
+
+  // Build one pass through the mood's form: bars with harmony, voice-led strings (tied common tones),
+  // and the melody events of every section.
+  const seq = (motif, steps, scale) => motif.map(([n, len]) => [n == null ? null : diatonic(n, steps, scale), len]);
+  const aug = (motif, k) => motif.map(([n, len]) => [n, Math.round(len * k)]);
+
+  function planCycle(L, m) {
+    const bars = [], form = m.form;
+    form.forEach((sec, si) => {
+      for (let b = 0; b < sec.bars; b++) {
+        const chordName = sec.prog[b % sec.prog.length];
+        bars.push({ sec, si, b, chordName, chord: m.chords[chordName] });
+      }
+    });
+    // tension per bar: ease from the previous section's level over the first two bars
+    bars.forEach((bar, i) => {
+      const prevI = bar.si ? form[bar.si - 1].i : form[form.length - 1].i;
+      const k = clamp((bar.b + 1) / Math.min(3, bar.sec.bars), 0, 1);
+      bar.tension = prevI + (bar.sec.i - prevI) * (0.5 - 0.5 * Math.cos(Math.PI * k));
+    });
+    // voice-led chord voices, then merge repeated notes into ties
+    // upper voices are voice-led; bass voices take the chord root (or the section's pedal) nearest to where they were
+    const upper = m.voices.map((v, i) => i).filter((i) => !m.voices[i].bass).sort((x, y) => m.voices[x].range[0] - m.voices[y].range[0]);
+    let prev = L.voicing || null, prevBass = L.bassNote || {};
+    bars.forEach((bar) => {
+      const vl = voiceLead(prev, bar.chord.map((x) => x + m.root), upper.map((i) => m.voices[i].range));
+      prev = vl;
+      bar.voicing = m.voices.map((v, i) => {
+        if (!v.bass) return vl[upper.indexOf(i)];
+        const pc = (((bar.sec.pedal ? m.chords[bar.sec.pedal][0] : bar.chord[0]) % 12) + 12 + m.root) % 12;
+        let best = null;
+        for (let x = v.range[0]; x <= v.range[1]; x++) if (x % 12 === pc && (best == null || Math.abs(x - (prevBass[i] || (v.range[0] + v.range[1]) / 2)) < Math.abs(best - (prevBass[i] || (v.range[0] + v.range[1]) / 2)))) best = x;
+        prevBass[i] = best;
+        return best;
+      });
+    });
+    L.voicing = prev; L.bassNote = prevBass;
+    const ties = m.voices.map((v, vi) => {
+      const out = [];
+      bars.forEach((bar, i) => {
+        const note = bar.voicing[vi], last = out[out.length - 1];
+        const active = !v.silent && (v.when ? v.when(bar.sec, bar) : true);
+        if (last && last.note === note && last.active === active && last.end === i) last.end = i + 1;
+        else out.push({ start: i, end: i + 1, note, active });
+      });
+      return out.filter((x) => x.active);
+    });
+    // melody: each section names a phrase recipe
+    const mel = [];
+    let barIdx = 0;
+    form.forEach((sec) => {
+      if (sec.mel) sec.mel(L, m, (motif, atBar, opt = {}) => {
+        let pos = 0;
+        motif.forEach(([n, len]) => {
+          if (n != null) mel.push({ bar: barIdx + atBar + Math.floor(pos / 16), step: pos % 16, n, len, ...opt });
+          pos += len;
+        });
+      });
+      barIdx += sec.bars;
+    });
+    mel.forEach((e) => {
+      const bar = bars[e.bar % bars.length];
+      e.midi = fit(m.melRoot + (e.oct || 0) + e.n, bar.chord.map((x) => x + m.melRoot), e.step % 8 === 0);
+    });
+    L.plan = { bars, ties, mel, len: bars.length };
+    L.cycle = (L.cycle || 0) + 1;
+  }
+
+  // Effective dynamic for a tension value: presence widens how far the arc may swing.
+  const dynOf = (L, tension) => clamp(0.12 + tension * (0.45 + 0.5 * L.e.intensity), 0, 1);
+
+  // Shared step for composed moods: strings/chords from the plan, melody, then the mood's own colour.
+  function composedStep(m, L, t, s) {
+    const sd = L.sd, barLen = 16 * sd;
+    if (!L.plan || s % (L.plan.len * 16) === 0) planCycle(L, m);
+    const bi = Math.floor(s / 16) % L.plan.len, b16 = s % 16;
+    const bar = L.plan.bars[bi];
+    L.bar = bar; L.ch = bar.chord;
+    L.tension = bar.tension;
+    if (b16 === 0) {
+      // sustained voices: start each tie where it begins, with a dynamic that follows the arc
+      m.voices.forEach((v, vi) => {
+        L.plan.ties[vi].forEach((tie) => {
+          if (tie.start !== bi) return;
+          const nb = tie.end - tie.start, endBar = L.plan.bars[Math.min(tie.end, L.plan.len) - 1];
+          bowed(L, v.inst, tie.note, t, nb * barLen + 0.3, {
+            gain: v.gain, d0: dynOf(L, bar.tension) * (v.dyn || 1), d1: dynOf(L, endBar.tension) * (v.dyn || 1),
+            swell: nb >= 2 ? 0.12 : 0.06, a: v.a || 1.2, r: v.r || 1.8, pan: v.pan, late: R() * 0.03,
+          });
+        });
+      });
+    }
+    // melody events on this step
+    for (const e of L.plan.mel) {
+      if (e.bar === bi && e.step === b16) {
+        const len = e.len * sd;
+        const d = dynOf(L, bar.tension) * (e.dyn || 1);
+        const late = (m.swing && e.step % 4 === 2 ? sd * m.swing : 0) + (R() - 0.5) * 0.02;
+        if (DYN[e.inst]) bowed(L, e.inst, e.midi, t, len * (e.legato || 1.05), { gain: e.gain, d0: d * 0.85, d1: d, swell: len > 1 ? 0.15 : 0.05, a: e.a || Math.min(0.25, len * 0.3), r: e.r || 0.5, pan: e.pan, late });
+        else play(L, e.inst, e.midi, t + late, { gain: e.gain * (0.55 + 0.45 * d), dur: len * (e.legato || 1), a: e.a || 0.04, r: e.r || 0.4, pan: e.pan });
+      }
+    }
+    if (m.colour) m.colour(L, t, s, bar, bi);
+  }
+
   /* ---------- the moods ---------- */
   // root = MIDI note of the tonic; chords are semitone offsets from root.
   const MOODS = {
     dreamy: {
-      level: 0.72,
       name: "Dreamy", line: "Half-awake, floating, slow light through a window.",
       colors: ["#7f9cff", "#c3a2ff", "#3b3f8f"],
-      uses: ["violins", "violas", "cellos", "harp", "glock", "bells1"],
-      bpm: 56, wet: 0.8, dry: 0.65, root: 62,
-      chords: [[0, 4, 7, 11], [2, 6, 9, 14], [-3, 4, 7, 11], [2, 6, 9, 12]],
-      step(L, t, s) {
-        const m = this, sd = L.sd, per = 32, d = L.e.density;
-        if (s % per === 0) {
-          L.ch = m.chords[L.ci++ % m.chords.length];
-          chordHold(L, "violins", L.ch.slice(1).map((n) => m.root + n), t, per * sd + 0.8, { gain: 0.16, a: 3, r: 4, spread: 0.6 });
-          chordHold(L, "violas", [m.root + L.ch[0] - 12, m.root + L.ch[1] - 12], t, per * sd + 0.8, { gain: 0.15, a: 3, r: 4, spread: 0.3 });
-          hold(L, "cellos", m.root - 24 + L.ch[0], t, per * sd + 0.8, { gain: 0.18, a: 3, r: 4, pan: 0 });
-        }
-        if (s % 2 === 0 && R() < 0.07 * d) play(L, "harp", m.root + 12 + pick(L.ch), t, { gain: 0.26, pan: rpan(0.7) });
-        if (s % 4 === 0 && R() < 0.04 * d) play(L, "glock", m.root + 24 + pick(L.ch), t, { gain: 0.12, pan: rpan(0.8) });
-        if (s % 128 === 64 && R() < 0.5) play(L, "bells1", null, t, { gain: 0.1, pan: rpan(0.6), rate: 0.9 });
+      uses: layersOf(["violins", "violas", "cellos", "flute", "harp", "glock", "bells1"]),
+      bpm: 56, wet: 0.8, dry: 0.65, root: 62, melRoot: 62, level: 2.4,
+      scale: [0, 2, 4, 6, 7, 9, 11],                       // D lydian
+      chords: { I: [0, 4, 7, 11], II: [2, 6, 9], vi: [9, 12, 16], iii: [4, 7, 11], V: [7, 11, 14] },
+      voices: [
+        { inst: "violins", range: [69, 86], gain: 0.13, pan: 0.45, when: (sec) => sec.i >= 0.3 },
+        { inst: "violins", range: [62, 79], gain: 0.13, pan: 0.25 },
+        { inst: "violas", range: [55, 71], gain: 0.14, pan: -0.25 },
+        { inst: "cellos", bass: true, range: [38, 53], gain: 0.16, pan: -0.4 },
+      ],
+      theme: {
+        A: [[7, 6], [11, 2], [14, 8], [12, 4], [11, 4], [9, 8]],
+        B: [[7, 4], [9, 4], [6, 8], [4, 12], [null, 4]],
+        C: [[7, 4], [9, 4], [11, 8], [12, 16]],
+      },
+      get form() {
+        const T = this.theme, alt = (L) => (L.cycle % 2 ? "violins" : "flute");
+        return [
+          { name: "establish", bars: 4, i: 0.15, prog: ["I", "I", "II", "II"], pedal: "I",
+            mel: (L, m, put) => { put(T.A.slice(0, 3), 1, { inst: "harp", gain: 0.24 }); put(T.A.slice(0, 3), 3, { inst: "harp", gain: 0.2 }); } },
+          { name: "theme", bars: 8, i: 0.35, prog: ["I", "II", "vi", "I", "I", "II", "vi", "V"],
+            mel: (L, m, put) => { const o = { inst: alt(L), gain: alt(L) === "flute" ? 0.13 : 0.12, pan: 0.15 };
+              put(T.A, 0, o); put(T.B, 2, o); put(T.A, 4, o); put(T.C, 6, o); } },
+          { name: "develop", bars: 8, i: 0.5, prog: ["iii", "vi", "II", "V", "iii", "vi", "II", "II"],
+            mel: (L, m, put) => { put(seq(T.A, 2, m.scale), 0, { inst: "violins", gain: 0.11, pan: 0.3 });
+              put(seq(T.A, -1, m.scale), 4, { inst: "flute", gain: 0.11, pan: -0.1 }); put(T.B, 6, { inst: "harp", gain: 0.2 }); } },
+          { name: "peak", bars: 4, i: 0.7, prog: ["I", "II", "vi", "II"],
+            mel: (L, m, put) => { put(T.A, 0, { inst: "violins", gain: 0.12, oct: 12, pan: 0.35 }); put(T.A, 0, { inst: "glock", gain: 0.07, oct: 12 });
+              put(T.C, 2, { inst: "violins", gain: 0.12, oct: 12, pan: 0.35 }); } },
+          { name: "release", bars: 8, i: 0.3, prog: ["I", "II", "I", "II", "vi", "V", "I", "I"],
+            mel: (L, m, put) => { put(aug(T.B, 1.5), 1, { inst: "flute", gain: 0.1, pan: 0.2 }); put(T.A.slice(0, 3), 6, { inst: "harp", gain: 0.18 }); } },
+          { name: "breath", bars: 4, i: 0.1, prog: ["I", "I", "II", "I"], pedal: "I" },
+        ];
+      },
+      step(L, t, s) { composedStep(this, L, t, s); },
+      colour(L, t, s, bar) {
+        const m = this, d = L.e.density;
+        if (s % 2 === 0 && R() < (0.03 + 0.12 * L.tension) * d) play(L, "harp", m.root + 12 + pick(bar.chord), t, { gain: 0.14 + 0.08 * L.tension, pan: rpan(0.7) });
+        if (s % 8 === 4 && R() < 0.03 * d) play(L, "glock", m.root + 24 + pick(bar.chord), t, { gain: 0.06, pan: rpan(0.8) });
+        if (s % (L.plan.len * 16) === 0) play(L, "bells1", null, t, { gain: 0.08, pan: rpan(0.6), rate: 0.9 });
       },
     },
-
     lovely: {
       level: 1.0,
       name: "Lovely", line: "Warm, tender, someone you are glad is next to you.",
@@ -373,59 +603,65 @@
     },
 
     noir: {
-      level: 1.2,
       name: "Noir", line: "Paris, 3 a.m. Wet cobblestones and a muted trumpet somewhere.",
       colors: ["#c9b38a", "#7d6a52", "#1a1714"],
-      uses: ["harmon", "basspizz", "taps", "piano", "cymbal", "cellos"],
-      bpm: 66, wet: 0.55, dry: 0.85, root: 50,
-      chords: [[0, 3, 7, 10, 14], [5, 8, 12, 15], [1, 5, 8, 12], [-5, -1, 2, 5]],
-      blues: [0, 3, 5, 7, 10, 12, 15],
-      start(L) { L.phrase = []; L.leadUntil = 0; L.walk = 0; },
-      step(L, t, s) {
-        const m = this, sd = L.sd, per = 32, d = L.e.density, b = s % 16;
-        if (s % per === 0) {
-          L.ch = m.chords[L.ci++ % m.chords.length];
-          hold(L, "cellos", m.root - 12 + L.ch[0], t, per * sd, { gain: 0.08, a: 2, r: 3, pan: -0.2 });
-          if (L.ci % 4 === 1) play(L, "cymbal", null, t, { gain: 0.05, pan: 0.4 });
+      uses: layersOf(["harmon", "basspizz", "taps", "piano", "cymbal", "cellos"]),
+      bpm: 66, wet: 0.55, dry: 0.85, root: 50, melRoot: 62, swing: 0.33, level: 1.35,
+      scale: [0, 2, 3, 5, 7, 9, 10],                       // D dorian
+      chords: { Dm9: [0, 3, 7, 10, 14], G7: [5, 9, 12, 15], Bb: [8, 12, 15, 19], A7: [7, 11, 14, 17, 20], Eb: [1, 5, 8, 12] },
+      voices: [   // piano voicing (played by the comping pattern below) + a low cello line in the darker sections
+        { inst: "piano", silent: true, range: [53, 62] },
+        { inst: "piano", silent: true, range: [57, 66] },
+        { inst: "piano", silent: true, range: [60, 70] },
+        { inst: "piano", silent: true, range: [64, 74] },
+        { inst: "cellos", bass: true, range: [38, 50], gain: 0.07, pan: -0.25, when: (sec) => sec.i >= 0.45 },
+      ],
+      theme: {
+        A: [[7, 6], [5, 2], [3, 4], [0, 4], [null, 4], [3, 2], [5, 2], [7, 8]],
+        B: [[10, 4], [9, 2], [7, 2], [5, 8], [3, 6], [2, 2], [0, 8]],
+        C: [[12, 8], [10, 4], [9, 4], [7, 16]],
+      },
+      get form() {
+        const T = this.theme, tp = { inst: "harmon", gain: 0.2, pan: 0.18, legato: 0.95 };
+        return [
+          { name: "intro", bars: 4, i: 0.2, prog: ["Dm9", "Dm9", "Eb", "Dm9"] },
+          { name: "theme", bars: 8, i: 0.4, prog: ["Dm9", "G7", "Dm9", "A7", "Dm9", "G7", "Bb", "A7"],
+            mel: (L, m, put) => { put(T.A, 0, tp); put(T.B, 4, tp); } },
+          { name: "answer", bars: 8, i: 0.5, prog: ["Bb", "Eb", "Dm9", "Dm9", "Bb", "Eb", "A7", "A7"],
+            mel: (L, m, put) => { put(seq(T.A.slice(0, 4), 2, m.scale), 1, { inst: "piano", gain: 0.13, pan: -0.1 });
+              put(seq(T.A, 3, m.scale), 4, tp); } },
+          { name: "peak", bars: 4, i: 0.68, prog: ["Dm9", "G7", "Bb", "A7"],
+            mel: (L, m, put) => { put(T.C, 0, tp); put(T.B, 2, tp); } },
+          { name: "release", bars: 8, i: 0.32, prog: ["Dm9", "Eb", "Dm9", "G7", "Dm9", "Eb", "Dm9", "Dm9"],
+            mel: (L, m, put) => { put(aug(T.A, 1.5), 1, Object.assign({}, tp, { dyn: 0.8 })); } },
+          { name: "breath", bars: 4, i: 0.15, prog: ["Dm9", "Dm9", "Eb", "Dm9"] },
+        ];
+      },
+      comp: [[0], [0, 6], [2, 10], [0, 10], [6, 14], [0, 8, 14]],
+      step(L, t, s) { composedStep(this, L, t, s); },
+      colour(L, t, s, bar, bi) {
+        const m = this, sd = L.sd, d = L.e.density, b16 = s % 16, ten = L.tension;
+        const sw = (st) => (st % 4 === 2 ? sd * m.swing : 0) + (R() - 0.5) * 0.015;
+        // walking bass on every beat, with an approach note into the next bar's root
+        if (b16 % 4 === 0) {
+          const next = L.plan.bars[(bi + 1) % L.plan.len].chord[0];
+          const beat = b16 / 4;
+          let n = bar.chord[0];
+          if (beat === 3) n = next + pick([-1, 1, 2]);
+          else if (beat > 0) n = bar.chord[0] + pick([3, 5, 7, 10, 7]);
+                    const pc = ((n % 12) + 12) % 12;
+          play(L, "basspizz", m.root - 12 + pc - (pc > 7 ? 12 : 0), t + sw(b16), { gain: 0.16 + 0.2 * ten + 0.05 * (beat === 0), pan: -0.05 });
         }
-        // piano comping: soft voicings, a little late, like a tired pianist in the corner
-        if (s % per === 0 || (s % per === 22 && R() < 0.55))
-          L.ch.slice(1).forEach((n, i) => play(L, "piano", m.root + n, t + 0.02 + i * 0.012, { gain: 0.07, dur: sd * 10, r: 1, pan: 0.15 + i * 0.05 }));
-        // walking bass on the beat
-        if (s % 4 === 0) {
-          const target = m.chords[L.ci % m.chords.length][0];
-          let n = L.ch[0];
-          const beat = (s % per) / 4;
-          if (beat === 7) n = target + pick([-1, 1]);               // approach note into the next chord
-          else if (beat > 0) n = L.ch[0] + pick([3, 5, 7, 10, 7, 12]);
-          play(L, "basspizz", m.root - 24 + n, t, { gain: 0.3, pan: -0.05 });
-          play(L, "taps", null, t, { gain: 0.05 * d, pan: 0.35, rate: 0.95 + R() * 0.1 });
-        }
-        if (s % 4 === 3 && R() < 0.7) play(L, "taps", null, t, { gain: 0.03 * d, pan: 0.4, rate: 1.05 });
-        // Harmon-muted trumpet: short phrases, lots of air between them
-        if (t >= L.leadUntil && s % 2 === 0) {
-          if (!L.phrase.length && R() < 0.09 * d) {
-            let k = 2 + Math.floor(R() * 4), at = 0, idx = 2 + Math.floor(R() * 3);
-            L.phrase = [];
-            while (k--) {
-              const len = pick([2, 2, 4, 4, 6, 8]);
-              idx = clamp(idx + pick([-2, -1, -1, 1, 1, 2]), 0, m.blues.length - 1);
-              L.phrase.push([at, len, m.blues[idx]]); at += len + pick([0, 0, 2]);
-            }
-            L.phraseStart = s;
-          }
-          if (L.phrase.length) {
-            const [at, len, n] = L.phrase[0];
-            if (s - L.phraseStart >= at) {
-              L.phrase.shift();
-              play(L, "harmon", m.root + 12 + n, t, { gain: 0.22, dur: len * sd * 0.95, a: 0.03, r: 0.3, pan: 0.18, human: 10 });
-              if (!L.phrase.length) L.leadUntil = t + sd * (12 + Math.floor(R() * 20));
-            }
-          }
-        }
+        // brushes: swish on 2 and 4, swung taps when the scene leans in
+        if (b16 === 4 || b16 === 12) play(L, "taps", null, t + sw(b16), { gain: (0.025 + 0.05 * ten) * d, pan: 0.35, rate: 0.95 + R() * 0.1 });
+        if (b16 % 4 === 2 && R() < 0.2 + 0.6 * ten) play(L, "taps", null, t + sw(b16), { gain: 0.025 * d, pan: 0.4, rate: 1.1 });
+        // piano comping from the voice-led chord, a fresh rhythm each bar
+        if (b16 === 0) L.compPat = pick(m.comp.slice(0, 2 + Math.round(ten * 4)));
+        if (L.compPat && L.compPat.includes(b16) && !(L.plan.mel.some((e) => e.bar === bi && e.inst === "piano")))
+          bar.voicing.slice(0, 4).forEach((n, i) => play(L, "piano", n, t + sw(b16) + i * 0.01, { gain: 0.05 + 0.04 * ten, dur: sd * (b16 ? 3 : 7), r: 0.6, pan: 0.1 + i * 0.06 }));
+        if (bar.b === 0 && bar.sec.i >= 0.4 && b16 === 0) play(L, "cymbal", null, t, { gain: 0.04 + 0.03 * ten, pan: 0.45 });
       },
     },
-
     mystery: {
       level: 1.55,
       name: "Mystery", line: "A detail nobody else noticed. Follow it quietly.",
@@ -513,35 +749,55 @@
     },
 
     epic: {
-      level: 0.77,
       name: "Epic", line: "The road climbs, the clouds open. This is the part they'll remember.",
       colors: ["#ffc65c", "#d9533f", "#1e2a4f"],
-      uses: ["violins", "violas", "cellos", "basses", "cellospic", "timpani", "horn", "swell"],
-      bpm: 80, wet: 0.6, dry: 0.75, root: 50,
-      chords: [[0, 7, 12, 15], [-4, 3, 8, 12], [3, 10, 15, 19], [-2, 5, 10, 14]],
-      start(L) { L.hornUntil = 0; },
-      step(L, t, s) {
-        const m = this, sd = L.sd, per = 32, d = L.e.density, b = s % 16;
-        if (s % per === 0) {
-          L.ch = m.chords[L.ci++ % m.chords.length];
-          chordHold(L, "violins", L.ch.slice(1).map((n) => m.root + 12 + n), t, per * sd, { gain: 0.14, a: 1.5, r: 2.5, spread: 0.8 });
-          chordHold(L, "violas", L.ch.slice(0, 3).map((n) => m.root + n), t, per * sd, { gain: 0.13, a: 1.5, r: 2.5, spread: 0.5 });
-          hold(L, "cellos", m.root - 12 + L.ch[0], t, per * sd, { gain: 0.16, a: 1.2, r: 2, pan: -0.2 });
-          hold(L, "basses", m.root - 24 + L.ch[0], t, per * sd, { gain: 0.16, a: 1.2, r: 2, pan: 0.1 });
-          if (t >= L.hornUntil && R() < 0.55 * d) {
-            const n = m.root + pick(L.ch.slice(1));
-            hold(L, "horn", n - 12, t + sd * 2, sd * 14, { gain: 0.15, a: 0.8, r: 1.5, pan: -0.25 });
-            L.hornUntil = t + sd * 32;
-          }
+      uses: layersOf(["violins", "violas", "cellos", "basses", "horn", "cellospic", "timpani", "swell"]),
+      bpm: 80, wet: 0.6, dry: 0.75, root: 50, melRoot: 50, level: 2,
+      scale: [0, 2, 3, 5, 7, 8, 10],                       // D aeolian
+      chords: { i: [0, 3, 7], VI: [8, 12, 15], III: [3, 7, 10], VII: [10, 14, 17], iv: [5, 8, 12], V: [7, 11, 14] },
+      voices: [
+        { inst: "violins", range: [67, 86], gain: 0.12, pan: 0.5, when: (sec) => sec.i >= 0.35 },
+        { inst: "violins", range: [62, 79], gain: 0.12, pan: 0.3, when: (sec) => sec.i >= 0.3 },
+        { inst: "violas", range: [55, 71], gain: 0.13, pan: -0.1 },
+        { inst: "cellos", range: [45, 62], gain: 0.13, pan: -0.35 },
+        { inst: "basses", bass: true, range: [33, 47], gain: 0.15, pan: 0.1, when: (sec) => sec.i >= 0.3 },
+      ],
+      theme: {
+        A: [[0, 4], [7, 8], [5, 2], [3, 2], [5, 4], [3, 4], [0, 8]],
+        B: [[0, 4], [7, 8], [8, 2], [10, 2], [12, 12], [null, 4]],
+        C: [[12, 4], [10, 4], [8, 4], [7, 4], [5, 6], [2, 2], [0, 8]],
+      },
+      get form() {
+        const T = this.theme, hn = { inst: "horn", gain: 0.16, pan: -0.25 };
+        return [
+          { name: "establish", bars: 4, i: 0.18, prog: ["i", "i", "VI", "VI"], pedal: "i" },
+          { name: "theme", bars: 8, i: 0.4, prog: ["i", "VI", "III", "VII", "i", "VI", "iv", "V"],
+            mel: (L, m, put) => { put(T.A, 0, hn); put(T.B, 2, hn); put(T.A, 4, hn); put(T.C, 6, hn); } },
+          { name: "develop", bars: 8, i: 0.5, prog: ["VI", "VII", "i", "i", "iv", "VI", "VII", "VII"],
+            mel: (L, m, put) => { put(seq(T.A.slice(0, 4), 2, m.scale), 0, hn); put(seq(T.A.slice(0, 4), 4, m.scale), 2, hn);
+              put(seq(T.B, 2, m.scale), 4, { inst: "violins", gain: 0.1, oct: 12, pan: 0.4 }); } },
+          { name: "build", bars: 4, i: 0.65, prog: ["VI", "VII", "VI", "VII"] },
+          { name: "peak", bars: 8, i: 0.85, prog: ["i", "VI", "III", "VII", "i", "VI", "VII", "i"],
+            mel: (L, m, put) => { const vn = { inst: "violins", gain: 0.13, oct: 12, pan: 0.4 };
+              [[T.A, 0], [T.B, 2], [T.A, 4], [T.C, 6]].forEach(([mo, b]) => { put(mo, b, vn); put(mo, b, hn); }); } },
+          { name: "release", bars: 8, i: 0.32, prog: ["VI", "VII", "i", "i", "VI", "iv", "i", "i"],
+            mel: (L, m, put) => { put(T.A, 2, Object.assign({}, hn, { dyn: 0.7 })); } },
+          { name: "breath", bars: 4, i: 0.12, prog: ["i", "i", "VI", "i"], pedal: "i" },
+        ];
+      },
+      step(L, t, s) { composedStep(this, L, t, s); },
+      colour(L, t, s, bar) {
+        const m = this, sd = L.sd, d = L.e.density, b16 = s % 16, ten = L.tension, sec = bar.sec;
+        if (ten > 0.42 && s % 2 === 0 && R() < 0.5 + 0.45 * d) {
+          const pat = [0, 0, 7, 0, 12, 0, 7, 3];
+          play(L, "cellospic", m.root - 12 + bar.chord[0] + pat[(s / 2) % 8], t, { gain: 0.06 + 0.12 * ten, pan: -0.3 + rpan(0.1) });
         }
-        if (s % 2 === 0 && R() < 0.55 + 0.4 * d) play(L, "cellospic", m.root - 12 + L.ch[(s / 2) % L.ch.length], t, { gain: 0.16, pan: rpan(0.4) });
-        if (b === 0) play(L, "timpani", m.root - 24 + L.ch[0], t, { gain: 0.32, pan: 0 });
-        if (b === 10) play(L, "timpani", m.root - 24 + L.ch[0], t, { gain: 0.2, pan: 0 });
-        if (s % 128 >= 120 && s % 2 === 0) play(L, "timpani", m.root - 24, t, { gain: 0.1 + 0.03 * (s % 128 - 120), pan: 0 });
-        if (s % 128 === 104) play(L, "swell", null, t, { gain: 0.12, pan: rpan(0.3) });
+        if (b16 === 0 && bar.b === 0 && sec.i >= 0.35) play(L, "timpani", m.root - 24 + bar.chord[0], t, { gain: 0.2 + 0.15 * ten, pan: 0 });
+        if (sec.name === "build" && s % 4 === 0) play(L, "timpani", m.root - 24 + bar.chord[0], t, { gain: 0.06 + 0.05 * bar.b + 0.02 * (b16 / 4), pan: 0 });
+        if (sec.name === "peak" && (b16 === 0 || b16 === 8)) play(L, "timpani", m.root - 24 + bar.chord[0], t, { gain: b16 ? 0.16 : 0.24, pan: 0 });
+        if (sec.name === "build" && bar.b === 2 && b16 === 0) play(L, "swell", null, t, { gain: 0.1, pan: rpan(0.3) });
       },
     },
-
     scary: {
       level: 0.91,
       name: "Scary", line: "Something in the dark just outside the frame.",
