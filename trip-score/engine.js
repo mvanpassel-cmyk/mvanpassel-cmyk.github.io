@@ -1,23 +1,62 @@
-/* Trip Score — generative film-score engine.
-   Works with a live AudioContext or an OfflineAudioContext.
-   Each mood is a small "composer" that is called on every 16th note. */
+/* Trip Score — generative film-score engine, played on real instrument recordings
+   (VSCO 2 Community Edition, CC0). Works with a live AudioContext or an OfflineAudioContext.
+   Each mood is a small "composer" called on every 16th note. */
 (function (root) {
   "use strict";
 
-  const mtof = (m) => 440 * Math.pow(2, (m - 69) / 12);
   const R = Math.random;
   const pick = (a) => a[Math.floor(R() * a.length)];
-  const rpan = (w = 0.7) => (R() * 2 - 1) * w;
+  const rpan = (w = 0.5) => (R() * 2 - 1) * w;
+  const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
 
-  /* ---------- shared buffers ---------- */
-  function makeNoise(ctx, seconds) {
-    const len = Math.floor(ctx.sampleRate * seconds);
-    const b = ctx.createBuffer(1, len, ctx.sampleRate);
-    const d = b.getChannelData(0);
-    for (let i = 0; i < len; i++) d[i] = R() * 2 - 1;
-    return b;
+  /* ---------- sample bank ---------- */
+  // Downloads every instrument once (bytes), decodes only what the current moods need.
+  class Bank {
+    constructor(loader) {
+      this.loader = loader;      // async (file) => ArrayBuffer
+      this.map = null; this.raw = {}; this.rawP = {}; this.buf = {}; this.busy = {};
+    }
+    bytes(n) {   // one download per instrument, however many callers ask
+      if (!this.rawP[n]) this.rawP[n] = this.loader(this.map[n].file).then((b) => (this.raw[n] = b), (e) => { delete this.rawP[n]; throw e; });
+      return this.rawP[n];
+    }
+    async init() {
+      if (!this.map) this.map = JSON.parse(new TextDecoder().decode(await this.loader("samples.json")));
+      return this.map;
+    }
+    async prefetch(onProgress) {
+      await this.init();
+      const names = Object.keys(this.map);
+      let done = 0;
+      await Promise.all(names.map(async (n) => {
+        await this.bytes(n);
+        onProgress && onProgress(++done / names.length);
+      }));
+    }
+    async ensure(ctx, names) {
+      await this.init();
+      await Promise.all(names.map((n) => {
+        if (this.buf[n]) return null;
+        if (!this.busy[n]) this.busy[n] = (async () => {
+          const bytes = await this.bytes(n);
+          const b = await new Promise((res, rej) => {
+            const p = ctx.decodeAudioData(bytes.slice(0), res, rej);
+            if (p && p.then) p.then(res, rej);
+          });
+          this.buf[n] = { buffer: b, notes: this.map[n].notes };
+          delete this.busy[n];
+        })();
+        return this.busy[n];
+      }));
+    }
+    get(n) { return this.buf[n]; }
+    // Free decoded audio no longer needed (keeps the downloaded bytes).
+    keepOnly(names) {
+      const keep = new Set(names);
+      for (const n of Object.keys(this.buf)) if (!keep.has(n)) delete this.buf[n];
+    }
   }
-  // Long, dark, diffuse hall: decaying stereo noise, gently low-passed.
+
   function makeIR(ctx, seconds, decay) {
     const len = Math.floor(ctx.sampleRate * seconds);
     const b = ctx.createBuffer(2, len, ctx.sampleRate);
@@ -26,9 +65,10 @@
       let lp = 0;
       for (let i = 0; i < len; i++) {
         const t = i / len;
-        const k = 0.35 + 0.6 * (1 - t); // darker as it decays
+        const k = 0.3 + 0.6 * (1 - t);
         lp = lp + k * ((R() * 2 - 1) - lp);
-        d[i] = lp * Math.pow(1 - t, decay);
+        // short pre-delay, then a smooth, darkening tail
+        d[i] = i < ctx.sampleRate * 0.012 ? 0 : lp * Math.pow(1 - t, decay);
       }
     }
     return b;
@@ -41,409 +81,274 @@
     g.gain.value = 0;
     if (ctx.createStereoPanner) {
       const p = ctx.createStereoPanner();
-      p.pan.value = Math.max(-1, Math.min(1, pan || 0));
+      p.pan.value = clamp(pan || 0, -1, 1);
       g.connect(p); p.connect(L.bus);
     } else g.connect(L.bus);
     return g;
   }
+  function nearest(notes, midi) {
+    let best = notes[0], bd = 1e9;
+    for (const n of notes) {
+      const d = Math.abs(n.m - midi) + (n.m > midi ? 0.01 : 0); // prefer shifting up (brighter) on ties
+      if (d < bd) { bd = d; best = n; }
+    }
+    return best;
+  }
 
-  // Sustained chord pad: two detuned oscillators per note through a low-pass.
-  function pad(L, freqs, t, dur, o) {
+  // Play one recorded note. midi=null plays an unpitched one-shot (o.i = which hit).
+  function play(L, inst, midi, t, o = {}) {
+    const b = L.e.bank.get(inst);
+    if (!b) return 0;
     const ctx = L.ctx;
-    const a = o.a || 2, r = o.r || 3, peak = (o.gain || 0.05) / Math.sqrt(freqs.length);
-    freqs.forEach((f, i) => {
-      const g = voiceOut(L, o.spread ? ((i / Math.max(1, freqs.length - 1)) * 2 - 1) * o.spread : 0);
-      const lp = ctx.createBiquadFilter();
-      lp.type = "lowpass"; lp.frequency.value = o.cutoff || 1500; lp.Q.value = 0.4;
-      lp.connect(g);
-      [-1, 1].forEach((s, k) => {
-        const osc = ctx.createOscillator();
-        osc.type = k === 0 ? (o.type || "triangle") : (o.type2 || o.type || "sine");
-        osc.frequency.value = f;
-        osc.detune.value = s * (o.detune || 6) + (R() - 0.5) * 3;
-        osc.connect(lp);
-        osc.start(t); osc.stop(t + dur + r + 0.1);
-      });
-      g.gain.setValueAtTime(0, t);
-      g.gain.linearRampToValueAtTime(peak, t + a);
-      g.gain.setValueAtTime(peak, t + Math.max(a, dur));
-      g.gain.linearRampToValueAtTime(0, t + Math.max(a, dur) + r);
-    });
-  }
-
-  // Soft piano-ish pluck.
-  function pluck(L, f, t, o) {
-    const ctx = L.ctx;
-    const g = voiceOut(L, o.pan);
-    const lp = ctx.createBiquadFilter();
-    lp.type = "lowpass"; lp.frequency.value = o.bright || 2500; lp.connect(g);
-    const decay = o.decay || 1.5, peak = o.gain || 0.05;
-    const o1 = ctx.createOscillator(); o1.type = o.type || "sine"; o1.frequency.value = f;
-    const o2 = ctx.createOscillator(); o2.type = "triangle"; o2.frequency.value = f * 2;
-    const g2 = ctx.createGain(); g2.gain.value = 0.22;
-    o1.connect(lp); o2.connect(g2); g2.connect(lp);
-    g.gain.setValueAtTime(0, t);
-    g.gain.linearRampToValueAtTime(peak, t + 0.006);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + decay);
-    [o1, o2].forEach((x) => { x.start(t); x.stop(t + decay + 0.05); });
-  }
-
-  // FM bell / glass.
-  function bell(L, f, t, o) {
-    const ctx = L.ctx;
-    const g = voiceOut(L, o.pan);
-    const decay = o.decay || 3, peak = o.gain || 0.03;
-    const car = ctx.createOscillator(); car.frequency.value = f;
-    const mod = ctx.createOscillator(); mod.frequency.value = f * (o.ratio || 3.5);
-    const mg = ctx.createGain();
-    mg.gain.setValueAtTime(f * (o.index || 1.5), t);
-    mg.gain.exponentialRampToValueAtTime(f * 0.01 + 0.01, t + decay * 0.6);
-    mod.connect(mg); mg.connect(car.frequency); car.connect(g);
-    if (o.bend) car.detune.setValueAtTime(0, t), car.detune.linearRampToValueAtTime(o.bend, t + decay);
-    g.gain.setValueAtTime(0, t);
-    g.gain.linearRampToValueAtTime(peak, t + (o.attack || 0.01));
-    g.gain.exponentialRampToValueAtTime(0.0001, t + decay);
-    [car, mod].forEach((x) => { x.start(t); x.stop(t + decay + 0.05); });
-  }
-
-  // Filtered saw bass / ostinato.
-  function bass(L, f, t, dur, o) {
-    const ctx = L.ctx;
-    const g = voiceOut(L, o.pan || 0);
-    const lp = ctx.createBiquadFilter();
-    lp.type = "lowpass"; lp.Q.value = o.q || 2;
-    const c = o.cutoff || 500;
-    lp.frequency.setValueAtTime(c * 3, t);
-    lp.frequency.exponentialRampToValueAtTime(c, t + Math.min(0.25, dur));
-    lp.connect(g);
-    const osc = ctx.createOscillator(); osc.type = o.type || "sawtooth"; osc.frequency.value = f;
-    osc.connect(lp);
-    const peak = o.gain || 0.06;
-    g.gain.setValueAtTime(0, t);
-    g.gain.linearRampToValueAtTime(peak, t + 0.008);
-    g.gain.setTargetAtTime(0, t + dur * 0.6, dur * 0.25 + 0.01);
-    osc.start(t); osc.stop(t + dur * 2 + 0.2);
-  }
-
-  // Soft kick / heartbeat / distant boom.
-  function thump(L, t, o) {
-    const ctx = L.ctx;
-    const g = voiceOut(L, 0);
-    const osc = ctx.createOscillator(); osc.type = "sine";
-    const f0 = o.f0 || 110, f1 = o.f1 || 42, len = o.len || 0.35;
-    osc.frequency.setValueAtTime(f0, t);
-    osc.frequency.exponentialRampToValueAtTime(f1, t + len * 0.4);
-    osc.connect(g);
-    g.gain.setValueAtTime(0, t);
-    g.gain.linearRampToValueAtTime(o.gain || 0.1, t + 0.005);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + len);
-    osc.start(t); osc.stop(t + len + 0.05);
-  }
-
-  // Short noise tick (clock, shaker).
-  function tick(L, t, o) {
-    const ctx = L.ctx;
-    const g = voiceOut(L, o.pan || 0);
-    const src = ctx.createBufferSource(); src.buffer = L.e.noise;
-    const hp = ctx.createBiquadFilter(); hp.type = o.band ? "bandpass" : "highpass";
-    hp.frequency.value = o.freq || 7000; hp.Q.value = o.band ? 8 : 0.7;
-    src.connect(hp); hp.connect(g);
-    const len = o.len || 0.04;
-    g.gain.setValueAtTime(0, t);
-    g.gain.linearRampToValueAtTime(o.gain || 0.02, t + 0.002);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + len);
-    src.start(t, R() * 1.5); src.stop(t + len + 0.02);
-  }
-
-  // Rising noise swell ("reverse cymbal") that cuts off.
-  function swell(L, t, dur, o) {
-    const ctx = L.ctx;
-    const g = voiceOut(L, rpan(0.4));
-    const src = ctx.createBufferSource(); src.buffer = L.e.noise; src.loop = true;
-    const lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.Q.value = 3;
-    lp.frequency.setValueAtTime(300, t);
-    lp.frequency.exponentialRampToValueAtTime(o.top || 4000, t + dur);
-    src.connect(lp); lp.connect(g);
-    g.gain.setValueAtTime(0, t);
-    g.gain.linearRampToValueAtTime(o.gain || 0.04, t + dur);
-    g.gain.linearRampToValueAtTime(0, t + dur + 0.08);
-    src.start(t); src.stop(t + dur + 0.15);
-  }
-
-  // Continuous elements, stopped when the layer stops.
-  function drone(L, freqs, o) {
-    const ctx = L.ctx, t = L.t0;
-    const g = voiceOut(L, 0);
-    g.gain.setValueAtTime(0, t);
-    g.gain.linearRampToValueAtTime(o.gain || 0.04, t + (o.a || 6));
-    const lfo = ctx.createOscillator(); lfo.frequency.value = o.lfoRate || 0.05;
-    const lg = ctx.createGain(); lg.gain.value = o.lfoDepth || 10; lfo.connect(lg);
-    const lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = o.cutoff || 800; lp.connect(g);
-    const nodes = [lfo];
-    freqs.forEach((f, i) => {
-      const osc = ctx.createOscillator(); osc.type = o.type || "sine"; osc.frequency.value = f;
-      osc.detune.value = (i % 2 ? 1 : -1) * 4;
-      lg.connect(osc.detune);
-      osc.connect(lp); nodes.push(osc);
-    });
-    nodes.forEach((n) => n.start(t));
-    L.continuous.push(nodes);
-  }
-
-  function noiseBed(L, o) {
-    const ctx = L.ctx, t = L.t0;
-    const g = voiceOut(L, 0);
-    g.gain.setValueAtTime(0, t);
-    g.gain.linearRampToValueAtTime(o.gain || 0.03, t + (o.a || 8));
-    const src = ctx.createBufferSource(); src.buffer = L.e.noise; src.loop = true;
-    const bp = ctx.createBiquadFilter(); bp.type = "bandpass";
-    bp.frequency.value = o.center || 500; bp.Q.value = o.q || 5;
-    const lfo = ctx.createOscillator(); lfo.frequency.value = o.lfoRate || 0.07;
-    const lg = ctx.createGain(); lg.gain.value = o.lfoDepth || 300;
-    lfo.connect(lg); lg.connect(bp.frequency);
-    src.connect(bp); bp.connect(g);
-    src.start(t); lfo.start(t);
-    L.continuous.push([src, lfo]);
-  }
-
-  // Sustained melodic lead with delayed vibrato (whistle, muted trumpet, horn).
-  function lead(L, f, t, dur, o) {
-    const ctx = L.ctx;
-    const g = voiceOut(L, o.pan || 0);
-    const lp = ctx.createBiquadFilter();
-    lp.type = o.band ? "bandpass" : "lowpass"; lp.frequency.value = o.cutoff || 1500; lp.Q.value = o.q || 1;
-    lp.connect(g);
-    const osc = ctx.createOscillator(); osc.type = o.type || "sine"; osc.frequency.value = f;
-    const lfo = ctx.createOscillator(); lfo.frequency.value = o.vib || 5;
-    const vg = ctx.createGain();
-    vg.gain.setValueAtTime(0, t);
-    vg.gain.linearRampToValueAtTime(o.vibDepth || 12, t + Math.min(0.5, dur));
-    lfo.connect(vg); vg.connect(osc.detune);
-    if (o.scoop) { osc.detune.setValueAtTime(-o.scoop, t); osc.detune.linearRampToValueAtTime(0, t + 0.09); }
-    osc.connect(lp);
-    const a = o.a || 0.08, r = o.r || 0.4, peak = o.gain || 0.04;
+    const n = midi == null ? b.notes[o.i == null ? Math.floor(R() * b.notes.length) : o.i] : nearest(b.notes, midi);
+    const rate = midi == null ? (o.rate || 1) : Math.pow(2, (midi - n.m) / 12);
+    const skip = o.skip || 0;
+    const avail = (n.d - skip) / rate;
+    const src = ctx.createBufferSource();
+    src.buffer = b.buffer;
+    src.playbackRate.value = rate;
+    src.detune.value = (R() - 0.5) * (o.human == null ? 6 : o.human);
+    const g = voiceOut(L, o.pan == null ? rpan(0.35) : o.pan);
+    let node = src;
+    if (o.cutoff) {
+      const f = ctx.createBiquadFilter(); f.type = "lowpass"; f.frequency.value = o.cutoff; f.Q.value = 0.5;
+      src.connect(f); node = f;
+    }
+    node.connect(g);
+    const peak = o.gain == null ? 0.3 : o.gain, a = o.a || 0.004;
+    const len = Math.min(o.dur == null ? avail : o.dur, avail);
     g.gain.setValueAtTime(0, t);
     g.gain.linearRampToValueAtTime(peak, t + a);
-    g.gain.setValueAtTime(peak * 0.85, t + Math.max(a, dur));
-    g.gain.linearRampToValueAtTime(0, t + Math.max(a, dur) + r);
-    [osc, lfo].forEach((x) => { x.start(t); x.stop(t + dur + r + 0.1); });
+    let end = t + avail;
+    if (len < avail - 0.02) {
+      const r = Math.min(o.r == null ? 0.25 : o.r, avail - len);
+      g.gain.setValueAtTime(peak, t + Math.max(a, len));
+      g.gain.linearRampToValueAtTime(0, t + Math.max(a, len) + r);
+      end = t + Math.max(a, len) + r;
+    }
+    src.start(t, n.o + skip, n.d - skip);
+    src.stop(end + 0.05);
+    return avail;
   }
 
-  // Strummed chord: plucks staggered by a few milliseconds.
-  function strum(L, freqs, t, o) {
-    freqs.forEach((f, i) => pluck(L, f, t + i * (o.spread || 0.022), Object.assign({}, o, { pan: (i / freqs.length - 0.5) * 0.6 })));
+  // A note held for `dur` seconds, longer than the recording if needed:
+  // overlapping re-entries cross-fade inside the sustained part of the sample.
+  function hold(L, inst, midi, t, dur, o = {}) {
+    const b = L.e.bank.get(inst);
+    if (!b) return;
+    const n = nearest(b.notes, midi);
+    const rate = Math.pow(2, (midi - n.m) / 12);
+    const usable = (n.d / rate) * 0.66;                 // the last third is the recording's fade
+    const pan = o.pan == null ? rpan(0.45) : o.pan;
+    const r = o.r == null ? 1.5 : o.r;
+    if (dur + r <= usable + (n.d / rate) * 0.3) { play(L, inst, midi, t, Object.assign({}, o, { dur, r, pan })); return; }
+    const xf = Math.min(1.6, usable * 0.4);
+    let ts = t, k = 0;
+    while (ts < t + dur - 0.05) {
+      const segEnd = Math.min(ts + usable, t + dur);
+      const last = segEnd >= t + dur - 0.05;
+      play(L, inst, midi, ts, Object.assign({}, o, {
+        a: k ? xf : (o.a || 1), dur: segEnd - ts, r: last ? r : xf, skip: k ? 0.3 : 0, pan, human: 0,
+      }));
+      ts += usable - xf; k++;
+    }
   }
+  const chordHold = (L, inst, notes, t, dur, o = {}) =>
+    notes.forEach((m, i) => hold(L, inst, m, t + i * (o.roll || 0), dur, Object.assign({}, o, { pan: o.spread ? ((i / Math.max(1, notes.length - 1)) * 2 - 1) * o.spread : undefined })));
+  const strum = (L, inst, notes, t, o = {}) =>
+    notes.forEach((m, i) => play(L, inst, m, t + i * (o.spread || 0.03), Object.assign({}, o, { pan: (i / notes.length - 0.5) * 0.7 })));
 
   /* ---------- the moods ---------- */
+  // root = MIDI note of the tonic; chords are semitone offsets from root.
   const MOODS = {
     dreamy: {
+      level: 0.72,
       name: "Dreamy", line: "Half-awake, floating, slow light through a window.",
       colors: ["#7f9cff", "#c3a2ff", "#3b3f8f"],
-      bpm: 56, wet: 0.85, dry: 0.7, root: 50,
-      chords: [[0, 7, 11, 14, 19], [2, 9, 14, 18, 21], [-3, 4, 7, 11, 16], [2, 6, 9, 14, 18]],
-      step(L, t, s) {
-        const m = this, sd = L.sd, per = 32;
-        if (s % per === 0) {
-          L.ch = m.chords[L.ci++ % m.chords.length];
-          pad(L, L.ch.map((n) => mtof(m.root + n)), t, per * sd + 1, { type: "triangle", type2: "sine", a: 3.5, r: 5, gain: 0.07, cutoff: 1300, detune: 8, spread: 0.6 });
-          pad(L, [mtof(m.root - 12 + L.ch[0])], t, per * sd + 1, { type: "sine", a: 3, r: 4, gain: 0.05, cutoff: 500 });
-        }
-        if (s % 2 === 0 && R() < 0.1 * L.e.density) {
-          bell(L, mtof(m.root + 24 + pick(L.ch)), t, { gain: 0.03, decay: 4.5, ratio: 3.5, index: 1.1, pan: rpan(0.8) });
-        }
-      },
-    },
-
-    scary: {
-      name: "Scary", line: "Something in the dark just outside the frame.",
-      colors: ["#5f8f74", "#2e4a63", "#14261f"],
-      bpm: 60, wet: 0.9, dry: 0.6, root: 37,
-      start(L) {
-        const r = this.root;
-        drone(L, [mtof(r), mtof(r + 13), mtof(r + 6)], { gain: 0.06, lfoRate: 0.045, lfoDepth: 14, cutoff: 700, type: "triangle" });
-        noiseBed(L, { gain: 0.05, center: 450, q: 7, lfoRate: 0.06, lfoDepth: 320 });
-      },
-      step(L, t, s) {
-        const r = this.root, d = L.e.density;
-        if (s % 64 === 0) pad(L, [0, 1, 6, 7].map((n) => mtof(r + 24 + n)), t, 64 * L.sd, { type: "sine", a: 7, r: 7, gain: 0.03, cutoff: 900, detune: 14, spread: 0.8 });
-        if (R() < 0.012 * d) bell(L, mtof(r + 36 + pick([0, 1, 6, 11, 13])), t, { gain: 0.022, decay: 6, ratio: 1.41, index: 2.4, pan: rpan(0.9), bend: -40, attack: 0.4 });
-        if (R() < 0.004 * d) thump(L, t, { f0: 60, f1: 28, len: 3, gain: 0.16 });
-        if (R() < 0.003 * d) swell(L, t, 4, { gain: 0.035, top: 3000 });
-      },
-    },
-
-    lovely: {
-      name: "Lovely", line: "Warm, tender, someone you are glad is next to you.",
-      colors: ["#ff9fb2", "#ffcb9a", "#8a3d5c"],
-      bpm: 66, wet: 0.55, dry: 0.85, root: 53,
-      chords: [[0, 4, 7, 11, 16], [-3, 4, 7, 12], [2, 5, 9, 12], [-5, 2, 7, 11]],
-      scale: [0, 2, 4, 7, 9],
-      start(L) { L.mel = 7; },
+      uses: ["violins", "violas", "cellos", "harp", "glock", "bells1"],
+      bpm: 56, wet: 0.8, dry: 0.65, root: 62,
+      chords: [[0, 4, 7, 11], [2, 6, 9, 14], [-3, 4, 7, 11], [2, 6, 9, 12]],
       step(L, t, s) {
         const m = this, sd = L.sd, per = 32, d = L.e.density;
         if (s % per === 0) {
           L.ch = m.chords[L.ci++ % m.chords.length];
-          pad(L, L.ch.map((n) => mtof(m.root + n)), t, per * sd + 0.5, { type: "sine", type2: "triangle", a: 2, r: 3, gain: 0.06, cutoff: 1800, detune: 5, spread: 0.5 });
-          pad(L, [mtof(m.root - 12 + L.ch[0])], t, per * sd, { type: "sine", a: 0.6, r: 2, gain: 0.06, cutoff: 400 });
+          chordHold(L, "violins", L.ch.slice(1).map((n) => m.root + n), t, per * sd + 0.8, { gain: 0.16, a: 3, r: 4, spread: 0.6 });
+          chordHold(L, "violas", [m.root + L.ch[0] - 12, m.root + L.ch[1] - 12], t, per * sd + 0.8, { gain: 0.15, a: 3, r: 4, spread: 0.3 });
+          hold(L, "cellos", m.root - 24 + L.ch[0], t, per * sd + 0.8, { gain: 0.18, a: 3, r: 4, pan: 0 });
         }
-        const p = s % 4 === 0 ? 0.38 : s % 2 === 0 ? 0.12 : 0;
+        if (s % 2 === 0 && R() < 0.07 * d) play(L, "harp", m.root + 12 + pick(L.ch), t, { gain: 0.26, pan: rpan(0.7) });
+        if (s % 4 === 0 && R() < 0.04 * d) play(L, "glock", m.root + 24 + pick(L.ch), t, { gain: 0.12, pan: rpan(0.8) });
+        if (s % 128 === 64 && R() < 0.5) play(L, "bells1", null, t, { gain: 0.1, pan: rpan(0.6), rate: 0.9 });
+      },
+    },
+
+    lovely: {
+      level: 1.0,
+      name: "Lovely", line: "Warm, tender, someone you are glad is next to you.",
+      colors: ["#ff9fb2", "#ffcb9a", "#8a3d5c"],
+      uses: ["piano", "violas", "cellos", "basses", "flute"],
+      bpm: 66, wet: 0.5, dry: 0.85, root: 53,
+      chords: [[0, 4, 7, 11], [-3, 4, 7, 12], [2, 5, 9, 12], [-5, 2, 7, 11]],
+      scale: [0, 2, 4, 7, 9],
+      start(L) { L.mel = 7; L.fluteUntil = 0; },
+      step(L, t, s) {
+        const m = this, sd = L.sd, per = 32, d = L.e.density;
+        if (s % per === 0) {
+          L.ch = m.chords[L.ci++ % m.chords.length];
+          chordHold(L, "violas", L.ch.map((n) => m.root + n), t, per * sd + 0.4, { gain: 0.11, a: 2, r: 3, spread: 0.5 });
+          hold(L, "cellos", m.root - 12 + L.ch[0], t, per * sd, { gain: 0.15, a: 1.5, r: 2.5, pan: -0.1 });
+          play(L, "piano", m.root - 12 + L.ch[0], t, { gain: 0.2, pan: -0.1 });
+        }
+        const p = s % 4 === 0 ? 0.36 : s % 2 === 0 ? 0.12 : 0;
         if (p && R() < p * d) {
-          L.mel = Math.max(0, Math.min(9, L.mel + pick([-2, -1, -1, 1, 1, 2, 0])));
+          L.mel = clamp(L.mel + pick([-2, -1, -1, 1, 1, 2, 0]), 0, 9);
           const n = m.root + 12 + 12 * Math.floor(L.mel / 5) + m.scale[L.mel % 5];
-          pluck(L, mtof(n), t, { gain: 0.05, decay: 2.4, bright: 2400, pan: rpan(0.4) });
-          if (R() < 0.22) pluck(L, mtof(n + 12), t + 3 * sd, { gain: 0.02, decay: 1.8, bright: 3000, pan: rpan(0.7) });
+          play(L, "piano", n, t, { gain: 0.24, pan: 0.1 + rpan(0.15) });
+          if (t >= L.fluteUntil && R() < 0.08) {
+            play(L, "flute", n + 12, t + 2 * sd, { gain: 0.1, dur: sd * 10, a: 0.25, r: 0.8, pan: 0.35 });
+            L.fluteUntil = t + sd * 24;
+          }
         }
       },
     },
 
     happy: {
+      level: 1.1,
       name: "Happy", line: "Windows down, sun on the dashboard, no hurry.",
       colors: ["#ffd36b", "#7fe0c2", "#e2793f"],
-      bpm: 100, wet: 0.22, dry: 0.55, root: 55,
+      uses: ["marimba", "cellopizz", "vlnpizz", "shaker", "tamb", "kick", "violins"],
+      bpm: 100, wet: 0.28, dry: 0.85, root: 55,
       chords: [[0, 4, 7, 12], [2, 7, 11, 14], [4, 9, 12, 16], [0, 5, 9, 12]],
       arp: [0, 1, 2, 3, 2, 1, 2, 3],
       step(L, t, s) {
         const m = this, sd = L.sd, d = L.e.density, b = s % 16;
         if (b === 0) {
           L.ch = m.chords[L.ci++ % m.chords.length];
-          pad(L, L.ch.map((n) => mtof(m.root + n)), t, 16 * sd, { type: "sawtooth", type2: "triangle", a: 0.4, r: 1.2, gain: 0.04, cutoff: 1700, detune: 7, spread: 0.6 });
+          if ((L.ci & 1) === 1) chordHold(L, "violins", L.ch.slice(1).map((n) => m.root + 12 + n), t, 32 * sd, { gain: 0.06, a: 1.5, r: 2, spread: 0.6 });
         }
-        const p = (s % 4 === 0 ? 0.85 : 0.45) * d;
-        if (R() < p) {
-          const n = m.root + 12 + L.ch[m.arp[s % 8] % L.ch.length];
-          pluck(L, mtof(n), t, { type: "triangle", gain: 0.035, decay: 0.55, bright: 3600, pan: (s % 8) / 7 - 0.5 });
-        }
-        if (b === 0 || b === 6 || b === 8) bass(L, mtof(m.root - 12 + L.ch[0]), t, 0.32, { gain: 0.07, cutoff: 450, type: "triangle", q: 1 });
-        if (s % 8 === 0) thump(L, t, { gain: 0.1 * d, len: 0.3 });
-        if (s % 4 === 2) tick(L, t, { gain: 0.016 * d, freq: 7500, len: 0.05, pan: 0.3 });
-      },
-    },
-
-    thriller: {
-      name: "Thriller", line: "A train you might be followed on. Keep looking ahead.",
-      colors: ["#ff4b3e", "#b0233a", "#3a0f12"],
-      bpm: 116, wet: 0.4, dry: 0.85, root: 45,
-      chords: [[0, 7, 12, 15], [-4, 3, 8, 12], [0, 7, 12, 15], [1, 5, 8, 13]],
-      ost: [0, 0, 12, 0, 0, 12, 0, 7, 0, 0, 12, 0, 0, 12, 3, 7],
-      step(L, t, s) {
-        const m = this, sd = L.sd, d = L.e.density, per = 32;
-        if (s % per === 0) {
-          L.ch = m.chords[L.ci++ % m.chords.length];
-          pad(L, L.ch.map((n) => mtof(m.root + n)), t, per * sd, { type: "sawtooth", a: 2.5, r: 2.5, gain: 0.045, cutoff: 750, detune: 9, spread: 0.7 });
-        }
-        if (R() < 0.72 + 0.28 * d) {
-          const sweep = 450 + 650 * (0.5 + 0.5 * Math.sin((s / 128) * Math.PI * 2));
-          bass(L, mtof(m.root - 12 + L.ch[0] + m.ost[s % 16]), t, sd * 0.75, { gain: s % 4 === 0 ? 0.06 : 0.045, cutoff: sweep, q: 3 });
-        }
-        if (s % 2 === 0) tick(L, t, { gain: 0.012 * d, freq: 8500, len: 0.03, pan: -0.25 });
-        if (s % 16 === 0) thump(L, t, { gain: 0.08, f0: 90, f1: 40, len: 0.3 });
-        if (s % 16 === 3) thump(L, t, { gain: 0.05, f0: 90, f1: 40, len: 0.25 });
-        if (s % 128 === 112) swell(L, t, 16 * sd, { gain: 0.03, top: 5000 });
+        if (R() < (s % 4 === 0 ? 0.85 : 0.42) * d)
+          play(L, "marimba", m.root + 12 + L.ch[m.arp[s % 8] % L.ch.length], t, { gain: 0.2, pan: (s % 8) / 7 - 0.5 });
+        if (b === 0 || b === 6 || b === 8) play(L, "cellopizz", m.root - 12 + L.ch[0], t, { gain: 0.32, pan: -0.1 });
+        if (b === 4 || b === 12) strum(L, "vlnpizz", L.ch.slice(0, 3).map((n) => m.root + n), t, { gain: 0.1, spread: 0.012 });
+        if (s % 8 === 0) play(L, "kick", null, t, { gain: 0.22 * d, pan: 0, human: 0 });
+        if (s % 2 === 1) play(L, "shaker", null, t, { gain: (s % 4 === 3 ? 0.07 : 0.045) * d, pan: 0.3 });
+        if (b === 4 || b === 12) play(L, "tamb", null, t, { gain: 0.05 * d, pan: -0.35 });
       },
     },
 
     wonder: {
+      level: 1.02,
       name: "Wonder", line: "Mountains turning gold. The whole world, wider than you remembered.",
       colors: ["#8fe3d4", "#ffe2a3", "#2f6f8f"],
+      uses: ["harp", "violins", "violas", "cellos", "horn", "glock"],
       bpm: 72, wet: 0.7, dry: 0.7, root: 52,
       chords: [[0, 7, 12, 16, 19], [5, 12, 17, 21], [-3, 4, 9, 12, 16], [-5, 2, 7, 11, 14]],
+      start(L) { L.hornUntil = 0; },
       step(L, t, s) {
         const m = this, sd = L.sd, per = 32, d = L.e.density;
         if (s % per === 0) {
           L.ch = m.chords[L.ci++ % m.chords.length];
-          pad(L, L.ch.map((n) => mtof(m.root + n)), t, per * sd + 0.5, { type: "sawtooth", type2: "triangle", a: 3, r: 4, gain: 0.05, cutoff: 2000, detune: 9, spread: 0.85 });
-          pad(L, [mtof(m.root - 12 + L.ch[0])], t, per * sd, { type: "sine", a: 2, r: 3, gain: 0.05, cutoff: 400 });
+          chordHold(L, "violins", L.ch.slice(-3).map((n) => m.root + 12 + n), t, per * sd + 0.5, { gain: 0.11, a: 2.5, r: 3.5, spread: 0.7 });
+          chordHold(L, "violas", L.ch.slice(0, 2).map((n) => m.root + n), t, per * sd + 0.5, { gain: 0.12, a: 2.5, r: 3.5, spread: 0.4 });
+          hold(L, "cellos", m.root - 12 + L.ch[0], t, per * sd, { gain: 0.16, a: 2, r: 3, pan: 0 });
+          if (t >= L.hornUntil && R() < 0.5) { hold(L, "horn", m.root - 12 + L.ch[1], t + sd * 4, sd * 20, { gain: 0.12, a: 2, r: 2.5, pan: -0.3 }); L.hornUntil = t + sd * 64; }
         }
         const b = s % 16;
         if (b < 10 && R() < 0.6 * d) {
           const tones = L.ch.concat(L.ch.map((n) => n + 12));
-          pluck(L, mtof(m.root + 12 + tones[b % tones.length]), t, { type: "triangle", gain: 0.026, decay: 1.9, bright: 4200, pan: b / 9 - 0.5 });
+          play(L, "harp", m.root + 12 + tones[b % tones.length], t, { gain: 0.2, pan: b / 9 - 0.5 });
         }
-        if (R() < 0.025 * d) bell(L, mtof(m.root + 36 + pick(L.ch)), t, { gain: 0.02, decay: 5, ratio: 2, index: 0.8, pan: rpan(0.8) });
+        if (s % 4 === 0 && R() < 0.03 * d) play(L, "glock", m.root + 36 + pick(L.ch) % 12, t, { gain: 0.1, pan: rpan(0.8) });
       },
     },
 
     fairytale: {
-      level: 2.5,
+      level: 1.46,
       name: "Fairy tale", line: "Once upon a time, a little lantern in a big dark forest.",
       colors: ["#f5b8ff", "#a9d8ff", "#4b3a8f"],
-      bpm: 126, wet: 0.55, dry: 0.8, root: 60, bar: 12,
+      uses: ["basspizz", "vlnpizz", "glock", "flute", "violas", "triangle"],
+      bpm: 126, wet: 0.5, dry: 0.8, root: 60,
       chords: [[0, 4, 7], [-3, 0, 4], [5, 9, 12], [-5, -1, 2]],
       scale: [0, 2, 4, 5, 7, 9, 11],
-      start(L) { L.mel = 7; },
+      start(L) { L.mel = 7; L.fluteUntil = 0; },
       step(L, t, s) {
         const m = this, sd = L.sd, per = 24, d = L.e.density, b = s % 12;
         if (s % per === 0) {
           L.ch = m.chords[L.ci++ % m.chords.length];
-          pad(L, L.ch.map((n) => mtof(m.root + n)), t, per * sd, { type: "sine", a: 1, r: 2, gain: 0.03, cutoff: 1500, spread: 0.5 });
+          chordHold(L, "violas", L.ch.map((n) => m.root - 12 + n), t, per * sd, { gain: 0.07, a: 1, r: 1.5, spread: 0.5 });
+          if (L.ci % 4 === 1 && R() < 0.6) play(L, "triangle", null, t, { gain: 0.06, pan: 0.5 });
         }
-        if (b === 0) pluck(L, mtof(m.root - 24 + L.ch[0]), t, { gain: 0.06, decay: 0.7, bright: 900 });
-        if (b === 4 || b === 8) L.ch.forEach((n) => pluck(L, mtof(m.root + n), t, { gain: 0.016, decay: 0.35, bright: 2500, pan: rpan(0.3) }));
+        if (b === 0) play(L, "basspizz", m.root - 24 + L.ch[0], t, { gain: 0.32, pan: -0.1 });
+        if (b === 4 || b === 8) strum(L, "vlnpizz", L.ch.map((n) => m.root + n), t, { gain: 0.08, spread: 0.01 });
         if (s % 2 === 0 && R() < (b === 0 ? 0.6 : 0.3) * d) {
-          L.mel = Math.max(0, Math.min(13, L.mel + pick([-2, -1, -1, 1, 1, 2])));
+          L.mel = clamp(L.mel + pick([-2, -1, -1, 1, 1, 2]), 0, 13);
           const n = m.root + 12 + 12 * Math.floor(L.mel / 7) + m.scale[L.mel % 7];
-          bell(L, mtof(n), t, { gain: 0.03, decay: 1.6, ratio: 2, index: 0.5, pan: rpan(0.5) });
+          if (t < L.fluteUntil) return;
+          if (R() < 0.12) { play(L, "flute", n, t, { gain: 0.12, dur: sd * 5, a: 0.06, r: 0.4, pan: 0.25 }); L.fluteUntil = t + sd * 6; }
+          else play(L, "glock", n + 12, t, { gain: 0.11, pan: rpan(0.5) });
         }
       },
     },
 
     melancholy: {
-      level: 2.4,
+      level: 1.29,
       name: "Melancholy", line: "Rain on the window. The last day of the trip.",
       colors: ["#8aa0b8", "#5d6f8a", "#1d2738"],
-      bpm: 60, wet: 0.8, dry: 0.75, root: 57,
+      uses: ["piano", "cellos", "violas", "clarinet"],
+      bpm: 60, wet: 0.75, dry: 0.75, root: 57,
       chords: [[0, 3, 7, 10], [-4, 0, 3, 7], [5, 8, 12], [-5, -2, 2, 7]],
       scale: [0, 3, 5, 7, 10],
-      start(L) { L.mel = 5; L.rest = false; },
+      start(L) { L.mel = 5; L.rest = false; L.clarUntil = 0; },
       step(L, t, s) {
         const m = this, sd = L.sd, per = 32, d = L.e.density, b = s % 16;
         if (s % per === 0) {
           L.ch = m.chords[L.ci++ % m.chords.length];
-          pad(L, L.ch.map((n) => mtof(m.root - 12 + n)), t, per * sd, { type: "sine", a: 3, r: 4, gain: 0.03, cutoff: 900, spread: 0.4 });
-          pluck(L, mtof(m.root - 24 + L.ch[0]), t, { gain: 0.06, decay: 4, bright: 900 });
+          hold(L, "cellos", m.root - 24 + L.ch[0], t, per * sd, { gain: 0.14, a: 2.5, r: 3.5, pan: -0.15 });
+          chordHold(L, "violas", L.ch.slice(1, 3).map((n) => m.root - 12 + n), t, per * sd, { gain: 0.07, a: 3, r: 3.5, spread: 0.4 });
+          play(L, "piano", m.root - 24 + L.ch[0], t, { gain: 0.22, pan: -0.15 });
+          if (t >= L.clarUntil && R() < 0.3) { play(L, "clarinet", m.root + pick(L.ch), t + sd * 8, { gain: 0.1, dur: sd * 14, a: 0.6, r: 1.5, pan: 0.3 }); L.clarUntil = t + sd * 64; }
         }
         if (b === 0) L.rest = R() < 0.3;
-        if ((b === 4 || b === 8) && s % per < 16) pluck(L, mtof(m.root - 12 + pick(L.ch)), t, { gain: 0.03, decay: 3, bright: 1400, pan: rpan(0.3) });
-        if (!L.rest && s % 4 === 0 && R() < 0.24 * d) {
-          L.mel = Math.max(0, Math.min(9, L.mel + pick([-2, -1, -1, 1, 0, 1])));
-          const n = m.root + 12 * Math.floor(L.mel / 5) + m.scale[L.mel % 5];
-          pluck(L, mtof(n), t, { gain: 0.05, decay: 3.5, bright: 1800, pan: rpan(0.25) });
+        if ((b === 4 || b === 8) && s % per < 16) play(L, "piano", m.root - 12 + pick(L.ch), t, { gain: 0.12, pan: rpan(0.3) });
+        if (!L.rest && s % 4 === 0 && R() < 0.25 * d) {
+          L.mel = clamp(L.mel + pick([-2, -1, -1, 1, 0, 1]), 0, 9);
+          play(L, "piano", m.root + 12 * Math.floor(L.mel / 5) + m.scale[L.mel % 5], t, { gain: 0.22, pan: 0.05 + rpan(0.2) });
         }
       },
     },
 
     scifi: {
-      level: 1.25,
+      level: 1.55,
       name: "Sci-fi", line: "A quiet station orbiting somewhere far. Lights blinking in sequence.",
       colors: ["#5ad1ff", "#7a6bff", "#0e2a4a"],
-      bpm: 84, wet: 0.65, dry: 0.75, root: 48,
-      chords: [[0, 7, 14, 16], [-2, 5, 12, 14], [3, 10, 15, 19], [5, 12, 17, 19]],
-      arp: [0, 1, 2, 3, 1, 2, 3, 4, 2, 3, 4, 5, 3, 4, 5, 6],
+      uses: ["organ", "piano", "vlntrem", "glock", "bells2"],
+      bpm: 84, wet: 0.7, dry: 0.7, root: 57,
+      chords: [[0, 7, 12, 15], [-4, 3, 8, 15], [-2, 5, 10, 14], [-7, 0, 5, 12]],
+      arp: [0, 1, 2, 1, 3, 1, 2, 1],
       step(L, t, s) {
         const m = this, sd = L.sd, per = 64, d = L.e.density;
         if (s % per === 0) {
           L.ch = m.chords[L.ci++ % m.chords.length];
-          pad(L, L.ch.map((n) => mtof(m.root + n)), t, per * sd, { type: "sawtooth", type2: "sawtooth", a: 5, r: 6, gain: 0.05, cutoff: 1100, detune: 12, spread: 0.9 });
-          pad(L, [mtof(m.root - 12 + L.ch[0])], t, per * sd, { type: "sine", a: 4, r: 5, gain: 0.05, cutoff: 300 });
+          chordHold(L, "organ", L.ch.map((n) => m.root - 12 + n), t, per * sd + 1, { gain: 0.1, a: 4, r: 5, spread: 0.7 });
+          hold(L, "organ", m.root - 24 + L.ch[0], t, per * sd + 1, { gain: 0.12, a: 4, r: 5, pan: 0 });
+          if (R() < 0.6) chordHold(L, "vlntrem", [m.root + 12 + L.ch[2], m.root + 24 + L.ch[1]], t + sd * 16, sd * 40, { gain: 0.04, a: 4, r: 4, spread: 0.8 });
         }
-        if (R() < 0.5 + 0.4 * d) {
-          const tones = L.ch.concat(L.ch.map((n) => n + 12));
-          const n = m.root + 12 + tones[m.arp[s % 16] % tones.length];
-          const cut = 500 + 1700 * (0.5 + 0.5 * Math.sin((s / 96) * Math.PI * 2));
-          pluck(L, mtof(n), t, { type: "sawtooth", gain: 0.02, decay: 0.35, bright: cut, pan: s % 2 ? 0.4 : -0.4 });
-          if (s % 4 === 0) pluck(L, mtof(n), t + 3 * sd, { type: "sawtooth", gain: 0.008, decay: 0.3, bright: cut * 0.7, pan: s % 2 ? -0.6 : 0.6 });
+        // the ticking piano: steady 8ths, like a clock in orbit
+        if (s % 2 === 0 && R() < 0.55 + 0.4 * d)
+          play(L, "piano", m.root + 12 + L.ch[m.arp[(s / 2) % 8] % L.ch.length], t, { gain: 0.11 + (s % 8 === 0 ? 0.05 : 0), dur: sd * 3, r: 0.8, pan: (s % 4 ? 0.3 : -0.3) });
+        if (R() < 0.01 * d) {
+          const f = m.root + 36 + pick([0, 7, 12, 15]);
+          for (let i = 0; i < 1 + Math.floor(R() * 3); i++) play(L, "glock", f, t + i * 0.13, { gain: 0.05, dur: 0.15, r: 0.2, pan: rpan(0.9) });
         }
-        if (R() < 0.012 * d) {
-          const f = 1400 + R() * 1800;
-          for (let i = 0; i < 1 + Math.floor(R() * 3); i++) pluck(L, f, t + i * 0.11, { gain: 0.01, decay: 0.09, bright: 9000, pan: rpan(0.9) });
-        }
+        if (s % 256 === 128 && R() < 0.6) play(L, "bells2", null, t, { gain: 0.07, rate: 0.75, pan: rpan(0.6) });
       },
     },
 
     neon: {
-      level: 0.65,
+      level: 0.92,
       name: "Neon night", line: "City lights sliding past a taxi window at 2 a.m.",
       colors: ["#ff4fd8", "#41e6ff", "#2a0a4a"],
+      uses: ["piano", "basspizz", "kick", "snare", "shaker", "violins", "straight"],
       bpm: 96, wet: 0.45, dry: 0.75, root: 52,
       chords: [[0, 3, 7, 12], [-4, 0, 3, 8], [3, 7, 10, 15], [-2, 2, 5, 10]],
       scale: [0, 3, 5, 7, 10],
@@ -452,52 +357,69 @@
         const m = this, sd = L.sd, d = L.e.density, b = s % 16;
         if (b === 0) {
           L.ch = m.chords[L.ci++ % m.chords.length];
-          pad(L, L.ch.map((n) => mtof(m.root + n)), t, 16 * sd, { type: "sawtooth", a: 0.3, r: 0.8, gain: 0.03, cutoff: 1300, detune: 10, spread: 0.7 });
+          chordHold(L, "violins", L.ch.slice(1).map((n) => m.root + 12 + n), t, 16 * sd, { gain: 0.06, a: 0.8, r: 1.2, spread: 0.7 });
         }
-        if (s % 2 === 0) bass(L, mtof(m.root - 24 + L.ch[0] + (s % 4 === 2 ? 12 : 0)), t, sd * 1.6, { gain: 0.05, cutoff: 550, q: 2 });
-        if (s % 4 === 2 && R() < 0.8) pad(L, L.ch.map((n) => mtof(m.root + 12 + n)), t, sd * 1.2, { type: "square", a: 0.01, r: 0.15, gain: 0.012, cutoff: 2400 });
-        if (s % 4 === 0) thump(L, t, { gain: 0.08 * d, len: 0.3 });
-        if (b === 4 || b === 12) tick(L, t, { gain: 0.03 * d, freq: 1600, len: 0.2 });
-        if (s % 2 === 1) tick(L, t, { gain: 0.008 * d, freq: 9000, len: 0.03, pan: 0.3 });
-        if (s % 4 === 0 && t >= L.leadUntil && R() < 0.12 * d) {
+        if (s % 2 === 0) play(L, "basspizz", m.root - 24 + L.ch[0] + (s % 4 === 2 ? 12 : 0), t, { gain: 0.28, dur: sd * 1.8, r: 0.15, pan: 0 });
+        if (s % 4 === 2 && R() < 0.85) L.ch.slice(0, 3).forEach((n, i) => play(L, "piano", m.root + n, t, { gain: 0.08, dur: sd * 1.4, r: 0.12, pan: i * 0.2 - 0.2 }));
+        if (s % 4 === 0) play(L, "kick", null, t, { gain: 0.25 * d, human: 0, pan: 0 });
+        if (b === 4 || b === 12) play(L, "snare", null, t, { gain: 0.12 * d, pan: 0.05 });
+        play(L, "shaker", null, t, { gain: (s % 2 ? 0.05 : 0.03) * d, pan: 0.3 });
+        if (s % 4 === 0 && t >= L.leadUntil && R() < 0.1 * d) {
           const dur = sd * pick([4, 6, 8]);
-          lead(L, mtof(m.root + 12 + pick(m.scale) + 12 * (R() < 0.3 ? 1 : 0)), t, dur, { type: "square", cutoff: 1800, gain: 0.025, vib: 5.5, vibDepth: 10, a: 0.05, r: 0.6, pan: 0.15 });
-          L.leadUntil = t + dur + sd * 2;
+          play(L, "straight", m.root + 12 + pick(m.scale), t, { gain: 0.1, dur, a: 0.05, r: 0.5, pan: 0.2 });
+          L.leadUntil = t + dur + sd * 6;
         }
       },
     },
 
     noir: {
-      level: 4.5,
+      level: 1.2,
       name: "Noir", line: "Paris, 3 a.m. Wet cobblestones and a muted trumpet somewhere.",
       colors: ["#c9b38a", "#7d6a52", "#1a1714"],
-      bpm: 70, wet: 0.6, dry: 0.8, root: 50,
+      uses: ["harmon", "basspizz", "taps", "piano", "cymbal", "cellos"],
+      bpm: 66, wet: 0.55, dry: 0.85, root: 50,
       chords: [[0, 3, 7, 10, 14], [5, 8, 12, 15], [1, 5, 8, 12], [-5, -1, 2, 5]],
-      blues: [0, 3, 5, 6, 7, 10, 12, 15],
-      start(L) { L.phrase = []; L.leadUntil = 0; },
+      blues: [0, 3, 5, 7, 10, 12, 15],
+      start(L) { L.phrase = []; L.leadUntil = 0; L.walk = 0; },
       step(L, t, s) {
         const m = this, sd = L.sd, per = 32, d = L.e.density, b = s % 16;
-        if (s % per === 0) L.ch = m.chords[L.ci++ % m.chords.length];
-        if (s % per === 0 || (s % per === 22 && R() < 0.5)) L.ch.forEach((n, i) => pluck(L, mtof(m.root + n), t + i * 0.012, { gain: 0.022, decay: 2.6, bright: 1400, pan: rpan(0.3) }));
-        if (s % 4 === 0) {
-          const n = b === 0 && s % per === 0 ? L.ch[0] : L.ch[0] + pick([0, 3, 5, 7, 10, -2]);
-          pluck(L, mtof(m.root - 24 + n), t, { type: "triangle", gain: 0.065, decay: 0.7, bright: 650 });
-          tick(L, t, { gain: 0.007 * d, freq: 3000, len: 0.25, pan: -0.2 });
+        if (s % per === 0) {
+          L.ch = m.chords[L.ci++ % m.chords.length];
+          hold(L, "cellos", m.root - 12 + L.ch[0], t, per * sd, { gain: 0.08, a: 2, r: 3, pan: -0.2 });
+          if (L.ci % 4 === 1) play(L, "cymbal", null, t, { gain: 0.05, pan: 0.4 });
         }
-        if (s % 4 === 3) tick(L, t, { gain: 0.006 * d, freq: 7000, len: 0.08, pan: 0.3 });
-        // muted trumpet: short phrases with breathing room
+        // piano comping: soft voicings, a little late, like a tired pianist in the corner
+        if (s % per === 0 || (s % per === 22 && R() < 0.55))
+          L.ch.slice(1).forEach((n, i) => play(L, "piano", m.root + n, t + 0.02 + i * 0.012, { gain: 0.07, dur: sd * 10, r: 1, pan: 0.15 + i * 0.05 }));
+        // walking bass on the beat
+        if (s % 4 === 0) {
+          const target = m.chords[L.ci % m.chords.length][0];
+          let n = L.ch[0];
+          const beat = (s % per) / 4;
+          if (beat === 7) n = target + pick([-1, 1]);               // approach note into the next chord
+          else if (beat > 0) n = L.ch[0] + pick([3, 5, 7, 10, 7, 12]);
+          play(L, "basspizz", m.root - 24 + n, t, { gain: 0.3, pan: -0.05 });
+          play(L, "taps", null, t, { gain: 0.05 * d, pan: 0.35, rate: 0.95 + R() * 0.1 });
+        }
+        if (s % 4 === 3 && R() < 0.7) play(L, "taps", null, t, { gain: 0.03 * d, pan: 0.4, rate: 1.05 });
+        // Harmon-muted trumpet: short phrases, lots of air between them
         if (t >= L.leadUntil && s % 2 === 0) {
-          if (!L.phrase.length && R() < 0.1 * d) {
-            let k = 2 + Math.floor(R() * 4), at = 0; L.phrase = [];
-            while (k--) { const len = pick([2, 3, 4, 6]); L.phrase.push([at, len, pick(m.blues)]); at += len; }
+          if (!L.phrase.length && R() < 0.09 * d) {
+            let k = 2 + Math.floor(R() * 4), at = 0, idx = 2 + Math.floor(R() * 3);
+            L.phrase = [];
+            while (k--) {
+              const len = pick([2, 2, 4, 4, 6, 8]);
+              idx = clamp(idx + pick([-2, -1, -1, 1, 1, 2]), 0, m.blues.length - 1);
+              L.phrase.push([at, len, m.blues[idx]]); at += len + pick([0, 0, 2]);
+            }
             L.phraseStart = s;
           }
           if (L.phrase.length) {
             const [at, len, n] = L.phrase[0];
             if (s - L.phraseStart >= at) {
               L.phrase.shift();
-              lead(L, mtof(m.root + 12 + n), t, len * sd * 0.9, { type: "sawtooth", band: true, cutoff: 1300, q: 3, gain: 0.04, vib: 5, vibDepth: 14, a: 0.06, r: 0.35, scoop: 60, pan: 0.2 });
-              if (!L.phrase.length) L.leadUntil = t + sd * (8 + Math.floor(R() * 16));
+              play(L, "harmon", m.root + 12 + n, t, { gain: 0.22, dur: len * sd * 0.95, a: 0.03, r: 0.3, pan: 0.18, human: 10 });
+              if (!L.phrase.length) L.leadUntil = t + sd * (12 + Math.floor(R() * 20));
             }
           }
         }
@@ -505,35 +427,40 @@
     },
 
     mystery: {
-      level: 0.6,
+      level: 1.55,
       name: "Mystery", line: "A detail nobody else noticed. Follow it quietly.",
       colors: ["#9be37a", "#4a7fb0", "#16242a"],
-      bpm: 76, wet: 0.55, dry: 0.8, root: 50,
+      uses: ["vlnpizz", "cellopizz", "clarinet", "cellos", "glock", "taps"],
+      bpm: 76, wet: 0.55, dry: 0.8, root: 62,
       chords: [[0, 3, 6, 9], [0, 3, 6, 10], [-1, 2, 5, 8], [0, 3, 6, 10]],
       oct: [0, 1, 3, 4, 6, 7, 9, 10],
-      start(L) { L.mel = 8; },
+      start(L) { L.mel = 8; L.clarUntil = 0; },
       step(L, t, s) {
         const m = this, sd = L.sd, per = 64, d = L.e.density;
         if (s % per === 0) {
           L.ch = m.chords[L.ci++ % m.chords.length];
-          pad(L, L.ch.map((n) => mtof(m.root + n)), t, per * sd, { type: "sine", a: 4, r: 4, gain: 0.03, cutoff: 900, spread: 0.6 });
+          chordHold(L, "cellos", [m.root - 24 + L.ch[0], m.root - 12 + L.ch[1]], t, per * sd, { gain: 0.09, a: 3, r: 3, spread: 0.4 });
         }
-        if (s % 16 === 0) bass(L, mtof(m.root - 12 + L.ch[0]), t, sd * 6, { type: "triangle", gain: 0.05, cutoff: 400, q: 1 });
-        if (s % 2 === 0 && R() < 0.62 * d) {
-          L.mel = Math.max(0, Math.min(15, L.mel + pick([-1, -1, 1, 1, 2, -2, 0])));
-          const n = m.root + 12 * Math.floor(L.mel / 8) + m.oct[L.mel % 8];
-          pluck(L, mtof(n), t, { type: "triangle", gain: 0.045, decay: 0.28, bright: 1600, pan: rpan(0.5) });
+        if (s % 16 === 0) play(L, "cellopizz", m.root - 24 + L.ch[0], t, { gain: 0.3, pan: -0.2 });
+        if (s % 2 === 0 && R() < 0.6 * d) {
+          L.mel = clamp(L.mel + pick([-1, -1, 1, 1, 2, -2, 0]), 0, 15);
+          play(L, "vlnpizz", m.root - 12 + 12 * Math.floor(L.mel / 8) + m.oct[L.mel % 8], t, { gain: 0.2, pan: rpan(0.5) });
         }
-        if (s % 4 === 0) tick(L, t, { band: true, gain: 0.02 * d, freq: 2600, len: 0.05, pan: -0.4 });
-        if (R() < 0.02 * d) bell(L, mtof(m.root + 24 + pick(m.oct)), t, { gain: 0.02, decay: 2.5, ratio: 3, index: 1, pan: rpan(0.8) });
+        if (s % 4 === 0) play(L, "taps", null, t, { gain: 0.03 * d, pan: -0.4, rate: 1.2 });
+        if (t >= L.clarUntil && s % 16 === 8 && R() < 0.25) {
+          play(L, "clarinet", m.root - 12 + pick(L.ch), t, { gain: 0.1, dur: sd * 12, a: 0.5, r: 1, pan: 0.3 });
+          L.clarUntil = t + sd * 48;
+        }
+        if (s % 2 === 0 && R() < 0.015 * d) play(L, "glock", m.root + 24 + pick(m.oct), t, { gain: 0.08, pan: rpan(0.8) });
       },
     },
 
     spy: {
-      level: 2.8,
+      level: 0.83,
       name: "Spy", line: "Sunglasses, a borrowed name, and a car waiting downstairs.",
       colors: ["#ffb84a", "#3fa7a0", "#14202a"],
-      bpm: 120, wet: 0.4, dry: 0.75, root: 52,
+      uses: ["cellopizz", "vlnpizz", "straight", "shaker", "violas", "taps"],
+      bpm: 120, wet: 0.4, dry: 0.8, root: 52,
       chords: [[0, 3, 7, 11], [0, 3, 7, 11], [5, 8, 12, 16], [-5, -1, 2, 6]],
       line_: [0, null, 0, 3, null, 5, 4, null, 3, null, 0, null, 7, null, 6, 5],
       start(L) { L.leadUntil = 0; },
@@ -541,69 +468,124 @@
         const m = this, sd = L.sd, per = 32, d = L.e.density, b = s % 16;
         if (s % per === 0) {
           L.ch = m.chords[L.ci++ % m.chords.length];
-          pad(L, L.ch.map((n) => mtof(m.root + n)), t, per * sd, { type: "triangle", type2: "sine", a: 1.5, r: 2, gain: 0.035, cutoff: 1300, spread: 0.6 });
+          chordHold(L, "violas", L.ch.map((n) => m.root + n), t, per * sd, { gain: 0.07, a: 1, r: 1.5, spread: 0.6 });
         }
         const n = m.line_[b];
-        if (n !== null && R() < 0.75 + 0.25 * d) pluck(L, mtof(m.root - 12 + L.ch[0] + n), t, { type: "sawtooth", gain: 0.04, decay: 0.45, bright: 1700, pan: -0.2 });
-        if (b === 4 || b === 12) strum(L, L.ch.map((x) => mtof(m.root + x)), t, { type: "sawtooth", gain: 0.012, decay: 0.3, bright: 2400, spread: 0.012 });
-        if (s % 2 === 0) tick(L, t, { gain: (s % 4 === 2 ? 0.016 : 0.009) * d, freq: 8000, len: 0.05, pan: 0.35 });
-        if (b === 0 && t >= L.leadUntil && R() < 0.25 * d) {
-          const top = m.root + 12 + L.ch[3];
-          lead(L, mtof(top), t, sd * 6, { type: "sawtooth", cutoff: 1600, gain: 0.03, vib: 6, vibDepth: 8, a: 0.03, r: 0.6, scoop: 80, pan: 0.25 });
+        if (n !== null && R() < 0.78 + 0.22 * d) play(L, "cellopizz", m.root - 12 + L.ch[0] + n, t, { gain: 0.3, pan: -0.2 });
+        if (b === 4 || b === 12) strum(L, "vlnpizz", L.ch.map((x) => m.root + x), t, { gain: 0.08, spread: 0.01 });
+        if (s % 2 === 0) play(L, "shaker", null, t, { gain: (s % 4 === 2 ? 0.07 : 0.04) * d, pan: 0.35 });
+        if (b === 12) play(L, "taps", null, t, { gain: 0.06 * d, pan: 0.1 });
+        if (b === 0 && t >= L.leadUntil && R() < 0.3 * d) {
+          play(L, "straight", m.root + 12 + L.ch[3], t, { gain: 0.14, dur: sd * 6, a: 0.02, r: 0.5, pan: 0.25 });
+          play(L, "straight", m.root + 12 + L.ch[2], t + sd * 7, { gain: 0.1, dur: sd * 3, a: 0.02, r: 0.4, pan: 0.25 });
           L.leadUntil = t + sd * 32;
         }
       },
     },
 
     western: {
-      level: 2.4,
+      level: 1.07,
       name: "Western", line: "Long straight road, dust in the light, a canyon echo.",
       colors: ["#f2a65a", "#c8553d", "#3a2414"],
+      uses: ["harp", "basspizz", "taps", "oboe", "horn", "cellos"],
       bpm: 84, wet: 0.7, dry: 0.75, root: 50,
       chords: [[0, 7, 12], [5, 12, 17], [0, 7, 12], [-5, 2, 7]],
       penta: [0, 2, 4, 7, 9],
       start(L) { L.leadUntil = 0; L.mel = 5; },
       step(L, t, s) {
-        const m = this, sd = L.sd, per = 32, d = L.e.density, b = s % 16;
+        const m = this, sd = L.sd, per = 32, d = L.e.density;
         if (s % per === 0) {
           L.ch = m.chords[L.ci++ % m.chords.length];
-          pad(L, L.ch.map((n) => mtof(m.root + n)), t, per * sd, { type: "triangle", a: 2.5, r: 3, gain: 0.035, cutoff: 1100, spread: 0.6 });
-          if (R() < 0.8) strum(L, L.ch.concat([L.ch[0] + 16]).map((n) => mtof(m.root + n)), t, { type: "sawtooth", gain: 0.022, decay: 1.6, bright: 2200, spread: 0.03 });
+          chordHold(L, "cellos", [m.root - 12 + L.ch[0], m.root - 12 + L.ch[1]], t, per * sd, { gain: 0.1, a: 2.5, r: 3, spread: 0.4 });
+          if (R() < 0.8) strum(L, "harp", L.ch.concat([L.ch[0] + 16]).map((n) => m.root + n), t, { gain: 0.16, spread: 0.035 });
+          if (L.ci % 4 === 3) hold(L, "horn", m.root - 12 + L.ch[1], t, per * sd, { gain: 0.1, a: 3, r: 3, pan: -0.35 });
         }
-        if (s % 8 === 0) pluck(L, mtof(m.root - 12 + L.ch[0]), t, { type: "triangle", gain: 0.055, decay: 0.45, bright: 700 });
-        if (s % 8 === 4) pluck(L, mtof(m.root - 12 + L.ch[0] + 7), t, { type: "triangle", gain: 0.04, decay: 0.4, bright: 700 });
-        if (s % 4 === 0 || s % 4 === 3) tick(L, t, { band: true, gain: 0.014 * d, freq: 1100, len: 0.06, pan: rpan(0.2) });
-        if (s % 4 === 0 && t >= L.leadUntil && R() < 0.16 * d) {
-          L.mel = Math.max(0, Math.min(9, L.mel + pick([-2, -1, 1, 2, 3, -3])));
+        if (s % 8 === 0) play(L, "basspizz", m.root - 24 + L.ch[0], t, { gain: 0.3, pan: -0.1 });
+        if (s % 8 === 4) play(L, "basspizz", m.root - 24 + L.ch[0] + 7, t, { gain: 0.24, pan: -0.1 });
+        if (s % 4 === 0 || s % 4 === 3) play(L, "taps", null, t, { gain: 0.03 * d, rate: 0.8, pan: rpan(0.2) });
+        if (s % 4 === 0 && t >= L.leadUntil && R() < 0.15 * d) {
+          L.mel = clamp(L.mel + pick([-2, -1, 1, 2, 3, -3]), 0, 9);
           const dur = sd * pick([6, 8, 12]);
-          lead(L, mtof(m.root + 24 + 12 * Math.floor(L.mel / 5) - 12 + m.penta[L.mel % 5]), t, dur, { type: "sine", cutoff: 4000, gain: 0.03, vib: 5.5, vibDepth: 16, a: 0.12, r: 0.8, scoop: 40, pan: 0.15 });
+          play(L, "oboe", m.root + 12 * Math.floor(L.mel / 5) + m.penta[L.mel % 5] + 12, t, { gain: 0.13, dur, a: 0.08, r: 0.8, pan: 0.2 });
           L.leadUntil = t + dur + sd * 4;
         }
       },
     },
 
     epic: {
-      level: 1.4,
+      level: 0.77,
       name: "Epic", line: "The road climbs, the clouds open. This is the part they'll remember.",
       colors: ["#ffc65c", "#d9533f", "#1e2a4f"],
+      uses: ["violins", "violas", "cellos", "basses", "cellospic", "timpani", "horn", "swell"],
       bpm: 80, wet: 0.6, dry: 0.75, root: 50,
       chords: [[0, 7, 12, 15], [-4, 3, 8, 12], [3, 10, 15, 19], [-2, 5, 10, 14]],
-      start(L) { L.leadUntil = 0; },
+      start(L) { L.hornUntil = 0; },
       step(L, t, s) {
         const m = this, sd = L.sd, per = 32, d = L.e.density, b = s % 16;
         if (s % per === 0) {
           L.ch = m.chords[L.ci++ % m.chords.length];
-          pad(L, L.ch.map((n) => mtof(m.root + n)), t, per * sd, { type: "sawtooth", type2: "sawtooth", a: 2, r: 3, gain: 0.055, cutoff: 1500, detune: 10, spread: 0.9 });
-          pad(L, [0, 7].map((n) => mtof(m.root - 12 + L.ch[0] + n)), t, per * sd, { type: "sawtooth", a: 1.5, r: 2.5, gain: 0.04, cutoff: 450 });
+          chordHold(L, "violins", L.ch.slice(1).map((n) => m.root + 12 + n), t, per * sd, { gain: 0.14, a: 1.5, r: 2.5, spread: 0.8 });
+          chordHold(L, "violas", L.ch.slice(0, 3).map((n) => m.root + n), t, per * sd, { gain: 0.13, a: 1.5, r: 2.5, spread: 0.5 });
+          hold(L, "cellos", m.root - 12 + L.ch[0], t, per * sd, { gain: 0.16, a: 1.2, r: 2, pan: -0.2 });
+          hold(L, "basses", m.root - 24 + L.ch[0], t, per * sd, { gain: 0.16, a: 1.2, r: 2, pan: 0.1 });
+          if (t >= L.hornUntil && R() < 0.55 * d) {
+            const n = m.root + pick(L.ch.slice(1));
+            hold(L, "horn", n - 12, t + sd * 2, sd * 14, { gain: 0.15, a: 0.8, r: 1.5, pan: -0.25 });
+            L.hornUntil = t + sd * 32;
+          }
         }
-        if (s % 2 === 0 && R() < 0.55 + 0.4 * d) pluck(L, mtof(m.root + L.ch[(s / 2) % L.ch.length]), t, { type: "sawtooth", gain: 0.018, decay: 0.3, bright: 1700, pan: rpan(0.4) });
-        if (b === 0) thump(L, t, { gain: 0.12, f0: 75, f1: 46, len: 1.2 });
-        if (b === 10) thump(L, t, { gain: 0.07, f0: 75, f1: 46, len: 0.9 });
-        if (s % 128 >= 120) thump(L, t, { gain: 0.03 + 0.012 * (s % 128 - 120), f0: 80, f1: 50, len: 0.5 });
-        if (b === 0 && t >= L.leadUntil && R() < 0.45 * d) {
-          lead(L, mtof(m.root + 12 + pick(L.ch)), t, sd * 12, { type: "sawtooth", cutoff: 900, q: 0.7, gain: 0.035, vib: 4.5, vibDepth: 8, a: 0.5, r: 1.2, pan: -0.15 });
-          L.leadUntil = t + sd * 16;
+        if (s % 2 === 0 && R() < 0.55 + 0.4 * d) play(L, "cellospic", m.root - 12 + L.ch[(s / 2) % L.ch.length], t, { gain: 0.16, pan: rpan(0.4) });
+        if (b === 0) play(L, "timpani", m.root - 24 + L.ch[0], t, { gain: 0.32, pan: 0 });
+        if (b === 10) play(L, "timpani", m.root - 24 + L.ch[0], t, { gain: 0.2, pan: 0 });
+        if (s % 128 >= 120 && s % 2 === 0) play(L, "timpani", m.root - 24, t, { gain: 0.1 + 0.03 * (s % 128 - 120), pan: 0 });
+        if (s % 128 === 104) play(L, "swell", null, t, { gain: 0.12, pan: rpan(0.3) });
+      },
+    },
+
+    scary: {
+      level: 0.91,
+      name: "Scary", line: "Something in the dark just outside the frame.",
+      colors: ["#5f8f74", "#2e4a63", "#14261f"],
+      uses: ["cellos", "basses", "vlntrem", "gong", "swell", "harp", "bells2", "kick"],
+      bpm: 60, wet: 0.9, dry: 0.55, root: 37,
+      step(L, t, s) {
+        const r = this.root, sd = L.sd, d = L.e.density;
+        if (s % 64 === 0) {
+          hold(L, "basses", r, t, 64 * sd + 2, { gain: 0.2, a: 6, r: 6, pan: -0.1, cutoff: 900 });
+          hold(L, "cellos", r + 13, t + sd * 8, 56 * sd + 2, { gain: 0.11, a: 7, r: 6, pan: 0.3 });
+          if (R() < 0.7) chordHold(L, "vlntrem", [r + 30, r + 31, r + 36].map((x) => x + 12), t + sd * 16, sd * 44, { gain: 0.03, a: 7, r: 6, spread: 0.9, cutoff: 3000 });
         }
+        if (s % 64 === 32 && R() < 0.5) hold(L, "cellos", r + 6, t, 30 * sd, { gain: 0.08, a: 6, r: 5, pan: -0.4 });
+        if (R() < 0.01 * d) play(L, "harp", r + 24 + pick([0, 1, 6, 7]), t, { gain: 0.2, pan: rpan(0.9), cutoff: 1800 });
+        if (R() < 0.004 * d) play(L, "bells2", null, t, { gain: 0.08, rate: 0.5, pan: rpan(0.9) });
+        if (R() < 0.003 * d) play(L, "gong", null, t, { gain: 0.15, rate: 0.7, pan: rpan(0.4) });
+        if (R() < 0.003 * d) play(L, "swell", null, t, { gain: 0.1, pan: rpan(0.5), rate: 0.85 });
+        if (R() < 0.004 * d) play(L, "kick", null, t, { gain: 0.25, rate: 0.6, pan: 0 });
+      },
+    },
+
+    thriller: {
+      level: 1.08,
+      name: "Thriller", line: "A train you might be followed on. Keep looking ahead.",
+      colors: ["#ff4b3e", "#b0233a", "#3a0f12"],
+      uses: ["cellospic", "vlnspic", "basses", "vlntrem", "timpani", "kick", "taps", "swell"],
+      bpm: 116, wet: 0.4, dry: 0.85, root: 45,
+      chords: [[0, 7, 12, 15], [-4, 3, 8, 12], [0, 7, 12, 15], [1, 5, 8, 13]],
+      ost: [0, 0, 12, 0, 0, 12, 0, 7, 0, 0, 12, 0, 0, 12, 3, 7],
+      step(L, t, s) {
+        const m = this, sd = L.sd, d = L.e.density, per = 32;
+        if (s % per === 0) {
+          L.ch = m.chords[L.ci++ % m.chords.length];
+          hold(L, "basses", m.root - 12 + L.ch[0], t, per * sd, { gain: 0.16, a: 1.5, r: 1.5, pan: 0 });
+          if (L.ci % 2 === 0) chordHold(L, "vlntrem", L.ch.slice(1).map((n) => m.root + 12 + n), t, per * sd, { gain: 0.035, a: 2.5, r: 2, spread: 0.7 });
+        }
+        if (R() < 0.75 + 0.25 * d) play(L, "cellospic", m.root - 12 + L.ch[0] + m.ost[s % 16], t, { gain: s % 4 === 0 ? 0.2 : 0.14, pan: -0.15 });
+        if (s % 16 === 14 && R() < 0.5 * d) play(L, "vlnspic", m.root + 12 + L.ch[2], t, { gain: 0.1, pan: 0.35 });
+        if (s % 2 === 0) play(L, "taps", null, t, { gain: 0.025 * d, rate: 1.4, pan: -0.3 });
+        if (s % 16 === 0) play(L, "kick", null, t, { gain: 0.2, human: 0, pan: 0 });
+        if (s % 16 === 3) play(L, "kick", null, t, { gain: 0.13, human: 0, pan: 0 });
+        if (s % 64 === 0) play(L, "timpani", m.root - 24 + L.ch[0], t, { gain: 0.2, pan: 0 });
+        if (s % 128 === 104) play(L, "swell", null, t, { gain: 0.1, pan: rpan(0.3) });
       },
     },
   };
@@ -611,18 +593,18 @@
 
   /* ---------- engine ---------- */
   class Engine {
-    constructor(ctx) {
+    constructor(ctx, bank) {
       this.ctx = ctx;
+      this.bank = bank;
       this.density = 1;
-      this.noise = makeNoise(ctx, 3);
       this.out = ctx.createGain();           // play / pause fader
       this.master = ctx.createGain();        // presence (intensity)
-      const hp = ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 35;
+      const hp = ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 30;
       this.comp = ctx.createDynamicsCompressor();
-      this.comp.threshold.value = -20; this.comp.ratio.value = 3;
-      this.comp.attack.value = 0.05; this.comp.release.value = 0.4; this.comp.knee.value = 12;
+      this.comp.threshold.value = -18; this.comp.ratio.value = 2.5;
+      this.comp.attack.value = 0.04; this.comp.release.value = 0.5; this.comp.knee.value = 14;
       this.reverb = ctx.createConvolver();
-      this.reverb.buffer = makeIR(ctx, 5.5, 2.6);
+      this.reverb.buffer = makeIR(ctx, 4.8, 2.8);
       this.dry = ctx.createGain();
       this.dry.connect(hp); this.reverb.connect(hp);
       hp.connect(this.master); this.master.connect(this.comp); this.comp.connect(this.out);
@@ -631,23 +613,32 @@
     }
     setIntensity(v, at) {
       this.intensity = v;
-      const g = 0.06 + 0.94 * Math.pow(v, 1.6);
+      const g = 2.5 * (0.06 + 0.94 * Math.pow(v, 1.6));   // 2.5 = make-up gain for the recordings
       this.density = 0.55 + 0.9 * v;
       const t = at == null ? this.ctx.currentTime : at;
       this.master.gain.cancelScheduledValues(t);
       this.master.gain.setTargetAtTime(g, t, 0.4);
     }
+    // Instruments needed by a mood (decode before adding the layer).
+    prepare(key) {
+      return this.bank.ensure(this.ctx, MOODS[key].uses);
+    }
+    release() {
+      const need = new Set();
+      this.layers.forEach((L) => L.mood.uses.forEach((u) => need.add(u)));
+      this.bank.keepOnly([...need]);
+    }
     addLayer(key, t, fade) {
       const ctx = this.ctx, mood = MOODS[key];
       const L = {
         e: this, ctx, key, mood, t0: t, next: t, s: 0, ci: 0, ch: mood.chords ? mood.chords[0] : [0],
-        sd: 60 / mood.bpm / 4, continuous: [], stopped: false,
+        sd: 60 / mood.bpm / 4, stopped: false,
       };
       L.fade = ctx.createGain();
       L.fade.gain.setValueAtTime(0, t);
       L.fade.gain.linearRampToValueAtTime(1, t + fade);
       L.bus = ctx.createGain();
-      L.bus.gain.value = mood.level || 1;   // per-mood loudness trim
+      L.bus.gain.value = mood.level || 1;
       L.bus.connect(L.fade);
       const dg = ctx.createGain(); dg.gain.value = mood.dry; L.fade.connect(dg); dg.connect(this.dry);
       const wg = ctx.createGain(); wg.gain.value = mood.wet; L.fade.connect(wg); wg.connect(this.reverb);
@@ -662,9 +653,7 @@
       L.fade.gain.cancelScheduledValues(t);
       L.fade.gain.setValueAtTime(L.fade.gain.value, t);
       L.fade.gain.linearRampToValueAtTime(0, t + fade);
-      L.continuous.forEach((nodes) => nodes.forEach((n) => { try { n.stop(t + fade + 0.2); } catch (e) {} }));
     }
-    // Schedule every layer's notes up to time `until`.
     schedule(until) {
       for (const L of this.layers) {
         const stopAt = L.stopped ? L.end : Infinity;
@@ -673,23 +662,24 @@
           L.s++; L.next += L.sd;
         }
       }
-      // drop layers that have fully faded (keep tails for 8s)
-      const now = this.ctx.currentTime;
+      const now = this.ctx.currentTime, before = this.layers.length;
       this.layers = this.layers.filter((L) => {
-        if (L.stopped && now > L.end + 8) { try { L.fade.disconnect(); } catch (e) {} return false; }
+        if (L.stopped && now > L.end + 10) { try { L.fade.disconnect(); } catch (e) {} return false; }
         return true;
       });
+      if (this.layers.length < before) this.release();
     }
   }
 
   /* ---------- offline: a seamless loop for lock-screen playback ---------- */
-  async function renderLoop(key, intensity, opts = {}) {
+  async function renderLoop(bank, key, intensity, opts = {}) {
     const sr = opts.sampleRate || 32000;
-    const W = 8, LEN = opts.seconds || 150, X = 6;
+    const W = 10, LEN = opts.seconds || 150, X = 6;
     const total = W + LEN + X + 1;
     const OAC = root.OfflineAudioContext || root.webkitOfflineAudioContext;
     const off = new OAC(2, Math.ceil(sr * total), sr);
-    const e = new Engine(off);
+    await bank.ensure(opts.decodeCtx || off, MOODS[key].uses);
+    const e = new Engine(off, bank);
     e.setIntensity(intensity, 0);
     e.out.connect(off.destination);
     e.addLayer(key, 0, 0.05);
@@ -724,7 +714,7 @@
     return buf;
   }
 
-  const api = { Engine, MOODS, ORDER, renderLoop, encodeWAV };
+  const api = { Engine, Bank, MOODS, ORDER, renderLoop, encodeWAV };
   root.TripEngine = api;
   if (typeof module !== "undefined") module.exports = api;
 })(typeof window !== "undefined" ? window : globalThis);

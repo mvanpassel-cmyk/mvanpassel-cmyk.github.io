@@ -137,10 +137,11 @@ details p{margin:8px 0}
 
   <details>
     <summary>How it works</summary>
-    <p>Every note is composed live on your phone, so the music never repeats. Fifteen moods, from Dreamy to Noir; swipe the row for more. They cross-fade slowly, like a cue changing in a film. <b>Shuffle</b> picks a new one every few minutes. Keep presence low: the idea is that you barely notice it, until you do.</p>
+    <p>Every note is composed live on your phone and played on recorded instruments (strings, harp, piano, brass, woodwinds, percussion), so the music never repeats. Fifteen moods, from Dreamy to Noir; swipe the row for more. They cross-fade slowly, like a cue changing in a film. <b>Shuffle</b> picks a new one every few minutes. Keep presence low: the idea is that you barely notice it, until you do.</p>
     <p><b>Screen off:</b> live mode keeps playing in most cases. If iOS stops it when the screen locks, turn on <b>Lock-screen loop</b>: it composes a 2½-minute seamless loop of the current mood and plays it through the phone's media player, which never stops. Use the lock-screen skip buttons to change mood.</p>
     <p><b>Recording</b> saves what you heard (live mode) as an audio file, so a trip keeps its own score.</p>
-    <p>Works offline once loaded. Tip: Share → Add to Home Screen.</p>
+    <p>Works offline once loaded (about 15 MB of instruments, downloaded once). Tip: Share → Add to Home Screen.</p>
+    <p>Instruments: real orchestral recordings from <b>VSCO 2 Community Edition</b> by Versilian Studios, released under CC0.</p>
   </details>
 </main>
 
@@ -150,7 +151,14 @@ details p{margin:8px 0}
 <script>
 (() => {
 "use strict";
-const { Engine, MOODS, ORDER, renderLoop, encodeWAV } = window.TripEngine;
+const { Engine, Bank, MOODS, ORDER, renderLoop, encodeWAV } = window.TripEngine;
+// Real instrument recordings (VSCO 2 CE, CC0), one mp3 sprite per instrument.
+const bank = new Bank(async (f) => {
+  const r = await fetch("samples/" + f);
+  if (!r.ok) throw new Error("Could not load " + f);
+  return r.arrayBuffer();
+});
+let loaded = false;
 const $ = (id) => document.getElementById(id);
 const store = {
   get(k, d) { try { const v = localStorage.getItem("tripscore." + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
@@ -239,7 +247,7 @@ function ensureAudio() {
   const AC = window.AudioContext || window.webkitAudioContext;
   try { ctx = new AC({ latencyHint: "playback" }); } catch (e) { ctx = new AC(); }
   try { if (navigator.audioSession) navigator.audioSession.type = "playback"; } catch (e) {}
-  engine = new Engine(ctx);
+  engine = new Engine(ctx, bank);
   engine.out.gain.value = 0;
   engine.setIntensity(state.presence / 100);
   engine.out.connect(ctx.destination);
@@ -266,6 +274,11 @@ function schedule() {
 async function startLive() {
   ensureAudio();
   if (ctx.state !== "running") await ctx.resume().catch(() => {});
+  const k = state.mood;
+  if (!loaded) setStatus("Loading the orchestra…");
+  await engine.prepare(k);
+  if (!loaded) setStatus("");
+  if (!state.playing || state.lock) return;
   const t = ctx.currentTime + 0.05;
   if (!layer || layer.stopped) layer = engine.addLayer(state.mood, t, 4);
   else if (layer.key !== state.mood) { engine.fadeOutLayer(layer, t, 2); layer = engine.addLayer(state.mood, t, 3); }
@@ -293,7 +306,8 @@ async function prepareLoop(k) {
   rendering++;
   setStatus("Composing a loop for the lock screen (takes a few seconds)…");
   try {
-    const r = await renderLoop(k, state.presence / 100);
+    const r = await renderLoop(bank, k, state.presence / 100, { decodeCtx: ctx });
+    bank.keepOnly(MOODS[state.mood].uses);
     const url = URL.createObjectURL(new Blob([encodeWAV(r.sampleRate, r.channels)], { type: "audio/wav" }));
     if (loopURL) URL.revokeObjectURL(loopURL);
     loopURL = url; loopKey = key;
@@ -328,13 +342,17 @@ function pause() {
   else { stopLive(false); setTimeout(() => { if (!state.playing) media.pause(); }, 1600); }
   updateSession();
 }
-function setMood(k) {
+let moodToken = 0;
+async function setMood(k) {
   if (k === state.mood) return;
   state.mood = k; store.set("mood", k);
   paintMood(k, true);
   updateSession();
   if (!state.playing) return;
   if (state.lock) { startLoop(); return; }
+  const token = ++moodToken;
+  await engine.prepare(k);                 // decode this mood's instruments (old mood keeps playing)
+  if (token !== moodToken || !state.playing || state.lock) return;
   const t = ctx.currentTime + 0.05;
   if (layer) engine.fadeOutLayer(layer, t, FADE);
   layer = engine.addLayer(k, t, FADE);
@@ -501,6 +519,11 @@ document.addEventListener("keydown", (e) => {
 addEventListener("beforeunload", (e) => { if (recorder) { e.preventDefault(); e.returnValue = ""; } });
 
 if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
+
+// Download every instrument up front, so the whole score works offline on the road.
+bank.prefetch((p) => { if (!loaded) setStatus(p < 1 ? `Loading instruments… ${Math.round(p * 100)}%` : ""); })
+  .then(() => { loaded = true; if (/Loading/.test($("status").textContent)) setStatus(""); })
+  .catch(() => setStatus("Couldn’t load all instruments. Check your connection and reload."));
 })();
 </script>
 </body>
