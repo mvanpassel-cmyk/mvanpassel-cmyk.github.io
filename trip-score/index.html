@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Trip Score</title>
+<meta name="description" content="A quiet, generative film score for your journey. Pick a mood and let it play in the background.">
+<meta name="theme-color" content="#0b0b10">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Trip Score">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<style>
+:root{
+  --bg:#0b0b10; --fg:#ece8e1; --mute:#8e8a84; --faint:#55524e; --line:rgba(255,255,255,.09);
+  --accent:#7f9cff;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);font-family:var(--sans);overflow-x:hidden}
+body{min-height:100dvh}
+canvas#sky{position:fixed;inset:0;width:100%;height:100%;z-index:0;filter:blur(28px) saturate(115%);transform:scale(1.15);opacity:.9}
+.grain{position:fixed;inset:-50%;z-index:1;pointer-events:none;opacity:.07;background-size:160px 160px;animation:grain 1.2s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
+.vignette{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,transparent 35%,rgba(0,0,0,.65) 100%)}
+main{position:relative;z-index:2;max-width:560px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;
+  padding:calc(env(safe-area-inset-top) + 18px) 16px calc(env(safe-area-inset-bottom) + 18px)}
+header{display:flex;justify-content:space-between;align-items:center}
+.brand{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--mute)}
+.recdot{display:none;align-items:center;gap:6px;font-size:.75rem;color:#ff8a80;font-variant-numeric:tabular-nums}
+.recdot.on{display:flex}
+.recdot i{width:8px;height:8px;border-radius:50%;background:#ff5a4e;animation:blink 1.4s infinite}
+@keyframes blink{50%{opacity:.25}}
+
+.title{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px 0}
+.now{font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--mute);margin-bottom:10px}
+#moodName{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(3.2rem,15vw,5.2rem);line-height:1;margin:0;letter-spacing:-.01em;
+  transition:opacity .9s ease, filter .9s ease}
+#moodName.swap{opacity:0;filter:blur(8px)}
+#moodLine{font-family:var(--serif);color:var(--mute);font-size:1rem;margin:14px 0 0;max-width:22em;min-height:2.6em;transition:opacity .9s}
+#play{margin-top:34px;width:92px;height:92px;border-radius:50%;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.06);
+  color:var(--fg);display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:transform .2s, background .3s, border-color .3s}
+#play:active{transform:scale(.96)}
+#play svg{width:30px;height:30px}
+#play.on{border-color:var(--accent);box-shadow:0 0 40px -8px var(--accent)}
+.status{margin-top:14px;font-size:.78rem;color:var(--mute);min-height:1.2em}
+
+.moods{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin:6px 0 18px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.mood{background:none;border:0;color:var(--mute);font-family:var(--serif);font-style:italic;font-size:1.02rem;padding:16px 0 14px;cursor:pointer;position:relative;transition:color .4s}
+.mood::after{content:"";position:absolute;left:30%;right:30%;bottom:6px;height:2px;border-radius:2px;background:var(--c);opacity:0;transition:opacity .4s}
+.mood[aria-pressed=true]{color:var(--fg)}
+.mood[aria-pressed=true]::after{opacity:1}
+@media (max-width:360px){.mood{font-size:.9rem}}
+
+.row{display:flex;align-items:flex-start;gap:12px;margin:0 0 14px}
+.lab{padding-top:8px;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--mute);width:74px;flex:none}
+.ends{display:flex;justify-content:space-between;font-size:.7rem;color:var(--faint);margin-top:4px}
+.sl{flex:1}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:28px;background:transparent;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:linear-gradient(90deg,var(--accent) var(--p,50%),rgba(255,255,255,.18) var(--p,50%));border-radius:2px}
+input[type=range]::-moz-range-track{height:2px;background:rgba(255,255,255,.18)}
+input[type=range]::-moz-range-progress{height:2px;background:var(--accent)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--fg);margin-top:-9px;border:0}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--fg);border:0}
+
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+.btn{flex:1;min-width:0;background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--fg);border-radius:12px;padding:12px 10px;font:inherit;font-size:.86rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn:disabled{opacity:.4;cursor:default}
+.btn .ic{width:16px;height:16px;flex:none}
+.btn.rec.on{background:rgba(255,90,78,.16);border-color:rgba(255,90,78,.5)}
+.btn.tog.on{border-color:var(--accent);background:rgba(255,255,255,.09)}
+.save{display:none;margin-top:8px}
+.save.on{display:flex}
+.note{font-size:.76rem;color:var(--mute);line-height:1.45;margin:12px 2px 0}
+.note b{color:var(--fg);font-weight:500}
+details{margin-top:10px;font-size:.78rem;color:var(--mute);line-height:1.5}
+summary{cursor:pointer;color:var(--faint);list-style:none;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase}
+summary::-webkit-details-marker{display:none}
+details p{margin:8px 0}
+</style>
+</head>
+<body>
+<canvas id="sky"></canvas>
+<div class="grain" id="grain"></div>
+<div class="vignette"></div>
+
+<main>
+  <header>
+    <div class="brand">Trip Score</div>
+    <div class="recdot" id="recdot"><i></i><span id="rectime">0:00</span></div>
+  </header>
+
+  <section class="title" aria-live="polite">
+    <div class="now" id="now">Your soundtrack</div>
+    <h1 id="moodName">Dreamy</h1>
+    <p id="moodLine"></p>
+    <button id="play" aria-label="Play">
+      <svg id="icPlay" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>
+      <svg id="icPause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6.5" y="5" width="4" height="14" rx="1"/><rect x="13.5" y="5" width="4" height="14" rx="1"/></svg>
+    </button>
+    <div class="status" id="status"></div>
+  </section>
+
+  <nav class="moods" id="moods" aria-label="Mood"></nav>
+
+  <div class="row">
+    <div class="lab">Presence</div>
+    <div class="sl">
+      <input type="range" id="presence" min="0" max="100" value="45" aria-label="Presence">
+      <div class="ends"><span>Barely there</span><span>Present</span></div>
+    </div>
+  </div>
+
+  <div class="btns">
+    <button class="btn rec" id="rec">
+      <svg class="ic" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5" fill="#ff5a4e"/></svg><span id="recLabel">Record this trip</span>
+    </button>
+    <button class="btn tog" id="lockMode" aria-pressed="false">
+      <svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3.5" y="7" width="9" height="6.5" rx="1.5"/><path d="M5.5 7V5a2.5 2.5 0 015 0v2"/></svg><span>Lock-screen loop</span>
+    </button>
+  </div>
+  <div class="btns save" id="saveRow">
+    <button class="btn" id="saveBtn">Save recording</button>
+    <button class="btn" id="discardBtn">Discard</button>
+  </div>
+
+  <p class="note" id="note"></p>
+
+  <details>
+    <summary>How it works</summary>
+    <p>Every note is composed live on your phone, so the music never repeats. Moods cross-fade slowly, like a cue changing in a film. Keep presence low: the idea is that you barely notice it, until you do.</p>
+    <p><b>Screen off:</b> live mode keeps playing in most cases. If iOS stops it when the screen locks, turn on <b>Lock-screen loop</b>: it composes a 2½-minute seamless loop of the current mood and plays it through the phone's media player, which never stops. Use the lock-screen skip buttons to change mood.</p>
+    <p><b>Recording</b> saves what you heard (live mode) as an audio file, so a trip keeps its own score.</p>
+    <p>Works offline once loaded. Tip: Share → Add to Home Screen.</p>
+  </details>
+</main>
+
+<audio id="media" playsinline preload="auto" style="display:none"></audio>
+
+<script src="engine.js"></script>
+<script>
+(() => {
+"use strict";
+const { Engine, MOODS, ORDER, renderLoop, encodeWAV } = window.TripEngine;
+const $ = (id) => document.getElementById(id);
+const store = {
+  get(k, d) { try { const v = localStorage.getItem("tripscore." + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem("tripscore." + k, JSON.stringify(v)); } catch (e) {} },
+};
+
+const state = {
+  mood: ORDER.includes(store.get("mood")) ? store.get("mood") : "dreamy",
+  presence: store.get("presence", 45),
+  lock: store.get("lock", false),
+  playing: false,
+};
+const FADE = 7;      // mood cross-fade, seconds
+const media = $("media");
+let ctx, engine, layer, streamDest, analyser, clock, timer, silentURL;
+let loopURL = null, loopKey = null, rendering = 0;
+let recorder = null, recChunks = [], recStart = 0, recTimer = null, recBlob = null, recType = "";
+
+const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+/* ---------------- UI ---------------- */
+function buildMoods() {
+  const nav = $("moods");
+  ORDER.forEach((k) => {
+    const b = document.createElement("button");
+    b.className = "mood"; b.textContent = MOODS[k].name; b.dataset.k = k;
+    b.style.setProperty("--c", MOODS[k].colors[0]);
+    b.addEventListener("click", () => setMood(k));
+    nav.appendChild(b);
+  });
+}
+function paintMood(k, animate) {
+  const m = MOODS[k];
+  document.documentElement.style.setProperty("--accent", m.colors[0]);
+  document.querySelectorAll(".mood").forEach((b) => b.setAttribute("aria-pressed", b.dataset.k === k));
+  const name = $("moodName"), line = $("moodLine");
+  const apply = () => { name.textContent = m.name; line.textContent = m.line; name.classList.remove("swap"); line.style.opacity = 1; };
+  if (animate) { name.classList.add("swap"); line.style.opacity = 0; setTimeout(apply, 650); } else apply();
+  sky.target = m.colors;
+}
+function paintPlay() {
+  $("play").classList.toggle("on", state.playing);
+  $("play").setAttribute("aria-label", state.playing ? "Pause" : "Play");
+  $("icPlay").style.display = state.playing ? "none" : "";
+  $("icPause").style.display = state.playing ? "" : "none";
+  $("now").textContent = state.playing ? "Now scoring" : "Your soundtrack";
+  $("rec").disabled = state.lock;
+  $("lockMode").classList.toggle("on", state.lock);
+  $("lockMode").setAttribute("aria-pressed", state.lock);
+}
+function setStatus(t) { $("status").textContent = t || ""; }
+function setNote() {
+  let t = "";
+  if (state.lock) t = "Lock-screen loop is on: a 2½-minute loop of the mood, safe with the screen off. Recording works in live mode only.";
+  else if (isIOS) t = "Plays even with the silent switch on. If it stops when you lock the screen, turn on Lock-screen loop.";
+  $("note").textContent = t;
+}
+function paintPresence() {
+  const el = $("presence");
+  el.value = state.presence;
+  el.style.setProperty("--p", state.presence + "%");
+}
+
+/* ---------------- audio setup ---------------- */
+function silentWav() {
+  // one second of silence, used to hold the iOS media session
+  const sr = 8000, data = new Float32Array(sr);
+  return URL.createObjectURL(new Blob([encodeWAV(sr, [data])], { type: "audio/wav" }));
+}
+function ensureAudio() {
+  if (ctx) return;
+  const AC = window.AudioContext || window.webkitAudioContext;
+  try { ctx = new AC({ latencyHint: "playback" }); } catch (e) { ctx = new AC(); }
+  try { if (navigator.audioSession) navigator.audioSession.type = "playback"; } catch (e) {}
+  engine = new Engine(ctx);
+  engine.out.gain.value = 0;
+  engine.setIntensity(state.presence / 100);
+  engine.out.connect(ctx.destination);
+  analyser = ctx.createAnalyser(); analyser.fftSize = 512;
+  engine.out.connect(analyser);
+  if (ctx.createMediaStreamDestination) { streamDest = ctx.createMediaStreamDestination(); engine.out.connect(streamDest); }
+  // Audio-driven clock: keeps scheduling even when timers are throttled in the background.
+  if (ctx.createScriptProcessor) {
+    clock = ctx.createScriptProcessor(4096, 1, 1);
+    const z = ctx.createGain(); z.gain.value = 0;
+    clock.onaudioprocess = () => schedule();
+    clock.connect(z); z.connect(ctx.destination);
+    const c = ctx.createConstantSource ? ctx.createConstantSource() : null;
+    if (c) { c.connect(clock); c.start(); }
+  }
+  ctx.onstatechange = () => { if (state.playing && !state.lock && ctx.state !== "running") ctx.resume().catch(() => {}); };
+  silentURL = silentWav();
+}
+function schedule() {
+  if (!engine || !state.playing || state.lock) return;
+  engine.schedule(ctx.currentTime + (document.hidden ? 12 : 3));
+}
+
+/* ---------------- live mode ---------------- */
+async function startLive() {
+  ensureAudio();
+  if (ctx.state !== "running") await ctx.resume().catch(() => {});
+  const t = ctx.currentTime + 0.05;
+  if (!layer || layer.stopped) layer = engine.addLayer(state.mood, t, 4);
+  else if (layer.key !== state.mood) { engine.fadeOutLayer(layer, t, 2); layer = engine.addLayer(state.mood, t, 3); }
+  engine.out.gain.cancelScheduledValues(t);
+  engine.out.gain.setValueAtTime(engine.out.gain.value, t);
+  engine.out.gain.linearRampToValueAtTime(1, t + 2);
+  clearInterval(timer); timer = setInterval(schedule, 250);
+  schedule();
+}
+function stopLive(hard) {
+  clearInterval(timer);
+  if (!ctx) return;
+  const t = ctx.currentTime;
+  engine.out.gain.cancelScheduledValues(t);
+  engine.out.gain.setValueAtTime(engine.out.gain.value, t);
+  engine.out.gain.linearRampToValueAtTime(0, t + 1.5);
+  if (hard) { engine.layers.forEach((L) => engine.fadeOutLayer(L, t, 1.4)); layer = null; }
+  setTimeout(() => { if (!state.playing || state.lock) ctx.suspend().catch(() => {}); }, 1700);
+}
+
+/* ---------------- lock-screen loop mode ---------------- */
+async function prepareLoop(k) {
+  const key = k + "@" + state.presence;
+  if (loopKey === key && loopURL) return loopURL;
+  rendering++;
+  setStatus("Composing a loop for the lock screen (takes a few seconds)…");
+  try {
+    const r = await renderLoop(k, state.presence / 100);
+    const url = URL.createObjectURL(new Blob([encodeWAV(r.sampleRate, r.channels)], { type: "audio/wav" }));
+    if (loopURL) URL.revokeObjectURL(loopURL);
+    loopURL = url; loopKey = key;
+    return url;
+  } finally { if (--rendering === 0) setStatus(""); }
+}
+async function startLoop() {
+  const k = state.mood;
+  const url = await prepareLoop(k);
+  if (!state.playing || !state.lock || state.mood !== k) return;
+  media.loop = true;
+  if (media.src !== url) { quiet(); media.src = url; }
+  await media.play().catch((e) => setStatus("Tap play again to start the loop."));
+}
+
+/* ---------------- transport ---------------- */
+async function play() {
+  ensureAudio();
+  state.playing = true; paintPlay();
+  // Unlock the media element inside this tap (iOS), with silence for now.
+  if (!media.src || (!state.lock && media.src !== silentURL)) { media.src = silentURL; media.loop = true; }
+  media.play().catch(() => {});
+  if (state.lock) { stopLive(true); await startLoop(); }
+  else await startLive();
+  updateSession();
+}
+let selfPause = false, spT;
+function quiet() { selfPause = true; clearTimeout(spT); spT = setTimeout(() => (selfPause = false), 800); }
+function pause() {
+  state.playing = false; paintPlay();
+  if (state.lock) { quiet(); media.pause(); }
+  else { stopLive(false); setTimeout(() => { if (!state.playing) media.pause(); }, 1600); }
+  updateSession();
+}
+function setMood(k) {
+  if (k === state.mood) return;
+  state.mood = k; store.set("mood", k);
+  paintMood(k, true);
+  updateSession();
+  if (!state.playing) return;
+  if (state.lock) { startLoop(); return; }
+  const t = ctx.currentTime + 0.05;
+  if (layer) engine.fadeOutLayer(layer, t, FADE);
+  layer = engine.addLayer(k, t, FADE);
+  schedule();
+}
+function step(dir) {
+  const i = ORDER.indexOf(state.mood);
+  setMood(ORDER[(i + dir + ORDER.length) % ORDER.length]);
+}
+async function setLock(on) {
+  if (recorder) stopRecording();
+  state.lock = on; store.set("lock", on);
+  paintPlay(); setNote();
+  if (!state.playing) return;
+  if (on) { stopLive(true); await startLoop(); }
+  else {
+    quiet(); media.pause(); media.src = silentURL; media.loop = true; media.play().catch(() => {});
+    await startLive();
+  }
+}
+
+/* ---------------- media session (lock screen controls) ---------------- */
+function updateSession() {
+  if (!("mediaSession" in navigator)) return;
+  const m = MOODS[state.mood];
+  try {
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: m.name, artist: "Trip Score", album: m.line,
+      artwork: [{ src: "icon-512.png", sizes: "512x512", type: "image/png" }],
+    });
+    navigator.mediaSession.playbackState = state.playing ? "playing" : "paused";
+  } catch (e) {}
+}
+if ("mediaSession" in navigator) {
+  const h = (a, f) => { try { navigator.mediaSession.setActionHandler(a, f); } catch (e) {} };
+  h("play", () => play()); h("pause", () => pause());
+  h("nexttrack", () => step(1)); h("previoustrack", () => step(-1));
+}
+media.addEventListener("pause", () => {
+  // In loop mode the media element *is* the music: if the system pauses it (a call, headphones out), follow along.
+  if (state.playing && state.lock && !selfPause && !rendering) { state.playing = false; paintPlay(); updateSession(); }
+});
+
+/* ---------------- recording ---------------- */
+function pickType() {
+  const c = ["audio/mp4;codecs=mp4a.40.2", "audio/mp4", "audio/webm;codecs=opus", "audio/webm", "audio/ogg;codecs=opus"];
+  if (!window.MediaRecorder) return null;
+  for (const t of c) if (!MediaRecorder.isTypeSupported || MediaRecorder.isTypeSupported(t)) return t;
+  return "";
+}
+function fmt(s) { s = Math.floor(s); const h = Math.floor(s / 3600), m = Math.floor(s / 60) % 60, x = s % 60; return (h ? h + ":" + String(m).padStart(2, "0") : m) + ":" + String(x).padStart(2, "0"); }
+async function startRecording() {
+  const type = pickType();
+  if (type === null || !streamDest) { setStatus("Recording isn’t supported in this browser."); return; }
+  if (!state.playing) await play();
+  recChunks = []; recBlob = null; $("saveRow").classList.remove("on");
+  try { recorder = type ? new MediaRecorder(streamDest.stream, { mimeType: type, audioBitsPerSecond: 128000 }) : new MediaRecorder(streamDest.stream); }
+  catch (e) { recorder = new MediaRecorder(streamDest.stream); }
+  recType = recorder.mimeType || type || "audio/webm";
+  recorder.ondataavailable = (e) => { if (e.data && e.data.size) recChunks.push(e.data); };
+  recorder.onstop = () => {
+    recBlob = new Blob(recChunks, { type: recType });
+    $("saveRow").classList.add("on");
+  };
+  recorder.start(5000);
+  recStart = Date.now();
+  $("rec").classList.add("on"); $("recLabel").textContent = "Stop recording";
+  $("recdot").classList.add("on");
+  recTimer = setInterval(() => { $("rectime").textContent = fmt((Date.now() - recStart) / 1000); }, 500);
+}
+function stopRecording() {
+  if (!recorder) return;
+  try { recorder.stop(); } catch (e) {}
+  recorder = null;
+  clearInterval(recTimer);
+  $("rec").classList.remove("on"); $("recLabel").textContent = "Record this trip";
+  $("recdot").classList.remove("on");
+}
+async function saveRecording() {
+  if (!recBlob) return;
+  const ext = recType.includes("mp4") ? "m4a" : recType.includes("ogg") ? "ogg" : "webm";
+  const d = new Date(recStart), p = (n) => String(n).padStart(2, "0");
+  const name = `trip-score-${d.getFullYear()}${p(d.getMonth() + 1)}${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}.${ext}`;
+  const file = new File([recBlob], name, { type: recType });
+  if (navigator.canShare && navigator.canShare({ files: [file] })) {
+    try { await navigator.share({ files: [file], title: "Trip Score" }); return; } catch (e) { if (e.name === "AbortError") return; }
+  }
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(recBlob); a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+}
+
+/* ---------------- visuals ---------------- */
+const sky = (() => {
+  const cv = $("sky"), g = cv.getContext("2d");
+  const hex = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+  const o = { cur: MOODS[state.mood].colors.map(hex), target: MOODS[state.mood].colors, level: 0 };
+  function size() { cv.width = Math.max(64, innerWidth / 6 | 0); cv.height = Math.max(64, innerHeight / 6 | 0); }
+  size(); addEventListener("resize", size);
+  const buf = new Uint8Array(256);
+  let last = 0;
+  function frame(ts) {
+    requestAnimationFrame(frame);
+    if (document.hidden || ts - last < 45) return;
+    last = ts;
+    const tg = o.target.map(hex);
+    o.cur = o.cur.map((c, i) => c.map((v, j) => v + (tg[i][j] - v) * 0.02));
+    let lvl = 0;
+    if (analyser && state.playing && !state.lock) {
+      analyser.getByteTimeDomainData(buf);
+      for (let i = 0; i < buf.length; i++) { const x = (buf[i] - 128) / 128; lvl += x * x; }
+      lvl = Math.min(1, Math.sqrt(lvl / buf.length) * 6);
+    }
+    o.level += (lvl - o.level) * 0.1;
+    const w = cv.width, h = cv.height, t = ts / 1000 * (state.playing ? 1 : 0.35);
+    g.globalCompositeOperation = "source-over";
+    g.fillStyle = "#0b0b10"; g.fillRect(0, 0, w, h);
+    g.globalCompositeOperation = "lighter";
+    const blobs = [
+      [0.30 + 0.18 * Math.sin(t * 0.07), 0.32 + 0.12 * Math.cos(t * 0.05), 0.55, 0],
+      [0.72 + 0.15 * Math.cos(t * 0.06), 0.55 + 0.14 * Math.sin(t * 0.08), 0.5, 1],
+      [0.45 + 0.2 * Math.sin(t * 0.04 + 2), 0.85 + 0.08 * Math.cos(t * 0.09), 0.6, 2],
+    ];
+    const breath = state.playing ? 0.75 : 0.4;
+    for (const [x, y, r, ci] of blobs) {
+      const [cr, cg, cb] = o.cur[ci];
+      const rad = Math.max(w, h) * r * (1 + o.level * 0.25);
+      const gr = g.createRadialGradient(x * w, y * h, 0, x * w, y * h, rad);
+      gr.addColorStop(0, `rgba(${cr|0},${cg|0},${cb|0},${0.42 * breath})`);
+      gr.addColorStop(1, "rgba(0,0,0,0)");
+      g.fillStyle = gr; g.fillRect(0, 0, w, h);
+    }
+  }
+  requestAnimationFrame(frame);
+  // film grain tile
+  const n = document.createElement("canvas"); n.width = n.height = 160;
+  const ng = n.getContext("2d"), id = ng.createImageData(160, 160);
+  for (let i = 0; i < id.data.length; i += 4) { const v = Math.random() * 255; id.data[i] = id.data[i + 1] = id.data[i + 2] = v; id.data[i + 3] = 255; }
+  ng.putImageData(id, 0, 0);
+  $("grain").style.backgroundImage = `url(${n.toDataURL()})`;
+  return o;
+})();
+
+/* ---------------- wire up ---------------- */
+buildMoods();
+paintMood(state.mood, false);
+paintPresence(); paintPlay(); setNote(); updateSession();
+
+$("play").addEventListener("click", () => (state.playing ? pause() : play()));
+$("presence").addEventListener("input", (e) => {
+  state.presence = +e.target.value; paintPresence();
+  if (engine) engine.setIntensity(state.presence / 100);
+});
+$("presence").addEventListener("change", () => {
+  store.set("presence", state.presence);
+  if (state.lock) { loopKey = null; if (state.playing) startLoop(); }
+});
+$("lockMode").addEventListener("click", () => setLock(!state.lock));
+$("rec").addEventListener("click", () => (recorder ? stopRecording() : startRecording()));
+$("saveBtn").addEventListener("click", saveRecording);
+$("discardBtn").addEventListener("click", () => { recBlob = null; $("saveRow").classList.remove("on"); });
+document.addEventListener("visibilitychange", () => { schedule(); if (!document.hidden && state.playing && ctx && !state.lock && ctx.state !== "running") ctx.resume().catch(() => {}); });
+document.addEventListener("keydown", (e) => {
+  if (e.target.tagName === "INPUT") return;
+  if (e.code === "Space") { e.preventDefault(); state.playing ? pause() : play(); }
+  const i = ["Digit1", "Digit2", "Digit3", "Digit4", "Digit5"].indexOf(e.code);
+  if (i >= 0) setMood(ORDER[i]);
+});
+addEventListener("beforeunload", (e) => { if (recorder) { e.preventDefault(); e.returnValue = ""; } });
+
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
+})();
+</script>
+</body>
+</html>
