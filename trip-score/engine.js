@@ -206,7 +206,35 @@
     L.continuous.push([src, lfo]);
   }
 
-  /* ---------- the five moods ---------- */
+  // Sustained melodic lead with delayed vibrato (whistle, muted trumpet, horn).
+  function lead(L, f, t, dur, o) {
+    const ctx = L.ctx;
+    const g = voiceOut(L, o.pan || 0);
+    const lp = ctx.createBiquadFilter();
+    lp.type = o.band ? "bandpass" : "lowpass"; lp.frequency.value = o.cutoff || 1500; lp.Q.value = o.q || 1;
+    lp.connect(g);
+    const osc = ctx.createOscillator(); osc.type = o.type || "sine"; osc.frequency.value = f;
+    const lfo = ctx.createOscillator(); lfo.frequency.value = o.vib || 5;
+    const vg = ctx.createGain();
+    vg.gain.setValueAtTime(0, t);
+    vg.gain.linearRampToValueAtTime(o.vibDepth || 12, t + Math.min(0.5, dur));
+    lfo.connect(vg); vg.connect(osc.detune);
+    if (o.scoop) { osc.detune.setValueAtTime(-o.scoop, t); osc.detune.linearRampToValueAtTime(0, t + 0.09); }
+    osc.connect(lp);
+    const a = o.a || 0.08, r = o.r || 0.4, peak = o.gain || 0.04;
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(peak, t + a);
+    g.gain.setValueAtTime(peak * 0.85, t + Math.max(a, dur));
+    g.gain.linearRampToValueAtTime(0, t + Math.max(a, dur) + r);
+    [osc, lfo].forEach((x) => { x.start(t); x.stop(t + dur + r + 0.1); });
+  }
+
+  // Strummed chord: plucks staggered by a few milliseconds.
+  function strum(L, freqs, t, o) {
+    freqs.forEach((f, i) => pluck(L, f, t + i * (o.spread || 0.022), Object.assign({}, o, { pan: (i / freqs.length - 0.5) * 0.6 })));
+  }
+
+  /* ---------- the moods ---------- */
   const MOODS = {
     dreamy: {
       name: "Dreamy", line: "Half-awake, floating, slow light through a window.",
@@ -313,8 +341,273 @@
         if (s % 128 === 112) swell(L, t, 16 * sd, { gain: 0.03, top: 5000 });
       },
     },
+
+    wonder: {
+      name: "Wonder", line: "Mountains turning gold. The whole world, wider than you remembered.",
+      colors: ["#8fe3d4", "#ffe2a3", "#2f6f8f"],
+      bpm: 72, wet: 0.7, dry: 0.7, root: 52,
+      chords: [[0, 7, 12, 16, 19], [5, 12, 17, 21], [-3, 4, 9, 12, 16], [-5, 2, 7, 11, 14]],
+      step(L, t, s) {
+        const m = this, sd = L.sd, per = 32, d = L.e.density;
+        if (s % per === 0) {
+          L.ch = m.chords[L.ci++ % m.chords.length];
+          pad(L, L.ch.map((n) => mtof(m.root + n)), t, per * sd + 0.5, { type: "sawtooth", type2: "triangle", a: 3, r: 4, gain: 0.05, cutoff: 2000, detune: 9, spread: 0.85 });
+          pad(L, [mtof(m.root - 12 + L.ch[0])], t, per * sd, { type: "sine", a: 2, r: 3, gain: 0.05, cutoff: 400 });
+        }
+        const b = s % 16;
+        if (b < 10 && R() < 0.6 * d) {
+          const tones = L.ch.concat(L.ch.map((n) => n + 12));
+          pluck(L, mtof(m.root + 12 + tones[b % tones.length]), t, { type: "triangle", gain: 0.026, decay: 1.9, bright: 4200, pan: b / 9 - 0.5 });
+        }
+        if (R() < 0.025 * d) bell(L, mtof(m.root + 36 + pick(L.ch)), t, { gain: 0.02, decay: 5, ratio: 2, index: 0.8, pan: rpan(0.8) });
+      },
+    },
+
+    fairytale: {
+      level: 2.5,
+      name: "Fairy tale", line: "Once upon a time, a little lantern in a big dark forest.",
+      colors: ["#f5b8ff", "#a9d8ff", "#4b3a8f"],
+      bpm: 126, wet: 0.55, dry: 0.8, root: 60, bar: 12,
+      chords: [[0, 4, 7], [-3, 0, 4], [5, 9, 12], [-5, -1, 2]],
+      scale: [0, 2, 4, 5, 7, 9, 11],
+      start(L) { L.mel = 7; },
+      step(L, t, s) {
+        const m = this, sd = L.sd, per = 24, d = L.e.density, b = s % 12;
+        if (s % per === 0) {
+          L.ch = m.chords[L.ci++ % m.chords.length];
+          pad(L, L.ch.map((n) => mtof(m.root + n)), t, per * sd, { type: "sine", a: 1, r: 2, gain: 0.03, cutoff: 1500, spread: 0.5 });
+        }
+        if (b === 0) pluck(L, mtof(m.root - 24 + L.ch[0]), t, { gain: 0.06, decay: 0.7, bright: 900 });
+        if (b === 4 || b === 8) L.ch.forEach((n) => pluck(L, mtof(m.root + n), t, { gain: 0.016, decay: 0.35, bright: 2500, pan: rpan(0.3) }));
+        if (s % 2 === 0 && R() < (b === 0 ? 0.6 : 0.3) * d) {
+          L.mel = Math.max(0, Math.min(13, L.mel + pick([-2, -1, -1, 1, 1, 2])));
+          const n = m.root + 12 + 12 * Math.floor(L.mel / 7) + m.scale[L.mel % 7];
+          bell(L, mtof(n), t, { gain: 0.03, decay: 1.6, ratio: 2, index: 0.5, pan: rpan(0.5) });
+        }
+      },
+    },
+
+    melancholy: {
+      level: 2.4,
+      name: "Melancholy", line: "Rain on the window. The last day of the trip.",
+      colors: ["#8aa0b8", "#5d6f8a", "#1d2738"],
+      bpm: 60, wet: 0.8, dry: 0.75, root: 57,
+      chords: [[0, 3, 7, 10], [-4, 0, 3, 7], [5, 8, 12], [-5, -2, 2, 7]],
+      scale: [0, 3, 5, 7, 10],
+      start(L) { L.mel = 5; L.rest = false; },
+      step(L, t, s) {
+        const m = this, sd = L.sd, per = 32, d = L.e.density, b = s % 16;
+        if (s % per === 0) {
+          L.ch = m.chords[L.ci++ % m.chords.length];
+          pad(L, L.ch.map((n) => mtof(m.root - 12 + n)), t, per * sd, { type: "sine", a: 3, r: 4, gain: 0.03, cutoff: 900, spread: 0.4 });
+          pluck(L, mtof(m.root - 24 + L.ch[0]), t, { gain: 0.06, decay: 4, bright: 900 });
+        }
+        if (b === 0) L.rest = R() < 0.3;
+        if ((b === 4 || b === 8) && s % per < 16) pluck(L, mtof(m.root - 12 + pick(L.ch)), t, { gain: 0.03, decay: 3, bright: 1400, pan: rpan(0.3) });
+        if (!L.rest && s % 4 === 0 && R() < 0.24 * d) {
+          L.mel = Math.max(0, Math.min(9, L.mel + pick([-2, -1, -1, 1, 0, 1])));
+          const n = m.root + 12 * Math.floor(L.mel / 5) + m.scale[L.mel % 5];
+          pluck(L, mtof(n), t, { gain: 0.05, decay: 3.5, bright: 1800, pan: rpan(0.25) });
+        }
+      },
+    },
+
+    scifi: {
+      level: 1.25,
+      name: "Sci-fi", line: "A quiet station orbiting somewhere far. Lights blinking in sequence.",
+      colors: ["#5ad1ff", "#7a6bff", "#0e2a4a"],
+      bpm: 84, wet: 0.65, dry: 0.75, root: 48,
+      chords: [[0, 7, 14, 16], [-2, 5, 12, 14], [3, 10, 15, 19], [5, 12, 17, 19]],
+      arp: [0, 1, 2, 3, 1, 2, 3, 4, 2, 3, 4, 5, 3, 4, 5, 6],
+      step(L, t, s) {
+        const m = this, sd = L.sd, per = 64, d = L.e.density;
+        if (s % per === 0) {
+          L.ch = m.chords[L.ci++ % m.chords.length];
+          pad(L, L.ch.map((n) => mtof(m.root + n)), t, per * sd, { type: "sawtooth", type2: "sawtooth", a: 5, r: 6, gain: 0.05, cutoff: 1100, detune: 12, spread: 0.9 });
+          pad(L, [mtof(m.root - 12 + L.ch[0])], t, per * sd, { type: "sine", a: 4, r: 5, gain: 0.05, cutoff: 300 });
+        }
+        if (R() < 0.5 + 0.4 * d) {
+          const tones = L.ch.concat(L.ch.map((n) => n + 12));
+          const n = m.root + 12 + tones[m.arp[s % 16] % tones.length];
+          const cut = 500 + 1700 * (0.5 + 0.5 * Math.sin((s / 96) * Math.PI * 2));
+          pluck(L, mtof(n), t, { type: "sawtooth", gain: 0.02, decay: 0.35, bright: cut, pan: s % 2 ? 0.4 : -0.4 });
+          if (s % 4 === 0) pluck(L, mtof(n), t + 3 * sd, { type: "sawtooth", gain: 0.008, decay: 0.3, bright: cut * 0.7, pan: s % 2 ? -0.6 : 0.6 });
+        }
+        if (R() < 0.012 * d) {
+          const f = 1400 + R() * 1800;
+          for (let i = 0; i < 1 + Math.floor(R() * 3); i++) pluck(L, f, t + i * 0.11, { gain: 0.01, decay: 0.09, bright: 9000, pan: rpan(0.9) });
+        }
+      },
+    },
+
+    neon: {
+      level: 0.65,
+      name: "Neon night", line: "City lights sliding past a taxi window at 2 a.m.",
+      colors: ["#ff4fd8", "#41e6ff", "#2a0a4a"],
+      bpm: 96, wet: 0.45, dry: 0.75, root: 52,
+      chords: [[0, 3, 7, 12], [-4, 0, 3, 8], [3, 7, 10, 15], [-2, 2, 5, 10]],
+      scale: [0, 3, 5, 7, 10],
+      start(L) { L.leadUntil = 0; },
+      step(L, t, s) {
+        const m = this, sd = L.sd, d = L.e.density, b = s % 16;
+        if (b === 0) {
+          L.ch = m.chords[L.ci++ % m.chords.length];
+          pad(L, L.ch.map((n) => mtof(m.root + n)), t, 16 * sd, { type: "sawtooth", a: 0.3, r: 0.8, gain: 0.03, cutoff: 1300, detune: 10, spread: 0.7 });
+        }
+        if (s % 2 === 0) bass(L, mtof(m.root - 24 + L.ch[0] + (s % 4 === 2 ? 12 : 0)), t, sd * 1.6, { gain: 0.05, cutoff: 550, q: 2 });
+        if (s % 4 === 2 && R() < 0.8) pad(L, L.ch.map((n) => mtof(m.root + 12 + n)), t, sd * 1.2, { type: "square", a: 0.01, r: 0.15, gain: 0.012, cutoff: 2400 });
+        if (s % 4 === 0) thump(L, t, { gain: 0.08 * d, len: 0.3 });
+        if (b === 4 || b === 12) tick(L, t, { gain: 0.03 * d, freq: 1600, len: 0.2 });
+        if (s % 2 === 1) tick(L, t, { gain: 0.008 * d, freq: 9000, len: 0.03, pan: 0.3 });
+        if (s % 4 === 0 && t >= L.leadUntil && R() < 0.12 * d) {
+          const dur = sd * pick([4, 6, 8]);
+          lead(L, mtof(m.root + 12 + pick(m.scale) + 12 * (R() < 0.3 ? 1 : 0)), t, dur, { type: "square", cutoff: 1800, gain: 0.025, vib: 5.5, vibDepth: 10, a: 0.05, r: 0.6, pan: 0.15 });
+          L.leadUntil = t + dur + sd * 2;
+        }
+      },
+    },
+
+    noir: {
+      level: 4.5,
+      name: "Noir", line: "Paris, 3 a.m. Wet cobblestones and a muted trumpet somewhere.",
+      colors: ["#c9b38a", "#7d6a52", "#1a1714"],
+      bpm: 70, wet: 0.6, dry: 0.8, root: 50,
+      chords: [[0, 3, 7, 10, 14], [5, 8, 12, 15], [1, 5, 8, 12], [-5, -1, 2, 5]],
+      blues: [0, 3, 5, 6, 7, 10, 12, 15],
+      start(L) { L.phrase = []; L.leadUntil = 0; },
+      step(L, t, s) {
+        const m = this, sd = L.sd, per = 32, d = L.e.density, b = s % 16;
+        if (s % per === 0) L.ch = m.chords[L.ci++ % m.chords.length];
+        if (s % per === 0 || (s % per === 22 && R() < 0.5)) L.ch.forEach((n, i) => pluck(L, mtof(m.root + n), t + i * 0.012, { gain: 0.022, decay: 2.6, bright: 1400, pan: rpan(0.3) }));
+        if (s % 4 === 0) {
+          const n = b === 0 && s % per === 0 ? L.ch[0] : L.ch[0] + pick([0, 3, 5, 7, 10, -2]);
+          pluck(L, mtof(m.root - 24 + n), t, { type: "triangle", gain: 0.065, decay: 0.7, bright: 650 });
+          tick(L, t, { gain: 0.007 * d, freq: 3000, len: 0.25, pan: -0.2 });
+        }
+        if (s % 4 === 3) tick(L, t, { gain: 0.006 * d, freq: 7000, len: 0.08, pan: 0.3 });
+        // muted trumpet: short phrases with breathing room
+        if (t >= L.leadUntil && s % 2 === 0) {
+          if (!L.phrase.length && R() < 0.1 * d) {
+            let k = 2 + Math.floor(R() * 4), at = 0; L.phrase = [];
+            while (k--) { const len = pick([2, 3, 4, 6]); L.phrase.push([at, len, pick(m.blues)]); at += len; }
+            L.phraseStart = s;
+          }
+          if (L.phrase.length) {
+            const [at, len, n] = L.phrase[0];
+            if (s - L.phraseStart >= at) {
+              L.phrase.shift();
+              lead(L, mtof(m.root + 12 + n), t, len * sd * 0.9, { type: "sawtooth", band: true, cutoff: 1300, q: 3, gain: 0.04, vib: 5, vibDepth: 14, a: 0.06, r: 0.35, scoop: 60, pan: 0.2 });
+              if (!L.phrase.length) L.leadUntil = t + sd * (8 + Math.floor(R() * 16));
+            }
+          }
+        }
+      },
+    },
+
+    mystery: {
+      level: 0.6,
+      name: "Mystery", line: "A detail nobody else noticed. Follow it quietly.",
+      colors: ["#9be37a", "#4a7fb0", "#16242a"],
+      bpm: 76, wet: 0.55, dry: 0.8, root: 50,
+      chords: [[0, 3, 6, 9], [0, 3, 6, 10], [-1, 2, 5, 8], [0, 3, 6, 10]],
+      oct: [0, 1, 3, 4, 6, 7, 9, 10],
+      start(L) { L.mel = 8; },
+      step(L, t, s) {
+        const m = this, sd = L.sd, per = 64, d = L.e.density;
+        if (s % per === 0) {
+          L.ch = m.chords[L.ci++ % m.chords.length];
+          pad(L, L.ch.map((n) => mtof(m.root + n)), t, per * sd, { type: "sine", a: 4, r: 4, gain: 0.03, cutoff: 900, spread: 0.6 });
+        }
+        if (s % 16 === 0) bass(L, mtof(m.root - 12 + L.ch[0]), t, sd * 6, { type: "triangle", gain: 0.05, cutoff: 400, q: 1 });
+        if (s % 2 === 0 && R() < 0.62 * d) {
+          L.mel = Math.max(0, Math.min(15, L.mel + pick([-1, -1, 1, 1, 2, -2, 0])));
+          const n = m.root + 12 * Math.floor(L.mel / 8) + m.oct[L.mel % 8];
+          pluck(L, mtof(n), t, { type: "triangle", gain: 0.045, decay: 0.28, bright: 1600, pan: rpan(0.5) });
+        }
+        if (s % 4 === 0) tick(L, t, { band: true, gain: 0.02 * d, freq: 2600, len: 0.05, pan: -0.4 });
+        if (R() < 0.02 * d) bell(L, mtof(m.root + 24 + pick(m.oct)), t, { gain: 0.02, decay: 2.5, ratio: 3, index: 1, pan: rpan(0.8) });
+      },
+    },
+
+    spy: {
+      level: 2.8,
+      name: "Spy", line: "Sunglasses, a borrowed name, and a car waiting downstairs.",
+      colors: ["#ffb84a", "#3fa7a0", "#14202a"],
+      bpm: 120, wet: 0.4, dry: 0.75, root: 52,
+      chords: [[0, 3, 7, 11], [0, 3, 7, 11], [5, 8, 12, 16], [-5, -1, 2, 6]],
+      line_: [0, null, 0, 3, null, 5, 4, null, 3, null, 0, null, 7, null, 6, 5],
+      start(L) { L.leadUntil = 0; },
+      step(L, t, s) {
+        const m = this, sd = L.sd, per = 32, d = L.e.density, b = s % 16;
+        if (s % per === 0) {
+          L.ch = m.chords[L.ci++ % m.chords.length];
+          pad(L, L.ch.map((n) => mtof(m.root + n)), t, per * sd, { type: "triangle", type2: "sine", a: 1.5, r: 2, gain: 0.035, cutoff: 1300, spread: 0.6 });
+        }
+        const n = m.line_[b];
+        if (n !== null && R() < 0.75 + 0.25 * d) pluck(L, mtof(m.root - 12 + L.ch[0] + n), t, { type: "sawtooth", gain: 0.04, decay: 0.45, bright: 1700, pan: -0.2 });
+        if (b === 4 || b === 12) strum(L, L.ch.map((x) => mtof(m.root + x)), t, { type: "sawtooth", gain: 0.012, decay: 0.3, bright: 2400, spread: 0.012 });
+        if (s % 2 === 0) tick(L, t, { gain: (s % 4 === 2 ? 0.016 : 0.009) * d, freq: 8000, len: 0.05, pan: 0.35 });
+        if (b === 0 && t >= L.leadUntil && R() < 0.25 * d) {
+          const top = m.root + 12 + L.ch[3];
+          lead(L, mtof(top), t, sd * 6, { type: "sawtooth", cutoff: 1600, gain: 0.03, vib: 6, vibDepth: 8, a: 0.03, r: 0.6, scoop: 80, pan: 0.25 });
+          L.leadUntil = t + sd * 32;
+        }
+      },
+    },
+
+    western: {
+      level: 2.4,
+      name: "Western", line: "Long straight road, dust in the light, a canyon echo.",
+      colors: ["#f2a65a", "#c8553d", "#3a2414"],
+      bpm: 84, wet: 0.7, dry: 0.75, root: 50,
+      chords: [[0, 7, 12], [5, 12, 17], [0, 7, 12], [-5, 2, 7]],
+      penta: [0, 2, 4, 7, 9],
+      start(L) { L.leadUntil = 0; L.mel = 5; },
+      step(L, t, s) {
+        const m = this, sd = L.sd, per = 32, d = L.e.density, b = s % 16;
+        if (s % per === 0) {
+          L.ch = m.chords[L.ci++ % m.chords.length];
+          pad(L, L.ch.map((n) => mtof(m.root + n)), t, per * sd, { type: "triangle", a: 2.5, r: 3, gain: 0.035, cutoff: 1100, spread: 0.6 });
+          if (R() < 0.8) strum(L, L.ch.concat([L.ch[0] + 16]).map((n) => mtof(m.root + n)), t, { type: "sawtooth", gain: 0.022, decay: 1.6, bright: 2200, spread: 0.03 });
+        }
+        if (s % 8 === 0) pluck(L, mtof(m.root - 12 + L.ch[0]), t, { type: "triangle", gain: 0.055, decay: 0.45, bright: 700 });
+        if (s % 8 === 4) pluck(L, mtof(m.root - 12 + L.ch[0] + 7), t, { type: "triangle", gain: 0.04, decay: 0.4, bright: 700 });
+        if (s % 4 === 0 || s % 4 === 3) tick(L, t, { band: true, gain: 0.014 * d, freq: 1100, len: 0.06, pan: rpan(0.2) });
+        if (s % 4 === 0 && t >= L.leadUntil && R() < 0.16 * d) {
+          L.mel = Math.max(0, Math.min(9, L.mel + pick([-2, -1, 1, 2, 3, -3])));
+          const dur = sd * pick([6, 8, 12]);
+          lead(L, mtof(m.root + 24 + 12 * Math.floor(L.mel / 5) - 12 + m.penta[L.mel % 5]), t, dur, { type: "sine", cutoff: 4000, gain: 0.03, vib: 5.5, vibDepth: 16, a: 0.12, r: 0.8, scoop: 40, pan: 0.15 });
+          L.leadUntil = t + dur + sd * 4;
+        }
+      },
+    },
+
+    epic: {
+      level: 1.4,
+      name: "Epic", line: "The road climbs, the clouds open. This is the part they'll remember.",
+      colors: ["#ffc65c", "#d9533f", "#1e2a4f"],
+      bpm: 80, wet: 0.6, dry: 0.75, root: 50,
+      chords: [[0, 7, 12, 15], [-4, 3, 8, 12], [3, 10, 15, 19], [-2, 5, 10, 14]],
+      start(L) { L.leadUntil = 0; },
+      step(L, t, s) {
+        const m = this, sd = L.sd, per = 32, d = L.e.density, b = s % 16;
+        if (s % per === 0) {
+          L.ch = m.chords[L.ci++ % m.chords.length];
+          pad(L, L.ch.map((n) => mtof(m.root + n)), t, per * sd, { type: "sawtooth", type2: "sawtooth", a: 2, r: 3, gain: 0.055, cutoff: 1500, detune: 10, spread: 0.9 });
+          pad(L, [0, 7].map((n) => mtof(m.root - 12 + L.ch[0] + n)), t, per * sd, { type: "sawtooth", a: 1.5, r: 2.5, gain: 0.04, cutoff: 450 });
+        }
+        if (s % 2 === 0 && R() < 0.55 + 0.4 * d) pluck(L, mtof(m.root + L.ch[(s / 2) % L.ch.length]), t, { type: "sawtooth", gain: 0.018, decay: 0.3, bright: 1700, pan: rpan(0.4) });
+        if (b === 0) thump(L, t, { gain: 0.12, f0: 75, f1: 46, len: 1.2 });
+        if (b === 10) thump(L, t, { gain: 0.07, f0: 75, f1: 46, len: 0.9 });
+        if (s % 128 >= 120) thump(L, t, { gain: 0.03 + 0.012 * (s % 128 - 120), f0: 80, f1: 50, len: 0.5 });
+        if (b === 0 && t >= L.leadUntil && R() < 0.45 * d) {
+          lead(L, mtof(m.root + 12 + pick(L.ch)), t, sd * 12, { type: "sawtooth", cutoff: 900, q: 0.7, gain: 0.035, vib: 4.5, vibDepth: 8, a: 0.5, r: 1.2, pan: -0.15 });
+          L.leadUntil = t + sd * 16;
+        }
+      },
+    },
   };
-  const ORDER = ["dreamy", "scary", "lovely", "happy", "thriller"];
+  const ORDER = ["dreamy", "lovely", "happy", "wonder", "fairytale", "melancholy", "scifi", "neon", "noir", "mystery", "spy", "western", "epic", "scary", "thriller"];
 
   /* ---------- engine ---------- */
   class Engine {
@@ -354,6 +647,7 @@
       L.fade.gain.setValueAtTime(0, t);
       L.fade.gain.linearRampToValueAtTime(1, t + fade);
       L.bus = ctx.createGain();
+      L.bus.gain.value = mood.level || 1;   // per-mood loudness trim
       L.bus.connect(L.fade);
       const dg = ctx.createGain(); dg.gain.value = mood.dry; L.fade.connect(dg); dg.connect(this.dry);
       const wg = ctx.createGain(); wg.gain.value = mood.wet; L.fade.connect(wg); wg.connect(this.reverb);
