@@ -63,6 +63,8 @@ h2.group small{font-weight:500;letter-spacing:0;text-transform:none}
 .opt .b i{display:block;height:100%;background:var(--c,var(--accent));opacity:.75}
 .opt .p{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted)}
 .opt.now .l,.opt.now .p{color:var(--ink);font-weight:600}
+.fc{margin-left:auto;color:var(--accent);font-weight:600;cursor:pointer}
+.fc:hover{text-decoration:underline}
 .meta{grid-column:1 / -1;display:flex;gap:6px 12px;flex-wrap:wrap;align-items:center;margin-top:8px;font-size:12.5px;color:var(--muted)}
 .src{font-weight:600;letter-spacing:.02em;border:1px solid var(--line);border-radius:5px;padding:0 6px}
 .theme{display:inline-flex;align-items:center;gap:5px}
@@ -156,6 +158,12 @@ function delta(d){
   return `<span class="delta ${pts > 0 ? "up" : "down"}" title="Change over 7 days">${pts > 0 ? "▲" : "▼"} ${Math.abs(pts)} pt</span>`;
 }
 
+const PSY = "https://mvanpassel-cmyk.github.io/psychohistory/";
+function fcLink(it){
+  if (it.kind !== "binary" || !it.themes.includes("health") || it.prob == null) return "";
+  const u = PSY + "?" + new URLSearchParams({ q: it.title, crowd: Math.round(it.prob * 100), due: (it.resolves || "").slice(0, 10), src: it.url, site: SOURCES[it.source] || it.source });
+  return `<span class="fc" role="link" tabindex="0" data-psy="${esc(u)}">Forecast this &rarr;</span>`;
+}
 function card(it){
   const t = THEMES[it.themes[0]] || { c:"var(--accent)" };
   let lead = "", opts = "";
@@ -172,7 +180,7 @@ function card(it){
     <div class="prob"><b>${pct(it.prob)}</b><span>%</span></div>
     ${lead}
     ${it.kind === "binary" ? `<div class="bar"><i style="width:${it.prob*100}%"></i></div>` : opts}
-    <div class="meta"><span class="src">${SOURCES[it.source] || it.source}</span>${themes}<span>${fmtVol(it.volume, it.volumeUnit)}</span>${delta(it.d7)}${spark(it.spark)}</div>
+    <div class="meta"><span class="src">${SOURCES[it.source] || it.source}</span>${themes}<span>${fmtVol(it.volume, it.volumeUnit)}</span>${delta(it.d7)}${spark(it.spark)}${fcLink(it)}</div>
   </a>`;
 }
 
@@ -227,6 +235,12 @@ function renderControls(){
     .map(([k, l]) => `<button class="chip" data-src="${k}" aria-pressed="${state.sources.has(k)}">${l}</button>`).join("");
 }
 
+function openFc(e){
+  const b = e.target.closest("[data-psy]"); if (!b) return;
+  if (e.type === "keydown" && e.key !== "Enter") return;
+  e.preventDefault(); e.stopPropagation(); window.open(b.dataset.psy, "_blank", "noopener");
+}
+$("list").addEventListener("click", openFc); $("list").addEventListener("keydown", openFc);
 $("themes").addEventListener("click", e => { const b = e.target.closest("[data-theme]"); if (!b) return; state.theme = b.dataset.theme; renderControls(); render(); });
 $("sources").addEventListener("click", e => {
   const b = e.target.closest("[data-src]"); if (!b) return;
