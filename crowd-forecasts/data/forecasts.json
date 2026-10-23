@@ -1,120 +1,38 @@
 {
- "generated": "2026-10-23T14:30:46.411Z",
+ "generated": "2026-10-23T14:35:36.626Z",
  "sources": {
   "polymarket": {
    "ok": true,
    "count": 80,
-   "updated": "2026-10-23T14:30:46.411Z"
+   "updated": "2026-10-23T14:35:36.626Z"
   },
   "kalshi": {
    "ok": true,
    "count": 50,
-   "updated": "2026-10-23T14:30:46.411Z"
+   "updated": "2026-10-23T14:35:36.626Z"
   },
   "manifold": {
    "ok": true,
    "count": 30,
-   "updated": "2026-10-23T14:30:46.411Z"
+   "updated": "2026-10-23T14:35:36.626Z"
   },
   "metaculus": {
    "ok": true,
    "count": 3,
-   "updated": "2026-10-23T14:30:46.411Z",
+   "updated": "2026-10-23T14:35:36.626Z",
    "stats": {
     "fetched": 1060,
     "skipped": {
      "conditional": 31,
-     "no community prediction": 334,
      "group": 165,
      "few forecasters": 102,
      "no theme match": 172,
      "excluded topic": 104,
      "notebook": 147,
      "date": 1,
+     "no community prediction": 334,
      "numeric": 1
     },
-    "sampleNoCP": [
-     {
-      "title": "What percent of Americans will oppose the Iran War on the eve of Election Day 2026?",
-      "type": "discrete",
-      "status": "open",
-      "nr_forecasters": 12,
-      "forecasts_count": 146,
-      "cp_reveal_time": "2026-10-25T17:00:00Z",
-      "open_time": "2026-10-18T15:00:00Z",
-      "rwKeys": [
-       "history",
-       "latest",
-       "score_data",
-       "movement"
-      ],
-      "historyLen": null,
-      "latest": null,
-      "aggKeys": [
-       "recency_weighted"
-      ]
-     },
-     {
-      "title": "Will Donald Trump and Vladimir Putin meet in person before December 1, 2026?",
-      "type": "binary",
-      "status": "open",
-      "nr_forecasters": 34,
-      "forecasts_count": 1146,
-      "cp_reveal_time": "2026-10-09T12:00:00Z",
-      "open_time": "2026-10-02T12:00:00Z",
-      "rwKeys": [
-       "history",
-       "latest",
-       "score_data",
-       "movement"
-      ],
-      "historyLen": null,
-      "latest": null,
-      "aggKeys": [
-       "recency_weighted"
-      ]
-     },
-     {
-      "title": "Will Israel withdraw behind the original Yellow Line in Gaza before January 1, 2027?",
-      "type": "binary",
-      "status": "open",
-      "nr_forecasters": 87,
-      "forecasts_count": 483,
-      "cp_reveal_time": "2026-10-16T17:00:00Z",
-      "open_time": "2026-10-12T17:00:00Z",
-      "rwKeys": [
-       "history",
-       "latest",
-       "score_data",
-       "movement"
-      ],
-      "historyLen": null,
-      "latest": null,
-      "aggKeys": [
-       "recency_weighted"
-      ]
-     },
-     {
-      "title": "Will the US approve a $10B exchange stabilisation facility for Pakistan before 2027?",
-      "type": "binary",
-      "status": "open",
-      "nr_forecasters": 88,
-      "forecasts_count": 701,
-      "cp_reveal_time": "2026-10-09T14:36:00Z",
-      "open_time": "2026-10-06T17:00:00Z",
-      "rwKeys": [
-       "history",
-       "latest",
-       "score_data",
-       "movement"
-      ],
-      "historyLen": null,
-      "latest": null,
-      "aggKeys": [
-       "recency_weighted"
-      ]
-     }
-    ],
     "sampleGroup": {
      "title": "Which countries' intelligence services will be officially identified as recipients of information from former BND chief August Hanning before July 1, 2027?",
      "keys": [
@@ -207,7 +125,150 @@
       "histogram"
      ],
      "cp_reveal_time": "2026-04-27T15:39:00Z"
-    }
+    },
+    "detailTried": 90,
+    "detailGot": 0,
+    "detailSamples": [
+     {
+      "title": "Will there be a bilateral ceasefire in the Russo-Ukrainian conflict before 2027?",
+      "topKeys": [
+       "id",
+       "title",
+       "short_title",
+       "url_title",
+       "slug",
+       "author_id",
+       "author_username",
+       "coauthors",
+       "created_at",
+       "published_at",
+       "edited_at",
+       "curation_status",
+       "curation_status_updated_at",
+       "comment_count",
+       "status",
+       "resolved",
+       "actual_close_time",
+       "scheduled_close_time",
+       "scheduled_resolve_time",
+       "actual_resolve_time",
+       "open_time",
+       "nr_forecasters",
+       "html_metadata_json",
+       "projects",
+       "question",
+       "user_permission",
+       "vote",
+       "forecasts_count",
+       "subscriptions",
+       "key_factors",
+       "is_current_content_translated"
+      ],
+      "aggKeys": [
+       "recency_weighted"
+      ],
+      "rwKeys": [
+       "history",
+       "latest",
+       "score_data",
+       "movement"
+      ],
+      "hasLatest": false
+     },
+     {
+      "title": "Will China attack or blockade Taiwan during 2026?",
+      "topKeys": [
+       "id",
+       "title",
+       "short_title",
+       "url_title",
+       "slug",
+       "author_id",
+       "author_username",
+       "coauthors",
+       "created_at",
+       "published_at",
+       "edited_at",
+       "curation_status",
+       "curation_status_updated_at",
+       "comment_count",
+       "status",
+       "resolved",
+       "actual_close_time",
+       "scheduled_close_time",
+       "scheduled_resolve_time",
+       "actual_resolve_time",
+       "open_time",
+       "nr_forecasters",
+       "html_metadata_json",
+       "projects",
+       "question",
+       "user_permission",
+       "vote",
+       "forecasts_count",
+       "subscriptions",
+       "key_factors",
+       "is_current_content_translated"
+      ],
+      "aggKeys": [
+       "recency_weighted"
+      ],
+      "rwKeys": [
+       "history",
+       "latest",
+       "score_data",
+       "movement"
+      ],
+      "hasLatest": false
+     },
+     {
+      "title": "Will there be a ceasefire in the Sudanese Civil War during 2026?",
+      "topKeys": [
+       "id",
+       "title",
+       "short_title",
+       "url_title",
+       "slug",
+       "author_id",
+       "author_username",
+       "coauthors",
+       "created_at",
+       "published_at",
+       "edited_at",
+       "curation_status",
+       "curation_status_updated_at",
+       "comment_count",
+       "status",
+       "resolved",
+       "actual_close_time",
+       "scheduled_close_time",
+       "scheduled_resolve_time",
+       "actual_resolve_time",
+       "open_time",
+       "nr_forecasters",
+       "html_metadata_json",
+       "projects",
+       "question",
+       "user_permission",
+       "vote",
+       "forecasts_count",
+       "subscriptions",
+       "key_factors",
+       "is_current_content_translated"
+      ],
+      "aggKeys": [
+       "recency_weighted"
+      ],
+      "rwKeys": [
+       "history",
+       "latest",
+       "score_data",
+       "movement"
+      ],
+      "hasLatest": false
+     }
+    ],
+    "detailError": "Metaculus rate limited"
    }
   }
  },
@@ -283,7 +344,7 @@
    "options": [
     {
      "label": "October 22",
-     "p": 0.981,
+     "p": 0.982,
      "end": "2026-10-23T03:59:00.000Z"
     },
     {
@@ -303,7 +364,7 @@
     },
     {
      "label": "November 8",
-     "p": 0.59,
+     "p": 0.595,
      "end": "2026-11-09T04:59:00.000Z"
     },
     {
@@ -380,12 +441,12 @@
     "conflict"
    ],
    "kind": "multi",
-   "prob": 0.495,
+   "prob": 0.494,
    "lead": "Gadi Eizenkot",
    "options": [
     {
      "label": "Gadi Eizenkot",
-     "p": 0.495,
+     "p": 0.494,
      "end": "2026-10-28T03:59:00.000Z"
     },
     {
@@ -418,7 +479,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.495
+    0.494
    ]
   },
   {
@@ -554,12 +615,12 @@
     "conflict"
    ],
    "kind": "ladder",
-   "prob": 0.991,
+   "prob": 0.992,
    "lead": "October 31",
    "options": [
     {
      "label": "October 31",
-     "p": 0.991,
+     "p": 0.992,
      "end": "2026-11-01T03:59:00.000Z"
     },
     {
@@ -582,7 +643,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.991
+    0.992
    ]
   },
   {
@@ -727,7 +788,7 @@
     },
     {
      "label": "November 30",
-     "p": 0.775,
+     "p": 0.785,
      "end": "2026-12-01T04:59:00.000Z"
     },
     {
@@ -937,17 +998,17 @@
     },
     {
      "label": "November 15",
-     "p": 0.255,
+     "p": 0.26,
      "end": "2026-11-16T04:59:00.000Z"
     },
     {
      "label": "November 30",
-     "p": 0.265,
+     "p": 0.28,
      "end": "2026-12-01T04:59:00.000Z"
     },
     {
      "label": "December 31",
-     "p": 0.375,
+     "p": 0.385,
      "end": "2027-01-01T04:59:00.000Z"
     }
    ],
@@ -980,7 +1041,7 @@
     },
     {
      "label": "December 31",
-     "p": 0.405,
+     "p": 0.41,
      "end": "2027-01-01T04:59:00.000Z"
     }
    ],
@@ -1003,12 +1064,12 @@
     "conflict"
    ],
    "kind": "ladder",
-   "prob": 0.038,
+   "prob": 0.034,
    "lead": "October 31",
    "options": [
     {
      "label": "October 31",
-     "p": 0.038,
+     "p": 0.034,
      "end": "2026-11-01T03:59:00.000Z"
     },
     {
@@ -1086,7 +1147,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.038
+    0.034
    ]
   },
   {
@@ -1487,7 +1548,7 @@
    "source": "kalshi",
    "title": "Ohio Senate winner? (In 2026)",
    "url": "https://kalshi.com/markets/senateohs",
-   "volume": 8201555,
+   "volume": 8201590,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -1547,7 +1608,7 @@
     },
     {
      "label": "Alireza Arafi",
-     "p": 0.026,
+     "p": 0.028,
      "end": "2026-12-31T17:00:00.000Z"
     },
     {
@@ -1889,12 +1950,12 @@
     },
     {
      "label": "↑5k",
-     "p": 0.984,
+     "p": 0.985,
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
      "label": "↑4.75k",
-     "p": 0.98,
+     "p": 0.981,
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
@@ -2526,16 +2587,16 @@
     },
     {
      "label": "Australia",
-     "p": 0.115,
-     "end": "2027-01-01T04:59:00.000Z"
-    },
-    {
-     "label": "India",
-     "p": 0.105,
+     "p": 0.11,
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
      "label": "United Kingdom",
+     "p": 0.105,
+     "end": "2027-01-01T04:59:00.000Z"
+    },
+    {
+     "label": "Russia",
      "p": 0.105,
      "end": "2027-01-01T04:59:00.000Z"
     }
@@ -2941,19 +3002,19 @@
    "source": "kalshi",
    "title": "Texas Senate winner? (In 2026)",
    "url": "https://kalshi.com/markets/senatetx",
-   "volume": 37274178,
+   "volume": 37281439,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
     "elections"
    ],
    "kind": "multi",
-   "prob": 0.65,
+   "prob": 0.66,
    "lead": "James Talarico",
    "options": [
     {
      "label": "James Talarico",
-     "p": 0.65,
+     "p": 0.66,
      "end": "2027-01-04T15:00:00.000Z"
     },
     {
@@ -2966,7 +3027,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.65
+    0.66
    ]
   },
   {
@@ -2974,7 +3035,7 @@
    "source": "kalshi",
    "title": "Maine Senate winner? (In 2026)",
    "url": "https://kalshi.com/markets/senateme",
-   "volume": 10188159,
+   "volume": 10190825,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -3007,7 +3068,7 @@
    "source": "kalshi",
    "title": "Michigan Senate winner? (In 2026)",
    "url": "https://kalshi.com/markets/senatemi",
-   "volume": 8813156,
+   "volume": 8813195,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -3106,7 +3167,7 @@
    "source": "kalshi",
    "title": "Kansas Senate winner? (In 2026)",
    "url": "https://kalshi.com/markets/senateks",
-   "volume": 4337960,
+   "volume": 4338000,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -3172,7 +3233,7 @@
    "source": "kalshi",
    "title": "Minnesota Senate winner? (In 2026)",
    "url": "https://kalshi.com/markets/senatemn",
-   "volume": 3496866,
+   "volume": 3496879,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -3739,19 +3800,19 @@
    "source": "kalshi",
    "title": "2026 Midterms: Congress Balance of Power? (For Feb 2027)",
    "url": "https://kalshi.com/markets/kxbalancepowercombo",
-   "volume": 52024385,
+   "volume": 52037726,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
     "elections"
    ],
    "kind": "multi",
-   "prob": 0.67,
+   "prob": 0.66,
    "lead": "Democrats sweep",
    "options": [
     {
      "label": "Democrats sweep",
-     "p": 0.67,
+     "p": 0.66,
      "end": "2027-02-01T15:00:00.000Z"
     },
     {
@@ -3761,7 +3822,7 @@
     },
     {
      "label": "Republicans sweep",
-     "p": 0.089,
+     "p": 0.086,
      "end": "2027-02-01T15:00:00.000Z"
     },
     {
@@ -3774,7 +3835,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.67
+    0.66
    ]
   },
   {
@@ -3782,7 +3843,7 @@
    "source": "kalshi",
    "title": "Which party will win the U.S. Senate? (In 2026)",
    "url": "https://kalshi.com/markets/controls",
-   "volume": 17430812,
+   "volume": 17433630,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -3838,7 +3899,7 @@
     },
     {
      "label": "December 31, 2027",
-     "p": 0.245,
+     "p": 0.255,
      "end": "2028-01-01T04:59:00.000Z"
     }
    ],
@@ -4415,7 +4476,7 @@
    "source": "kalshi",
    "title": "2028 Democratic presidential nominee (In 2028)",
    "url": "https://kalshi.com/markets/kxpresnomd",
-   "volume": 245934735,
+   "volume": 245948503,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -5304,7 +5365,7 @@
    "source": "kalshi",
    "title": "2028 U.S. Presidential Election winner? (In 2028)",
    "url": "https://kalshi.com/markets/kxpresperson",
-   "volume": 75999175,
+   "volume": 76001262,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -5326,7 +5387,7 @@
     },
     {
      "label": "Marco Rubio",
-     "p": 0.1,
+     "p": 0.095,
      "end": "2029-01-21T15:00:00.000Z"
     },
     {
@@ -5390,7 +5451,7 @@
    "source": "kalshi",
    "title": "How much will the US acquire Greenland for? (During Trump's term)",
    "url": "https://kalshi.com/markets/kxgreenlandprice",
-   "volume": 1780075,
+   "volume": 1780097,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
