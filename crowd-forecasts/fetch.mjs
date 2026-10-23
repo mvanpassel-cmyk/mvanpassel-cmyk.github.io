@@ -57,6 +57,8 @@ const EXCLUDE = [
   /\b(weather|temperature|hurricane|snow|rain|°)\b/i,
   /\b(elon|musk|openai|gpt|ai model|tesla|apple|google|microsoft)\b/i,
   /\b(approval rating|deport|ice raids?|epstein|doge)\b/i,
+  /\b(aliens?|ufo|uap|margin of victory|popular vote margin|turnout|how many|mention)\b/i,
+  /\[(polymarket|kalshi|metaculus)\]/i, /^if /i,
 ];
 
 // Primary theme = first match in this order, so a war-related election or trade item
@@ -218,7 +220,7 @@ async function kalshi() {
     const useful = options.length > 1 ? options.filter((o) => o.p != null && o.p > 0.005) : options;
     const series = (e.series_ticker || e.event_ticker || "").toLowerCase();
     const item = buildItem({
-      id: "ks-" + e.event_ticker, source: "kalshi", title: e.sub_title && !title.includes(e.sub_title) ? `${title} (${e.sub_title})` : title,
+      id: "ks-" + e.event_ticker, source: "kalshi", title: e.sub_title && e.sub_title.length <= 40 && !title.includes(e.sub_title) ? `${title} (${e.sub_title})` : title,
       url: `https://kalshi.com/markets/${series}`,
       volume: Math.round(vol), volumeUnit: "contracts",
       end: null, themes,
@@ -335,7 +337,7 @@ async function main() {
       sources[name] = { ok: true, count: got.length, updated: NOW.toISOString() };
       console.log(`${name}: ${got.length} items`);
     } catch (e) {
-      if (/^SKIP/.test(e.message)) { console.log(`${name} skipped: ${e.message}`); continue; }
+      if (/^SKIP/.test(e.message)) { console.log(`${name} skipped: ${e.message}`); sources[name] = { ok: false, count: 0, updated: null, error: e.message.replace(/^SKIP: /, "") }; continue; }
       console.error(`${name} failed:`, e.message);
       const old = (prev.items || []).filter((i) => i.source === name);
       items.push(...old);
@@ -365,6 +367,9 @@ async function main() {
     if (!history[id].length || (!live.has(id) && history[id][history[id].length - 1][0] < keepFrom)) delete history[id];
   }
 
+  // Drop markets whose deadline passed more than a week ago (resolved but not yet closed)
+  const stale = new Date(NOW - 7 * 864e5).toISOString();
+  items = items.filter((i) => !i.resolves || i.resolves >= stale);
   items.sort((a, b) => (a.resolves || "9999").localeCompare(b.resolves || "9999"));
   if (!items.length) throw new Error("No items from any source — keeping previous file");
 
