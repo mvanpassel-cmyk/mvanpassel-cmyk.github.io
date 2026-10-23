@@ -1,33 +1,131 @@
 {
- "generated": "2026-10-23T14:22:36.271Z",
+ "generated": "2026-10-23T14:24:57.768Z",
  "sources": {
   "polymarket": {
    "ok": true,
    "count": 80,
-   "updated": "2026-10-23T14:22:36.271Z"
+   "updated": "2026-10-23T14:24:57.768Z"
   },
   "kalshi": {
    "ok": true,
    "count": 50,
-   "updated": "2026-10-23T14:22:36.271Z"
+   "updated": "2026-10-23T14:24:57.768Z"
   },
   "manifold": {
    "ok": true,
    "count": 30,
-   "updated": "2026-10-23T14:22:36.271Z"
+   "updated": "2026-10-23T14:24:57.768Z"
   },
   "metaculus": {
    "ok": true,
    "count": 2,
-   "updated": "2026-10-23T14:22:36.271Z",
+   "updated": "2026-10-23T14:24:57.768Z",
    "stats": {
-    "fetched": 1060,
+    "fetched": 1059,
     "skipped": {
      "conditional": 31,
+     "few forecasters": 294,
      "group": 165,
+     "no community prediction": 228,
+     "no theme match": 132,
+     "excluded topic": 59,
      "notebook": 147,
      "date": 1
-    }
+    },
+    "sampleKeys": {
+     "post": [
+      "id",
+      "title",
+      "short_title",
+      "url_title",
+      "slug",
+      "author_id",
+      "author_username",
+      "coauthors",
+      "created_at",
+      "published_at",
+      "edited_at",
+      "curation_status",
+      "curation_status_updated_at",
+      "comment_count",
+      "status",
+      "resolved",
+      "actual_close_time",
+      "scheduled_close_time",
+      "scheduled_resolve_time",
+      "actual_resolve_time",
+      "open_time",
+      "nr_forecasters",
+      "html_metadata_json",
+      "projects",
+      "question",
+      "user_permission",
+      "vote",
+      "forecasts_count",
+      "key_factors",
+      "is_current_content_translated"
+     ],
+     "question": [
+      "id",
+      "title",
+      "created_at",
+      "open_time",
+      "cp_reveal_time",
+      "spot_scoring_time",
+      "scheduled_resolve_time",
+      "actual_resolve_time",
+      "resolution_set_time",
+      "scheduled_close_time",
+      "actual_close_time",
+      "type",
+      "options",
+      "all_options_ever",
+      "options_history",
+      "options_order",
+      "group_variable",
+      "status",
+      "possibilities",
+      "resolution",
+      "include_bots_in_aggregates",
+      "question_weight",
+      "default_score_type",
+      "default_aggregation_method",
+      "label",
+      "unit",
+      "open_upper_bound",
+      "open_lower_bound",
+      "inbound_outcome_count",
+      "scaling",
+      "group_rank",
+      "coherence_links",
+      "coherence_link_aggregations",
+      "description",
+      "resolution_criteria",
+      "fine_print",
+      "short_title",
+      "post_id",
+      "aggregations",
+      "average_coverage",
+      "my_forecasts"
+     ],
+     "agg": [
+      "recency_weighted"
+     ]
+    },
+    "sampleNoTheme": [
+     "Will the US approve a $10B exchange stabilisation facility for Pakistan before 2027?",
+     "Who will be the 2026 Time Person of the Year?",
+     "Will any of Belgium, France, Italy, Luxembourg, Netherlands, and/or Germany leave the EU before 2027?",
+     "When will traffic through the Strait of Hormuz return to normal levels?",
+     "Will the Cuban government lose power before 2027?",
+     "Will the Trump administration attempt to withdraw from key international arms control agreements in 2026?",
+     "Will Donald Trump be a primary voting factor in the 2026 U.S. Midterms?",
+     "Which party will lead the next German government?",
+     "Will the Economist stop classifying the United States as a democracy before 2030?",
+     "Will the Democrats control the House of Representatives at any point before Jan 3, 2027?",
+     "Will South Tyrol secede from Italy before 2050?",
+     "Will Scotland leave the United Kingdom before 2030?"
+    ]
    }
   }
  },
@@ -37,7 +135,7 @@
    "source": "polymarket",
    "title": "Israel x Iran ceasefire continues through...?",
    "url": "https://polymarket.com/event/israel-x-iran-ceasefire-continues-throughptptpt-20260716224448963",
-   "volume": 38563976,
+   "volume": 38566915,
    "volumeUnit": "usd",
    "end": "2026-12-31T20:29:00.000Z",
    "themes": [
@@ -65,7 +163,7 @@
     },
     {
      "label": "November 15",
-     "p": 0.595,
+     "p": 0.59,
      "end": "2026-11-16T04:59:00.000Z"
     },
     {
@@ -91,14 +189,14 @@
    "source": "polymarket",
    "title": "US-Iran ceasefire continues through...?",
    "url": "https://polymarket.com/event/us-iran-ceasefire-continues-throughptptpt",
-   "volume": 22900046,
+   "volume": 22907454,
    "volumeUnit": "usd",
    "end": "2026-10-31T23:59:00.000Z",
    "themes": [
     "conflict"
    ],
    "kind": "ladder",
-   "prob": 0.905,
+   "prob": 0.915,
    "lead": "October 24",
    "options": [
     {
@@ -108,7 +206,7 @@
     },
     {
      "label": "October 24",
-     "p": 0.905,
+     "p": 0.915,
      "end": "2026-10-25T03:59:00.000Z"
     },
     {
@@ -151,7 +249,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.905
+    0.915
    ]
   },
   {
@@ -159,19 +257,19 @@
    "source": "polymarket",
    "title": "Brazil Presidential Election",
    "url": "https://polymarket.com/event/brazil-presidential-election",
-   "volume": 192530625,
+   "volume": 192566680,
    "volumeUnit": "usd",
    "end": "2026-10-26T03:59:00.000Z",
    "themes": [
     "elections"
    ],
    "kind": "multi",
-   "prob": 0.767,
+   "prob": 0.766,
    "lead": "Flávio Bolsonaro",
    "options": [
     {
      "label": "Flávio Bolsonaro",
-     "p": 0.767,
+     "p": 0.766,
      "end": "2026-10-05T03:59:00.000Z"
     },
     {
@@ -184,7 +282,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.767
+    0.766
    ]
   },
   {
@@ -192,7 +290,7 @@
    "source": "polymarket",
    "title": "Prime Minister of Israel after the next election?",
    "url": "https://polymarket.com/event/who-will-be-the-next-prime-minister-of-israel-after-the-next-election",
-   "volume": 51649136,
+   "volume": 51649343,
    "volumeUnit": "usd",
    "end": "2026-10-28T03:59:00.000Z",
    "themes": [
@@ -318,7 +416,7 @@
    "source": "polymarket",
    "title": "Russia x Ukraine any diplomatic meeting by...?",
    "url": "https://polymarket.com/event/russia-x-ukraine-any-diplomatic-meeting-byptptpt-20260819",
-   "volume": 1385072,
+   "volume": 1386035,
    "volumeUnit": "usd",
    "end": "2026-10-31T03:59:00.000Z",
    "themes": [
@@ -326,12 +424,12 @@
     "conflict"
    ],
    "kind": "ladder",
-   "prob": 0.991,
+   "prob": 0.988,
    "lead": "October 31",
    "options": [
     {
      "label": "October 31",
-     "p": 0.991,
+     "p": 0.988,
      "end": "2026-11-01T03:59:00.000Z"
     },
     {
@@ -354,7 +452,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.991
+    0.988
    ]
   },
   {
@@ -362,7 +460,7 @@
    "source": "polymarket",
    "title": "US announces end of Iranian blockade by...?",
    "url": "https://polymarket.com/event/us-announces-end-of-iranian-blockade-byptptpt-20260713152715080",
-   "volume": 42330107,
+   "volume": 42330312,
    "volumeUnit": "usd",
    "end": "2027-01-01T04:59:00.000Z",
    "themes": [
@@ -499,7 +597,7 @@
     },
     {
      "label": "November 30",
-     "p": 0.8,
+     "p": 0.79,
      "end": "2026-12-01T04:59:00.000Z"
     },
     {
@@ -567,14 +665,14 @@
     "conflict"
    ],
    "kind": "binary",
-   "prob": 0.09,
+   "prob": 0.085,
    "lead": null,
    "options": [],
    "resolves": "2026-11-01T03:59:00.000Z",
    "d1": null,
    "d7": null,
    "spark": [
-    0.09
+    0.085
    ]
   },
   {
@@ -653,7 +751,7 @@
    "source": "polymarket",
    "title": "Bab el-Mandeb Strait effectively closed by...?",
    "url": "https://polymarket.com/event/bab-el-mandeb-strait-effectively-closed-by",
-   "volume": 17483528,
+   "volume": 17483633,
    "volumeUnit": "usd",
    "end": "2027-01-01T04:59:00.000Z",
    "themes": [
@@ -691,7 +789,7 @@
    "source": "polymarket",
    "title": "NATO x Russia military clash by...?",
    "url": "https://polymarket.com/event/nato-x-russia-military-clash-in-2025",
-   "volume": 10437350,
+   "volume": 10518472,
    "volumeUnit": "usd",
    "end": "2027-01-03T04:59:00.000Z",
    "themes": [
@@ -709,7 +807,7 @@
     },
     {
      "label": "November 15",
-     "p": 0.225,
+     "p": 0.25,
      "end": "2026-11-16T04:59:00.000Z"
     },
     {
@@ -719,7 +817,7 @@
     },
     {
      "label": "December 31",
-     "p": 0.375,
+     "p": 0.38,
      "end": "2027-01-01T04:59:00.000Z"
     }
    ],
@@ -768,7 +866,7 @@
    "source": "polymarket",
    "title": "Russia x Ukraine ceasefire agreement by...?",
    "url": "https://polymarket.com/event/russia-x-ukraine-ceasefire-agreement-by",
-   "volume": 9578138,
+   "volume": 9578599,
    "volumeUnit": "usd",
    "end": "2027-07-01T03:59:00.000Z",
    "themes": [
@@ -889,7 +987,7 @@
    "source": "polymarket",
    "title": "Mojtaba Khamenei public appearance by...?",
    "url": "https://polymarket.com/event/mojtaba-khamenei-public-appearance-by",
-   "volume": 7487093,
+   "volume": 7487635,
    "volumeUnit": "usd",
    "end": "2027-01-01T04:59:00.000Z",
    "themes": [
@@ -1030,7 +1128,7 @@
    "source": "polymarket",
    "title": "Balance of Power: 2026 Midterms",
    "url": "https://polymarket.com/event/balance-of-power-2026-midterms",
-   "volume": 32228947,
+   "volume": 32232673,
    "volumeUnit": "usd",
    "end": "2026-11-04T04:59:00.000Z",
    "themes": [
@@ -1078,7 +1176,7 @@
    "source": "polymarket",
    "title": "Which party will win the House in 2026?",
    "url": "https://polymarket.com/event/which-party-will-win-the-house-in-2026",
-   "volume": 20600201,
+   "volume": 20600246,
    "volumeUnit": "usd",
    "end": "2026-11-04T04:59:00.000Z",
    "themes": [
@@ -1111,7 +1209,7 @@
    "source": "polymarket",
    "title": "Which party will win the Senate in 2026?",
    "url": "https://polymarket.com/event/which-party-will-win-the-senate-in-2026",
-   "volume": 8681442,
+   "volume": 8681533,
    "volumeUnit": "usd",
    "end": "2026-11-04T04:59:00.000Z",
    "themes": [
@@ -1144,7 +1242,7 @@
    "source": "polymarket",
    "title": "Texas Senate Election Winner",
    "url": "https://polymarket.com/event/texas-senate-election-winner",
-   "volume": 5658724,
+   "volume": 5659632,
    "volumeUnit": "usd",
    "end": "2026-11-04T04:59:00.000Z",
    "themes": [
@@ -1259,7 +1357,7 @@
    "source": "polymarket",
    "title": "Iran leader end of 2026?",
    "url": "https://polymarket.com/event/iran-leader-end-of-2026",
-   "volume": 40457535,
+   "volume": 40457935,
    "volumeUnit": "usd",
    "end": "2026-12-31T17:00:00.000Z",
    "themes": [
@@ -1286,7 +1384,7 @@
     },
     {
      "label": "Alireza Arafi",
-     "p": 0.027,
+     "p": 0.026,
      "end": "2026-12-31T17:00:00.000Z"
     },
     {
@@ -1534,7 +1632,7 @@
    "source": "polymarket",
    "title": "Ukraine signs peace deal with Russia before 2027?",
    "url": "https://polymarket.com/event/ukraine-signs-peace-deal-with-russia-before-2027",
-   "volume": 2873032,
+   "volume": 2874355,
    "volumeUnit": "usd",
    "end": "2027-01-01T04:59:00.000Z",
    "themes": [
@@ -1557,7 +1655,7 @@
    "source": "polymarket",
    "title": "Venezuela leader end of 2026?",
    "url": "https://polymarket.com/event/venezuela-leader-end-of-2026",
-   "volume": 98669595,
+   "volume": 98669707,
    "volumeUnit": "usd",
    "end": "2027-01-01T04:59:00.000Z",
    "themes": [
@@ -1632,7 +1730,7 @@
     },
     {
      "label": "↑4.75k",
-     "p": 0.981,
+     "p": 0.98,
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
@@ -1642,12 +1740,12 @@
     },
     {
      "label": "↑6k",
-     "p": 0.855,
+     "p": 0.86,
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
      "label": "↑6.5k",
-     "p": 0.765,
+     "p": 0.75,
      "end": "2027-01-01T04:59:00.000Z"
     }
    ],
@@ -1672,12 +1770,12 @@
     "conflict"
    ],
    "kind": "ladder",
-   "prob": 0.042,
+   "prob": 0.041,
    "lead": "December 31, 2026",
    "options": [
     {
      "label": "December 31, 2026",
-     "p": 0.042,
+     "p": 0.041,
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
@@ -1695,7 +1793,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.042
+    0.041
    ]
   },
   {
@@ -1749,7 +1847,7 @@
    "source": "polymarket",
    "title": "Will the U.S. invade Iran before 2027?",
    "url": "https://polymarket.com/event/will-the-us-invade-iran-before-2027",
-   "volume": 75055015,
+   "volume": 75055218,
    "volumeUnit": "usd",
    "end": "2027-01-01T04:59:00.000Z",
    "themes": [
@@ -1793,7 +1891,7 @@
    "source": "polymarket",
    "title": "Will China invade Taiwan by end of 2026?",
    "url": "https://polymarket.com/event/will-china-invade-taiwan-before-2027",
-   "volume": 44679542,
+   "volume": 44691656,
    "volumeUnit": "usd",
    "end": "2027-01-01T04:59:00.000Z",
    "themes": [
@@ -1837,7 +1935,7 @@
    "source": "polymarket",
    "title": "Which countries will recognize Israel by December 31?",
    "url": "https://polymarket.com/event/which-countries-will-recognize-israel-by-december-31",
-   "volume": 948722,
+   "volume": 948772,
    "volumeUnit": "usd",
    "end": "2027-01-01T04:59:00.000Z",
    "themes": [
@@ -1981,7 +2079,7 @@
     },
     {
      "label": "New Zealand",
-     "p": 0.09,
+     "p": 0.085,
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
@@ -2202,7 +2300,7 @@
    "source": "polymarket",
    "title": "Putin out as President of Russia by...?",
    "url": "https://polymarket.com/event/putin-out-before-2027",
-   "volume": 30313659,
+   "volume": 30316802,
    "volumeUnit": "usd",
    "end": "2027-07-01T03:59:00.000Z",
    "themes": [
@@ -2312,7 +2410,7 @@
    "source": "polymarket",
    "title": "Strait of Hormuz traffic returns to normal by December 31?",
    "url": "https://polymarket.com/event/strait-of-hormuz-traffic-returns-to-normal-by-december-31",
-   "volume": 15440775,
+   "volume": 15442175,
    "volumeUnit": "usd",
    "end": "2027-01-01T04:59:00.000Z",
    "themes": [
@@ -2409,14 +2507,14 @@
     "elections"
    ],
    "kind": "binary",
-   "prob": 0.04,
+   "prob": 0.042,
    "lead": null,
    "options": [],
    "resolves": "2027-01-01T04:59:00.000Z",
    "d1": null,
    "d7": null,
    "spark": [
-    0.04
+    0.042
    ]
   },
   {
@@ -2881,7 +2979,7 @@
    "source": "kalshi",
    "title": "When will Russian diesel be imported into the U.S.? (Russian diesel imported into the U.S.)",
    "url": "https://kalshi.com/markets/kxrusdieselimport",
-   "volume": 33737,
+   "volume": 33800,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -3317,7 +3415,7 @@
    "source": "polymarket",
    "title": "Next French Presidential Election",
    "url": "https://polymarket.com/event/next-french-presidential-election",
-   "volume": 155633428,
+   "volume": 155633584,
    "volumeUnit": "usd",
    "end": "2027-04-19T03:59:00.000Z",
    "themes": [
@@ -3554,7 +3652,7 @@
    "source": "polymarket",
    "title": "Next Prime Minister of Sweden",
    "url": "https://polymarket.com/event/next-prime-minister-of-sweden",
-   "volume": 10384576,
+   "volume": 10384636,
    "volumeUnit": "usd",
    "end": "2027-07-01T03:59:00.000Z",
    "themes": [
@@ -3576,7 +3674,7 @@
     },
     {
      "label": "Ebba Busch",
-     "p": 0.043,
+     "p": 0.042,
      "end": "2026-09-14T03:59:00.000Z"
     },
     {
@@ -3629,7 +3727,7 @@
    "source": "kalshi",
    "title": "Prime Minister of Israel after the 2026 election? (Before Oct 27, 2027)",
    "url": "https://kalshi.com/markets/kxisraelpm",
-   "volume": 992572,
+   "volume": 992652,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -3647,7 +3745,7 @@
     },
     {
      "label": "Benjamin Netanyahu",
-     "p": 0.31,
+     "p": 0.3,
      "end": "2027-10-27T14:00:00.000Z"
     },
     {
@@ -4163,7 +4261,7 @@
    "source": "kalshi",
    "title": "2028 Republican presidential nominee (In 2028)",
    "url": "https://kalshi.com/markets/kxpresnomr",
-   "volume": 70480586,
+   "volume": 70480594,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -4254,7 +4352,7 @@
    "source": "polymarket",
    "title": "Democratic Presidential Nominee 2028",
    "url": "https://polymarket.com/event/democratic-presidential-nominee-2028",
-   "volume": 1297271553,
+   "volume": 1297271615,
    "volumeUnit": "usd",
    "end": "2028-11-08T04:59:00.000Z",
    "themes": [
@@ -4307,7 +4405,7 @@
    "source": "polymarket",
    "title": "Presidential Election Winner 2028",
    "url": "https://polymarket.com/event/presidential-election-winner-2028",
-   "volume": 718407850,
+   "volume": 718408110,
    "volumeUnit": "usd",
    "end": "2028-11-08T04:59:00.000Z",
    "themes": [
@@ -4360,7 +4458,7 @@
    "source": "polymarket",
    "title": "Republican Presidential Nominee 2028",
    "url": "https://polymarket.com/event/republican-presidential-nominee-2028",
-   "volume": 715931572,
+   "volume": 715931890,
    "volumeUnit": "usd",
    "end": "2028-11-08T04:59:00.000Z",
    "themes": [
@@ -4990,7 +5088,7 @@
    "source": "kalshi",
    "title": "2028 U.S. Presidential Election winner? (In 2028)",
    "url": "https://kalshi.com/markets/kxpresperson",
-   "volume": 75999061,
+   "volume": 75999108,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
