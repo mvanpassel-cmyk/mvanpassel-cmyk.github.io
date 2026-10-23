@@ -31,19 +31,22 @@ const THEMES = {
     /\bhamas/i, /hezbollah/i, /\biran/i, /\btaiwan/i, /\bnato\b/i, /nuclear/i, /missile/i, /\bsudan/i,
     /houthi/i, /\bsyria/i, /north korea/i, /\bkim jong/i, /\bdrone/i, /\bcoup\b/i, /\bkashmir/i,
     /\bvenezuela/i, /\bhostage/i, /\bpeace deal/i, /\bpeace agreement/i, /\bcongo\b|\bdrc\b/i,
-    /\bannex/i, /\bgreenland/i, /\bblockade/i,
+    /\bannex/i, /\bgreenland/i, /\bblockade/i, /\bhormuz/i, /\bstrait of/i, /\bcuba/i, /\bpakistan/i, /\bafghanistan/i,
+    /\bsecede|secession|independence/i, /\barms control/i, /\bsaudi/i, /\bturkey|t[uü]rkiye/i, /\bmilitary/i, /\bregime/i, /\bgenocide/i, /\bterror/i,
   ],
   trade: [
     /tariff/i, /trade deal/i, /trade agreement/i, /sanction/i, /\btreaty/i, /\bsummit/i,
     /\bembargo/i, /\bwto\b/i, /\bg7\b/i, /\bg20\b/i, /\bbrics/i, /\bunited nations\b|\bu\.?n\.? (security|general)/i,
     /\bdiplomat/i, /\bmeets? (with )?(xi|putin|trump|zelensky|modi|kim)/i, /\brecogni[sz]e/i,
+    /\bimf\b|\bworld bank/i, /\bstabili[sz]ation facility/i, /\bbailout/i, /\beuro(zone)?\b/i, /\bde-?dollari[sz]/i,
     /\beu\b.*\b(join|accession|membership)/i, /\bexport (ban|control)/i, /\bdeal with\b/i, /\bopec/i,
   ],
   elections: [
     /election/i, /\belected\b/i, /\bpresiden/i, /prime minister/i, /chancellor/i, /\bpm\b/i,
     /\bresign/i, /impeach/i, /\bout as\b/i, /\bparliament/i, /referendum/i, /coalition/i,
     /\bleader of\b/i, /\bnext leader/i, /\bremoved from office/i, /\bsnap election/i, /\bvote of no confidence/i,
-    /\bpope\b/i, /\bsupreme leader/i, /\bmayor\b/i,
+    /\bpope\b/i, /\bsupreme leader/i, /\bmayor\b/i, /\bmidterm/i, /\bgovernment\b/i, /\bdemocra/i, /\bhouse of representatives|\bsenate\b|\bcongress\b/i,
+    /\blose power/i, /\bleave the (eu|uk|european union)/i, /\bnext (german|french|dutch|uk|us) /i, /\bnominee/i,
   ],
 };
 
@@ -297,8 +300,16 @@ async function metaculus() {
   const skip = (why) => { META_STATS.skipped[why] = (META_STATS.skipped[why] || 0) + 1; };
   for (const p of seen.values()) {
     const q = p.question;
-    if (!q) { skip(p.group_of_questions ? "group" : p.conditional ? "conditional" : p.notebook ? "notebook" : "other"); continue; }
-    if ((p.nr_forecasters || 0) < 25) { skip("few forecasters"); continue; }
+    if (!q) {
+      skip(p.group_of_questions ? "group" : p.conditional ? "conditional" : p.notebook ? "notebook" : "other");
+      if (p.group_of_questions && !META_STATS.sampleGroup) {
+        const g = p.group_of_questions, sq = (g.questions || [])[0];
+        META_STATS.sampleGroup = { title: p.title, keys: Object.keys(g), nQuestions: (g.questions || []).length, subKeys: sq ? Object.keys(sq) : null,
+          subSample: sq ? { label: sq.label, type: sq.type, hasAgg: !!(sq.aggregations && sq.aggregations.recency_weighted), latestKeys: sq.aggregations?.recency_weighted?.latest ? Object.keys(sq.aggregations.recency_weighted.latest) : null } : null };
+      }
+      continue;
+    }
+    if ((p.nr_forecasters || 0) < 10) { skip("few forecasters"); continue; }
     const title = p.title || q.title;
     if (excluded(title)) { skip("excluded topic"); continue; }
     const themes = themesOf(title);
