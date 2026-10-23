@@ -1,26 +1,34 @@
 {
- "generated": "2026-10-23T14:06:53.606Z",
+ "generated": "2026-10-23T14:22:36.271Z",
  "sources": {
   "polymarket": {
    "ok": true,
    "count": 80,
-   "updated": "2026-10-23T14:06:53.606Z"
+   "updated": "2026-10-23T14:22:36.271Z"
   },
   "kalshi": {
    "ok": true,
    "count": 50,
-   "updated": "2026-10-23T14:06:53.606Z"
+   "updated": "2026-10-23T14:22:36.271Z"
   },
   "manifold": {
    "ok": true,
    "count": 30,
-   "updated": "2026-10-23T14:06:53.606Z"
+   "updated": "2026-10-23T14:22:36.271Z"
   },
   "metaculus": {
-   "ok": false,
-   "count": 0,
-   "updated": null,
-   "error": "no METACULUS_TOKEN secret set"
+   "ok": true,
+   "count": 2,
+   "updated": "2026-10-23T14:22:36.271Z",
+   "stats": {
+    "fetched": 1060,
+    "skipped": {
+     "conditional": 31,
+     "group": 165,
+     "notebook": 147,
+     "date": 1
+    }
+   }
   }
  },
  "items": [
@@ -29,7 +37,7 @@
    "source": "polymarket",
    "title": "Israel x Iran ceasefire continues through...?",
    "url": "https://polymarket.com/event/israel-x-iran-ceasefire-continues-throughptptpt-20260716224448963",
-   "volume": 38562730,
+   "volume": 38563976,
    "volumeUnit": "usd",
    "end": "2026-12-31T20:29:00.000Z",
    "themes": [
@@ -47,12 +55,12 @@
     },
     {
      "label": "October 27",
-     "p": 0.885,
+     "p": 0.89,
      "end": "2026-10-28T03:59:00.000Z"
     },
     {
      "label": "October 31",
-     "p": 0.845,
+     "p": 0.825,
      "end": "2026-10-31T20:29:00.000Z"
     },
     {
@@ -83,34 +91,34 @@
    "source": "polymarket",
    "title": "US-Iran ceasefire continues through...?",
    "url": "https://polymarket.com/event/us-iran-ceasefire-continues-throughptptpt",
-   "volume": 22898765,
+   "volume": 22900046,
    "volumeUnit": "usd",
    "end": "2026-10-31T23:59:00.000Z",
    "themes": [
     "conflict"
    ],
    "kind": "ladder",
-   "prob": 0.935,
+   "prob": 0.905,
    "lead": "October 24",
    "options": [
     {
      "label": "October 22",
-     "p": 0.979,
+     "p": 0.981,
      "end": "2026-10-23T03:59:00.000Z"
     },
     {
      "label": "October 24",
-     "p": 0.935,
+     "p": 0.905,
      "end": "2026-10-25T03:59:00.000Z"
     },
     {
      "label": "October 28",
-     "p": 0.845,
+     "p": 0.835,
      "end": "2026-10-29T03:59:00.000Z"
     },
     {
      "label": "October 31",
-     "p": 0.795,
+     "p": 0.785,
      "end": "2026-10-31T23:59:00.000Z"
     },
     {
@@ -125,7 +133,7 @@
     },
     {
      "label": "November 22",
-     "p": 0.435,
+     "p": 0.42,
      "end": "2026-11-23T04:59:00.000Z"
     },
     {
@@ -143,7 +151,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.935
+    0.905
    ]
   },
   {
@@ -151,19 +159,19 @@
    "source": "polymarket",
    "title": "Brazil Presidential Election",
    "url": "https://polymarket.com/event/brazil-presidential-election",
-   "volume": 192527521,
+   "volume": 192530625,
    "volumeUnit": "usd",
    "end": "2026-10-26T03:59:00.000Z",
    "themes": [
     "elections"
    ],
    "kind": "multi",
-   "prob": 0.765,
+   "prob": 0.767,
    "lead": "Flávio Bolsonaro",
    "options": [
     {
      "label": "Flávio Bolsonaro",
-     "p": 0.765,
+     "p": 0.767,
      "end": "2026-10-05T03:59:00.000Z"
     },
     {
@@ -176,7 +184,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.765
+    0.767
    ]
   },
   {
@@ -184,7 +192,7 @@
    "source": "polymarket",
    "title": "Prime Minister of Israel after the next election?",
    "url": "https://polymarket.com/event/who-will-be-the-next-prime-minister-of-israel-after-the-next-election",
-   "volume": 51647476,
+   "volume": 51649136,
    "volumeUnit": "usd",
    "end": "2026-10-28T03:59:00.000Z",
    "themes": [
@@ -192,12 +200,12 @@
     "conflict"
    ],
    "kind": "multi",
-   "prob": 0.496,
+   "prob": 0.497,
    "lead": "Gadi Eizenkot",
    "options": [
     {
      "label": "Gadi Eizenkot",
-     "p": 0.496,
+     "p": 0.497,
      "end": "2026-10-28T03:59:00.000Z"
     },
     {
@@ -230,7 +238,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.496
+    0.497
    ]
   },
   {
@@ -310,7 +318,7 @@
    "source": "polymarket",
    "title": "Russia x Ukraine any diplomatic meeting by...?",
    "url": "https://polymarket.com/event/russia-x-ukraine-any-diplomatic-meeting-byptptpt-20260819",
-   "volume": 1380310,
+   "volume": 1385072,
    "volumeUnit": "usd",
    "end": "2026-10-31T03:59:00.000Z",
    "themes": [
@@ -318,22 +326,22 @@
     "conflict"
    ],
    "kind": "ladder",
-   "prob": 0.994,
+   "prob": 0.991,
    "lead": "October 31",
    "options": [
     {
      "label": "October 31",
-     "p": 0.994,
+     "p": 0.991,
      "end": "2026-11-01T03:59:00.000Z"
     },
     {
      "label": "November 15",
-     "p": 0.991,
+     "p": 0.992,
      "end": "2026-11-16T04:59:00.000Z"
     },
     {
      "label": "November 30",
-     "p": 0.994,
+     "p": 0.995,
      "end": "2026-12-01T04:59:00.000Z"
     },
     {
@@ -346,7 +354,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.994
+    0.991
    ]
   },
   {
@@ -354,7 +362,7 @@
    "source": "polymarket",
    "title": "US announces end of Iranian blockade by...?",
    "url": "https://polymarket.com/event/us-announces-end-of-iranian-blockade-byptptpt-20260713152715080",
-   "volume": 42330106,
+   "volume": 42330107,
    "volumeUnit": "usd",
    "end": "2027-01-01T04:59:00.000Z",
    "themes": [
@@ -430,7 +438,7 @@
    "source": "polymarket",
    "title": "Iran leadership change by...?",
    "url": "https://polymarket.com/event/iran-leadership-change-by",
-   "volume": 27946718,
+   "volume": 27946761,
    "volumeUnit": "usd",
    "end": "2027-07-01T03:59:00.000Z",
    "themes": [
@@ -473,7 +481,7 @@
    "source": "polymarket",
    "title": "US imports Russian diesel by...?",
    "url": "https://polymarket.com/event/us-imports-russian-diesel-by-october-31",
-   "volume": 495832,
+   "volume": 498627,
    "volumeUnit": "usd",
    "end": "2026-12-01T04:59:00.000Z",
    "themes": [
@@ -491,7 +499,7 @@
     },
     {
      "label": "November 30",
-     "p": 0.805,
+     "p": 0.8,
      "end": "2026-12-01T04:59:00.000Z"
     },
     {
@@ -512,7 +520,7 @@
    "source": "polymarket",
    "title": "Trump meets with Putin by...?",
    "url": "https://polymarket.com/event/trump-meets-with-putin-by",
-   "volume": 437374,
+   "volume": 437436,
    "volumeUnit": "usd",
    "end": "2027-01-01T04:59:00.000Z",
    "themes": [
@@ -559,14 +567,14 @@
     "conflict"
    ],
    "kind": "binary",
-   "prob": 0.085,
+   "prob": 0.09,
    "lead": null,
    "options": [],
    "resolves": "2026-11-01T03:59:00.000Z",
    "d1": null,
    "d7": null,
    "spark": [
-    0.085
+    0.09
    ]
   },
   {
@@ -683,7 +691,7 @@
    "source": "polymarket",
    "title": "NATO x Russia military clash by...?",
    "url": "https://polymarket.com/event/nato-x-russia-military-clash-in-2025",
-   "volume": 10434744,
+   "volume": 10437350,
    "volumeUnit": "usd",
    "end": "2027-01-03T04:59:00.000Z",
    "themes": [
@@ -691,27 +699,27 @@
     "conflict"
    ],
    "kind": "ladder",
-   "prob": 0.185,
+   "prob": 0.215,
    "lead": "October 31",
    "options": [
     {
      "label": "October 31",
-     "p": 0.185,
+     "p": 0.215,
      "end": "2026-11-01T03:59:00.000Z"
     },
     {
      "label": "November 15",
-     "p": 0.205,
+     "p": 0.225,
      "end": "2026-11-16T04:59:00.000Z"
     },
     {
      "label": "November 30",
-     "p": 0.235,
+     "p": 0.265,
      "end": "2026-12-01T04:59:00.000Z"
     },
     {
      "label": "December 31",
-     "p": 0.33,
+     "p": 0.375,
      "end": "2027-01-01T04:59:00.000Z"
     }
    ],
@@ -719,7 +727,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.185
+    0.215
    ]
   },
   {
@@ -760,24 +768,24 @@
    "source": "polymarket",
    "title": "Russia x Ukraine ceasefire agreement by...?",
    "url": "https://polymarket.com/event/russia-x-ukraine-ceasefire-agreement-by",
-   "volume": 9576036,
+   "volume": 9578138,
    "volumeUnit": "usd",
    "end": "2027-07-01T03:59:00.000Z",
    "themes": [
     "conflict"
    ],
    "kind": "ladder",
-   "prob": 0.033,
+   "prob": 0.035,
    "lead": "October 31",
    "options": [
     {
      "label": "October 31",
-     "p": 0.033,
+     "p": 0.035,
      "end": "2026-11-01T03:59:00.000Z"
     },
     {
      "label": "November 30",
-     "p": 0.13,
+     "p": 0.135,
      "end": "2026-12-01T04:59:00.000Z"
     },
     {
@@ -822,7 +830,7 @@
     },
     {
      "label": "August 31, 2027",
-     "p": 0.6,
+     "p": 0.605,
      "end": "2027-09-01T03:59:00.000Z"
     },
     {
@@ -832,7 +840,7 @@
     },
     {
      "label": "October 31, 2027",
-     "p": 0.665,
+     "p": 0.66,
      "end": "2027-11-01T03:59:00.000Z"
     },
     {
@@ -850,7 +858,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.033
+    0.035
    ]
   },
   {
@@ -921,12 +929,12 @@
     "conflict"
    ],
    "kind": "ladder",
-   "prob": 0.025,
+   "prob": 0.026,
    "lead": "October 31",
    "options": [
     {
      "label": "October 31",
-     "p": 0.025,
+     "p": 0.026,
      "end": "2026-11-01T03:59:00.000Z"
     },
     {
@@ -939,7 +947,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.025
+    0.026
    ]
   },
   {
@@ -1022,7 +1030,7 @@
    "source": "polymarket",
    "title": "Balance of Power: 2026 Midterms",
    "url": "https://polymarket.com/event/balance-of-power-2026-midterms",
-   "volume": 32227571,
+   "volume": 32228947,
    "volumeUnit": "usd",
    "end": "2026-11-04T04:59:00.000Z",
    "themes": [
@@ -1070,7 +1078,7 @@
    "source": "polymarket",
    "title": "Which party will win the House in 2026?",
    "url": "https://polymarket.com/event/which-party-will-win-the-house-in-2026",
-   "volume": 20600112,
+   "volume": 20600201,
    "volumeUnit": "usd",
    "end": "2026-11-04T04:59:00.000Z",
    "themes": [
@@ -1103,7 +1111,7 @@
    "source": "polymarket",
    "title": "Which party will win the Senate in 2026?",
    "url": "https://polymarket.com/event/which-party-will-win-the-senate-in-2026",
-   "volume": 8681266,
+   "volume": 8681442,
    "volumeUnit": "usd",
    "end": "2026-11-04T04:59:00.000Z",
    "themes": [
@@ -1136,7 +1144,7 @@
    "source": "polymarket",
    "title": "Texas Senate Election Winner",
    "url": "https://polymarket.com/event/texas-senate-election-winner",
-   "volume": 5655816,
+   "volume": 5658724,
    "volumeUnit": "usd",
    "end": "2026-11-04T04:59:00.000Z",
    "themes": [
@@ -1187,6 +1195,44 @@
    ]
   },
   {
+   "id": "mc-43326",
+   "source": "metaculus",
+   "title": "Which party will hold the most seats in the US House of Representatives after the 2026 elections?",
+   "url": "https://www.metaculus.com/questions/43326/us-house-plurality-after-2026-midterms",
+   "volume": 364,
+   "volumeUnit": "forecasters",
+   "end": "2026-11-05T00:00:00.000Z",
+   "themes": [
+    "elections"
+   ],
+   "kind": "multi",
+   "prob": 0.841,
+   "lead": "Democrats",
+   "options": [
+    {
+     "label": "Democrats",
+     "p": 0.841,
+     "end": "2026-11-05T00:00:00.000Z"
+    },
+    {
+     "label": "Republicans",
+     "p": 0.149,
+     "end": "2026-11-05T00:00:00.000Z"
+    },
+    {
+     "label": "Other",
+     "p": 0.01,
+     "end": "2026-11-05T00:00:00.000Z"
+    }
+   ],
+   "resolves": "2026-11-05T00:00:00.000Z",
+   "d1": null,
+   "d7": null,
+   "spark": [
+    0.841
+   ]
+  },
+  {
    "id": "mf-BpoEJNtlQoDBpfjBmK0y",
    "source": "manifold",
    "title": "Will Republicans win the Senate in the 2026 elections?",
@@ -1198,14 +1244,14 @@
     "elections"
    ],
    "kind": "binary",
-   "prob": 0.319,
+   "prob": 0.318,
    "lead": null,
    "options": [],
    "resolves": "2026-12-01T04:59:00.000Z",
    "d1": null,
    "d7": null,
    "spark": [
-    0.319
+    0.318
    ]
   },
   {
@@ -1240,7 +1286,7 @@
     },
     {
      "label": "Alireza Arafi",
-     "p": 0.026,
+     "p": 0.027,
      "end": "2026-12-31T17:00:00.000Z"
     },
     {
@@ -1249,7 +1295,7 @@
      "end": "2026-12-31T17:00:00.000Z"
     },
     {
-     "label": "Hassan Rouhani",
+     "label": "Masoud Pezeshkian",
      "p": 0.004,
      "end": "2026-12-31T17:00:00.000Z"
     }
@@ -1488,7 +1534,7 @@
    "source": "polymarket",
    "title": "Ukraine signs peace deal with Russia before 2027?",
    "url": "https://polymarket.com/event/ukraine-signs-peace-deal-with-russia-before-2027",
-   "volume": 2872959,
+   "volume": 2873032,
    "volumeUnit": "usd",
    "end": "2027-01-01T04:59:00.000Z",
    "themes": [
@@ -1511,19 +1557,19 @@
    "source": "polymarket",
    "title": "Venezuela leader end of 2026?",
    "url": "https://polymarket.com/event/venezuela-leader-end-of-2026",
-   "volume": 98669411,
+   "volume": 98669595,
    "volumeUnit": "usd",
    "end": "2027-01-01T04:59:00.000Z",
    "themes": [
     "conflict"
    ],
    "kind": "multi",
-   "prob": 0.766,
+   "prob": 0.76,
    "lead": "Nicolás Maduro",
    "options": [
     {
      "label": "Nicolás Maduro",
-     "p": 0.766,
+     "p": 0.76,
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
@@ -1556,7 +1602,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.766
+    0.76
    ]
   },
   {
@@ -1564,29 +1610,29 @@
    "source": "polymarket",
    "title": "Measles cases in U.S. in 2026?",
    "url": "https://polymarket.com/event/measles-cases-in-us-in-2026",
-   "volume": 8188788,
+   "volume": 8189204,
    "volumeUnit": "usd",
    "end": "2027-01-01T04:59:00.000Z",
    "themes": [
     "health"
    ],
    "kind": "multi",
-   "prob": 0.984,
-   "lead": "↑5k",
+   "prob": 0.995,
+   "lead": "↑4.5k",
    "options": [
+    {
+     "label": "↑4.5k",
+     "p": 0.995,
+     "end": "2027-01-01T04:59:00.000Z"
+    },
     {
      "label": "↑5k",
      "p": 0.984,
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
-     "label": "↑4.5k",
-     "p": 0.983,
-     "end": "2027-01-01T04:59:00.000Z"
-    },
-    {
      "label": "↑4.75k",
-     "p": 0.98,
+     "p": 0.981,
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
@@ -1596,12 +1642,12 @@
     },
     {
      "label": "↑6k",
-     "p": 0.87,
+     "p": 0.855,
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
      "label": "↑6.5k",
-     "p": 0.785,
+     "p": 0.765,
      "end": "2027-01-01T04:59:00.000Z"
     }
    ],
@@ -1609,7 +1655,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.984
+    0.995
    ]
   },
   {
@@ -1626,12 +1672,12 @@
     "conflict"
    ],
    "kind": "ladder",
-   "prob": 0.041,
+   "prob": 0.042,
    "lead": "December 31, 2026",
    "options": [
     {
      "label": "December 31, 2026",
-     "p": 0.041,
+     "p": 0.042,
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
@@ -1649,7 +1695,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.041
+    0.042
    ]
   },
   {
@@ -1703,7 +1749,7 @@
    "source": "polymarket",
    "title": "Will the U.S. invade Iran before 2027?",
    "url": "https://polymarket.com/event/will-the-us-invade-iran-before-2027",
-   "volume": 75054813,
+   "volume": 75055015,
    "volumeUnit": "usd",
    "end": "2027-01-01T04:59:00.000Z",
    "themes": [
@@ -1808,12 +1854,12 @@
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
-     "label": "Indonesia",
-     "p": 0.073,
+     "label": "Lebanon",
+     "p": 0.07,
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
-     "label": "Lebanon",
+     "label": "Indonesia",
      "p": 0.07,
      "end": "2027-01-01T04:59:00.000Z"
     },
@@ -1920,12 +1966,12 @@
     "conflict"
    ],
    "kind": "multi",
-   "prob": 0.175,
+   "prob": 0.14,
    "lead": "Finland",
    "options": [
     {
      "label": "Finland",
-     "p": 0.175,
+     "p": 0.14,
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
@@ -1935,7 +1981,7 @@
     },
     {
      "label": "New Zealand",
-     "p": 0.085,
+     "p": 0.09,
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
@@ -1944,13 +1990,13 @@
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
-     "label": "The Netherlands",
-     "p": 0.07,
+     "label": "Greece",
+     "p": 0.069,
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
-     "label": "Greece",
-     "p": 0.069,
+     "label": "The Netherlands",
+     "p": 0.065,
      "end": "2027-01-01T04:59:00.000Z"
     }
    ],
@@ -1958,7 +2004,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.175
+    0.14
    ]
   },
   {
@@ -2164,12 +2210,12 @@
     "conflict"
    ],
    "kind": "ladder",
-   "prob": 0.018,
+   "prob": 0.019,
    "lead": "December 31, 2026",
    "options": [
     {
      "label": "December 31, 2026",
-     "p": 0.018,
+     "p": 0.019,
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
@@ -2182,7 +2228,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.018
+    0.019
    ]
   },
   {
@@ -2198,12 +2244,12 @@
     "conflict"
    ],
    "kind": "multi",
-   "prob": 0.125,
+   "prob": 0.122,
    "lead": "Vietnam",
    "options": [
     {
      "label": "Vietnam",
-     "p": 0.125,
+     "p": 0.122,
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
@@ -2222,12 +2268,12 @@
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
-     "label": "United Kingdom",
+     "label": "India",
      "p": 0.105,
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
-     "label": "Russia",
+     "label": "United Kingdom",
      "p": 0.105,
      "end": "2027-01-01T04:59:00.000Z"
     }
@@ -2236,7 +2282,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.125
+    0.122
    ]
   },
   {
@@ -2296,14 +2342,14 @@
     "conflict"
    ],
    "kind": "binary",
-   "prob": 0.072,
+   "prob": 0.071,
    "lead": null,
    "options": [],
    "resolves": "2027-01-01T04:59:00.000Z",
    "d1": null,
    "d7": null,
    "spark": [
-    0.072
+    0.071
    ]
   },
   {
@@ -2319,14 +2365,14 @@
     "conflict"
    ],
    "kind": "binary",
-   "prob": 0.033,
+   "prob": 0.032,
    "lead": null,
    "options": [],
    "resolves": "2027-01-01T04:59:00.000Z",
    "d1": null,
    "d7": null,
    "spark": [
-    0.033
+    0.032
    ]
   },
   {
@@ -2497,14 +2543,14 @@
     "conflict"
    ],
    "kind": "binary",
-   "prob": 0.024,
+   "prob": 0.025,
    "lead": null,
    "options": [],
    "resolves": "2027-01-01T04:59:00.000Z",
    "d1": null,
    "d7": null,
    "spark": [
-    0.024
+    0.025
    ]
   },
   {
@@ -2512,7 +2558,7 @@
    "source": "polymarket",
    "title": "US military action against Cuba by...?",
    "url": "https://polymarket.com/event/us-strike-on-cuba-by",
-   "volume": 7635934,
+   "volume": 7637423,
    "volumeUnit": "usd",
    "end": "2027-01-01T04:59:00.000Z",
    "themes": [
@@ -2541,12 +2587,12 @@
     "elections"
    ],
    "kind": "ladder",
-   "prob": 0.165,
+   "prob": 0.21,
    "lead": "December 31",
    "options": [
     {
      "label": "December 31",
-     "p": 0.165,
+     "p": 0.21,
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
@@ -2559,7 +2605,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.165
+    0.21
    ]
   },
   {
@@ -3232,7 +3278,7 @@
     },
     {
      "label": "December 31, 2027",
-     "p": 0.245,
+     "p": 0.24,
      "end": "2028-01-01T04:59:00.000Z"
     }
    ],
@@ -3271,7 +3317,7 @@
    "source": "polymarket",
    "title": "Next French Presidential Election",
    "url": "https://polymarket.com/event/next-french-presidential-election",
-   "volume": 155630049,
+   "volume": 155633428,
    "volumeUnit": "usd",
    "end": "2027-04-19T03:59:00.000Z",
    "themes": [
@@ -3530,12 +3576,12 @@
     },
     {
      "label": "Ebba Busch",
-     "p": 0.042,
+     "p": 0.043,
      "end": "2026-09-14T03:59:00.000Z"
     },
     {
      "label": "Elisabeth Thand Ringqvist",
-     "p": 0.005,
+     "p": 0.006,
      "end": "2026-09-14T03:59:00.000Z"
     },
     {
@@ -3689,14 +3735,14 @@
     "conflict"
    ],
    "kind": "binary",
-   "prob": 0.145,
+   "prob": 0.15,
    "lead": null,
    "options": [],
    "resolves": "2028-01-01T04:59:00.000Z",
    "d1": null,
    "d7": null,
    "spark": [
-    0.145
+    0.15
    ]
   },
   {
@@ -4064,7 +4110,7 @@
    "source": "kalshi",
    "title": "2028 Democratic presidential nominee (In 2028)",
    "url": "https://kalshi.com/markets/kxpresnomd",
-   "volume": 245934038,
+   "volume": 245934701,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -4096,7 +4142,7 @@
     },
     {
      "label": "Andy Beshear",
-     "p": 0.055,
+     "p": 0.056,
      "end": "2028-11-07T15:00:00.000Z"
     },
     {
@@ -4117,7 +4163,7 @@
    "source": "kalshi",
    "title": "2028 Republican presidential nominee (In 2028)",
    "url": "https://kalshi.com/markets/kxpresnomr",
-   "volume": 70480552,
+   "volume": 70480586,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -4166,11 +4212,49 @@
    ]
   },
   {
+   "id": "mc-46223",
+   "source": "metaculus",
+   "title": "Which party's nominee will win the 2028 US presidential election?",
+   "url": "https://www.metaculus.com/questions/46223/which-party-will-win-the-2028-us-presidential-election",
+   "volume": 46,
+   "volumeUnit": "forecasters",
+   "end": "2028-11-08T04:00:00.000Z",
+   "themes": [
+    "elections"
+   ],
+   "kind": "multi",
+   "prob": 0.558,
+   "lead": "Democratic Party",
+   "options": [
+    {
+     "label": "Democratic Party",
+     "p": 0.558,
+     "end": "2028-11-08T04:00:00.000Z"
+    },
+    {
+     "label": "Republican Party",
+     "p": 0.421,
+     "end": "2028-11-08T04:00:00.000Z"
+    },
+    {
+     "label": "Other",
+     "p": 0.021,
+     "end": "2028-11-08T04:00:00.000Z"
+    }
+   ],
+   "resolves": "2028-11-08T04:00:00.000Z",
+   "d1": null,
+   "d7": null,
+   "spark": [
+    0.558
+   ]
+  },
+  {
    "id": "pm-30829",
    "source": "polymarket",
    "title": "Democratic Presidential Nominee 2028",
    "url": "https://polymarket.com/event/democratic-presidential-nominee-2028",
-   "volume": 1297270513,
+   "volume": 1297271553,
    "volumeUnit": "usd",
    "end": "2028-11-08T04:59:00.000Z",
    "themes": [
@@ -4223,7 +4307,7 @@
    "source": "polymarket",
    "title": "Presidential Election Winner 2028",
    "url": "https://polymarket.com/event/presidential-election-winner-2028",
-   "volume": 718405312,
+   "volume": 718407850,
    "volumeUnit": "usd",
    "end": "2028-11-08T04:59:00.000Z",
    "themes": [
@@ -4276,19 +4360,19 @@
    "source": "polymarket",
    "title": "Republican Presidential Nominee 2028",
    "url": "https://polymarket.com/event/republican-presidential-nominee-2028",
-   "volume": 715931444,
+   "volume": 715931572,
    "volumeUnit": "usd",
    "end": "2028-11-08T04:59:00.000Z",
    "themes": [
     "elections"
    ],
    "kind": "multi",
-   "prob": 0.441,
+   "prob": 0.442,
    "lead": "J.D. Vance",
    "options": [
     {
      "label": "J.D. Vance",
-     "p": 0.441,
+     "p": 0.442,
      "end": "2028-11-08T04:59:00.000Z"
     },
     {
@@ -4321,7 +4405,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.441
+    0.442
    ]
   },
   {
@@ -4906,7 +4990,7 @@
    "source": "kalshi",
    "title": "2028 U.S. Presidential Election winner? (In 2028)",
    "url": "https://kalshi.com/markets/kxpresperson",
-   "volume": 75999016,
+   "volume": 75999061,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -4992,7 +5076,7 @@
    "source": "kalshi",
    "title": "2028 Presidential Election winner? (Party) (In 2028)",
    "url": "https://kalshi.com/markets/kxpresparty",
-   "volume": 604197,
+   "volume": 604296,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -5122,19 +5206,19 @@
    "source": "kalshi",
    "title": "2028: Who will win the Presidency, House, and Senate? (In 2029)",
    "url": "https://kalshi.com/markets/power",
-   "volume": 470965,
+   "volume": 471249,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
     "elections"
    ],
    "kind": "multi",
-   "prob": 0.49,
+   "prob": 0.48,
    "lead": "Democratic Sweep",
    "options": [
     {
      "label": "Democratic Sweep",
-     "p": 0.49,
+     "p": 0.48,
      "end": "2029-02-01T15:00:00.000Z"
     },
     {
@@ -5167,7 +5251,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.49
+    0.48
    ]
   },
   {
