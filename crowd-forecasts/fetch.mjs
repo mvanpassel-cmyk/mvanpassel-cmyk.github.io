@@ -298,13 +298,13 @@ async function metaculus() {
   for (const p of seen.values()) {
     const q = p.question;
     if (!q) { skip(p.group_of_questions ? "group" : p.conditional ? "conditional" : p.notebook ? "notebook" : "other"); continue; }
-    if ((p.nr_forecasters || 0) < 25) continue;
+    if ((p.nr_forecasters || 0) < 25) { skip("few forecasters"); continue; }
     const title = p.title || q.title;
-    if (excluded(title)) continue;
+    if (excluded(title)) { skip("excluded topic"); continue; }
     const themes = themesOf(title);
-    if (!themes.length) continue;
+    if (!themes.length) { skip("no theme match"); if ((META_STATS.sampleNoTheme ||= []).length < 12) META_STATS.sampleNoTheme.push(title); continue; }
     const latest = latestOf(q);
-    if (!latest) continue;
+    if (!latest) { skip("no community prediction"); if (!META_STATS.sampleKeys) META_STATS.sampleKeys = { post: Object.keys(p), question: Object.keys(q), agg: q.aggregations ? Object.keys(q.aggregations) : null }; continue; }
     const end = isoDate(q.scheduled_resolve_time || p.scheduled_resolve_time);
     let options;
     if (q.type === "binary") {
@@ -318,7 +318,7 @@ async function metaculus() {
       url: `https://www.metaculus.com/questions/${p.id}/${p.slug || ""}`,
       volume: p.nr_forecasters || 0, volumeUnit: "forecasters", end, themes,
     }, options);
-    if (item) items.push(item);
+    if (item) items.push(item); else skip("beyond 3 years");
   }
   return balanced(items.sort((a, b) => b.volume - a.volume), CAP.metaculus);
 }
