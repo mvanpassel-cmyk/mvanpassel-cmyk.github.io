@@ -428,7 +428,10 @@ async function smarkets() {
       const yes = options.find((o) => /^yes$/i.test(o.label)), no = options.find((o) => /^no$/i.test(o.label));
       if (options.length === 2 && yes && no) options = yes.p != null ? [{ label: "Yes", p: yes.p, end: null }] : [];
       else options = options.filter((o) => o.p != null && o.p > 0.01);
-      if (!options.length) { SM_STATS.dropped++; continue; }
+      // In a multi-way market the leader may have been dropped for a wide spread; if the remaining
+      // options cover too little probability, we cannot say who leads, so skip the question.
+      const isYesNo = options.length === 1 && options[0].label === "Yes";
+      if (!options.length || (!isYesNo && options.reduce((a, o) => a + o.p, 0) < 0.6)) { SM_STATS.dropped++; continue; }
       const item = buildItem({
         id: "sm-" + e.id, source: "smarkets", title: e.name, url: `https://smarkets.com/event/${e.id}${e.full_slug || ""}`,
         volume: 0, volumeUnit: "", end: isoDate(e.start_datetime), themes: themesOf(e.name),
