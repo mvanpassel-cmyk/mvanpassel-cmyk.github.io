@@ -259,6 +259,7 @@ async function manifold() {
   return balanced(items.sort((a, b) => b.volume - a.volume), CAP.manifold);
 }
 
+const META_STATS = {};
 // ---------- Metaculus (requires a free API token in env METACULUS_TOKEN) ----------
 async function metaculus() {
   const token = process.env.METACULUS_TOKEN;
@@ -292,9 +293,11 @@ async function metaculus() {
     return agg && (agg.latest || (agg.history && agg.history[agg.history.length - 1]));
   };
   const items = [];
+  META_STATS.fetched = seen.size; META_STATS.skipped = {};
+  const skip = (why) => { META_STATS.skipped[why] = (META_STATS.skipped[why] || 0) + 1; };
   for (const p of seen.values()) {
     const q = p.question;
-    if (!q) continue; // skip groups/conditionals for now
+    if (!q) { skip(p.group_of_questions ? "group" : p.conditional ? "conditional" : p.notebook ? "notebook" : "other"); continue; }
     if ((p.nr_forecasters || 0) < 25) continue;
     const title = p.title || q.title;
     if (excluded(title)) continue;
@@ -309,7 +312,7 @@ async function metaculus() {
       options = [{ label: "Yes", p: clamp01(num(p1)), end }];
     } else if (q.type === "multiple_choice" && Array.isArray(q.options) && Array.isArray(latest.forecast_values)) {
       options = q.options.map((o, i) => ({ label: o, p: clamp01(num(latest.forecast_values[i])), end }));
-    } else continue;
+    } else { skip(q.type || "unknown"); continue; }
     const item = buildItem({
       id: "mc-" + p.id, source: "metaculus", title,
       url: `https://www.metaculus.com/questions/${p.id}/${p.slug || ""}`,
@@ -335,6 +338,7 @@ async function main() {
       const got = await fn();
       items.push(...got);
       sources[name] = { ok: true, count: got.length, updated: NOW.toISOString() };
+      if (name === "metaculus") sources[name].stats = META_STATS;
       console.log(`${name}: ${got.length} items`);
     } catch (e) {
       if (/^SKIP/.test(e.message)) { console.log(`${name} skipped: ${e.message}`); sources[name] = { ok: false, count: 0, updated: null, error: e.message.replace(/^SKIP: /, "") }; continue; }
