@@ -88,7 +88,7 @@ h2.group small{font-weight:500;letter-spacing:0;text-transform:none}
 <div class="wrap">
   <header>
     <h1>Wisdom of the crows</h1>
-    <p>What prediction markets expect on wars, elections, trade and health, ordered by when we will know the answer. Prices from Polymarket, Kalshi and Manifold, and community forecasts from Metaculus, refreshed every morning.</p>
+    <p>What prediction markets expect on wars, elections, trade and health, ordered by when we will know the answer. Prices from Polymarket, Kalshi, Manifold, PredictIt and Smarkets, and community forecasts from Metaculus, refreshed every morning.</p>
     <div class="status" id="status">Loading…</div>
   </header>
 
@@ -117,8 +117,8 @@ h2.group small{font-weight:500;letter-spacing:0;text-transform:none}
 
   <div class="note">
     <p><strong>How to read this.</strong> A price of 30¢ on a “Yes” share roughly means the crowd puts the chance at 30%. The date is the market's deadline: the latest moment the answer will be known, sometimes earlier. For multi-option markets the leading option is shown; for “by date” markets, the nearest deadline is shown with later ones below.</p>
-    <p><strong>Caveats.</strong> Polymarket and Kalshi trade real money (volume in dollars or contracts); Manifold uses play money (shown as number of traders). Metaculus is not a market: it aggregates individual forecasts, weighted towards recent ones, and is often better calibrated on long-range questions. Thin markets can be moved by a single trader, Kalshi leans towards US questions, and market wording and resolution rules matter: open the market before quoting a number.</p>
-    <p>Data: <a href="https://polymarket.com">Polymarket</a>, <a href="https://kalshi.com">Kalshi</a>, <a href="https://manifold.markets">Manifold</a> and <a href="https://www.metaculus.com">Metaculus</a> APIs. Selection is automatic, by trading volume and topic keywords.</p>
+    <p><strong>Caveats.</strong> Polymarket and Kalshi trade real money (volume in dollars or contracts); Manifold uses play money (shown as number of traders). Metaculus is not a market: it aggregates individual forecasts, weighted towards recent ones, and is often better calibrated on long-range questions. Thin markets can be moved by a single trader, Kalshi and PredictIt lean towards US questions, and market wording and resolution rules matter: open the market before quoting a number.</p>
+    <p>Data: <a href="https://polymarket.com">Polymarket</a>, <a href="https://kalshi.com">Kalshi</a>, <a href="https://manifold.markets">Manifold</a> and <a href="https://www.metaculus.com">Metaculus</a>, <a href="https://www.predictit.org">PredictIt</a> and <a href="https://smarkets.com">Smarkets</a>. Selection is automatic, by trading volume and topic keywords.</p>
   </div>
 </div>
 
@@ -129,7 +129,7 @@ const THEMES = {
   trade:{label:"Trade & diplomacy", c:"var(--trade)"},
   health:{label:"Health & pandemics", c:"var(--health)"},
 };
-const SOURCES = {polymarket:"Polymarket", kalshi:"Kalshi", manifold:"Manifold", metaculus:"Metaculus"};
+const SOURCES = {polymarket:"Polymarket", kalshi:"Kalshi", manifold:"Manifold", metaculus:"Metaculus", predictit:"PredictIt", smarkets:"Smarkets"};
 const state = { theme:"all", sources:new Set(Object.keys(SOURCES)), horizon:365, q:"" };
 let DATA = { items:[] };
 

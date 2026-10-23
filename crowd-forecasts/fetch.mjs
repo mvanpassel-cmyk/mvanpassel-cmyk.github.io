@@ -1,5 +1,6 @@
 // Crowd Forecasts — daily fetch of geopolitical prediction markets.
-// Sources: Polymarket (Gamma API), Kalshi (public trade API), Manifold, Metaculus (needs METACULUS_TOKEN).
+// Sources: Polymarket (Gamma API), Kalshi (public trade API), Manifold, Metaculus (needs METACULUS_TOKEN),
+// PredictIt (public API, non-commercial licence, max 1 request/minute) and Smarkets (best effort).
 // Runs in GitHub Actions (Node 20+, no dependencies). Writes data/forecasts.json
 // and keeps a 60-day probability history in data/history.json.
 
@@ -16,7 +17,7 @@ const NOW = new Date();
 const TODAY = NOW.toISOString().slice(0, 10);
 const HORIZON_MS = 3 * 365 * 864e5; // ignore markets resolving more than 3 years out
 
-const CAP = { polymarket: 80, kalshi: 50, manifold: 30, metaculus: 40 };
+const CAP = { polymarket: 80, kalshi: 50, manifold: 30, metaculus: 40, predictit: 25, smarkets: 25 };
 
 // ---------- themes ----------
 const THEMES = {
@@ -360,6 +361,64 @@ async function metaculus() {
   }
 }
 
+// ---------- PredictIt (public API, US politics; non-commercial licence, 1 request/minute) ----------
+async function predictit() {
+  const j = await getJSON("https://www.predictit.org/api/marketdata/all/");
+  const items = [];
+  for (const m of j.markets || []) {
+    if (m.status && !/open/i.test(m.status)) continue;
+    const title = m.name || m.shortName || "";
+    if (excluded(title)) continue;
+    const themes = themesOf(title);
+    if (!themes.length) continue;
+    const cs = (m.contracts || []).filter((c) => !c.status || /open/i.test(c.status));
+    const price = (c) => clamp01(num(c.lastTradePrice) ?? num(c.bestBuyYesCost));
+    const dateOf = (c) => (c.dateEnd && c.dateEnd !== "NA" ? isoDate(c.dateEnd) : null);
+    const options = cs.map((c) => ({ label: c.shortName || c.name, p: price(c), end: dateOf(c) }))
+      .filter((o) => o.p != null && (cs.length === 1 || o.p > 0.01));
+    const item = buildItem({
+      id: "pi-" + m.id, source: "predictit", title, url: m.url || `https://www.predictit.org/markets/detail/${m.id}`,
+      volume: 0, volumeUnit: "", end: cs.map(dateOf).filter(Boolean).sort().pop() || null, themes,
+    }, options);
+    if (item) items.push(item);
+  }
+  items.sort((a, b) => (a.resolves || "9").localeCompare(b.resolves || "9"));
+  return balanced(items, CAP.predictit);
+}
+
+// ---------- Smarkets (UK betting exchange; best effort, public read endpoints) ----------
+async function smarkets() {
+  const base = "https://api.smarkets.com/v3";
+  const ev = await getJSON(`${base}/events/?state=upcoming&state=live&type_domain=politics&limit=200&sort=id`, 2);
+  const events = (ev.events || []).filter((e) => !excluded(e.name) && themesOf(e.name).length).slice(0, 60);
+  if (!events.length) throw new Error("Smarkets returned no matching events");
+  const items = [];
+  for (const e of events) {
+    try {
+      const mk = (await getJSON(`${base}/events/${e.id}/markets/`, 1)).markets || [];
+      if (!mk.length) continue;
+      const ids = mk.map((m) => m.id).join(",");
+      const contracts = (await getJSON(`${base}/markets/${ids}/contracts/`, 1)).contracts || [];
+      const last = (await getJSON(`${base}/markets/${ids}/last_executed_prices/`, 1)).last_executed_prices || {};
+      // pick the market with the most contracts (usually "Winner")
+      const byMarket = new Map();
+      for (const c of contracts) { if (!byMarket.has(c.market_id)) byMarket.set(c.market_id, []); byMarket.get(c.market_id).push(c); }
+      const [mid, cs] = [...byMarket.entries()].sort((a, b) => b[1].length - a[1].length)[0] || [];
+      if (!mid) continue;
+      const prices = new Map((last[mid] || []).map((x) => [String(x.contract_id), clamp01(num(x.last_executed_price))]));
+      const options = cs.map((c) => ({ label: c.name, p: prices.get(String(c.id)), end: null })).filter((o) => o.p != null && o.p > 0.01);
+      const item = buildItem({
+        id: "sm-" + e.id, source: "smarkets", title: e.name, url: `https://smarkets.com/event/${e.id}${e.full_slug || ""}`,
+        volume: 0, volumeUnit: "", end: isoDate(e.start_datetime), themes: themesOf(e.name),
+      }, options);
+      if (item) items.push(item);
+    } catch (err) { console.warn("smarkets event", e.id, err.message); }
+    await sleep(300);
+  }
+  if (!items.length) throw new Error("Smarkets gave no usable prices");
+  return balanced(items, CAP.smarkets);
+}
+
 // ---------- main ----------
 async function readJSON(p, fallback) { try { return JSON.parse(await readFile(p, "utf8")); } catch { return fallback; } }
 
@@ -370,7 +429,7 @@ async function main() {
   const sources = {};
   let items = [];
 
-  for (const [name, fn] of [["polymarket", polymarket], ["kalshi", kalshi], ["manifold", manifold], ["metaculus", metaculus]]) {
+  for (const [name, fn] of [["polymarket", polymarket], ["kalshi", kalshi], ["manifold", manifold], ["metaculus", metaculus], ["predictit", predictit], ["smarkets", smarkets]]) {
     try {
       const got = await fn();
       items.push(...got);
