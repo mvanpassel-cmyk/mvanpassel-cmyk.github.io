@@ -386,6 +386,7 @@ async function predictit() {
   return balanced(items, CAP.predictit);
 }
 
+const SM_STATS = { sample: [] };
 // ---------- Smarkets (UK betting exchange; best effort, public read endpoints) ----------
 async function smarkets() {
   const base = "https://api.smarkets.com/v3";
@@ -405,7 +406,10 @@ async function smarkets() {
       for (const c of contracts) { if (!byMarket.has(c.market_id)) byMarket.set(c.market_id, []); byMarket.get(c.market_id).push(c); }
       const [mid, cs] = [...byMarket.entries()].sort((a, b) => b[1].length - a[1].length)[0] || [];
       if (!mid) continue;
-      const prices = new Map((last[mid] || []).map((x) => [String(x.contract_id), clamp01(num(x.last_executed_price))]));
+      // Price scale is not documented where I could read it: accept 0-1, 0-100 or basis points (0-10000).
+      const norm = (v) => { v = num(v); if (v == null) return null; if (v > 100) v /= 10000; else if (v > 1) v /= 100; return clamp01(v); };
+      for (const x of (last[mid] || []).slice(0, 2)) if (SM_STATS.sample.length < 8) SM_STATS.sample.push({ event: e.name, raw: x.last_executed_price });
+      const prices = new Map((last[mid] || []).map((x) => [String(x.contract_id), norm(x.last_executed_price)]));
       const options = cs.map((c) => ({ label: c.name, p: prices.get(String(c.id)), end: null })).filter((o) => o.p != null && o.p > 0.01);
       const item = buildItem({
         id: "sm-" + e.id, source: "smarkets", title: e.name, url: `https://smarkets.com/event/${e.id}${e.full_slug || ""}`,
@@ -435,6 +439,7 @@ async function main() {
       items.push(...got);
       sources[name] = { ok: true, count: got.length, updated: NOW.toISOString() };
       if (name === "metaculus") sources[name].stats = META_STATS;
+      if (name === "smarkets") sources[name].stats = SM_STATS;
       console.log(`${name}: ${got.length} items`);
     } catch (e) {
       if (/^SKIP/.test(e.message)) { console.log(`${name} skipped: ${e.message}`); sources[name] = { ok: false, count: 0, updated: null, error: e.message.replace(/^SKIP: /, "") }; continue; }
