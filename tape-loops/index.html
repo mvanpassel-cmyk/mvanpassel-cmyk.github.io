@@ -145,8 +145,13 @@ const state = { root: 50, scale: 'dorian' };
 let ctx = null, bus, comp, soft, masterGain, conv, revOut, dly, dfb, noiseBuf, playing = false;
 const warmHz = v => 800 * Math.pow(2, parseFloat(v) * 4.4);
 
+// iOS/Safari: treat this as media playback (plays over Bluetooth, ignores the silent switch);
+// switch to play-and-record only while the microphone is in use, then back.
+function audioMode(type) { try { if (navigator.audioSession) navigator.audioSession.type = type; } catch (e) {} }
+
 function initAudio() {
   if (ctx) return;
+  audioMode('playback');
   ctx = new (window.AudioContext || window.webkitAudioContext)();
   ctx.suspend();
   bus = ctx.createGain();
@@ -641,8 +646,10 @@ async function toggleMic(L) {
   }
   let stream;
   try {
+    audioMode('play-and-record');
     stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } });
   } catch (e) {
+    audioMode('playback');
     const name = e && e.name;
     const why = name === 'NotAllowedError' ? 'permission denied. Allow the microphone for this site, and open the page in a normal browser tab, not a preview.'
       : name === 'NotFoundError' ? 'no microphone found.'
@@ -666,6 +673,8 @@ async function toggleMic(L) {
     clearInterval(rec.timer);
     stream.getTracks().forEach(t => t.stop());
     micRec = null;
+    audioMode('playback');
+    if (playing && ctx.state !== 'running') { try { await ctx.resume(); } catch (e) {} }
     L.el.rec.textContent = 'Rec'; L.el.rec.classList.remove('on');
     try {
       const blob = new Blob(chunks, { type: mr.mimeType || 'audio/webm' });
