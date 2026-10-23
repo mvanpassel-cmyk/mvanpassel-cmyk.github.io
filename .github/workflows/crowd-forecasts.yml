@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: "17 5 * * *"   # daily, 07:17 Amsterdam (summer) / 06:17 (winter)
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "crowd-forecasts/fetch.mjs"
+      - ".github/workflows/crowd-forecasts.yml"
 
 permissions:
   contents: write
