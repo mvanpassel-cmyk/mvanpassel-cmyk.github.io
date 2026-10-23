@@ -1,56 +1,29 @@
 {
- "generated": "2026-10-23T14:05:23.587Z",
+ "generated": "2026-10-23T14:06:53.606Z",
  "sources": {
   "polymarket": {
    "ok": true,
    "count": 80,
-   "updated": "2026-10-23T14:05:23.587Z"
+   "updated": "2026-10-23T14:06:53.606Z"
   },
   "kalshi": {
    "ok": true,
    "count": 50,
-   "updated": "2026-10-23T14:05:23.587Z"
+   "updated": "2026-10-23T14:06:53.606Z"
   },
   "manifold": {
    "ok": true,
    "count": 30,
-   "updated": "2026-10-23T14:05:23.587Z"
+   "updated": "2026-10-23T14:06:53.606Z"
+  },
+  "metaculus": {
+   "ok": false,
+   "count": 0,
+   "updated": null,
+   "error": "no METACULUS_TOKEN secret set"
   }
  },
  "items": [
-  {
-   "id": "pm-57111",
-   "source": "polymarket",
-   "title": "Los Angeles Mayoral Election",
-   "url": "https://polymarket.com/event/los-angeles-mayoral-election-117",
-   "volume": 15848670,
-   "volumeUnit": "usd",
-   "end": "2026-06-03T03:59:00.000Z",
-   "themes": [
-    "elections"
-   ],
-   "kind": "multi",
-   "prob": 0.522,
-   "lead": "Nithya Raman",
-   "options": [
-    {
-     "label": "Nithya Raman",
-     "p": 0.522,
-     "end": "2026-06-03T03:59:00.000Z"
-    },
-    {
-     "label": "Karen Bass",
-     "p": 0.475,
-     "end": "2026-06-03T03:59:00.000Z"
-    }
-   ],
-   "resolves": "2026-06-03T03:59:00.000Z",
-   "d1": null,
-   "d7": null,
-   "spark": [
-    0.522
-   ]
-  },
   {
    "id": "pm-711714",
    "source": "polymarket",
@@ -64,12 +37,12 @@
     "conflict"
    ],
    "kind": "ladder",
-   "prob": 0.935,
+   "prob": 0.94,
    "lead": "October 24",
    "options": [
     {
      "label": "October 24",
-     "p": 0.935,
+     "p": 0.94,
      "end": "2026-10-25T03:59:00.000Z"
     },
     {
@@ -102,7 +75,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.935
+    0.94
    ]
   },
   {
@@ -204,59 +177,6 @@
    "d7": null,
    "spark": [
     0.765
-   ]
-  },
-  {
-   "id": "pm-1138953",
-   "source": "polymarket",
-   "title": "Brazil Presidential Election Second Round: Margin of Victory",
-   "url": "https://polymarket.com/event/brazil-presidential-election-second-round-margin-of-victory",
-   "volume": 4888129,
-   "volumeUnit": "usd",
-   "end": "2026-10-26T03:59:00.000Z",
-   "themes": [
-    "elections"
-   ],
-   "kind": "multi",
-   "prob": 0.445,
-   "lead": "Flávio Bolsonaro <4%",
-   "options": [
-    {
-     "label": "Flávio Bolsonaro <4%",
-     "p": 0.445,
-     "end": "2026-10-26T03:59:00.000Z"
-    },
-    {
-     "label": "Flávio Bolsonaro 4-8%",
-     "p": 0.3,
-     "end": "2026-10-26T03:59:00.000Z"
-    },
-    {
-     "label": "Lula da Silva <4%",
-     "p": 0.2,
-     "end": "2026-10-26T03:59:00.000Z"
-    },
-    {
-     "label": "Flávio Bolsonaro 8-12%",
-     "p": 0.034,
-     "end": "2026-10-26T03:59:00.000Z"
-    },
-    {
-     "label": "Flávio Bolsonaro 12%+",
-     "p": 0.015,
-     "end": "2026-10-26T03:59:00.000Z"
-    },
-    {
-     "label": "Lula da Silva 4-8%",
-     "p": 0.007,
-     "end": "2026-10-26T03:59:00.000Z"
-    }
-   ],
-   "resolves": "2026-10-26T03:59:00.000Z",
-   "d1": null,
-   "d7": null,
-   "spark": [
-    0.445
    ]
   },
   {
@@ -413,7 +333,7 @@
     },
     {
      "label": "November 30",
-     "p": 0.996,
+     "p": 0.994,
      "end": "2026-12-01T04:59:00.000Z"
     },
     {
@@ -470,39 +390,6 @@
    "d7": null,
    "spark": [
     0.065
-   ]
-  },
-  {
-   "id": "pm-90177",
-   "source": "polymarket",
-   "title": "Will the US confirm that aliens exist by...?",
-   "url": "https://polymarket.com/event/will-the-us-confirm-that-aliens-exist-before-2027",
-   "volume": 74576553,
-   "volumeUnit": "usd",
-   "end": "2027-01-01T04:59:00.000Z",
-   "themes": [
-    "elections"
-   ],
-   "kind": "ladder",
-   "prob": 0.005,
-   "lead": "October 31",
-   "options": [
-    {
-     "label": "October 31",
-     "p": 0.005,
-     "end": "2026-11-01T03:59:00.000Z"
-    },
-    {
-     "label": "December 31",
-     "p": 0.05,
-     "end": "2027-01-01T04:59:00.000Z"
-    }
-   ],
-   "resolves": "2026-11-01T03:59:00.000Z",
-   "d1": null,
-   "d7": null,
-   "spark": [
-    0.005
    ]
   },
   {
@@ -648,7 +535,7 @@
     },
     {
      "label": "December 31",
-     "p": 0.835,
+     "p": 0.84,
      "end": "2027-01-01T04:59:00.000Z"
     }
    ],
@@ -792,6 +679,50 @@
    ]
   },
   {
+   "id": "pm-48930",
+   "source": "polymarket",
+   "title": "NATO x Russia military clash by...?",
+   "url": "https://polymarket.com/event/nato-x-russia-military-clash-in-2025",
+   "volume": 10434744,
+   "volumeUnit": "usd",
+   "end": "2027-01-03T04:59:00.000Z",
+   "themes": [
+    "elections",
+    "conflict"
+   ],
+   "kind": "ladder",
+   "prob": 0.185,
+   "lead": "October 31",
+   "options": [
+    {
+     "label": "October 31",
+     "p": 0.185,
+     "end": "2026-11-01T03:59:00.000Z"
+    },
+    {
+     "label": "November 15",
+     "p": 0.205,
+     "end": "2026-11-16T04:59:00.000Z"
+    },
+    {
+     "label": "November 30",
+     "p": 0.235,
+     "end": "2026-12-01T04:59:00.000Z"
+    },
+    {
+     "label": "December 31",
+     "p": 0.33,
+     "end": "2027-01-01T04:59:00.000Z"
+    }
+   ],
+   "resolves": "2026-11-01T03:59:00.000Z",
+   "d1": null,
+   "d7": null,
+   "spark": [
+    0.185
+   ]
+  },
+  {
    "id": "pm-634802",
    "source": "polymarket",
    "title": "Iran full airspace closure by...?",
@@ -822,50 +753,6 @@
    "d7": null,
    "spark": [
     0.095
-   ]
-  },
-  {
-   "id": "pm-48930",
-   "source": "polymarket",
-   "title": "NATO x Russia military clash by...?",
-   "url": "https://polymarket.com/event/nato-x-russia-military-clash-in-2025",
-   "volume": 10434744,
-   "volumeUnit": "usd",
-   "end": "2027-01-03T04:59:00.000Z",
-   "themes": [
-    "elections",
-    "conflict"
-   ],
-   "kind": "ladder",
-   "prob": 0.19,
-   "lead": "October 31",
-   "options": [
-    {
-     "label": "October 31",
-     "p": 0.19,
-     "end": "2026-11-01T03:59:00.000Z"
-    },
-    {
-     "label": "November 15",
-     "p": 0.215,
-     "end": "2026-11-16T04:59:00.000Z"
-    },
-    {
-     "label": "November 30",
-     "p": 0.24,
-     "end": "2026-12-01T04:59:00.000Z"
-    },
-    {
-     "label": "December 31",
-     "p": 0.335,
-     "end": "2027-01-01T04:59:00.000Z"
-    }
-   ],
-   "resolves": "2026-11-01T03:59:00.000Z",
-   "d1": null,
-   "d7": null,
-   "spark": [
-    0.19
    ]
   },
   {
@@ -1278,26 +1165,25 @@
    ]
   },
   {
-   "id": "mf-rP0gSkoCniNTeQmDagJU",
-   "source": "manifold",
-   "title": "If Trump is elected, will there be a ceasefire in Ukraine before the 2026 midterms?",
-   "url": "https://manifold.markets/Arky/if-trump-is-elected-will-there-be-a-40ca39e5dcec",
-   "volume": 624,
-   "volumeUnit": "traders",
-   "end": null,
+   "id": "pm-64731",
+   "source": "polymarket",
+   "title": "Billionaire one-time wealth tax passes in California election 2026?",
+   "url": "https://polymarket.com/event/billionaire-one-time-wealth-tax-passes-in-california-election-2026",
+   "volume": 3946391,
+   "volumeUnit": "usd",
+   "end": "2026-11-04T04:59:00.000Z",
    "themes": [
-    "elections",
-    "conflict"
+    "elections"
    ],
    "kind": "binary",
-   "prob": 0.027,
+   "prob": 0.225,
    "lead": null,
    "options": [],
    "resolves": "2026-11-04T04:59:00.000Z",
    "d1": null,
    "d7": null,
    "spark": [
-    0.027
+    0.225
    ]
   },
   {
@@ -1439,28 +1325,6 @@
    "d7": null,
    "spark": [
     0.05
-   ]
-  },
-  {
-   "id": "mf-6PuZLQhqn5",
-   "source": "manifold",
-   "title": "Hantavirus pandemic in 2026? [Polymarket]",
-   "url": "https://manifold.markets/bagofsprite/hantavirus-pandemic-in-2026-polymar",
-   "volume": 355,
-   "volumeUnit": "traders",
-   "end": null,
-   "themes": [
-    "health"
-   ],
-   "kind": "binary",
-   "prob": 0.017,
-   "lead": null,
-   "options": [],
-   "resolves": "2026-12-31T23:59:00.000Z",
-   "d1": null,
-   "d7": null,
-   "spark": [
-    0.017
    ]
   },
   {
@@ -1722,7 +1586,7 @@
     },
     {
      "label": "↑4.75k",
-     "p": 0.981,
+     "p": 0.98,
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
@@ -2098,6 +1962,28 @@
    ]
   },
   {
+   "id": "pm-90178",
+   "source": "polymarket",
+   "title": "Will Jesus Christ return before 2027?",
+   "url": "https://polymarket.com/event/will-jesus-christ-return-before-2027",
+   "volume": 66639501,
+   "volumeUnit": "usd",
+   "end": "2027-01-01T04:59:00.000Z",
+   "themes": [
+    "elections"
+   ],
+   "kind": "binary",
+   "prob": 0.013,
+   "lead": null,
+   "options": [],
+   "resolves": "2027-01-01T04:59:00.000Z",
+   "d1": null,
+   "d7": null,
+   "spark": [
+    0.013
+   ]
+  },
+  {
    "id": "pm-118172",
    "source": "polymarket",
    "title": "Will Trump acquire Greenland before 2027?",
@@ -2141,28 +2027,6 @@
    "d7": null,
    "spark": [
     0.036
-   ]
-  },
-  {
-   "id": "pm-90178",
-   "source": "polymarket",
-   "title": "Will Jesus Christ return before 2027?",
-   "url": "https://polymarket.com/event/will-jesus-christ-return-before-2027",
-   "volume": 66639501,
-   "volumeUnit": "usd",
-   "end": "2027-01-01T04:59:00.000Z",
-   "themes": [
-    "elections"
-   ],
-   "kind": "binary",
-   "prob": 0.013,
-   "lead": null,
-   "options": [],
-   "resolves": "2027-01-01T04:59:00.000Z",
-   "d1": null,
-   "d7": null,
-   "spark": [
-    0.013
    ]
   },
   {
@@ -2233,28 +2097,6 @@
    ]
   },
   {
-   "id": "pm-139507",
-   "source": "polymarket",
-   "title": "Will Reza Pahlavi enter Iran by...?",
-   "url": "https://polymarket.com/event/will-reza-pahlavi-enter-iran-by-june-30",
-   "volume": 22216942,
-   "volumeUnit": "usd",
-   "end": "2027-01-01T04:59:00.000Z",
-   "themes": [
-    "conflict"
-   ],
-   "kind": "binary",
-   "prob": 0.035,
-   "lead": null,
-   "options": [],
-   "resolves": "2027-01-01T04:59:00.000Z",
-   "d1": null,
-   "d7": null,
-   "spark": [
-    0.035
-   ]
-  },
-  {
    "id": "pm-145916",
    "source": "polymarket",
    "title": "New \"Stranger Things\" episode released by...? ",
@@ -2288,57 +2130,25 @@
    ]
   },
   {
-   "id": "pm-73951",
+   "id": "pm-139507",
    "source": "polymarket",
-   "title": "Which countries will Trump make new trade deals with before 2027?",
-   "url": "https://polymarket.com/event/which-countries-will-trump-make-new-trade-deals-with-before-2027-921",
-   "volume": 403976,
+   "title": "Will Reza Pahlavi enter Iran by...?",
+   "url": "https://polymarket.com/event/will-reza-pahlavi-enter-iran-by-june-30",
+   "volume": 22216942,
    "volumeUnit": "usd",
    "end": "2027-01-01T04:59:00.000Z",
    "themes": [
-    "trade",
     "conflict"
    ],
-   "kind": "multi",
-   "prob": 0.125,
-   "lead": "Vietnam",
-   "options": [
-    {
-     "label": "Vietnam",
-     "p": 0.125,
-     "end": "2027-01-01T04:59:00.000Z"
-    },
-    {
-     "label": "Canada",
-     "p": 0.12,
-     "end": "2027-01-01T04:59:00.000Z"
-    },
-    {
-     "label": "Israel",
-     "p": 0.12,
-     "end": "2027-01-01T04:59:00.000Z"
-    },
-    {
-     "label": "Japan",
-     "p": 0.116,
-     "end": "2027-01-01T04:59:00.000Z"
-    },
-    {
-     "label": "Australia",
-     "p": 0.11,
-     "end": "2027-01-01T04:59:00.000Z"
-    },
-    {
-     "label": "United Kingdom",
-     "p": 0.105,
-     "end": "2027-01-01T04:59:00.000Z"
-    }
-   ],
+   "kind": "binary",
+   "prob": 0.035,
+   "lead": null,
+   "options": [],
    "resolves": "2027-01-01T04:59:00.000Z",
    "d1": null,
    "d7": null,
    "spark": [
-    0.125
+    0.035
    ]
   },
   {
@@ -2373,6 +2183,82 @@
    "d7": null,
    "spark": [
     0.018
+   ]
+  },
+  {
+   "id": "pm-73951",
+   "source": "polymarket",
+   "title": "Which countries will Trump make new trade deals with before 2027?",
+   "url": "https://polymarket.com/event/which-countries-will-trump-make-new-trade-deals-with-before-2027-921",
+   "volume": 403976,
+   "volumeUnit": "usd",
+   "end": "2027-01-01T04:59:00.000Z",
+   "themes": [
+    "trade",
+    "conflict"
+   ],
+   "kind": "multi",
+   "prob": 0.125,
+   "lead": "Vietnam",
+   "options": [
+    {
+     "label": "Vietnam",
+     "p": 0.125,
+     "end": "2027-01-01T04:59:00.000Z"
+    },
+    {
+     "label": "Canada",
+     "p": 0.12,
+     "end": "2027-01-01T04:59:00.000Z"
+    },
+    {
+     "label": "Israel",
+     "p": 0.12,
+     "end": "2027-01-01T04:59:00.000Z"
+    },
+    {
+     "label": "Australia",
+     "p": 0.11,
+     "end": "2027-01-01T04:59:00.000Z"
+    },
+    {
+     "label": "United Kingdom",
+     "p": 0.105,
+     "end": "2027-01-01T04:59:00.000Z"
+    },
+    {
+     "label": "Russia",
+     "p": 0.105,
+     "end": "2027-01-01T04:59:00.000Z"
+    }
+   ],
+   "resolves": "2027-01-01T04:59:00.000Z",
+   "d1": null,
+   "d7": null,
+   "spark": [
+    0.125
+   ]
+  },
+  {
+   "id": "pm-30828",
+   "source": "polymarket",
+   "title": "Xi Jinping out before 2027?",
+   "url": "https://polymarket.com/event/xi-jinping-out-before-2027",
+   "volume": 15237226,
+   "volumeUnit": "usd",
+   "end": "2027-01-01T04:59:00.000Z",
+   "themes": [
+    "elections"
+   ],
+   "kind": "binary",
+   "prob": 0.026,
+   "lead": null,
+   "options": [],
+   "resolves": "2027-01-01T04:59:00.000Z",
+   "d1": null,
+   "d7": null,
+   "spark": [
+    0.026
    ]
   },
   {
@@ -2421,25 +2307,26 @@
    ]
   },
   {
-   "id": "pm-30828",
+   "id": "pm-42365",
    "source": "polymarket",
-   "title": "Xi Jinping out before 2027?",
-   "url": "https://polymarket.com/event/xi-jinping-out-before-2027",
-   "volume": 15237226,
+   "title": "Will the U.S. invade Venezuela by...?",
+   "url": "https://polymarket.com/event/will-the-us-invade-venezuela-in-2025",
+   "volume": 14229909,
    "volumeUnit": "usd",
    "end": "2027-01-01T04:59:00.000Z",
    "themes": [
-    "elections"
+    "elections",
+    "conflict"
    ],
    "kind": "binary",
-   "prob": 0.026,
+   "prob": 0.033,
    "lead": null,
    "options": [],
    "resolves": "2027-01-01T04:59:00.000Z",
    "d1": null,
    "d7": null,
    "spark": [
-    0.026
+    0.033
    ]
   },
   {
@@ -2465,26 +2352,25 @@
    ]
   },
   {
-   "id": "pm-42365",
+   "id": "pm-73969",
    "source": "polymarket",
-   "title": "Will the U.S. invade Venezuela by...?",
-   "url": "https://polymarket.com/event/will-the-us-invade-venezuela-in-2025",
-   "volume": 14229909,
+   "title": "Trump out as President before 2027?",
+   "url": "https://polymarket.com/event/trump-out-as-president-before-2027",
+   "volume": 13051863,
    "volumeUnit": "usd",
    "end": "2027-01-01T04:59:00.000Z",
    "themes": [
-    "elections",
-    "conflict"
+    "elections"
    ],
    "kind": "binary",
-   "prob": 0.032,
+   "prob": 0.04,
    "lead": null,
    "options": [],
    "resolves": "2027-01-01T04:59:00.000Z",
    "d1": null,
    "d7": null,
    "spark": [
-    0.032
+    0.04
    ]
   },
   {
@@ -2530,28 +2416,6 @@
    "d7": null,
    "spark": [
     0.026
-   ]
-  },
-  {
-   "id": "pm-73969",
-   "source": "polymarket",
-   "title": "Trump out as President before 2027?",
-   "url": "https://polymarket.com/event/trump-out-as-president-before-2027",
-   "volume": 13051863,
-   "volumeUnit": "usd",
-   "end": "2027-01-01T04:59:00.000Z",
-   "themes": [
-    "elections"
-   ],
-   "kind": "binary",
-   "prob": 0.04,
-   "lead": null,
-   "options": [],
-   "resolves": "2027-01-01T04:59:00.000Z",
-   "d1": null,
-   "d7": null,
-   "spark": [
-    0.04
    ]
   },
   {
@@ -2621,28 +2485,6 @@
    ]
   },
   {
-   "id": "pm-143669",
-   "source": "polymarket",
-   "title": "US military action against Cuba by...?",
-   "url": "https://polymarket.com/event/us-strike-on-cuba-by",
-   "volume": 7635934,
-   "volumeUnit": "usd",
-   "end": "2027-01-01T04:59:00.000Z",
-   "themes": [
-    "conflict"
-   ],
-   "kind": "binary",
-   "prob": 0.085,
-   "lead": null,
-   "options": [],
-   "resolves": "2027-01-01T04:59:00.000Z",
-   "d1": null,
-   "d7": null,
-   "spark": [
-    0.085
-   ]
-  },
-  {
    "id": "pm-160366",
    "source": "polymarket",
    "title": "Will the US officially declare war on Iran by...?",
@@ -2666,56 +2508,80 @@
    ]
   },
   {
-   "id": "pm-79926",
+   "id": "pm-143669",
    "source": "polymarket",
-   "title": "How many different countries will Israel strike in 2026?",
-   "url": "https://polymarket.com/event/how-many-different-countries-will-israel-strike-in-2026",
-   "volume": 7585197,
+   "title": "US military action against Cuba by...?",
+   "url": "https://polymarket.com/event/us-strike-on-cuba-by",
+   "volume": 7635934,
    "volumeUnit": "usd",
    "end": "2027-01-01T04:59:00.000Z",
    "themes": [
     "conflict"
    ],
-   "kind": "multi",
-   "prob": 0.672,
-   "lead": "4",
+   "kind": "binary",
+   "prob": 0.085,
+   "lead": null,
+   "options": [],
+   "resolves": "2027-01-01T04:59:00.000Z",
+   "d1": null,
+   "d7": null,
+   "spark": [
+    0.085
+   ]
+  },
+  {
+   "id": "pm-212877",
+   "source": "polymarket",
+   "title": "Will Samuel Alito announce his retirement by...?",
+   "url": "https://polymarket.com/event/will-samuel-alito-announce-his-retirement-by",
+   "volume": 4378241,
+   "volumeUnit": "usd",
+   "end": "2027-07-01T03:59:00.000Z",
+   "themes": [
+    "elections"
+   ],
+   "kind": "ladder",
+   "prob": 0.165,
+   "lead": "December 31",
    "options": [
     {
-     "label": "4",
-     "p": 0.672,
+     "label": "December 31",
+     "p": 0.165,
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
-     "label": "5",
-     "p": 0.201,
-     "end": "2027-01-01T04:59:00.000Z"
-    },
-    {
-     "label": "6",
-     "p": 0.034,
-     "end": "2027-01-01T04:59:00.000Z"
-    },
-    {
-     "label": "7",
-     "p": 0.017,
-     "end": "2027-01-01T04:59:00.000Z"
-    },
-    {
-     "label": "15+",
-     "p": 0.011,
-     "end": "2027-01-01T04:59:00.000Z"
-    },
-    {
-     "label": "10",
-     "p": 0.009,
-     "end": "2027-01-01T04:59:00.000Z"
+     "label": "June 30, 2027",
+     "p": 0.435,
+     "end": "2027-07-01T03:59:00.000Z"
     }
    ],
    "resolves": "2027-01-01T04:59:00.000Z",
    "d1": null,
    "d7": null,
    "spark": [
-    0.672
+    0.165
+   ]
+  },
+  {
+   "id": "pm-73196",
+   "source": "polymarket",
+   "title": "Will US withdraw from NATO by...?",
+   "url": "https://polymarket.com/event/will-us-withdraw-from-nato-before-2027",
+   "volume": 6361262,
+   "volumeUnit": "usd",
+   "end": "2027-01-01T04:59:00.000Z",
+   "themes": [
+    "conflict"
+   ],
+   "kind": "binary",
+   "prob": 0.018,
+   "lead": null,
+   "options": [],
+   "resolves": "2027-01-01T04:59:00.000Z",
+   "d1": null,
+   "d7": null,
+   "spark": [
+    0.018
    ]
   },
   {
@@ -2760,6 +2626,28 @@
    "d7": null,
    "spark": [
     0.07
+   ]
+  },
+  {
+   "id": "mf-GUDfwZKVbWvmo95OXbTo",
+   "source": "manifold",
+   "title": "Will the war in Ukraine end before 2027?",
+   "url": "https://manifold.markets/asmith/will-the-war-in-ukraine-end-before-0b0a5ac6c165",
+   "volume": 154,
+   "volumeUnit": "traders",
+   "end": null,
+   "themes": [
+    "conflict"
+   ],
+   "kind": "binary",
+   "prob": 0.073,
+   "lead": null,
+   "options": [],
+   "resolves": "2027-01-02T07:59:00.000Z",
+   "d1": null,
+   "d7": null,
+   "spark": [
+    0.073
    ]
   },
   {
@@ -2852,44 +2740,6 @@
    ]
   },
   {
-   "id": "ks-KXTARIFFRATECAN-27JAN01",
-   "source": "kalshi",
-   "title": "What will the tariff rate on Canadian imports be on Jan 1, 2027?",
-   "url": "https://kalshi.com/markets/kxtariffratecan",
-   "volume": 3402,
-   "volumeUnit": "contracts",
-   "end": null,
-   "themes": [
-    "trade"
-   ],
-   "kind": "multi",
-   "prob": 0.8,
-   "lead": "10% or above",
-   "options": [
-    {
-     "label": "10% or above",
-     "p": 0.8,
-     "end": "2027-01-08T15:00:00.000Z"
-    },
-    {
-     "label": "20% or above",
-     "p": 0.43,
-     "end": "2027-01-08T15:00:00.000Z"
-    },
-    {
-     "label": "30% or above",
-     "p": 0.21,
-     "end": "2027-01-08T15:00:00.000Z"
-    }
-   ],
-   "resolves": "2027-01-08T15:00:00.000Z",
-   "d1": null,
-   "d7": null,
-   "spark": [
-    0.8
-   ]
-  },
-  {
    "id": "ks-KXVENEZDEFACTO-27JAN01",
    "source": "kalshi",
    "title": "Who will de facto lead Venezuela at the end of 2026?",
@@ -2943,33 +2793,33 @@
    ]
   },
   {
-   "id": "ks-KXCANUSRAISE-27",
+   "id": "ks-KXTARIFFRATECAN-27JAN01",
    "source": "kalshi",
-   "title": "When will Canada raise tariffs on the US? (Canadian tariffs on the US)",
-   "url": "https://kalshi.com/markets/kxcanusraise",
-   "volume": 2843,
+   "title": "What will the tariff rate on Canadian imports be on Jan 1, 2027?",
+   "url": "https://kalshi.com/markets/kxtariffratecan",
+   "volume": 3402,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
     "trade"
    ],
-   "kind": "ladder",
-   "prob": 0.12,
-   "lead": "Before Nov 1, 2026",
+   "kind": "multi",
+   "prob": 0.8,
+   "lead": "10% or above",
    "options": [
     {
-     "label": "Before Nov 1, 2026",
-     "p": 0.12,
+     "label": "10% or above",
+     "p": 0.8,
      "end": "2027-01-08T15:00:00.000Z"
     },
     {
-     "label": "Before Dec 1, 2026",
-     "p": 0.39,
+     "label": "20% or above",
+     "p": 0.43,
      "end": "2027-01-08T15:00:00.000Z"
     },
     {
-     "label": "Before Jan 1, 2027",
-     "p": 0.61,
+     "label": "30% or above",
+     "p": 0.21,
      "end": "2027-01-08T15:00:00.000Z"
     }
    ],
@@ -2977,7 +2827,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.12
+    0.8
    ]
   },
   {
@@ -3016,6 +2866,44 @@
    "d7": null,
    "spark": [
     0.07
+   ]
+  },
+  {
+   "id": "ks-KXCANUSRAISE-27",
+   "source": "kalshi",
+   "title": "When will Canada raise tariffs on the US? (Canadian tariffs on the US)",
+   "url": "https://kalshi.com/markets/kxcanusraise",
+   "volume": 2843,
+   "volumeUnit": "contracts",
+   "end": null,
+   "themes": [
+    "trade"
+   ],
+   "kind": "ladder",
+   "prob": 0.12,
+   "lead": "Before Nov 1, 2026",
+   "options": [
+    {
+     "label": "Before Nov 1, 2026",
+     "p": 0.12,
+     "end": "2027-01-08T15:00:00.000Z"
+    },
+    {
+     "label": "Before Dec 1, 2026",
+     "p": 0.39,
+     "end": "2027-01-08T15:00:00.000Z"
+    },
+    {
+     "label": "Before Jan 1, 2027",
+     "p": 0.61,
+     "end": "2027-01-08T15:00:00.000Z"
+    }
+   ],
+   "resolves": "2027-01-08T15:00:00.000Z",
+   "d1": null,
+   "d7": null,
+   "spark": [
+    0.12
    ]
   },
   {
@@ -3122,6 +3010,28 @@
    ]
   },
   {
+   "id": "ks-KXUSSAUDINUCLEAR-27",
+   "source": "kalshi",
+   "title": "Will the U.S.–Saudi nuclear cooperation agreement enter into force?",
+   "url": "https://kalshi.com/markets/kxussaudinuclear",
+   "volume": 14592,
+   "volumeUnit": "contracts",
+   "end": null,
+   "themes": [
+    "conflict"
+   ],
+   "kind": "binary",
+   "prob": 0.14,
+   "lead": null,
+   "options": [],
+   "resolves": "2027-01-08T15:00:00.000Z",
+   "d1": null,
+   "d7": null,
+   "spark": [
+    0.14
+   ]
+  },
+  {
    "id": "ks-KXUSCANADATARIFFDOWN-26SEP21",
    "source": "kalshi",
    "title": "When will Trump lower tariffs on Canada? (US tariffs on Canada)",
@@ -3165,25 +3075,36 @@
    ]
   },
   {
-   "id": "ks-KXUSSAUDINUCLEAR-27",
+   "id": "ks-KXPUTINUSA-26SEP21",
    "source": "kalshi",
-   "title": "Will the U.S.–Saudi nuclear cooperation agreement enter into force? (the bilateral U.S.–Saudi agreement for peaceful nuclear cooperation under Section 123 of the Atomic Energy Act has entered into force and become legally operative between the two governments)",
-   "url": "https://kalshi.com/markets/kxussaudinuclear",
-   "volume": 14592,
+   "title": "Will Putin visit the U.S.? (Before Jan 1, 2028)",
+   "url": "https://kalshi.com/markets/kxputinusa",
+   "volume": 9990,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
     "conflict"
    ],
-   "kind": "binary",
-   "prob": 0.14,
-   "lead": null,
-   "options": [],
+   "kind": "ladder",
+   "prob": 0.23,
+   "lead": "Before Jan 1, 2027",
+   "options": [
+    {
+     "label": "Before Jan 1, 2027",
+     "p": 0.23,
+     "end": "2027-01-08T15:00:00.000Z"
+    },
+    {
+     "label": "Before Jul 1, 2027",
+     "p": 0.2,
+     "end": "2027-07-08T14:00:00.000Z"
+    }
+   ],
    "resolves": "2027-01-08T15:00:00.000Z",
    "d1": null,
    "d7": null,
    "spark": [
-    0.14
+    0.23
    ]
   },
   {
@@ -3228,59 +3149,6 @@
    "d7": null,
    "spark": [
     0.224
-   ]
-  },
-  {
-   "id": "ks-KXDSENATESEATSH-27",
-   "source": "kalshi",
-   "title": "How many Senate seats will Democrats hold after the Midterms? (Higher strikes) (On Feb 1, 2027)",
-   "url": "https://kalshi.com/markets/kxdsenateseatsh",
-   "volume": 708011,
-   "volumeUnit": "contracts",
-   "end": null,
-   "themes": [
-    "conflict"
-   ],
-   "kind": "multi",
-   "prob": 0.61,
-   "lead": "Below 53",
-   "options": [
-    {
-     "label": "Below 53",
-     "p": 0.61,
-     "end": "2027-02-01T15:00:00.000Z"
-    },
-    {
-     "label": "53",
-     "p": 0.14,
-     "end": "2027-02-01T15:00:00.000Z"
-    },
-    {
-     "label": "54",
-     "p": 0.12,
-     "end": "2027-02-01T15:00:00.000Z"
-    },
-    {
-     "label": "55",
-     "p": 0.094,
-     "end": "2027-02-01T15:00:00.000Z"
-    },
-    {
-     "label": "56",
-     "p": 0.051,
-     "end": "2027-02-01T15:00:00.000Z"
-    },
-    {
-     "label": "57",
-     "p": 0.02,
-     "end": "2027-02-01T15:00:00.000Z"
-    }
-   ],
-   "resolves": "2027-02-01T15:00:00.000Z",
-   "d1": null,
-   "d7": null,
-   "spark": [
-    0.61
    ]
   },
   {
@@ -3662,7 +3530,7 @@
     },
     {
      "label": "Ebba Busch",
-     "p": 0.043,
+     "p": 0.042,
      "end": "2026-09-14T03:59:00.000Z"
     },
     {
@@ -3821,14 +3689,14 @@
     "conflict"
    ],
    "kind": "binary",
-   "prob": 0.15,
+   "prob": 0.145,
    "lead": null,
    "options": [],
    "resolves": "2028-01-01T04:59:00.000Z",
    "d1": null,
    "d7": null,
    "spark": [
-    0.15
+    0.145
    ]
   },
   {
@@ -4114,6 +3982,28 @@
    "d7": null,
    "spark": [
     0.475
+   ]
+  },
+  {
+   "id": "mf-SVWX1xIRBRu1SCSubWZF",
+   "source": "manifold",
+   "title": "Will someone under 70 be elected US president in 2028?",
+   "url": "https://manifold.markets/JonathanRay/will-someone-under-70-be-elected-us",
+   "volume": 147,
+   "volumeUnit": "traders",
+   "end": null,
+   "themes": [
+    "elections"
+   ],
+   "kind": "binary",
+   "prob": 0.851,
+   "lead": null,
+   "options": [],
+   "resolves": "2028-11-07T07:59:00.000Z",
+   "d1": null,
+   "d7": null,
+   "spark": [
+    0.851
    ]
   },
   {
@@ -4457,28 +4347,6 @@
    ]
   },
   {
-   "id": "mf-aJNfiOgnBj8XYDdyrsbb",
-   "source": "manifold",
-   "title": "If Trump were elected in 2024, will Trump attempt to run for a third term in 2028 or 2032?",
-   "url": "https://manifold.markets/AmmonLam/will-trump-attempt-to-run-for-a-thi",
-   "volume": 403,
-   "volumeUnit": "traders",
-   "end": null,
-   "themes": [
-    "elections"
-   ],
-   "kind": "binary",
-   "prob": 0.177,
-   "lead": null,
-   "options": [],
-   "resolves": "2028-11-08T06:32:00.000Z",
-   "d1": null,
-   "d7": null,
-   "spark": [
-    0.177
-   ]
-  },
-  {
    "id": "mf-SzUU8sptpd",
    "source": "manifold",
    "title": "Will JD Vance take over the presidency from Donald Trump before the 2028 election?",
@@ -4543,6 +4411,29 @@
    "d7": null,
    "spark": [
     0.299
+   ]
+  },
+  {
+   "id": "mf-looa7lDCwl2U0M2bKRaN",
+   "source": "manifold",
+   "title": "Will Lex Fridman interview Vladimir Putin while he is still Russia's president?",
+   "url": "https://manifold.markets/BTE/will-lex-fridman-interview-vladimir",
+   "volume": 145,
+   "volumeUnit": "traders",
+   "end": null,
+   "themes": [
+    "elections",
+    "conflict"
+   ],
+   "kind": "binary",
+   "prob": 0.075,
+   "lead": null,
+   "options": [],
+   "resolves": "2029-01-01T04:59:00.000Z",
+   "d1": null,
+   "d7": null,
+   "spark": [
+    0.075
    ]
   },
   {
@@ -4863,28 +4754,6 @@
    ]
   },
   {
-   "id": "ks-KXIMPEACH-29",
-   "source": "kalshi",
-   "title": "Will President Trump be impeached during his term? (Before Jan 20, 2029)",
-   "url": "https://kalshi.com/markets/kximpeach",
-   "volume": 732864,
-   "volumeUnit": "contracts",
-   "end": null,
-   "themes": [
-    "elections"
-   ],
-   "kind": "binary",
-   "prob": 0.66,
-   "lead": null,
-   "options": [],
-   "resolves": "2029-01-20T15:00:00.000Z",
-   "d1": null,
-   "d7": null,
-   "spark": [
-    0.66
-   ]
-  },
-  {
    "id": "ks-KXABRAHAMSY-29",
    "source": "kalshi",
    "title": "Will Israel and Syria normalize relations during Trump's term? (Before Trump's term ends)",
@@ -4904,6 +4773,28 @@
    "d7": null,
    "spark": [
     0.15
+   ]
+  },
+  {
+   "id": "ks-KXIMPEACH-29",
+   "source": "kalshi",
+   "title": "Will President Trump be impeached during his term? (Before Jan 20, 2029)",
+   "url": "https://kalshi.com/markets/kximpeach",
+   "volume": 732864,
+   "volumeUnit": "contracts",
+   "end": null,
+   "themes": [
+    "elections"
+   ],
+   "kind": "binary",
+   "prob": 0.66,
+   "lead": null,
+   "options": [],
+   "resolves": "2029-01-20T15:00:00.000Z",
+   "d1": null,
+   "d7": null,
+   "spark": [
+    0.66
    ]
   },
   {
@@ -5152,45 +5043,23 @@
    ]
   },
   {
-   "id": "mf-ZPAtYBYScwMglMD1MUYg",
-   "source": "manifold",
-   "title": "If Trump is elected, will the US still be a liberal democracy at the end of his term? (V-DEM)",
-   "url": "https://manifold.markets/Siebe/if-trump-is-elected-will-the-us-sti",
-   "volume": 210,
-   "volumeUnit": "traders",
-   "end": null,
-   "themes": [
-    "elections"
-   ],
-   "kind": "binary",
-   "prob": 0.12,
-   "lead": null,
-   "options": [],
-   "resolves": "2029-01-21T22:59:00.000Z",
-   "d1": null,
-   "d7": null,
-   "spark": [
-    0.12
-   ]
-  },
-  {
    "id": "ks-KXGREENLANDPRICE-29JAN21",
    "source": "kalshi",
    "title": "How much will the US acquire Greenland for? (During Trump's term)",
    "url": "https://kalshi.com/markets/kxgreenlandprice",
-   "volume": 1780069,
+   "volume": 1780075,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
     "conflict"
    ],
    "kind": "multi",
-   "prob": 0.89,
+   "prob": 0.901,
    "lead": "$0 / No Acquisition",
    "options": [
     {
      "label": "$0 / No Acquisition",
-     "p": 0.89,
+     "p": 0.901,
      "end": "2029-01-22T15:00:00.000Z"
     },
     {
@@ -5223,7 +5092,29 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.89
+    0.901
+   ]
+  },
+  {
+   "id": "mf-dP9ggPInAz",
+   "source": "manifold",
+   "title": "Will the 2028 US presidential election occur \"as normal\"?",
+   "url": "https://manifold.markets/Mad/will-the-2028-us-presidential-elect-5SqqLONpcP",
+   "volume": 142,
+   "volumeUnit": "traders",
+   "end": null,
+   "themes": [
+    "elections"
+   ],
+   "kind": "binary",
+   "prob": 0.75,
+   "lead": null,
+   "options": [],
+   "resolves": "2029-01-28T15:59:00.000Z",
+   "d1": null,
+   "d7": null,
+   "spark": [
+    0.75
    ]
   },
   {
