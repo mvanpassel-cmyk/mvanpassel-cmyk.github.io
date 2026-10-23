@@ -315,7 +315,17 @@ async function metaculus() {
     const themes = themesOf(title);
     if (!themes.length) { skip("no theme match"); if ((META_STATS.sampleNoTheme ||= []).length < 12) META_STATS.sampleNoTheme.push(title); continue; }
     const latest = latestOf(q);
-    if (!latest) { skip("no community prediction"); if (!META_STATS.sampleKeys) META_STATS.sampleKeys = { post: Object.keys(p), question: Object.keys(q), agg: q.aggregations ? Object.keys(q.aggregations) : null }; continue; }
+    if (latest && !META_STATS.sampleOK) META_STATS.sampleOK = { title, type: q.type, latestKeys: Object.keys(latest), cp_reveal_time: q.cp_reveal_time };
+    if (!latest) {
+      skip("no community prediction");
+      const rw = q.aggregations && q.aggregations.recency_weighted;
+      const smp = (META_STATS.sampleNoCP ||= []);
+      if (smp.length < 4) smp.push({ title, type: q.type, status: q.status, nr_forecasters: p.nr_forecasters, forecasts_count: p.forecasts_count,
+        cp_reveal_time: q.cp_reveal_time, open_time: q.open_time, rwKeys: rw ? Object.keys(rw) : null,
+        historyLen: rw && Array.isArray(rw.history) ? rw.history.length : null, latest: rw ? rw.latest : null,
+        aggKeys: q.aggregations ? Object.keys(q.aggregations) : null });
+      continue;
+    }
     const end = isoDate(q.scheduled_resolve_time || p.scheduled_resolve_time);
     let options;
     if (q.type === "binary") {
