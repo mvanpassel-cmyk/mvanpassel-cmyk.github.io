@@ -244,7 +244,7 @@ fetch("data/forecasts.json?v=" + new Date().toISOString().slice(0, 13), { cache:
     const gen = new Date(j.generated);
     const parts = [`Updated ${gen.toLocaleString("en-GB", { day:"numeric", month:"short", hour:"2-digit", minute:"2-digit" })}`];
     for (const [k, s] of Object.entries(j.sources || {})) parts.push(`<span class="${s.ok ? "" : "bad"}" title="${esc(s.error || "")}"><span class="dot"></span>${SOURCES[k]} ${s.count}${s.ok ? "" : " (stale)"}</span>`);
-    $("status").innerHTML = parts.join("");
+    $("status").innerHTML = parts.join("") + (j.note ? `<div style="flex-basis:100%">${esc(j.note)}</div>` : "");
     render();
   })
   .catch(() => {
