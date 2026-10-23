@@ -1,16 +1,16 @@
 {
  "generated": "2026-10-23T14:00:00Z",
  "draft": true,
- "note": "First draft: prices read by hand from Polymarket and Kalshi pages on 23 Oct 2026. The daily update replaces this with the full API selection and adds Manifold.",
+ "note": "First draft: prices read by hand from Polymarket and Kalshi pages on 23 Oct 2026. The daily update replaces this with the full API selection and adds Manifold and Metaculus.",
  "sources": {
   "polymarket": {
    "ok": true,
-   "count": 40,
+   "count": 41,
    "updated": "2026-10-23T14:00:00Z"
   },
   "kalshi": {
    "ok": true,
-   "count": 6,
+   "count": 8,
    "updated": "2026-10-23T14:00:00Z"
   }
  },
@@ -32,15 +32,15 @@
     {
      "label": "October 24",
      "p": 0.93,
-     "end": "2026-10-24T23:59:00Z"
+     "end": "2026-10-24T12:00:00Z"
     },
     {
      "label": "October 27",
      "p": 0.87,
-     "end": "2026-10-27T23:59:00Z"
+     "end": "2026-10-27T12:00:00Z"
     }
    ],
-   "resolves": "2026-10-24T23:59:00Z",
+   "resolves": "2026-10-24T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -70,7 +70,7 @@
      "end": null
     }
    ],
-   "resolves": "2026-10-25T23:59:00Z",
+   "resolves": "2026-10-25T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -100,7 +100,7 @@
      "end": null
     }
    ],
-   "resolves": "2026-10-26T23:59:00Z",
+   "resolves": "2026-10-26T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -130,7 +130,7 @@
      "end": null
     }
    ],
-   "resolves": "2026-10-26T23:59:00Z",
+   "resolves": "2026-10-26T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -160,37 +160,7 @@
      "end": null
     }
    ],
-   "resolves": "2026-10-28T23:59:00Z",
-   "d1": null,
-   "d7": null,
-   "spark": []
-  },
-  {
-   "id": "pm-iran-airspace",
-   "source": "polymarket",
-   "title": "Iran full airspace closure by...?",
-   "url": "https://polymarket.com/event/iran-full-airspace-closure-byptptpt-20260625195253028",
-   "volume": 10000000,
-   "volumeUnit": "usd",
-   "themes": [
-    "conflict"
-   ],
-   "kind": "ladder",
-   "prob": 0.12,
-   "lead": "October 31",
-   "options": [
-    {
-     "label": "October 31",
-     "p": 0.12,
-     "end": "2026-10-31T23:59:00Z"
-    },
-    {
-     "label": "December 31",
-     "p": 0.39,
-     "end": "2026-12-31T23:59:00Z"
-    }
-   ],
-   "resolves": "2026-10-31T23:59:00Z",
+   "resolves": "2026-10-28T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -220,7 +190,7 @@
      "end": null
     }
    ],
-   "resolves": "2026-11-03T23:59:00Z",
+   "resolves": "2026-11-03T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -250,7 +220,7 @@
      "end": null
     }
    ],
-   "resolves": "2026-11-03T23:59:00Z",
+   "resolves": "2026-11-03T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -280,7 +250,7 @@
      "end": null
     }
    ],
-   "resolves": "2026-11-08T23:59:00Z",
+   "resolves": "2026-11-08T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -310,7 +280,7 @@
      "end": null
     }
    ],
-   "resolves": "2026-11-29T23:59:00Z",
+   "resolves": "2026-11-29T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -323,8 +293,8 @@
    "volume": 2000000,
    "volumeUnit": "usd",
    "themes": [
-    "conflict",
-    "trade"
+    "trade",
+    "conflict"
    ],
    "kind": "ladder",
    "prob": 0.67,
@@ -333,46 +303,15 @@
     {
      "label": "November 30",
      "p": 0.67,
-     "end": "2026-11-30T23:59:00Z"
+     "end": "2026-11-30T12:00:00Z"
     },
     {
      "label": "December 31",
      "p": 0.73,
-     "end": "2026-12-31T23:59:00Z"
+     "end": "2026-12-31T12:00:00Z"
     }
    ],
-   "resolves": "2026-11-30T23:59:00Z",
-   "d1": null,
-   "d7": null,
-   "spark": []
-  },
-  {
-   "id": "pm-ru-ua-diplomatic-meeting",
-   "source": "polymarket",
-   "title": "Russia x Ukraine any diplomatic meeting by...?",
-   "url": "https://polymarket.com/event/russia-x-ukraine-any-diplomatic-meeting-byptptpt-20260819",
-   "volume": 854000,
-   "volumeUnit": "usd",
-   "themes": [
-    "conflict",
-    "trade"
-   ],
-   "kind": "ladder",
-   "prob": 0.87,
-   "lead": "November 30",
-   "options": [
-    {
-     "label": "November 30",
-     "p": 0.87,
-     "end": "2026-11-30T23:59:00Z"
-    },
-    {
-     "label": "December 31",
-     "p": 0.92,
-     "end": "2026-12-31T23:59:00Z"
-    }
-   ],
-   "resolves": "2026-11-30T23:59:00Z",
+   "resolves": "2026-11-30T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -394,15 +333,15 @@
     {
      "label": "November 30",
      "p": 0.24,
-     "end": "2026-11-30T23:59:00Z"
+     "end": "2026-11-30T12:00:00Z"
     },
     {
      "label": "December 31",
      "p": 0.35,
-     "end": "2026-12-31T23:59:00Z"
+     "end": "2026-12-31T12:00:00Z"
     }
    ],
-   "resolves": "2026-11-30T23:59:00Z",
+   "resolves": "2026-11-30T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -425,15 +364,15 @@
     {
      "label": "November 30",
      "p": 0.08,
-     "end": "2026-11-30T23:59:00Z"
+     "end": "2026-11-30T12:00:00Z"
     },
     {
      "label": "December 31",
      "p": 0.14,
-     "end": "2026-12-31T23:59:00Z"
+     "end": "2026-12-31T12:00:00Z"
     }
    ],
-   "resolves": "2026-11-30T23:59:00Z",
+   "resolves": "2026-11-30T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -463,7 +402,7 @@
      "end": null
     }
    ],
-   "resolves": "2026-11-30T23:59:00Z",
+   "resolves": "2026-11-30T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -482,7 +421,7 @@
    "prob": 0.02,
    "lead": null,
    "options": [],
-   "resolves": "2026-11-30T23:59:00Z",
+   "resolves": "2026-11-30T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -512,7 +451,7 @@
      "end": null
     }
    ],
-   "resolves": "2026-12-05T23:59:00Z",
+   "resolves": "2026-12-05T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -531,7 +470,7 @@
    "prob": 0.02,
    "lead": null,
    "options": [],
-   "resolves": "2026-12-31T23:59:00Z",
+   "resolves": "2026-12-31T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -550,7 +489,7 @@
    "prob": 0.17,
    "lead": null,
    "options": [],
-   "resolves": "2026-12-31T23:59:00Z",
+   "resolves": "2026-12-31T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -563,8 +502,8 @@
    "volume": 42000000,
    "volumeUnit": "usd",
    "themes": [
-    "conflict",
-    "trade"
+    "trade",
+    "conflict"
    ],
    "kind": "ladder",
    "prob": 0.37,
@@ -573,15 +512,15 @@
     {
      "label": "December 31, 2026",
      "p": 0.37,
-     "end": "2026-12-31T23:59:00Z"
+     "end": "2026-12-31T12:00:00Z"
     },
     {
      "label": "March 31, 2027",
      "p": 0.61,
-     "end": "2027-03-31T23:59:00Z"
+     "end": "2027-03-31T12:00:00Z"
     }
    ],
-   "resolves": "2026-12-31T23:59:00Z",
+   "resolves": "2026-12-31T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -594,83 +533,14 @@
    "volume": 28000000,
    "volumeUnit": "usd",
    "themes": [
-    "conflict",
-    "elections"
+    "elections",
+    "conflict"
    ],
    "kind": "binary",
    "prob": 0.06,
    "lead": null,
    "options": [],
-   "resolves": "2026-12-31T23:59:00Z",
-   "d1": null,
-   "d7": null,
-   "spark": []
-  },
-  {
-   "id": "pm-iran-coup",
-   "source": "polymarket",
-   "title": "Iran coup attempt by...?",
-   "url": "https://polymarket.com/event/iran-coup-attempt-by-june-30",
-   "volume": 2000000,
-   "volumeUnit": "usd",
-   "themes": [
-    "conflict"
-   ],
-   "kind": "ladder",
-   "prob": 0.07,
-   "lead": "December 31, 2026",
-   "options": [
-    {
-     "label": "December 31, 2026",
-     "p": 0.07,
-     "end": "2026-12-31T23:59:00Z"
-    },
-    {
-     "label": "December 31, 2027",
-     "p": 0.23,
-     "end": "2027-12-31T23:59:00Z"
-    }
-   ],
-   "resolves": "2026-12-31T23:59:00Z",
-   "d1": null,
-   "d7": null,
-   "spark": []
-  },
-  {
-   "id": "pm-greece-turkey",
-   "source": "polymarket",
-   "title": "Greece x Turkey military engagement by end of 2026?",
-   "url": "https://polymarket.com/event/greece-x-turkey-military-engagement-by-june-30",
-   "volume": 1000000,
-   "volumeUnit": "usd",
-   "themes": [
-    "conflict"
-   ],
-   "kind": "binary",
-   "prob": 0.1,
-   "lead": null,
-   "options": [],
-   "resolves": "2026-12-31T23:59:00Z",
-   "d1": null,
-   "d7": null,
-   "spark": []
-  },
-  {
-   "id": "pm-iran-hormuz-fees",
-   "source": "polymarket",
-   "title": "Iran charges Hormuz fees by December 31?",
-   "url": "https://polymarket.com/event/iran-charges-hormuz-fees-byptptpt-20260625175035466",
-   "volume": 4000000,
-   "volumeUnit": "usd",
-   "themes": [
-    "conflict",
-    "trade"
-   ],
-   "kind": "binary",
-   "prob": 0.16,
-   "lead": null,
-   "options": [],
-   "resolves": "2026-12-31T23:59:00Z",
+   "resolves": "2026-12-31T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -683,8 +553,8 @@
    "volume": 7700000,
    "volumeUnit": "usd",
    "themes": [
-    "conflict",
-    "trade"
+    "trade",
+    "conflict"
    ],
    "kind": "ladder",
    "prob": 0.02,
@@ -693,15 +563,15 @@
     {
      "label": "Before 2027",
      "p": 0.02,
-     "end": "2026-12-31T23:59:00Z"
+     "end": "2026-12-31T12:00:00Z"
     },
     {
      "label": "Before Jan 20, 2029",
      "p": 0.13,
-     "end": "2029-01-19T23:59:00Z"
+     "end": "2029-01-19T12:00:00Z"
     }
    ],
-   "resolves": "2026-12-31T23:59:00Z",
+   "resolves": "2026-12-31T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -720,7 +590,7 @@
    "prob": 0.53,
    "lead": null,
    "options": [],
-   "resolves": "2026-12-31T23:59:00Z",
+   "resolves": "2026-12-31T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -739,7 +609,7 @@
    "prob": 0.88,
    "lead": "5–15%",
    "options": [],
-   "resolves": "2026-12-31T23:59:00Z",
+   "resolves": "2026-12-31T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -761,15 +631,15 @@
     {
      "label": "Before Jan 1, 2027",
      "p": 0.53,
-     "end": "2026-12-31T23:59:00Z"
+     "end": "2026-12-31T12:00:00Z"
     },
     {
      "label": "Before Jul 1, 2027",
      "p": 0.75,
-     "end": "2027-06-30T23:59:00Z"
+     "end": "2027-06-30T12:00:00Z"
     }
    ],
-   "resolves": "2026-12-31T23:59:00Z",
+   "resolves": "2026-12-31T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -800,7 +670,7 @@
      "end": null
     }
    ],
-   "resolves": "2026-12-31T23:59:00Z",
+   "resolves": "2026-12-31T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -819,7 +689,7 @@
    "prob": 0.04,
    "lead": null,
    "options": [],
-   "resolves": "2026-12-31T23:59:00Z",
+   "resolves": "2026-12-31T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -842,15 +712,15 @@
     {
      "label": "December 31, 2026",
      "p": 0.02,
-     "end": "2026-12-31T23:59:00Z"
+     "end": "2026-12-31T12:00:00Z"
     },
     {
      "label": "June 30, 2027",
      "p": 0.1,
-     "end": "2027-06-30T23:59:00Z"
+     "end": "2027-06-30T12:00:00Z"
     }
    ],
-   "resolves": "2026-12-31T23:59:00Z",
+   "resolves": "2026-12-31T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -881,7 +751,7 @@
      "end": null
     }
    ],
-   "resolves": "2026-12-31T23:59:00Z",
+   "resolves": "2026-12-31T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -911,7 +781,7 @@
      "end": null
     }
    ],
-   "resolves": "2026-12-31T23:59:00Z",
+   "resolves": "2026-12-31T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -930,7 +800,7 @@
    "prob": 0.04,
    "lead": null,
    "options": [],
-   "resolves": "2026-12-31T23:59:00Z",
+   "resolves": "2026-12-31T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -949,7 +819,7 @@
    "prob": 0.03,
    "lead": null,
    "options": [],
-   "resolves": "2026-12-31T23:59:00Z",
+   "resolves": "2026-12-31T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -968,7 +838,7 @@
    "prob": 0.03,
    "lead": null,
    "options": [],
-   "resolves": "2026-12-31T23:59:00Z",
+   "resolves": "2026-12-31T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -987,7 +857,7 @@
    "prob": 0.37,
    "lead": "Somalia",
    "options": [],
-   "resolves": "2026-12-31T23:59:00Z",
+   "resolves": "2026-12-31T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -1006,7 +876,7 @@
    "prob": 0.14,
    "lead": null,
    "options": [],
-   "resolves": "2026-12-31T23:59:00Z",
+   "resolves": "2026-12-31T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -1025,7 +895,170 @@
    "prob": 0.05,
    "lead": null,
    "options": [],
-   "resolves": "2026-12-31T23:59:00Z",
+   "resolves": "2026-12-31T12:00:00Z",
+   "d1": null,
+   "d7": null,
+   "spark": []
+  },
+  {
+   "id": "pm-canada-tariff-decrease",
+   "source": "polymarket",
+   "title": "Trump announces Canada tariff decrease by December 31?",
+   "url": "https://polymarket.com/event/trump-announces-canada-tariff-decrease-byptptpt",
+   "volume": 5900,
+   "volumeUnit": "usd",
+   "themes": [
+    "trade"
+   ],
+   "kind": "binary",
+   "prob": 0.34,
+   "lead": null,
+   "options": [],
+   "resolves": "2026-12-31T12:00:00Z",
+   "d1": null,
+   "d7": null,
+   "spark": []
+  },
+  {
+   "id": "pm-diesel-ban",
+   "source": "polymarket",
+   "title": "US announces diesel export ban by December 31?",
+   "url": "https://polymarket.com/event/us-announces-diesel-export-ban-byptptpt",
+   "volume": 511000,
+   "volumeUnit": "usd",
+   "themes": [
+    "trade"
+   ],
+   "kind": "binary",
+   "prob": 0.11,
+   "lead": null,
+   "options": [],
+   "resolves": "2026-12-31T12:00:00Z",
+   "d1": null,
+   "d7": null,
+   "spark": []
+  },
+  {
+   "id": "ks-trump-countries",
+   "source": "kalshi",
+   "title": "Which countries will Trump visit before 2027?",
+   "url": "https://kalshi.com/markets/kxtrumpcountries/what-countries-will-trump-visit-this-year/kxtrumpcountries-27jan01",
+   "volume": 862000,
+   "volumeUnit": "usd",
+   "themes": [
+    "trade"
+   ],
+   "kind": "multi",
+   "prob": 0.16,
+   "lead": "Japan",
+   "options": [
+    {
+     "label": "Japan",
+     "p": 0.16,
+     "end": null
+    },
+    {
+     "label": "Saudi Arabia",
+     "p": 0.14,
+     "end": null
+    }
+   ],
+   "resolves": "2026-12-31T12:00:00Z",
+   "d1": null,
+   "d7": null,
+   "spark": []
+  },
+  {
+   "id": "pm-screwworm",
+   "source": "polymarket",
+   "title": "US screwworm national emergency declared by December 31?",
+   "url": "https://polymarket.com/event/screwworm-national-emergency-declared-byptptpt-20260609150610739",
+   "volume": 11400,
+   "volumeUnit": "usd",
+   "themes": [
+    "health"
+   ],
+   "kind": "binary",
+   "prob": 0.34,
+   "lead": null,
+   "options": [],
+   "resolves": "2026-12-31T12:00:00Z",
+   "d1": null,
+   "d7": null,
+   "spark": []
+  },
+  {
+   "id": "pm-plague-us",
+   "source": "polymarket",
+   "title": "Plague case in the US by December 31?",
+   "url": "https://polymarket.com/event/plague-case-in-us-by-december-31",
+   "volume": 15300,
+   "volumeUnit": "usd",
+   "themes": [
+    "health"
+   ],
+   "kind": "binary",
+   "prob": 0.08,
+   "lead": null,
+   "options": [],
+   "resolves": "2026-12-31T12:00:00Z",
+   "d1": null,
+   "d7": null,
+   "spark": []
+  },
+  {
+   "id": "pm-hantavirus-vaccine",
+   "source": "polymarket",
+   "title": "Hantavirus vaccine in 2026?",
+   "url": "https://polymarket.com/event/hantavirus-vaccine-in-2026",
+   "volume": 142000,
+   "volumeUnit": "usd",
+   "themes": [
+    "health"
+   ],
+   "kind": "binary",
+   "prob": 0.03,
+   "lead": null,
+   "options": [],
+   "resolves": "2026-12-31T12:00:00Z",
+   "d1": null,
+   "d7": null,
+   "spark": []
+  },
+  {
+   "id": "pm-coronavirus-pandemic",
+   "source": "polymarket",
+   "title": "New coronavirus pandemic in 2026?",
+   "url": "https://polymarket.com/event/new-coronavirus-pandemic-in-2026",
+   "volume": 30200,
+   "volumeUnit": "usd",
+   "themes": [
+    "health"
+   ],
+   "kind": "binary",
+   "prob": 0.03,
+   "lead": null,
+   "options": [],
+   "resolves": "2026-12-31T12:00:00Z",
+   "d1": null,
+   "d7": null,
+   "spark": []
+  },
+  {
+   "id": "ks-china-tariff",
+   "source": "kalshi",
+   "title": "Tariff rate on Chinese imports on Jan 1, 2027: 20% or above?",
+   "url": "https://kalshi.com/markets/kxtariffrateprc/tariff-rate-china/kxtariffrateprc-27jan01",
+   "volume": 2800,
+   "volumeUnit": "usd",
+   "themes": [
+    "trade"
+   ],
+   "kind": "binary",
+   "prob": 0.41,
+   "lead": null,
+   "options": [],
+   "resolves": "2027-01-01T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -1055,7 +1088,7 @@
      "end": null
     }
    ],
-   "resolves": "2027-01-17T23:59:00Z",
+   "resolves": "2027-01-17T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -1085,7 +1118,7 @@
      "end": null
     }
    ],
-   "resolves": "2027-04-19T23:59:00Z",
+   "resolves": "2027-04-19T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -1104,7 +1137,7 @@
    "prob": 0.09,
    "lead": null,
    "options": [],
-   "resolves": "2027-06-30T23:59:00Z",
+   "resolves": "2027-06-30T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -1126,20 +1159,20 @@
     {
      "label": "July 31, 2027",
      "p": 0.56,
-     "end": "2027-07-31T23:59:00Z"
+     "end": "2027-07-31T12:00:00Z"
     },
     {
      "label": "September 30, 2027",
      "p": 0.63,
-     "end": "2027-09-30T23:59:00Z"
+     "end": "2027-09-30T12:00:00Z"
     },
     {
      "label": "December 31, 2027",
      "p": 0.72,
-     "end": "2027-12-31T23:59:00Z"
+     "end": "2027-12-31T12:00:00Z"
     }
    ],
-   "resolves": "2027-07-31T23:59:00Z",
+   "resolves": "2027-07-31T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -1152,8 +1185,8 @@
    "volume": 47100000,
    "volumeUnit": "usd",
    "themes": [
-    "conflict",
-    "trade"
+    "trade",
+    "conflict"
    ],
    "kind": "ladder",
    "prob": 0.44,
@@ -1162,15 +1195,15 @@
     {
      "label": "Before Jan 1, 2028",
      "p": 0.44,
-     "end": "2027-12-31T23:59:00Z"
+     "end": "2027-12-31T12:00:00Z"
     },
     {
      "label": "Before Jul 1, 2028",
      "p": 0.48,
-     "end": "2028-06-30T23:59:00Z"
+     "end": "2028-06-30T12:00:00Z"
     }
    ],
-   "resolves": "2027-12-31T23:59:00Z",
+   "resolves": "2027-12-31T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -1192,15 +1225,15 @@
     {
      "label": "Before Jan 1, 2028",
      "p": 0.47,
-     "end": "2027-12-31T23:59:00Z"
+     "end": "2027-12-31T12:00:00Z"
     },
     {
      "label": "Before Jul 1, 2028",
      "p": 0.81,
-     "end": "2028-06-30T23:59:00Z"
+     "end": "2028-06-30T12:00:00Z"
     }
    ],
-   "resolves": "2027-12-31T23:59:00Z",
+   "resolves": "2027-12-31T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []
@@ -1219,7 +1252,7 @@
    "prob": 0.12,
    "lead": null,
    "options": [],
-   "resolves": "2027-12-31T23:59:00Z",
+   "resolves": "2027-12-31T12:00:00Z",
    "d1": null,
    "d7": null,
    "spark": []

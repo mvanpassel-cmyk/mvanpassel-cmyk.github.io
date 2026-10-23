@@ -88,7 +88,7 @@ h2.group small{font-weight:500;letter-spacing:0;text-transform:none}
 <div class="wrap">
   <header>
     <h1>Crowd forecasts</h1>
-    <p>What prediction markets expect on wars, elections, trade and health, ordered by when we will know the answer. Prices from Polymarket, Kalshi and Manifold, refreshed every morning.</p>
+    <p>What prediction markets expect on wars, elections, trade and health, ordered by when we will know the answer. Prices from Polymarket, Kalshi and Manifold, and community forecasts from Metaculus, refreshed every morning.</p>
     <div class="status" id="status">Loading…</div>
   </header>
 
@@ -117,8 +117,8 @@ h2.group small{font-weight:500;letter-spacing:0;text-transform:none}
 
   <div class="note">
     <p><strong>How to read this.</strong> A price of 30¢ on a “Yes” share roughly means the crowd puts the chance at 30%. The date is the market's deadline: the latest moment the answer will be known, sometimes earlier. For multi-option markets the leading option is shown; for “by date” markets, the nearest deadline is shown with later ones below.</p>
-    <p><strong>Caveats.</strong> Polymarket and Kalshi trade real money (volume in dollars or contracts); Manifold uses play money (shown as number of traders). Thin markets can be moved by a single trader, Kalshi leans towards US questions, and market wording and resolution rules matter: open the market before quoting a number.</p>
-    <p>Data: <a href="https://polymarket.com">Polymarket</a>, <a href="https://kalshi.com">Kalshi</a>, <a href="https://manifold.markets">Manifold</a> public APIs. Selection is automatic, by trading volume and topic keywords.</p>
+    <p><strong>Caveats.</strong> Polymarket and Kalshi trade real money (volume in dollars or contracts); Manifold uses play money (shown as number of traders). Metaculus is not a market: it aggregates individual forecasts, weighted towards recent ones, and is often better calibrated on long-range questions. Thin markets can be moved by a single trader, Kalshi leans towards US questions, and market wording and resolution rules matter: open the market before quoting a number.</p>
+    <p>Data: <a href="https://polymarket.com">Polymarket</a>, <a href="https://kalshi.com">Kalshi</a>, <a href="https://manifold.markets">Manifold</a> and <a href="https://www.metaculus.com">Metaculus</a> APIs. Selection is automatic, by trading volume and topic keywords.</p>
   </div>
 </div>
 
@@ -129,7 +129,7 @@ const THEMES = {
   trade:{label:"Trade & diplomacy", c:"var(--trade)"},
   health:{label:"Health & pandemics", c:"var(--health)"},
 };
-const SOURCES = {polymarket:"Polymarket", kalshi:"Kalshi", manifold:"Manifold"};
+const SOURCES = {polymarket:"Polymarket", kalshi:"Kalshi", manifold:"Manifold", metaculus:"Metaculus"};
 const state = { theme:"all", sources:new Set(Object.keys(SOURCES)), horizon:365, q:"" };
 let DATA = { items:[] };
 
@@ -140,7 +140,7 @@ const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov
 const fmtVol = (v, unit) => {
   if (!v) return "";
   const n = v >= 1e6 ? (v/1e6).toFixed(v >= 1e7 ? 0 : 1) + "M" : v >= 1e3 ? Math.round(v/1e3) + "k" : String(v);
-  return unit === "usd" ? "$" + n + " vol" : unit === "contracts" ? n + " contracts" : n + " traders";
+  return unit === "usd" ? "$" + n + " vol" : unit === "contracts" ? n + " contracts" : unit === "forecasters" ? n + " forecasters" : n + " traders";
 };
 const shortDate = (iso) => { if (!iso) return ""; const d = new Date(iso); return `${MONTHS[d.getMonth()]} ${d.getDate()}${d.getFullYear() !== new Date().getFullYear() ? " '" + String(d.getFullYear()).slice(2) : ""}`; };
 
@@ -222,7 +222,8 @@ function render(){
 function renderControls(){
   $("themes").innerHTML = [["all", "All themes", null], ...Object.entries(THEMES).map(([k, t]) => [k, t.label, t.c])]
     .map(([k, l, c]) => `<button class="chip" data-theme="${k}" aria-pressed="${state.theme === k}">${c ? `<span class="sw" style="background:${c}"></span>` : ""}${l}</button>`).join("");
-  $("sources").innerHTML = Object.entries(SOURCES)
+  const present = new Set((DATA.items || []).map(i => i.source));
+  $("sources").innerHTML = Object.entries(SOURCES).filter(([k]) => !present.size || present.has(k))
     .map(([k, l]) => `<button class="chip" data-src="${k}" aria-pressed="${state.sources.has(k)}">${l}</button>`).join("");
 }
 
@@ -240,7 +241,7 @@ renderControls();
 fetch("data/forecasts.json?v=" + new Date().toISOString().slice(0, 13), { cache: "no-cache" })
   .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
   .then(j => {
-    DATA = j;
+    DATA = j; renderControls();
     const gen = new Date(j.generated);
     const parts = [`Updated ${gen.toLocaleString("en-GB", { day:"numeric", month:"short", hour:"2-digit", minute:"2-digit" })}`];
     for (const [k, s] of Object.entries(j.sources || {})) parts.push(`<span class="${s.ok ? "" : "bad"}" title="${esc(s.error || "")}"><span class="dot"></span>${SOURCES[k]} ${s.count}${s.ok ? "" : " (stale)"}</span>`);

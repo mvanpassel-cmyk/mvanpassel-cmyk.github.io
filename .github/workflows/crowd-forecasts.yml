@@ -24,6 +24,8 @@ jobs:
           node-version: "20"
 
       - name: Fetch prediction markets
+        env:
+          METACULUS_TOKEN: ${{ secrets.METACULUS_TOKEN }}
         run: node crowd-forecasts/fetch.mjs
 
       - name: Commit if changed

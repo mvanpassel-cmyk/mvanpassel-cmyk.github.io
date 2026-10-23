@@ -1,5 +1,5 @@
 // Crowd Forecasts — daily fetch of geopolitical prediction markets.
-// Sources: Polymarket (Gamma API), Kalshi (public trade API), Manifold.
+// Sources: Polymarket (Gamma API), Kalshi (public trade API), Manifold, Metaculus (needs METACULUS_TOKEN).
 // Runs in GitHub Actions (Node 20+, no dependencies). Writes data/forecasts.json
 // and keeps a 60-day probability history in data/history.json.
 
@@ -16,7 +16,7 @@ const NOW = new Date();
 const TODAY = NOW.toISOString().slice(0, 10);
 const HORIZON_MS = 3 * 365 * 864e5; // ignore markets resolving more than 3 years out
 
-const CAP = { polymarket: 80, kalshi: 50, manifold: 30 };
+const CAP = { polymarket: 80, kalshi: 50, manifold: 30, metaculus: 40 };
 
 // ---------- themes ----------
 const THEMES = {
@@ -59,9 +59,23 @@ const EXCLUDE = [
   /\b(approval rating|deport|ice raids?|epstein|doge)\b/i,
 ];
 
+// Primary theme = first match in this order, so a war-related election or trade item
+// is filed under elections/trade rather than conflict.
+const THEME_ORDER = ["health", "trade", "elections", "conflict"];
 function themesOf(text) {
   const t = String(text || "");
-  return Object.entries(THEMES).filter(([, rx]) => rx.some((r) => r.test(t))).map(([k]) => k);
+  return THEME_ORDER.filter((k) => THEMES[k].some((r) => r.test(t)));
+}
+// Balanced pick: round-robin over primary themes (each list already sorted by volume),
+// so high-volume war markets can't crowd out elections, trade and health.
+function balanced(items, cap) {
+  const byTheme = new Map(THEME_ORDER.map((k) => [k, []]));
+  for (const it of items) byTheme.get(it.themes[0])?.push(it);
+  const out = [];
+  while (out.length < cap && [...byTheme.values()].some((l) => l.length)) {
+    for (const k of THEME_ORDER) { const l = byTheme.get(k); if (l.length && out.length < cap) out.push(l.shift()); }
+  }
+  return out;
 }
 const excluded = (text) => EXCLUDE.some((r) => r.test(String(text || "")));
 
@@ -162,7 +176,7 @@ async function polymarket() {
     }, useful);
     if (item) items.push(item);
   }
-  return items.sort((a, b) => b.volume - a.volume).slice(0, CAP.polymarket);
+  return balanced(items.sort((a, b) => b.volume - a.volume), CAP.polymarket);
 }
 
 // ---------- Kalshi ----------
@@ -211,7 +225,7 @@ async function kalshi() {
     }, useful);
     if (item) items.push(item);
   }
-  return items.sort((a, b) => b.volume - a.volume).slice(0, CAP.kalshi);
+  return balanced(items.sort((a, b) => b.volume - a.volume), CAP.kalshi);
 }
 
 // ---------- Manifold ----------
@@ -240,7 +254,68 @@ async function manifold() {
     }, [{ label: "Yes", p: clamp01(num(m.probability)), end: isoDate(m.closeTime) }]);
     if (item) items.push(item);
   }
-  return items.sort((a, b) => b.volume - a.volume).slice(0, CAP.manifold);
+  return balanced(items.sort((a, b) => b.volume - a.volume), CAP.manifold);
+}
+
+// ---------- Metaculus (requires a free API token in env METACULUS_TOKEN) ----------
+async function metaculus() {
+  const token = process.env.METACULUS_TOKEN;
+  if (!token) throw new Error("SKIP: no METACULUS_TOKEN secret set");
+  const headers = { accept: "application/json", authorization: `Token ${token}`, "user-agent": "crowd-forecasts/1.0 (github pages)" };
+  const get = async (url) => {
+    for (let i = 0; i < 3; i++) {
+      const res = await fetch(url, { headers });
+      if (res.status === 429) { await sleep(3000 * (i + 1)); continue; }
+      if (res.status === 401 || res.status === 403) throw new Error(`Metaculus auth failed (${res.status}): check the METACULUS_TOKEN secret`);
+      if (!res.ok) throw new Error(`${res.status} for ${url}`);
+      return res.json();
+    }
+    throw new Error("Metaculus rate limited");
+  };
+  const base = "https://www.metaculus.com/api/posts/?statuses=open&with_cp=true&limit=100&order_by=-nr_forecasters";
+  const seen = new Map();
+  const add = (j) => { for (const p of (j && (j.results || j)) || []) if (p && p.id && !seen.has(p.id)) seen.set(p.id, p); };
+  for (const cat of ["geopolitics", "elections", "health-pandemics", "politics", "economy-business"]) {
+    try { add(await get(`${base}&categories=${cat}`)); } catch (e) { if (/auth/.test(e.message)) throw e; console.warn("metaculus cat", cat, e.message); }
+    await sleep(600);
+  }
+  for (const term of ["Ukraine", "Russia", "Taiwan", "China", "Iran", "Israel", "NATO", "ceasefire", "election", "tariff", "pandemic", "H5N1", "WHO", "nuclear war"]) {
+    try { add(await get(`${base}&search=${encodeURIComponent(term)}`)); } catch (e) { if (/auth/.test(e.message)) throw e; console.warn("metaculus term", term, e.message); }
+    await sleep(600);
+  }
+  if (!seen.size) throw new Error("Metaculus returned nothing");
+
+  const latestOf = (q) => {
+    const agg = q && q.aggregations && (q.aggregations.recency_weighted || q.aggregations.unweighted);
+    return agg && (agg.latest || (agg.history && agg.history[agg.history.length - 1]));
+  };
+  const items = [];
+  for (const p of seen.values()) {
+    const q = p.question;
+    if (!q) continue; // skip groups/conditionals for now
+    if ((p.nr_forecasters || 0) < 25) continue;
+    const title = p.title || q.title;
+    if (excluded(title)) continue;
+    const themes = themesOf(title);
+    if (!themes.length) continue;
+    const latest = latestOf(q);
+    if (!latest) continue;
+    const end = isoDate(q.scheduled_resolve_time || p.scheduled_resolve_time);
+    let options;
+    if (q.type === "binary") {
+      const p1 = Array.isArray(latest.centers) ? latest.centers[0] : Array.isArray(latest.forecast_values) ? latest.forecast_values[1] : null;
+      options = [{ label: "Yes", p: clamp01(num(p1)), end }];
+    } else if (q.type === "multiple_choice" && Array.isArray(q.options) && Array.isArray(latest.forecast_values)) {
+      options = q.options.map((o, i) => ({ label: o, p: clamp01(num(latest.forecast_values[i])), end }));
+    } else continue;
+    const item = buildItem({
+      id: "mc-" + p.id, source: "metaculus", title,
+      url: `https://www.metaculus.com/questions/${p.id}/${p.slug || ""}`,
+      volume: p.nr_forecasters || 0, volumeUnit: "forecasters", end, themes,
+    }, options);
+    if (item) items.push(item);
+  }
+  return balanced(items.sort((a, b) => b.volume - a.volume), CAP.metaculus);
 }
 
 // ---------- main ----------
@@ -253,13 +328,14 @@ async function main() {
   const sources = {};
   let items = [];
 
-  for (const [name, fn] of [["polymarket", polymarket], ["kalshi", kalshi], ["manifold", manifold]]) {
+  for (const [name, fn] of [["polymarket", polymarket], ["kalshi", kalshi], ["manifold", manifold], ["metaculus", metaculus]]) {
     try {
       const got = await fn();
       items.push(...got);
       sources[name] = { ok: true, count: got.length, updated: NOW.toISOString() };
       console.log(`${name}: ${got.length} items`);
     } catch (e) {
+      if (/^SKIP/.test(e.message)) { console.log(`${name} skipped: ${e.message}`); continue; }
       console.error(`${name} failed:`, e.message);
       const old = (prev.items || []).filter((i) => i.source === name);
       items.push(...old);
