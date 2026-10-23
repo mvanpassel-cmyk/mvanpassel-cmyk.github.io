@@ -317,7 +317,7 @@ async function metaculus() {
     const latest = latestOf(q);
     if (latest && !META_STATS.sampleOK) META_STATS.sampleOK = { title, type: q.type, latestKeys: Object.keys(latest), cp_reveal_time: q.cp_reveal_time };
     if (!latest) {
-      if (pending.length < 90) pending.push({ p, title, themes }); else skip("no community prediction");
+      if (pending.length < 12) pending.push({ p, title, themes }); else skip("no community prediction");
       continue;
     }
     emit(p, q, latest, title, themes);
