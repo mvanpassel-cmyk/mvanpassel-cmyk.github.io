@@ -406,11 +406,14 @@ async function smarkets() {
       for (const c of contracts) { if (!byMarket.has(c.market_id)) byMarket.set(c.market_id, []); byMarket.get(c.market_id).push(c); }
       const [mid, cs] = [...byMarket.entries()].sort((a, b) => b[1].length - a[1].length)[0] || [];
       if (!mid) continue;
-      // Price scale is not documented where I could read it: accept 0-1, 0-100 or basis points (0-10000).
-      const norm = (v) => { v = num(v); if (v == null) return null; if (v > 100) v /= 10000; else if (v > 1) v /= 100; return clamp01(v); };
+      // Smarkets last_executed_price is in percent (0-100), e.g. "15.15" = 15.15%.
+      const norm = (v) => { v = num(v); return v == null ? null : clamp01(v / 100); };
       for (const x of (last[mid] || []).slice(0, 2)) if (SM_STATS.sample.length < 8) SM_STATS.sample.push({ event: e.name, raw: x.last_executed_price });
       const prices = new Map((last[mid] || []).map((x) => [String(x.contract_id), norm(x.last_executed_price)]));
-      const options = cs.map((c) => ({ label: c.name, p: prices.get(String(c.id)), end: null })).filter((o) => o.p != null && o.p > 0.01);
+      let options = cs.map((c) => ({ label: c.name, p: prices.get(String(c.id)), end: null }));
+      const yes = options.find((o) => /^yes$/i.test(o.label)), no = options.find((o) => /^no$/i.test(o.label));
+      if (options.length === 2 && yes && no) options = [{ label: "Yes", p: yes.p, end: null }];
+      else options = options.filter((o) => o.p != null && o.p > 0.01);
       const item = buildItem({
         id: "sm-" + e.id, source: "smarkets", title: e.name, url: `https://smarkets.com/event/${e.id}${e.full_slug || ""}`,
         volume: 0, volumeUnit: "", end: isoDate(e.start_datetime), themes: themesOf(e.name),
