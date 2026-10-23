@@ -1,35 +1,35 @@
 {
- "generated": "2026-10-23T15:13:03.084Z",
+ "generated": "2026-10-23T15:16:00.130Z",
  "sources": {
   "polymarket": {
    "ok": true,
    "count": 80,
-   "updated": "2026-10-23T15:13:03.084Z"
+   "updated": "2026-10-23T15:16:00.130Z"
   },
   "kalshi": {
    "ok": true,
    "count": 50,
-   "updated": "2026-10-23T15:13:03.084Z"
+   "updated": "2026-10-23T15:16:00.130Z"
   },
   "manifold": {
    "ok": true,
    "count": 30,
-   "updated": "2026-10-23T15:13:03.084Z"
+   "updated": "2026-10-23T15:16:00.130Z"
   },
   "metaculus": {
    "ok": true,
    "count": 3,
-   "updated": "2026-10-23T15:13:03.084Z",
+   "updated": "2026-10-23T15:16:00.130Z",
    "stats": {
     "fetched": 1059,
     "skipped": {
      "conditional": 31,
      "group": 165,
      "few forecasters": 102,
-     "no theme match": 172,
+     "no theme match": 171,
      "excluded topic": 104,
      "no community prediction": 334,
-     "notebook": 146,
+     "notebook": 147,
      "date": 1,
      "numeric": 1
     },
@@ -267,18 +267,19 @@
       ],
       "hasLatest": false
      }
-    ]
+    ],
+    "detailError": "Metaculus rate limited"
    }
   },
   "predictit": {
    "ok": true,
    "count": 25,
-   "updated": "2026-10-23T15:13:03.084Z"
+   "updated": "2026-10-23T15:16:00.130Z"
   },
   "smarkets": {
    "ok": true,
-   "count": 11,
-   "updated": "2026-10-23T15:13:03.084Z",
+   "count": 9,
+   "updated": "2026-10-23T15:16:00.130Z",
    "stats": {
     "sample": [],
     "quoteSample": [
@@ -418,7 +419,7 @@
       ]
      }
     ],
-    "dropped": 4
+    "dropped": 6
    }
   }
  },
@@ -557,12 +558,12 @@
     "elections"
    ],
    "kind": "multi",
-   "prob": 0.768,
+   "prob": 0.766,
    "lead": "Flávio Bolsonaro",
    "options": [
     {
      "label": "Flávio Bolsonaro",
-     "p": 0.768,
+     "p": 0.766,
      "end": "2026-10-05T03:59:00.000Z"
     },
     {
@@ -575,7 +576,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.768
+    0.766
    ]
   },
   {
@@ -1044,14 +1045,14 @@
     "conflict"
    ],
    "kind": "binary",
-   "prob": 0.085,
+   "prob": 0.09,
    "lead": null,
    "options": [],
    "resolves": "2026-11-01T03:59:00.000Z",
    "d1": null,
    "d7": null,
    "spark": [
-    0.085
+    0.09
    ]
   },
   {
@@ -1138,12 +1139,12 @@
     "conflict"
    ],
    "kind": "ladder",
-   "prob": 0.21,
+   "prob": 0.215,
    "lead": "October 31",
    "options": [
     {
      "label": "October 31",
-     "p": 0.21,
+     "p": 0.215,
      "end": "2026-11-01T03:59:00.000Z"
     },
     {
@@ -1153,7 +1154,7 @@
     },
     {
      "label": "November 30",
-     "p": 0.24,
+     "p": 0.245,
      "end": "2026-12-01T04:59:00.000Z"
     },
     {
@@ -1166,7 +1167,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.21
+    0.215
    ]
   },
   {
@@ -1191,7 +1192,7 @@
     },
     {
      "label": "December 31",
-     "p": 0.41,
+     "p": 0.4,
      "end": "2027-01-01T04:59:00.000Z"
     }
    ],
@@ -1214,12 +1215,12 @@
     "conflict"
    ],
    "kind": "ladder",
-   "prob": 0.029,
+   "prob": 0.03,
    "lead": "October 31",
    "options": [
     {
      "label": "October 31",
-     "p": 0.029,
+     "p": 0.03,
      "end": "2026-11-01T03:59:00.000Z"
     },
     {
@@ -1229,7 +1230,7 @@
     },
     {
      "label": "December 31",
-     "p": 0.205,
+     "p": 0.215,
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
@@ -1297,7 +1298,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.029
+    0.03
    ]
   },
   {
@@ -1543,7 +1544,7 @@
     },
     {
      "label": "Steve Hilton",
-     "p": 0.03,
+     "p": 0.031,
      "end": "2026-11-04T04:59:00.000Z"
     },
     {
@@ -1782,28 +1783,6 @@
    ]
   },
   {
-   "id": "sm-44848906",
-   "source": "smarkets",
-   "title": "Victorian State Election 2026",
-   "url": "https://smarkets.com/event/44848906/politics/2028/05/05/09-00/australia/2026/11/28/09-00/victorian-state-election-2026/2026/11/28/09-00/victorian-state-election-2026",
-   "volume": 0,
-   "volumeUnit": "",
-   "end": "2026-11-28T09:00:00.000Z",
-   "themes": [
-    "elections"
-   ],
-   "kind": "binary",
-   "prob": 0.093,
-   "lead": null,
-   "options": [],
-   "resolves": "2026-11-28T09:00:00.000Z",
-   "d1": null,
-   "d7": null,
-   "spark": [
-    0.093
-   ]
-  },
-  {
    "id": "mf-BpoEJNtlQoDBpfjBmK0y",
    "source": "manifold",
    "title": "Will Republicans win the Senate in the 2026 elections?",
@@ -1830,7 +1809,7 @@
    "source": "kalshi",
    "title": "Ohio Senate winner? (In 2026)",
    "url": "https://kalshi.com/markets/senateohs",
-   "volume": 8201945,
+   "volume": 8202382,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -2551,7 +2530,7 @@
     },
     {
      "label": "↑5.5k",
-     "p": 0.974,
+     "p": 0.973,
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
@@ -2561,7 +2540,7 @@
     },
     {
      "label": "↑6.5k",
-     "p": 0.685,
+     "p": 0.69,
      "end": "2027-01-01T04:59:00.000Z"
     }
    ],
@@ -2586,12 +2565,12 @@
     "conflict"
    ],
    "kind": "ladder",
-   "prob": 0.042,
+   "prob": 0.041,
    "lead": "December 31, 2026",
    "options": [
     {
      "label": "December 31, 2026",
-     "p": 0.042,
+     "p": 0.041,
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
@@ -2609,7 +2588,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.042
+    0.041
    ]
   },
   {
@@ -3593,19 +3572,19 @@
    "source": "kalshi",
    "title": "Texas Senate winner? (In 2026)",
    "url": "https://kalshi.com/markets/senatetx",
-   "volume": 37349863,
+   "volume": 37351209,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
     "elections"
    ],
    "kind": "multi",
-   "prob": 0.65,
+   "prob": 0.66,
    "lead": "James Talarico",
    "options": [
     {
      "label": "James Talarico",
-     "p": 0.65,
+     "p": 0.66,
      "end": "2027-01-04T15:00:00.000Z"
     },
     {
@@ -3618,7 +3597,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.65
+    0.66
    ]
   },
   {
@@ -3626,7 +3605,7 @@
    "source": "kalshi",
    "title": "Maine Senate winner? (In 2026)",
    "url": "https://kalshi.com/markets/senateme",
-   "volume": 10193629,
+   "volume": 10193681,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -3659,7 +3638,7 @@
    "source": "kalshi",
    "title": "Michigan Senate winner? (In 2026)",
    "url": "https://kalshi.com/markets/senatemi",
-   "volume": 8820387,
+   "volume": 8822344,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -3692,7 +3671,7 @@
    "source": "kalshi",
    "title": "Iowa Senate winner? (In 2026)",
    "url": "https://kalshi.com/markets/senateia",
-   "volume": 5846654,
+   "volume": 5846656,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -3709,7 +3688,7 @@
     },
     {
      "label": "Josh Turek",
-     "p": 0.41,
+     "p": 0.42,
      "end": "2027-01-04T15:00:00.000Z"
     }
    ],
@@ -3725,7 +3704,7 @@
    "source": "kalshi",
    "title": "South Carolina Senate winner? (In 2026)",
    "url": "https://kalshi.com/markets/senatesc",
-   "volume": 4394205,
+   "volume": 4394456,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -3758,19 +3737,19 @@
    "source": "kalshi",
    "title": "Kansas Senate winner? (In 2026)",
    "url": "https://kalshi.com/markets/senateks",
-   "volume": 4339608,
+   "volume": 4339913,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
     "elections"
    ],
    "kind": "multi",
-   "prob": 0.62,
+   "prob": 0.61,
    "lead": "Roger Marshall",
    "options": [
     {
      "label": "Roger Marshall",
-     "p": 0.62,
+     "p": 0.61,
      "end": "2027-01-04T15:00:00.000Z"
     },
     {
@@ -3783,7 +3762,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.62
+    0.61
    ]
   },
   {
@@ -3857,19 +3836,19 @@
    "source": "kalshi",
    "title": "Nebraska Senate winner? (In 2026)",
    "url": "https://kalshi.com/markets/senatene",
-   "volume": 3187600,
+   "volume": 3188616,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
     "elections"
    ],
    "kind": "multi",
-   "prob": 0.76,
+   "prob": 0.77,
    "lead": "Pete Ricketts",
    "options": [
     {
      "label": "Pete Ricketts",
-     "p": 0.76,
+     "p": 0.77,
      "end": "2027-01-04T15:00:00.000Z"
     },
     {
@@ -3882,7 +3861,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.76
+    0.77
    ]
   },
   {
@@ -4391,19 +4370,19 @@
    "source": "kalshi",
    "title": "2026 Midterms: Congress Balance of Power? (For Feb 2027)",
    "url": "https://kalshi.com/markets/kxbalancepowercombo",
-   "volume": 52171899,
+   "volume": 52178098,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
     "elections"
    ],
    "kind": "multi",
-   "prob": 0.68,
+   "prob": 0.67,
    "lead": "Democrats sweep",
    "options": [
     {
      "label": "Democrats sweep",
-     "p": 0.68,
+     "p": 0.67,
      "end": "2027-02-01T15:00:00.000Z"
     },
     {
@@ -4426,7 +4405,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.68
+    0.67
    ]
   },
   {
@@ -4434,7 +4413,7 @@
    "source": "kalshi",
    "title": "Which party will win the U.S. Senate? (In 2026)",
    "url": "https://kalshi.com/markets/controls",
-   "volume": 17444662,
+   "volume": 17444911,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -4575,54 +4554,6 @@
    "d7": null,
    "spark": [
     0.228
-   ]
-  },
-  {
-   "id": "sm-42702202",
-   "source": "smarkets",
-   "title": "2027 French Presidential Election",
-   "url": "https://smarkets.com/event/42702202/politics/europe/france/2027/04/11/18-00/2027-french-presidential-election",
-   "volume": 0,
-   "volumeUnit": "",
-   "end": "2027-04-11T18:00:00.000Z",
-   "themes": [
-    "elections"
-   ],
-   "kind": "multi",
-   "prob": 0.142,
-   "lead": "Édouard Philippe",
-   "options": [
-    {
-     "label": "Édouard Philippe",
-     "p": 0.142,
-     "end": null
-    },
-    {
-     "label": "David Lisnard",
-     "p": 0.127,
-     "end": null
-    },
-    {
-     "label": "Jean-Luc Mélenchon",
-     "p": 0.121,
-     "end": null
-    },
-    {
-     "label": "Gabriel Attal",
-     "p": 0.015,
-     "end": null
-    },
-    {
-     "label": "Jordan Bardella",
-     "p": 0.012,
-     "end": null
-    }
-   ],
-   "resolves": "2027-04-11T18:00:00.000Z",
-   "d1": null,
-   "d7": null,
-   "spark": [
-    0.142
    ]
   },
   {
@@ -4836,7 +4767,7 @@
     },
     {
      "label": "Ebba Busch",
-     "p": 0.042,
+     "p": 0.043,
      "end": "2026-09-14T03:59:00.000Z"
     },
     {
@@ -5373,7 +5304,7 @@
    "source": "kalshi",
    "title": "2028 Democratic presidential nominee (In 2028)",
    "url": "https://kalshi.com/markets/kxpresnomd",
-   "volume": 245953048,
+   "volume": 245958345,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -5409,8 +5340,8 @@
      "end": "2028-11-07T15:00:00.000Z"
     },
     {
-     "label": "Josh Shapiro",
-     "p": 0.046,
+     "label": "Pete Buttigieg",
+     "p": 0.047,
      "end": "2028-11-07T15:00:00.000Z"
     }
    ],
@@ -5426,19 +5357,19 @@
    "source": "kalshi",
    "title": "2028 Republican presidential nominee (In 2028)",
    "url": "https://kalshi.com/markets/kxpresnomr",
-   "volume": 70507519,
+   "volume": 70507523,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
     "elections"
    ],
    "kind": "multi",
-   "prob": 0.42,
+   "prob": 0.41,
    "lead": "J.D. Vance",
    "options": [
     {
      "label": "J.D. Vance",
-     "p": 0.42,
+     "p": 0.41,
      "end": "2028-11-07T15:00:00.000Z"
     },
     {
@@ -5471,7 +5402,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.42
+    0.41
    ]
   },
   {
@@ -6262,7 +6193,7 @@
    "source": "kalshi",
    "title": "2028 U.S. Presidential Election winner? (In 2028)",
    "url": "https://kalshi.com/markets/kxpresperson",
-   "volume": 76003189,
+   "volume": 76003240,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
