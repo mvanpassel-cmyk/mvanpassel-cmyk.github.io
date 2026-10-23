@@ -295,7 +295,7 @@ async function metaculus() {
     const agg = q && q.aggregations && (q.aggregations.recency_weighted || q.aggregations.unweighted);
     return agg && (agg.latest || (agg.history && agg.history[agg.history.length - 1]));
   };
-  const items = [];
+  const items = [], pending = [];
   META_STATS.fetched = seen.size; META_STATS.skipped = {};
   const skip = (why) => { META_STATS.skipped[why] = (META_STATS.skipped[why] || 0) + 1; };
   for (const p of seen.values()) {
@@ -317,15 +317,32 @@ async function metaculus() {
     const latest = latestOf(q);
     if (latest && !META_STATS.sampleOK) META_STATS.sampleOK = { title, type: q.type, latestKeys: Object.keys(latest), cp_reveal_time: q.cp_reveal_time };
     if (!latest) {
-      skip("no community prediction");
-      const rw = q.aggregations && q.aggregations.recency_weighted;
-      const smp = (META_STATS.sampleNoCP ||= []);
-      if (smp.length < 4) smp.push({ title, type: q.type, status: q.status, nr_forecasters: p.nr_forecasters, forecasts_count: p.forecasts_count,
-        cp_reveal_time: q.cp_reveal_time, open_time: q.open_time, rwKeys: rw ? Object.keys(rw) : null,
-        historyLen: rw && Array.isArray(rw.history) ? rw.history.length : null, latest: rw ? rw.latest : null,
-        aggKeys: q.aggregations ? Object.keys(q.aggregations) : null });
+      if (pending.length < 90) pending.push({ p, title, themes }); else skip("no community prediction");
       continue;
     }
+    emit(p, q, latest, title, themes);
+  }
+
+  // Second chance: the list endpoint withholds the community prediction for many questions.
+  // Ask for each question's own page instead (rate-limited, newest/most-forecast first).
+  pending.sort((a, b) => (b.p.nr_forecasters || 0) - (a.p.nr_forecasters || 0));
+  META_STATS.detailTried = 0; META_STATS.detailGot = 0; META_STATS.detailSamples = [];
+  for (const { p, title, themes } of pending) {
+    let d = null;
+    try { d = await get(`https://www.metaculus.com/api/posts/${p.id}/`); } catch (e) { META_STATS.detailError = e.message; }
+    META_STATS.detailTried++;
+    const dq = d && d.question;
+    const latest = dq && latestOf(dq);
+    if (META_STATS.detailSamples.length < 3 && d) {
+      const rw = dq && dq.aggregations && dq.aggregations.recency_weighted;
+      META_STATS.detailSamples.push({ title, topKeys: Object.keys(d).slice(0, 40), aggKeys: dq && dq.aggregations ? Object.keys(dq.aggregations) : null, rwKeys: rw ? Object.keys(rw) : null, hasLatest: !!latest });
+    }
+    if (latest) { META_STATS.detailGot++; emit(d, dq, latest, title, themes); } else skip("no community prediction");
+    await sleep(700);
+  }
+  return balanced(items.sort((a, b) => b.volume - a.volume), CAP.metaculus);
+
+  function emit(p, q, latest, title, themes) {
     const end = isoDate(q.scheduled_resolve_time || p.scheduled_resolve_time);
     let options;
     if (q.type === "binary") {
@@ -333,7 +350,7 @@ async function metaculus() {
       options = [{ label: "Yes", p: clamp01(num(p1)), end }];
     } else if (q.type === "multiple_choice" && Array.isArray(q.options) && Array.isArray(latest.forecast_values)) {
       options = q.options.map((o, i) => ({ label: o, p: clamp01(num(latest.forecast_values[i])), end }));
-    } else { skip(q.type || "unknown"); continue; }
+    } else { skip(q.type || "unknown"); return; }
     const item = buildItem({
       id: "mc-" + p.id, source: "metaculus", title,
       url: `https://www.metaculus.com/questions/${p.id}/${p.slug || ""}`,
@@ -341,7 +358,6 @@ async function metaculus() {
     }, options);
     if (item) items.push(item); else skip("beyond 3 years");
   }
-  return balanced(items.sort((a, b) => b.volume - a.volume), CAP.metaculus);
 }
 
 // ---------- main ----------
