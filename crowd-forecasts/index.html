@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crowd Forecasts</title>
+<meta name="description" content="What prediction markets expect on wars, elections, trade and health, ordered by when the answer will be known.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231f3a5f'/%3E%3Cpath d='M7 22l6-6 5 4 7-9' fill='none' stroke='%23f4c95d' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#f6f4ef; --ink:#1c1f26; --muted:#667085; --card:#ffffff; --line:#e4e0d6; --accent:#1f3a5f; --soft:#eef0f4;
+  --up:#1d7a4f; --down:#b4382f;
+  --conflict:#b4382f; --elections:#1f5fa8; --trade:#a0670f; --health:#1d7a6a;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#14161b; --ink:#eceae4; --muted:#9aa1ae; --card:#1c1f26; --line:#2b303a; --accent:#f4c95d; --soft:#252a33;
+    --up:#5cc58f; --down:#ef7b70; --conflict:#ef7b70; --elections:#7fb0f0; --trade:#e3b062; --health:#5cc5b0;}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:900px;margin:0 auto;padding:48px 16px 72px}
+header h1{font:600 clamp(28px,5vw,42px)/1.1 ui-serif,Georgia,serif;margin:0 0 10px;letter-spacing:-.01em}
+header p{color:var(--muted);margin:0;max-width:60ch}
+.status{margin-top:12px;font-size:13px;color:var(--muted);display:flex;gap:6px 14px;flex-wrap:wrap}
+.status .dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;vertical-align:1px;background:var(--up)}
+.status .bad .dot{background:var(--down)}
+
+.controls{position:sticky;top:0;z-index:5;background:var(--bg);padding:14px 0 10px;margin:22px 0 4px;border-bottom:1px solid var(--line)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.row + .row{margin-top:8px}
+.chip{border:1px solid var(--line);background:transparent;color:var(--ink);padding:5px 12px;border-radius:999px;font:inherit;font-size:13px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip .sw{width:8px;height:8px;border-radius:50%}
+.search{flex:1 1 180px;min-width:0;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 14px;font:inherit;font-size:14px}
+select{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:5px 10px;font:inherit;font-size:13px}
+.count{font-size:13px;color:var(--muted);margin-left:auto}
+
+h2.group{font:600 13px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:30px 0 12px;display:flex;align-items:center;gap:10px}
+h2.group::after{content:"";flex:1;height:1px;background:var(--line)}
+h2.group small{font-weight:500;letter-spacing:0;text-transform:none}
+
+.movers{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.mover{display:block;padding:12px 14px;background:var(--card);border:1px solid var(--line);border-radius:12px;text-decoration:none;color:inherit;font-size:14px}
+.mover b{font-size:18px;font-variant-numeric:tabular-nums}
+
+.item{display:grid;grid-template-columns:54px 1fr;gap:12px;margin-bottom:10px}
+.date{text-align:center;padding-top:14px;color:var(--muted);font-size:12px;line-height:1.15}
+.date b{display:block;font:600 22px/1 ui-serif,Georgia,serif;color:var(--ink)}
+.card{display:grid;grid-template-columns:1fr auto;gap:4px 14px;padding:14px 16px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--c,var(--line));border-radius:12px;text-decoration:none;color:inherit;transition:box-shadow .15s,transform .15s}
+.card:hover,.card:focus-visible{box-shadow:0 6px 20px rgba(0,0,0,.08);transform:translateY(-1px);outline:none}
+.title{font-weight:600;font-size:15.5px;line-height:1.35}
+.lead{font-size:13.5px;color:var(--muted);margin-top:2px}
+.lead strong{color:var(--ink);font-weight:600}
+.prob{grid-row:1 / span 2;grid-column:2;text-align:right;min-width:64px}
+.prob b{font:600 28px/1 ui-serif,Georgia,serif;font-variant-numeric:tabular-nums}
+.prob span{font-size:14px;color:var(--muted)}
+.bar{grid-column:1 / -1;height:6px;border-radius:3px;background:var(--soft);overflow:hidden;margin-top:8px}
+.bar i{display:block;height:100%;background:var(--c,var(--accent));border-radius:3px}
+.opts{grid-column:1 / -1;display:grid;gap:4px;margin-top:8px;font-size:13px}
+.opt{display:grid;grid-template-columns:minmax(0,1fr) 90px 40px;gap:8px;align-items:center}
+.opt .l{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.opt .b{height:5px;background:var(--soft);border-radius:3px;overflow:hidden}
+.opt .b i{display:block;height:100%;background:var(--c,var(--accent));opacity:.75}
+.opt .p{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted)}
+.opt.now .l,.opt.now .p{color:var(--ink);font-weight:600}
+.meta{grid-column:1 / -1;display:flex;gap:6px 12px;flex-wrap:wrap;align-items:center;margin-top:8px;font-size:12.5px;color:var(--muted)}
+.src{font-weight:600;letter-spacing:.02em;border:1px solid var(--line);border-radius:5px;padding:0 6px}
+.theme{display:inline-flex;align-items:center;gap:5px}
+.theme i{width:7px;height:7px;border-radius:50%;background:var(--tc)}
+.delta{font-variant-numeric:tabular-nums;font-weight:600}
+.delta.up{color:var(--up)} .delta.down{color:var(--down)}
+.spark{width:64px;height:18px;vertical-align:middle}
+.empty{padding:40px 0;text-align:center;color:var(--muted)}
+.note{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+.note p{margin:0 0 8px;max-width:72ch}
+.note a{color:inherit}
+@media (max-width:520px){
+  .controls{position:static}
+  .item{grid-template-columns:42px 1fr;gap:8px}
+  .date b{font-size:18px}
+  .card{padding:12px 13px}
+  .prob b{font-size:24px}
+  .opt{grid-template-columns:minmax(0,1fr) 60px 36px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Crowd forecasts</h1>
+    <p>What prediction markets expect on wars, elections, trade and health, ordered by when we will know the answer. Prices from Polymarket, Kalshi and Manifold, refreshed every morning.</p>
+    <div class="status" id="status">Loading…</div>
+  </header>
+
+  <div class="controls">
+    <div class="row" id="themes" role="group" aria-label="Filter by theme"></div>
+    <div class="row">
+      <div id="sources" class="row" role="group" aria-label="Filter by source"></div>
+      <select id="horizon" aria-label="Time horizon">
+        <option value="90">Next 3 months</option>
+        <option value="365" selected>Next 12 months</option>
+        <option value="0">All dates</option>
+      </select>
+    </div>
+    <div class="row">
+      <input id="q" class="search" type="search" placeholder="Search: Ukraine, Taiwan, tariffs…" aria-label="Search">
+      <span class="count" id="count"></span>
+    </div>
+  </div>
+
+  <section id="moversWrap" hidden>
+    <h2 class="group">Biggest moves this week</h2>
+    <div class="movers" id="movers"></div>
+  </section>
+
+  <main id="list"></main>
+
+  <div class="note">
+    <p><strong>How to read this.</strong> A price of 30¢ on a “Yes” share roughly means the crowd puts the chance at 30%. The date is the market's deadline: the latest moment the answer will be known, sometimes earlier. For multi-option markets the leading option is shown; for “by date” markets, the nearest deadline is shown with later ones below.</p>
+    <p><strong>Caveats.</strong> Polymarket and Kalshi trade real money (volume in dollars or contracts); Manifold uses play money (shown as number of traders). Thin markets can be moved by a single trader, Kalshi leans towards US questions, and market wording and resolution rules matter: open the market before quoting a number.</p>
+    <p>Data: <a href="https://polymarket.com">Polymarket</a>, <a href="https://kalshi.com">Kalshi</a>, <a href="https://manifold.markets">Manifold</a> public APIs. Selection is automatic, by trading volume and topic keywords.</p>
+  </div>
+</div>
+
+<script>
+const THEMES = {
+  conflict:{label:"Conflict & security", c:"var(--conflict)"},
+  elections:{label:"Elections & leaders", c:"var(--elections)"},
+  trade:{label:"Trade & diplomacy", c:"var(--trade)"},
+  health:{label:"Health & pandemics", c:"var(--health)"},
+};
+const SOURCES = {polymarket:"Polymarket", kalshi:"Kalshi", manifold:"Manifold"};
+const state = { theme:"all", sources:new Set(Object.keys(SOURCES)), horizon:365, q:"" };
+let DATA = { items:[] };
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const pct = (p) => p == null ? "–" : (p < 0.01 && p > 0 ? "<1" : p > 0.99 && p < 1 ? ">99" : Math.round(p * 100));
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const fmtVol = (v, unit) => {
+  if (!v) return "";
+  const n = v >= 1e6 ? (v/1e6).toFixed(v >= 1e7 ? 0 : 1) + "M" : v >= 1e3 ? Math.round(v/1e3) + "k" : String(v);
+  return unit === "usd" ? "$" + n + " vol" : unit === "contracts" ? n + " contracts" : n + " traders";
+};
+const shortDate = (iso) => { if (!iso) return ""; const d = new Date(iso); return `${MONTHS[d.getMonth()]} ${d.getDate()}${d.getFullYear() !== new Date().getFullYear() ? " '" + String(d.getFullYear()).slice(2) : ""}`; };
+
+function spark(arr){
+  if (!arr || arr.length < 3) return "";
+  const min = Math.min(...arr), max = Math.max(...arr), span = Math.max(max - min, 0.02);
+  const pts = arr.map((p, i) => `${(i / (arr.length - 1) * 62 + 1).toFixed(1)},${(17 - (p - min) / span * 16).toFixed(1)}`).join(" ");
+  return `<svg class="spark" viewBox="0 0 64 18" aria-hidden="true"><polyline points="${pts}" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>`;
+}
+function delta(d){
+  if (d == null || Math.abs(d) < 0.01) return "";
+  const pts = Math.round(d * 100);
+  return `<span class="delta ${pts > 0 ? "up" : "down"}" title="Change over 7 days">${pts > 0 ? "▲" : "▼"} ${Math.abs(pts)} pt</span>`;
+}
+
+function card(it){
+  const t = THEMES[it.themes[0]] || { c:"var(--accent)" };
+  let lead = "", opts = "";
+  if (it.kind === "multi") {
+    lead = `<div class="lead">Leading: <strong>${esc(it.lead)}</strong></div>`;
+    opts = `<div class="opts">${it.options.slice(0, 4).map((o, i) => `<div class="opt${i === 0 ? " now" : ""}"><span class="l">${esc(o.label)}</span><span class="b"><i style="width:${o.p*100}%"></i></span><span class="p">${pct(o.p)}%</span></div>`).join("")}</div>`;
+  } else if (it.kind === "ladder") {
+    lead = `<div class="lead">Nearest deadline: <strong>${esc(it.lead)}</strong></div>`;
+    opts = `<div class="opts">${it.options.slice(0, 5).map(o => `<div class="opt${o.label === it.lead ? " now" : ""}"><span class="l">by ${esc(o.label)}</span><span class="b"><i style="width:${o.p*100}%"></i></span><span class="p">${pct(o.p)}%</span></div>`).join("")}</div>`;
+  }
+  const themes = it.themes.map(k => THEMES[k] ? `<span class="theme" style="--tc:${THEMES[k].c}"><i></i>${THEMES[k].label}</span>` : "").join("");
+  return `<a class="card" href="${esc(it.url)}" target="_blank" rel="noopener" style="--c:${t.c}">
+    <div class="title">${esc(it.title)}</div>
+    <div class="prob"><b>${pct(it.prob)}</b><span>%</span></div>
+    ${lead}
+    ${it.kind === "binary" ? `<div class="bar"><i style="width:${it.prob*100}%"></i></div>` : opts}
+    <div class="meta"><span class="src">${SOURCES[it.source] || it.source}</span>${themes}<span>${fmtVol(it.volume, it.volumeUnit)}</span>${delta(it.d7)}${spark(it.spark)}</div>
+  </a>`;
+}
+
+function groupKey(iso){
+  if (!iso) return ["~", "Open-ended"];
+  const d = new Date(iso), now = new Date();
+  if (d < now) return ["0", "Awaiting resolution"];
+  if (d - now < 7 * 864e5) return ["1", "This week"];
+  return ["2" + d.toISOString().slice(0, 7), d.toLocaleString("en-GB", { month:"long", year:"numeric" })];
+}
+
+function filtered(){
+  const now = Date.now(), q = state.q.trim().toLowerCase();
+  return DATA.items.filter(it => {
+    if (!state.sources.has(it.source)) return false;
+    if (state.theme !== "all" && !it.themes.includes(state.theme)) return false;
+    if (state.horizon && it.resolves && new Date(it.resolves) - now > state.horizon * 864e5) return false;
+    if (state.horizon && !it.resolves) return false;
+    if (q && !(it.title + " " + (it.lead || "") + " " + it.options.map(o => o.label).join(" ")).toLowerCase().includes(q)) return false;
+    return true;
+  });
+}
+
+function render(){
+  const items = filtered();
+  $("count").textContent = `${items.length} forecast${items.length === 1 ? "" : "s"}`;
+
+  const movers = items.filter(i => i.d7 != null && Math.abs(i.d7) >= 0.05).sort((a, b) => Math.abs(b.d7) - Math.abs(a.d7)).slice(0, 4);
+  $("moversWrap").hidden = !movers.length;
+  $("movers").innerHTML = movers.map(m => `<a class="mover" href="${esc(m.url)}" target="_blank" rel="noopener"><b>${pct(m.prob)}%</b> ${delta(m.d7)}<div>${esc(m.title)}</div></a>`).join("");
+
+  if (!items.length) { $("list").innerHTML = `<div class="empty">No forecasts match these filters.</div>`; return; }
+  const groups = new Map();
+  for (const it of items) {
+    const [k, label] = groupKey(it.resolves);
+    if (!groups.has(k)) groups.set(k, { label, items: [] });
+    groups.get(k).items.push(it);
+  }
+  $("list").innerHTML = [...groups.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([, g]) => `
+    <h2 class="group">${esc(g.label)} <small>${g.items.length}</small></h2>
+    ${g.items.map(it => {
+      const d = it.resolves ? new Date(it.resolves) : null;
+      return `<div class="item"><div class="date">${d ? `<b>${d.getDate()}</b>${MONTHS[d.getMonth()]}${d.getFullYear() !== new Date().getFullYear() ? "<br>" + d.getFullYear() : ""}` : "—"}</div>${card(it)}</div>`;
+    }).join("")}`).join("");
+}
+
+function renderControls(){
+  $("themes").innerHTML = [["all", "All themes", null], ...Object.entries(THEMES).map(([k, t]) => [k, t.label, t.c])]
+    .map(([k, l, c]) => `<button class="chip" data-theme="${k}" aria-pressed="${state.theme === k}">${c ? `<span class="sw" style="background:${c}"></span>` : ""}${l}</button>`).join("");
+  $("sources").innerHTML = Object.entries(SOURCES)
+    .map(([k, l]) => `<button class="chip" data-src="${k}" aria-pressed="${state.sources.has(k)}">${l}</button>`).join("");
+}
+
+$("themes").addEventListener("click", e => { const b = e.target.closest("[data-theme]"); if (!b) return; state.theme = b.dataset.theme; renderControls(); render(); });
+$("sources").addEventListener("click", e => {
+  const b = e.target.closest("[data-src]"); if (!b) return;
+  const s = b.dataset.src;
+  if (state.sources.has(s) && state.sources.size > 1) state.sources.delete(s); else state.sources.add(s);
+  renderControls(); render();
+});
+$("horizon").addEventListener("change", e => { state.horizon = +e.target.value; render(); });
+$("q").addEventListener("input", e => { state.q = e.target.value; render(); });
+
+renderControls();
+fetch("data/forecasts.json?v=" + new Date().toISOString().slice(0, 13), { cache: "no-cache" })
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(j => {
+    DATA = j;
+    const gen = new Date(j.generated);
+    const parts = [`Updated ${gen.toLocaleString("en-GB", { day:"numeric", month:"short", hour:"2-digit", minute:"2-digit" })}`];
+    for (const [k, s] of Object.entries(j.sources || {})) parts.push(`<span class="${s.ok ? "" : "bad"}" title="${esc(s.error || "")}"><span class="dot"></span>${SOURCES[k]} ${s.count}${s.ok ? "" : " (stale)"}</span>`);
+    $("status").innerHTML = parts.join("");
+    render();
+  })
+  .catch(() => {
+    $("status").textContent = "No data yet: the first daily update has not run.";
+    $("list").innerHTML = `<div class="empty">Forecasts appear here after the first update.</div>`;
+  });
+</script>
+</body>
+</html>

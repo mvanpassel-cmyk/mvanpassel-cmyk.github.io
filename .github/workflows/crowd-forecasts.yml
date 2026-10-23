@@ -1,0 +1,43 @@
+name: Crowd Forecasts daily update
+
+on:
+  schedule:
+    - cron: "17 5 * * *"   # daily, 07:17 Amsterdam (summer) / 06:17 (winter)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: crowd-forecasts
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Fetch prediction markets
+        run: node crowd-forecasts/fetch.mjs
+
+      - name: Commit if changed
+        run: |
+          git config user.name "crowd-forecasts bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add crowd-forecasts/data
+          if git diff --cached --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+          git commit -m "Crowd Forecasts: daily update $(date -u +%F)"
+          for i in 1 2 3; do
+            git pull --rebase origin "${GITHUB_REF_NAME}" && git push && exit 0
+            sleep 5
+          done
+          exit 1
