@@ -1,35 +1,35 @@
 {
- "generated": "2026-10-23T14:54:37.559Z",
+ "generated": "2026-10-23T14:58:01.836Z",
  "sources": {
   "polymarket": {
    "ok": true,
    "count": 80,
-   "updated": "2026-10-23T14:54:37.559Z"
+   "updated": "2026-10-23T14:58:01.836Z"
   },
   "kalshi": {
    "ok": true,
    "count": 50,
-   "updated": "2026-10-23T14:54:37.559Z"
+   "updated": "2026-10-23T14:58:01.836Z"
   },
   "manifold": {
    "ok": true,
    "count": 30,
-   "updated": "2026-10-23T14:54:37.559Z"
+   "updated": "2026-10-23T14:58:01.836Z"
   },
   "metaculus": {
    "ok": true,
    "count": 3,
-   "updated": "2026-10-23T14:54:37.559Z",
+   "updated": "2026-10-23T14:58:01.836Z",
    "stats": {
-    "fetched": 1058,
+    "fetched": 1060,
     "skipped": {
      "conditional": 31,
      "group": 165,
      "few forecasters": 102,
-     "no theme match": 171,
+     "no theme match": 172,
      "excluded topic": 104,
      "no community prediction": 334,
-     "notebook": 146,
+     "notebook": 147,
      "date": 1,
      "numeric": 1
     },
@@ -267,19 +267,54 @@
       ],
       "hasLatest": false
      }
-    ],
-    "detailError": "Metaculus rate limited"
+    ]
    }
   },
   "predictit": {
    "ok": true,
    "count": 25,
-   "updated": "2026-10-23T14:54:37.559Z"
+   "updated": "2026-10-23T14:58:01.836Z"
   },
   "smarkets": {
    "ok": true,
    "count": 15,
-   "updated": "2026-10-23T14:54:37.559Z"
+   "updated": "2026-10-23T14:58:01.836Z",
+   "stats": {
+    "sample": [
+     {
+      "event": "2027 French Presidential Election",
+      "raw": "15.15"
+     },
+     {
+      "event": "2027 French Presidential Election",
+      "raw": "50"
+     },
+     {
+      "event": "Northern Ireland Assembly Elections",
+      "raw": "5"
+     },
+     {
+      "event": "Northern Ireland Assembly Elections",
+      "raw": "70.42"
+     },
+     {
+      "event": "Donald Trump to serve as president for 9+ years by end of 2030",
+      "raw": "91.74"
+     },
+     {
+      "event": "Donald Trump to serve as president for 9+ years by end of 2030",
+      "raw": "10.87"
+     },
+     {
+      "event": "Next General Election - Most Seats",
+      "raw": "0.1"
+     },
+     {
+      "event": "Next General Election - Most Seats",
+      "raw": "1.05"
+     }
+    ]
+   }
   }
  },
  "items": [
@@ -471,7 +506,7 @@
     },
     {
      "label": "Avigdor Lieberman",
-     "p": 0.028,
+     "p": 0.025,
      "end": "2026-10-28T03:59:00.000Z"
     },
     {
@@ -904,14 +939,14 @@
     "conflict"
    ],
    "kind": "binary",
-   "prob": 0.085,
+   "prob": 0.09,
    "lead": null,
    "options": [],
    "resolves": "2026-11-01T03:59:00.000Z",
    "d1": null,
    "d7": null,
    "spark": [
-    0.085
+    0.09
    ]
   },
   {
@@ -1283,17 +1318,17 @@
     "elections"
    ],
    "kind": "multi",
-   "prob": 1,
+   "prob": 0.926,
    "lead": "Democratic Party",
    "options": [
     {
      "label": "Democratic Party",
-     "p": 1,
+     "p": 0.926,
      "end": null
     },
     {
      "label": "Republican Party",
-     "p": 1,
+     "p": 0.091,
      "end": null
     }
    ],
@@ -1301,7 +1336,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    1
+    0.926
    ]
   },
   {
@@ -1316,17 +1351,17 @@
     "elections"
    ],
    "kind": "multi",
-   "prob": 1,
+   "prob": 0.69,
    "lead": "Democratic Party",
    "options": [
     {
      "label": "Democratic Party",
-     "p": 1,
+     "p": 0.69,
      "end": null
     },
     {
      "label": "Republican Party",
-     "p": 1,
+     "p": 0.336,
      "end": null
     }
    ],
@@ -1334,7 +1369,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    1
+    0.69
    ]
   },
   {
@@ -1653,17 +1688,17 @@
     "elections"
    ],
    "kind": "multi",
-   "prob": 1,
-   "lead": "Any Other",
+   "prob": 0.746,
+   "lead": "Coalition",
    "options": [
     {
-     "label": "Any Other",
-     "p": 1,
+     "label": "Coalition",
+     "p": 0.746,
      "end": null
     },
     {
-     "label": "Coalition",
-     "p": 1,
+     "label": "Any Other",
+     "p": 0.111,
      "end": null
     }
    ],
@@ -1671,7 +1706,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    1
+    0.746
    ]
   },
   {
@@ -2432,7 +2467,7 @@
     },
     {
      "label": "↑6.5k",
-     "p": 0.735,
+     "p": 0.695,
      "end": "2027-01-01T04:59:00.000Z"
     }
    ],
@@ -2457,12 +2492,12 @@
     "conflict"
    ],
    "kind": "ladder",
-   "prob": 0.041,
+   "prob": 0.042,
    "lead": "December 31, 2026",
    "options": [
     {
      "label": "December 31, 2026",
-     "p": 0.041,
+     "p": 0.042,
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
@@ -2480,7 +2515,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.041
+    0.042
    ]
   },
   {
@@ -3049,7 +3084,7 @@
     },
     {
      "label": "Australia",
-     "p": 0.11,
+     "p": 0.115,
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
@@ -3464,7 +3499,7 @@
    "source": "kalshi",
    "title": "Texas Senate winner? (In 2026)",
    "url": "https://kalshi.com/markets/senatetx",
-   "volume": 37323463,
+   "volume": 37329202,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -3530,19 +3565,19 @@
    "source": "kalshi",
    "title": "Michigan Senate winner? (In 2026)",
    "url": "https://kalshi.com/markets/senatemi",
-   "volume": 8816842,
+   "volume": 8818267,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
     "elections"
    ],
    "kind": "multi",
-   "prob": 0.68,
+   "prob": 0.69,
    "lead": "Abdul El-Sayed",
    "options": [
     {
      "label": "Abdul El-Sayed",
-     "p": 0.68,
+     "p": 0.69,
      "end": "2027-01-04T15:00:00.000Z"
     },
     {
@@ -3555,7 +3590,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.68
+    0.69
    ]
   },
   {
@@ -3563,7 +3598,7 @@
    "source": "kalshi",
    "title": "Iowa Senate winner? (In 2026)",
    "url": "https://kalshi.com/markets/senateia",
-   "volume": 5846186,
+   "volume": 5846209,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -3596,7 +3631,7 @@
    "source": "kalshi",
    "title": "South Carolina Senate winner? (In 2026)",
    "url": "https://kalshi.com/markets/senatesc",
-   "volume": 4394204,
+   "volume": 4394205,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -3695,7 +3730,7 @@
    "source": "kalshi",
    "title": "Minnesota Senate winner? (In 2026)",
    "url": "https://kalshi.com/markets/senatemn",
-   "volume": 3500292,
+   "volume": 3500355,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -3712,7 +3747,7 @@
     },
     {
      "label": "Michele Tafoya",
-     "p": 0.14,
+     "p": 0.15,
      "end": "2027-01-04T15:00:00.000Z"
     }
    ],
@@ -3728,7 +3763,7 @@
    "source": "kalshi",
    "title": "Nebraska Senate winner? (In 2026)",
    "url": "https://kalshi.com/markets/senatene",
-   "volume": 3186222,
+   "volume": 3186262,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -4262,24 +4297,24 @@
    "source": "kalshi",
    "title": "2026 Midterms: Congress Balance of Power? (For Feb 2027)",
    "url": "https://kalshi.com/markets/kxbalancepowercombo",
-   "volume": 52165858,
+   "volume": 52166635,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
     "elections"
    ],
    "kind": "multi",
-   "prob": 0.66,
+   "prob": 0.67,
    "lead": "Democrats sweep",
    "options": [
     {
      "label": "Democrats sweep",
-     "p": 0.66,
+     "p": 0.67,
      "end": "2027-02-01T15:00:00.000Z"
     },
     {
      "label": "D-House, R-Senate",
-     "p": 0.23,
+     "p": 0.22,
      "end": "2027-02-01T15:00:00.000Z"
     },
     {
@@ -4297,7 +4332,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.66
+    0.67
    ]
   },
   {
@@ -4305,7 +4340,7 @@
    "source": "kalshi",
    "title": "Which party will win the U.S. Senate? (In 2026)",
    "url": "https://kalshi.com/markets/controls",
-   "volume": 17439429,
+   "volume": 17439463,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -4460,37 +4495,37 @@
     "elections"
    ],
    "kind": "multi",
-   "prob": 1,
-   "lead": "David Lisnard",
+   "prob": 0.5,
+   "lead": "Marion Maréchal ",
    "options": [
     {
-     "label": "David Lisnard",
-     "p": 1,
+     "label": "Marion Maréchal ",
+     "p": 0.5,
      "end": null
     },
     {
-     "label": "Dominique de Villepin",
-     "p": 1,
+     "label": "Marine Le Pen",
+     "p": 0.417,
      "end": null
     },
     {
      "label": "Édouard Philippe",
-     "p": 1,
+     "p": 0.151,
      "end": null
     },
     {
-     "label": "Éric Zemmour",
-     "p": 1,
+     "label": "Jean-Luc Mélenchon",
+     "p": 0.128,
+     "end": null
+    },
+    {
+     "label": "David Lisnard",
+     "p": 0.102,
      "end": null
     },
     {
      "label": "François Baroin",
-     "p": 1,
-     "end": null
-    },
-    {
-     "label": "Gabriel Attal",
-     "p": 1,
+     "p": 0.077,
      "end": null
     }
    ],
@@ -4498,7 +4533,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    1
+    0.5
    ]
   },
   {
@@ -4653,17 +4688,17 @@
     "elections"
    ],
    "kind": "multi",
-   "prob": 1,
-   "lead": "Alliance",
+   "prob": 0.704,
+   "lead": "Sinn Fein",
    "options": [
     {
-     "label": "Alliance",
-     "p": 1,
+     "label": "Sinn Fein",
+     "p": 0.704,
      "end": null
     },
     {
-     "label": "Sinn Fein",
-     "p": 1,
+     "label": "Alliance",
+     "p": 0.05,
      "end": null
     }
    ],
@@ -4671,7 +4706,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    1
+    0.704
    ]
   },
   {
@@ -4686,17 +4721,17 @@
     "elections"
    ],
    "kind": "multi",
-   "prob": 1,
+   "prob": 0.917,
    "lead": "No",
    "options": [
     {
      "label": "No",
-     "p": 1,
+     "p": 0.917,
      "end": null
     },
     {
      "label": "Yes",
-     "p": 1,
+     "p": 0.119,
      "end": null
     }
    ],
@@ -4704,7 +4739,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    1
+    0.917
    ]
   },
   {
@@ -5042,22 +5077,22 @@
     "elections"
    ],
    "kind": "multi",
-   "prob": 1,
-   "lead": "Any Other Result",
+   "prob": 0.629,
+   "lead": "Labor",
    "options": [
     {
-     "label": "Any Other Result",
-     "p": 1,
+     "label": "Labor",
+     "p": 0.629,
      "end": null
     },
     {
      "label": "Coalition",
-     "p": 1,
+     "p": 0.286,
      "end": null
     },
     {
-     "label": "Labor",
-     "p": 1,
+     "label": "Any Other Result",
+     "p": 0.08,
      "end": null
     }
    ],
@@ -5065,7 +5100,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    1
+    0.629
    ]
   },
   {
@@ -5124,37 +5159,37 @@
     "elections"
    ],
    "kind": "multi",
-   "prob": 1,
-   "lead": "Alexandria Ocasio-Cortez",
+   "prob": 0.71,
+   "lead": "Elizabeth Warren",
    "options": [
     {
+     "label": "Elizabeth Warren",
+     "p": 0.71,
+     "end": null
+    },
+    {
+     "label": "Rahm Emanuel",
+     "p": 0.67,
+     "end": null
+    },
+    {
+     "label": "Chris Murphy",
+     "p": 0.33,
+     "end": null
+    },
+    {
+     "label": "Ruben Gallego",
+     "p": 0.33,
+     "end": null
+    },
+    {
      "label": "Alexandria Ocasio-Cortez",
-     "p": 1,
+     "p": 0.2,
      "end": null
     },
     {
-     "label": "Amy Klobuchar",
-     "p": 1,
-     "end": null
-    },
-    {
-     "label": "Andy Beshear",
-     "p": 1,
-     "end": null
-    },
-    {
-     "label": "Gavin Newsom",
-     "p": 1,
-     "end": null
-    },
-    {
-     "label": "Gretchen Whitmer",
-     "p": 1,
-     "end": null
-    },
-    {
-     "label": "J.B. Pritzker",
-     "p": 1,
+     "label": "Jon Ossoff",
+     "p": 0.175,
      "end": null
     }
    ],
@@ -5162,7 +5197,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    1
+    0.71
    ]
   },
   {
@@ -5177,37 +5212,37 @@
     "elections"
    ],
    "kind": "multi",
-   "prob": 1,
-   "lead": "Donald Trump Jr.",
+   "prob": 0.91,
+   "lead": "Ted Cruz",
    "options": [
     {
-     "label": "Donald Trump Jr.",
-     "p": 1,
+     "label": "Ted Cruz",
+     "p": 0.91,
      "end": null
     },
     {
-     "label": "Ivanka Trump",
-     "p": 1,
+     "label": "Eric Trump",
+     "p": 0.83,
      "end": null
     },
     {
-     "label": "Jared Kushner",
-     "p": 1,
+     "label": "Marjorie Taylor Greene",
+     "p": 0.83,
      "end": null
     },
     {
      "label": "JD Vance",
-     "p": 1,
+     "p": 0.424,
      "end": null
     },
     {
-     "label": "Marco Rubio",
-     "p": 1,
+     "label": "Brian Kemp",
+     "p": 0.4,
      "end": null
     },
     {
-     "label": "Nikki Haley",
-     "p": 1,
+     "label": "Glenn Youngkin",
+     "p": 0.4,
      "end": null
     }
    ],
@@ -5215,7 +5250,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    1
+    0.91
    ]
   },
   {
@@ -5274,37 +5309,37 @@
     "elections"
    ],
    "kind": "multi",
-   "prob": 1,
-   "lead": "Alexandria Ocasio-Cortez",
+   "prob": 0.83,
+   "lead": "J.B Pritzker",
    "options": [
     {
-     "label": "Alexandria Ocasio-Cortez",
-     "p": 1,
+     "label": "J.B Pritzker",
+     "p": 0.83,
      "end": null
     },
     {
-     "label": "Gavin Newsom",
-     "p": 1,
+     "label": "Michelle Obama",
+     "p": 0.83,
      "end": null
     },
     {
-     "label": "JD Vance",
-     "p": 1,
+     "label": "Donald Trump Jr.",
+     "p": 0.77,
      "end": null
     },
     {
-     "label": "Jon Ossoff",
-     "p": 1,
+     "label": "Ivanka Trump",
+     "p": 0.77,
      "end": null
     },
     {
-     "label": "Josh Shapiro",
-     "p": 1,
+     "label": "Gretchen Whitmer",
+     "p": 0.71,
      "end": null
     },
     {
-     "label": "Kamala Harris",
-     "p": 1,
+     "label": "Raphael Warnock",
+     "p": 0.67,
      "end": null
     }
    ],
@@ -5312,7 +5347,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    1
+    0.83
    ]
   },
   {
@@ -5373,7 +5408,7 @@
    "source": "kalshi",
    "title": "2028 Republican presidential nominee (In 2028)",
    "url": "https://kalshi.com/markets/kxpresnomr",
-   "volume": 70496750,
+   "volume": 70496807,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -5534,7 +5569,7 @@
     },
     {
      "label": "Jon Ossoff",
-     "p": 0.155,
+     "p": 0.154,
      "end": "2028-11-08T04:59:00.000Z"
     },
     {
@@ -6194,17 +6229,17 @@
     "elections"
    ],
    "kind": "multi",
-   "prob": 1,
-   "lead": "No",
+   "prob": 0.625,
+   "lead": "Yes",
    "options": [
     {
-     "label": "No",
-     "p": 1,
+     "label": "Yes",
+     "p": 0.625,
      "end": null
     },
     {
-     "label": "Yes",
-     "p": 1,
+     "label": "No",
+     "p": 0.352,
      "end": null
     }
    ],
@@ -6212,7 +6247,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    1
+    0.625
    ]
   },
   {
@@ -6410,37 +6445,37 @@
     "elections"
    ],
    "kind": "multi",
-   "prob": 1,
-   "lead": "Angela Rayner",
+   "prob": 0.67,
+   "lead": "James Cleverly",
    "options": [
     {
-     "label": "Angela Rayner",
-     "p": 1,
+     "label": "James Cleverly",
+     "p": 0.67,
      "end": null
     },
     {
-     "label": "Ed Miliband",
-     "p": 1,
+     "label": "Zack Polanski",
+     "p": 0.67,
+     "end": null
+    },
+    {
+     "label": "John Healey",
+     "p": 0.4,
+     "end": null
+    },
+    {
+     "label": "Yvette Cooper",
+     "p": 0.4,
+     "end": null
+    },
+    {
+     "label": "Zia Yusuf",
+     "p": 0.4,
      "end": null
     },
     {
      "label": "Kemi Badenoch",
-     "p": 1,
-     "end": null
-    },
-    {
-     "label": "Nigel Farage",
-     "p": 1,
-     "end": null
-    },
-    {
-     "label": "Rupert Lowe",
-     "p": 1,
-     "end": null
-    },
-    {
-     "label": "Sadiq Khan",
-     "p": 1,
+     "p": 0.2,
      "end": null
     }
    ],
@@ -6448,7 +6483,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    1
+    0.67
    ]
   },
   {
@@ -6463,17 +6498,17 @@
     "elections"
    ],
    "kind": "multi",
-   "prob": 1,
-   "lead": "No",
+   "prob": 0.746,
+   "lead": "Yes",
    "options": [
     {
-     "label": "No",
-     "p": 1,
+     "label": "Yes",
+     "p": 0.746,
      "end": null
     },
     {
-     "label": "Yes",
-     "p": 1,
+     "label": "No",
+     "p": 0.208,
      "end": null
     }
    ],
@@ -6481,7 +6516,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    1
+    0.746
    ]
   },
   {
@@ -6496,37 +6531,37 @@
     "elections"
    ],
    "kind": "multi",
-   "prob": 1,
-   "lead": "Conservative",
+   "prob": 0.365,
+   "lead": "Labour",
    "options": [
     {
-     "label": "Conservative",
-     "p": 1,
-     "end": null
-    },
-    {
-     "label": "Green Party",
-     "p": 1,
-     "end": null
-    },
-    {
      "label": "Labour",
-     "p": 1,
+     "p": 0.365,
      "end": null
     },
     {
-     "label": "Liberal Democrats",
-     "p": 1,
+     "label": "Conservative",
+     "p": 0.253,
      "end": null
     },
     {
      "label": "Reform UK",
-     "p": 1,
+     "p": 0.25,
      "end": null
     },
     {
-     "label": "Restore Britain",
-     "p": 1,
+     "label": "Your Party",
+     "p": 0.2,
+     "end": null
+    },
+    {
+     "label": "Advance UK",
+     "p": 0.1,
+     "end": null
+    },
+    {
+     "label": "Workers Party of Britain",
+     "p": 0.1,
      "end": null
     }
    ],
@@ -6534,7 +6569,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    1
+    0.365
    ]
   },
   {
@@ -6549,37 +6584,37 @@
     "elections"
    ],
    "kind": "multi",
-   "prob": 1,
-   "lead": "Conservative Majority",
+   "prob": 0.602,
+   "lead": "No Overall Majority",
    "options": [
     {
-     "label": "Conservative Majority",
-     "p": 1,
-     "end": null
-    },
-    {
-     "label": "Green Party Majority",
-     "p": 1,
+     "label": "No Overall Majority",
+     "p": 0.602,
      "end": null
     },
     {
      "label": "Labour Majority",
-     "p": 1,
+     "p": 0.208,
      "end": null
     },
     {
-     "label": "Liberal Democrats Majority",
-     "p": 1,
+     "label": "Advance UK Majority",
+     "p": 0.2,
      "end": null
     },
     {
-     "label": "No Overall Majority",
-     "p": 1,
+     "label": "Conservative Majority",
+     "p": 0.111,
      "end": null
     },
     {
      "label": "Reform UK Majority",
-     "p": 1,
+     "p": 0.08,
+     "end": null
+    },
+    {
+     "label": "Green Party Majority",
+     "p": 0.038,
      "end": null
     }
    ],
@@ -6587,7 +6622,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    1
+    0.602
    ]
   },
   {
