@@ -386,12 +386,12 @@ async function predictit() {
   return balanced(items, CAP.predictit);
 }
 
-const SM_STATS = { sample: [] };
+const SM_STATS = { sample: [], quoteSample: [], dropped: 0 };
 // ---------- Smarkets (UK betting exchange; best effort, public read endpoints) ----------
 async function smarkets() {
   const base = "https://api.smarkets.com/v3";
   const ev = await getJSON(`${base}/events/?state=upcoming&state=live&type_domain=politics&limit=200&sort=id`, 2);
-  const events = (ev.events || []).filter((e) => !excluded(e.name) && themesOf(e.name).length).slice(0, 60);
+  const events = (ev.events || []).filter((e) => !excluded(e.name) && themesOf(e.name).length && e.name.trim().split(/\s+/).length >= 3).slice(0, 60);
   if (!events.length) throw new Error("Smarkets returned no matching events");
   const items = [];
   for (const e of events) {
@@ -400,20 +400,35 @@ async function smarkets() {
       if (!mk.length) continue;
       const ids = mk.map((m) => m.id).join(",");
       const contracts = (await getJSON(`${base}/markets/${ids}/contracts/`, 1)).contracts || [];
-      const last = (await getJSON(`${base}/markets/${ids}/last_executed_prices/`, 1)).last_executed_prices || {};
       // pick the market with the most contracts (usually "Winner")
       const byMarket = new Map();
       for (const c of contracts) { if (!byMarket.has(c.market_id)) byMarket.set(c.market_id, []); byMarket.get(c.market_id).push(c); }
       const [mid, cs] = [...byMarket.entries()].sort((a, b) => b[1].length - a[1].length)[0] || [];
       if (!mid) continue;
-      // Smarkets last_executed_price is in percent (0-100), e.g. "15.15" = 15.15%.
-      const norm = (v) => { v = num(v); return v == null ? null : clamp01(v / 100); };
-      for (const x of (last[mid] || []).slice(0, 2)) if (SM_STATS.sample.length < 8) SM_STATS.sample.push({ event: e.name, raw: x.last_executed_price });
-      const prices = new Map((last[mid] || []).map((x) => [String(x.contract_id), norm(x.last_executed_price)]));
-      let options = cs.map((c) => ({ label: c.name, p: prices.get(String(c.id)), end: null }));
+      // Stricter pricing: mid of best bid and best offer, and only where the spread is tight.
+      // (Last-traded prices can be hours or days old on thin contracts.)
+      const qr = await getJSON(`${base}/markets/${mid}/quotes/`, 1);
+      const quotes = qr.quotes || qr;
+      const sample = Object.entries(quotes).slice(0, 2).map(([k, v]) => ({ event: e.name, contract: k, bids: (v.bids || []).slice(0, 2), offers: (v.offers || []).slice(0, 2) }));
+      for (const x of sample) if (SM_STATS.quoteSample.length < 6) SM_STATS.quoteSample.push(x);
+      const allPrices = Object.values(quotes).flatMap((v) => [...(v.bids || []), ...(v.offers || [])]).map((x) => num(x.price)).filter((x) => x != null);
+      const scale = allPrices.length && Math.max(...allPrices) <= 100 ? 100 : 10000; // percent or basis points
+      const MAX_SPREAD = 0.05;
+      const mids = new Map();
+      for (const c of cs) {
+        const q = quotes[String(c.id)] || {};
+        const bids = (q.bids || []).map((x) => num(x.price) / scale).filter((x) => Number.isFinite(x));
+        const offers = (q.offers || []).map((x) => num(x.price) / scale).filter((x) => Number.isFinite(x));
+        if (!bids.length || !offers.length) continue;
+        const bid = Math.max(...bids), offer = Math.min(...offers);
+        if (offer < bid || offer - bid > MAX_SPREAD) continue;
+        mids.set(String(c.id), clamp01((bid + offer) / 2));
+      }
+      let options = cs.map((c) => ({ label: c.name, p: mids.get(String(c.id)), end: null }));
       const yes = options.find((o) => /^yes$/i.test(o.label)), no = options.find((o) => /^no$/i.test(o.label));
-      if (options.length === 2 && yes && no) options = [{ label: "Yes", p: yes.p, end: null }];
+      if (options.length === 2 && yes && no) options = yes.p != null ? [{ label: "Yes", p: yes.p, end: null }] : [];
       else options = options.filter((o) => o.p != null && o.p > 0.01);
+      if (!options.length) { SM_STATS.dropped++; continue; }
       const item = buildItem({
         id: "sm-" + e.id, source: "smarkets", title: e.name, url: `https://smarkets.com/event/${e.id}${e.full_slug || ""}`,
         volume: 0, volumeUnit: "", end: isoDate(e.start_datetime), themes: themesOf(e.name),
