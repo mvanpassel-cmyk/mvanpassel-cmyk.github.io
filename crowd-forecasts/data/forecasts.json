@@ -1,33 +1,33 @@
 {
- "generated": "2026-10-23T14:58:01.836Z",
+ "generated": "2026-10-23T15:00:56.232Z",
  "sources": {
   "polymarket": {
    "ok": true,
    "count": 80,
-   "updated": "2026-10-23T14:58:01.836Z"
+   "updated": "2026-10-23T15:00:56.232Z"
   },
   "kalshi": {
    "ok": true,
    "count": 50,
-   "updated": "2026-10-23T14:58:01.836Z"
+   "updated": "2026-10-23T15:00:56.232Z"
   },
   "manifold": {
    "ok": true,
    "count": 30,
-   "updated": "2026-10-23T14:58:01.836Z"
+   "updated": "2026-10-23T15:00:56.232Z"
   },
   "metaculus": {
    "ok": true,
    "count": 3,
-   "updated": "2026-10-23T14:58:01.836Z",
+   "updated": "2026-10-23T15:00:56.232Z",
    "stats": {
     "fetched": 1060,
     "skipped": {
      "conditional": 31,
      "group": 165,
      "few forecasters": 102,
-     "no theme match": 172,
-     "excluded topic": 104,
+     "no theme match": 171,
+     "excluded topic": 105,
      "no community prediction": 334,
      "notebook": 147,
      "date": 1,
@@ -273,21 +273,21 @@
   "predictit": {
    "ok": true,
    "count": 25,
-   "updated": "2026-10-23T14:58:01.836Z"
+   "updated": "2026-10-23T15:00:56.232Z"
   },
   "smarkets": {
    "ok": true,
    "count": 15,
-   "updated": "2026-10-23T14:58:01.836Z",
+   "updated": "2026-10-23T15:00:56.232Z",
    "stats": {
     "sample": [
      {
       "event": "2027 French Presidential Election",
-      "raw": "15.15"
+      "raw": "42.37"
      },
      {
       "event": "2027 French Presidential Election",
-      "raw": "50"
+      "raw": "15.15"
      },
      {
       "event": "Northern Ireland Assembly Elections",
@@ -299,19 +299,19 @@
      },
      {
       "event": "Donald Trump to serve as president for 9+ years by end of 2030",
-      "raw": "91.74"
-     },
-     {
-      "event": "Donald Trump to serve as president for 9+ years by end of 2030",
       "raw": "10.87"
      },
      {
-      "event": "Next General Election - Most Seats",
-      "raw": "0.1"
+      "event": "Donald Trump to serve as president for 9+ years by end of 2030",
+      "raw": "91.74"
      },
      {
       "event": "Next General Election - Most Seats",
       "raw": "1.05"
+     },
+     {
+      "event": "Next General Election - Most Seats",
+      "raw": "0.2"
      }
     ]
    }
@@ -331,12 +331,12 @@
     "conflict"
    ],
    "kind": "ladder",
-   "prob": 0.935,
+   "prob": 0.945,
    "lead": "October 24",
    "options": [
     {
      "label": "October 24",
-     "p": 0.935,
+     "p": 0.945,
      "end": "2026-10-25T03:59:00.000Z"
     },
     {
@@ -369,7 +369,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.935
+    0.945
    ]
   },
   {
@@ -409,7 +409,7 @@
     },
     {
      "label": "November 8",
-     "p": 0.585,
+     "p": 0.59,
      "end": "2026-11-09T04:59:00.000Z"
     },
     {
@@ -746,12 +746,12 @@
     "conflict"
    ],
    "kind": "ladder",
-   "prob": 0.02,
+   "prob": 0.021,
    "lead": "October 31",
    "options": [
     {
      "label": "October 31",
-     "p": 0.02,
+     "p": 0.021,
      "end": "2026-11-01T03:59:00.000Z"
     },
     {
@@ -774,7 +774,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.02
+    0.021
    ]
   },
   {
@@ -1033,12 +1033,12 @@
     "conflict"
    ],
    "kind": "ladder",
-   "prob": 0.205,
+   "prob": 0.21,
    "lead": "October 31",
    "options": [
     {
      "label": "October 31",
-     "p": 0.205,
+     "p": 0.21,
      "end": "2026-11-01T03:59:00.000Z"
     },
     {
@@ -1061,7 +1061,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.205
+    0.21
    ]
   },
   {
@@ -1796,7 +1796,7 @@
     },
     {
      "label": "Alireza Arafi",
-     "p": 0.026,
+     "p": 0.028,
      "end": "2026-12-31T17:00:00.000Z"
     },
     {
@@ -2467,7 +2467,7 @@
     },
     {
      "label": "↑6.5k",
-     "p": 0.695,
+     "p": 0.69,
      "end": "2027-01-01T04:59:00.000Z"
     }
    ],
@@ -2492,12 +2492,12 @@
     "conflict"
    ],
    "kind": "ladder",
-   "prob": 0.042,
+   "prob": 0.041,
    "lead": "December 31, 2026",
    "options": [
     {
      "label": "December 31, 2026",
-     "p": 0.042,
+     "p": 0.041,
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
@@ -2515,7 +2515,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.042
+    0.041
    ]
   },
   {
@@ -3084,7 +3084,7 @@
     },
     {
      "label": "Australia",
-     "p": 0.115,
+     "p": 0.11,
      "end": "2027-01-01T04:59:00.000Z"
     },
     {
@@ -3184,14 +3184,14 @@
     "conflict"
    ],
    "kind": "binary",
-   "prob": 0.024,
+   "prob": 0.025,
    "lead": null,
    "options": [],
    "resolves": "2027-01-01T04:59:00.000Z",
    "d1": null,
    "d7": null,
    "spark": [
-    0.024
+    0.025
    ]
   },
   {
@@ -3499,19 +3499,19 @@
    "source": "kalshi",
    "title": "Texas Senate winner? (In 2026)",
    "url": "https://kalshi.com/markets/senatetx",
-   "volume": 37329202,
+   "volume": 37333186,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
     "elections"
    ],
    "kind": "multi",
-   "prob": 0.66,
+   "prob": 0.65,
    "lead": "James Talarico",
    "options": [
     {
      "label": "James Talarico",
-     "p": 0.66,
+     "p": 0.65,
      "end": "2027-01-04T15:00:00.000Z"
     },
     {
@@ -3524,7 +3524,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.66
+    0.65
    ]
   },
   {
@@ -3730,7 +3730,7 @@
    "source": "kalshi",
    "title": "Minnesota Senate winner? (In 2026)",
    "url": "https://kalshi.com/markets/senatemn",
-   "volume": 3500355,
+   "volume": 3500359,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -3763,19 +3763,19 @@
    "source": "kalshi",
    "title": "Nebraska Senate winner? (In 2026)",
    "url": "https://kalshi.com/markets/senatene",
-   "volume": 3186262,
+   "volume": 3187508,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
     "elections"
    ],
    "kind": "multi",
-   "prob": 0.77,
+   "prob": 0.76,
    "lead": "Pete Ricketts",
    "options": [
     {
      "label": "Pete Ricketts",
-     "p": 0.77,
+     "p": 0.76,
      "end": "2027-01-04T15:00:00.000Z"
     },
     {
@@ -3788,7 +3788,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.77
+    0.76
    ]
   },
   {
@@ -3954,7 +3954,7 @@
    "source": "kalshi",
    "title": "What will the tariff rate on Canadian imports be on Jan 1, 2027?",
    "url": "https://kalshi.com/markets/kxtariffratecan",
-   "volume": 3402,
+   "volume": 3403,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -3971,7 +3971,7 @@
     },
     {
      "label": "20% or above",
-     "p": 0.43,
+     "p": 0.38,
      "end": "2027-01-08T15:00:00.000Z"
     },
     {
@@ -4030,7 +4030,7 @@
    "source": "kalshi",
    "title": "What will the tariff rate on Chinese imports be on Jan 1, 2027?",
    "url": "https://kalshi.com/markets/kxtariffrateprc",
-   "volume": 2764,
+   "volume": 2765,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -4047,7 +4047,7 @@
     },
     {
      "label": "30% or above",
-     "p": 0.21,
+     "p": 0.15,
      "end": "2027-01-08T15:00:00.000Z"
     },
     {
@@ -4297,7 +4297,7 @@
    "source": "kalshi",
    "title": "2026 Midterms: Congress Balance of Power? (For Feb 2027)",
    "url": "https://kalshi.com/markets/kxbalancepowercombo",
-   "volume": 52166635,
+   "volume": 52168094,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -4314,7 +4314,7 @@
     },
     {
      "label": "D-House, R-Senate",
-     "p": 0.22,
+     "p": 0.23,
      "end": "2027-02-01T15:00:00.000Z"
     },
     {
@@ -4340,7 +4340,7 @@
    "source": "kalshi",
    "title": "Which party will win the U.S. Senate? (In 2026)",
    "url": "https://kalshi.com/markets/controls",
-   "volume": 17439463,
+   "volume": 17439942,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -4720,26 +4720,15 @@
    "themes": [
     "elections"
    ],
-   "kind": "multi",
-   "prob": 0.917,
-   "lead": "No",
-   "options": [
-    {
-     "label": "No",
-     "p": 0.917,
-     "end": null
-    },
-    {
-     "label": "Yes",
-     "p": 0.119,
-     "end": null
-    }
-   ],
+   "kind": "binary",
+   "prob": 0.119,
+   "lead": null,
+   "options": [],
    "resolves": "2027-05-13T00:01:00.000Z",
    "d1": null,
    "d7": null,
    "spark": [
-    0.917
+    0.119
    ]
   },
   {
@@ -5159,29 +5148,9 @@
     "elections"
    ],
    "kind": "multi",
-   "prob": 0.71,
-   "lead": "Elizabeth Warren",
+   "prob": 0.2,
+   "lead": "Alexandria Ocasio-Cortez",
    "options": [
-    {
-     "label": "Elizabeth Warren",
-     "p": 0.71,
-     "end": null
-    },
-    {
-     "label": "Rahm Emanuel",
-     "p": 0.67,
-     "end": null
-    },
-    {
-     "label": "Chris Murphy",
-     "p": 0.33,
-     "end": null
-    },
-    {
-     "label": "Ruben Gallego",
-     "p": 0.33,
-     "end": null
-    },
     {
      "label": "Alexandria Ocasio-Cortez",
      "p": 0.2,
@@ -5191,13 +5160,33 @@
      "label": "Jon Ossoff",
      "p": 0.175,
      "end": null
+    },
+    {
+     "label": "Gavin Newsom",
+     "p": 0.143,
+     "end": null
+    },
+    {
+     "label": "Andy Beshear",
+     "p": 0.067,
+     "end": null
+    },
+    {
+     "label": "Stephen A. Smith",
+     "p": 0.061,
+     "end": null
+    },
+    {
+     "label": "Kamala Harris",
+     "p": 0.059,
+     "end": null
     }
    ],
    "resolves": "2028-09-01T00:00:01.000Z",
    "d1": null,
    "d7": null,
    "spark": [
-    0.71
+    0.2
    ]
   },
   {
@@ -5212,37 +5201,37 @@
     "elections"
    ],
    "kind": "multi",
-   "prob": 0.91,
-   "lead": "Ted Cruz",
+   "prob": 0.424,
+   "lead": "JD Vance",
    "options": [
-    {
-     "label": "Ted Cruz",
-     "p": 0.91,
-     "end": null
-    },
-    {
-     "label": "Eric Trump",
-     "p": 0.83,
-     "end": null
-    },
-    {
-     "label": "Marjorie Taylor Greene",
-     "p": 0.83,
-     "end": null
-    },
     {
      "label": "JD Vance",
      "p": 0.424,
      "end": null
     },
     {
-     "label": "Brian Kemp",
-     "p": 0.4,
+     "label": "Marco Rubio",
+     "p": 0.2,
      "end": null
     },
     {
-     "label": "Glenn Youngkin",
-     "p": 0.4,
+     "label": "Tucker Carlson",
+     "p": 0.05,
+     "end": null
+    },
+    {
+     "label": "Ron DeSantis",
+     "p": 0.042,
+     "end": null
+    },
+    {
+     "label": "Donald Trump Jr.",
+     "p": 0.028,
+     "end": null
+    },
+    {
+     "label": "Thomas Massie",
+     "p": 0.028,
      "end": null
     }
    ],
@@ -5250,7 +5239,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.91
+    0.424
    ]
   },
   {
@@ -5309,37 +5298,37 @@
     "elections"
    ],
    "kind": "multi",
-   "prob": 0.83,
-   "lead": "J.B Pritzker",
+   "prob": 0.179,
+   "lead": "JD Vance",
    "options": [
     {
-     "label": "J.B Pritzker",
-     "p": 0.83,
+     "label": "JD Vance",
+     "p": 0.179,
      "end": null
     },
     {
-     "label": "Michelle Obama",
-     "p": 0.83,
+     "label": "Alexandria Ocasio-Cortez",
+     "p": 0.114,
      "end": null
     },
     {
-     "label": "Donald Trump Jr.",
-     "p": 0.77,
+     "label": "Jon Ossoff",
+     "p": 0.106,
      "end": null
     },
     {
-     "label": "Ivanka Trump",
-     "p": 0.77,
+     "label": "Gavin Newsom",
+     "p": 0.083,
      "end": null
     },
     {
-     "label": "Gretchen Whitmer",
-     "p": 0.71,
+     "label": "Marco Rubio",
+     "p": 0.08,
      "end": null
     },
     {
-     "label": "Raphael Warnock",
-     "p": 0.67,
+     "label": "Josh Shapiro",
+     "p": 0.031,
      "end": null
     }
    ],
@@ -5347,7 +5336,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.83
+    0.179
    ]
   },
   {
@@ -5355,7 +5344,7 @@
    "source": "kalshi",
    "title": "2028 Democratic presidential nominee (In 2028)",
    "url": "https://kalshi.com/markets/kxpresnomd",
-   "volume": 245950608,
+   "volume": 245951205,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -5408,7 +5397,7 @@
    "source": "kalshi",
    "title": "2028 Republican presidential nominee (In 2028)",
    "url": "https://kalshi.com/markets/kxpresnomr",
-   "volume": 70496807,
+   "volume": 70507519,
    "volumeUnit": "contracts",
    "end": null,
    "themes": [
@@ -6228,21 +6217,10 @@
    "themes": [
     "elections"
    ],
-   "kind": "multi",
+   "kind": "binary",
    "prob": 0.625,
-   "lead": "Yes",
-   "options": [
-    {
-     "label": "Yes",
-     "p": 0.625,
-     "end": null
-    },
-    {
-     "label": "No",
-     "p": 0.352,
-     "end": null
-    }
-   ],
+   "lead": null,
+   "options": [],
    "resolves": "2029-01-20T17:00:00.000Z",
    "d1": null,
    "d7": null,
@@ -6445,37 +6423,37 @@
     "elections"
    ],
    "kind": "multi",
-   "prob": 0.67,
-   "lead": "James Cleverly",
+   "prob": 0.2,
+   "lead": "Kemi Badenoch",
    "options": [
-    {
-     "label": "James Cleverly",
-     "p": 0.67,
-     "end": null
-    },
-    {
-     "label": "Zack Polanski",
-     "p": 0.67,
-     "end": null
-    },
-    {
-     "label": "John Healey",
-     "p": 0.4,
-     "end": null
-    },
-    {
-     "label": "Yvette Cooper",
-     "p": 0.4,
-     "end": null
-    },
-    {
-     "label": "Zia Yusuf",
-     "p": 0.4,
-     "end": null
-    },
     {
      "label": "Kemi Badenoch",
      "p": 0.2,
+     "end": null
+    },
+    {
+     "label": "Nigel Farage",
+     "p": 0.151,
+     "end": null
+    },
+    {
+     "label": "Angela Rayner",
+     "p": 0.067,
+     "end": null
+    },
+    {
+     "label": "Rupert Lowe",
+     "p": 0.048,
+     "end": null
+    },
+    {
+     "label": "Ed Miliband",
+     "p": 0.045,
+     "end": null
+    },
+    {
+     "label": "Sadiq Khan",
+     "p": 0.014,
      "end": null
     }
    ],
@@ -6483,7 +6461,7 @@
    "d1": null,
    "d7": null,
    "spark": [
-    0.67
+    0.2
    ]
   },
   {
@@ -6497,21 +6475,10 @@
    "themes": [
     "elections"
    ],
-   "kind": "multi",
+   "kind": "binary",
    "prob": 0.746,
-   "lead": "Yes",
-   "options": [
-    {
-     "label": "Yes",
-     "p": 0.746,
-     "end": null
-    },
-    {
-     "label": "No",
-     "p": 0.208,
-     "end": null
-    }
-   ],
+   "lead": null,
+   "options": [],
    "resolves": "2029-08-15T12:00:00.000Z",
    "d1": null,
    "d7": null,
@@ -6550,18 +6517,18 @@
      "end": null
     },
     {
-     "label": "Your Party",
-     "p": 0.2,
+     "label": "Restore Britain",
+     "p": 0.059,
      "end": null
     },
     {
-     "label": "Advance UK",
-     "p": 0.1,
+     "label": "Green Party",
+     "p": 0.013,
      "end": null
     },
     {
-     "label": "Workers Party of Britain",
-     "p": 0.1,
+     "label": "Liberal Democrats",
+     "p": 0.011,
      "end": null
     }
    ],
@@ -6598,11 +6565,6 @@
      "end": null
     },
     {
-     "label": "Advance UK Majority",
-     "p": 0.2,
-     "end": null
-    },
-    {
      "label": "Conservative Majority",
      "p": 0.111,
      "end": null
@@ -6615,6 +6577,11 @@
     {
      "label": "Green Party Majority",
      "p": 0.038,
+     "end": null
+    },
+    {
+     "label": "Restore Britain Majority",
+     "p": 0.024,
      "end": null
     }
    ],
