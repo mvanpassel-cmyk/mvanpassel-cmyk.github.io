@@ -76,7 +76,7 @@ kbd{border:1px solid var(--line);border-radius:4px;padding:0 5px}
 
   <div class="stage"><canvas id="viz"></canvas></div>
   <p class="hint">Tap a ring to add a dot · drag a dot to move it · tap a dot to select it, then press Delete (or drag it off the ring) · Lock keeps a loop when you press Generate</p>
-  <div class="row edit"><button id="delDot" class="btn small" disabled>Delete dot</button><button id="undo" class="btn small" disabled>Undo</button></div>
+  <div class="row edit"><button id="delDot" class="btn small" disabled>Delete dot</button><button id="undo" class="btn small" disabled>Undo</button><button id="clearAll" class="btn small" title="Remove every dot from every ring (Undo brings them back)">Clear all</button></div>
   <div class="info">
     <span>Key: <b id="key">–</b></span>
     <span>Loops realign after: <b id="align">–</b></span>
@@ -839,6 +839,14 @@ function undo() {
   loops.forEach(refreshLoop);
   updateEditUI();
 }
+function clearAll() {
+  if (!loops.some(L => L.events.length)) return;
+  pushHistory();                       // so Undo brings everything back
+  loops.forEach(L => { L.events = []; });
+  sel = null;
+  loops.forEach(refreshLoop);
+  updateEditUI();
+}
 function deleteSelected() {
   if (sel) removeEvent(sel.L, sel.ev);
 }
@@ -940,6 +948,7 @@ cv.addEventListener('pointercancel', () => { drag = null; });
 cv.addEventListener('contextmenu', onContext);
 $('#delDot').addEventListener('click', deleteSelected);
 $('#undo').addEventListener('click', undo);
+$('#clearAll').addEventListener('click', clearAll);
 document.addEventListener('keydown', e => {
   if (/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) return;
   if ((e.key === 'Delete' || e.key === 'Backspace') && sel) { e.preventDefault(); deleteSelected(); }
