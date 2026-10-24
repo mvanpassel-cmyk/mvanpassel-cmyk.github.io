@@ -48,6 +48,8 @@ details.ind .body{padding:0 14px 14px;border-top:1px solid var(--line)}
 table.lv{border-collapse:collapse;width:100%;font-size:14px;margin:8px 0}
 table.lv th,table.lv td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
 table.lv td.n{width:150px;font-weight:600;white-space:nowrap}
+table.lv td,table.lv th{overflow-wrap:anywhere}
+@media (max-width:600px){table.lv td.n{width:auto;white-space:normal}table.lv th,table.lv td{padding:5px 6px}}
 .q ol{margin:6px 0 6px 20px;padding:0}.q li{margin:4px 0}.q ol.sub{list-style:lower-alpha;margin-top:2px}
 .grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
 .areahead{margin:22px 0 8px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
