@@ -67,7 +67,7 @@ footer{margin-top:40px;color:var(--muted);font-size:13px}
 <script src="../shared/programmes.js"></script>
 <script>
 "use strict";
-const TABS=[["start","Overview"],["topics","Good practices by topic"],["countries","Country reports"],["eu","EU recommendations"],["find","Find solutions"],["about","About & method"]];
+const TABS=[["find","Find solutions"],["topics","Good practices by topic"],["countries","Country reports"],["eu","EU recommendations"],["start","Overview"],["about","About & method"]];
 const $=s=>document.querySelector(s); const view=$("#view");
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const D={}; const st={q:"",cap:"",kind:"",cty:"",sel:new Set(),from:"",open:{}};
@@ -85,8 +85,8 @@ async function load(){
   D.ind=D.fw?Object.fromEntries(D.fw.indicators.map(i=>[i.id,i])):{};
   route();
 }
-function nav(){const cur=(location.hash.replace(/^#\/?/,"").split("/")[0])||"start"; $("#tabs").innerHTML=TABS.map(([k,l])=>`<a href="#/${k}" ${k===cur?'aria-current="page"':""}>${l}</a>`).join(""); return cur;}
-function route(){const p=location.hash.replace(/^#\/?/,"").split("/"); const tab=nav(); ({start:vStart,topics:vTopics,countries:vCountries,eu:vEu,find:vFind,about:vAbout}[tab]||vStart)(p[1]); }
+function nav(){const cur=(location.hash.replace(/^#\/?/,"").split("/")[0])||"find"; $("#tabs").innerHTML=TABS.map(([k,l])=>`<a href="#/${k}" ${k===cur?'aria-current="page"':""}>${l}</a>`).join(""); return cur;}
+function route(){const p=location.hash.replace(/^#\/?/,"").split("/"); const tab=nav(); ({start:vStart,topics:vTopics,countries:vCountries,eu:vEu,find:vFind,about:vAbout}[tab]||vFind)(p[1]); }
 window.addEventListener("hashchange",route);
 
 /* helpers */

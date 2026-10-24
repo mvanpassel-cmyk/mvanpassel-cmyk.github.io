@@ -48,6 +48,8 @@ table.lv td.n{width:130px;font-weight:600}
 .tag.core{border-color:var(--accent);color:var(--accent);font-weight:600}
 .empty{color:var(--muted);font-style:italic;margin:10px 0 0}
 footer{margin-top:40px;color:var(--muted);font-size:13px}
+details.intro>summary{cursor:pointer;list-style-position:outside}
+details.intro:not([open]){padding-top:10px;padding-bottom:10px}
 </style>
 </head>
 <body>
@@ -55,12 +57,11 @@ footer{margin-top:40px;color:var(--muted);font-size:13px}
 <h1>WOAH PVS Pathway</h1>
 <p class="lead">The 45 critical competencies of the WOAH PVS Tool grouped by topic, with good practices, the IHR-PVS bridge to JEE, and the matching JEE, SPAR and PHEPA items.</p>
 
-<div class="box">
-  <strong>The instrument and its documents</strong>
+<details class="box intro"><summary><strong>The instrument and its documents</strong> <span class="small muted">(sources and how to read this)</span></summary>
   <p class="small muted" id="intro"></p>
   <div class="stages" id="stages"></div>
   <ul class="small" id="docs"></ul>
-</div>
+</details>
 
 <div class="bar">
   <input id="q" type="search" placeholder="Search topic, competency, country, takeaway…" aria-label="Search">

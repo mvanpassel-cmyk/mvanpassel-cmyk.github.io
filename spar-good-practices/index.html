@@ -46,6 +46,8 @@ table.lv td.n{width:80px;font-weight:600;white-space:nowrap}
 .tag{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:0 8px;font-size:12px;margin:0 4px 4px 0}
 .empty{color:var(--muted);font-style:italic;margin:10px 0 0}
 footer{margin-top:40px;color:var(--muted);font-size:13px}
+details.intro>summary{cursor:pointer;list-style-position:outside}
+details.intro:not([open]){padding-top:10px;padding-bottom:10px}
 </style>
 </head>
 <body>
@@ -53,8 +55,7 @@ footer{margin-top:40px;color:var(--muted);font-size:13px}
 <h1>SPAR Good Practices</h1>
 <p class="lead">The 35 indicators of the WHO IHR States Parties Self-Assessment Annual Reporting tool (SPAR, 2nd edition), with literature case studies and good practices, the matching JEE indicators with countries that score high, and the matching IHR benchmarks.</p>
 
-<div class="box">
-  <strong>SPAR data and documents</strong>
+<details class="box intro"><summary><strong>SPAR data and documents</strong> <span class="small muted">(sources and how to read this)</span></summary>
   <ul class="small">
     <li><a href="https://cdn.who.int/media/docs/default-source/health-security-preparedness/cap/spar/9789240040120-eng-new.pdf" rel="noopener">SPAR questionnaire, 2nd edition (PDF, WHO)</a>. For each indicator countries can tick “strength/best practice” next to their comments, so a country's own SPAR report may name good practices.</li>
     <li><a href="https://extranet.who.int/e-spar/Home/CapacityProgress" rel="noopener">e-SPAR public pages</a>: scores per capacity, by country, region and year; export to Excel. Indicator-level scores are not public.</li>
@@ -62,7 +63,7 @@ footer{margin-top:40px;color:var(--muted);font-size:13px}
   </ul>
   <h4>About the tool and its use</h4>
   <div id="general"></div>
-</div>
+</details>
 
 <div class="bar">
   <input id="q" type="search" placeholder="Search indicator, country, takeaway…" aria-label="Search">

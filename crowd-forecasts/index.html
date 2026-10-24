@@ -28,6 +28,8 @@ header p{color:var(--muted);margin:0;max-width:60ch}
 .controls{position:sticky;top:0;z-index:5;background:var(--bg);padding:14px 0 10px;margin:22px 0 4px;border-bottom:1px solid var(--line)}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .row + .row{margin-top:8px}
+#fbody{margin-top:8px}
+.chip.ftoggle{display:none}
 .chip{border:1px solid var(--line);background:transparent;color:var(--ink);padding:5px 12px;border-radius:999px;font:inherit;font-size:13px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
 .chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .chip .sw{width:8px;height:8px;border-radius:50%}
@@ -78,6 +80,10 @@ h2.group small{font-weight:500;letter-spacing:0;text-transform:none}
 .note a{color:inherit}
 @media (max-width:520px){
   .controls{position:static}
+  .chip.ftoggle{display:inline-flex;margin-left:auto}
+  #fbody{display:none}
+  .controls.open #fbody{display:block}
+  .controls.open .ftoggle{background:var(--ink);color:var(--bg)}
   .item{grid-template-columns:42px 1fr;gap:8px}
   .date b{font-size:18px}
   .card{padding:12px 13px}
@@ -95,18 +101,21 @@ h2.group small{font-weight:500;letter-spacing:0;text-transform:none}
   </header>
 
   <div class="controls">
-    <div class="row" id="themes" role="group" aria-label="Filter by theme"></div>
-    <div class="row">
-      <div id="sources" class="row" role="group" aria-label="Filter by source"></div>
-      <select id="horizon" aria-label="Time horizon">
-        <option value="90">Next 3 months</option>
-        <option value="365" selected>Next 12 months</option>
-        <option value="0">All dates</option>
-      </select>
-    </div>
     <div class="row">
       <input id="q" class="search" type="search" placeholder="Search: Ukraine, Taiwan, tariffs…" aria-label="Search">
       <span class="count" id="count"></span>
+      <button type="button" class="chip ftoggle" id="ftoggle" aria-expanded="false" aria-controls="fbody">Filters</button>
+    </div>
+    <div id="fbody">
+      <div class="row" id="themes" role="group" aria-label="Filter by theme"></div>
+      <div class="row">
+        <div id="sources" class="row" role="group" aria-label="Filter by source"></div>
+        <select id="horizon" aria-label="Time horizon">
+          <option value="90">Next 3 months</option>
+          <option value="365" selected>Next 12 months</option>
+          <option value="0">All dates</option>
+        </select>
+      </div>
     </div>
   </div>
 
@@ -204,7 +213,13 @@ function filtered(){
   });
 }
 
+function fLabel(){
+  const n = (state.theme !== "all") + (state.sources.size < Object.keys(SOURCES).length) + (state.horizon !== 365);
+  $("ftoggle").textContent = n ? `Filters (${n})` : "Filters";
+}
+$("ftoggle").addEventListener("click", () => { const c = document.querySelector(".controls"); c.classList.toggle("open"); $("ftoggle").setAttribute("aria-expanded", c.classList.contains("open")); });
 function render(){
+  fLabel();
   const items = filtered();
   $("count").textContent = `${items.length} forecast${items.length === 1 ? "" : "s"}`;
 

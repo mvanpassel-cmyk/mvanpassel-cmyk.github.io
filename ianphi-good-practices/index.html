@@ -48,6 +48,8 @@ table.lv td.n{width:130px;font-weight:600}
 .tag.core{border-color:var(--accent);color:var(--accent);font-weight:600}
 .empty{color:var(--muted);font-style:italic;margin:10px 0 0}
 footer{margin-top:40px;color:var(--muted);font-size:13px}
+details.intro>summary{cursor:pointer;list-style-position:outside}
+details.intro:not([open]){padding-top:10px;padding-bottom:10px}
 </style>
 </head>
 <body>
@@ -55,12 +57,11 @@ footer{margin-top:40px;color:var(--muted);font-size:13px}
 <h1>NPHI Good Practices</h1>
 <p class="lead">The 20 discussion guides of the IANPHI Staged Development Tool (SDT) for national public health institutes (NPHIs), plus three cross-cutting topics, with case studies, peer evaluations and literature, and the matching JEE, SPAR and PHEPA items.</p>
 
-<div class="box">
-  <strong>The tool and its documents</strong>
+<details class="box intro"><summary><strong>The tool and its documents</strong> <span class="small muted">(sources and how to read this)</span></summary>
   <p class="small muted" id="intro"></p>
   <div class="stages" id="stages"></div>
   <ul class="small" id="docs"></ul>
-</div>
+</details>
 
 <div class="bar">
   <input id="q" type="search" placeholder="Search guide, country, takeaway…" aria-label="Search">

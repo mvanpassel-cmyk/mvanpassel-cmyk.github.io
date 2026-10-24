@@ -73,6 +73,8 @@ details.links>summary{cursor:pointer;font-size:13px;color:var(--accent)}
 .tag{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:0 8px;font-size:12px;margin:0 4px 4px 0;text-decoration:none}
 footer{margin-top:40px;color:var(--muted);font-size:13px}
 @media (max-width:640px){.bar{position:static}label.lb{flex-wrap:wrap;width:100%}label.lb select{flex:1;min-width:0;width:100%}.ctext,.det,.dist,.dl,.opts{margin-left:0}.rows{margin-left:0;width:100%}.rows td.c{width:70px}.rows td.a{width:80px}.q .id{min-width:36px}}
+details.intro>summary{cursor:pointer;list-style-position:outside}
+details.intro:not([open]){padding-top:10px;padding-bottom:10px}
 </style>
 </head>
 <body>
@@ -80,17 +82,16 @@ footer{margin-top:40px;color:var(--muted);font-size:13px}
 <h1>TrACSS 2025</h1>
 <p class="lead">Every question of the 2025 Tracking AMR Country Self-assessment Survey, with what each country answered and how that compares with other countries. Each topic has good practices from the literature (peer-reviewed studies and country cases first), the peers at the top levels, and the matching JEE, SPAR and PHEPA items.</p>
 
-<div class="box">
-  <strong>The survey and its documents</strong>
+<details class="box intro"><summary><strong>The survey and its documents</strong> <span class="small muted">(sources and how to read this)</span></summary>
   <p class="small muted" style="margin:6px 0">TrACSS is the yearly self-assessment on national action plans on antimicrobial resistance, run since 2017 by the Tripartite (FAO, OIE, WHO) and since 2022 by the Quadripartite (FAO, UNEP, WHO and WOAH); WHO administers it. Each country submits one consolidated answer agreed by all sectors. This page uses the ninth round: questionnaire version 9.0 (launched April 2025, responses due June 2025) and the data export of 1 October 2025, covering <span id="nC">184</span> countries. The 2024 UN political declaration on AMR sets a target of 95% of countries answering every year by 2030.</p>
   <ul class="small">
     <li><a href="https://amrcountryprogress.org" rel="noopener">TrACSS Global Database</a>: country results, the questionnaire and the data download.</li>
     <li><a href="https://www.who.int/news/item/15-05-2025-2025-edition-of-global-survey-to-track-antimicrobial-resistance-launches" rel="noopener">WHO: 2025 edition of the survey launches</a>. Questions to tracss@who.int.</li>
   </ul>
   <p class="small muted" style="margin:8px 0 0">Rated questions use five levels (A to E); 5.7 and 5.9 use four (A to D). A higher level assumes the lower ones are reached (a country choosing D should also meet B and C). The wording of each level differs per question; open a question to see it.</p>
-  <div class="scale" id="scale"></div>
   <p class="small muted" style="margin:6px 0 0">Section I (contact details) is not published and not shown here.</p>
-</div>
+</details>
+<div class="scale" id="scale" style="margin:0 0 14px"></div>
 
 <div class="bar">
   <label class="lb">Country <select id="cty" aria-label="Country"></select></label>
