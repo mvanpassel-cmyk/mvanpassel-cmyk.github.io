@@ -1,0 +1,541 @@
+{
+ "about": "Coverage queue for the weekly NPHI map update: IANPHI member institutes that are missing or thin as 'actor' on the map. Each weekly run takes the next 4 open items in order, searches for sourced collaborations they lead or co-lead with other countries, adds verified ones to projects.json, and fills done (YYYY-MM-DD), added (number) and note.",
+ "queue": [
+  {
+   "institute": "Kenya National Public Health Institute (KNPHI)",
+   "country": "Kenya",
+   "group": "partner-priority",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "National Institute for Communicable Diseases (NICD)",
+   "country": "South Africa",
+   "group": "partner-priority",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Nigeria Centre for Disease Control and Prevention (NCDC)",
+   "country": "Nigeria",
+   "group": "partner-priority",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "National Centre for Disease Control (NCDC), India",
+   "country": "India",
+   "group": "partner-priority",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Institute of Tropical Medicine Pedro Kourí (IPK)",
+   "country": "Cuba",
+   "group": "outward-active",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Institut national de santé publique du Québec (INSPQ)",
+   "country": "Canada",
+   "group": "outward-active",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Centre for Health Protection (CHP), Hong Kong",
+   "country": "China",
+   "group": "outward-active",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "National Center for Disease Control and Public Health (NCDC) / Lugar Center",
+   "country": "Georgia",
+   "group": "outward-active",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Public Health Agency of Canada (PHAC)",
+   "country": "Canada",
+   "group": "outward-active",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Uganda National Institute of Public Health (UNIPH)",
+   "country": "Uganda",
+   "group": "outward-active",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "National Public Health Institute of Zimbabwe",
+   "country": "Zimbabwe",
+   "group": "africa",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Public Health Institute Malawi (PHIM)",
+   "country": "Malawi",
+   "group": "africa",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Institut National de Santé Publique (INSP) Mali",
+   "country": "Mali",
+   "group": "africa",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Botswana Public Health Institute (BPHI)",
+   "country": "Botswana",
+   "group": "africa",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Institut National d'Hygiène (INH) Togo",
+   "country": "Togo",
+   "group": "africa",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Institut National de Santé Publique (INSP) Burundi",
+   "country": "Burundi",
+   "group": "africa",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Instituto Nacional de Saúde Pública (INASA) Guinea-Bissau",
+   "country": "Guinea-Bissau",
+   "group": "africa",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Instituto Nacional de Saúde Pública (INSP) Cabo Verde",
+   "country": "Cabo Verde",
+   "group": "africa",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Instituto Nacional de Saúde Pública Angola",
+   "country": "Angola",
+   "group": "africa",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Institut National de Santé Publique (INSP) Algeria",
+   "country": "Algeria",
+   "group": "africa",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Public Health Institute Sudan",
+   "country": "Sudan",
+   "group": "africa",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "National Institute of Health (NIH) Somalia",
+   "country": "Somalia",
+   "group": "africa",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Institut National de Santé Publique, Djibouti",
+   "country": "Djibouti",
+   "group": "africa",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Direction de la Lutte contre la Maladie (DLM) Cameroon",
+   "country": "Cameroon",
+   "group": "africa",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Ministère de la Santé publique Madagascar (IANPHI member)",
+   "country": "Madagascar",
+   "group": "africa",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "National Institute for Medical Research (NIMR) Tanzania",
+   "country": "Tanzania",
+   "group": "africa",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "National Public Health Institute of Liberia (NPHIL)",
+   "country": "Liberia",
+   "group": "africa",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Institut National de Santé Publique (INSP) Côte d'Ivoire",
+   "country": "Côte d'Ivoire",
+   "group": "africa",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "National Institute of Public Health (INSP) DR Congo",
+   "country": "Dem. Rep. Congo",
+   "group": "africa",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Instituto Costarricense de Investigación y Enseñanza en Nutrición y Salud (INCIENSA)",
+   "country": "Costa Rica",
+   "group": "americas",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Laboratorio Central de Salud Pública (LCSP) Paraguay",
+   "country": "Paraguay",
+   "group": "americas",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Instituto Nacional de Laboratorios de Salud (INLASA) Bolivia",
+   "country": "Bolivia",
+   "group": "americas",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Instituto Nacional de Salud El Salvador",
+   "country": "El Salvador",
+   "group": "americas",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Instituto Nacional de Higiene Rafael Rangel",
+   "country": "Venezuela",
+   "group": "americas",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Instituto Nacional de Salud (INS) Peru",
+   "country": "Peru",
+   "group": "americas",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Instituto Nacional de Investigación en Salud Pública (INSPI) Ecuador",
+   "country": "Ecuador",
+   "group": "americas",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Instituto Nacional de Salud Pública (INSP) Mexico",
+   "country": "Mexico",
+   "group": "americas",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "National Center for Communicable Diseases (NCCD) Mongolia",
+   "country": "Mongolia",
+   "group": "asia-mena",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Nepal Public Health Laboratory / IANPHI member Nepal",
+   "country": "Nepal",
+   "group": "asia-mena",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "National Health Laboratory Myanmar",
+   "country": "Myanmar",
+   "group": "asia-mena",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Committee for Sanitary and Epidemiological Welfare and Public Health, Uzbekistan",
+   "country": "Uzbekistan",
+   "group": "asia-mena",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "National Center for Public Healthcare, Kazakhstan",
+   "country": "Kazakhstan",
+   "group": "asia-mena",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "National Institute of Health, Pakistan",
+   "country": "Pakistan",
+   "group": "asia-mena",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Institute of Epidemiology, Disease Control and Research (IEDCR)",
+   "country": "Bangladesh",
+   "group": "asia-mena",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Instituto Nacional de Saúde Pública Timor-Leste",
+   "country": "Timor-Leste",
+   "group": "asia-mena",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Afghan National Public Health Institute",
+   "country": "Afghanistan",
+   "group": "asia-mena",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Palestinian National Institute of Public Health",
+   "country": "Palestine",
+   "group": "asia-mena",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Yemen National Public Health Institute",
+   "country": "Yemen",
+   "group": "asia-mena",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "National Centre for Disease Control, Libya",
+   "country": "Libya",
+   "group": "asia-mena",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Institut National de la Santé Publique, Tunisia",
+   "country": "Tunisia",
+   "group": "asia-mena",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Institute of Public Health Research, Iran",
+   "country": "Iran",
+   "group": "asia-mena",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Abu Dhabi Public Health Centre / Dubai Health Authority",
+   "country": "United Arab Emirates",
+   "group": "asia-mena",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "National Institute of Hygiene and Epidemiology (NIHE)",
+   "country": "Vietnam",
+   "group": "asia-mena",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "National Institute of Public Health, Cambodia",
+   "country": "Cambodia",
+   "group": "asia-mena",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "National Institute of Public Health NIH-PIB (PZH)",
+   "country": "Poland",
+   "group": "europe",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "National Institute of Public Health (SZÚ)",
+   "country": "Czechia",
+   "group": "europe",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "National Public Health Organization (EODY)",
+   "country": "Greece",
+   "group": "europe",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Institute of Public Health of Serbia Dr Milan Jovanović Batut",
+   "country": "Serbia",
+   "group": "europe",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "National Center of Public Health and Analyses (NCPHA)",
+   "country": "Bulgaria",
+   "group": "europe",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Institute for Public Health of North Macedonia",
+   "country": "North Macedonia",
+   "group": "europe",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Croatian Institute of Public Health (HZJZ)",
+   "country": "Croatia",
+   "group": "europe",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Gesundheit Österreich GmbH (GÖG)",
+   "country": "Austria",
+   "group": "europe",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Public Health Center of Ukraine",
+   "country": "Ukraine",
+   "group": "europe",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "National Center for Disease Control and Prevention, Armenia",
+   "country": "Armenia",
+   "group": "europe",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Health Service Executive / HPSC",
+   "country": "Ireland",
+   "group": "europe",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "Institute of Public Health of Albania (ISHP)",
+   "country": "Albania",
+   "group": "europe",
+   "done": null,
+   "added": null,
+   "note": null
+  },
+  {
+   "institute": "National Institute for Health Development (TAI) / Health Board",
+   "country": "Estonia",
+   "group": "europe",
+   "done": null,
+   "added": null,
+   "note": null
+  }
+ ]
+}
