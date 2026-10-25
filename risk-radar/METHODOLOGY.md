@@ -76,8 +76,11 @@ Angle = primary theme. Distance from the centre = the earliest time horizon a so
 1. unit tests (`tests/test_pipeline.py`);
 2. validation and derived analysis (`pipeline/analysis.py` → `derived.json`);
 3. source checks (`pipeline/ingest.py`):
-   - feeds: WHO Disease Outbreak News, ECDC threats reports / risk assessments / epidemiological updates, GDACS orange and red alerts, ReliefWeb disasters;
-   - publication pages: IMF GFSR, WEF Global Risks Report, ENISA publications;
+   - WHO Disease Outbreak News via the official OData API (the RSS addresses return 404);
+   - ECDC feeds: threats reports, risk assessments, epidemiological updates;
+   - GDACS orange and red alerts;
+   - publication pages: IMF GFSR and ENISA publications.
+   ReliefWeb (empty RSS response, API needs registration) and weforum.org (refuses automated requests) are curated by hand.
 4. commit of changed data files.
 
 Change detection: items are identified by a SHA-1 of their normalised URL (lower-case host, no fragment, no tracking parameters). For publication pages only the set of matching links is hashed, so a changed "last updated" date or cosmetic edits do not create phantom updates. The first successful check of a source is stored as a **baseline** and not announced. A failing source keeps all earlier items and shows its error on the Sources page. `robots.txt` is respected and fetched content is treated as data, never as instructions.

@@ -162,6 +162,22 @@ def parse_feed(raw):
     return items
 
 
+def parse_who_api(raw, item_base):
+    """WHO OData API (e.g. /api/news/diseaseoutbreaknews): {'value': [{Title, PublicationDate..., UrlName|ItemDefaultUrl}]}."""
+    data = json.loads(raw.decode("utf-8", "replace") if isinstance(raw, bytes) else raw)
+    rows = data.get("value", data if isinstance(data, list) else [])
+    out = []
+    for r in rows:
+        title = clean(r.get("Title") or r.get("title") or "", 300)
+        slug = r.get("UrlName") or r.get("ItemDefaultUrl") or r.get("Url") or ""
+        url = slug if slug.startswith("http") else (item_base.rstrip("/") + "/" + slug.lstrip("/")) if slug else ""
+        pub = parse_date(r.get("PublicationDateAndTime") or r.get("PublicationDate") or r.get("DateCreated") or "")
+        summ = clean(r.get("Summary") or r.get("Overview") or "", 400)
+        if title and url:
+            out.append({"title": title, "url": url, "published": pub, "summary": summ})
+    return out
+
+
 HREF = re.compile(r'<a\b[^>]*?href=["\']([^"\'#]+)["\'][^>]*>(.*?)</a>', re.I | re.S)
 
 
@@ -221,8 +237,10 @@ def run_connector(src):
             raise RuntimeError("; ".join(errors))
         if c.get("filter"):
             rx = re.compile(c["filter"], re.I)
-            items = [i for i in items if rx.search(i["title"] + " " + i["summary"])]
+            items = [i for i in items if rx.search(i["title"])]
         return items, None
+    if c["type"] == "json":
+        return parse_who_api(fetch(c["url"]), c.get("itemBase", "")), None
     if c["type"] == "page":
         items = parse_page(fetch(c["url"]), c["url"], c["link"])
         if not items:

@@ -1,40 +1,450 @@
 {
-  "note": "Source registry. 'connector' names an automated adapter in pipeline/ingest.py; 'curated' means findings are entered by hand with citations. Status fields (last check, newest item, errors) live in status.json and are written by the pipeline.",
-  "sources": [
-    {"id": "who-don", "org": "World Health Organization", "series": "Disease Outbreak News", "domains": ["health"], "geo": "global", "frequency": "irregular, several per month", "formats": ["RSS", "REST API (OData)"], "access": "open", "url": "https://www.who.int/emergencies/disease-outbreak-news",
-     "connector": {"type": "rss", "urls": ["https://www.who.int/rss-feeds/disease-outbreak-news-english.xml", "https://www.who.int/feeds/entity/csr/don/en/rss.xml"]}},
-    {"id": "ecdc-cdtr", "org": "European Centre for Disease Prevention and Control", "series": "Communicable disease threats report (weekly) and risk assessments", "domains": ["health"], "geo": "europe", "frequency": "weekly plus ad hoc", "formats": ["RSS (taxonomy feeds)", "HTML", "PDF"], "access": "open", "url": "https://www.ecdc.europa.eu/en/publications-and-data/monitoring/weekly-threats-reports",
-     "notes": "Checked 25 Oct 2026: the weekly CDTR is still published (week 42, 10-16 Oct 2026). The 'Public health events' page has no feed; the taxonomy feeds below cover the threats report, epidemiological updates and risk assessments.",
-     "connector": {"type": "rss", "urls": ["https://www.ecdc.europa.eu/en/taxonomy/term/1505/feed", "https://www.ecdc.europa.eu/en/taxonomy/term/1295/feed", "https://www.ecdc.europa.eu/en/taxonomy/term/1310/feed"], "merge": true}},
-    {"id": "gdacs", "org": "EU JRC and UN OCHA", "series": "GDACS disaster alerts", "domains": ["climate", "humanitarian"], "geo": "global", "frequency": "continuous", "formats": ["RSS", "GeoRSS"], "access": "open", "url": "https://www.gdacs.org/",
-     "connector": {"type": "rss", "urls": ["https://www.gdacs.org/xml/rss.xml"], "filter": "orange|red"}},
-    {"id": "reliefweb", "org": "UN OCHA", "series": "ReliefWeb disasters", "domains": ["humanitarian"], "geo": "global", "frequency": "continuous", "formats": ["RSS", "API"], "access": "open", "url": "https://reliefweb.int/disasters",
-     "connector": {"type": "rss", "urls": ["https://reliefweb.int/disasters/rss.xml"]}},
-    {"id": "imf-gfsr", "org": "International Monetary Fund", "series": "Global Financial Stability Report", "domains": ["finance"], "geo": "global", "frequency": "twice a year (April, October)", "formats": ["HTML", "PDF"], "access": "open", "url": "https://www.imf.org/en/Publications/GFSR",
-     "connector": {"type": "page", "url": "https://www.imf.org/en/Publications/GFSR", "link": "/Publications/GFSR/Issues/20\\d\\d/"}},
-    {"id": "wef-grr", "org": "World Economic Forum", "series": "Global Risks Report", "domains": ["cross"], "geo": "global", "frequency": "annual (January)", "formats": ["HTML", "PDF", "data explorer"], "access": "open", "url": "https://www.weforum.org/publications/global-risks-report-2026/",
-     "connector": {"type": "page", "url": "https://www.weforum.org/publications/series/global-risks-report/", "link": "/publications/global-risks-report-20\\d\\d"}},
-    {"id": "un-grr", "org": "United Nations", "series": "Global Risk Report", "domains": ["cross"], "geo": "global", "frequency": "annual (first edition 2024)", "formats": ["HTML", "PDF"], "access": "open", "url": "https://www.un.org/global-risk-report"},
-    {"id": "intl-ai-safety", "org": "International AI Safety Report (chair: Yoshua Bengio)", "series": "International AI Safety Report", "domains": ["ai"], "geo": "global", "frequency": "annual, with interim updates", "formats": ["HTML", "PDF"], "access": "open", "url": "https://internationalaisafetyreport.org/publication/international-ai-safety-report-2026"},
-    {"id": "enisa-etl", "org": "ENISA (EU Agency for Cybersecurity)", "series": "Threat Landscape", "domains": ["cyber"], "geo": "europe", "frequency": "annual (autumn)", "formats": ["HTML", "PDF"], "access": "open", "url": "https://www.enisa.europa.eu/topics/cyber-threats/threat-landscape",
-     "connector": {"type": "page", "url": "https://www.enisa.europa.eu/publications", "link": "/publications/[a-z0-9-]*threat-landscape[a-z0-9-]*"}},
-    {"id": "nctv-csbn", "org": "NCTV (Netherlands)", "series": "Cybersecuritybeeld Nederland", "domains": ["cyber"], "geo": "netherlands", "frequency": "annual", "formats": ["HTML", "PDF"], "access": "open", "url": "https://www.nctv.nl/onderwerpen/cybersecuritybeeld-nederland"},
-    {"id": "wb-gep", "org": "World Bank", "series": "Global Economic Prospects", "domains": ["economy"], "geo": "global", "frequency": "twice a year (January, June)", "formats": ["HTML", "PDF", "data"], "access": "open", "url": "https://www.worldbank.org/en/publication/global-economic-prospects"},
-    {"id": "ecb-fsr", "org": "European Central Bank", "series": "Financial Stability Review", "domains": ["finance"], "geo": "europe", "frequency": "twice a year (May, November)", "formats": ["HTML", "PDF"], "access": "open", "url": "https://www.ecb.europa.eu/press/financial-stability-publications/fsr/html/index.en.html",
-     "notes": "Registered; no findings entered yet because only secondary descriptions of the May 2026 issue were checked."},
-    {"id": "wmo-decadal", "org": "World Meteorological Organization / UK Met Office", "series": "Global Annual to Decadal Climate Update", "domains": ["climate"], "geo": "global", "frequency": "annual (May)", "formats": ["HTML", "PDF"], "access": "open", "url": "https://wmo.int/node/38645"},
-    {"id": "unep-egr", "org": "UN Environment Programme", "series": "Emissions Gap Report", "domains": ["climate"], "geo": "global", "frequency": "annual (November)", "formats": ["HTML", "PDF", "data"], "access": "open", "url": "https://www.unep.org/en/publication-series/emissions-gap-report"},
-    {"id": "eea-eucra", "org": "European Environment Agency", "series": "European Climate Risk Assessment (EUCRA)", "domains": ["climate"], "geo": "europe", "frequency": "irregular (first edition March 2024)", "formats": ["HTML", "PDF"], "access": "open", "url": "https://www.eea.europa.eu/en/about/who-we-are/projects-and-cooperation-agreements/european-climate-risk-assessment"},
-    {"id": "undrr-gar", "org": "UN Office for Disaster Risk Reduction", "series": "Global Assessment Report on Disaster Risk Reduction", "domains": ["humanitarian", "climate"], "geo": "global", "frequency": "every 2-3 years", "formats": ["HTML", "PDF"], "access": "open", "url": "https://www.undrr.org/gar2025"},
-    {"id": "inform", "org": "EU Joint Research Centre", "series": "INFORM Risk Index", "domains": ["humanitarian"], "geo": "global", "frequency": "twice a year", "formats": ["XLSX"], "access": "open", "url": "https://drmkc.jrc.ec.europa.eu/inform-index/INFORM-Risk/Results-and-data",
-     "notes": "Quantified 0-10 index with published methodology. Data comes as Excel; an XLSX adapter is planned (phase 3). No country scores entered yet."},
-    {"id": "who-glass", "org": "World Health Organization", "series": "Global Antibiotic Resistance Surveillance Report (GLASS)", "domains": ["health"], "geo": "global", "frequency": "irregular", "formats": ["HTML", "PDF", "dashboard"], "access": "open", "url": "https://www.who.int/initiatives/glass"},
-    {"id": "tripartite-h5", "org": "FAO, WHO and WOAH", "series": "Joint public health assessment of influenza A(H5)", "domains": ["health", "food"], "geo": "global", "frequency": "every few months", "formats": ["PDF"], "access": "open", "url": "https://www.who.int/teams/global-influenza-programme/avian-influenza"},
-    {"id": "fao-wfp-hotspots", "org": "FAO and WFP", "series": "Hunger Hotspots", "domains": ["food", "humanitarian"], "geo": "global", "frequency": "twice a year", "formats": ["HTML", "PDF"], "access": "open", "url": "https://www.wfp.org/publications/hunger-hotspots-fao-wfp-early-warnings-acute-food-insecurity"},
-    {"id": "efsa-er", "org": "European Food Safety Authority", "series": "Emerging risks and horizon scanning (annual report)", "domains": ["food"], "geo": "europe", "frequency": "annual", "formats": ["HTML", "PDF (EFSA Supporting Publications)"], "access": "open", "url": "https://www.efsa.europa.eu/en/topics/topic/emerging-risks"},
-    {"id": "sipri-yb", "org": "Stockholm International Peace Research Institute", "series": "SIPRI Yearbook", "domains": ["geopolitics"], "geo": "global", "frequency": "annual (June)", "formats": ["HTML", "PDF"], "access": "summary open, full yearbook partly paid", "url": "https://www.sipri.org/yearbook"},
-    {"id": "acled", "org": "ACLED", "series": "Conflict Index and Conflict Watchlist", "domains": ["geopolitics"], "geo": "global", "frequency": "index twice a year; watchlist annual (December)", "formats": ["HTML", "API (registration)"], "access": "open reports; API needs a free account", "url": "https://acleddata.com/series/conflict-watchlist-2026"},
-    {"id": "unesco-gem", "org": "UNESCO", "series": "Global Education Monitoring Report", "domains": ["education"], "geo": "global", "frequency": "annual plus data updates", "formats": ["HTML", "PDF", "data"], "access": "open", "url": "https://www.unesco.org/gem-report/en"},
-    {"id": "oecd-ecr", "org": "OECD", "series": "Emerging critical risks (public governance working papers)", "domains": ["cross"], "geo": "global", "frequency": "irregular", "formats": ["HTML", "PDF"], "access": "open", "url": "https://www.oecd.org/en/publications/mapping-emerging-critical-risks_eb642ada-en.html"}
-  ]
+ "note": "Source registry. 'connector' names an automated adapter in pipeline/ingest.py; 'curated' means findings are entered by hand with citations. Status fields (last check, newest item, errors) live in status.json and are written by the pipeline.",
+ "sources": [
+  {
+   "id": "who-don",
+   "org": "World Health Organization",
+   "series": "Disease Outbreak News",
+   "domains": [
+    "health"
+   ],
+   "geo": "global",
+   "frequency": "irregular, several per month",
+   "formats": [
+    "RSS",
+    "REST API (OData)"
+   ],
+   "access": "open",
+   "url": "https://www.who.int/emergencies/disease-outbreak-news",
+   "connector": {
+    "type": "json",
+    "url": "https://www.who.int/api/news/diseaseoutbreaknews?sf_culture=en&$orderby=PublicationDateAndTime%20desc&$top=30",
+    "itemBase": "https://www.who.int/emergencies/disease-outbreak-news/item"
+   },
+   "notes": "The WHO DON RSS addresses return 404 (checked 25 Oct 2026); the official OData API is used instead."
+  },
+  {
+   "id": "ecdc-cdtr",
+   "org": "European Centre for Disease Prevention and Control",
+   "series": "Communicable disease threats report (weekly) and risk assessments",
+   "domains": [
+    "health"
+   ],
+   "geo": "europe",
+   "frequency": "weekly plus ad hoc",
+   "formats": [
+    "RSS (taxonomy feeds)",
+    "HTML",
+    "PDF"
+   ],
+   "access": "open",
+   "url": "https://www.ecdc.europa.eu/en/publications-and-data/monitoring/weekly-threats-reports",
+   "notes": "Checked 25 Oct 2026: the weekly CDTR is still published (week 42, 10-16 Oct 2026). The 'Public health events' page has no feed; the taxonomy feeds below cover the threats report, epidemiological updates and risk assessments.",
+   "connector": {
+    "type": "rss",
+    "urls": [
+     "https://www.ecdc.europa.eu/en/taxonomy/term/1505/feed",
+     "https://www.ecdc.europa.eu/en/taxonomy/term/1295/feed",
+     "https://www.ecdc.europa.eu/en/taxonomy/term/1310/feed"
+    ],
+    "merge": true
+   }
+  },
+  {
+   "id": "gdacs",
+   "org": "EU JRC and UN OCHA",
+   "series": "GDACS disaster alerts",
+   "domains": [
+    "climate",
+    "humanitarian"
+   ],
+   "geo": "global",
+   "frequency": "continuous",
+   "formats": [
+    "RSS",
+    "GeoRSS"
+   ],
+   "access": "open",
+   "url": "https://www.gdacs.org/",
+   "connector": {
+    "type": "rss",
+    "urls": [
+     "https://www.gdacs.org/xml/rss.xml"
+    ],
+    "filter": "^(orange|red)\\b"
+   }
+  },
+  {
+   "id": "reliefweb",
+   "org": "UN OCHA",
+   "series": "ReliefWeb disasters",
+   "domains": [
+    "humanitarian"
+   ],
+   "geo": "global",
+   "frequency": "continuous",
+   "formats": [
+    "RSS",
+    "API"
+   ],
+   "access": "open",
+   "url": "https://reliefweb.int/disasters",
+   "notes": "RSS returned an empty response to automated requests (25 Oct 2026); the ReliefWeb API needs a registered app name. Not automated for now."
+  },
+  {
+   "id": "imf-gfsr",
+   "org": "International Monetary Fund",
+   "series": "Global Financial Stability Report",
+   "domains": [
+    "finance"
+   ],
+   "geo": "global",
+   "frequency": "twice a year (April, October)",
+   "formats": [
+    "HTML",
+    "PDF"
+   ],
+   "access": "open",
+   "url": "https://www.imf.org/en/Publications/GFSR",
+   "connector": {
+    "type": "page",
+    "url": "https://www.imf.org/en/Publications/GFSR",
+    "link": "/Publications/GFSR/Issues/20\\d\\d/"
+   }
+  },
+  {
+   "id": "wef-grr",
+   "org": "World Economic Forum",
+   "series": "Global Risks Report",
+   "domains": [
+    "cross"
+   ],
+   "geo": "global",
+   "frequency": "annual (January)",
+   "formats": [
+    "HTML",
+    "PDF",
+    "data explorer"
+   ],
+   "access": "open",
+   "url": "https://www.weforum.org/publications/global-risks-report-2026/",
+   "notes": "weforum.org refuses automated requests (HTTP 403, 25 Oct 2026); annual report entered by hand."
+  },
+  {
+   "id": "un-grr",
+   "org": "United Nations",
+   "series": "Global Risk Report",
+   "domains": [
+    "cross"
+   ],
+   "geo": "global",
+   "frequency": "annual (first edition 2024)",
+   "formats": [
+    "HTML",
+    "PDF"
+   ],
+   "access": "open",
+   "url": "https://www.un.org/global-risk-report"
+  },
+  {
+   "id": "intl-ai-safety",
+   "org": "International AI Safety Report (chair: Yoshua Bengio)",
+   "series": "International AI Safety Report",
+   "domains": [
+    "ai"
+   ],
+   "geo": "global",
+   "frequency": "annual, with interim updates",
+   "formats": [
+    "HTML",
+    "PDF"
+   ],
+   "access": "open",
+   "url": "https://internationalaisafetyreport.org/publication/international-ai-safety-report-2026"
+  },
+  {
+   "id": "enisa-etl",
+   "org": "ENISA (EU Agency for Cybersecurity)",
+   "series": "Threat Landscape",
+   "domains": [
+    "cyber"
+   ],
+   "geo": "europe",
+   "frequency": "annual (autumn)",
+   "formats": [
+    "HTML",
+    "PDF"
+   ],
+   "access": "open",
+   "url": "https://www.enisa.europa.eu/topics/cyber-threats/threat-landscape",
+   "connector": {
+    "type": "page",
+    "url": "https://www.enisa.europa.eu/publications",
+    "link": "/publications/[a-z0-9-]*threat-landscape[a-z0-9-]*"
+   }
+  },
+  {
+   "id": "nctv-csbn",
+   "org": "NCTV (Netherlands)",
+   "series": "Cybersecuritybeeld Nederland",
+   "domains": [
+    "cyber"
+   ],
+   "geo": "netherlands",
+   "frequency": "annual",
+   "formats": [
+    "HTML",
+    "PDF"
+   ],
+   "access": "open",
+   "url": "https://www.nctv.nl/onderwerpen/cybersecuritybeeld-nederland"
+  },
+  {
+   "id": "wb-gep",
+   "org": "World Bank",
+   "series": "Global Economic Prospects",
+   "domains": [
+    "economy"
+   ],
+   "geo": "global",
+   "frequency": "twice a year (January, June)",
+   "formats": [
+    "HTML",
+    "PDF",
+    "data"
+   ],
+   "access": "open",
+   "url": "https://www.worldbank.org/en/publication/global-economic-prospects"
+  },
+  {
+   "id": "ecb-fsr",
+   "org": "European Central Bank",
+   "series": "Financial Stability Review",
+   "domains": [
+    "finance"
+   ],
+   "geo": "europe",
+   "frequency": "twice a year (May, November)",
+   "formats": [
+    "HTML",
+    "PDF"
+   ],
+   "access": "open",
+   "url": "https://www.ecb.europa.eu/press/financial-stability-publications/fsr/html/index.en.html",
+   "notes": "Registered; no findings entered yet because only secondary descriptions of the May 2026 issue were checked."
+  },
+  {
+   "id": "wmo-decadal",
+   "org": "World Meteorological Organization / UK Met Office",
+   "series": "Global Annual to Decadal Climate Update",
+   "domains": [
+    "climate"
+   ],
+   "geo": "global",
+   "frequency": "annual (May)",
+   "formats": [
+    "HTML",
+    "PDF"
+   ],
+   "access": "open",
+   "url": "https://wmo.int/node/38645"
+  },
+  {
+   "id": "unep-egr",
+   "org": "UN Environment Programme",
+   "series": "Emissions Gap Report",
+   "domains": [
+    "climate"
+   ],
+   "geo": "global",
+   "frequency": "annual (November)",
+   "formats": [
+    "HTML",
+    "PDF",
+    "data"
+   ],
+   "access": "open",
+   "url": "https://www.unep.org/en/publication-series/emissions-gap-report"
+  },
+  {
+   "id": "eea-eucra",
+   "org": "European Environment Agency",
+   "series": "European Climate Risk Assessment (EUCRA)",
+   "domains": [
+    "climate"
+   ],
+   "geo": "europe",
+   "frequency": "irregular (first edition March 2024)",
+   "formats": [
+    "HTML",
+    "PDF"
+   ],
+   "access": "open",
+   "url": "https://www.eea.europa.eu/en/about/who-we-are/projects-and-cooperation-agreements/european-climate-risk-assessment"
+  },
+  {
+   "id": "undrr-gar",
+   "org": "UN Office for Disaster Risk Reduction",
+   "series": "Global Assessment Report on Disaster Risk Reduction",
+   "domains": [
+    "humanitarian",
+    "climate"
+   ],
+   "geo": "global",
+   "frequency": "every 2-3 years",
+   "formats": [
+    "HTML",
+    "PDF"
+   ],
+   "access": "open",
+   "url": "https://www.undrr.org/gar2025"
+  },
+  {
+   "id": "inform",
+   "org": "EU Joint Research Centre",
+   "series": "INFORM Risk Index",
+   "domains": [
+    "humanitarian"
+   ],
+   "geo": "global",
+   "frequency": "twice a year",
+   "formats": [
+    "XLSX"
+   ],
+   "access": "open",
+   "url": "https://drmkc.jrc.ec.europa.eu/inform-index/INFORM-Risk/Results-and-data",
+   "notes": "Quantified 0-10 index with published methodology. Data comes as Excel; an XLSX adapter is planned (phase 3). No country scores entered yet."
+  },
+  {
+   "id": "who-glass",
+   "org": "World Health Organization",
+   "series": "Global Antibiotic Resistance Surveillance Report (GLASS)",
+   "domains": [
+    "health"
+   ],
+   "geo": "global",
+   "frequency": "irregular",
+   "formats": [
+    "HTML",
+    "PDF",
+    "dashboard"
+   ],
+   "access": "open",
+   "url": "https://www.who.int/initiatives/glass"
+  },
+  {
+   "id": "tripartite-h5",
+   "org": "FAO, WHO and WOAH",
+   "series": "Joint public health assessment of influenza A(H5)",
+   "domains": [
+    "health",
+    "food"
+   ],
+   "geo": "global",
+   "frequency": "every few months",
+   "formats": [
+    "PDF"
+   ],
+   "access": "open",
+   "url": "https://www.who.int/teams/global-influenza-programme/avian-influenza"
+  },
+  {
+   "id": "fao-wfp-hotspots",
+   "org": "FAO and WFP",
+   "series": "Hunger Hotspots",
+   "domains": [
+    "food",
+    "humanitarian"
+   ],
+   "geo": "global",
+   "frequency": "twice a year",
+   "formats": [
+    "HTML",
+    "PDF"
+   ],
+   "access": "open",
+   "url": "https://www.wfp.org/publications/hunger-hotspots-fao-wfp-early-warnings-acute-food-insecurity"
+  },
+  {
+   "id": "efsa-er",
+   "org": "European Food Safety Authority",
+   "series": "Emerging risks and horizon scanning (annual report)",
+   "domains": [
+    "food"
+   ],
+   "geo": "europe",
+   "frequency": "annual",
+   "formats": [
+    "HTML",
+    "PDF (EFSA Supporting Publications)"
+   ],
+   "access": "open",
+   "url": "https://www.efsa.europa.eu/en/topics/topic/emerging-risks"
+  },
+  {
+   "id": "sipri-yb",
+   "org": "Stockholm International Peace Research Institute",
+   "series": "SIPRI Yearbook",
+   "domains": [
+    "geopolitics"
+   ],
+   "geo": "global",
+   "frequency": "annual (June)",
+   "formats": [
+    "HTML",
+    "PDF"
+   ],
+   "access": "summary open, full yearbook partly paid",
+   "url": "https://www.sipri.org/yearbook"
+  },
+  {
+   "id": "acled",
+   "org": "ACLED",
+   "series": "Conflict Index and Conflict Watchlist",
+   "domains": [
+    "geopolitics"
+   ],
+   "geo": "global",
+   "frequency": "index twice a year; watchlist annual (December)",
+   "formats": [
+    "HTML",
+    "API (registration)"
+   ],
+   "access": "open reports; API needs a free account",
+   "url": "https://acleddata.com/series/conflict-watchlist-2026"
+  },
+  {
+   "id": "unesco-gem",
+   "org": "UNESCO",
+   "series": "Global Education Monitoring Report",
+   "domains": [
+    "education"
+   ],
+   "geo": "global",
+   "frequency": "annual plus data updates",
+   "formats": [
+    "HTML",
+    "PDF",
+    "data"
+   ],
+   "access": "open",
+   "url": "https://www.unesco.org/gem-report/en"
+  },
+  {
+   "id": "oecd-ecr",
+   "org": "OECD",
+   "series": "Emerging critical risks (public governance working papers)",
+   "domains": [
+    "cross"
+   ],
+   "geo": "global",
+   "frequency": "irregular",
+   "formats": [
+    "HTML",
+    "PDF"
+   ],
+   "access": "open",
+   "url": "https://www.oecd.org/en/publications/mapping-emerging-critical-risks_eb642ada-en.html"
+  }
+ ]
 }

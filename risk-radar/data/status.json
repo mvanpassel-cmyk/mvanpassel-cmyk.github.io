@@ -1,12 +1,6 @@
 {
  "generated": "2026-10-25T22:29:52Z",
  "sources": {
-  "who-don": {
-   "lastCheck": "2026-10-25T22:29:52Z",
-   "mode": "rss",
-   "ok": false,
-   "message": "RuntimeError: https://www.who.int/rss-feeds/disease-outbreak-news-english.xml: HTTPError: HTTP Error 404: Not Found; https://www.who.int/feeds/entity/csr/don/en/rss.xml: HTTPError: HTTP Error 404: Not Found"
-  },
   "ecdc-cdtr": {
    "lastCheck": "2026-10-25T22:29:52Z",
    "mode": "rss",
@@ -15,23 +9,7 @@
    "items": 30,
    "new": 0,
    "newest": "2026-10-23T14:41:23Z",
-   "message": "baseline stored · 30 items read"
-  },
-  "gdacs": {
-   "lastCheck": "2026-10-25T22:29:52Z",
-   "mode": "rss",
-   "ok": true,
-   "lastSuccess": "2026-10-25T22:29:52Z",
-   "items": 18,
-   "new": 0,
-   "newest": "2026-10-25T11:44:56Z",
-   "message": "baseline stored · 18 items read"
-  },
-  "reliefweb": {
-   "lastCheck": "2026-10-25T22:29:52Z",
-   "mode": "rss",
-   "ok": false,
-   "message": "RuntimeError: https://reliefweb.int/disasters/rss.xml: ParseError: no element found: line 1, column 0"
+   "message": "baseline stored \u00b7 30 items read"
   },
   "imf-gfsr": {
    "lastCheck": "2026-10-25T22:29:52Z",
@@ -41,13 +19,7 @@
    "items": 87,
    "new": 0,
    "newest": null,
-   "message": "baseline stored · 87 items read"
-  },
-  "wef-grr": {
-   "lastCheck": "2026-10-25T22:29:52Z",
-   "mode": "page",
-   "ok": false,
-   "message": "HTTPError: HTTP Error 403: Forbidden"
+   "message": "baseline stored \u00b7 87 items read"
   },
   "un-grr": {
    "lastCheck": "2026-10-25T22:29:52Z",
@@ -69,7 +41,7 @@
    "items": 1,
    "new": 0,
    "newest": null,
-   "message": "baseline stored · 1 items read"
+   "message": "baseline stored \u00b7 1 items read"
   },
   "nctv-csbn": {
    "lastCheck": "2026-10-25T22:29:52Z",

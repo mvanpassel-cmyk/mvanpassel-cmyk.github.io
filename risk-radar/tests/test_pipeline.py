@@ -184,3 +184,13 @@ class DataValidity(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class WhoApi(unittest.TestCase):
+    def test_parse(self):
+        raw = json.dumps({"value": [{"Title": "Marburg virus disease - Ethiopia", "UrlName": "2026-DON600", "PublicationDateAndTime": "2026-10-20T14:00:00Z"},
+                                    {"Title": "", "UrlName": "x"}]})
+        items = ingest.parse_who_api(raw, "https://www.who.int/emergencies/disease-outbreak-news/item")
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0]["url"], "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON600")
+        self.assertEqual(items[0]["published"], "2026-10-20T14:00:00Z")
