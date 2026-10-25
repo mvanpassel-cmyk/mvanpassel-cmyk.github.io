@@ -37,6 +37,8 @@ svg#map{display:block;width:100%;height:auto;cursor:grab;touch-action:none}
 .legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--muted);margin:2px 0 18px}
 .legend i{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-2px;margin-right:5px}
 .count{color:var(--muted);font-size:14px;margin:18px 0 10px}
+.countrow{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between;margin:18px 0 10px}
+.countrow .count{margin:0}
 .list{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
 .item{overflow-wrap:anywhere}
 .item{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
@@ -80,7 +82,7 @@ footer{margin-top:36px;color:var(--muted);font-size:13px}
     <span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="var(--par)" stroke-width="2"/></svg> status unclear</span>
   </div>
 
-  <div class="count" id="count"></div>
+  <div class="countrow"><div class="count" id="count"></div><span class="dl"><button class="chip" id="csvAll">⤓ CSV (all)</button> <button class="chip" id="csvVis">⤓ CSV (filtered)</button></span></div>
   <div class="list" id="list"></div>
 
   <p class="warn"><strong>Read with care.</strong> Entries come from public web sources (project databases, institute pages, press releases) and are summarised in my own words; always check the source link. Not finding a collaboration here does not mean it does not exist. “Unclear” means the source gives no end date or is undated. <span id="upd"></span></p>
@@ -165,6 +167,15 @@ function list(vis){
     ${p.note?`<div class="note">${esc(p.note)}</div>`:""}</article>`).join("")||"<p>No collaborations match these filters.</p>";
 }
 
+function csv(rows,name){
+  const cols=["title","actor","actorCountry","partners","institutes","type","topics","status","start","end","summary","url","checked"];
+  const q=v=>{v=Array.isArray(v)?v.map(t=>TOPICS[t]||t).join("; "):(v??"");v=String(v);return /[",\n;]/.test(v)?`"${v.replace(/"/g,'""')}"`:v};
+  const body=[cols.join(","),...rows.map(p=>cols.map(c=>q(c==="topics"?p.topics:p[c])).join(","))].join("\r\n");
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+body],{type:"text/csv;charset=utf-8"}));
+  a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);
+}
+document.getElementById("csvAll").onclick=()=>csv(data,"nphi-collaborations.csv");
+document.getElementById("csvVis").onclick=()=>csv(visible(),"nphi-collaborations-filtered.csv");
 Promise.all([d3.json(ATLAS),d3.json("projects.json")]).then(([topo,pj])=>{
   data=pj.projects;data.forEach(p=>p.kind=kind(p.type));
   document.getElementById("upd").textContent="Data last updated "+pj.updated+".";

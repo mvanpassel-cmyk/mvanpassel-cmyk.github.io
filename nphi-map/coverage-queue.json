@@ -1,181 +1,181 @@
 {
- "about": "Coverage queue for the weekly NPHI map update: IANPHI member institutes that are missing or thin as 'actor' on the map. Each weekly run takes the next 4 open items in order, searches for sourced collaborations they lead or co-lead with other countries, adds verified ones to projects.json, and fills done (YYYY-MM-DD), added (number) and note.",
+ "about": "Coverage check of IANPHI member institutes that were missing or thin as 'actor' on the map. A big scan on 2026-10-25 went through most of them; items with done=null were not searched yet and are picked up by the weekly update.",
  "queue": [
   {
    "institute": "Kenya National Public Health Institute (KNPHI)",
    "country": "Kenya",
    "group": "partner-priority",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "KNPHI launched 2025; establishment support already on the map; no outgoing projects yet"
   },
   {
    "institute": "National Institute for Communicable Diseases (NICD)",
    "country": "South Africa",
    "group": "partner-priority",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 1,
+   "note": "NICD regional training centre added; most NICD links were already listed under partners"
   },
   {
    "institute": "Nigeria Centre for Disease Control and Prevention (NCDC)",
    "country": "Nigeria",
    "group": "partner-priority",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "NCDC projects (RKI NiCaDe, UKHSA IHR, Nagasaki) already on the map"
   },
   {
    "institute": "National Centre for Disease Control (NCDC), India",
    "country": "India",
    "group": "partner-priority",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 1,
+   "note": "NCDC India regional FETP for South-East Asia added"
   },
   {
    "institute": "Institute of Tropical Medicine Pedro Kourí (IPK)",
    "country": "Cuba",
    "group": "outward-active",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 1,
+   "note": "IPK international dengue course added; IPK MoUs with China CDC and ITM already listed"
   },
   {
    "institute": "Institut national de santé publique du Québec (INSPQ)",
    "country": "Canada",
    "group": "outward-active",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "PHAC already well covered; INSPQ lists no specific international projects online"
   },
   {
    "institute": "Centre for Health Protection (CHP), Hong Kong",
    "country": "China",
    "group": "outward-active",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 1,
+   "note": "CHP Hong Kong: only domestic (Mainland/Macao) agreements found; China CDC–Mongolia CDC support added"
   },
   {
    "institute": "National Center for Disease Control and Public Health (NCDC) / Lugar Center",
    "country": "Georgia",
    "group": "outward-active",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "NCDC/Lugar Center collaborations already listed (CDC, EU twinnings, CBRN CoE)"
   },
   {
    "institute": "Public Health Agency of Canada (PHAC)",
    "country": "Canada",
    "group": "outward-active",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "PHAC already well covered; INSPQ lists no specific international projects online"
   },
   {
    "institute": "Uganda National Institute of Public Health (UNIPH)",
    "country": "Uganda",
    "group": "outward-active",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "UNIPH collaborations already on the map"
   },
   {
    "institute": "National Public Health Institute of Zimbabwe",
    "country": "Zimbabwe",
    "group": "africa",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "new institute; EU and CDC support already listed"
   },
   {
    "institute": "Public Health Institute Malawi (PHIM)",
    "country": "Malawi",
    "group": "africa",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "PHIM support already listed (NIPH, GIZ, CDC)"
   },
   {
    "institute": "Institut National de Santé Publique (INSP) Mali",
    "country": "Mali",
    "group": "africa",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "no outgoing projects found"
   },
   {
    "institute": "Botswana Public Health Institute (BPHI)",
    "country": "Botswana",
    "group": "africa",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "BPHI: no international projects found"
   },
   {
    "institute": "Institut National d'Hygiène (INH) Togo",
    "country": "Togo",
    "group": "africa",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 1,
+   "note": "ANRS PRISME platform in Lomé added"
   },
   {
    "institute": "Institut National de Santé Publique (INSP) Burundi",
    "country": "Burundi",
    "group": "africa",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "Enabel/EU support already listed"
   },
   {
    "institute": "Instituto Nacional de Saúde Pública (INASA) Guinea-Bissau",
    "country": "Guinea-Bissau",
    "group": "africa",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "INASA links (Fiocruz, IANPHI, INSA, Bandim) already listed"
   },
   {
    "institute": "Instituto Nacional de Saúde Pública (INSP) Cabo Verde",
    "country": "Cabo Verde",
    "group": "africa",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "covered via CPLP network entries; country is too small for the base map"
   },
   {
    "institute": "Instituto Nacional de Saúde Pública Angola",
    "country": "Angola",
    "group": "africa",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "Fiocruz links already listed"
   },
   {
    "institute": "Institut National de Santé Publique (INSP) Algeria",
    "country": "Algeria",
    "group": "africa",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 1,
+   "note": "Institut Pasteur d'Algérie named Africa CDC regional biosafety centre"
   },
   {
    "institute": "Public Health Institute Sudan",
    "country": "Sudan",
    "group": "africa",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 1,
+   "note": "South Sudan NPHI establishment support added"
   },
   {
    "institute": "National Institute of Health (NIH) Somalia",
    "country": "Somalia",
    "group": "africa",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "Sweden/WHO NIH establishment already listed"
   },
   {
    "institute": "Institut National de Santé Publique, Djibouti",
@@ -189,9 +189,9 @@
    "institute": "Direction de la Lutte contre la Maladie (DLM) Cameroon",
    "country": "Cameroon",
    "group": "africa",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "NPHI still being set up; no outgoing projects found"
   },
   {
    "institute": "Ministère de la Santé publique Madagascar (IANPHI member)",
@@ -205,65 +205,65 @@
    "institute": "National Institute for Medical Research (NIMR) Tanzania",
    "country": "Tanzania",
    "group": "africa",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 1,
+   "note": "NIMR LINK-CVD research collaboration added"
   },
   {
    "institute": "National Public Health Institute of Liberia (NPHIL)",
    "country": "Liberia",
    "group": "africa",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "NPHIL: only domestic MoUs found"
   },
   {
    "institute": "Institut National de Santé Publique (INSP) Côte d'Ivoire",
    "country": "Côte d'Ivoire",
    "group": "africa",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "INSP–IRD agreement already listed"
   },
   {
    "institute": "National Institute of Public Health (INSP) DR Congo",
    "country": "Dem. Rep. Congo",
    "group": "africa",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "INSP/INRB links already listed"
   },
   {
    "institute": "Instituto Costarricense de Investigación y Enseñanza en Nutrición y Salud (INCIENSA)",
    "country": "Costa Rica",
    "group": "americas",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 1,
+   "note": "INCIENSA training of Honduras' influenza centre added"
   },
   {
    "institute": "Laboratorio Central de Salud Pública (LCSP) Paraguay",
    "country": "Paraguay",
    "group": "americas",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "no outgoing projects found"
   },
   {
    "institute": "Instituto Nacional de Laboratorios de Salud (INLASA) Bolivia",
    "country": "Bolivia",
    "group": "americas",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 1,
+   "note": "InDRE (Mexico) lab-quality mission to INLASA added"
   },
   {
    "institute": "Instituto Nacional de Salud El Salvador",
    "country": "El Salvador",
    "group": "americas",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "only a PAHO-facilitated training exchange found"
   },
   {
    "institute": "Instituto Nacional de Higiene Rafael Rangel",
@@ -277,89 +277,89 @@
    "institute": "Instituto Nacional de Salud (INS) Peru",
    "country": "Peru",
    "group": "americas",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 1,
+   "note": "Andean genomic surveillance exchange (ORAS-CONHU) added"
   },
   {
    "institute": "Instituto Nacional de Investigación en Salud Pública (INSPI) Ecuador",
    "country": "Ecuador",
    "group": "americas",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "INS Colombia–INSPI agreement already listed"
   },
   {
    "institute": "Instituto Nacional de Salud Pública (INSP) Mexico",
    "country": "Mexico",
    "group": "americas",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "INSP–University of Arizona agreement already listed"
   },
   {
    "institute": "National Center for Communicable Diseases (NCCD) Mongolia",
    "country": "Mongolia",
    "group": "asia-mena",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "KDCA and China CDC agreements already listed"
   },
   {
    "institute": "Nepal Public Health Laboratory / IANPHI member Nepal",
    "country": "Nepal",
    "group": "asia-mena",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "NIPH BIS and ICMR links already listed"
   },
   {
    "institute": "National Health Laboratory Myanmar",
    "country": "Myanmar",
    "group": "asia-mena",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "China CDC, JIHS, ICMR links already listed"
   },
   {
    "institute": "Committee for Sanitary and Epidemiological Welfare and Public Health, Uzbekistan",
    "country": "Uzbekistan",
    "group": "asia-mena",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "Rospotrebnadzor and CDC links already listed"
   },
   {
    "institute": "National Center for Public Healthcare, Kazakhstan",
    "country": "Kazakhstan",
    "group": "asia-mena",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "biosecurity MoU with Kyrgyzstan already listed"
   },
   {
    "institute": "National Institute of Health, Pakistan",
    "country": "Pakistan",
    "group": "asia-mena",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "NIH Islamabad links already listed"
   },
   {
    "institute": "Institute of Epidemiology, Disease Control and Research (IEDCR)",
    "country": "Bangladesh",
    "group": "asia-mena",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "IEDCR links already listed"
   },
   {
    "institute": "Instituto Nacional de Saúde Pública Timor-Leste",
    "country": "Timor-Leste",
    "group": "asia-mena",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "Menzies projects already listed"
   },
   {
    "institute": "Afghan National Public Health Institute",
@@ -373,9 +373,9 @@
    "institute": "Palestinian National Institute of Public Health",
    "country": "Palestine",
    "group": "asia-mena",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 1,
+   "note": "WHO–Norway project to establish the Palestinian NPHI added"
   },
   {
    "institute": "Yemen National Public Health Institute",
@@ -397,9 +397,9 @@
    "institute": "Institut National de la Santé Publique, Tunisia",
    "country": "Tunisia",
    "group": "asia-mena",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "Institut Pasteur de Tunis links already listed"
   },
   {
    "institute": "Institute of Public Health Research, Iran",
@@ -413,17 +413,17 @@
    "institute": "Abu Dhabi Public Health Centre / Dubai Health Authority",
    "country": "United Arab Emirates",
    "group": "asia-mena",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "ADPHC agreements already listed"
   },
   {
    "institute": "National Institute of Hygiene and Epidemiology (NIHE)",
    "country": "Vietnam",
    "group": "asia-mena",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "NIHE links already listed"
   },
   {
    "institute": "National Institute of Public Health, Cambodia",
@@ -437,41 +437,41 @@
    "institute": "National Institute of Public Health NIH-PIB (PZH)",
    "country": "Poland",
    "group": "europe",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "PZH: no new projects found; GIS–Ukraine agreement already listed"
   },
   {
    "institute": "National Institute of Public Health (SZÚ)",
    "country": "Czechia",
    "group": "europe",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "SZÚ: no international projects found online"
   },
   {
    "institute": "National Public Health Organization (EODY)",
    "country": "Greece",
    "group": "europe",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "EODY project list not available online"
   },
   {
    "institute": "Institute of Public Health of Serbia Dr Milan Jovanović Batut",
    "country": "Serbia",
    "group": "europe",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "Batut twinnings (THL, ISS) already listed"
   },
   {
    "institute": "National Center of Public Health and Analyses (NCPHA)",
    "country": "Bulgaria",
    "group": "europe",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "NCIPD: only EU network memberships found"
   },
   {
    "institute": "Institute for Public Health of North Macedonia",
@@ -485,57 +485,57 @@
    "institute": "Croatian Institute of Public Health (HZJZ)",
    "country": "Croatia",
    "group": "europe",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "no outgoing HZJZ projects found"
   },
   {
    "institute": "Gesundheit Österreich GmbH (GÖG)",
    "country": "Austria",
    "group": "europe",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "GÖG works mainly on HTA networks"
   },
   {
    "institute": "Public Health Center of Ukraine",
    "country": "Ukraine",
    "group": "europe",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "PHC Ukraine partnerships already listed"
   },
   {
    "institute": "National Center for Disease Control and Prevention, Armenia",
    "country": "Armenia",
    "group": "europe",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "no new projects found"
   },
   {
    "institute": "Health Service Executive / HPSC",
    "country": "Ireland",
    "group": "europe",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 2,
+   "note": "HSE Global Health Programme: Zambia and Ukraine added"
   },
   {
    "institute": "Institute of Public Health of Albania (ISHP)",
    "country": "Albania",
    "group": "europe",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 1,
+   "note": "ISS–Albania memorandum added"
   },
   {
    "institute": "National Institute for Health Development (TAI) / Health Board",
    "country": "Estonia",
    "group": "europe",
-   "done": null,
-   "added": null,
-   "note": null
+   "done": "2026-10-25",
+   "added": 0,
+   "note": "only ministry-level cooperation with Ukraine found"
   }
  ]
 }
