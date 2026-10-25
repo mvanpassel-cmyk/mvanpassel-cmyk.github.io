@@ -121,7 +121,7 @@ svg.pc .mut{fill:var(--muted)}
 "use strict";
 const LABELS={1:"No capacity",2:"Limited capacity",3:"Developed capacity",4:"Demonstrated capacity",5:"Sustainable capacity"};
 const FUNCS=["Prevent","Detect","Respond","Other hazards"];
-const TABS=[["indicators","Indicators"],["questions","Technical questions"],["scores","Country scores"],["chart","Profile chart"],["practices","Good practice summaries"],["gaps","Find solutions"],["about","About & method"]];
+const TABS=[["practices","Good practice summaries"],["indicators","Indicators"],["questions","Technical questions"],["scores","Country scores"],["chart","Profile chart"],["gaps","Find solutions"],["about","About & method"]];
 const D={}; const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const view=$("#view");
@@ -137,10 +137,10 @@ async function load(){
   D.evals=(as&&as.evaluations)||[];
   route();
 }
-function nav(){ const cur=(location.hash.replace(/^#\/?/,"").split("/")[0])||"indicators";
+function nav(){ const cur=(location.hash.replace(/^#\/?/,"").split("/")[0])||"practices";
   $("#tabs").innerHTML=TABS.map(([k,l])=>`<a href="#/${k}" ${k===cur?'aria-current="page"':""}>${l}</a>`).join(""); return cur;}
 function route(){ const parts=location.hash.replace(/^#\/?/,"").split("/"); const tab=nav();
-  ({indicators:vIndicators,questions:vQuestions,chart:vChart,scores:vScores,gaps:vGaps,practices:vPractices,about:vAbout}[tab]||vIndicators)(parts[1]); }
+  ({indicators:vIndicators,questions:vQuestions,chart:vChart,scores:vScores,gaps:vGaps,practices:vPractices,about:vAbout}[tab]||vPractices)(parts[1]); }
 window.addEventListener("hashchange",route);
 
 /* ---------- helpers ---------- */

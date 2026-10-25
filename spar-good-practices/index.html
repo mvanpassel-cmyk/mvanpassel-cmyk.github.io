@@ -48,6 +48,8 @@ table.lv td.n{width:80px;font-weight:600;white-space:nowrap}
 footer{margin-top:40px;color:var(--muted);font-size:13px}
 details.intro>summary{cursor:pointer;list-style-position:outside}
 details.intro:not([open]){padding-top:10px;padding-bottom:10px}
+details.ctx{margin-top:12px;border-top:1px solid var(--line);padding-top:8px}
+details.ctx>summary{cursor:pointer;font-size:13px;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -150,11 +152,11 @@ function render(){
       shown++;srcN+=ss.length;
       const lv=i.l1?`<table class="lv"><tbody><tr><td class="n">Level 1</td><td>${esc(i.l1)}</td></tr><tr><td class="n">Level 3</td><td>${esc(i.l3)}</td></tr><tr><td class="n">Level 5</td><td>${esc(i.l5)}</td></tr></tbody></table>${i.step?`<p class="small muted">Step from 2 to 3: ${esc(i.step)}</p>`:""}`:`<p class="small muted">Level descriptions for this indicator were not read from the PDF; see the <a href="${esc(S.meta.pdf)}">SPAR questionnaire</a>.</p>`;
       const bms=i.bm.map(b=>BM[b]?`<span class="tag" title="${esc(BM[b].title)}">IHR benchmark ${esc(b)}</span>`:"").join("");
-      h+=`<details class="bm" ${q||items.length===1?"open":""}><summary><span class="id">${esc(i.id)}</span><span>${esc(i.title)}</span><span class="cnt">${ss.length?ss.length+" good practice"+(ss.length>1?"s":""):"no good practice yet"}</span></summary><div class="body">
-      <h4>What the levels mean (paraphrased)</h4>${lv}
+      h+=`<details class="bm" ${ss.length||q||items.length===1?"open":""}><summary><span class="id">${esc(i.id)}</span><span>${esc(i.title)}</span><span class="cnt">${ss.length?ss.length+" good practice"+(ss.length>1?"s":""):"no good practice yet"}</span></summary><div class="body">
+      <h4>Good practices and literature</h4>${ss.length?ss.map(srcHTML).join(""):'<p class="empty">No good practice found yet for this indicator. That does not mean none exists.</p>'}
+      <details class="ctx"><summary>Context: levels, matching indicators and peers</summary><h4>What the levels mean (paraphrased)</h4>${lv}
       <h4>Matching JEE indicator and peer countries to learn from</h4>${jeeHTML(i.jee)}
-      <h4>Matching IHR benchmarks</h4><div>${bms} <a class="small" href="../ihr-benchmarks-good-practices/">open benchmarks page</a></div>
-      <h4>Good practices and literature</h4>${ss.length?ss.map(srcHTML).join(""):'<p class="empty">No good practice found yet for this indicator. That does not mean none exists.</p>'}</div></details>`;
+      <h4>Matching IHR benchmarks</h4><div>${bms} <a class="small" href="../ihr-benchmarks-good-practices/">open benchmarks page</a></div></details></div></details>`;
     });
   });
   $("#view").innerHTML=h||'<p class="muted">Nothing matches.</p>';

@@ -50,6 +50,8 @@ table.lv td.n{width:130px;font-weight:600}
 footer{margin-top:40px;color:var(--muted);font-size:13px}
 details.intro>summary{cursor:pointer;list-style-position:outside}
 details.intro:not([open]){padding-top:10px;padding-bottom:10px}
+details.ctx{margin-top:12px;border-top:1px solid var(--line);padding-top:8px}
+details.ctx>summary{cursor:pointer;font-size:13px;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -133,12 +135,12 @@ function render(){
     if(t.group!==lastG){h+=`<div class="areahead"><h2>${esc(t.group)}</h2><span class="fn">${t.group==="Cross-cutting"?"added by this page":esc(D.meta.groupsNote)}</span></div>`;lastG=t.group}
     shown++;srcN+=ss.length;
     const rows=t.items&&t.items.length?`<h4>${esc(D.meta.itemsLabel)}</h4><table class="lv"><tbody>${t.items.map(r=>`<tr><td class="n">${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("")}</tbody></table>`:"";
-    h+=`<details class="bm" ${q||shown===1&&st.grp?"open":""}><summary><span class="id">${esc(t.id)}</span><span>${esc(t.title)}</span><span class="cnt">${ss.length?ss.length+" good practice"+(ss.length>1?"s":""):"no good practice yet"}</span></summary><div class="body">
-    <p>${esc(t.what)}</p>
+    h+=`<details class="bm" ${ss.length||q||shown===1&&st.grp?"open":""}><summary><span class="id">${esc(t.id)}</span><span>${esc(t.title)}</span><span class="cnt">${ss.length?ss.length+" good practice"+(ss.length>1?"s":""):"no good practice yet"}</span></summary><div class="body">
+      <h4>Good practices and literature</h4>${ss.length?ss.map(srcHTML).join(""):'<p class="empty">No good practice found yet for this topic. That does not mean none exists.</p>'}
+      <details class="ctx"><summary>Context: levels, matching indicators and peers</summary><p>${esc(t.what)}</p>
         ${rows}
     <h4>Matching items in other frameworks (our crosswalk)</h4><div>${xwalk(t)}</div>
-    ${window.Programmes?Programmes.html(t.prog,{includeAll:false}):""}
-    <h4>Good practices and literature</h4>${ss.length?ss.map(srcHTML).join(""):'<p class="empty">No good practice found yet for this topic. That does not mean none exists.</p>'}</div></details>`;
+    ${window.Programmes?Programmes.html(t.prog,{includeAll:false}):""}</details></div></details>`;
   });
   $("#view").innerHTML=h||'<p class="muted">Nothing matches.</p>';
   $("#stat").textContent=`${shown} topics, ${srcN} good practice links shown.`;

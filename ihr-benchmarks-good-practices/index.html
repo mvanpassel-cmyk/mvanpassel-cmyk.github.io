@@ -43,6 +43,8 @@ details.bm .body{padding:0 14px 14px;border-top:1px solid var(--line)}
 .tag{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:0 8px;font-size:12px;margin:0 4px 4px 0;text-decoration:none}
 .empty{color:var(--muted);font-style:italic;margin:10px 0 0}
 footer{margin-top:40px;color:var(--muted);font-size:13px}
+details.ctx{margin-top:12px;border-top:1px solid var(--line);padding-top:8px}
+details.ctx>summary{cursor:pointer;font-size:13px;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -125,9 +127,9 @@ function render(){
     h+=window.Programmes?Programmes.html(B.benchmarks.filter(b=>b.area===a.id).flatMap(b=>b.jee),{includeAll:true}):"";
     items.forEach(({b,ss})=>{
       shown++;srcN+=ss.length;
-      h+=`<details class="bm" ${q||items.length===1?"open":""}><summary><span class="id">${esc(b.id)}</span><span>${esc(b.title)}</span><span class="cnt">${ss.length?ss.length+" good practice"+(ss.length>1?"s":""):"no good practice yet"}</span></summary><div class="body">
-      ${b.jee.length?`<h4>Matching JEE indicator and peer countries to learn from</h4>${topHTML(b.jee)}`:`<p class="small muted">No matching JEE indicator.</p>`}
-      <h4>Good practices and literature</h4>${ss.length?ss.map(srcHTML).join(""):'<p class="empty">No good practice found yet for this benchmark. That does not mean none exists.</p>'}</div></details>`;
+      h+=`<details class="bm" ${ss.length||q||items.length===1?"open":""}><summary><span class="id">${esc(b.id)}</span><span>${esc(b.title)}</span><span class="cnt">${ss.length?ss.length+" good practice"+(ss.length>1?"s":""):"no good practice yet"}</span></summary><div class="body">
+      <h4>Good practices and literature</h4>${ss.length?ss.map(srcHTML).join(""):'<p class="empty">No good practice found yet for this benchmark. That does not mean none exists.</p>'}
+      <details class="ctx"><summary>Context: levels, matching indicators and peers</summary>${b.jee.length?`<h4>Matching JEE indicator and peer countries to learn from</h4>${topHTML(b.jee)}`:`<p class="small muted">No matching JEE indicator.</p>`}</details></div></details>`;
     });
   });
   $("#view").innerHTML=h||'<p class="muted">Nothing matches.</p>';

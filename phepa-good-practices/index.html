@@ -67,7 +67,7 @@ footer{margin-top:40px;color:var(--muted);font-size:13px}
 <script src="../shared/programmes.js"></script>
 <script>
 "use strict";
-const TABS=[["find","Find solutions"],["topics","Good practices by topic"],["countries","Country reports"],["eu","EU recommendations"],["start","Overview"],["about","About & method"]];
+const TABS=[["topics","Good practices by topic"],["find","Find solutions"],["countries","Country reports"],["eu","EU recommendations"],["start","Overview"],["about","About & method"]];
 const $=s=>document.querySelector(s); const view=$("#view");
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const D={}; const st={q:"",cap:"",kind:"",cty:"",sel:new Set(),from:"",open:{}};
@@ -85,8 +85,8 @@ async function load(){
   D.ind=D.fw?Object.fromEntries(D.fw.indicators.map(i=>[i.id,i])):{};
   route();
 }
-function nav(){const cur=(location.hash.replace(/^#\/?/,"").split("/")[0])||"find"; $("#tabs").innerHTML=TABS.map(([k,l])=>`<a href="#/${k}" ${k===cur?'aria-current="page"':""}>${l}</a>`).join(""); return cur;}
-function route(){const p=location.hash.replace(/^#\/?/,"").split("/"); const tab=nav(); ({start:vStart,topics:vTopics,countries:vCountries,eu:vEu,find:vFind,about:vAbout}[tab]||vFind)(p[1]); }
+function nav(){const cur=(location.hash.replace(/^#\/?/,"").split("/")[0])||"topics"; $("#tabs").innerHTML=TABS.map(([k,l])=>`<a href="#/${k}" ${k===cur?'aria-current="page"':""}>${l}</a>`).join(""); return cur;}
+function route(){const p=location.hash.replace(/^#\/?/,"").split("/"); const tab=nav(); ({start:vStart,topics:vTopics,countries:vCountries,eu:vEu,find:vFind,about:vAbout}[tab]||vTopics)(p[1]); }
 window.addEventListener("hashchange",route);
 
 /* helpers */
@@ -108,8 +108,8 @@ function jeeBlock(t){
 function topicBody(t,opts){
   opts=opts||{}; const its=D.items.filter(i=>i.t===t.id&&matches(i)); const S=its.filter(i=>i.k==="S"), R=its.filter(i=>i.k==="R");
   let h="";
-  if(t.opp.length&&!opts.noOpp) h+=`<h3>Opportunities for improvement named in ECDC's interim report</h3><ul class="small">${t.opp.map(o=>`<li>${esc(o)}</li>`).join("")}</ul>`;
   if(st.kind!=="R") h+=`<h3>Good practices and strengths found in assessed countries (${S.length})</h3>${S.length?S.map(i=>itemHTML(i)).join(""):`<p class="small muted">None recorded for this filter.</p>`}`;
+  if(t.opp.length&&!opts.noOpp) h+=`<h3>Opportunities for improvement named in ECDC's interim report</h3><ul class="small">${t.opp.map(o=>`<li>${esc(o)}</li>`).join("")}</ul>`;
   if(st.kind!=="S") h+=`<h3>Recommendations ECDC gave to countries (${R.length})</h3>${R.length?`<details ${opts.openRec?"open":""}><summary class="small">Show ${R.length} recommendations</summary>${R.map(i=>itemHTML(i)).join("")}</details>`:`<p class="small muted">None recorded for this filter.</p>`}`;
   return h+(opts.noJee?"":jeeBlock(t));
 }
@@ -156,7 +156,7 @@ function vTopics(open){
     const ts=D.d.topics.filter(t=>t.cap===cid); let body="";
     for(const t of ts){ const its=D.items.filter(i=>i.t===t.id&&matches(i)); if((q||st.cty)&&!its.length) continue; shown++;
       const s=its.filter(i=>i.k==="S").length, r=its.filter(i=>i.k==="R").length;
-      body+=`<details class="t" id="t-${t.id}" ${(open===t.id||q||st.cty)?"open":""}><summary><strong>${esc(t.title)}</strong><span class="badge g">${s} good practice${s===1?"":"s"}</span><span class="badge r">${r} recommendation${r===1?"":"s"}</span></summary><div class="body">${topicBody(t,{})}</div></details>`; }
+      body+=`<details class="t" id="t-${t.id}" ${(s||open===t.id||q||st.cty)?"open":""}><summary><strong>${esc(t.title)}</strong><span class="badge g">${s} good practice${s===1?"":"s"}</span><span class="badge r">${r} recommendation${r===1?"":"s"}</span></summary><div class="body">${topicBody(t,{})}</div></details>`; }
     if(body) h+=`<div class="caphead"><span class="fn">Capacity ${cid}</span><h2>${esc(D.cap[cid])}</h2></div>`+(window.Programmes?Programmes.html(ts.flatMap(t=>t.jee||[]),{includeAll:true}):"")+body; }
   if(!shown) h+=`<p class="muted">Nothing matches.</p>`;
   view.innerHTML=h+`<p class="note">Page numbers are as printed in the reports (approximate; check the PDF). Items marked “ECDC interim report” are country examples quoted in ECDC's cross-country report, mostly for countries whose own report I could not read in detail.</p>`;

@@ -193,8 +193,8 @@ function block(b){
   const pr=window.Programmes&&b.prog.length?Programmes.html(b.prog,{includeAll:false}):"";
   const lh=lit.map(s=>`<div class="src"><div><span class="badge${["peer-reviewed","systematic-review","scoping-review"].includes(s.type)?" pr":""}">${esc(L.meta.types[s.type]||s.type)}</span><span class="muted small">${esc(s.country)}${s.year?" · "+s.year:""}</span></div><div class="t"><a href="${esc(s.url)}" rel="noopener">${esc(s.title)}</a></div><div class="small muted">${esc([s.authors,s.journal].filter(Boolean).join(" · "))}</div><div class="small">${esc(s.takeaway)}</div>${s.note?`<div class="small muted">Note: ${esc(s.note)}</div>`:""}</div>`).join("");
   
-  return `<details class="links"><summary>Good practices and literature${lit.length?` (${lit.length}${pr_n(lit)})`:""} · JEE, SPAR, PHEPA · programmes</summary>
-  <h4>Matching items in other frameworks (our crosswalk)</h4><div>${j||'<span class="small muted">No close match in JEE, SPAR or PHEPA.</span>'}</div>${pr}${lh?`<h4>Good practices and literature</h4>${lh}`:`<p class="small muted">No good practice found yet for this topic. That does not mean none exists.</p>`}</details>`;
+  return `<details class="links"${lit.length?" open":""}><summary>Good practices and literature${lit.length?` (${lit.length}${pr_n(lit)})`:""} · JEE, SPAR, PHEPA · programmes</summary>
+  ${lh?`<h4>Good practices and literature</h4>${lh}`:`<p class="small muted">No good practice found yet for this topic. That does not mean none exists.</p>`}<h4>Matching items in other frameworks (our crosswalk)</h4><div>${j||'<span class="small muted">No close match in JEE, SPAR or PHEPA.</span>'}</div>${pr}</details>`;
 }
 function render(){
   const M=members();profile(M);
