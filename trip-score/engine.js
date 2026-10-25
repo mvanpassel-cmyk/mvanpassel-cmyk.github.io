@@ -57,18 +57,27 @@
     }
   }
 
+  // Synthetic hall: pre-delay, sparse early reflections, then a decorrelated stereo tail whose
+  // high frequencies die away faster than the lows (as in a real room).
   function makeIR(ctx, seconds, decay) {
-    const len = Math.floor(ctx.sampleRate * seconds);
-    const b = ctx.createBuffer(2, len, ctx.sampleRate);
+    const sr = ctx.sampleRate, len = Math.floor(sr * seconds);
+    const b = ctx.createBuffer(2, len, sr);
+    const pre = Math.floor(sr * 0.022);
     for (let c = 0; c < 2; c++) {
       const d = b.getChannelData(c);
-      let lp = 0;
-      for (let i = 0; i < len; i++) {
-        const t = i / len;
-        const k = 0.3 + 0.6 * (1 - t);
-        lp = lp + k * ((R() * 2 - 1) - lp);
-        // short pre-delay, then a smooth, darkening tail
-        d[i] = i < ctx.sampleRate * 0.012 ? 0 : lp * Math.pow(1 - t, decay);
+      // early reflections (different per ear)
+      for (let k = 0; k < 10; k++) {
+        const at = pre + Math.floor(sr * (0.006 + 0.075 * Math.pow(R(), 1.3)));
+        if (at < len) d[at] += (R() < 0.5 ? -1 : 1) * (0.5 - 0.035 * k) * (0.6 + 0.4 * R());
+      }
+      let lp = 0, lp2 = 0;
+      for (let i = pre; i < len; i++) {
+        const t = (i - pre) / (len - pre);
+        const k = 0.75 * Math.pow(1 - t, 1.6) + 0.04;          // brightness falls over time
+        lp += k * ((R() * 2 - 1) - lp);
+        lp2 += 0.5 * (lp - lp2);
+        const env = Math.pow(1 - t, decay) * (1 - Math.exp(-(i - pre) / (sr * 0.03)));   // soft onset of the tail
+        d[i] += lp2 * env * 0.9;
       }
     }
     return b;
@@ -1075,10 +1084,15 @@
       this.comp = ctx.createDynamicsCompressor();
       this.comp.threshold.value = -18; this.comp.ratio.value = 2.5;
       this.comp.attack.value = 0.04; this.comp.release.value = 0.5; this.comp.knee.value = 14;
-      this.reverb = ctx.createConvolver();
-      this.reverb.buffer = makeIR(ctx, 4.8, 2.8);
+      // reverb send: no low-end mud and no fizz into the hall
+      const conv = ctx.createConvolver();
+      conv.buffer = makeIR(ctx, 4.2, 2.6);
+      const rhp = ctx.createBiquadFilter(); rhp.type = "highpass"; rhp.frequency.value = 170; rhp.Q.value = 0.5;
+      const rlp = ctx.createBiquadFilter(); rlp.type = "lowpass"; rlp.frequency.value = 8000; rlp.Q.value = 0.5;
+      this.reverb = ctx.createGain();
+      this.reverb.connect(rhp); rhp.connect(rlp); rlp.connect(conv);
       this.dry = ctx.createGain();
-      this.dry.connect(hp); this.reverb.connect(hp);
+      this.dry.connect(hp); conv.connect(hp);
       hp.connect(this.master); this.master.connect(this.comp); this.comp.connect(this.out);
       this.layers = [];
       this.setIntensity(0.5);
@@ -1186,7 +1200,7 @@
     return buf;
   }
 
-  const api = { Engine, Bank, MOODS, ORDER, renderLoop, encodeWAV };
+  const api = { Engine, Bank, MOODS, ORDER, renderLoop, encodeWAV, lib: { play, hold, bowed, expression, DYN, layersOf, makeIR, voiceOut } };
   root.TripEngine = api;
   if (typeof module !== "undefined") module.exports = api;
 })(typeof window !== "undefined" ? window : globalThis);
