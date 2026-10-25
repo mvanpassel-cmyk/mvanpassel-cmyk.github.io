@@ -1,0 +1,58 @@
+name: Risk Radar daily update
+
+on:
+  schedule:
+    - cron: "41 5 * * *"   # daily, 06:41 Amsterdam (winter) / 07:41 (summer)
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "risk-radar/pipeline/**"
+      - "risk-radar/tests/**"
+      - "risk-radar/data/sources.json"
+      - "risk-radar/data/risks.json"
+      - "risk-radar/data/relations.json"
+      - ".github/workflows/risk-radar.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: risk-radar
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Unit tests
+        run: python -m unittest discover -s risk-radar/tests -v
+
+      - name: Validate data and compute derived analysis
+        run: python risk-radar/pipeline/analysis.py
+
+      - name: Check sources and detect new items
+        run: python risk-radar/pipeline/ingest.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "risk-radar bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add risk-radar/data
+          if git diff --cached --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+          git commit -m "Risk Radar: daily update $(date -u +%F)"
+          for i in 1 2 3; do
+            git pull --rebase origin "${GITHUB_REF_NAME}" && git push && exit 0
+            sleep 5
+          done
+          exit 1

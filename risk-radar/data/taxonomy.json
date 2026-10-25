@@ -1,0 +1,33 @@
+{
+ "note": "Ten top-level domains; sub-categories map to their parent. A risk can sit in several domains (first one is primary).",
+ "domains": [
+  {"id": "ai", "label": "AI and emerging technologies", "short": "AI & tech", "children": []},
+  {"id": "health", "label": "Health, pandemics and AMR", "short": "Health", "children": []},
+  {"id": "food", "label": "Food safety, food security and agriculture", "short": "Food", "children": []},
+  {"id": "climate", "label": "Climate, environment and biodiversity", "short": "Climate", "children": []},
+  {"id": "geopolitics", "label": "Geopolitics, conflict and defence", "short": "Conflict", "children": []},
+  {"id": "cyber", "label": "Cybersecurity and critical infrastructure", "short": "Cyber", "children": []},
+  {"id": "economy", "label": "Economy, finance and trade", "short": "Economy", "children": ["finance"]},
+  {"id": "energy", "label": "Energy, resources and supply chains", "short": "Energy", "children": []},
+  {"id": "education", "label": "Education, demography and social cohesion", "short": "Education", "children": []},
+  {"id": "governance", "label": "Governance, democracy and information integrity", "short": "Governance", "children": []}
+ ],
+ "kinds": {
+  "hazard": "A source of potential harm (e.g. heatwaves, a virus).",
+  "risk": "The combination of a hazard with exposure and vulnerability: something that may happen and cause harm.",
+  "ongoing event": "Something already happening that institutions are tracking.",
+  "vulnerability": "An underlying weakness that makes harm more likely or larger.",
+  "signal": "An early warning or weak signal that is not yet an established risk.",
+  "assessment": "A published report or statement about any of the above."
+ },
+ "horizons": {"12m": "Next 12 months", "1-5y": "1–5 years", "5-20y": "5–20 years"},
+ "geos": {"global": "Global", "europe": "Europe", "netherlands": "Netherlands"},
+ "relationTypes": {
+  "same": "Same underlying risk",
+  "driver": "Shared causal driver",
+  "cascade": "Potential cascading consequence",
+  "vulnerability": "Common vulnerability or exposure",
+  "contradiction": "Contradictory or divergent assessment",
+  "correlated": "Correlated indicators without established causality"
+ }
+}

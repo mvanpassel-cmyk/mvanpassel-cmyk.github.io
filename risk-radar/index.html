@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Risk Radar</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/logos/risk-radar-32.png">
+<link rel="icon" type="image/svg+xml" href="/logos/risk-radar.svg">
+<link rel="apple-touch-icon" href="/logos/risk-radar-180.png">
+<link rel="alternate" type="application/atom+xml" title="Risk Radar updates" href="data/feed.xml">
+<meta name="description" content="Connecting the dots between emerging global risks: institutional risk assessments, their sources, connections and evidence, updated daily.">
+<style>
+:root{color-scheme:dark;--bg:#0a1020;--bg2:#0e1628;--panel:#121c31;--panel2:#16223b;--line:#22314f;--ink:#e7edf6;--muted:#8d9bb5;--dim:#5f6e8a;--green:#3ddc97;--green2:#1f8f63;--amber:#f5b041;--red:#ef6f6c;--blue:#6aa8ff;--violet:#b08cff;
+--d-ai:#b08cff;--d-health:#ef6f6c;--d-food:#f5b041;--d-climate:#3ddc97;--d-geopolitics:#ff8a5b;--d-cyber:#6aa8ff;--d-economy:#e6d36a;--d-energy:#f08fc0;--d-education:#5fd3e0;--d-governance:#a3b1c9}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:radial-gradient(1200px 600px at 70% -10%,#13254a 0,transparent 60%),var(--bg);color:var(--ink);font:15px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh}
+a{color:var(--green)}a:hover{color:#7cf0bd}
+.wrap{max-width:1180px;margin:0 auto;padding:22px 16px 60px}
+header.top{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:6px}
+.brand{display:flex;gap:12px;align-items:center;text-decoration:none;color:inherit}
+.brand svg{width:44px;height:44px;flex:none}
+.brand h1{margin:0;font-size:26px;letter-spacing:.02em;font-weight:650}
+.brand p{margin:0;color:var(--muted);font-size:13.5px}
+.status{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12.5px;color:var(--muted)}
+.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:var(--bg2);font-size:12.5px;color:var(--muted);white-space:nowrap}
+.pill.new{border-color:var(--amber);color:var(--amber)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(61,220,151,.6);animation:ping 2.4s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(61,220,151,.55)}70%{box-shadow:0 0 0 7px rgba(61,220,151,0)}100%{box-shadow:0 0 0 0 rgba(61,220,151,0)}}
+nav.tabs{display:flex;gap:4px;margin:16px 0 14px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+nav.tabs a{padding:10px 14px;text-decoration:none;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap;font-weight:550}
+nav.tabs a[aria-current="page"]{color:var(--ink);border-color:var(--green)}
+.panel{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:14px;padding:16px}
+h2{font-size:17px;margin:0 0 10px;font-weight:620}
+h3{font-size:14.5px;margin:16px 0 8px;font-weight:620}
+.muted{color:var(--muted)}.small{font-size:12.5px}.dim{color:var(--dim)}
+.grid{display:grid;gap:14px}
+.ov{grid-template-columns:minmax(0,1.45fr) minmax(0,1fr)}
+.land{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);align-items:start}
+@media (max-width:900px){.land{grid-template-columns:minmax(0,1fr)}}
+.sigs2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:22px}
+@media (max-width:800px){.sigs2{grid-template-columns:minmax(0,1fr)}}
+.sigs2 .sig:nth-child(2){border-top:0}
+@media (max-width:800px){.sigs2 .sig:nth-child(2){border-top:1px solid var(--line)}}
+.rl{max-height:560px;overflow:auto;padding-right:4px}
+.rl .gh{font-size:11px;text-transform:uppercase;letter-spacing:.08em;margin:12px 0 4px;font-weight:700}
+.rl a.ri{display:flex;gap:8px;align-items:baseline;padding:5px 6px;border-radius:8px;text-decoration:none;color:var(--ink);font-size:13.5px}
+.rl a.ri:hover,.rl a.ri:focus{background:var(--panel2)}
+.rl a.ri .mt{margin-left:auto;white-space:nowrap;font-size:11.5px;color:var(--dim)}
+@media (max-width:900px){.ov{grid-template-columns:minmax(0,1fr)}}
+.filters{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin-bottom:12px}
+.filters .grp{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.filters label.l{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim)}
+.chip{border:1px solid var(--line);background:var(--bg2);color:var(--muted);border-radius:999px;padding:4px 11px;font:inherit;font-size:13px;cursor:pointer}
+a.chip{text-decoration:none;display:inline-block}
+.chip[aria-pressed="true"]{background:var(--panel2);color:var(--ink);border-color:var(--green2)}
+.chip .sw{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:1px}
+select{max-width:100%}
+select,input[type=search]{background:var(--bg2);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:6px 9px;font:inherit;font-size:13.5px}
+.ftoggle{display:none}
+@media (max-width:700px){.ftoggle{display:inline-flex}.filters .grp.collapsible{display:none}.filters.open .grp.collapsible{display:flex}}
+/* radar */
+.radarbox{position:relative}
+svg.radar{width:100%;height:auto;display:block}
+svg.radar .ring{fill:none;stroke:var(--line)}
+svg.radar .ringlbl{fill:var(--dim);font-size:10px;letter-spacing:.06em}
+svg.radar .spoke{stroke:var(--line);stroke-dasharray:2 4}
+svg.radar .seclbl{font-size:10.5px;font-weight:600}
+svg.radar .sweep{fill:url(#sweepGrad);transform-origin:300px 300px;animation:sweep 9s linear infinite;pointer-events:none}
+@keyframes sweep{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){svg.radar .sweep,.dot{animation:none}}
+svg.radar .node{cursor:pointer;transition:opacity .2s}
+svg.radar .node:hover circle.c,svg.radar .node:focus circle.c{stroke:#fff;stroke-width:2}
+svg.radar .node.fade{opacity:.12}
+svg.radar .tail{stroke-width:1.6;stroke-linecap:round;opacity:.28}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;vertical-align:-2px;margin-right:5px}
+.tip{position:absolute;pointer-events:none;background:#0b1326;border:1px solid var(--line);color:var(--ink);font-size:12.5px;padding:6px 9px;border-radius:8px;max-width:240px;opacity:0;transition:opacity .12s;z-index:5}
+/* signals */
+.sig{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 10px;padding:10px 0;border-top:1px solid var(--line)}
+.sig:first-child{border-top:0}
+.lab{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:700;padding:2px 7px;border-radius:6px;white-space:nowrap;align-self:start;margin-top:2px}
+.lab.l-new-report{background:#12304a;color:var(--blue)}
+.lab.l-new-risk-identified{background:#3a2a0d;color:var(--amber)}
+.lab.l-additional-independent-assessment{background:#0f3527;color:var(--green)}
+.lab.l-potential-cross-sector-link{background:#2b1f45;color:var(--violet)}
+.lab.l-revised-assessment{background:#2a2f40;color:#c8d2e6}
+.lab.l-conflicting-evidence{background:#3d1a1d;color:var(--red)}
+.sig .t{font-weight:560}
+.sig .t a{color:var(--ink);text-decoration:none}.sig .t a:hover{text-decoration:underline}
+.sig .m{grid-column:2;font-size:12.5px;color:var(--muted)}
+.newb{color:var(--amber);font-size:11px;font-weight:700;margin-left:6px}
+.rlinks a{font-size:12px;margin-right:8px;color:var(--muted)}
+/* tables / cards */
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;padding:8px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--dim);font-weight:600}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+.tablewrap{overflow-x:auto}
+tr.click{cursor:pointer}tr.click:hover td{background:rgba(255,255,255,.02)}
+.tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:999px;border:1px solid var(--line);color:var(--muted);margin:0 4px 4px 0;white-space:nowrap}
+.tag.em{border-color:#6b4f17;color:var(--amber)}
+.tag.q{border-color:var(--green2);color:var(--green)}
+.tag.nq{border-style:dashed}
+.bar{height:6px;background:var(--bg2);border-radius:4px;overflow:hidden;min-width:60px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--green2),var(--green))}
+.note{border-left:3px solid var(--amber);background:rgba(245,176,65,.06);padding:8px 12px;border-radius:0 8px 8px 0;font-size:13px;color:#d9c9a7;margin:10px 0}
+.note.g{border-color:var(--green);background:rgba(61,220,151,.05);color:#bfe8d4}
+.subtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.ev{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0;background:var(--bg2)}
+.ev .h{display:flex;gap:8px;flex-wrap:wrap;align-items:baseline}
+.ev .h b{font-weight:620}
+.kv{display:grid;grid-template-columns:150px minmax(0,1fr);gap:4px 12px;font-size:13.5px;margin-top:8px}
+@media (max-width:560px){.kv{grid-template-columns:minmax(0,1fr)}.kv dt{margin-top:6px}}
+.kv dt{color:var(--dim)}.kv dd{margin:0}
+blockquote{margin:8px 0 0;padding:6px 12px;border-left:2px solid var(--green2);color:#cdd8ea;font-style:italic;font-size:13.5px}
+.qv{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.qv div{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:12.5px;max-width:260px}
+.qv b{display:block;font-size:17px;color:var(--green);font-variant-numeric:tabular-nums}
+.nq{color:var(--dim);font-style:italic}
+.slider{display:grid;grid-template-columns:150px minmax(0,1fr) 34px;gap:10px;align-items:center;font-size:13.5px;margin:6px 0}
+.slider input{width:100%;accent-color:var(--green)}
+/* network */
+svg.net{width:100%;height:auto;display:block;touch-action:manipulation}
+svg.net .edge{fill:none;stroke-width:1.6;opacity:.55}
+svg.net .edge.cand{stroke-dasharray:4 4}
+svg.net .edge.hl{opacity:1;stroke-width:2.6}
+svg.net .edge.fade{opacity:.06}
+svg.net .nd{cursor:pointer}
+svg.net .nd text{font-size:12px;fill:var(--ink)}
+svg.net .nd.fade{opacity:.18}
+svg.net .nd.sel circle{stroke:#fff;stroke-width:2.5}
+.netgrid{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}
+@media (max-width:900px){.netgrid{grid-template-columns:minmax(0,1fr)}}
+.ok{color:var(--green)}.bad{color:var(--red)}.cur{color:var(--muted)}
+footer{margin-top:30px;color:var(--dim);font-size:12.5px}
+.skip{position:absolute;left:-999px}.skip:focus{left:16px;top:8px;background:var(--panel);padding:6px 10px;z-index:10}
+.back{font-size:13px;color:var(--muted);text-decoration:none}
+.btn{border:1px solid var(--line);background:var(--panel2);color:var(--ink);border-radius:8px;padding:6px 12px;font:inherit;font-size:13px;cursor:pointer}
+.empty{padding:20px;text-align:center;color:var(--muted)}
+.hide{display:none!important}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#/">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="28" fill="none" stroke="#22314f" stroke-width="2"/><circle cx="32" cy="32" r="18" fill="none" stroke="#22314f" stroke-width="2"/><circle cx="32" cy="32" r="8" fill="none" stroke="#22314f" stroke-width="2"/><path d="M32 32L32 4A28 28 0 0 1 56.2 18z" fill="#3ddc97" opacity=".25"/><circle cx="44" cy="17" r="3.5" fill="#3ddc97"/><circle cx="18" cy="40" r="3" fill="#f5b041"/><circle cx="38" cy="46" r="2.5" fill="#6aa8ff"/></svg>
+      <div><h1>Risk Radar</h1><p>Connecting the dots between emerging global risks.</p></div>
+    </a>
+    <div class="status" id="status"></div>
+  </header>
+  <nav class="tabs" id="tabs" aria-label="Sections"></nav>
+  <main id="main"></main>
+  <footer>
+    <span id="foot"></span> · <a href="data/feed.xml">Atom feed of material updates</a> · <a href="https://github.com/mvanpassel-cmyk/mvanpassel-cmyk.github.io/tree/main/risk-radar">source and data</a>
+  </footer>
+</div>
+<div class="tip" id="tip" role="tooltip"></div>
+<script>
+"use strict";
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+const D={};
+const TABS=[["","Overview"],["rank","Rankings"],["net","Connections"],["signals","Signals"],["sources","Sources"],["method","Method"]];
+const LABELS=["New report","New risk identified","Additional independent assessment","Potential cross-sector link","Revised assessment","Conflicting evidence"];
+const slug=s=>s.toLowerCase().replace(/[^a-z]+/g,"-");
+const F={theme:"all",geo:"all",horizon:"all",since:0,evidence:"all",status:"all",q:""};
+let LASTVISIT=null, WINDOW=1095;
+
+/* ---------- dates ---------- */
+function pdate(s){if(!s)return null;s=String(s);if(s.length===4)s+="-07-01";else if(s.length===7)s+="-15";return new Date(s.length===10?s+"T12:00:00Z":s)}
+function fdate(s){if(!s)return "–";const str=String(s);const d=pdate(str);if(str.length===4)return str;if(str.length===7)return d.toLocaleDateString("en-GB",{month:"short",year:"numeric",timeZone:"UTC"});return d.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric",timeZone:"UTC"})}
+function ago(iso){if(!iso)return "never";const m=(Date.now()-new Date(iso))/6e4;if(m<60)return Math.max(1,Math.round(m))+" min ago";if(m<2880)return Math.round(m/60)+" h ago";return Math.round(m/1440)+" days ago"}
+
+/* ---------- data helpers ---------- */
+const dom=id=>{const d=D.tax.domains.find(x=>x.id===id||x.children.includes(id));return d?d.id:id};
+const domLabel=id=>(D.tax.domains.find(x=>x.id===dom(id))||{short:id}).short;
+const domColor=id=>`var(--d-${dom(id)})`;
+const src=id=>D.srcMap[id]||{org:id,series:""};
+function riskQuant(r){return r.assessments.some(a=>a.quant&&a.quant.length)}
+function attention(r){
+  const today=Date.now(), rec=r.assessments.filter(a=>(today-pdate(a.date))/864e5<=WINDOW);
+  const g=new Set(rec.map(a=>a.independence)), m=new Set(rec.map(a=>a.method.split(" (")[0]));
+  let conv=0; if(g.size>1) conv=Math.min(1,0.6*(g.size-1)/3+0.4*(m.size-1)/2);
+  return {independent:g.size,mentions:rec.length,methods:[...m],conv:Math.round(conv*100)/100};
+}
+function latestDate(r){return r.assessments.map(a=>pdate(a.date)).sort((a,b)=>b-a)[0]}
+function filtered(){
+  return D.risks.filter(r=>{
+    if(F.theme!=="all"&&!r.domains.map(dom).includes(F.theme))return false;
+    if(F.geo!=="all"&&!r.geo.includes(F.geo))return false;
+    if(F.horizon!=="all"&&!r.horizon.includes(F.horizon))return false;
+    if(F.since&&(Date.now()-latestDate(r))/864e5>F.since*30.5)return false;
+    if(F.evidence==="quant"&&!riskQuant(r))return false;
+    if(F.evidence==="qual"&&riskQuant(r))return false;
+    if(F.status!=="all"&&(r.status||"established")!==F.status)return false;
+    if(F.q){const h=(r.title+" "+r.summary+" "+r.assessments.map(a=>src(a.source).org+" "+a.title).join(" ")).toLowerCase();if(!h.includes(F.q))return false}
+    return true;
+  });
+}
+function allSignals(){
+  const cur=(D.curated.items||[]).map(c=>Object.assign({},c,{when:c.date,kind:"curated"}));
+  const det=(D.signals.items||[]).filter(s=>!s.baseline).map(s=>Object.assign({},s,{when:s.detected,kind:"detected"}));
+  return cur.concat(det).sort((a,b)=>pdate(b.when)-pdate(a.when));
+}
+const isNew=s=>LASTVISIT&&pdate(s.when)>new Date(LASTVISIT);
+
+/* ---------- shell ---------- */
+function nav(){
+  const cur=location.hash.replace(/^#\/?/,"").split("/")[0];
+  $("#tabs").innerHTML=TABS.map(([k,l])=>`<a href="#/${k}" ${(cur===k||(k===""&&cur==="risk"))?'aria-current="page"':""}>${l}</a>`).join("");
+  return cur;
+}
+function statusBar(){
+  const st=D.status.sources||{}, auto=D.sources.filter(s=>s.connector);
+  const ok=auto.filter(s=>(st[s.id]||{}).ok).length, newN=allSignals().filter(isNew).length;
+  $("#status").innerHTML=`<span class="pill"><span class="dot"></span>${D.status.generated?`checked ${ago(D.status.generated)} · ${ok}/${auto.length} feeds OK`:"first automated check pending"}</span>`+
+   (LASTVISIT?`<a class="pill ${newN?"new":""}" href="#/signals" title="Since ${fdate(LASTVISIT.slice(0,10))}">${newN} new since your last visit</a>`:`<span class="pill">first visit</span>`);
+  $("#foot").textContent=`${D.risks.length} risks · ${new Set(D.risks.flatMap(r=>r.assessments.map(a=>a.source))).size} institutions cited · ${D.rel.length} links · data curated ${fdate(D.riskFile.generated)}`;
+}
+function route(){
+  const p=location.hash.replace(/^#\/?/,"").split("/"); const tab=nav();
+  ({"":vOverview,rank:vRank,net:vNet,signals:vSignals,sources:vSources,method:vMethod,risk:vRisk}[tab]||vOverview)(p[1]);
+  window.scrollTo(0,0);
+}
+
+/* ---------- filters ---------- */
+function filterBar(onChange){
+  const th=[["all","All themes"]].concat(D.tax.domains.map(d=>[d.id,d.short]));
+  const el=document.createElement("div"); el.className="filters"; el.id="filters";
+  el.innerHTML=`<div class="grp"><input type="search" id="fq" placeholder="Search risks, institutions…" value="${esc(F.q)}" aria-label="Search"><button class="chip ftoggle" id="ftog" aria-expanded="false">Filters</button></div>
+   <div class="grp collapsible" role="group" aria-label="Theme">${th.map(([k,l])=>`<button class="chip" data-f="theme" data-v="${k}" aria-pressed="${F.theme===k}">${k!=="all"?`<span class="sw" style="background:${domColor(k)}"></span>`:""}${l}</button>`).join("")}</div>
+   <div class="grp collapsible"><label class="l" for="fgeo">Region</label><select id="fgeo"><option value="all">All</option><option value="netherlands">Netherlands</option><option value="europe">Europe</option><option value="global">Global</option></select>
+   <label class="l" for="fhz">Horizon</label><select id="fhz"><option value="all">All</option><option value="12m">Next 12 months</option><option value="1-5y">1–5 years</option><option value="5-20y">5–20 years</option></select>
+   <label class="l" for="fsince">Assessed</label><select id="fsince"><option value="0">Any date</option><option value="6">Last 6 months</option><option value="12">Last 12 months</option><option value="24">Last 2 years</option></select>
+   <label class="l" for="fev">Evidence</label><select id="fev"><option value="all">All</option><option value="quant">Quantified</option><option value="qual">Qualitative only</option></select>
+   <label class="l" for="fst">Status</label><select id="fst"><option value="all">All</option><option value="emerging">Emerging</option><option value="established">Established</option></select></div>`;
+  const set=(k,v)=>{F[k]=v;onChange()};
+  el.querySelector("#fgeo").value=F.geo; el.querySelector("#fhz").value=F.horizon; el.querySelector("#fsince").value=F.since; el.querySelector("#fev").value=F.evidence; el.querySelector("#fst").value=F.status;
+  el.addEventListener("click",e=>{const b=e.target.closest("[data-f]");if(b){set(b.dataset.f,b.dataset.v);el.querySelectorAll(`[data-f="${b.dataset.f}"]`).forEach(x=>x.setAttribute("aria-pressed",x===b))}});
+  el.querySelector("#ftog").onclick=()=>{el.classList.toggle("open");el.querySelector("#ftog").setAttribute("aria-expanded",el.classList.contains("open"))};
+  el.querySelector("#fgeo").onchange=e=>set("geo",e.target.value);
+  el.querySelector("#fhz").onchange=e=>set("horizon",e.target.value);
+  el.querySelector("#fsince").onchange=e=>set("since",+e.target.value);
+  el.querySelector("#fev").onchange=e=>set("evidence",e.target.value);
+  el.querySelector("#fst").onchange=e=>set("status",e.target.value);
+  el.querySelector("#fq").oninput=e=>set("q",e.target.value.trim().toLowerCase());
+  return el;
+}
+
+/* ---------- overview ---------- */
+function sigHTML(s,withRisks=true){
+  const so=src(s.source), rl=(s.riskIds||[]).filter(id=>D.riskMap[id]);
+  return `<div class="sig"><span class="lab l-${slug(s.label)}">${esc(s.label)}</span>
+   <div class="t"><a href="${esc(s.url)}" rel="noopener" target="_blank">${esc(s.title)}</a>${isNew(s)?'<span class="newb">NEW</span>':""}</div>
+   <div class="m">${esc(so.org)} · ${s.kind==="curated"?"published "+fdate(s.date):"detected "+fdate((s.detected||"").slice(0,10))+(s.published?" · published "+fdate(s.published.slice(0,10)):"")}${s.text?" · "+esc(s.text):""}
+   ${withRisks&&rl.length?`<div class="rlinks">${rl.map(id=>`<a href="#/risk/${id}">→ ${esc(D.riskMap[id].title)}</a>`).join("")}${s.match?`<span class="dim">(${esc(s.match)})</span>`:""}</div>`:""}</div></div>`;
+}
+function vOverview(){
+  const m=$("#main"); m.innerHTML="";
+  const intro=document.createElement("p"); intro.className="muted"; intro.style.margin="0 0 12px";
+  intro.innerHTML=`What institutions are warning about, who says it, how they know, and how the risks connect. Source findings are kept apart from Risk Radar's own analysis. <a href="#/method">How it works</a>`;
+  m.appendChild(intro);
+  const sp=document.createElement("section"); sp.className="panel"; sp.style.marginBottom="14px";
+  const sigs=allSignals().slice(0,6);
+  sp.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap"><h2>Latest signals</h2><a class="small" href="#/signals">All signals and detected publications →</a></div><div class="sigs2">${sigs.length?sigs.map(s=>sigHTML(s)).join(""):'<div class="empty">No signals yet.</div>'}</div>`;
+  m.appendChild(sp);
+  const lp=document.createElement("section"); lp.className="panel";
+  lp.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap"><h2>Risk landscape</h2><button class="chip" id="asList" aria-pressed="false">Show as table</button></div><div id="fb"></div>
+   <div class="grid land"><div class="radarbox"><div id="radarWrap"></div><div class="legend" id="legend"></div></div><div class="rl" id="rlist" aria-label="Risks by theme"></div></div><div id="riskList" class="hide"></div>`;
+  m.appendChild(lp);
+  $("#fb").appendChild(filterBar(()=>{drawRadar();drawList()}));
+  $("#asList").onclick=e=>{const on=e.target.getAttribute("aria-pressed")!=="true";e.target.setAttribute("aria-pressed",on);$(".land").classList.toggle("hide",on);$("#riskList").classList.toggle("hide",!on)};
+  drawRadar(); drawList();
+}
+function hl(id){$$("#radarWrap .node").forEach(g=>g.classList.toggle("fade",!!id&&g.dataset.id!==id))}
+function drawRadar(){
+  const rs=filtered(), C=300, R=[52,120,188,252], doms=D.tax.domains.map(d=>d.id), n=doms.length, step=2*Math.PI/n;
+  const hzIdx={"12m":0,"1-5y":1,"5-20y":2};
+  let s=`<svg class="radar" viewBox="-40 0 680 600" role="img" aria-label="Radar of ${rs.length} risks: angle is theme, distance from the centre is time horizon"><defs>
+   <radialGradient id="bgG"><stop offset="0" stop-color="#11203d"/><stop offset="1" stop-color="#0b1222"/></radialGradient>
+   <linearGradient id="sweepGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3ddc97" stop-opacity="0"/><stop offset="1" stop-color="#3ddc97" stop-opacity=".16"/></linearGradient></defs>
+   <circle cx="${C}" cy="${C}" r="${R[3]}" fill="url(#bgG)"/><circle cx="${C}" cy="${C}" r="${R[0]}" fill="#0a1020" stroke="var(--line)"/><text class="ringlbl" x="${C}" y="${C+3}" text-anchor="middle">NOW</text>
+   <path class="sweep" d="M${C} ${C}L${C+R[3]} ${C}A${R[3]} ${R[3]} 0 0 0 ${C+R[3]*Math.cos(-0.5)} ${C+R[3]*Math.sin(-0.5)}Z"/>`;
+  R.slice(1).forEach(r=>{s+=`<circle class="ring" cx="${C}" cy="${C}" r="${r}"/>`});
+  ["≤ 12 months","1–5 years","5–20 years"].forEach((l,i)=>{s+=`<text class="ringlbl" x="${C+3}" y="${C-R[i+1]+12}">${l.toUpperCase()}</text>`});
+  doms.forEach((d,i)=>{const a=-Math.PI/2+i*step, x=C+R[3]*Math.cos(a), y=C+R[3]*Math.sin(a);s+=`<line class="spoke" x1="${C}" y1="${C}" x2="${x}" y2="${y}"/>`;
+    const am=a+step/2, lx=C+(R[3]+12)*Math.cos(am), ly=C+(R[3]+12)*Math.sin(am), anc=Math.cos(am)>0.25?"start":Math.cos(am)<-0.25?"end":"middle";
+    s+=`<text class="seclbl" x="${lx}" y="${ly+4}" text-anchor="${anc}" fill="${domColor(d)}">${esc(domLabel(d))}</text>`});
+  // place nodes: per sector and ring, spread by angle
+  const buckets={};
+  rs.forEach(r=>{const d=dom(r.domains[0]), hz=Math.min(...r.horizon.map(h=>hzIdx[h])), k=d+"|"+hz;(buckets[k]=buckets[k]||[]).push(r)});
+  Object.entries(buckets).forEach(([k,list])=>{
+    const [d,hz]=k.split("|"), i=doms.indexOf(d), a0=-Math.PI/2+i*step;
+    list.sort((a,b)=>a.id.localeCompare(b.id)).forEach((r,j)=>{
+      const frac=(j+1)/(list.length+1), a=a0+step*(0.12+0.76*frac), rr=R[+hz]+(R[+hz+1]-R[+hz])*(list.length>2?((j%3)+1)/4:0.5);
+      const x=C+rr*Math.cos(a), y=C+rr*Math.sin(a), att=attention(r), rad=5+att.independent*2.6, q=riskQuant(r), col=domColor(r.domains[0]);
+      const maxHz=Math.max(...r.horizon.map(h=>hzIdx[h]));
+      if(maxHz>+hz){const r2=R[maxHz]+(R[maxHz+1]-R[maxHz])*0.85;s+=`<line class="tail" x1="${x}" y1="${y}" x2="${C+r2*Math.cos(a)}" y2="${C+r2*Math.sin(a)}" stroke="${col}"/>`}
+      s+=`<g class="node" tabindex="0" role="link" data-id="${r.id}" aria-label="${esc(r.title)}">${(r.status==="emerging")?`<circle cx="${x}" cy="${y}" r="${rad+4}" fill="none" stroke="var(--amber)" stroke-width="1.4" stroke-dasharray="3 2"/>`:""}
+        <circle class="c" cx="${x}" cy="${y}" r="${rad}" fill="${q?col:"#0b1222"}" stroke="${col}" stroke-width="2"/></g>`;
+    });
+  });
+  s+=`</svg>`;
+  $("#radarWrap").innerHTML=rs.length?s:'<div class="empty">No risks match these filters.</div>';
+  $("#legend").innerHTML=`<span><b>Angle</b> = theme (primary)</span><span><b>Distance from centre</b> = earliest time horizon, not severity; a tail shows longer horizons</span>
+   <span><i><svg width="12" height="12"><circle cx="6" cy="6" r="5" fill="#6aa8ff"/></svg></i>quantified evidence</span><span><i><svg width="12" height="12"><circle cx="6" cy="6" r="4.5" fill="none" stroke="#6aa8ff" stroke-width="2"/></svg></i>qualitative only</span>
+   <span><i><svg width="14" height="14"><circle cx="7" cy="7" r="6" fill="none" stroke="#f5b041" stroke-dasharray="3 2"/></svg></i>emerging</span><span><b>Size</b> = independent institutions (attention, not danger)</span>`;
+  const tip=$("#tip");
+  $$("#radarWrap .node").forEach(g=>{
+    const r=D.riskMap[g.dataset.id], att=attention(r);
+    const show=e=>{const b=g.getBoundingClientRect();tip.innerHTML=`<b>${esc(r.title)}</b><br><span class="muted">${esc(r.kind)} · ${att.independent} independent source${att.independent===1?"":"s"} · ${riskQuant(r)?"quantified":"not quantified"}</span>`;tip.style.left=Math.min(innerWidth-250,b.left+scrollX+b.width/2+8)+"px";tip.style.top=(b.top+scrollY-8)+"px";tip.style.opacity=1};
+    g.addEventListener("mouseenter",show);g.addEventListener("focus",show);
+    g.addEventListener("mouseleave",()=>tip.style.opacity=0);g.addEventListener("blur",()=>tip.style.opacity=0);
+    g.addEventListener("click",()=>{tip.style.opacity=0;location.hash="#/risk/"+r.id});
+    g.addEventListener("keydown",e=>{if(e.key==="Enter")location.hash="#/risk/"+r.id});
+  });
+}
+function drawList(){
+  const fr=filtered();
+  $("#rlist").innerHTML=D.tax.domains.map(d=>{const xs=fr.filter(r=>dom(r.domains[0])===d.id);if(!xs.length)return "";
+    return `<div class="gh" style="color:${domColor(d.id)}">${esc(d.short)}</div>`+xs.map(r=>{const a=attention(r);return `<a class="ri" href="#/risk/${r.id}" data-id="${r.id}"><span class="sw" style="display:inline-block;width:8px;height:8px;border-radius:50%;flex:none;background:${riskQuant(r)?domColor(d.id):"transparent"};border:1.5px solid ${domColor(d.id)}"></span><span>${esc(r.title)}${r.status==="emerging"?' <span class="tag em">emerging</span>':""}</span><span class="mt">${a.independent} src</span></a>`}).join("")}).join("")||'<div class="empty">No risks match.</div>';
+  $$("#rlist a.ri").forEach(a=>{a.onmouseenter=a.onfocus=()=>hl(a.dataset.id);a.onmouseleave=a.onblur=()=>hl(null)});
+  const rs=fr.slice().sort((a,b)=>attention(b).independent-attention(a).independent||a.title.localeCompare(b.title));
+  $("#riskList").innerHTML=`<div class="tablewrap"><table><thead><tr><th>Risk</th><th>Theme</th><th>Horizon</th><th class="n">Sources</th><th>Evidence</th></tr></thead><tbody>${rs.map(r=>`<tr class="click" onclick="location.hash='#/risk/${r.id}'"><td><a href="#/risk/${r.id}">${esc(r.title)}</a> ${r.status==="emerging"?'<span class="tag em">emerging</span>':""}</td><td>${r.domains.map(d=>`<span class="tag">${esc(domLabel(d))}</span>`).join("")}</td><td class="small">${r.horizon.map(h=>D.tax.horizons[h]).join(", ")}</td><td class="n">${attention(r).independent}</td><td>${riskQuant(r)?'<span class="tag q">quantified</span>':'<span class="tag nq">not quantified</span>'}</td></tr>`).join("")}</tbody></table></div>`;
+}
+
+/* ---------- risk detail ---------- */
+function vRisk(id){
+  const r=D.riskMap[id], m=$("#main");
+  if(!r){m.innerHTML='<div class="empty">Unknown risk. <a href="#/">Back to overview</a></div>';return}
+  const att=attention(r), rels=D.rel.filter(l=>l.from===id||l.to===id), sigs=allSignals().filter(s=>(s.riskIds||[]).includes(id)).slice(0,12);
+  const c=r.coding;
+  m.innerHTML=`<a class="back" href="#/">← Overview</a>
+  <div class="panel" style="margin-top:10px"><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">${r.domains.map(d=>`<span class="tag" style="border-color:${domColor(d)};color:${domColor(d)}">${esc(D.tax.domains.find(x=>x.id===dom(d)).label)}</span>`).join("")}<span class="tag">${esc(r.kind)}</span>${r.status==="emerging"?'<span class="tag em">emerging</span>':""}</div>
+   <h2 style="font-size:22px;margin:10px 0 6px">${esc(r.title)}</h2><p style="margin:0 0 10px">${esc(r.summary)}</p>
+   <dl class="kv"><dt>Hazard</dt><dd>${esc(r.hazard||"–")}</dd><dt>Exposure</dt><dd>${esc(r.exposure||"–")}</dd><dt>Consequences</dt><dd>${esc(r.consequences||"–")}</dd>
+   <dt>Geography</dt><dd>${r.geo.map(g=>D.tax.geos[g]).join(", ")}</dd><dt>Time horizon</dt><dd>${r.horizon.map(h=>D.tax.horizons[h]).join(", ")}</dd>
+   <dt>Quantified?</dt><dd>${riskQuant(r)?'<span class="ok">Yes – see source measures below</span>':'<span class="nq">Not quantified by the sources entered</span>'}</dd></dl>
+   <p class="small dim" style="margin:10px 0 0">The kind (${esc(r.kind)}) follows Risk Radar's distinction between hazard, risk, ongoing event, vulnerability, signal and assessment. <a href="#/method">Definitions</a></p></div>
+  <div class="grid ov" style="margin-top:14px"><section class="panel"><h2>Source assessments (${r.assessments.length})</h2><p class="small muted" style="margin:0">What each institution reported, with its own scale. Risk Radar does not convert scales.</p>${r.assessments.map(evHTML).join("")}</section>
+  <aside class="grid" style="align-content:start">
+   <section class="panel"><h2>Attention and convergence</h2><p class="small muted" style="margin-top:0">Risk Radar's analysis. Measures corroboration, not likelihood or severity.</p>
+    <dl class="kv"><dt>Independent sources</dt><dd>${att.independent} in the last ${Math.round(WINDOW/365)} years (${att.mentions} assessment${att.mentions===1?"":"s"})</dd><dt>Methods</dt><dd>${att.methods.map(esc).join(", ")||"–"}</dd>
+    <dt>Convergence index</dt><dd><div class="bar" title="${att.conv}"><i style="width:${att.conv*100}%"></i></div><span class="small">${att.conv.toFixed(2)} (0 = single source)</span></dd></dl></section>
+   <section class="panel"><h2>Connections (${rels.length})</h2>${rels.length?rels.map(l=>relHTML(l,id)).join(""):'<p class="muted small">No documented or candidate links yet.</p>'}<p class="small"><a href="#/net/${id}">Open in network →</a></p></section>
+   <section class="panel"><h2>Experimental coding</h2>${c?`<p class="small muted" style="margin-top:0">Risk Radar's own ordinal judgement (1 low – 3 high), used only in the experimental ranking. Not source-reported.</p>
+     <dl class="kv">${["impact","likelihood","confidence","preparedness"].map(k=>`<dt>${k==="preparedness"?"preparedness gap":k}</dt><dd>${c[k]==null?'<span class="nq">not coded</span>':["","low","medium","high"][c[k]]}</dd>`).join("")}</dl><p class="small dim">${esc(c.note||"")}</p>`:'<p class="nq small">Not coded: evidence too thin or not comparable. This risk stays unranked in the experimental ranking.</p>'}</section>
+   <section class="panel"><h2>Related signals</h2>${sigs.length?sigs.map(s=>sigHTML(s,false)).join(""):'<p class="muted small">None yet. New publications are matched by keyword once the daily check runs.</p>'}</section>
+  </aside></div>`;
+}
+function evHTML(a){
+  const s=src(a.source);
+  return `<div class="ev"><div class="h"><b>${esc(s.org)}</b><span class="muted small">${esc(fdate(a.date))}</span><span class="tag">${esc(a.method)}</span>${a.geo?`<span class="tag">${esc(D.tax.geos[a.geo]||a.geo)}</span>`:""}</div>
+   <div style="margin-top:4px"><a href="${esc(a.url)}" rel="noopener" target="_blank">${esc(a.title)}</a></div>
+   ${a.rating?`<dl class="kv"><dt>Source rating</dt><dd>${esc(a.rating.native)} <span class="dim small">(${esc(a.rating.scale)})</span></dd>${a.horizon?`<dt>Horizon</dt><dd>${esc(a.horizon)}</dd>`:""}${a.confidence?`<dt>Confidence / limits</dt><dd>${esc(a.confidence)}</dd>`:""}</dl>`:""}
+   ${a.quant&&a.quant.length?`<div class="qv">${a.quant.map(q=>`<div><b>${esc(typeof q.value==="number"?q.value.toLocaleString("en-GB"):q.value)}</b>${esc(q.unit)} · ${esc(q.measure)}</div>`).join("")}</div>`:`<div class="small nq" style="margin-top:6px">Not quantified in this assessment</div>`}
+   ${a.quote?`<blockquote>“${esc(a.quote)}”</blockquote>`:""}
+   <div class="small dim" style="margin-top:6px">Verified: ${esc(a.verification)}${a.via?` · <a href="${esc(a.via)}" rel="noopener" target="_blank">via secondary report</a>`:""}</div></div>`;
+}
+function relHTML(l,id){
+  const other=D.riskMap[l.from===id?l.to:l.from], dir=l.from===id?"→":"←";
+  return `<div class="ev" style="padding:9px 11px"><div class="h"><span class="tag" style="color:${relColor(l.type)};border-color:${relColor(l.type)}">${esc(D.tax.relationTypes[l.type])}</span><span class="tag ${l.status==="candidate"?"nq":""}">${l.status}</span></div>
+   <div style="margin-top:4px">${dir} <a href="#/risk/${other.id}">${esc(other.title)}</a></div>
+   ${l.evidence.map(e=>`<div class="small muted" style="margin-top:4px">${esc(e.text)} <a href="${esc(e.url)}" rel="noopener" target="_blank">${esc(src(e.source).org)}</a></div>`).join("")}${l.note?`<div class="small dim" style="margin-top:4px">${esc(l.note)}</div>`:""}</div>`;
+}
+const relColor=t=>({same:"#a3b1c9",driver:"#e6d36a",cascade:"#3ddc97",vulnerability:"#6aa8ff",contradiction:"#ef6f6c",correlated:"#b08cff"})[t];
+
+/* ---------- rankings ---------- */
+const W={impact:1,likelihood:1,confidence:1,preparedness:1};
+function vRank(sub){
+  sub=sub||"attention";
+  const m=$("#main");
+  m.innerHTML=`<div class="subtabs">${[["attention","Institutional attention"],["quant","Quantified evidence"],["emerging","Emerging signals"],["mcda","Experimental priority"]].map(([k,l])=>`<a class="chip" href="#/rank/${k}" aria-pressed="${sub===k}">${l}</a>`).join("")}</div><div id="rk"></div>`;
+  const el=$("#rk");
+  if(sub==="attention"){
+    const rows=D.risks.map(r=>({r,a:attention(r)})).sort((x,y)=>y.a.independent-x.a.independent||y.a.conv-x.a.conv||x.r.title.localeCompare(y.r.title));
+    el.innerHTML=`<div class="panel"><h2>Institutional attention and convergence</h2>
+     <div class="note">This counts <b>independent institutions</b> that assessed a risk within the window, not how likely or severe it is. Ten reports about one threat do not make it more likely; a threat mentioned once can still matter most.</div>
+     <div class="filters"><label class="l" for="win">Window</label><select id="win"><option value="365">1 year</option><option value="730">2 years</option><option value="1095">3 years</option><option value="3650">All</option></select></div>
+     <div class="tablewrap"><table><thead><tr><th>#</th><th>Risk</th><th class="n">Independent</th><th class="n">Assessments</th><th>Methods</th><th>Convergence</th></tr></thead><tbody>${rows.map((x,i)=>`<tr class="click" onclick="location.hash='#/risk/${x.r.id}'"><td class="n">${i+1}</td><td><a href="#/risk/${x.r.id}">${esc(x.r.title)}</a></td><td class="n">${x.a.independent}</td><td class="n">${x.a.mentions}</td><td class="small">${x.a.methods.map(esc).join(", ")}</td><td><div class="bar"><i style="width:${x.a.conv*100}%"></i></div></td></tr>`).join("")}</tbody></table></div>
+     <p class="small dim">Assessments that share underlying data or the same publication count once (independence groups). Perception surveys (WEF, UN) are counted as institutions but are a different kind of evidence from observation or modelling.</p></div>`;
+    $("#win").value=WINDOW; $("#win").onchange=e=>{WINDOW=+e.target.value;vRank("attention")};
+  } else if(sub==="quant"){
+    const rows=[];D.risks.forEach(r=>r.assessments.forEach(a=>(a.quant||[]).forEach(q=>rows.push({r,a,q}))));
+    const none=D.risks.filter(r=>!riskQuant(r));
+    el.innerHTML=`<div class="panel"><h2>Quantified evidence, as published</h2><div class="note">Values are shown in their original units and are <b>not compared across rows</b>: they measure different things, places and horizons. Only values with the same definition, scope and horizon could be compared.</div>
+     <div class="tablewrap"><table><thead><tr><th>Risk</th><th class="n">Value</th><th>Unit and measure</th><th>Source</th><th>Method</th></tr></thead><tbody>${rows.map(x=>`<tr><td><a href="#/risk/${x.r.id}">${esc(x.r.title)}</a></td><td class="n"><b>${esc(typeof x.q.value==="number"?x.q.value.toLocaleString("en-GB"):x.q.value)}</b></td><td>${esc(x.q.unit)} · ${esc(x.q.measure)}</td><td class="small"><a href="${esc(x.a.url)}" target="_blank" rel="noopener">${esc(src(x.a.source).org)}</a>, ${esc(fdate(x.a.date))}</td><td class="small">${esc(x.a.method)}</td></tr>`).join("")}</tbody></table></div>
+     <h3>Not quantified (${none.length})</h3><p>${none.map(r=>`<a class="tag nq" href="#/risk/${r.id}">${esc(r.title)}</a>`).join("")}</p></div>`;
+  } else if(sub==="emerging"){
+    const rs=D.risks.filter(r=>r.status==="emerging").sort((a,b)=>latestDate(b)-latestDate(a));
+    const sig=allSignals().filter(s=>["New risk identified","Revised assessment","Conflicting evidence","Potential cross-sector link"].includes(s.label)).slice(0,12);
+    el.innerHTML=`<div class="grid ov"><div class="panel"><h2>Emerging risks</h2><div class="note">Novelty is not urgency. These are risks that are new, rising fast in assessments, or newly described, regardless of how serious they are.</div>
+     ${rs.map(r=>{const a=attention(r);return `<div class="ev"><div class="h"><a href="#/risk/${r.id}"><b>${esc(r.title)}</b></a><span class="muted small">latest assessment ${fdate(r.assessments.map(x=>x.date).sort().pop())}</span></div><div class="small muted" style="margin-top:4px">${esc(r.summary)}</div><div class="small dim" style="margin-top:4px">${a.independent} independent source${a.independent===1?"":"s"} · ${riskQuant(r)?"quantified":"not quantified"}</div></div>`}).join("")}</div>
+     <div class="panel"><h2>Changes in assessments</h2>${sig.map(s=>sigHTML(s)).join("")||'<p class="muted">None yet.</p>'}</div></div>`;
+  } else {
+    el.innerHTML=`<div class="panel"><h2>Experimental priority ranking</h2>
+     <div class="note"><b>Not an objective measure of danger.</b> This ranks risks by Risk Radar's own ordinal coding (1–3) of impact, likelihood, evidence confidence and preparedness gap, weighted as you choose. Change the weights to see how sensitive the order is. Risks without coding for a weighted criterion stay unranked.</div>
+     <div id="sliders"></div><div id="mcdaOut"></div></div>`;
+    $("#sliders").innerHTML=Object.keys(W).map(k=>`<div class="slider"><label for="w-${k}">${k==="preparedness"?"Preparedness gap":k[0].toUpperCase()+k.slice(1)}</label><input type="range" id="w-${k}" min="0" max="5" step="1" value="${W[k]}"><span id="v-${k}">${W[k]}</span></div>`).join("")+`<button class="btn" id="wreset">Equal weights</button>`;
+    Object.keys(W).forEach(k=>$("#w-"+k).oninput=e=>{W[k]=+e.target.value;$("#v-"+k).textContent=W[k];mcdaRender()});
+    $("#wreset").onclick=()=>{Object.keys(W).forEach(k=>{W[k]=1;$("#w-"+k).value=1;$("#v-"+k).textContent=1});mcdaRender()};
+    mcdaRender();
+  }
+}
+function mcda(w){
+  const act=Object.entries(w).filter(([,v])=>v>0), tot=act.reduce((s,[,v])=>s+v,0), sc=[], un=[];
+  D.risks.forEach(r=>{const c=r.coding||{};if(!act.length||act.some(([k])=>c[k]==null)){un.push(r);return}sc.push({r,s:act.reduce((s,[k,v])=>s+c[k]*v,0)/tot})});
+  sc.sort((a,b)=>b.s-a.s||a.r.id.localeCompare(b.r.id));return {sc,un};
+}
+function sensitivity(w,runs=300){
+  let seed=7;const rnd=()=>{seed=(seed*16807)%2147483647;return (seed-1)/2147483646};
+  const rg={};for(let i=0;i<runs;i++){const ww={};Object.entries(w).forEach(([k,v])=>ww[k]=Math.max(0,v*(1+(rnd()*2-1)*0.5)));mcda(ww).sc.forEach((x,j)=>{const t=rg[x.r.id]=rg[x.r.id]||[99,0];t[0]=Math.min(t[0],j+1);t[1]=Math.max(t[1],j+1)})}
+  return rg;
+}
+function mcdaRender(){
+  const {sc,un}=mcda(W), rg=sensitivity(W);
+  $("#mcdaOut").innerHTML=`<div class="tablewrap" style="margin-top:12px"><table><thead><tr><th>#</th><th>Risk</th><th class="n">Score</th><th>Rank range (±50% weights)</th><th>Codes I·L·C·P</th></tr></thead><tbody>${sc.map((x,i)=>{const c=x.r.coding,r=rg[x.r.id]||[i+1,i+1];return `<tr class="click" onclick="location.hash='#/risk/${x.r.id}'"><td class="n">${i+1}</td><td><a href="#/risk/${x.r.id}">${esc(x.r.title)}</a></td><td class="n">${x.s.toFixed(2)}</td><td class="small">${r[0]===r[1]?"stable at "+r[0]:r[0]+"–"+r[1]}</td><td class="small dim">${["impact","likelihood","confidence","preparedness"].map(k=>c[k]==null?"–":c[k]).join(" · ")}</td></tr>`}).join("")}</tbody></table></div>
+   <p class="small muted">Rank range: the best and worst rank each risk reaches when every weight is randomly varied by up to ±50% (300 runs). A wide range means the position depends mostly on the weighting choice.</p>
+   <h3>Unranked (${un.length})</h3><p class="small">${un.map(r=>`<a class="tag nq" href="#/risk/${r.id}">${esc(r.title)}</a>`).join("")||"None"}</p>`;
+}
+
+/* ---------- network ---------- */
+const RT={same:1,driver:1,cascade:1,vulnerability:1,contradiction:1,correlated:1};
+let SHOWCAND=true;
+function vNet(sel){
+  const m=$("#main");
+  m.innerHTML=`<div class="grid netgrid"><section class="panel"><div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;align-items:baseline"><h2>Risk connections</h2><button class="chip" id="example">Example: AI × cyber × finance</button></div>
+   <div class="filters" id="rtf">${Object.entries(D.tax.relationTypes).map(([k,l])=>`<button class="chip" data-rt="${k}" aria-pressed="${!!RT[k]}"><span class="sw" style="background:${relColor(k)}"></span>${l}</button>`).join("")}<button class="chip" id="cand" aria-pressed="${SHOWCAND}">Show candidates (dashed)</button></div>
+   <div id="netw"></div><p class="small dim">Nodes are canonical risks grouped by theme; lines are documented (solid) or candidate (dashed) relationships. A line is not proof of causality. Click a node.</p></section>
+   <aside class="panel" id="netside"></aside></div>`;
+  $("#rtf").addEventListener("click",e=>{const b=e.target.closest("[data-rt]");if(b){RT[b.dataset.rt]=RT[b.dataset.rt]?0:1;b.setAttribute("aria-pressed",!!RT[b.dataset.rt]);drawNet(sel)}});
+  $("#cand").onclick=e=>{SHOWCAND=!SHOWCAND;e.target.setAttribute("aria-pressed",SHOWCAND);drawNet(sel)};
+  $("#example").onclick=()=>{drawNet(null,["ai-adverse-outcomes","cyber-attacks-critical-services","fin-ai-asset-correction","fin-nonbank-private-credit"]);exampleText()};
+  if(!sel)netAll();
+  drawNet(sel);
+}
+function netAll(){
+  $("#netside").innerHTML=`<h2>All links (${D.rel.length})</h2><p class="muted small" style="margin-top:0">Click a node, or use this list (also the text alternative to the diagram).</p>`+
+   Object.keys(D.tax.relationTypes).map(t=>{const xs=D.rel.filter(l=>l.type===t);return xs.length?`<h3 style="color:${relColor(t)}">${esc(D.tax.relationTypes[t])}</h3><ul class="small" style="padding-left:18px;margin:0">${xs.map(l=>`<li><a href="#/risk/${l.from}">${esc(D.riskMap[l.from].title)}</a> → <a href="#/risk/${l.to}">${esc(D.riskMap[l.to].title)}</a> <span class="dim">(${l.status})</span></li>`).join("")}</ul>`:""}).join("");
+}
+function drawNet(sel,group){
+  const linked=new Set(D.rel.flatMap(l=>[l.from,l.to]));
+  const nodes=D.risks.filter(r=>linked.has(r.id)).sort((a,b)=>D.tax.domains.findIndex(d=>d.id===dom(a.domains[0]))-D.tax.domains.findIndex(d=>d.id===dom(b.domains[0]))||a.title.localeCompare(b.title));
+  const N=nodes.length, C=330, R=230, pos={};
+  nodes.forEach((r,i)=>{const a=-Math.PI/2+i*2*Math.PI/N;pos[r.id]={x:C+R*Math.cos(a),y:C+R*Math.sin(a),a}});
+  const edges=D.rel.filter(l=>RT[l.type]&&(SHOWCAND||l.status!=="candidate")&&pos[l.from]&&pos[l.to]);
+  const focus=group?new Set(group):sel?new Set([sel,...edges.filter(l=>l.from===sel||l.to===sel).flatMap(l=>[l.from,l.to])]):null;
+  let s=`<svg class="net" viewBox="-130 0 920 660" role="img" aria-label="Network of ${nodes.length} risks and ${edges.length} relationships"><defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#8d9bb5"/></marker></defs>`;
+  edges.forEach(l=>{const p=pos[l.from],q=pos[l.to],mx=(p.x+q.x)/2,my=(p.y+q.y)/2,cx=mx+(C-mx)*0.55,cy=my+(C-my)*0.55;
+    const on=focus&&focus.has(l.from)&&focus.has(l.to)&&(group||l.from===sel||l.to===sel);
+    s+=`<path class="edge ${l.status==="candidate"?"cand":""} ${focus?(on?"hl":"fade"):""}" d="M${p.x} ${p.y}Q${cx} ${cy} ${q.x} ${q.y}" stroke="${relColor(l.type)}" ${l.type==="cascade"||l.type==="driver"?'marker-end="url(#arr)"':""}><title>${esc(D.riskMap[l.from].title)} – ${esc(D.tax.relationTypes[l.type])} – ${esc(D.riskMap[l.to].title)}</title></path>`});
+  nodes.forEach(r=>{const p=pos[r.id],deg=edges.filter(l=>l.from===r.id||l.to===r.id).length,rad=6+Math.min(6,deg*1.4),lx=C+(R+14)*Math.cos(p.a),ly=C+(R+14)*Math.sin(p.a),anc=Math.cos(p.a)>0.1?"start":Math.cos(p.a)<-0.1?"end":"middle";
+    const t=r.title.length>30?r.title.slice(0,28)+"…":r.title;
+    s+=`<g class="nd ${focus&&!focus.has(r.id)?"fade":""} ${sel===r.id?"sel":""}" data-id="${r.id}" tabindex="0" role="button" aria-label="${esc(r.title)}"><circle cx="${p.x}" cy="${p.y}" r="${rad}" fill="${domColor(r.domains[0])}" stroke="#0a1020" stroke-width="2"/><text x="${lx}" y="${ly+3}" text-anchor="${anc}">${esc(t)}</text></g>`});
+  s+=`</svg>`;
+  $("#netw").innerHTML=s;
+  $$("#netw .nd").forEach(g=>{const go=()=>{drawNet(g.dataset.id);netSide(g.dataset.id)};g.onclick=go;g.onkeydown=e=>{if(e.key==="Enter")go()}});
+  if(sel&&!group)netSide(sel);
+}
+function netSide(id){
+  const r=D.riskMap[id], rels=D.rel.filter(l=>(l.from===id||l.to===id)&&RT[l.type]&&(SHOWCAND||l.status!=="candidate"));
+  const inst=[...new Set(r.assessments.map(a=>src(a.source).org))];
+  $("#netside").innerHTML=`<h2><a href="#/risk/${id}">${esc(r.title)}</a></h2><p class="small muted" style="margin-top:0">${esc(r.summary)}</p><p class="small"><b>Institutions:</b> ${inst.map(esc).join(", ")}</p>${rels.map(l=>relHTML(l,id)).join("")||'<p class="muted small">No links with the current filters.</p>'}`;
+}
+function exampleText(){
+  $("#netside").innerHTML=`<h2>AI, cyber and finance: overlapping exposure</h2>
+  <p class="small">Four institutions from three fields describe parts of one picture, each from its own evidence:</p>
+  <div class="ev small"><b>ENISA</b> (cyber, observation): over 80% of phishing emails in Sep 2024–Feb 2025 used AI to some extent; public administration is the most targeted sector.</div>
+  <div class="ev small"><b>International AI Safety Report</b> (AI, expert review): criminals actively use general-purpose AI in cyberattacks.</div>
+  <div class="ev small"><b>NCTV</b> (Netherlands, threat assessment): generative AI makes attacks easier; state actors expand cyber programmes.</div>
+  <div class="ev small"><b>IMF</b> (finance, market analysis): cyber threats are a growing financial stability risk, with cheaper AI-enabled tools as a driver; separately, a correction in AI-related asset prices is a key vulnerability.</div>
+  <div class="note g">What this shows: independent corroboration that AI lowers the cost of cyberattacks, and that finance is exposed to AI twice (as attack tool and as asset concentration). What it does not show: a measured probability of a joint AI-cyber-financial crisis. The AI→asset-price link is a shared-driver candidate, not a causal claim.</div>
+  <p class="small"><a href="#/risk/cyber-attacks-critical-services">Cyberattacks</a> · <a href="#/risk/fin-ai-asset-correction">AI asset correction</a> · <a href="#/risk/ai-adverse-outcomes">Adverse AI outcomes</a></p>`;
+}
+
+/* ---------- signals ---------- */
+function vSignals(){
+  const all=allSignals(); let lab="all", srcF="all";
+  const m=$("#main");
+  const srcs=[...new Set(all.map(s=>s.source))];
+  m.innerHTML=`<div class="panel"><h2>Signals</h2><p class="small muted" style="margin-top:0">Curated signals (with publication date) and publications detected by the daily check (with detection date; matched to risks by keyword, unreviewed). <a href="data/feed.xml">Atom feed</a></p>
+   <div class="filters"><label class="l" for="sl">Label</label><select id="sl"><option value="all">All</option>${LABELS.map(l=>`<option>${l}</option>`).join("")}</select><label class="l" for="ss">Source</label><select id="ss"><option value="all">All</option>${srcs.map(s=>`<option value="${s}">${esc(src(s).org)}</option>`).join("")}</select>${LASTVISIT?`<span class="small muted">Since your last visit (${fdate(LASTVISIT.slice(0,10))}): ${all.filter(isNew).length} new</span>`:""}</div>
+   <div id="sl-out"></div>
+   <div class="note g">Push notifications are not possible from a static site. To be alerted, subscribe to the Atom feed in a feed reader, or watch the repository on GitHub (the daily bot commit lists changes). Publication date and detection date can differ by days.</div></div>`;
+  const draw=()=>{const xs=all.filter(s=>(lab==="all"||s.label===lab)&&(srcF==="all"||s.source===srcF)).slice(0,200);$("#sl-out").innerHTML=xs.map(s=>sigHTML(s)).join("")||'<div class="empty">Nothing here yet.</div>'};
+  $("#sl").onchange=e=>{lab=e.target.value;draw()};$("#ss").onchange=e=>{srcF=e.target.value;draw()};draw();
+}
+
+/* ---------- sources ---------- */
+function vSources(){
+  const st=D.status.sources||{}, m=$("#main"), runs=(D.changelog.runs||[]).slice(0,10);
+  const auto=D.sources.filter(s=>s.connector), cur=D.sources.filter(s=>!s.connector);
+  const row=s=>{const x=st[s.id]||{};const state=s.connector?(x.ok===true?'<span class="ok">● OK</span>':x.ok===false?'<span class="bad">● failing</span>':'<span class="cur">○ not yet checked</span>'):'<span class="cur">curated</span>';
+    return `<tr><td><b>${esc(s.org)}</b><div class="small muted">${esc(s.series)}</div>${s.notes?`<div class="small dim">${esc(s.notes)}</div>`:""}</td><td class="small">${s.domains.map(d=>esc(({cross:"Cross-sector",humanitarian:"Humanitarian"})[d]||domLabel(d))).join(", ")}<br><span class="dim">${esc(D.tax.geos[s.geo]||s.geo)} · ${esc(s.frequency)}</span></td>
+     <td class="small">${esc(s.formats.join(", "))}<br><span class="dim">${esc(s.access)}</span></td><td class="small">${state}<br>${s.connector&&x.lastCheck?`<span class="dim">${esc(s.connector.type)} · checked ${ago(x.lastCheck)}<br>last success ${ago(x.lastSuccess)}${x.newest?"<br>newest item "+fdate(x.newest.slice(0,10)):""}</span>${x.message?`<div class="dim">${esc(x.message)}</div>`:""}`:""}</td><td class="small"><a href="${esc(s.url)}" target="_blank" rel="noopener">open</a></td></tr>`};
+  m.innerHTML=`<div class="panel"><h2>Source monitor</h2><p class="small muted" style="margin-top:0">${auto.length} sources are checked automatically every day (feeds or publication pages); ${cur.length} are curated by hand with citations. A failing source keeps its earlier data.</p>
+   <div class="tablewrap"><table><thead><tr><th>Institution and series</th><th>Coverage</th><th>Formats and access</th><th>Status</th><th></th></tr></thead><tbody>${auto.map(row).join("")}${cur.map(row).join("")}</tbody></table></div>
+   <h3>Recent runs with changes or failures</h3>${runs.length?`<ul class="small">${runs.map(r=>`<li>${esc(r.run.replace("T"," ").slice(0,16))} UTC: ${Object.entries(r.sources).map(([k,v])=>v.ok?(v.new?`${esc(k)} +${v.new}`:""):`<span class="bad">${esc(k)} failed</span>`).filter(Boolean).join(", ")}</li>`).join("")}</ul>`:'<p class="small muted">No runs recorded yet. The first daily check runs after deployment.</p>'}</div>`;
+}
+
+/* ---------- method ---------- */
+function vMethod(){
+  $("#main").innerHTML=`<div class="panel" style="max-width:860px"><h2>How Risk Radar works</h2>
+  <p>Risk Radar collects what institutions publish about risks, links each finding to its source, and adds a clearly separated layer of its own analysis. Full text: <a href="https://github.com/mvanpassel-cmyk/mvanpassel-cmyk.github.io/blob/main/risk-radar/METHODOLOGY.md">METHODOLOGY.md</a>.</p>
+  <h3>Source findings versus Risk Radar analysis</h3><p>Source findings are the ratings, numbers and short quotations an institution published, in its own scale and units. Risk Radar's analysis is everything derived: attention counts, the convergence index, connections it proposes, keyword matches and the experimental ranking. Analysis is always labelled as such.</p>
+  <h3>Kinds of entries</h3><ul>${Object.entries(D.tax.kinds).map(([k,v])=>`<li><b>${esc(k)}</b>: ${esc(v)}</li>`).join("")}</ul>
+  <h3>Four ways to look at priority</h3><ol><li><b>Institutional attention</b>: number of independent institutions assessing a risk within a time window. Assessments that share data or a publication count once. This is attention or corroboration, not probability or severity.</li>
+  <li><b>Quantified evidence</b>: published probabilities, counts, losses and similar measures, in their original units. Values are only comparable when definition, geography and horizon match; Risk Radar does not convert or combine incompatible scales, and missing numbers are shown as “not quantified”, never as zero.</li>
+  <li><b>Emerging signals</b>: risks that are new or newly described, and changes in assessments. Novelty is shown separately from urgency.</li>
+  <li><b>Experimental priority</b>: a transparent multi-criteria comparison using Risk Radar's own 1–3 coding of impact, likelihood, evidence confidence and preparedness gap, with user weights and a sensitivity check. It is not an objective measure of danger, and risks without enough evidence stay unranked. Inspired by multi-criteria decision analysis and the INFORM approach of combining hazard, vulnerability and coping capacity.</li></ol>
+  <h3>Convergence index</h3><p>0 to 1. It rises with the number of independent institutions (60%) and the number of different methods (40%) behind a risk, and saturates at four institutions and three methods. A single source scores 0. It measures how independently different fields arrive at the same problem; it says nothing about how dangerous that problem is.</p>
+  <h3>Connections</h3><p>Relationship types: ${Object.values(D.tax.relationTypes).map(esc).join("; ")}. <b>Documented</b> links are stated by a cited source; <b>candidate</b> links are proposed by Risk Radar from shared drivers or terms and need review. A semantic or keyword match is never treated as causality.</p>
+  <h3>Radar</h3><p>Angle shows the primary theme. Distance from the centre shows the earliest time horizon a source attaches to the risk (inner ring: next 12 months), with a tail for longer horizons. It does not show severity. Dot size shows the number of independent institutions; filled dots have quantified evidence.</p>
+  <h3>Automatic updates</h3><p>A GitHub Action runs daily: unit tests, data validation, then checks of feeds (WHO Disease Outbreak News, ECDC threats reports and risk assessments, GDACS alerts, ReliefWeb disasters) and publication pages (IMF GFSR, WEF Global Risks Report, ENISA). New items are identified by a hash of their normalised URL, so a changed page date does not count as an update. The first check of a source is stored as a baseline. robots.txt is respected. Detected publications are matched to risks by keyword and labelled “unreviewed”; turning them into curated findings is a manual step.</p>
+  <h3>Known limitations</h3><ul><li>The curated dataset is small (${D.risks.length} risks) and reflects which reports were read, not the full risk landscape.</li><li>Some findings were verified through secondary reporting; this is marked on each assessment with a link.</li><li>Perception surveys (WEF, UN) measure what respondents think, not observed risk. Where perception and physical evidence diverge, Risk Radar shows both.</li><li>The experimental coding is Risk Radar's judgement and can be wrong.</li><li>Coverage is biased towards English-language, European and global institutions.</li></ul></div>`;
+}
+
+/* ---------- boot ---------- */
+async function boot(){
+  const get=f=>fetch("data/"+f+"?v="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null);
+  const [risks,sources,tax,rel,cur,sig,status,changelog]=await Promise.all(["risks.json","sources.json","taxonomy.json","relations.json","curated-signals.json","signals.json","status.json","changelog.json"].map(get));
+  if(!risks||!sources||!tax){$("#main").innerHTML='<div class="empty">Could not load the data files.</div>';return}
+  D.riskFile=risks;D.risks=risks.risks;D.sources=sources.sources;D.tax=tax;D.rel=(rel||{relations:[]}).relations;D.curated=cur||{items:[]};D.signals=sig||{items:[]};D.status=status||{sources:{}};D.changelog=changelog||{runs:[]};
+  D.riskMap=Object.fromEntries(D.risks.map(r=>[r.id,r]));D.srcMap=Object.fromEntries(D.sources.map(s=>[s.id,s]));
+  LASTVISIT=store.get("rr-lastVisit");
+  statusBar(); route(); addEventListener("hashchange",route);
+  setTimeout(()=>store.set("rr-lastVisit",new Date().toISOString()),4000);
+}
+boot();
+</script>
+</body>
+</html>

@@ -1,0 +1,355 @@
+{
+ "generated": "2026-10-25",
+ "windowDays": 1095,
+ "risks": {
+  "geo-geoeconomic-confrontation": {
+   "independent": 2,
+   "mentions": 2,
+   "methods": [
+    "modelling and scenario analysis",
+    "perception survey"
+   ],
+   "quantified": false,
+   "convergence": 0.4
+  },
+  "geo-interstate-war": {
+   "independent": 2,
+   "mentions": 2,
+   "methods": [
+    "observation",
+    "perception survey"
+   ],
+   "quantified": true,
+   "convergence": 0.4
+  },
+  "geo-nuclear-escalation": {
+   "independent": 1,
+   "mentions": 1,
+   "methods": [
+    "observation and estimation"
+   ],
+   "quantified": true,
+   "convergence": 0.0
+  },
+  "info-mis-disinformation": {
+   "independent": 2,
+   "mentions": 2,
+   "methods": [
+    "expert review of evidence",
+    "perception survey"
+   ],
+   "quantified": false,
+   "convergence": 0.4
+  },
+  "ai-adverse-outcomes": {
+   "independent": 3,
+   "mentions": 3,
+   "methods": [
+    "expert review of evidence",
+    "perception survey"
+   ],
+   "quantified": true,
+   "convergence": 0.6
+  },
+  "ai-bio-uplift": {
+   "independent": 1,
+   "mentions": 1,
+   "methods": [
+    "expert review of evidence"
+   ],
+   "quantified": false,
+   "convergence": 0.0
+  },
+  "cyber-attacks-critical-services": {
+   "independent": 4,
+   "mentions": 4,
+   "methods": [
+    "expert review of evidence",
+    "modelling and market analysis",
+    "observation",
+    "qualitative threat assessment"
+   ],
+   "quantified": true,
+   "convergence": 1.0
+  },
+  "fin-ai-asset-correction": {
+   "independent": 1,
+   "mentions": 1,
+   "methods": [
+    "modelling and market analysis"
+   ],
+   "quantified": true,
+   "convergence": 0.0
+  },
+  "fin-sovereign-yields": {
+   "independent": 1,
+   "mentions": 1,
+   "methods": [
+    "modelling and market analysis"
+   ],
+   "quantified": false,
+   "convergence": 0.0
+  },
+  "fin-nonbank-private-credit": {
+   "independent": 1,
+   "mentions": 1,
+   "methods": [
+    "modelling and market analysis"
+   ],
+   "quantified": false,
+   "convergence": 0.0
+  },
+  "eco-energy-growth-shock": {
+   "independent": 1,
+   "mentions": 1,
+   "methods": [
+    "modelling and scenario analysis"
+   ],
+   "quantified": true,
+   "convergence": 0.0
+  },
+  "cli-extreme-weather": {
+   "independent": 3,
+   "mentions": 3,
+   "methods": [
+    "expert assessment",
+    "perception survey"
+   ],
+   "quantified": false,
+   "convergence": 0.6
+  },
+  "cli-1p5-overshoot": {
+   "independent": 2,
+   "mentions": 2,
+   "methods": [
+    "modelling"
+   ],
+   "quantified": true,
+   "convergence": 0.2
+  },
+  "cli-heat-health-europe": {
+   "independent": 1,
+   "mentions": 1,
+   "methods": [
+    "expert assessment"
+   ],
+   "quantified": false,
+   "convergence": 0.0
+  },
+  "cli-crop-heat-drought-europe": {
+   "independent": 1,
+   "mentions": 1,
+   "methods": [
+    "expert assessment"
+   ],
+   "quantified": false,
+   "convergence": 0.0
+  },
+  "hum-disaster-losses": {
+   "independent": 1,
+   "mentions": 1,
+   "methods": [
+    "modelling"
+   ],
+   "quantified": true,
+   "convergence": 0.0
+  },
+  "food-acute-insecurity-hotspots": {
+   "independent": 1,
+   "mentions": 1,
+   "methods": [
+    "early-warning analysis"
+   ],
+   "quantified": true,
+   "convergence": 0.0
+  },
+  "hlt-amr": {
+   "independent": 1,
+   "mentions": 1,
+   "methods": [
+    "observation"
+   ],
+   "quantified": true,
+   "convergence": 0.0
+  },
+  "hlt-avian-influenza-h5": {
+   "independent": 1,
+   "mentions": 1,
+   "methods": [
+    "expert risk assessment"
+   ],
+   "quantified": false,
+   "convergence": 0.0
+  },
+  "hlt-ebola-drc": {
+   "independent": 2,
+   "mentions": 2,
+   "methods": [
+    "early-warning analysis",
+    "observation"
+   ],
+   "quantified": false,
+   "convergence": 0.4
+  },
+  "hlt-vector-borne-europe": {
+   "independent": 1,
+   "mentions": 1,
+   "methods": [
+    "observation"
+   ],
+   "quantified": false,
+   "convergence": 0.0
+  },
+  "food-emerging-safety-hazards": {
+   "independent": 1,
+   "mentions": 1,
+   "methods": [
+    "horizon scanning and expert review"
+   ],
+   "quantified": false,
+   "convergence": 0.0
+  },
+  "edu-out-of-school": {
+   "independent": 1,
+   "mentions": 1,
+   "methods": [
+    "observation"
+   ],
+   "quantified": true,
+   "convergence": 0.0
+  },
+  "res-resource-shortages": {
+   "independent": 1,
+   "mentions": 1,
+   "methods": [
+    "qualitative foresight"
+   ],
+   "quantified": false,
+   "convergence": 0.0
+  }
+ },
+ "equalWeights": {
+  "order": [
+   "cli-1p5-overshoot",
+   "cli-extreme-weather",
+   "cli-heat-health-europe",
+   "food-acute-insecurity-hotspots",
+   "hlt-amr",
+   "ai-adverse-outcomes",
+   "cyber-attacks-critical-services",
+   "edu-out-of-school",
+   "geo-geoeconomic-confrontation",
+   "geo-interstate-war",
+   "geo-nuclear-escalation",
+   "hum-disaster-losses",
+   "info-mis-disinformation",
+   "ai-bio-uplift",
+   "eco-energy-growth-shock",
+   "fin-ai-asset-correction",
+   "fin-sovereign-yields",
+   "hlt-avian-influenza-h5"
+  ],
+  "scores": {
+   "cli-1p5-overshoot": 2.75,
+   "cli-extreme-weather": 2.75,
+   "cli-heat-health-europe": 2.75,
+   "food-acute-insecurity-hotspots": 2.75,
+   "hlt-amr": 2.75,
+   "ai-adverse-outcomes": 2.5,
+   "cyber-attacks-critical-services": 2.5,
+   "edu-out-of-school": 2.5,
+   "geo-geoeconomic-confrontation": 2.25,
+   "geo-interstate-war": 2.25,
+   "geo-nuclear-escalation": 2.25,
+   "hum-disaster-losses": 2.25,
+   "info-mis-disinformation": 2.25,
+   "ai-bio-uplift": 2.0,
+   "eco-energy-growth-shock": 2.0,
+   "fin-ai-asset-correction": 2.0,
+   "fin-sovereign-yields": 2.0,
+   "hlt-avian-influenza-h5": 2.0
+  },
+  "unranked": [
+   "fin-nonbank-private-credit",
+   "cli-crop-heat-drought-europe",
+   "hlt-ebola-drc",
+   "hlt-vector-borne-europe",
+   "food-emerging-safety-hazards",
+   "res-resource-shortages"
+  ],
+  "rankRange": {
+   "cli-1p5-overshoot": [
+    1,
+    4
+   ],
+   "cli-extreme-weather": [
+    2,
+    5
+   ],
+   "cli-heat-health-europe": [
+    3,
+    6
+   ],
+   "hlt-amr": [
+    4,
+    7
+   ],
+   "food-acute-insecurity-hotspots": [
+    1,
+    6
+   ],
+   "cyber-attacks-critical-services": [
+    5,
+    11
+   ],
+   "ai-adverse-outcomes": [
+    2,
+    11
+   ],
+   "edu-out-of-school": [
+    2,
+    10
+   ],
+   "geo-interstate-war": [
+    8,
+    14
+   ],
+   "geo-nuclear-escalation": [
+    7,
+    16
+   ],
+   "geo-geoeconomic-confrontation": [
+    8,
+    13
+   ],
+   "hum-disaster-losses": [
+    9,
+    14
+   ],
+   "info-mis-disinformation": [
+    10,
+    15
+   ],
+   "hlt-avian-influenza-h5": [
+    11,
+    18
+   ],
+   "eco-energy-growth-shock": [
+    13,
+    16
+   ],
+   "fin-ai-asset-correction": [
+    14,
+    17
+   ],
+   "fin-sovereign-yields": [
+    15,
+    18
+   ],
+   "ai-bio-uplift": [
+    9,
+    18
+   ]
+  }
+ }
+}

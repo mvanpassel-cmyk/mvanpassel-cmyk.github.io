@@ -1,0 +1,1713 @@
+{
+ "generated": "2026-10-25",
+ "note": "Curated canonical risks. Every assessment links to its source; 'verification' says whether the finding was checked on the institution's own page or via a secondary report ('via'). 'coding' holds Risk Radar's own ordinal judgements (1 low, 2 medium, 3 high) for the experimental ranking only; they are not source-reported.",
+ "risks": [
+  {
+   "id": "geo-geoeconomic-confrontation",
+   "title": "Geoeconomic confrontation",
+   "kind": "risk",
+   "domains": [
+    "economy",
+    "geopolitics"
+   ],
+   "geo": [
+    "global",
+    "europe"
+   ],
+   "horizon": [
+    "12m",
+    "1-5y"
+   ],
+   "summary": "Use of tariffs, sanctions, investment screening and other economic levers between rival states, with knock-on effects on trade, growth and cooperation.",
+   "hazard": "Escalating trade and economic coercion between major economies",
+   "exposure": "Open, trade-dependent economies and global supply chains",
+   "consequences": "Slower growth, supply disruption, weaker multilateral cooperation",
+   "match": [
+    "tariff",
+    "sanction",
+    "trade war",
+    "geoeconomic",
+    "export control",
+    "trade policy"
+   ],
+   "coding": {
+    "impact": 2,
+    "likelihood": 3,
+    "confidence": 2,
+    "preparedness": 2,
+    "note": "Likelihood coded high because WEF respondents rank it the most likely trigger of a crisis in 2026; impact is not quantified by the sources."
+   },
+   "assessments": [
+    {
+     "source": "wef-grr",
+     "title": "Global Risks Report 2026 – key findings",
+     "date": "2026-01",
+     "url": "https://www.weforum.org/publications/global-risks-report-2026/global-risks-report-2026-key-findings",
+     "verification": "primary",
+     "method": "perception survey",
+     "geo": "global",
+     "independence": "wef-grps",
+     "horizon": "12m and 2 years",
+     "rating": {
+      "native": "#1 in the 2-year ranking; chosen by 18% of respondents as most likely to trigger a material global crisis in 2026",
+      "scale": "GRPS rank among 33 risks"
+     },
+     "quote": "Geoeconomic confrontation is top of mind for respondents",
+     "quant": [],
+     "confidence": null
+    },
+    {
+     "source": "wb-gep",
+     "title": "Global Economic Prospects, June 2026",
+     "date": "2026-06",
+     "url": "https://www.worldbank.org/en/publication/global-economic-prospects",
+     "via": "https://www.tradearabia.com/News/463598/World-Bank-sees-weakest-global-growth-since-COVID-as-Mideast-conflict-hurts",
+     "verification": "secondary",
+     "method": "modelling and scenario analysis",
+     "geo": "global",
+     "independence": "worldbank",
+     "horizon": "2026–2027",
+     "rating": {
+      "native": "named downside risk: persistent trade policy uncertainty",
+      "scale": "qualitative"
+     },
+     "quant": [],
+     "confidence": null,
+     "quote": null
+    }
+   ],
+   "status": "established",
+   "added": "2026-10-25"
+  },
+  {
+   "id": "geo-interstate-war",
+   "title": "Large-scale interstate war",
+   "kind": "risk",
+   "domains": [
+    "geopolitics"
+   ],
+   "geo": [
+    "global",
+    "europe"
+   ],
+   "horizon": [
+    "12m",
+    "1-5y"
+   ],
+   "status": "emerging",
+   "summary": "Armed conflict between states at a scale that disrupts regions far beyond the battlefield.",
+   "hazard": "Interstate armed conflict",
+   "exposure": "Neighbouring states, energy and food markets, shipping routes",
+   "consequences": "Mass casualties, displacement, energy and food price shocks, humanitarian crises",
+   "match": [
+    "war",
+    "invasion",
+    "armed conflict",
+    "military escalation",
+    "ceasefire",
+    "red sea"
+   ],
+   "coding": {
+    "impact": 3,
+    "likelihood": 2,
+    "confidence": 2,
+    "preparedness": 2,
+    "note": "Rapid rise in perceived importance (UN survey); ACLED documents active conflicts. No source gives a probability."
+   },
+   "assessments": [
+    {
+     "source": "un-grr",
+     "title": "UN Global Risk Report 2026",
+     "date": "2026-09-15",
+     "url": "https://www.un.org/global-risk-report",
+     "via": "https://www.ibtimes.co.uk/un-report-large-scale-war-global-risk-1820189",
+     "verification": "secondary",
+     "method": "perception survey",
+     "geo": "global",
+     "independence": "un-grr",
+     "horizon": "within 1 year / 7 years",
+     "rating": {
+      "native": "rose 16 places since 2024, the largest upward shift of the 28 risks",
+      "scale": "rank among 28 risks"
+     },
+     "quant": [
+      {
+       "value": 36,
+       "unit": "% of respondents",
+       "measure": "expect a significant impact within a year"
+      },
+      {
+       "value": 76,
+       "unit": "% of respondents",
+       "measure": "expect a significant impact within seven years"
+      }
+     ],
+     "quote": null,
+     "confidence": null
+    },
+    {
+     "source": "acled",
+     "title": "Conflict Watchlist 2026",
+     "date": "2025-12",
+     "url": "https://acleddata.com/series/conflict-watchlist-2026",
+     "verification": "primary",
+     "method": "observation (event data) and analyst judgement",
+     "geo": "global",
+     "independence": "acled",
+     "horizon": "2026",
+     "rating": {
+      "native": "Watchlist 2026 names Ukraine, Israel, the Red Sea, Sudan, Myanmar and others among 10 places to watch",
+      "scale": "qualitative watchlist"
+     },
+     "quant": [],
+     "confidence": null,
+     "quote": null
+    }
+   ],
+   "added": "2026-10-25"
+  },
+  {
+   "id": "geo-nuclear-escalation",
+   "title": "Nuclear arms race and escalation risk",
+   "kind": "risk",
+   "domains": [
+    "geopolitics"
+   ],
+   "geo": [
+    "global",
+    "europe"
+   ],
+   "horizon": [
+    "1-5y",
+    "5-20y"
+   ],
+   "summary": "Growing nuclear arsenals and greater reliance on nuclear weapons raise the chance of miscalculation in a crisis.",
+   "hazard": "Nuclear use or escalation through miscalculation",
+   "exposure": "Global",
+   "consequences": "Catastrophic loss of life and long-term global effects",
+   "match": [
+    "nuclear",
+    "warhead",
+    "arms control",
+    "icbm"
+   ],
+   "coding": {
+    "impact": 3,
+    "likelihood": 1,
+    "confidence": 2,
+    "preparedness": 3,
+    "note": "Low-likelihood, extreme-impact; SIPRI quantifies arsenals, not the probability of use."
+   },
+   "assessments": [
+    {
+     "source": "sipri-yb",
+     "title": "SIPRI Yearbook 2026",
+     "date": "2026-06-08",
+     "url": "https://www.sipri.org/media/press-release/2026/increasing-focus-nuclear-weapons-amid-heightened-escalation-risks-new-sipri-yearbook-out-now",
+     "verification": "primary",
+     "method": "observation and estimation (open sources)",
+     "geo": "global",
+     "independence": "sipri",
+     "horizon": "trend",
+     "rating": {
+      "native": "states relying more on nuclear weapons; arsenals growing",
+      "scale": "qualitative"
+     },
+     "quant": [
+      {
+       "value": 12187,
+       "unit": "warheads",
+       "measure": "estimated global inventory, January 2026"
+      },
+      {
+       "value": 4012,
+       "unit": "warheads",
+       "measure": "deployed with missiles and aircraft"
+      },
+      {
+       "value": 620,
+       "unit": "warheads",
+       "measure": "China's estimated arsenal, fastest growing"
+      }
+     ],
+     "quote": "By reaching for nuclear solutions, states are creating new risks and fuelling arms-race dynamics",
+     "confidence": null
+    }
+   ],
+   "status": "established",
+   "added": "2026-10-25"
+  },
+  {
+   "id": "info-mis-disinformation",
+   "title": "Misinformation and disinformation",
+   "kind": "risk",
+   "domains": [
+    "governance",
+    "ai"
+   ],
+   "geo": [
+    "global",
+    "europe",
+    "netherlands"
+   ],
+   "horizon": [
+    "12m",
+    "1-5y"
+   ],
+   "summary": "False or misleading information, including AI-generated content, that erodes trust, polarises societies and enables fraud.",
+   "hazard": "Large-scale manipulation of information",
+   "exposure": "Elections, public health communication, financial consumers",
+   "consequences": "Polarisation, lower trust in institutions, fraud",
+   "match": [
+    "disinformation",
+    "misinformation",
+    "deepfake",
+    "information manipulation",
+    "fimi"
+   ],
+   "coding": {
+    "impact": 2,
+    "likelihood": 3,
+    "confidence": 2,
+    "preparedness": 2,
+    "note": "Ranked #2 for two years by WEF respondents; AI Safety Report documents deepfake fraud."
+   },
+   "assessments": [
+    {
+     "source": "wef-grr",
+     "title": "Global Risks Report 2026 – key findings",
+     "date": "2026-01",
+     "url": "https://www.weforum.org/publications/global-risks-report-2026/global-risks-report-2026-key-findings",
+     "verification": "primary",
+     "method": "perception survey",
+     "geo": "global",
+     "independence": "wef-grps",
+     "horizon": "2 years",
+     "rating": {
+      "native": "#2 in the 2-year ranking",
+      "scale": "GRPS rank"
+     },
+     "quote": null,
+     "quant": [],
+     "confidence": null
+    },
+    {
+     "source": "intl-ai-safety",
+     "title": "International AI Safety Report 2026",
+     "date": "2026-02-03",
+     "url": "https://internationalaisafetyreport.org/publication/international-ai-safety-report-2026",
+     "via": "https://www.aap.com.au/aapreleases/cision20260203ae77099",
+     "verification": "official press release",
+     "method": "expert review of evidence",
+     "geo": "global",
+     "independence": "iasr",
+     "horizon": "current",
+     "rating": {
+      "native": "deepfakes increasingly used for fraud and scams",
+      "scale": "qualitative"
+     },
+     "quant": [],
+     "confidence": null,
+     "quote": null
+    }
+   ],
+   "status": "established",
+   "added": "2026-10-25"
+  },
+  {
+   "id": "ai-adverse-outcomes",
+   "title": "Adverse outcomes of frontier AI",
+   "kind": "risk",
+   "domains": [
+    "ai"
+   ],
+   "geo": [
+    "global",
+    "europe"
+   ],
+   "horizon": [
+    "1-5y",
+    "5-20y"
+   ],
+   "status": "emerging",
+   "summary": "Harms from general-purpose AI systems: misuse, malfunction, and safeguards that lag behind capabilities.",
+   "hazard": "Capable AI systems deployed faster than safeguards",
+   "exposure": "Everyone using or affected by AI systems",
+   "consequences": "Misuse (cyber, bio, fraud), unreliable systems in critical uses, concentration of power",
+   "match": [
+    "artificial intelligence",
+    "generative ai",
+    "frontier ai",
+    "ai safety",
+    "large language model",
+    "llm"
+   ],
+   "coding": {
+    "impact": 3,
+    "likelihood": 2,
+    "confidence": 2,
+    "preparedness": 3,
+    "note": "Fastest-rising risk in WEF ranking; expert report says safeguards lag. Impact and likelihood not quantified."
+   },
+   "assessments": [
+    {
+     "source": "wef-grr",
+     "title": "Global Risks Report 2026 – key findings",
+     "date": "2026-01",
+     "url": "https://www.weforum.org/publications/global-risks-report-2026/global-risks-report-2026-key-findings",
+     "verification": "primary",
+     "method": "perception survey",
+     "geo": "global",
+     "independence": "wef-grps",
+     "horizon": "10 years",
+     "rating": {
+      "native": "#5 in the 10-year ranking; largest rise in ranking over time",
+      "scale": "GRPS rank"
+     },
+     "quote": "Adverse outcomes of AI is the risk with the largest rise in ranking over time",
+     "quant": [],
+     "confidence": null
+    },
+    {
+     "source": "un-grr",
+     "title": "UN Global Risk Report 2026",
+     "date": "2026-09-15",
+     "url": "https://www.un.org/global-risk-report",
+     "via": "https://www.ibtimes.co.uk/un-report-large-scale-war-global-risk-1820189",
+     "verification": "secondary",
+     "method": "perception survey",
+     "geo": "global",
+     "independence": "un-grr",
+     "horizon": "",
+     "rating": {
+      "native": "concern about AI and frontier technologies rose sharply compared with 2024",
+      "scale": "change in rank"
+     },
+     "quant": [],
+     "confidence": null,
+     "quote": null
+    },
+    {
+     "source": "intl-ai-safety",
+     "title": "International AI Safety Report 2026",
+     "date": "2026-02-03",
+     "url": "https://internationalaisafetyreport.org/publication/international-ai-safety-report-2026",
+     "via": "https://www.aap.com.au/aapreleases/cision20260203ae77099",
+     "verification": "official press release",
+     "method": "expert review of evidence",
+     "geo": "global",
+     "independence": "iasr",
+     "horizon": "current",
+     "rating": {
+      "native": "capabilities advancing quickly; some models detect evaluation and change behaviour",
+      "scale": "qualitative"
+     },
+     "quant": [
+      {
+       "value": 700,
+       "unit": "million people",
+       "measure": "weekly users of leading AI systems (at least)"
+      }
+     ],
+     "quote": "the gap between the pace of technological advancement and our ability to implement effective safeguards",
+     "confidence": null
+    }
+   ],
+   "added": "2026-10-25"
+  },
+  {
+   "id": "ai-bio-uplift",
+   "title": "AI uplift for biological weapons",
+   "kind": "signal",
+   "domains": [
+    "ai",
+    "health"
+   ],
+   "geo": [
+    "global"
+   ],
+   "horizon": [
+    "1-5y"
+   ],
+   "status": "emerging",
+   "summary": "Pre-deployment tests could not rule out that AI systems meaningfully help novices develop biological weapons.",
+   "hazard": "Misuse of AI to acquire biological weapons capability",
+   "exposure": "Global population",
+   "consequences": "Potential mass-casualty biological event",
+   "match": [
+    "bioweapon",
+    "biological weapon",
+    "biosecurity",
+    "dual-use"
+   ],
+   "coding": {
+    "impact": 3,
+    "likelihood": 1,
+    "confidence": 1,
+    "preparedness": 3,
+    "note": "Single expert source; deliberately coded low confidence."
+   },
+   "assessments": [
+    {
+     "source": "intl-ai-safety",
+     "title": "International AI Safety Report 2026",
+     "date": "2026-02-03",
+     "url": "https://internationalaisafetyreport.org/publication/international-ai-safety-report-2026",
+     "via": "https://www.aap.com.au/aapreleases/cision20260203ae77099",
+     "verification": "official press release",
+     "method": "expert review of evidence",
+     "geo": "global",
+     "independence": "iasr",
+     "horizon": "current",
+     "rating": {
+      "native": "testing could not rule out meaningful uplift to novices; stronger safeguards adopted for some models",
+      "scale": "qualitative"
+     },
+     "quote": "could meaningfully help novices develop biological weapons",
+     "quant": [],
+     "confidence": null
+    }
+   ],
+   "added": "2026-10-25"
+  },
+  {
+   "id": "cyber-attacks-critical-services",
+   "title": "Cyberattacks on public administration and critical services",
+   "kind": "risk",
+   "domains": [
+    "cyber",
+    "ai"
+   ],
+   "geo": [
+    "global",
+    "europe",
+    "netherlands"
+   ],
+   "horizon": [
+    "12m",
+    "1-5y"
+   ],
+   "summary": "Ransomware, phishing, DDoS and state-linked intrusion against governments, transport, telecoms and finance, increasingly assisted by AI.",
+   "hazard": "Criminal, hacktivist and state cyber operations",
+   "exposure": "Public administration, transport, telecoms, finance; organisations with weak basic hygiene",
+   "consequences": "Service outages, data loss, extortion, financial instability",
+   "match": [
+    "ransomware",
+    "cyberattack",
+    "cyber attack",
+    "phishing",
+    "ddos",
+    "malware",
+    "cybersecurity",
+    "data breach",
+    "hack"
+   ],
+   "coding": {
+    "impact": 2,
+    "likelihood": 3,
+    "confidence": 3,
+    "preparedness": 2,
+    "note": "Strong observational evidence (ENISA incident data) plus independent agreement from IMF, NCTV and the AI Safety Report."
+   },
+   "assessments": [
+    {
+     "source": "enisa-etl",
+     "title": "ENISA Threat Landscape 2025 (July 2024 – June 2025)",
+     "date": "2025-10",
+     "url": "https://www.enisa.europa.eu/topics/cyber-threats/threat-landscape",
+     "via": "https://securityaffairs.com/?p=182978",
+     "verification": "secondary",
+     "method": "observation (incident analysis)",
+     "geo": "europe",
+     "independence": "enisa",
+     "horizon": "observed July 2024 – June 2025",
+     "rating": {
+      "native": "ransomware the most disruptive activity; public administration the most targeted sector",
+      "scale": "incident shares"
+     },
+     "quant": [
+      {
+       "value": 4900,
+       "unit": "incidents",
+       "measure": "verified incidents analysed (nearly)"
+      },
+      {
+       "value": 60,
+       "unit": "% of initial access",
+       "measure": "phishing"
+      },
+      {
+       "value": 38,
+       "unit": "% of cases",
+       "measure": "public administration targeted"
+      },
+      {
+       "value": 80,
+       "unit": "% of phishing emails",
+       "measure": "used AI to some extent (Sep 2024 – Feb 2025), over"
+      }
+     ],
+     "confidence": null,
+     "quote": null
+    },
+    {
+     "source": "imf-gfsr",
+     "title": "Global Financial Stability Report, October 2026: Resilience, Risk, and Transformation",
+     "date": "2026-10-13",
+     "url": "https://www.imf.org/en/publications/gfsr/issues/2026/10/13/global-financial-stability-report-october-2026",
+     "verification": "primary",
+     "method": "modelling and market analysis",
+     "geo": "global",
+     "independence": "imf",
+     "horizon": "near term",
+     "rating": {
+      "native": "increasingly sophisticated cyber threats named as a growing financial stability risk",
+      "scale": "qualitative"
+     },
+     "quant": [],
+     "confidence": null,
+     "quote": null
+    },
+    {
+     "source": "nctv-csbn",
+     "title": "Cybersecuritybeeld Nederland 2025",
+     "date": "2025-11-26",
+     "url": "https://www.nctv.nl/onderwerpen/cybersecuritybeeld-nederland",
+     "via": "https://www.securitymanagement.nl/cybersecuritybeeld-2025-dreiging-groeit-digitale-weerbaarheid-cruciaal/",
+     "verification": "secondary",
+     "method": "qualitative threat assessment",
+     "geo": "netherlands",
+     "independence": "nctv",
+     "horizon": "current",
+     "rating": {
+      "native": "threats more varied and less predictable; state actors expanding cyber programmes",
+      "scale": "qualitative"
+     },
+     "quote": "Statelijke actoren breiden hun cyberprogramma's uit",
+     "quant": [],
+     "confidence": null
+    },
+    {
+     "source": "intl-ai-safety",
+     "title": "International AI Safety Report 2026",
+     "date": "2026-02-03",
+     "url": "https://internationalaisafetyreport.org/publication/international-ai-safety-report-2026",
+     "via": "https://www.aap.com.au/aapreleases/cision20260203ae77099",
+     "verification": "official press release",
+     "method": "expert review of evidence",
+     "geo": "global",
+     "independence": "iasr",
+     "horizon": "current",
+     "rating": {
+      "native": "criminals actively use general-purpose AI in cyberattacks",
+      "scale": "qualitative"
+     },
+     "quant": [],
+     "confidence": null,
+     "quote": null
+    }
+   ],
+   "status": "established",
+   "added": "2026-10-25"
+  },
+  {
+   "id": "fin-ai-asset-correction",
+   "title": "Correction in AI-related asset prices",
+   "kind": "risk",
+   "domains": [
+    "finance",
+    "ai"
+   ],
+   "geo": [
+    "global"
+   ],
+   "horizon": [
+    "12m",
+    "1-5y"
+   ],
+   "status": "emerging",
+   "summary": "If AI investment or profits disappoint, a sharp fall in AI-linked equity and credit could tighten financial conditions, amplified by leverage and concentration.",
+   "hazard": "Repricing of AI-linked assets",
+   "exposure": "Equity markets, lenders to AI infrastructure, concentrated portfolios",
+   "consequences": "Tighter financial conditions, losses at leveraged investors",
+   "match": [
+    "ai bubble",
+    "ai valuations",
+    "ai investment",
+    "data centre",
+    "tech stocks",
+    "valuation"
+   ],
+   "coding": {
+    "impact": 2,
+    "likelihood": 2,
+    "confidence": 2,
+    "preparedness": 2,
+    "note": "One quantitative institutional source (IMF); ECB FSR reportedly raises similar valuation concerns but is not yet entered."
+   },
+   "assessments": [
+    {
+     "source": "imf-gfsr",
+     "title": "Global Financial Stability Report, October 2026: Resilience, Risk, and Transformation",
+     "date": "2026-10-13",
+     "url": "https://www.imf.org/en/publications/gfsr/issues/2026/10/13/global-financial-stability-report-october-2026",
+     "verification": "primary",
+     "method": "modelling and market analysis",
+     "geo": "global",
+     "independence": "imf",
+     "horizon": "near term",
+     "rating": {
+      "native": "possible correction amplified by rising leverage and concentrated exposures",
+      "scale": "qualitative"
+     },
+     "quant": [
+      {
+       "value": 1.4,
+       "unit": "US$ trillion",
+       "measure": "future revenue commitments in 14 public AI deals examined (≈$300bn equity, ≈$650bn debt), per IMF briefing"
+      }
+     ],
+     "quote": "correction in AI-related asset prices",
+     "confidence": null
+    }
+   ],
+   "added": "2026-10-25"
+  },
+  {
+   "id": "fin-sovereign-yields",
+   "title": "Sharp rise in sovereign bond yields",
+   "kind": "risk",
+   "domains": [
+    "finance",
+    "economy"
+   ],
+   "geo": [
+    "global",
+    "europe"
+   ],
+   "horizon": [
+    "12m",
+    "1-5y"
+   ],
+   "summary": "Resurgent inflation or fiscal worries push government borrowing costs up sharply, spreading stress across markets.",
+   "hazard": "Bond market repricing",
+   "exposure": "Highly indebted governments, banks and insurers holding sovereign debt",
+   "consequences": "Fiscal stress, market turbulence, less room for policy response",
+   "match": [
+    "bond yields",
+    "sovereign debt",
+    "fiscal",
+    "public debt",
+    "treasury"
+   ],
+   "coding": {
+    "impact": 2,
+    "likelihood": 2,
+    "confidence": 2,
+    "preparedness": 2,
+    "note": "IMF names it; quantification not entered."
+   },
+   "assessments": [
+    {
+     "source": "imf-gfsr",
+     "title": "Global Financial Stability Report, October 2026: Resilience, Risk, and Transformation",
+     "date": "2026-10-13",
+     "url": "https://www.imf.org/en/publications/gfsr/issues/2026/10/13/global-financial-stability-report-october-2026",
+     "verification": "primary",
+     "method": "modelling and market analysis",
+     "geo": "global",
+     "independence": "imf",
+     "horizon": "near term",
+     "rating": {
+      "native": "named key vulnerability",
+      "scale": "qualitative"
+     },
+     "quote": "sharp rise in sovereign bond yields",
+     "quant": [],
+     "confidence": null
+    }
+   ],
+   "status": "established",
+   "added": "2026-10-25"
+  },
+  {
+   "id": "fin-nonbank-private-credit",
+   "title": "Vulnerabilities in non-banks and private credit",
+   "kind": "vulnerability",
+   "domains": [
+    "finance"
+   ],
+   "geo": [
+    "global",
+    "europe"
+   ],
+   "horizon": [
+    "12m",
+    "1-5y"
+   ],
+   "summary": "Liquidity mismatches at insurers and pension funds, hedge-fund leverage and rising borrower leverage in private credit could amplify a shock.",
+   "hazard": "Forced selling and credit tightening under stress",
+   "exposure": "Pension funds, insurers, private credit borrowers, banks linked to non-banks",
+   "consequences": "Amplified market stress, credit crunch",
+   "match": [
+    "private credit",
+    "non-bank",
+    "nonbank",
+    "hedge fund",
+    "shadow banking"
+   ],
+   "coding": null,
+   "assessments": [
+    {
+     "source": "imf-gfsr",
+     "title": "Global Financial Stability Report, October 2026: Resilience, Risk, and Transformation",
+     "date": "2026-10-13",
+     "url": "https://www.imf.org/en/publications/gfsr/issues/2026/10/13/global-financial-stability-report-october-2026",
+     "verification": "primary",
+     "method": "modelling and market analysis",
+     "geo": "global",
+     "independence": "imf",
+     "horizon": "near term",
+     "rating": {
+      "native": "liquidity mismatches have grown; leverage and contingent liquidity risk could amplify stress",
+      "scale": "qualitative"
+     },
+     "quant": [],
+     "confidence": null,
+     "quote": null
+    }
+   ],
+   "status": "established",
+   "added": "2026-10-25"
+  },
+  {
+   "id": "eco-energy-growth-shock",
+   "title": "Energy price shock and weak global growth",
+   "kind": "risk",
+   "domains": [
+    "economy",
+    "energy"
+   ],
+   "geo": [
+    "global",
+    "europe"
+   ],
+   "horizon": [
+    "12m"
+   ],
+   "summary": "Middle East escalation or longer commodity disruption pushes up energy and food prices and cuts growth.",
+   "hazard": "Energy and commodity supply disruption",
+   "exposure": "Energy importers, low-income households, developing economies",
+   "consequences": "Inflation, financial stress, weakest growth since COVID",
+   "match": [
+    "oil price",
+    "energy prices",
+    "gas price",
+    "commodity prices",
+    "recession",
+    "growth forecast"
+   ],
+   "coding": {
+    "impact": 2,
+    "likelihood": 2,
+    "confidence": 2,
+    "preparedness": 2,
+    "note": "World Bank gives baseline and a severe-scenario growth figure."
+   },
+   "assessments": [
+    {
+     "source": "wb-gep",
+     "title": "Global Economic Prospects, June 2026",
+     "date": "2026-06",
+     "url": "https://www.worldbank.org/en/publication/global-economic-prospects",
+     "via": "https://www.tradearabia.com/News/463598/World-Bank-sees-weakest-global-growth-since-COVID-as-Mideast-conflict-hurts",
+     "verification": "secondary",
+     "method": "modelling and scenario analysis",
+     "geo": "global",
+     "independence": "worldbank",
+     "horizon": "2026",
+     "rating": {
+      "native": "risks heavily tilted to the downside",
+      "scale": "qualitative"
+     },
+     "quant": [
+      {
+       "value": 2.5,
+       "unit": "% global GDP growth",
+       "measure": "2026 baseline (weakest since COVID)"
+      },
+      {
+       "value": 1.3,
+       "unit": "% global GDP growth",
+       "measure": "2026 in severe energy-disruption scenario"
+      }
+     ],
+     "quote": "heavily tilted to the downside",
+     "confidence": null
+    }
+   ],
+   "status": "established",
+   "added": "2026-10-25"
+  },
+  {
+   "id": "cli-extreme-weather",
+   "title": "Extreme weather events",
+   "kind": "hazard",
+   "domains": [
+    "climate"
+   ],
+   "geo": [
+    "global",
+    "europe",
+    "netherlands"
+   ],
+   "horizon": [
+    "12m",
+    "1-5y",
+    "5-20y"
+   ],
+   "summary": "More frequent and intense heatwaves, floods, droughts, storms and wildfires.",
+   "hazard": "Heat, floods, drought, storms, wildfire",
+   "exposure": "Cities, agriculture, infrastructure, outdoor workers, older people",
+   "consequences": "Deaths, crop losses, infrastructure damage, economic losses",
+   "match": [
+    "heatwave",
+    "flood",
+    "drought",
+    "wildfire",
+    "storm",
+    "cyclone",
+    "extreme weather"
+   ],
+   "coding": {
+    "impact": 3,
+    "likelihood": 3,
+    "confidence": 3,
+    "preparedness": 2,
+    "note": "Physical evidence (WMO) and expert assessment (EEA) agree with perception surveys."
+   },
+   "assessments": [
+    {
+     "source": "wef-grr",
+     "title": "Global Risks Report 2026 – key findings",
+     "date": "2026-01",
+     "url": "https://www.weforum.org/publications/global-risks-report-2026/global-risks-report-2026-key-findings",
+     "verification": "primary",
+     "method": "perception survey",
+     "geo": "global",
+     "independence": "wef-grps",
+     "horizon": "10 years / 2 years",
+     "rating": {
+      "native": "#1 in the 10-year ranking; #4 in the 2-year ranking",
+      "scale": "GRPS rank"
+     },
+     "quote": "Extreme weather events identified as the top risk",
+     "quant": [],
+     "confidence": null
+    },
+    {
+     "source": "eea-eucra",
+     "title": "European Climate Risk Assessment (EUCRA)",
+     "date": "2024-03-11",
+     "url": "https://www.eea.europa.eu/en/newsroom/news/europe-is-not-prepared-for",
+     "verification": "primary",
+     "method": "expert assessment (risk severity and urgency)",
+     "geo": "europe",
+     "independence": "eea",
+     "horizon": "now to 2100",
+     "rating": {
+      "native": "floods and wildfires among the eight particularly urgent risks for Europe",
+      "scale": "EUCRA severity and urgency"
+     },
+     "quant": [],
+     "confidence": null,
+     "quote": null
+    },
+    {
+     "source": "un-grr",
+     "title": "UN Global Risk Report 2026",
+     "date": "2026-09-15",
+     "url": "https://www.un.org/global-risk-report",
+     "via": "https://www.ibtimes.co.uk/un-report-large-scale-war-global-risk-1820189",
+     "verification": "secondary",
+     "method": "perception survey",
+     "geo": "global",
+     "independence": "un-grr",
+     "horizon": "",
+     "rating": {
+      "native": "climate change inaction rated the most important risk overall, although environmental risks slightly declined in perceived importance",
+      "scale": "rank among 28 risks"
+     },
+     "quant": [],
+     "confidence": null,
+     "quote": null
+    }
+   ],
+   "status": "established",
+   "added": "2026-10-25"
+  },
+  {
+   "id": "cli-1p5-overshoot",
+   "title": "Exceeding 1.5 °C of global warming",
+   "kind": "risk",
+   "domains": [
+    "climate"
+   ],
+   "geo": [
+    "global"
+   ],
+   "horizon": [
+    "1-5y",
+    "5-20y"
+   ],
+   "summary": "Global temperature passing the Paris 1.5 °C limit, first in single years and then as a long-term average.",
+   "hazard": "Continued greenhouse gas emissions",
+   "exposure": "Global",
+   "consequences": "More severe extremes, ecosystem loss, higher adaptation costs",
+   "match": [
+    "1.5",
+    "global warming",
+    "emissions gap",
+    "paris agreement",
+    "temperature record",
+    "ndc"
+   ],
+   "coding": {
+    "impact": 3,
+    "likelihood": 3,
+    "confidence": 3,
+    "preparedness": 2,
+    "note": "One of few risks with published probabilities (WMO) and modelled warming ranges (UNEP)."
+   },
+   "assessments": [
+    {
+     "source": "wmo-decadal",
+     "title": "WMO Global Annual to Decadal Climate Update 2026–2035",
+     "date": "2026-05-28",
+     "url": "https://wmo.int/node/38645",
+     "verification": "primary",
+     "method": "modelling (decadal prediction ensemble)",
+     "geo": "global",
+     "independence": "wmo-metoffice",
+     "horizon": "2026–2030",
+     "rating": {
+      "native": "high confidence for global mean temperature forecasts",
+      "scale": "probability"
+     },
+     "quant": [
+      {
+       "value": 91,
+       "unit": "% probability",
+       "measure": "at least one year 2026–2030 above 1.5 °C"
+      },
+      {
+       "value": 75,
+       "unit": "% probability",
+       "measure": "2026–2030 five-year mean above 1.5 °C"
+      },
+      {
+       "value": 86,
+       "unit": "% probability",
+       "measure": "a year warmer than 2024 by 2030"
+      }
+     ],
+     "confidence": "High for global mean temperature; lower for regional forecasts",
+     "quote": null
+    },
+    {
+     "source": "unep-egr",
+     "title": "Emissions Gap Report 2025: Off Target",
+     "date": "2025-11-04",
+     "url": "https://unep.org/resources/emissions-gap-report-2025",
+     "verification": "primary",
+     "method": "modelling (scenario assessment)",
+     "geo": "global",
+     "independence": "unep",
+     "horizon": "2100",
+     "rating": {
+      "native": "warming projected to exceed 1.5 °C very likely within the next decade",
+      "scale": "modelled warming"
+     },
+     "quant": [
+      {
+       "value": "2.3–2.5",
+       "unit": "°C by 2100",
+       "measure": "with full implementation of current NDCs"
+      },
+      {
+       "value": 2.8,
+       "unit": "°C by 2100",
+       "measure": "with current policies"
+      }
+     ],
+     "quote": "barely moved the needle",
+     "confidence": null
+    }
+   ],
+   "status": "established",
+   "added": "2026-10-25"
+  },
+  {
+   "id": "cli-heat-health-europe",
+   "title": "Heat as a health risk in Europe",
+   "kind": "risk",
+   "domains": [
+    "climate",
+    "health"
+   ],
+   "geo": [
+    "europe",
+    "netherlands"
+   ],
+   "horizon": [
+    "12m",
+    "1-5y",
+    "5-20y"
+   ],
+   "summary": "Heat is the most serious and urgent climate risk to human health in Europe, especially for outdoor workers, older people and people in poorly built housing.",
+   "hazard": "Heatwaves",
+   "exposure": "Older people, outdoor workers, hot urban housing",
+   "consequences": "Excess deaths and illness, lost labour productivity",
+   "match": [
+    "heat",
+    "heatwave",
+    "heat stress",
+    "excess mortality"
+   ],
+   "coding": {
+    "impact": 3,
+    "likelihood": 3,
+    "confidence": 3,
+    "preparedness": 2,
+    "note": "EUCRA rates it urgent."
+   },
+   "assessments": [
+    {
+     "source": "eea-eucra",
+     "title": "European Climate Risk Assessment (EUCRA)",
+     "date": "2024-03-11",
+     "url": "https://www.eea.europa.eu/en/newsroom/news/europe-is-not-prepared-for",
+     "verification": "primary",
+     "method": "expert assessment (risk severity and urgency)",
+     "geo": "europe",
+     "independence": "eea",
+     "horizon": "now",
+     "rating": {
+      "native": "most serious and urgent climate risk to human health",
+      "scale": "EUCRA severity and urgency"
+     },
+     "quote": "Europe faces urgent climate risks that are growing faster than our societal preparedness",
+     "quant": [],
+     "confidence": null
+    }
+   ],
+   "status": "established",
+   "added": "2026-10-25"
+  },
+  {
+   "id": "cli-crop-heat-drought-europe",
+   "title": "Heat and drought threaten crop production in southern Europe",
+   "kind": "risk",
+   "domains": [
+    "climate",
+    "food"
+   ],
+   "geo": [
+    "europe"
+   ],
+   "horizon": [
+    "12m",
+    "1-5y"
+   ],
+   "summary": "Heat and drought risks to crops are already critical in southern Europe, with central Europe also at risk.",
+   "hazard": "Heat and drought",
+   "exposure": "Southern and central European agriculture",
+   "consequences": "Lower yields, farm income loss, higher food prices",
+   "match": [
+    "drought",
+    "crop",
+    "harvest",
+    "water scarcity"
+   ],
+   "coding": null,
+   "assessments": [
+    {
+     "source": "eea-eucra",
+     "title": "European Climate Risk Assessment (EUCRA)",
+     "date": "2024-03-11",
+     "url": "https://www.eea.europa.eu/en/newsroom/news/europe-is-not-prepared-for",
+     "verification": "primary",
+     "method": "expert assessment (risk severity and urgency)",
+     "geo": "europe",
+     "independence": "eea",
+     "horizon": "now",
+     "rating": {
+      "native": "already critical in southern Europe",
+      "scale": "EUCRA severity"
+     },
+     "quant": [],
+     "confidence": null,
+     "quote": null
+    }
+   ],
+   "status": "established",
+   "added": "2026-10-25"
+  },
+  {
+   "id": "hum-disaster-losses",
+   "title": "Rising and under-counted disaster losses",
+   "kind": "vulnerability",
+   "domains": [
+    "climate",
+    "economy"
+   ],
+   "geo": [
+    "global"
+   ],
+   "horizon": [
+    "1-5y",
+    "5-20y"
+   ],
+   "summary": "Disasters cost far more than direct damage figures suggest once cascading and ecosystem costs are included.",
+   "hazard": "Natural hazards",
+   "exposure": "Exposed assets, public budgets, insurers",
+   "consequences": "Debt, slower development, uninsured losses",
+   "match": [
+    "disaster",
+    "losses",
+    "insurance",
+    "resilience"
+   ],
+   "coding": {
+    "impact": 2,
+    "likelihood": 3,
+    "confidence": 2,
+    "preparedness": 2,
+    "note": "UNDRR quantifies annual costs."
+   },
+   "assessments": [
+    {
+     "source": "undrr-gar",
+     "title": "GAR 2025: Resilience Pays – Financing and Investing for our Future",
+     "date": "2025-05-27",
+     "url": "https://www.preventionweb.net/news/billions-trillions-flagship-un-report-reveals-true-cost-disasters-and-how-reduce-them",
+     "verification": "primary",
+     "method": "modelling (loss estimates)",
+     "geo": "global",
+     "independence": "undrr",
+     "horizon": "annual",
+     "rating": {
+      "native": "disasters increasingly expensive and impacts under-estimated",
+      "scale": "qualitative"
+     },
+     "quant": [
+      {
+       "value": 202,
+       "unit": "US$ billion per year",
+       "measure": "direct disaster costs"
+      },
+      {
+       "value": 2.3,
+       "unit": "US$ trillion per year",
+       "measure": "total including cascading and ecosystem costs (over)"
+      }
+     ],
+     "quote": "Disasters are increasingly expensive and their impacts under-estimated.",
+     "confidence": null
+    }
+   ],
+   "status": "established",
+   "added": "2026-10-25"
+  },
+  {
+   "id": "food-acute-insecurity-hotspots",
+   "title": "Acute food insecurity in conflict hotspots",
+   "kind": "ongoing event",
+   "domains": [
+    "food",
+    "geopolitics"
+   ],
+   "geo": [
+    "global"
+   ],
+   "horizon": [
+    "12m"
+   ],
+   "summary": "Hunger is expected to worsen in 13 hotspots, with Sudan, South Sudan, Yemen and Palestine of highest concern and Nigeria and Somalia added to the highest-risk group.",
+   "hazard": "Conflict, economic shocks, climate extremes",
+   "exposure": "Populations in the 13 hotspots",
+   "consequences": "Famine risk, displacement, excess deaths",
+   "match": [
+    "famine",
+    "food insecurity",
+    "hunger",
+    "ipc phase",
+    "malnutrition"
+   ],
+   "coding": {
+    "impact": 3,
+    "likelihood": 3,
+    "confidence": 2,
+    "preparedness": 3,
+    "note": "Early-warning assessment; funding gap documented."
+   },
+   "assessments": [
+    {
+     "source": "fao-wfp-hotspots",
+     "title": "Hunger Hotspots, June–November 2026 outlook",
+     "date": "2026-06",
+     "url": "https://news.un.org/en/story/2026/06/1167742",
+     "verification": "primary (UN News)",
+     "method": "early-warning analysis (expert judgement on indicators)",
+     "geo": "global",
+     "independence": "fao-wfp",
+     "horizon": "June–November 2026",
+     "rating": {
+      "native": "Sudan, South Sudan, Yemen, Palestine highest concern; Nigeria and Somalia newly in highest-risk category",
+      "scale": "hotspot categories"
+     },
+     "quant": [
+      {
+       "value": 13,
+       "unit": "hotspots",
+       "measure": "countries and territories at significant risk"
+      },
+      {
+       "value": 12,
+       "unit": "of 13 hotspots",
+       "measure": "with conflict as main driver"
+      },
+      {
+       "value": 59,
+       "unit": "% decline",
+       "measure": "funding for food assistance, emergency farming and nutrition, 2022–2025 (estimate)"
+      }
+     ],
+     "quote": "Conflict, shocks, and disasters are forcing families to make impossible decisions about who gets to eat",
+     "confidence": null
+    }
+   ],
+   "status": "established",
+   "added": "2026-10-25"
+  },
+  {
+   "id": "hlt-amr",
+   "title": "Antimicrobial resistance",
+   "kind": "risk",
+   "domains": [
+    "health",
+    "food"
+   ],
+   "geo": [
+    "global",
+    "europe",
+    "netherlands"
+   ],
+   "horizon": [
+    "1-5y",
+    "5-20y"
+   ],
+   "summary": "Common bacterial infections are increasingly resistant to antibiotics, with the highest rates in South-East Asia and the Eastern Mediterranean.",
+   "hazard": "Resistant bacterial pathogens",
+   "exposure": "Patients, especially in regions with weak surveillance and stewardship",
+   "consequences": "Untreatable infections, longer illness, higher mortality and costs",
+   "match": [
+    "antimicrobial resistance",
+    "antibiotic resistance",
+    "amr",
+    "superbug",
+    "carbapenem"
+   ],
+   "coding": {
+    "impact": 3,
+    "likelihood": 3,
+    "confidence": 3,
+    "preparedness": 2,
+    "note": "Observed surveillance trend; one of the few risks with a measured trend."
+   },
+   "assessments": [
+    {
+     "source": "who-glass",
+     "title": "Global Antibiotic Resistance Surveillance Report 2025",
+     "date": "2025-10-13",
+     "url": "https://www.paho.org/en/news/13-10-2025-who-warns-widespread-resistance-common-antibiotics-worldwide",
+     "verification": "primary (WHO regional office)",
+     "method": "observation (surveillance data, 104 countries)",
+     "geo": "global",
+     "independence": "who-glass",
+     "horizon": "observed 2018–2023",
+     "rating": {
+      "native": "resistance rose for over 40% of monitored antibiotics",
+      "scale": "surveillance prevalence"
+     },
+     "quant": [
+      {
+       "value": "1 in 6",
+       "unit": "lab-confirmed bacterial infections",
+       "measure": "resistant to antibiotic treatment (2023)"
+      },
+      {
+       "value": "5–15",
+       "unit": "% per year",
+       "measure": "average annual increase, 2018–2023"
+      },
+      {
+       "value": 104,
+       "unit": "countries",
+       "measure": "reporting to GLASS in 2023"
+      }
+     ],
+     "quote": "One in six laboratory-confirmed bacterial infections",
+     "confidence": "48% of countries did not report in 2023"
+    }
+   ],
+   "status": "established",
+   "added": "2026-10-25"
+  },
+  {
+   "id": "hlt-avian-influenza-h5",
+   "title": "Avian influenza A(H5) spillover to humans",
+   "kind": "hazard",
+   "domains": [
+    "health",
+    "food"
+   ],
+   "geo": [
+    "global",
+    "europe"
+   ],
+   "horizon": [
+    "12m",
+    "1-5y"
+   ],
+   "summary": "H5 bird flu viruses keep infecting animals and occasionally people; no human-to-human transmission has been identified.",
+   "hazard": "Zoonotic influenza A(H5)",
+   "exposure": "People with close contact to infected animals",
+   "consequences": "Sporadic human cases; pandemic if the virus adapts",
+   "match": [
+    "h5n1",
+    "avian influenza",
+    "bird flu",
+    "h5n5",
+    "hpai"
+   ],
+   "coding": {
+    "impact": 3,
+    "likelihood": 1,
+    "confidence": 2,
+    "preparedness": 2,
+    "note": "Formal risk levels from FAO/WOAH/WHO."
+   },
+   "assessments": [
+    {
+     "source": "tripartite-h5",
+     "title": "Joint FAO/WOAH/WHO public health assessment of influenza A(H5), data to 1 March 2026",
+     "date": "2026-05-18",
+     "url": "https://www.woah.org/app/uploads/2026/05/2026-05-18-fao-woah-who-h5-assessment.pdf",
+     "verification": "primary",
+     "method": "expert risk assessment",
+     "geo": "global",
+     "independence": "tripartite",
+     "horizon": "current",
+     "rating": {
+      "native": "low for the general public; low to moderate for occupationally or frequently exposed people",
+      "scale": "tripartite risk level"
+     },
+     "quote": "the assessment may change rapidly as new epidemiological or virological information becomes available",
+     "confidence": "May change rapidly with new information",
+     "quant": []
+    }
+   ],
+   "status": "established",
+   "added": "2026-10-25"
+  },
+  {
+   "id": "hlt-ebola-drc",
+   "title": "Ebola outbreak in eastern DRC",
+   "kind": "ongoing event",
+   "domains": [
+    "health"
+   ],
+   "geo": [
+    "global",
+    "europe"
+   ],
+   "horizon": [
+    "12m"
+   ],
+   "status": "emerging",
+   "summary": "An Ebola outbreak in the Democratic Republic of the Congo is tracked by ECDC and named by FAO/WFP as a factor that could disrupt markets and humanitarian access.",
+   "hazard": "Ebola virus disease",
+   "exposure": "Eastern DRC and neighbouring countries",
+   "consequences": "Deaths, health system strain, disrupted food markets and access",
+   "match": [
+    "ebola",
+    "drc",
+    "democratic republic of the congo"
+   ],
+   "coding": null,
+   "assessments": [
+    {
+     "source": "ecdc-cdtr",
+     "title": "Communicable disease threats report, 10–16 October 2026 (week 42)",
+     "date": "2026-10-16",
+     "url": "https://www.ecdc.europa.eu/en/publications-data/communicable-disease-threats-report-10-16-october-week-42",
+     "verification": "primary",
+     "method": "observation (epidemic intelligence)",
+     "geo": "europe",
+     "independence": "ecdc",
+     "horizon": "current",
+     "rating": {
+      "native": "Ebola among the threats covered in the weekly report",
+      "scale": "epidemic intelligence"
+     },
+     "quant": [],
+     "confidence": null,
+     "quote": null
+    },
+    {
+     "source": "fao-wfp-hotspots",
+     "title": "Hunger Hotspots, June–November 2026 outlook",
+     "date": "2026-06",
+     "url": "https://news.un.org/en/story/2026/06/1167742",
+     "verification": "primary (UN News)",
+     "method": "early-warning analysis (expert judgement on indicators)",
+     "geo": "global",
+     "independence": "fao-wfp",
+     "horizon": "June–November 2026",
+     "rating": {
+      "native": "outbreak could further disrupt markets and humanitarian access",
+      "scale": "qualitative"
+     },
+     "quant": [],
+     "confidence": null,
+     "quote": null
+    }
+   ],
+   "added": "2026-10-25"
+  },
+  {
+   "id": "hlt-vector-borne-europe",
+   "title": "Spread of vector-borne diseases in Europe",
+   "kind": "ongoing event",
+   "domains": [
+    "health",
+    "climate"
+   ],
+   "geo": [
+    "europe",
+    "netherlands"
+   ],
+   "horizon": [
+    "12m",
+    "1-5y"
+   ],
+   "summary": "West Nile virus, dengue, chikungunya and Crimean-Congo haemorrhagic fever are tracked weekly by ECDC in the EU/EEA.",
+   "hazard": "Mosquito- and tick-borne viruses",
+   "exposure": "EU/EEA population, especially southern Europe in summer",
+   "consequences": "Local outbreaks, pressure on blood safety and health services",
+   "match": [
+    "west nile",
+    "dengue",
+    "chikungunya",
+    "crimean-congo",
+    "tick-borne",
+    "mosquito"
+   ],
+   "coding": null,
+   "assessments": [
+    {
+     "source": "ecdc-cdtr",
+     "title": "Communicable disease threats report, 10–16 October 2026 (week 42)",
+     "date": "2026-10-16",
+     "url": "https://www.ecdc.europa.eu/en/publications-data/communicable-disease-threats-report-10-16-october-week-42",
+     "verification": "primary",
+     "method": "observation (epidemic intelligence)",
+     "geo": "europe",
+     "independence": "ecdc",
+     "horizon": "current season",
+     "rating": {
+      "native": "West Nile virus, dengue, chikungunya and CCHF covered in the week 42 report",
+      "scale": "epidemic intelligence"
+     },
+     "quant": [],
+     "confidence": null,
+     "quote": null
+    }
+   ],
+   "status": "established",
+   "added": "2026-10-25"
+  },
+  {
+   "id": "food-emerging-safety-hazards",
+   "title": "Emerging food-safety hazards",
+   "kind": "signal",
+   "domains": [
+    "food"
+   ],
+   "geo": [
+    "europe"
+   ],
+   "horizon": [
+    "12m",
+    "1-5y"
+   ],
+   "status": "emerging",
+   "summary": "EFSA's horizon scanning flagged four issues from 2025 as emerging risks, including bongkrekic acid and the illegal use of a substance to make fish look fresh.",
+   "hazard": "New toxins, fraud and contaminants",
+   "exposure": "EU consumers",
+   "consequences": "Food poisoning, fraud, loss of trust",
+   "match": [
+    "efsa",
+    "food safety",
+    "contaminant",
+    "food fraud",
+    "toxin",
+    "recall"
+   ],
+   "coding": null,
+   "assessments": [
+    {
+     "source": "efsa-er",
+     "title": "EFSA annual report on emerging risks (issues seen in 2025)",
+     "date": "2026-07",
+     "url": "https://www.efsa.europa.eu/en/topics/topic/emerging-risks",
+     "via": "https://www.foodsafetynews.com/2026/07/four-emerging-risks-identified-in-efsa-report/",
+     "verification": "secondary",
+     "method": "horizon scanning and expert review",
+     "geo": "europe",
+     "independence": "efsa",
+     "horizon": "current",
+     "rating": {
+      "native": "four issues identified as emerging risks; others need more information",
+      "scale": "EFSA emerging-risk classification"
+     },
+     "quote": "Four issues were identified as emerging risks, while several others required further information.",
+     "quant": [],
+     "confidence": null
+    }
+   ],
+   "added": "2026-10-25"
+  },
+  {
+   "id": "edu-out-of-school",
+   "title": "Children and young people out of school",
+   "kind": "vulnerability",
+   "domains": [
+    "education",
+    "geopolitics"
+   ],
+   "geo": [
+    "global"
+   ],
+   "horizon": [
+    "1-5y",
+    "5-20y"
+   ],
+   "summary": "272 million children and young people are out of school, 21 million more than the previous estimate, driven by population growth, Afghanistan's ban on girls' education and conflict.",
+   "hazard": "Exclusion from education",
+   "exposure": "Children in conflict-affected and fast-growing countries",
+   "consequences": "Lost learning, lower lifetime earnings, instability",
+   "match": [
+    "out of school",
+    "education",
+    "learning crisis",
+    "school closures"
+   ],
+   "coding": {
+    "impact": 2,
+    "likelihood": 3,
+    "confidence": 2,
+    "preparedness": 3,
+    "note": "Observed estimate; long-term consequences not quantified here."
+   },
+   "assessments": [
+    {
+     "source": "unesco-gem",
+     "title": "GEM Report out-of-school estimate (June 2025 update)",
+     "date": "2025-06",
+     "url": "https://www.unesco.org/gem-report/en",
+     "via": "https://en.ilsole24ore.com/art/between-demographics-and-wars-world-272-million-young-people-out-of-school-AHDLLCNB",
+     "verification": "secondary",
+     "method": "observation (administrative and survey data, modelled)",
+     "geo": "global",
+     "independence": "unesco-uis",
+     "horizon": "current",
+     "rating": {
+      "native": "rising",
+      "scale": "count"
+     },
+     "quant": [
+      {
+       "value": 272,
+       "unit": "million",
+       "measure": "children and young people out of school"
+      },
+      {
+       "value": 21,
+       "unit": "million",
+       "measure": "increase versus the October 2024 estimate"
+      },
+      {
+       "value": 13,
+       "unit": "million (at least)",
+       "measure": "added by estimating 10 conflict-affected countries"
+      }
+     ],
+     "quote": "272 million children and young people worldwide are out of school",
+     "confidence": null
+    }
+   ],
+   "status": "established",
+   "added": "2026-10-25"
+  },
+  {
+   "id": "res-resource-shortages",
+   "title": "Resource shortages",
+   "kind": "risk",
+   "domains": [
+    "energy",
+    "climate"
+   ],
+   "geo": [
+    "global"
+   ],
+   "horizon": [
+    "5-20y"
+   ],
+   "status": "emerging",
+   "summary": "Shortages of critical resources named by the OECD among emerging critical risks; not yet backed by a quantified source in Risk Radar.",
+   "hazard": "Supply shortfalls of energy, minerals, water",
+   "exposure": "Import-dependent economies and industries",
+   "consequences": "Price spikes, industrial disruption",
+   "match": [
+    "critical raw materials",
+    "rare earth",
+    "resource shortage",
+    "supply chain"
+   ],
+   "coding": null,
+   "assessments": [
+    {
+     "source": "oecd-ecr",
+     "title": "Mapping emerging critical risks (OECD Working Paper)",
+     "date": "2024-12-15",
+     "url": "https://www.oecd.org/en/publications/mapping-emerging-critical-risks_eb642ada-en.html",
+     "verification": "primary",
+     "method": "qualitative foresight",
+     "geo": "global",
+     "independence": "oecd",
+     "horizon": "emerging",
+     "rating": {
+      "native": "listed among emerging critical risks",
+      "scale": "qualitative"
+     },
+     "quote": "crises can escalate rapidly and affect multiple sectors",
+     "quant": [],
+     "confidence": null
+    }
+   ],
+   "added": "2026-10-25"
+  }
+ ]
+}
