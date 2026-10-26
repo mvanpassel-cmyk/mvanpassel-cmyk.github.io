@@ -10,6 +10,14 @@
   const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
 
   /* ---------- sample bank ---------- */
+  // On phones, keep decoded audio small: stereo recordings are folded to mono after decoding.
+  const LOWMEM = typeof navigator !== "undefined" && /iPhone|iPad|iPod|Android/.test(navigator.userAgent || "");
+  function toMono(ctx, b) {
+    const n = b.length, out = ctx.createBuffer(1, n, b.sampleRate), d = out.getChannelData(0);
+    const l = b.getChannelData(0), r = b.getChannelData(1);
+    for (let i = 0; i < n; i++) d[i] = (l[i] + r[i]) * 0.5;
+    return out;
+  }
   // Downloads every instrument once (bytes), decodes only what the current moods need.
   class Bank {
     constructor(loader) {
@@ -43,7 +51,7 @@
             const p = ctx.decodeAudioData(bytes.slice(0), res, rej);
             if (p && p.then) p.then(res, rej);
           });
-          this.buf[n] = { buffer: b, notes: this.map[n].notes };
+          this.buf[n] = { buffer: LOWMEM && b.numberOfChannels > 1 ? toMono(ctx, b) : b, notes: this.map[n].notes };
           delete this.busy[n];
         })();
         return this.busy[n];
@@ -175,6 +183,8 @@
   const DYN = {
     violins: ["violins_p", "violins"], violas: ["violas", "violas_f"], cellos: ["cellos", "cellos_f"],
     basses: ["basses", "basses_f"], horn: ["horn", "horn_f"], harmon: ["harmon", "harmon_f"],
+    vlns: ["vlns_p", "vlns_f"], vlas: ["vlas_p", "vlas_f"], vcs: ["vcs_p", "vcs_f"],
+    mutetpt: ["mutetpt_p", "mutetpt_f"], clar2: ["clar2_p", "clar2_f"],
   };
   const layersOf = (names) => [...new Set(names.flatMap((n) => DYN[n] || [n]))];
   const pc12 = (n) => ((n % 12) + 12) % 12;
@@ -399,621 +409,466 @@
       const d = dynOf(L, bar.tension) * (e.dyn || 1);
       const late = (m.swing && e.step % 4 === 2 ? sd * m.swing : 0) + (R() - 0.5) * 0.016;
       if (DYN[e.inst]) bowed(L, e.inst, e.midi, t, len * (e.legato || 0.97), { gain: e.gain, d0: d * 0.85, d1: d, swell: len > 1 ? 0.12 : 0.04, a: e.a || Math.min(0.2, len * 0.3), r: e.r || 0.35, pan: e.pan, late });
-      else play(L, e.inst, e.midi, t + late, { gain: e.gain * (0.5 + 0.5 * d), dur: len * (e.legato || 0.97), a: e.a || 0.03, r: e.r || 0.35, pan: e.pan });
+      else if (e.inst === "piano") felt(L, e.midi, t + late, { gain: e.gain * (0.5 + 0.5 * d), dur: len * (e.legato || 0.97) + 0.6, r: 0.8, pan: e.pan, cutoff: e.cutoff || 1900 });
+      else play(L, e.inst, e.midi, t + late, { gain: e.gain * (0.5 + 0.5 * d), dur: len * (e.legato || 0.97), a: e.a || 0.03, r: e.r || 0.35, pan: e.pan, cutoff: e.cutoff });
     }
     if (m.colour) m.colour(L, t, s, bar, bi);
   }
   // Is the melody playing this bar on a given instrument? (colour parts step aside for it)
   const melodyIn = (L, bi, inst) => L.plan.mel.some((e) => e.bar === bi && (!inst || e.inst === inst));
 
-  /* ---------- the moods ---------- */
-  // root = MIDI tonic for harmony; melRoot = tonic the theme is written from (same pitch class).
-  // chords are semitone offsets from the tonic; themes are [offset, length in steps] (null = rest).
+  /* ---------- the moods (modern-minimal pass) ---------- */
+  // Underscore, not songs: slow modal harmony (two to four bars a chord), open voicings, pedal points,
+  // ostinatos on felt piano or strings, and short motifs of a few long notes that appear now and then.
+
+  const two = (...names) => names.flatMap((n) => [n, n]);
+  const four = (...names) => names.flatMap((n) => [n, n, n, n]);
+  // Chord tones (safe ones only) laid out in one octave from `lo`, low to high.
+  const near = (m, bar, lo) => bar.safe.map((x) => { let n = m.root + x; while (n < lo) n += 12; while (n >= lo + 12) n -= 12; return n; }).sort((a, b) => a - b);
+  // Felt piano: a muted, darker upright.
+  const felt = (L, midi, t, o = {}) => play(L, "piano2_pp", midi, t, Object.assign({ cutoff: 1800, a: 0.012, human: 3 }, o, { gain: (o.gain || 0.1) * 1.6 }));
+  // Broken-chord figure repeated over slowly moving harmony (Richter / Jóhannsson style).
+  function ostinato(L, m, t, s, bar, o) {
+    const every = o.every || 2;
+    if (s % every) return;
+    const k = Math.floor(s / every) % o.pattern.length, idx = o.pattern[k];
+    if (idx == null) return;
+    const tones = near(m, bar, o.lo);
+    const n = tones[idx % tones.length] + 12 * Math.floor(idx / tones.length);
+    const g = o.gain * (0.45 + 0.75 * L.tension) * (k === 0 ? 1.15 : 1);
+    if ((o.inst || "piano") === "piano") felt(L, n, t + (R() - 0.5) * 0.012, { gain: g, cutoff: o.cutoff || 1800, pan: o.pan == null ? (k % 2 ? 0.12 : -0.12) : o.pan });
+    else play(L, o.inst, n, t, { gain: g, pan: o.pan == null ? rpan(0.2) : o.pan, dur: o.dur, r: o.r });
+  }
+  // A single soft piano note now and then, high and far away.
+  function sparks(L, m, t, s, bar, p, lo) {
+    if (s % 4 || R() > p) return;
+    const tones = near(m, bar, lo);
+    felt(L, pick(tones), t, { gain: 0.08 + 0.05 * L.tension, cutoff: 2400, pan: rpan(0.5) });
+  }
+
   const MOODS = {
     dreamy: {
       name: "Dreamy", line: "Half-awake, floating, slow light through a window.",
       colors: ["#7f9cff", "#c3a2ff", "#3b3f8f"],
-      uses: layersOf(["violins", "violas", "cellos", "flute", "harp", "glock", "bells1"]),
-      bpm: 56, wet: 0.8, dry: 0.65, root: 62, melRoot: 62, level: 2.4,
+      uses: layersOf(["vlns", "vlas", "vcs", "dbarco", "piano2_pp"]),
+      bpm: 52, wet: 0.85, dry: 0.6, root: 50, melRoot: 62, level: 2.2,
       scale: [0, 2, 4, 6, 7, 9, 11],
-      chords: { I: [0, 4, 7, 11], II: [2, 6, 9], vi: [9, 12, 16], iii: [4, 7, 11], V: [7, 11, 14] },
+      chords: { I: [0, 7, 4, 14], II: [2, 9, 6], vi: [11, 18, 14], iii: [6, 13, 9] },
       voices: [
-        { inst: "violins", range: [69, 86], gain: 0.13, pan: 0.45, when: (sec) => sec.i >= 0.3 },
-        { inst: "violins", range: [62, 79], gain: 0.13, pan: 0.25 },
-        { inst: "violas", range: [55, 71], gain: 0.14, pan: -0.25 },
-        { inst: "cellos", bass: true, range: [38, 53], gain: 0.16, pan: -0.4 },
+        { inst: "vlns", range: [69, 84], gain: 0.09, pan: 0.45, dyn: 0.8, when: (sec) => sec.i >= 0.35 },
+        { inst: "vlns", range: [62, 76], gain: 0.1, pan: 0.25, dyn: 0.85 },
+        { inst: "vlas", range: [55, 69], gain: 0.11, pan: -0.2 },
+        { inst: "vcs", range: [45, 57], gain: 0.1, pan: -0.4 },
+        { inst: "dbarco", bass: true, range: [33, 45], gain: 0.1, pan: 0.1, when: (sec) => sec.i >= 0.3 },
       ],
-      theme: {
-        A: [[7, 6], [11, 2], [14, 8], [12, 4], [11, 4], [9, 8]],
-        B: [[7, 4], [9, 4], [6, 8], [4, 12], [null, 4]],
-        C: [[7, 4], [9, 4], [11, 8], [12, 16]],
-      },
+      theme: { A: [[7, 16], [4, 8], [2, 24]], B: [[9, 16], [7, 16]] },
       get form() {
-        const T = this.theme, lead = (L) => (L.cycle % 2 ? { inst: "violins", gain: 0.12, pan: 0.15 } : { inst: "flute", gain: 0.13, pan: 0.15 });
+        const T = this.theme, va = { inst: "vlas", gain: 0.11, pan: 0.1 };
         return [
-          { name: "establish", bars: 4, i: 0.15, prog: ["I", "I", "II", "II"], pedal: "I",
-            mel: (L, m, put) => { put(head(T.A, 3), 1, { inst: "harp", gain: 0.24 }); put(head(T.A, 3), 3, { inst: "harp", gain: 0.2 }); } },
-          { name: "theme", bars: 8, i: 0.35, prog: ["I", "II", "vi", "I", "I", "II", "vi", "V"],
-            mel: (L, m, put) => { const o = lead(L); put(T.A, 0, o); put(T.B, 2, o); put(T.A, 4, o); put(T.C, 6, o); } },
-          { name: "develop", bars: 8, i: 0.5, prog: ["iii", "vi", "II", "V", "iii", "vi", "II", "II"],
-            mel: (L, m, put) => { put(seq(T.A, 2, m.scale), 0, { inst: "violins", gain: 0.11, pan: 0.3 });
-              put(seq(T.A, -1, m.scale), 4, { inst: "flute", gain: 0.11, pan: -0.1 }); put(T.B, 6, { inst: "harp", gain: 0.2 }); } },
-          { name: "peak", bars: 4, i: 0.7, prog: ["I", "II", "vi", "II"],
-            mel: (L, m, put) => { put(T.A, 0, { inst: "violins", gain: 0.12, oct: 12, pan: 0.35 }); put(T.A, 0, { inst: "glock", gain: 0.06, oct: 12 });
-              put(T.C, 2, { inst: "violins", gain: 0.12, oct: 12, pan: 0.35 }); } },
-          { name: "release", bars: 8, i: 0.3, prog: ["I", "II", "I", "II", "vi", "V", "I", "I"],
-            mel: (L, m, put) => { put(aug(T.B, 1.5), 1, { inst: "flute", gain: 0.1, pan: 0.2 }); put(head(T.A, 3), 6, { inst: "harp", gain: 0.18 }); } },
-          { name: "breath", bars: 4, i: 0.1, prog: ["I", "I", "II", "I"], pedal: "I" },
+          { name: "establish", bars: 4, i: 0.15, prog: four("I"), pedal: "I" },
+          { name: "A", bars: 8, i: 0.32, prog: two("I", "II", "I", "vi"), mel: (L, m, put) => put(T.A, 2, va) },
+          { name: "B", bars: 8, i: 0.45, prog: two("vi", "iii", "II", "II"), mel: (L, m, put) => put(T.B, 3, va) },
+          { name: "peak", bars: 8, i: 0.62, prog: two("I", "II", "vi", "II"), mel: (L, m, put) => put(T.A, 2, { inst: "vlns", gain: 0.1, oct: 12, pan: 0.3 }) },
+          { name: "release", bars: 8, i: 0.28, prog: two("I", "II", "I", "I") },
+          { name: "breath", bars: 4, i: 0.12, prog: four("I"), pedal: "I" },
         ];
       },
       step(L, t, s) { composedStep(this, L, t, s); },
-      colour(L, t, s, bar) {
-        const m = this, d = L.e.density;
-        if (s % 2 === 0 && R() < (0.03 + 0.12 * L.tension) * d) play(L, "harp", m.root + 12 + pick(bar.safe), t, { gain: 0.13 + 0.08 * L.tension, pan: rpan(0.7) });
-        if (s % 8 === 4 && R() < 0.03 * d) play(L, "glock", m.root + 24 + pick(bar.safe), t, { gain: 0.05, pan: rpan(0.8) });
-        if (s % (L.plan.len * 16) === 0) play(L, "bells1", null, t, { gain: 0.07, pan: rpan(0.6), rate: 0.9 });
-      },
+      colour(L, t, s, bar) { sparks(L, this, t, s, bar, 0.05 + 0.1 * L.tension, 74); },
     },
 
     lovely: {
       name: "Lovely", line: "Warm, tender, someone you are glad is next to you.",
       colors: ["#ff9fb2", "#ffcb9a", "#8a3d5c"],
-      uses: layersOf(["piano", "violins", "violas", "cellos", "flute"]),
-      bpm: 66, wet: 0.5, dry: 0.85, root: 53, melRoot: 65, level: 2.82,
+      uses: layersOf(["piano2_pp", "vlns", "vlas", "vcs", "dbarco"]),
+      bpm: 58, wet: 0.55, dry: 0.8, root: 53, melRoot: 65, level: 2.45,
       scale: [0, 2, 4, 5, 7, 9, 11],
-      chords: { I: [0, 4, 7], vi: [9, 12, 16], IV: [5, 9, 12], V: [7, 11, 14], ii: [2, 5, 9], iii: [4, 7, 11] },
+      chords: { I: [0, 7, 4, 14], iii: [4, 11, 7], IV: [5, 12, 9, 19], vi: [9, 16, 12], Vsus: [7, 14, 12] },
       voices: [
-        { inst: "violins", range: [65, 81], gain: 0.1, pan: 0.4, when: (sec) => sec.i >= 0.4 },
-        { inst: "violas", range: [57, 70], gain: 0.11, pan: 0.15 },
-        { inst: "violas", range: [52, 64], gain: 0.1, pan: -0.15 },
-        { inst: "cellos", bass: true, range: [36, 50], gain: 0.14, pan: -0.35 },
+        { inst: "vlns", range: [65, 79], gain: 0.08, pan: 0.35, dyn: 0.85, when: (sec) => sec.i >= 0.45 },
+        { inst: "vlas", range: [55, 67], gain: 0.08, pan: -0.15, when: (sec) => sec.i >= 0.3 },
+        { inst: "vcs", range: [45, 57], gain: 0.09, pan: -0.3, when: (sec) => sec.i >= 0.25 },
+        { inst: "dbarco", bass: true, range: [29, 41], gain: 0.08, pan: 0.1, when: (sec) => sec.i >= 0.4 },
       ],
-      theme: {
-        A: [[0, 4], [4, 4], [7, 6], [9, 2], [7, 8], [4, 8]],
-        B: [[5, 4], [4, 4], [2, 4], [4, 4], [2, 16]],
-        C: [[9, 4], [7, 4], [4, 4], [2, 4], [0, 16]],
-      },
+      theme: { A: [[4, 12], [2, 4], [0, 16]], B: [[7, 8], [9, 8], [7, 16]] },
       get form() {
-        const T = this.theme, pno = { inst: "piano", gain: 0.24, pan: 0.1 };
+        const T = this.theme, vc = { inst: "vcs", gain: 0.11, oct: -12, pan: -0.15 };
         return [
-          { name: "intro", bars: 4, i: 0.2, prog: ["I", "IV", "I", "IV"], mel: (L, m, put) => put(head(T.A, 3), 2, pno) },
-          { name: "theme", bars: 8, i: 0.38, prog: ["I", "vi", "IV", "V", "I", "vi", "ii", "V"],
-            mel: (L, m, put) => { put(T.A, 0, pno); put(T.B, 2, pno); put(T.A, 4, pno); put(T.C, 6, pno); } },
-          { name: "develop", bars: 8, i: 0.5, prog: ["vi", "iii", "IV", "I", "vi", "iii", "ii", "V"],
-            mel: (L, m, put) => { put(seq(T.A, -2, m.scale), 0, { inst: "flute", gain: 0.11, pan: 0.3 }); put(seq(T.B, 1, m.scale), 4, pno); } },
-          { name: "peak", bars: 4, i: 0.62, prog: ["IV", "V", "I", "vi"],
-            mel: (L, m, put) => { put(T.A, 0, { inst: "violins", gain: 0.12, pan: 0.35 }); put(T.C, 2, { inst: "violins", gain: 0.12, pan: 0.35 }); } },
-          { name: "release", bars: 8, i: 0.3, prog: ["IV", "I", "ii", "V", "IV", "I", "V", "I"],
-            mel: (L, m, put) => { put(aug(T.A, 1.5), 1, Object.assign({}, pno, { gain: 0.2 })); } },
-          { name: "breath", bars: 4, i: 0.15, prog: ["I", "IV", "I", "I"] },
+          { name: "intro", bars: 4, i: 0.15, prog: two("I", "IV"), pedal: "I" },
+          { name: "A", bars: 8, i: 0.32, prog: two("I", "iii", "IV", "I"), mel: (L, m, put) => put(T.A, 4, vc) },
+          { name: "B", bars: 8, i: 0.45, prog: two("vi", "IV", "I", "Vsus"), mel: (L, m, put) => put(T.B, 2, vc) },
+          { name: "peak", bars: 8, i: 0.6, prog: two("IV", "I", "vi", "Vsus"), mel: (L, m, put) => { put(T.A, 0, { inst: "vlns", gain: 0.1, pan: 0.3 }); put(T.B, 4, vc); } },
+          { name: "release", bars: 8, i: 0.28, prog: two("IV", "I", "Vsus", "I") },
+          { name: "breath", bars: 4, i: 0.12, prog: two("I", "I"), pedal: "I" },
         ];
       },
       step(L, t, s) { composedStep(this, L, t, s); },
-      colour(L, t, s, bar, bi) {
+      colour(L, t, s, bar) {
         const m = this, st = s % 16;
-        // left hand: root on 1, open fifth/tenth on 3, a little softer while the theme sings
-        const soft = melodyIn(L, bi, "piano") ? 0.7 : 1;
-        if (st === 0) play(L, "piano", m.root - 12 + bar.chord[0], t, { gain: 0.16 * soft, pan: -0.2 });
-        if (st === 8) play(L, "piano", m.root + bar.safe[1 % bar.safe.length], t + 0.02, { gain: 0.1 * soft, pan: -0.1 });
-        if (st === 12 && R() < 0.4) play(L, "piano", m.root + 7 + bar.chord[0], t + 0.02, { gain: 0.07 * soft, pan: -0.1 });
+        ostinato(L, m, t, s, bar, { pattern: [0, 2, 1, 3, 2, 1, 3, 2], lo: 60, gain: 0.11 });
+        if (st === 0 && bar.b % 2 === 0) felt(L, m.root - 12 + bar.chord[0], t, { gain: 0.14, pan: -0.2 });
       },
     },
 
     happy: {
       name: "Happy", line: "Windows down, sun on the dashboard, no hurry.",
       colors: ["#ffd36b", "#7fe0c2", "#e2793f"],
-      uses: layersOf(["marimba", "cellopizz", "vlnpizz", "shaker", "tamb", "kick", "violins", "violas", "flute"]),
-      bpm: 100, wet: 0.28, dry: 0.85, root: 55, melRoot: 67, level: 1.5,
+      uses: layersOf(["piano2_pp", "vlns", "vlas", "vcs", "dbarco", "cellospic", "horn"]),
+      bpm: 84, wet: 0.45, dry: 0.8, root: 55, melRoot: 67, level: 2.37,
       scale: [0, 2, 4, 5, 7, 9, 11],
-      chords: { I: [0, 4, 7], V: [7, 11, 14], vi: [9, 12, 16], IV: [5, 9, 12], ii: [2, 5, 9] },
+      chords: { I: [0, 7, 4, 14], IV: [5, 12, 9, 19], vi: [9, 16, 12], Vsus: [7, 14, 12], iii: [4, 11, 7] },
       voices: [
-        { inst: "violins", range: [67, 83], gain: 0.06, pan: 0.4, when: (sec) => sec.i >= 0.5 },
-        { inst: "violas", range: [57, 72], gain: 0.06, pan: -0.2, when: (sec) => sec.i >= 0.4 },
+        { inst: "vlns", range: [67, 83], gain: 0.08, pan: 0.4, when: (sec) => sec.i >= 0.45 },
+        { inst: "vlas", range: [57, 69], gain: 0.08, pan: -0.1, when: (sec) => sec.i >= 0.3 },
+        { inst: "vcs", range: [47, 59], gain: 0.09, pan: -0.3 },
+        { inst: "dbarco", bass: true, range: [31, 43], gain: 0.09, pan: 0.1, when: (sec) => sec.i >= 0.35 },
       ],
-      theme: {
-        A: [[7, 2], [9, 2], [11, 4], [14, 4], [11, 4], [12, 4], [11, 2], [9, 2], [7, 8]],
-        B: [[4, 2], [7, 2], [9, 4], [11, 4], [9, 4], [7, 8], [null, 8]],
-        C: [[12, 4], [11, 4], [9, 4], [11, 4], [7, 16]],
-      },
+      theme: { A: [[4, 8], [7, 8], [9, 24], [7, 8]], B: [[12, 16], [11, 8], [7, 24]] },
       get form() {
-        const T = this.theme, lead = (L) => (L.cycle % 2 ? { inst: "flute", gain: 0.11, pan: 0.2 } : { inst: "marimba", gain: 0.22, pan: 0.2 });
+        const T = this.theme, hn = { inst: "horn", gain: 0.12, oct: -12, pan: -0.25 };
         return [
-          { name: "intro", bars: 4, i: 0.25, prog: ["I", "I", "IV", "V"] },
-          { name: "theme", bars: 8, i: 0.45, prog: ["I", "V", "vi", "IV", "I", "V", "IV", "I"],
-            mel: (L, m, put) => { const o = lead(L); put(T.A, 0, o); put(T.B, 2, o); put(T.A, 4, o); put(T.C, 6, o); } },
-          { name: "develop", bars: 8, i: 0.55, prog: ["vi", "IV", "I", "V", "vi", "IV", "ii", "V"],
-            mel: (L, m, put) => { put(seq(T.A, -2, m.scale), 0, { inst: "vlnpizz", gain: 0.16, pan: -0.2 }); put(seq(T.A, 1, m.scale), 4, lead(L)); } },
-          { name: "peak", bars: 8, i: 0.75, prog: ["I", "V", "vi", "IV", "I", "V", "IV", "I"],
-            mel: (L, m, put) => { const o = lead(L); put(T.A, 0, o); put(T.B, 2, o); put(T.A, 4, o); put(T.C, 6, o);
-              put(T.A, 4, { inst: "vlnpizz", gain: 0.12, oct: 12, pan: -0.3 }); } },
-          { name: "release", bars: 4, i: 0.35, prog: ["IV", "I", "V", "I"] },
-          { name: "breath", bars: 4, i: 0.2, prog: ["I", "I", "IV", "I"] },
+          { name: "intro", bars: 4, i: 0.22, prog: two("I", "I") },
+          { name: "A", bars: 8, i: 0.4, prog: two("I", "IV", "vi", "IV"), mel: (L, m, put) => put(T.A, 2, hn) },
+          { name: "B", bars: 8, i: 0.5, prog: two("I", "Vsus", "IV", "IV"), mel: (L, m, put) => put(T.B, 4, { inst: "vlns", gain: 0.09, pan: 0.3 }) },
+          { name: "peak", bars: 8, i: 0.7, prog: two("I", "iii", "IV", "Vsus"), mel: (L, m, put) => { put(T.A, 0, hn); put(T.B, 4, { inst: "vlns", gain: 0.1, pan: 0.3 }); } },
+          { name: "release", bars: 8, i: 0.32, prog: two("IV", "I", "IV", "I") },
         ];
       },
-      arp: [0, 1, 2, 1],
       step(L, t, s) { composedStep(this, L, t, s); },
-      colour(L, t, s, bar, bi) {
-        const m = this, d = L.e.density, st = s % 16, ten = L.tension;
-        const busy = melodyIn(L, bi, "marimba");
-        if (!busy && R() < (st % 4 === 0 ? 0.5 : 0.2) * d * (0.4 + ten))
-          play(L, "marimba", m.root + bar.safe[m.arp[(s >> 1) % 4] % bar.safe.length], t, { gain: 0.12, pan: (st / 15) - 0.5 });
-        if (st === 0 || st === 6 || st === 8) play(L, "cellopizz", m.root - 12 + bar.chord[0] + (st === 6 ? 7 : 0), t, { gain: 0.26 + 0.08 * ten, pan: -0.1 });
-        if ((st === 4 || st === 12) && ten > 0.3) strum(L, "vlnpizz", bar.safe.map((n) => m.root + n), t, { gain: 0.07, spread: 0.012 });
-        if (ten > 0.35 && s % 8 === 0) play(L, "kick", null, t, { gain: 0.18 * ten * d, pan: 0, human: 0 });
-        if (s % 2 === 1) play(L, "shaker", null, t, { gain: (0.02 + 0.05 * ten) * d, pan: 0.3 });
-        if ((st === 4 || st === 12) && ten > 0.5) play(L, "tamb", null, t, { gain: 0.05 * d, pan: -0.35 });
+      colour(L, t, s, bar) {
+        const m = this, ten = L.tension;
+        ostinato(L, m, t, s, bar, { pattern: [0, 1, 2, 3, 2, 1, 2, 3], lo: 62, gain: 0.1, cutoff: 2600 });
+        if (ten > 0.42 && s % 2 === 0) {
+          const pat = [0, 0, 7, 0, 12, 0, 7, 0];
+          play(L, "cellospic", m.root - 12 + bar.chord[0] + pat[(s / 2) % 8], t, { gain: 0.04 + 0.08 * ten, pan: -0.3 });
+        }
       },
     },
 
     wonder: {
       name: "Wonder", line: "Mountains turning gold. The whole world, wider than you remembered.",
       colors: ["#8fe3d4", "#ffe2a3", "#2f6f8f"],
-      uses: layersOf(["harp", "violins", "violas", "cellos", "horn", "glock", "flute"]),
-      bpm: 72, wet: 0.7, dry: 0.7, root: 52, melRoot: 52, level: 2.23,
+      uses: layersOf(["vlns", "vlas", "vcs", "dbarco", "horn", "piano2_pp", "vlntrem", "timpani"]),
+      bpm: 62, wet: 0.75, dry: 0.7, root: 52, melRoot: 64, level: 2.22,
       scale: [0, 2, 4, 5, 7, 9, 11],
-      chords: { I: [0, 4, 7], IV: [5, 9, 12], vi: [9, 12, 16], V: [7, 11, 14], iii: [4, 7, 11], bVII: [10, 14, 17] },
+      chords: { I: [0, 7, 4, 14], bVII: [10, 17, 14, 24], IV: [5, 12, 9, 19], bVI: [8, 15, 12] },
       voices: [
-        { inst: "violins", range: [71, 88], gain: 0.11, pan: 0.5, when: (sec) => sec.i >= 0.4 },
-        { inst: "violins", range: [64, 79], gain: 0.11, pan: 0.3 },
-        { inst: "violas", range: [55, 71], gain: 0.12, pan: -0.15 },
-        { inst: "cellos", bass: true, range: [40, 52], gain: 0.15, pan: -0.4 },
+        { inst: "vlns", range: [71, 86], gain: 0.09, pan: 0.5, when: (sec) => sec.i >= 0.45 },
+        { inst: "vlns", range: [64, 78], gain: 0.1, pan: 0.3 },
+        { inst: "vlas", range: [55, 69], gain: 0.11, pan: -0.1 },
+        { inst: "vcs", range: [43, 57], gain: 0.11, pan: -0.35 },
+        { inst: "dbarco", bass: true, range: [28, 40], gain: 0.12, pan: 0.1, when: (sec) => sec.i >= 0.3 },
+        { inst: "vlntrem", range: [76, 88], gain: 0.025, pan: -0.5, when: (sec) => sec.i >= 0.6 },
       ],
-      theme: {
-        A: [[0, 4], [7, 4], [12, 8], [11, 4], [9, 4], [7, 8]],
-        B: [[4, 4], [7, 4], [9, 8], [7, 4], [4, 4], [2, 8]],
-        C: [[0, 4], [7, 4], [12, 4], [14, 4], [16, 8], [12, 8]],
-      },
+      theme: { A: [[0, 8], [7, 12], [4, 28]], B: [[2, 8], [7, 8], [9, 32]] },
       get form() {
-        const T = this.theme, hn = { inst: "horn", gain: 0.15, pan: -0.25 };
+        const T = this.theme, hn = { inst: "horn", gain: 0.13, oct: -12, pan: -0.25 };
         return [
-          { name: "establish", bars: 4, i: 0.2, prog: ["I", "I", "IV", "IV"], pedal: "I" },
-          { name: "theme", bars: 8, i: 0.4, prog: ["I", "IV", "vi", "V", "I", "IV", "bVII", "I"],
-            mel: (L, m, put) => { put(T.A, 0, hn); put(T.B, 2, hn); put(T.A, 4, hn); put(T.C, 6, { inst: "violins", gain: 0.11, oct: 12, pan: 0.35 }); } },
-          { name: "develop", bars: 8, i: 0.5, prog: ["vi", "iii", "IV", "I", "vi", "IV", "bVII", "V"],
-            mel: (L, m, put) => { put(seq(T.A, 2, m.scale), 0, { inst: "flute", gain: 0.11, oct: 12, pan: 0.3 }); put(seq(T.B, -1, m.scale), 4, hn); } },
-          { name: "peak", bars: 8, i: 0.8, prog: ["I", "IV", "vi", "V", "I", "bVII", "IV", "I"],
-            mel: (L, m, put) => { const vn = { inst: "violins", gain: 0.13, oct: 12, pan: 0.4 };
-              [[T.A, 0], [T.B, 2], [T.A, 4], [T.C, 6]].forEach(([mo, b]) => { put(mo, b, vn); put(mo, b, mo === T.C ? Object.assign({}, hn, { oct: -12 }) : hn); }); } },
-          { name: "release", bars: 8, i: 0.35, prog: ["IV", "I", "vi", "V", "IV", "I", "IV", "I"],
-            mel: (L, m, put) => put(aug(T.A, 1.5), 2, { inst: "flute", gain: 0.1, oct: 12, pan: 0.25 }) },
-          { name: "breath", bars: 4, i: 0.15, prog: ["I", "I", "IV", "I"], pedal: "I" },
+          { name: "establish", bars: 4, i: 0.18, prog: four("I"), pedal: "I" },
+          { name: "A", bars: 8, i: 0.38, prog: two("I", "bVII", "IV", "I"), mel: (L, m, put) => put(T.A, 2, hn) },
+          { name: "B", bars: 8, i: 0.5, prog: two("bVI", "bVII", "I", "I"), mel: (L, m, put) => put(T.B, 2, hn) },
+          { name: "peak", bars: 8, i: 0.78, prog: two("I", "bVII", "IV", "I"), mel: (L, m, put) => { put(T.A, 0, { inst: "vlns", gain: 0.11, pan: 0.35 }); put(T.A, 0, hn); put(T.B, 4, hn); } },
+          { name: "release", bars: 8, i: 0.32, prog: two("IV", "I", "bVII", "I") },
+          { name: "breath", bars: 4, i: 0.12, prog: four("I"), pedal: "I" },
         ];
       },
       step(L, t, s) { composedStep(this, L, t, s); },
       colour(L, t, s, bar) {
-        const m = this, d = L.e.density, st = s % 16, ten = L.tension;
-        if (st < 10 && R() < (0.25 + 0.5 * ten) * d) {
-          const tones = bar.safe.concat(bar.safe.map((n) => n + 12));
-          play(L, "harp", m.root + 12 + tones[st % tones.length], t, { gain: 0.12 + 0.08 * ten, pan: st / 9 - 0.5 });
-        }
-        if (ten > 0.6 && s % 4 === 0 && R() < 0.05 * d) play(L, "glock", m.root + 36 + pc12(pick(bar.safe)), t, { gain: 0.06, pan: rpan(0.8) });
+        const m = this;
+        sparks(L, m, t, s, bar, 0.04 + 0.08 * L.tension, 76);
+        if (bar.sec.name === "peak" && bar.b === 0 && s % 16 === 0) play(L, "timpani", m.root - 24 + bar.chord[0], t, { gain: 0.16, pan: 0 });
       },
     },
 
     fairytale: {
       name: "Fairy tale", line: "Once upon a time, a little lantern in a big dark forest.",
       colors: ["#f5b8ff", "#a9d8ff", "#4b3a8f"],
-      uses: layersOf(["basspizz", "vlnpizz", "glock", "flute", "violas", "triangle"]),
-      bpm: 126, barSteps: 12, wet: 0.5, dry: 0.8, root: 60, melRoot: 72, level: 1.82,
-      scale: [0, 2, 4, 5, 7, 9, 11],
-      chords: { I: [0, 4, 7], vi: [9, 12, 16], IV: [5, 9, 12], V: [7, 11, 14], ii: [2, 5, 9] },
+      uses: layersOf(["harp2", "clar2", "vlns", "vlas", "vcs", "dbarco"]),
+      bpm: 108, barSteps: 12, wet: 0.65, dry: 0.75, root: 50, melRoot: 62, level: 2.35,
+      scale: [0, 2, 3, 5, 7, 9, 10],
+      chords: { i: [0, 7, 3], IV: [5, 12, 9], III: [3, 10, 7], VII: [10, 17, 14] },
       voices: [
-        { inst: "violas", range: [55, 67], gain: 0.05, pan: -0.2, when: (sec) => sec.i >= 0.3 },
-        { inst: "violas", range: [60, 72], gain: 0.05, pan: 0.2, when: (sec) => sec.i >= 0.45 },
+        { inst: "vlns", range: [65, 79], gain: 0.07, pan: 0.4, dyn: 0.85, when: (sec) => sec.i >= 0.45 },
+        { inst: "vlas", range: [55, 67], gain: 0.08, pan: -0.15 },
+        { inst: "vcs", range: [45, 57], gain: 0.08, pan: -0.3, when: (sec) => sec.i >= 0.3 },
+        { inst: "dbarco", bass: true, range: [31, 43], gain: 0.09, pan: 0.1 },
       ],
-      theme: {   // 3/4: 12 steps a bar
-        A: [[0, 4], [4, 4], [7, 4], [9, 6], [7, 2], [4, 4], [5, 4], [4, 4], [2, 4], [0, 12]],
-        B: [[7, 4], [9, 4], [11, 4], [12, 6], [11, 2], [9, 4], [7, 4], [5, 4], [4, 4], [2, 12]],
-        C: [[4, 4], [5, 4], [7, 4], [9, 8], [7, 4], [5, 4], [4, 4], [2, 4], [0, 12]],
-      },
+      theme: { A: [[7, 12], [5, 6], [3, 6], [2, 12], [0, 12]], B: [[3, 12], [5, 12], [7, 24]] },
       get form() {
-        const T = this.theme, lead = (L) => (L.cycle % 2 ? { inst: "flute", gain: 0.12, oct: -12, pan: 0.2 } : { inst: "glock", gain: 0.11, pan: 0.2 });
+        const T = this.theme, cl = { inst: "clar2", gain: 0.1, oct: -12, pan: 0.25 };
         return [
-          { name: "intro", bars: 8, i: 0.2, prog: ["I", "I", "IV", "I", "I", "IV", "V", "I"] },
-          { name: "theme", bars: 16, i: 0.4, prog: ["I", "vi", "IV", "V", "I", "vi", "ii", "V", "I", "vi", "IV", "V", "IV", "V", "I", "I"],
-            mel: (L, m, put) => { const o = lead(L); put(T.A, 0, o); put(T.B, 4, o); put(T.A, 8, o); put(T.C, 12, o); } },
-          { name: "develop", bars: 16, i: 0.5, prog: ["vi", "IV", "I", "V", "vi", "IV", "ii", "V", "IV", "V", "I", "vi", "IV", "ii", "V", "V"],
-            mel: (L, m, put) => { put(seq(T.A, -2, m.scale), 0, { inst: "flute", gain: 0.11, oct: -12, pan: -0.2 }); put(seq(T.B, 1, m.scale), 8, { inst: "glock", gain: 0.1 }); } },
-          { name: "peak", bars: 8, i: 0.62, prog: ["IV", "V", "I", "vi", "IV", "V", "I", "I"],
-            mel: (L, m, put) => { put(T.A, 0, { inst: "flute", gain: 0.12, oct: -12, pan: 0.2 }); put(T.A, 0, { inst: "glock", gain: 0.08 }); put(T.C, 4, { inst: "flute", gain: 0.12, oct: -12, pan: 0.2 }); } },
-          { name: "release", bars: 16, i: 0.3, prog: ["IV", "I", "ii", "V", "IV", "I", "V", "I"],
-            mel: (L, m, put) => put(aug(T.A, 1.5), 2, { inst: "glock", gain: 0.09 }) },
-          { name: "breath", bars: 8, i: 0.15, prog: ["I", "I", "IV", "I"] },
+          { name: "intro", bars: 8, i: 0.18, prog: two("i", "i", "IV", "i") },
+          { name: "A", bars: 16, i: 0.35, prog: two("i", "IV", "i", "VII", "III", "VII", "IV", "i"), mel: (L, m, put) => { put(T.A, 2, cl); put(T.B, 10, cl); } },
+          { name: "peak", bars: 16, i: 0.55, prog: two("III", "VII", "IV", "i", "III", "VII", "IV", "IV"), mel: (L, m, put) => put(T.A, 4, { inst: "vlns", gain: 0.09, pan: 0.3 }) },
+          { name: "release", bars: 16, i: 0.28, prog: two("i", "IV", "i", "VII", "IV", "i", "i", "i"), mel: (L, m, put) => put(T.B, 6, cl) },
         ];
       },
       step(L, t, s) { composedStep(this, L, t, s); },
-      colour(L, t, s, bar, bi) {
+      colour(L, t, s, bar) {
+        // a slow waltz on the harp: low note on one, two quiet chord tones on two and three
         const m = this, st = s % 12, ten = L.tension;
-        if (st === 0) play(L, "basspizz", m.root - 24 + bar.chord[0], t, { gain: 0.24 + 0.08 * ten, pan: -0.1 });
-        if (st === 4 || st === 8) strum(L, "vlnpizz", bar.safe.map((n) => m.root + n), t, { gain: 0.05 + 0.03 * ten, spread: 0.01 });
-        if (bar.b === 0 && st === 0 && bar.sec.i >= 0.4) play(L, "triangle", null, t, { gain: 0.05, pan: 0.5 });
+        if (st === 0) play(L, "harp2", m.root - 12 + bar.chord[0], t, { gain: 0.14 + 0.06 * ten, pan: -0.15 });
+        if (st === 4 || st === 8) { const tn = near(m, bar, 57); play(L, "harp2", tn[st === 4 ? 0 : 1], t, { gain: 0.07 + 0.04 * ten, pan: 0.15 }); play(L, "harp2", tn[2 % tn.length], t + 0.015, { gain: 0.06 + 0.03 * ten, pan: 0.2 }); }
       },
     },
 
     melancholy: {
       name: "Melancholy", line: "Rain on the window. The last day of the trip.",
       colors: ["#8aa0b8", "#5d6f8a", "#1d2738"],
-      uses: layersOf(["piano", "cellos", "violas", "clarinet"]),
-      bpm: 60, wet: 0.75, dry: 0.75, root: 57, melRoot: 69, level: 3.24,
+      uses: layersOf(["piano2_pp", "vcs", "vlas", "vlns", "dbarco", "clar2"]),
+      bpm: 54, wet: 0.75, dry: 0.75, root: 45, melRoot: 57, level: 2.66,
       scale: [0, 2, 3, 5, 7, 8, 10],
-      chords: { i: [0, 3, 7], VI: [8, 12, 15], iv: [5, 8, 12], v: [7, 10, 14], III: [3, 7, 10], VII: [10, 14, 17] },
+      chords: { i: [0, 7, 3], VI: [8, 15, 12], III: [3, 10, 7], VII: [10, 17, 14], iv: [5, 12, 8] },
       voices: [
-        { inst: "violas", range: [57, 69], gain: 0.07, pan: 0.2, when: (sec) => sec.i >= 0.25 },
-        { inst: "cellos", range: [48, 62], gain: 0.09, pan: -0.1, when: (sec) => sec.i >= 0.3 },
-        { inst: "cellos", bass: true, range: [36, 50], gain: 0.11, pan: -0.3 },
+        { inst: "vlns", range: [64, 76], gain: 0.07, pan: 0.35, dyn: 0.8, when: (sec) => sec.i >= 0.45 },
+        { inst: "vlas", range: [55, 67], gain: 0.08, pan: 0.15, when: (sec) => sec.i >= 0.25 },
+        { inst: "vcs", range: [45, 57], gain: 0.09, pan: -0.15, when: (sec) => sec.i >= 0.3 },
+        { inst: "dbarco", bass: true, range: [28, 40], gain: 0.09, pan: -0.1 },
       ],
-      theme: {
-        A: [[7, 4], [3, 4], [2, 4], [0, 4], [3, 8], [null, 8]],
-        B: [[8, 6], [7, 2], [5, 4], [3, 4], [2, 16]],
-        C: [[0, 4], [3, 4], [7, 4], [12, 4], [10, 6], [8, 2], [7, 8]],
-      },
+      theme: { A: [[7, 12], [3, 4], [2, 16], [0, 16]], B: [[8, 16], [7, 16], [3, 32]] },
       get form() {
-        const T = this.theme, pno = { inst: "piano", gain: 0.24, pan: 0.05 };
+        const T = this.theme, vc = { inst: "vcs", gain: 0.11, pan: -0.2 };
         return [
-          { name: "intro", bars: 4, i: 0.15, prog: ["i", "VI", "iv", "v"], mel: (L, m, put) => put(head(T.A, 4), 2, Object.assign({}, pno, { gain: 0.18 })) },
-          { name: "theme", bars: 8, i: 0.3, prog: ["i", "VI", "iv", "v", "i", "VI", "III", "v"],
-            mel: (L, m, put) => { put(T.A, 0, pno); put(T.B, 2, pno); put(T.A, 4, pno); put(T.C, 6, pno); } },
-          { name: "develop", bars: 8, i: 0.4, prog: ["VI", "III", "VII", "i", "VI", "III", "iv", "v"],
-            mel: (L, m, put) => { put(T.A, 0, { inst: "clarinet", gain: 0.11, oct: -12, pan: 0.3 }); put(seq(T.B, 2, m.scale), 4, { inst: "clarinet", gain: 0.11, oct: -12, pan: 0.3 }); } },
-          { name: "peak", bars: 4, i: 0.55, prog: ["VI", "VII", "i", "i"],
-            mel: (L, m, put) => { put(T.C, 0, { inst: "cellos", gain: 0.12, oct: -12, pan: -0.2 }); put(T.C, 0, Object.assign({}, pno, { oct: 12, gain: 0.12 })); } },
-          { name: "release", bars: 8, i: 0.25, prog: ["iv", "i", "VI", "v", "iv", "i", "v", "i"],
-            mel: (L, m, put) => put(aug(T.A, 1.5), 1, Object.assign({}, pno, { gain: 0.2 })) },
-          { name: "breath", bars: 4, i: 0.1, prog: ["i", "i", "VI", "i"] },
+          { name: "intro", bars: 4, i: 0.12, prog: two("i", "VI") },
+          { name: "A", bars: 8, i: 0.28, prog: two("i", "VI", "III", "VII"), mel: (L, m, put) => put(T.A, 2, vc) },
+          { name: "B", bars: 8, i: 0.42, prog: two("VI", "VII", "i", "i"), mel: (L, m, put) => put(T.B, 2, { inst: "clar2", gain: 0.09, pan: 0.3 }) },
+          { name: "peak", bars: 8, i: 0.55, prog: two("iv", "VI", "III", "VII"), mel: (L, m, put) => put(T.A, 0, { inst: "vlns", gain: 0.09, oct: 12, pan: 0.3 }) },
+          { name: "release", bars: 8, i: 0.22, prog: two("i", "VI", "iv", "i") },
         ];
       },
       step(L, t, s) { composedStep(this, L, t, s); },
       colour(L, t, s, bar) {
-        const m = this, st = s % 16;
-        if (st === 0) play(L, "piano", m.root - 24 + bar.chord[0], t, { gain: 0.18, pan: -0.15 });
-        if (st === 6 && R() < 0.6) play(L, "piano", m.root - 12 + pick(bar.safe), t + 0.02, { gain: 0.08, pan: -0.05 });
+        const m = this;
+        ostinato(L, m, t, s, bar, { every: 4, pattern: [0, 1, 2, 1], lo: 57, gain: 0.12, cutoff: 1500 });
+        if (s % 16 === 0 && bar.b % 2 === 0) felt(L, m.root - 12 + bar.chord[0], t, { gain: 0.13, cutoff: 1200, pan: -0.2 });
       },
     },
 
     scifi: {
       name: "Sci-fi", line: "A quiet station orbiting somewhere far. Lights blinking in sequence.",
       colors: ["#5ad1ff", "#7a6bff", "#0e2a4a"],
-      uses: layersOf(["organ", "piano", "vlntrem", "glock", "bells2"]),
-      bpm: 84, wet: 0.7, dry: 0.7, root: 57, melRoot: 69, level: 3.88,
+      uses: layersOf(["organ", "vcs", "dbarco", "vlntrem", "piano2_pp", "horn"]),
+      bpm: 66, wet: 0.8, dry: 0.6, root: 45, melRoot: 57, level: 3.73,
       scale: [0, 2, 3, 5, 7, 9, 10],
-      chords: { i: [0, 3, 7], VI: [8, 12, 15], VII: [10, 14, 17], IV: [5, 9, 12], iv: [5, 8, 12] },
+      chords: { isus: [0, 7, 2], VI: [8, 15, 12], iv4: [5, 10, 15], VII: [10, 17, 14] },
       voices: [
-        { inst: "organ", range: [52, 64], gain: 0.08, pan: -0.3 },
-        { inst: "organ", range: [57, 69], gain: 0.08, pan: 0.3 },
-        { inst: "organ", range: [62, 74], gain: 0.07, pan: 0 },
-        { inst: "organ", bass: true, range: [33, 45], gain: 0.1, pan: 0 },
-        { inst: "vlntrem", range: [69, 84], gain: 0.035, pan: 0.6, when: (sec) => sec.i >= 0.55 },
+        { inst: "organ", range: [52, 64], gain: 0.07, pan: -0.3 },
+        { inst: "organ", range: [57, 69], gain: 0.06, pan: 0.3 },
+        { inst: "organ", range: [62, 74], gain: 0.05, pan: 0 },
+        { inst: "vcs", range: [40, 52], gain: 0.08, pan: -0.2, when: (sec) => sec.i >= 0.35 },
+        { inst: "dbarco", bass: true, range: [28, 40], gain: 0.1, pan: 0.1 },
+        { inst: "vlntrem", range: [74, 88], gain: 0.022, pan: 0.6, when: (sec) => sec.i >= 0.5 },
       ],
-      theme: {
-        A: [[0, 8], [7, 8], [12, 8], [10, 4], [7, 4]],
-        B: [[3, 8], [5, 8], [7, 16]],
-        C: [[12, 8], [15, 8], [14, 16]],
-      },
+      theme: { A: [[0, 16], [7, 16], [2, 32]] },
       get form() {
-        const T = this.theme, pno = { inst: "piano", gain: 0.16, pan: 0.2 };
+        const T = this.theme;
         return [
-          { name: "establish", bars: 8, i: 0.2, prog: ["i", "i", "VI", "VI", "VII", "VII", "i", "i"] },
-          { name: "theme", bars: 8, i: 0.4, prog: ["i", "VI", "VII", "IV", "i", "VI", "iv", "VII"],
-            mel: (L, m, put) => { put(T.A, 0, pno); put(T.B, 2, pno); put(T.A, 4, pno); put(T.C, 6, pno); } },
-          { name: "develop", bars: 8, i: 0.5, prog: ["VI", "VII", "i", "IV", "VI", "VII", "iv", "iv"],
-            mel: (L, m, put) => { put(head(T.A, 3), 1, { inst: "glock", gain: 0.06, pan: 0.5 }); put(seq(head(T.A, 3), 2, m.scale), 5, { inst: "glock", gain: 0.06, pan: -0.5 }); } },
-          { name: "peak", bars: 8, i: 0.65, prog: ["i", "VI", "VII", "IV", "i", "VI", "VII", "i"],
-            mel: (L, m, put) => { put(T.A, 0, pno); put(T.C, 2, pno); put(T.A, 4, Object.assign({}, pno, { oct: 12 })); put(T.C, 6, pno); } },
-          { name: "release", bars: 8, i: 0.3, prog: ["VI", "VII", "i", "i", "VI", "iv", "i", "i"],
-            mel: (L, m, put) => put(aug(T.B, 1.5), 2, pno) },
-          { name: "breath", bars: 4, i: 0.15, prog: ["i", "i", "VI", "i"] },
+          { name: "establish", bars: 8, i: 0.18, prog: four("isus", "isus"), pedal: "isus" },
+          { name: "A", bars: 8, i: 0.38, prog: four("VI", "isus"), mel: (L, m, put) => put(T.A, 2, { inst: "horn", gain: 0.11, oct: -12, pan: -0.2 }) },
+          { name: "B", bars: 8, i: 0.52, prog: four("iv4", "VII") },
+          { name: "peak", bars: 8, i: 0.62, prog: four("VI", "VII"), mel: (L, m, put) => put(T.A, 0, { inst: "vcs", gain: 0.1, pan: -0.25 }) },
+          { name: "release", bars: 8, i: 0.25, prog: four("isus", "isus"), pedal: "isus" },
         ];
       },
-      arp: [0, 1, 2, 1, 3, 1, 2, 1],
       step(L, t, s) { composedStep(this, L, t, s); },
-      colour(L, t, s, bar, bi) {
-        const m = this, st = s % 16, ten = L.tension, d = L.e.density;
-        // a quiet clockwork of piano eighths over the voice-led chord, thinner when the theme plays
-        const busy = melodyIn(L, bi, "piano");
-        if (s % 2 === 0 && R() < (busy ? 0.25 : 0.55) + 0.35 * ten) {
-          const v = bar.voicing.slice(0, 3);
-          play(L, "piano", v[m.arp[(s / 2) % 8] % v.length] + 12, t, { gain: 0.06 + (st === 0 ? 0.03 : 0), dur: L.sd * 3, r: 0.8, pan: (s % 4 ? 0.3 : -0.3) });
-        }
-        if (R() < 0.008 * d) for (let i = 0; i < 1 + Math.floor(R() * 3); i++) play(L, "glock", m.root + 36 + pc12(pick(bar.safe)), t + i * 0.13, { gain: 0.04, dur: 0.15, r: 0.2, pan: rpan(0.9) });
-        if (s % (L.plan.len * 16) === 32) play(L, "bells2", null, t, { gain: 0.06, rate: 0.75, pan: rpan(0.6) });
+      colour(L, t, s, bar) {
+        // a slow clock: two piano notes a fifth apart, always the same, as the harmony moves under them
+        const m = this, st = s % 16;
+        if (st === 0 || st === 8) felt(L, m.root + 24 + (st ? 7 : 0), t, { gain: 0.05 + 0.05 * L.tension, cutoff: 2200, pan: st ? 0.3 : -0.3 });
+        sparks(L, m, t, s, bar, 0.03, 81);
       },
     },
 
     neon: {
       name: "Neon night", line: "City lights sliding past a taxi window at 2 a.m.",
       colors: ["#ff4fd8", "#41e6ff", "#2a0a4a"],
-      uses: layersOf(["piano", "basspizz", "kick", "snare", "shaker", "violins", "violas", "straight"]),
-      bpm: 96, wet: 0.45, dry: 0.75, root: 52, melRoot: 64, level: 1.33,
+      uses: layersOf(["piano2_pp", "organ", "dbpizz_p", "kick", "vlas", "vcs"]),
+      bpm: 88, wet: 0.5, dry: 0.75, root: 52, melRoot: 64, level: 2.43,
       scale: [0, 2, 3, 5, 7, 8, 10],
-      chords: { i: [0, 3, 7], VI: [8, 12, 15], III: [3, 7, 10], VII: [10, 14, 17] },
+      chords: { i: [0, 7, 3], VI: [8, 15, 12], III: [3, 10, 7], VII: [10, 17, 14] },
       voices: [
-        { inst: "violins", range: [64, 79], gain: 0.05, pan: 0.4, when: (sec) => sec.i >= 0.4 },
-        { inst: "violas", range: [55, 70], gain: 0.05, pan: -0.3 },
-        { inst: "violas", range: [52, 64], gain: 0.04, pan: 0.2, when: (sec) => sec.i >= 0.5 },
+        { inst: "organ", range: [55, 67], gain: 0.05, pan: -0.25 },
+        { inst: "organ", range: [59, 71], gain: 0.04, pan: 0.25 },
+        { inst: "vlas", range: [60, 72], gain: 0.06, pan: 0.3, when: (sec) => sec.i >= 0.5 },
+        { inst: "vcs", bass: true, range: [40, 52], gain: 0.07, pan: -0.1, when: (sec) => sec.i >= 0.35 },
       ],
-      theme: {
-        A: [[7, 4], [10, 4], [12, 8], [15, 4], [12, 4], [10, 8]],
-        B: [[7, 4], [5, 4], [3, 8], [0, 16]],
-        C: [[12, 4], [10, 4], [12, 4], [15, 4], [14, 8], [12, 8]],
-      },
+      theme: { A: [[7, 16], [10, 8], [12, 24]], B: [[3, 16], [2, 16]] },
       get form() {
-        const T = this.theme, tp = { inst: "straight", gain: 0.12, pan: 0.2 };
+        const T = this.theme, va = { inst: "vlas", gain: 0.09, pan: 0.25 };
         return [
-          { name: "intro", bars: 4, i: 0.22, prog: ["i", "VI", "III", "VII"] },
-          { name: "theme", bars: 8, i: 0.45, prog: ["i", "VI", "III", "VII", "i", "VI", "III", "VII"],
-            mel: (L, m, put) => { put(T.A, 0, tp); put(T.B, 2, tp); put(T.A, 4, tp); put(T.C, 6, tp); } },
-          { name: "develop", bars: 8, i: 0.5, prog: ["VI", "VII", "i", "i", "VI", "VII", "III", "VII"] },
-          { name: "peak", bars: 8, i: 0.7, prog: ["i", "VI", "III", "VII", "i", "VI", "III", "VII"],
-            mel: (L, m, put) => { put(T.C, 0, tp); put(T.A, 2, tp); put(T.C, 4, tp); put(T.B, 6, tp); put(T.C, 4, { inst: "violins", gain: 0.08, pan: 0.4 }); } },
-          { name: "release", bars: 4, i: 0.35, prog: ["VI", "VII", "i", "i"] },
-          { name: "breath", bars: 4, i: 0.18, prog: ["i", "VI", "III", "VII"] },
+          { name: "intro", bars: 4, i: 0.2, prog: two("i", "VI") },
+          { name: "A", bars: 8, i: 0.4, prog: two("i", "VI", "III", "VII") },
+          { name: "B", bars: 8, i: 0.55, prog: two("VI", "VII", "i", "i"), mel: (L, m, put) => { put(T.A, 0, va); put(T.B, 4, va); } },
+          { name: "peak", bars: 8, i: 0.68, prog: two("i", "VI", "III", "VII"), mel: (L, m, put) => put(T.A, 2, Object.assign({}, va, { oct: 12, inst: "vlas" })) },
+          { name: "release", bars: 8, i: 0.28, prog: two("VI", "VII", "i", "i") },
         ];
       },
       step(L, t, s) { composedStep(this, L, t, s); },
       colour(L, t, s, bar) {
-        const m = this, sd = L.sd, d = L.e.density, st = s % 16, ten = L.tension;
-        if (s % 2 === 0) play(L, "basspizz", m.root - 24 + bar.chord[0] + (s % 4 === 2 ? 12 : 0), t, { gain: 0.14 + 0.16 * ten, dur: sd * 1.8, r: 0.15, pan: 0 });
-        if (s % 4 === 2 && R() < 0.4 + 0.5 * ten) bar.voicing.slice(0, 3).forEach((n, i) => play(L, "piano", n + 12, t, { gain: 0.06, dur: sd * 1.4, r: 0.12, pan: i * 0.2 - 0.2 }));
-        if (ten > 0.3) {
-          if (s % 4 === 0) play(L, "kick", null, t, { gain: 0.24 * ten * d, human: 0, pan: 0 });
-          if (st === 4 || st === 12) play(L, "snare", null, t, { gain: 0.1 * ten * d, pan: 0.05 });
-        }
-        play(L, "shaker", null, t, { gain: (s % 2 ? 0.04 : 0.025) * d * (0.4 + ten), pan: 0.3 });
+        const m = this, d = L.e.density, st = s % 16, ten = L.tension;
+        ostinato(L, m, t, s, bar, { pattern: [0, 2, 1, 2, 0, 2, 1, 3], lo: 59, gain: 0.09, cutoff: 2600 });
+        if (s % 2 === 0) play(L, "dbpizz_p", m.root - 24 + bar.chord[0] + (s % 8 === 6 ? 12 : 0), t, { gain: 0.1 + 0.14 * ten, dur: L.sd * 1.8, r: 0.15, pan: 0 });
+        if (ten > 0.45 && (st === 0 || st === 8)) play(L, "kick", null, t, { gain: 0.16 * ten * d, human: 0, pan: 0 });
       },
     },
 
-    noir: {
-      name: "Noir", line: "Paris, 3 a.m. Wet cobblestones and a muted trumpet somewhere.",
-      colors: ["#c9b38a", "#7d6a52", "#1a1714"],
-      uses: layersOf(["harmon", "basspizz", "taps", "piano", "cymbal", "cellos"]),
-      bpm: 66, wet: 0.55, dry: 0.85, root: 50, melRoot: 62, swing: 0.33, level: 1.35,
-      scale: [0, 2, 3, 5, 7, 9, 10],
-      chords: { Dm9: [0, 3, 7, 10, 14], G7: [5, 9, 12, 15], Bb: [8, 12, 15, 19], A7: [7, 11, 14, 17], Eb: [1, 5, 8, 12] },
-      voices: [
-        { inst: "piano", silent: true, range: [53, 62] },
-        { inst: "piano", silent: true, range: [57, 66] },
-        { inst: "piano", silent: true, range: [60, 70] },
-        { inst: "piano", silent: true, range: [64, 74] },
-        { inst: "cellos", bass: true, range: [38, 50], gain: 0.07, pan: -0.25, when: (sec) => sec.i >= 0.45 },
-      ],
-      theme: {
-        A: [[7, 6], [5, 2], [3, 4], [0, 4], [null, 4], [3, 2], [5, 2], [7, 8]],
-        B: [[10, 4], [9, 2], [7, 2], [5, 8], [3, 6], [2, 2], [0, 8]],
-        C: [[12, 8], [10, 4], [9, 4], [7, 16]],
-      },
-      get form() {
-        const T = this.theme, tp = { inst: "harmon", gain: 0.2, pan: 0.18, legato: 0.92 };
-        return [
-          { name: "intro", bars: 4, i: 0.2, prog: ["Dm9", "Dm9", "Eb", "Dm9"] },
-          { name: "theme", bars: 8, i: 0.4, prog: ["Dm9", "G7", "Dm9", "A7", "Dm9", "G7", "Bb", "A7"],
-            mel: (L, m, put) => { put(T.A, 0, tp); put(T.B, 4, tp); } },
-          { name: "answer", bars: 8, i: 0.5, prog: ["Bb", "Eb", "Dm9", "Dm9", "Bb", "Eb", "A7", "A7"],
-            mel: (L, m, put) => { put(seq(head(T.A, 4), 2, m.scale), 1, { inst: "piano", gain: 0.13, pan: -0.1 }); put(seq(T.A, 3, m.scale), 4, tp); } },
-          { name: "peak", bars: 4, i: 0.68, prog: ["Dm9", "G7", "Bb", "A7"],
-            mel: (L, m, put) => { put(T.C, 0, tp); put(T.B, 2, tp); } },
-          { name: "release", bars: 8, i: 0.32, prog: ["Dm9", "Eb", "Dm9", "G7", "Dm9", "Eb", "Dm9", "Dm9"],
-            mel: (L, m, put) => put(aug(T.A, 1.5), 1, Object.assign({}, tp, { dyn: 0.8 })) },
-          { name: "breath", bars: 4, i: 0.15, prog: ["Dm9", "Dm9", "Eb", "Dm9"] },
-        ];
-      },
-      comp: [[0], [0, 6], [2, 10], [0, 10], [6, 14], [0, 8, 14]],
-      step(L, t, s) { composedStep(this, L, t, s); },
-      colour(L, t, s, bar, bi) {
-        const m = this, sd = L.sd, d = L.e.density, st = s % 16, ten = L.tension;
-        const sw = (x) => (x % 4 === 2 ? sd * m.swing : 0) + (R() - 0.5) * 0.015;
-        if (st % 4 === 0) {
-          const next = L.plan.bars[(bi + 1) % L.plan.len].chord[0];
-          const beat = st / 4;
-          let n = bar.chord[0];
-          if (beat === 3) n = next + pick([-1, 1]);                       // chromatic approach, short and on the way
-          else if (beat > 0) n = bar.chord[0] + pick([0, 7, 12, 7, 3, 10].filter((x) => bar.chord.map(pc12).includes(pc12(bar.chord[0] + x))));
-          const p = pc12(n);
-          play(L, "basspizz", m.root - 12 + p - (p > 7 ? 12 : 0), t + sw(st), { gain: 0.16 + 0.2 * ten + 0.05 * (beat === 0), pan: -0.05 });
-        }
-        if (st === 4 || st === 12) play(L, "taps", null, t + sw(st), { gain: (0.025 + 0.05 * ten) * d, pan: 0.35, rate: 0.95 + R() * 0.1 });
-        if (st % 4 === 2 && R() < 0.2 + 0.6 * ten) play(L, "taps", null, t + sw(st), { gain: 0.025 * d, pan: 0.4, rate: 1.1 });
-        if (st === 0) L.compPat = pick(m.comp.slice(0, 2 + Math.round(ten * 4)));
-        if (L.compPat && L.compPat.includes(st) && !melodyIn(L, bi, "piano"))
-          bar.voicing.slice(0, 4).forEach((n, i) => play(L, "piano", n, t + sw(st) + i * 0.01, { gain: 0.05 + 0.04 * ten, dur: sd * (st ? 3 : 7), r: 0.6, pan: 0.1 + i * 0.06 }));
-        if (bar.b === 0 && bar.sec.i >= 0.4 && st === 0) play(L, "cymbal", null, t, { gain: 0.04 + 0.03 * ten, pan: 0.45 });
-      },
-    },
+    // noir: composed in score.js (piano, double bass, muted trumpet, brushes)
 
     mystery: {
       name: "Mystery", line: "A detail nobody else noticed. Follow it quietly.",
       colors: ["#9be37a", "#4a7fb0", "#16242a"],
-      uses: layersOf(["vlnpizz", "cellopizz", "clarinet", "cellos", "violas", "glock", "taps"]),
-      bpm: 76, wet: 0.55, dry: 0.8, root: 50, melRoot: 62, level: 2.78,
+      uses: layersOf(["piano2_pp", "clar2", "vcs", "vlas", "dbarco", "cellospic", "vlntrem"]),
+      bpm: 66, wet: 0.65, dry: 0.75, root: 50, melRoot: 62, level: 3.55,
       scale: [0, 2, 3, 5, 7, 8, 11],
-      chords: { i: [0, 3, 7], VI: [8, 12, 15], bII: [1, 5, 8], V: [7, 11, 14], iv: [5, 8, 12] },
+      chords: { i: [0, 7, 3], bVI: [8, 15, 12], bII: [1, 8, 5], V: [7, 14, 11], iv: [5, 12, 8] },
       voices: [
-        { inst: "violas", range: [57, 69], gain: 0.06, pan: 0.25, when: (sec) => sec.i >= 0.4 },
-        { inst: "cellos", range: [45, 60], gain: 0.08, pan: -0.1 },
-        { inst: "cellos", bass: true, range: [36, 48], gain: 0.08, pan: -0.3, when: (sec) => sec.i >= 0.3 },
+        { inst: "vlntrem", range: [69, 81], gain: 0.02, pan: 0.5, when: (sec) => sec.i >= 0.45 },
+        { inst: "vlas", range: [57, 69], gain: 0.06, pan: 0.25, when: (sec) => sec.i >= 0.35 },
+        { inst: "vcs", range: [45, 57], gain: 0.08, pan: -0.15 },
+        { inst: "dbarco", bass: true, range: [33, 45], gain: 0.08, pan: -0.1, when: (sec) => sec.i >= 0.3 },
       ],
-      theme: {
-        A: [[7, 4], [8, 4], [7, 4], [3, 4], [2, 8], [null, 8]],
-        B: [[3, 4], [5, 4], [7, 4], [8, 4], [11, 8], [7, 8]],
-        C: [[12, 4], [11, 4], [8, 4], [7, 4], [3, 8], [2, 8]],
-      },
+      theme: { A: [[7, 8], [8, 8], [7, 32]], B: [[3, 16], [2, 16], [11, 32]] },
       get form() {
-        const T = this.theme, cl = { inst: "clarinet", gain: 0.11, pan: 0.3 };
+        const T = this.theme, cl = { inst: "clar2", gain: 0.1, oct: -12, pan: 0.3 };
         return [
-          { name: "intro", bars: 4, i: 0.2, prog: ["i", "i", "VI", "V"] },
-          { name: "theme", bars: 8, i: 0.4, prog: ["i", "VI", "bII", "V", "i", "VI", "iv", "V"],
-            mel: (L, m, put) => { put(T.A, 0, cl); put(T.B, 4, cl); } },
-          { name: "develop", bars: 8, i: 0.5, prog: ["VI", "bII", "i", "V", "iv", "VI", "bII", "V"],
-            mel: (L, m, put) => { put(seq(head(T.A, 4), 2, m.scale), 1, { inst: "vlnpizz", gain: 0.18 }); put(seq(head(T.A, 4), -1, m.scale), 5, { inst: "vlnpizz", gain: 0.18 }); } },
-          { name: "peak", bars: 4, i: 0.6, prog: ["i", "VI", "bII", "V"], mel: (L, m, put) => put(T.C, 0, cl) },
-          { name: "release", bars: 8, i: 0.3, prog: ["i", "iv", "i", "V", "VI", "bII", "V", "i"], mel: (L, m, put) => put(aug(T.A, 1.5), 2, cl) },
-          { name: "breath", bars: 4, i: 0.15, prog: ["i", "i", "VI", "i"] },
+          { name: "intro", bars: 4, i: 0.2, prog: two("i", "i") },
+          { name: "A", bars: 8, i: 0.38, prog: two("i", "bVI", "i", "V"), mel: (L, m, put) => put(T.A, 2, cl) },
+          { name: "B", bars: 8, i: 0.5, prog: two("bII", "V", "iv", "V"), mel: (L, m, put) => put(T.B, 2, { inst: "vcs", gain: 0.1, pan: -0.2 }) },
+          { name: "peak", bars: 4, i: 0.6, prog: two("bVI", "V"), mel: (L, m, put) => put(T.A, 0, cl) },
+          { name: "release", bars: 8, i: 0.28, prog: two("i", "iv", "V", "i") },
         ];
       },
       step(L, t, s) { composedStep(this, L, t, s); },
-      colour(L, t, s, bar, bi) {
-        const m = this, st = s % 16, ten = L.tension, d = L.e.density;
-        if (st === 0) play(L, "cellopizz", m.root - 12 + bar.chord[0], t, { gain: 0.26, pan: -0.2 });
-        // tiptoeing pizzicato on chord tones, stepping aside for the melody
-        if (!melodyIn(L, bi, "vlnpizz") && s % 2 === 0 && R() < (0.25 + 0.4 * ten) * d) {
-          L.walk = clamp((L.walk || 2) + pick([-1, 1, 1, -1, 2, -2]), 0, 7);
-          const tones = bar.safe.concat(bar.safe.map((n) => n + 12), bar.safe.map((n) => n + 24));
-          play(L, "vlnpizz", m.root + tones[L.walk % tones.length], t, { gain: 0.14, pan: rpan(0.5) });
-        }
-        if (s % 4 === 0) play(L, "taps", null, t, { gain: 0.025 * d, pan: -0.4, rate: 1.2 });
-        if (s % 2 === 0 && R() < 0.01 * d) play(L, "glock", m.root + 24 + pc12(pick(bar.safe)), t, { gain: 0.06, pan: rpan(0.8) });
+      colour(L, t, s, bar) {
+        const m = this, ten = L.tension;
+        if (s % 4 === 0) play(L, "cellospic", m.root - 12 + bar.chord[0], t, { gain: 0.03 + 0.06 * ten, pan: -0.25 });
+        sparks(L, m, t, s, bar, 0.06 + 0.1 * ten, 76);
       },
     },
 
     spy: {
       name: "Spy", line: "Sunglasses, a borrowed name, and a car waiting downstairs.",
       colors: ["#ffb84a", "#3fa7a0", "#14202a"],
-      uses: layersOf(["cellopizz", "vlnpizz", "straight", "shaker", "violas", "taps", "horn"]),
-      bpm: 120, wet: 0.4, dry: 0.8, root: 52, melRoot: 64, level: 0.98,
+      uses: layersOf(["cellospic", "vlas", "vcs", "dbarco", "horn", "kick", "piano2_pp"]),
+      bpm: 112, wet: 0.45, dry: 0.8, root: 52, melRoot: 64, level: 3.48,
       scale: [0, 2, 3, 5, 7, 8, 10],
-      chords: { i: [0, 3, 7], iv: [5, 8, 12], VI: [8, 12, 15], V: [7, 11, 14] },
+      chords: { i: [0, 7, 3], bVI: [8, 15, 12], iv: [5, 12, 8], bII: [1, 8, 5] },
       voices: [
-        { inst: "violas", range: [55, 70], gain: 0.06, pan: 0.3, when: (sec) => sec.i >= 0.35 },
-        { inst: "violas", range: [60, 74], gain: 0.05, pan: -0.3, when: (sec) => sec.i >= 0.55 },
+        { inst: "vlas", range: [57, 69], gain: 0.06, pan: 0.3, when: (sec) => sec.i >= 0.4 },
+        { inst: "vcs", range: [45, 57], gain: 0.07, pan: -0.25, when: (sec) => sec.i >= 0.3 },
+        { inst: "dbarco", bass: true, range: [28, 40], gain: 0.09, pan: 0.05 },
       ],
-      theme: {
-        A: [[0, 2], [null, 2], [3, 2], [5, 2], [7, 8], [6, 2], [5, 2], [3, 4], [0, 8]],
-        B: [[7, 4], [10, 4], [12, 8], [11, 4], [10, 2], [7, 2], [5, 8]],
-        C: [[12, 4], [10, 4], [7, 4], [3, 4], [0, 16]],
-      },
+      theme: { A: [[0, 12], [3, 4], [2, 16], [null, 16], [0, 8], [7, 8], [6, 16]], B: [[8, 16], [7, 16]] },
       get form() {
-        const T = this.theme, tp = { inst: "straight", gain: 0.13, pan: 0.25 };
+        const T = this.theme, hn = { inst: "horn", gain: 0.12, oct: -12, pan: -0.25 };
         return [
-          { name: "intro", bars: 4, i: 0.3, prog: ["i", "i", "iv", "i"] },
-          { name: "theme", bars: 8, i: 0.45, prog: ["i", "i", "iv", "i", "VI", "V", "i", "i"],
-            mel: (L, m, put) => { put(T.A, 0, tp); put(T.B, 2, tp); put(T.A, 4, tp); put(T.C, 6, tp); } },
-          { name: "develop", bars: 8, i: 0.5, prog: ["iv", "iv", "i", "i", "VI", "V", "i", "V"],
-            mel: (L, m, put) => { put(seq(head(T.A, 5), 3, m.scale), 0, { inst: "horn", gain: 0.12, oct: -12, pan: -0.3 }); put(head(T.A, 5), 4, { inst: "horn", gain: 0.12, oct: -12, pan: -0.3 }); } },
-          { name: "peak", bars: 8, i: 0.7, prog: ["i", "iv", "VI", "V", "i", "iv", "V", "i"],
-            mel: (L, m, put) => { put(T.C, 0, tp); put(T.A, 2, tp); put(T.B, 4, tp); put(T.C, 6, tp); } },
-          { name: "release", bars: 4, i: 0.35, prog: ["i", "iv", "V", "i"] },
-          { name: "breath", bars: 4, i: 0.2, prog: ["i", "i", "iv", "i"] },
+          { name: "intro", bars: 4, i: 0.28, prog: four("i") },
+          { name: "A", bars: 8, i: 0.42, prog: two("i", "i", "bVI", "iv"), mel: (L, m, put) => put(T.A, 2, hn) },
+          { name: "B", bars: 8, i: 0.52, prog: two("i", "bII", "i", "bVI"), mel: (L, m, put) => put(T.B, 4, hn) },
+          { name: "peak", bars: 8, i: 0.68, prog: two("i", "bVI", "iv", "bII"), mel: (L, m, put) => { put(T.A, 0, hn); put(T.B, 4, { inst: "vlas", gain: 0.09, pan: 0.3 }); } },
+          { name: "release", bars: 4, i: 0.3, prog: two("i", "i") },
         ];
       },
-      line_: [0, null, 0, 3, null, 5, 7, null, 3, null, 0, null, 7, null, 5, 3],
       step(L, t, s) { composedStep(this, L, t, s); },
       colour(L, t, s, bar) {
         const m = this, d = L.e.density, st = s % 16, ten = L.tension;
-        const n = m.line_[st];
-        if (n !== null && R() < 0.7 + 0.3 * d) {
-          const x = bar.chord[0] + n, ok = bar.chord.map(pc12).includes(pc12(x)) || st % 4 !== 0;
-          play(L, "cellopizz", m.root - 12 + (ok ? x : bar.chord[0]), t, { gain: 0.22 + 0.08 * ten, pan: -0.2 });
+        if (s % 2 === 0) {
+          const pat = [0, 0, 7, 0, 0, 7, 0, 3];
+          play(L, "cellospic", m.root - 12 + bar.chord[0] + pat[(s / 2) % 8], t, { gain: 0.06 + 0.1 * ten, pan: -0.2 });
         }
-        if ((st === 4 || st === 12) && ten > 0.35) strum(L, "vlnpizz", bar.safe.map((x) => m.root + x), t, { gain: 0.07, spread: 0.01 });
-        if (s % 2 === 0) play(L, "shaker", null, t, { gain: (s % 4 === 2 ? 0.06 : 0.035) * d * (0.5 + ten), pan: 0.35 });
-        if (st === 12) play(L, "taps", null, t, { gain: 0.05 * d, pan: 0.1 });
+        if (ten > 0.5 && st === 0) play(L, "kick", null, t, { gain: 0.14 * ten * d, human: 0, pan: 0 });
+        if (st === 12 && R() < 0.3) felt(L, m.root + 24 + pick([3, 7]), t, { gain: 0.06, cutoff: 2600, pan: 0.4 });
       },
     },
 
     western: {
       name: "Western", line: "Long straight road, dust in the light, a canyon echo.",
       colors: ["#f2a65a", "#c8553d", "#3a2414"],
-      uses: layersOf(["harp", "basspizz", "taps", "oboe", "horn", "cellos"]),
-      bpm: 84, wet: 0.7, dry: 0.75, root: 50, melRoot: 62, level: 1.29,
-      scale: [0, 2, 4, 5, 7, 9, 11],
-      chords: { I: [0, 4, 7], IV: [5, 9, 12], V: [7, 11, 14], vi: [9, 12, 16], bVII: [10, 14, 17] },
+      uses: layersOf(["harp2", "dbpizz_p", "oboe", "horn", "vcs", "vlas", "dbarco"]),
+      bpm: 72, wet: 0.75, dry: 0.7, root: 50, melRoot: 62, level: 2.73,
+      scale: [0, 2, 4, 5, 7, 9, 10],
+      chords: { I: [0, 7, 4], bVII: [10, 17, 14], IV: [5, 12, 9], v: [7, 14, 10] },
       voices: [
-        { inst: "cellos", range: [50, 64], gain: 0.08, pan: 0.2, when: (sec) => sec.i >= 0.35 },
-        { inst: "cellos", range: [43, 57], gain: 0.09, pan: -0.2 },
+        { inst: "vlas", range: [57, 69], gain: 0.07, pan: 0.25, when: (sec) => sec.i >= 0.4 },
+        { inst: "vcs", range: [45, 57], gain: 0.08, pan: -0.2 },
+        { inst: "dbarco", bass: true, range: [26, 38], gain: 0.09, pan: 0.05, when: (sec) => sec.i >= 0.3 },
       ],
-      theme: {
-        A: [[0, 4], [2, 4], [4, 8], [7, 8], [4, 4], [2, 4]],
-        B: [[0, 4], [9, 4], [7, 8], [4, 8], [2, 8]],
-        C: [[7, 4], [9, 4], [12, 8], [9, 4], [7, 4], [4, 8], [0, 16]],
-      },
+      theme: { A: [[7, 8], [9, 4], [7, 4], [2, 32]], B: [[0, 8], [7, 24], [5, 8], [4, 24]] },
       get form() {
-        const T = this.theme, ob = { inst: "oboe", gain: 0.13, pan: 0.2 }, hn = { inst: "horn", gain: 0.13, oct: -12, pan: -0.3 };
+        const T = this.theme, ob = { inst: "oboe", gain: 0.11, pan: 0.2 }, hn = { inst: "horn", gain: 0.11, oct: -12, pan: -0.3 };
         return [
-          { name: "intro", bars: 4, i: 0.2, prog: ["I", "I", "IV", "I"] },
-          { name: "theme", bars: 8, i: 0.4, prog: ["I", "IV", "I", "V", "I", "IV", "V", "I"],
-            mel: (L, m, put) => { put(T.A, 0, ob); put(T.B, 2, ob); put(T.A, 4, ob); put(T.C, 6, ob); } },
-          { name: "develop", bars: 8, i: 0.5, prog: ["I", "vi", "IV", "I", "vi", "IV", "bVII", "V"],
-            mel: (L, m, put) => { put(seq(T.A, 2, m.scale), 1, hn); put(seq(T.B, -1, m.scale), 5, ob); } },
-          { name: "peak", bars: 4, i: 0.62, prog: ["I", "IV", "V", "I"], mel: (L, m, put) => { put(T.A, 0, ob); put(T.A, 0, hn); put(T.B, 2, ob); } },
-          { name: "release", bars: 8, i: 0.3, prog: ["IV", "I", "V", "I", "IV", "I", "V", "I"], mel: (L, m, put) => put(aug(T.A, 1.5), 1, ob) },
-          { name: "breath", bars: 4, i: 0.15, prog: ["I", "I", "IV", "I"] },
+          { name: "intro", bars: 4, i: 0.18, prog: four("I"), pedal: "I" },
+          { name: "A", bars: 8, i: 0.36, prog: two("I", "bVII", "I", "IV"), mel: (L, m, put) => put(T.A, 2, ob) },
+          { name: "B", bars: 8, i: 0.5, prog: two("bVII", "IV", "v", "I"), mel: (L, m, put) => put(T.B, 2, hn) },
+          { name: "peak", bars: 8, i: 0.62, prog: two("I", "bVII", "IV", "I"), mel: (L, m, put) => { put(T.A, 0, ob); put(T.B, 4, hn); } },
+          { name: "release", bars: 8, i: 0.25, prog: two("IV", "I", "bVII", "I") },
         ];
       },
       step(L, t, s) { composedStep(this, L, t, s); },
       colour(L, t, s, bar) {
-        const m = this, d = L.e.density, st = s % 16, ten = L.tension;
-        if (st === 0 && R() < 0.4 + 0.5 * ten) strum(L, "harp", bar.safe.concat([bar.safe[0] + 12]).map((n) => m.root + n), t, { gain: 0.12 + 0.06 * ten, spread: 0.035 });
-        if (s % 8 === 0) play(L, "basspizz", m.root - 24 + bar.chord[0], t, { gain: 0.22 + 0.08 * ten, pan: -0.1 });
-        if (s % 8 === 4) play(L, "basspizz", m.root - 24 + bar.chord[0] + 7, t, { gain: 0.18 + 0.06 * ten, pan: -0.1 });
-        if (s % 4 === 0 || s % 4 === 3) play(L, "taps", null, t, { gain: (0.015 + 0.025 * ten) * d, rate: 0.8, pan: rpan(0.2) });
+        // wide open harp fifths at the start of each harmony, a lonely bass note on one
+        const m = this, st = s % 16, ten = L.tension;
+        if (st === 0 && bar.b % 2 === 0) strum(L, "harp2", [m.root - 12 + bar.chord[0], m.root - 5 + bar.chord[0], m.root + bar.chord[0], m.root + 7 + bar.chord[0]], t, { gain: 0.1 + 0.05 * ten, spread: 0.06 });
+        if (st === 0) play(L, "dbpizz_p", m.root - 24 + bar.chord[0], t, { gain: 0.14 + 0.08 * ten, pan: -0.1 });
+        if (st === 8 && ten > 0.4) play(L, "dbpizz_p", m.root - 24 + bar.chord[0] + 7, t, { gain: 0.1 + 0.06 * ten, pan: -0.1 });
       },
     },
 
     epic: {
       name: "Epic", line: "The road climbs, the clouds open. This is the part they'll remember.",
       colors: ["#ffc65c", "#d9533f", "#1e2a4f"],
-      uses: layersOf(["violins", "violas", "cellos", "basses", "horn", "cellospic", "timpani", "swell"]),
-      bpm: 80, wet: 0.6, dry: 0.75, root: 50, melRoot: 50, level: 1.74,
+      uses: layersOf(["vlns", "vlas", "vcs", "dbarco", "horn", "cellospic", "timpani", "swell"]),
+      bpm: 76, wet: 0.65, dry: 0.75, root: 50, melRoot: 50, level: 1.43,
       scale: [0, 2, 3, 5, 7, 8, 10],
-      chords: { i: [0, 3, 7], VI: [8, 12, 15], III: [3, 7, 10], VII: [10, 14, 17], iv: [5, 8, 12], V: [7, 11, 14] },
+      chords: { i: [0, 7, 3], VI: [8, 15, 12], III: [3, 10, 7], VII: [10, 17, 14], iv: [5, 12, 8] },
       voices: [
-        { inst: "violins", range: [67, 84], gain: 0.12, pan: 0.5, when: (sec) => sec.i >= 0.35 },
-        { inst: "violins", range: [62, 79], gain: 0.12, pan: 0.3, when: (sec) => sec.i >= 0.3 },
-        { inst: "violas", range: [55, 71], gain: 0.13, pan: -0.1 },
-        { inst: "cellos", range: [45, 62], gain: 0.13, pan: -0.35 },
-        { inst: "basses", bass: true, range: [33, 47], gain: 0.15, pan: 0.1, when: (sec) => sec.i >= 0.3 },
+        { inst: "vlns", range: [67, 84], gain: 0.11, pan: 0.5, when: (sec) => sec.i >= 0.45 },
+        { inst: "vlns", range: [62, 77], gain: 0.11, pan: 0.3, when: (sec) => sec.i >= 0.3 },
+        { inst: "vlas", range: [55, 69], gain: 0.12, pan: -0.1 },
+        { inst: "vcs", range: [45, 59], gain: 0.12, pan: -0.35 },
+        { inst: "dbarco", bass: true, range: [28, 42], gain: 0.14, pan: 0.1, when: (sec) => sec.i >= 0.3 },
       ],
-      theme: {
-        A: [[0, 4], [7, 8], [5, 2], [3, 2], [5, 4], [3, 4], [0, 8]],
-        B: [[0, 4], [7, 8], [8, 2], [10, 2], [12, 12], [null, 4]],
-        C: [[12, 4], [10, 4], [8, 4], [7, 4], [5, 6], [2, 2], [0, 8]],
-      },
+      theme: { A: [[0, 8], [7, 16], [5, 4], [3, 4], [2, 32]], B: [[3, 8], [10, 16], [8, 8], [7, 32]] },
       get form() {
-        const T = this.theme, hn = { inst: "horn", gain: 0.16, pan: -0.25 };
+        const T = this.theme, hn = { inst: "horn", gain: 0.15, pan: -0.25 };
         return [
-          { name: "establish", bars: 4, i: 0.18, prog: ["i", "i", "VI", "VI"], pedal: "i" },
-          { name: "theme", bars: 8, i: 0.4, prog: ["i", "VI", "III", "VII", "i", "VI", "iv", "V"],
-            mel: (L, m, put) => { put(T.A, 0, hn); put(T.B, 2, hn); put(T.A, 4, hn); put(T.C, 6, hn); } },
-          { name: "develop", bars: 8, i: 0.5, prog: ["VI", "VII", "i", "i", "iv", "VI", "VII", "VII"],
-            mel: (L, m, put) => { put(seq(head(T.A, 4), 2, m.scale), 0, hn); put(seq(head(T.A, 4), 4, m.scale), 2, hn);
-              put(seq(T.B, 2, m.scale), 4, { inst: "violins", gain: 0.1, oct: 12, pan: 0.4 }); } },
-          { name: "build", bars: 4, i: 0.65, prog: ["VI", "VII", "VI", "VII"] },
-          { name: "peak", bars: 8, i: 0.85, prog: ["i", "VI", "III", "VII", "i", "VI", "VII", "i"],
-            mel: (L, m, put) => { const vn = { inst: "violins", gain: 0.13, oct: 12, pan: 0.4 };
-              [[T.A, 0], [T.B, 2], [T.A, 4], [T.C, 6]].forEach(([mo, b]) => { put(mo, b, vn); put(mo, b, hn); }); } },
-          { name: "release", bars: 8, i: 0.32, prog: ["VI", "VII", "i", "i", "VI", "iv", "i", "i"],
-            mel: (L, m, put) => put(T.A, 2, Object.assign({}, hn, { dyn: 0.7 })) },
-          { name: "breath", bars: 4, i: 0.12, prog: ["i", "i", "VI", "i"], pedal: "i" },
+          { name: "establish", bars: 4, i: 0.15, prog: four("i"), pedal: "i" },
+          { name: "A", bars: 8, i: 0.36, prog: two("i", "VI", "III", "VII"), mel: (L, m, put) => put(T.A, 2, hn) },
+          { name: "B", bars: 8, i: 0.48, prog: two("VI", "VII", "iv", "VII"), mel: (L, m, put) => put(T.B, 2, hn) },
+          { name: "build", bars: 4, i: 0.62, prog: two("VI", "VII") },
+          { name: "peak", bars: 8, i: 0.85, prog: two("i", "VI", "III", "VII"), mel: (L, m, put) => { const vn = { inst: "vlns", gain: 0.12, oct: 12, pan: 0.4 }; put(T.A, 0, vn); put(T.A, 0, hn); put(T.B, 4, vn); put(T.B, 4, hn); } },
+          { name: "release", bars: 8, i: 0.3, prog: two("VI", "VII", "i", "i") },
+          { name: "breath", bars: 4, i: 0.12, prog: four("i"), pedal: "i" },
         ];
       },
       step(L, t, s) { composedStep(this, L, t, s); },
       colour(L, t, s, bar) {
         const m = this, d = L.e.density, st = s % 16, ten = L.tension, sec = bar.sec;
-        if (ten > 0.42 && s % 2 === 0 && R() < 0.5 + 0.45 * d) {
+        if (ten > 0.4 && s % 2 === 0) {
           const pat = [0, 0, 7, 0, 12, 0, 7, 0];
-          play(L, "cellospic", m.root - 12 + bar.chord[0] + pat[(s / 2) % 8], t, { gain: 0.06 + 0.12 * ten, pan: -0.3 + rpan(0.1) });
+          play(L, "cellospic", m.root - 12 + bar.chord[0] + pat[(s / 2) % 8], t, { gain: 0.05 + 0.11 * ten, pan: -0.3 + rpan(0.1) });
         }
-        if (st === 0 && bar.b === 0 && sec.i >= 0.35) play(L, "timpani", m.root - 24 + bar.chord[0], t, { gain: 0.2 + 0.15 * ten, pan: 0 });
-        if (sec.name === "build" && s % 4 === 0) play(L, "timpani", m.root - 24 + bar.chord[0], t, { gain: 0.06 + 0.05 * bar.b + 0.02 * (st / 4), pan: 0 });
-        if (sec.name === "peak" && (st === 0 || st === 8)) play(L, "timpani", m.root - 24 + bar.chord[0], t, { gain: st ? 0.16 : 0.24, pan: 0 });
-        if (sec.name === "build" && bar.b === 2 && st === 0) play(L, "swell", null, t, { gain: 0.1, pan: rpan(0.3) });
+        if (st === 0 && bar.b % 2 === 0 && sec.i >= 0.35) play(L, "timpani", m.root - 24 + bar.chord[0], t, { gain: 0.14 + 0.14 * ten, pan: 0 });
+        if (sec.name === "build" && s % 4 === 0) play(L, "timpani", m.root - 24 + bar.chord[0], t, { gain: 0.05 + 0.04 * bar.b + 0.015 * (st / 4), pan: 0 });
+        if (sec.name === "build" && bar.b === 2 && st === 0) play(L, "swell", null, t, { gain: 0.09, pan: rpan(0.3) });
       },
     },
 
     scary: {
-      level: 1.19,
+      level: 2.37,
       name: "Scary", line: "Something in the dark just outside the frame.",
       colors: ["#5f8f74", "#2e4a63", "#14261f"],
-      uses: ["cellos", "basses", "vlntrem", "gong", "swell", "harp", "bells2", "kick"],
+      uses: ["vcs_p", "dbarco", "vlntrem", "gong", "swell", "harp2", "bells2", "kick"],
       bpm: 60, wet: 0.9, dry: 0.55, root: 37,
       step(L, t, s) {
         const r = this.root, sd = L.sd, d = L.e.density;
         if (s % 64 === 0) {
-          hold(L, "basses", r, t, 64 * sd + 2, { gain: 0.2, a: 6, r: 6, pan: -0.1, cutoff: 900 });
-          hold(L, "cellos", r + 13, t + sd * 8, 56 * sd + 2, { gain: 0.11, a: 7, r: 6, pan: 0.3 });
+          hold(L, "dbarco", r, t, 64 * sd + 2, { gain: 0.2, a: 6, r: 6, pan: -0.1, cutoff: 900 });
+          hold(L, "vcs_p", r + 13, t + sd * 8, 56 * sd + 2, { gain: 0.11, a: 7, r: 6, pan: 0.3 });
           if (R() < 0.7) chordHold(L, "vlntrem", [r + 30, r + 31, r + 36].map((x) => x + 12), t + sd * 16, sd * 44, { gain: 0.03, a: 7, r: 6, spread: 0.9, cutoff: 3000 });
         }
-        if (s % 64 === 32 && R() < 0.5) hold(L, "cellos", r + 6, t, 30 * sd, { gain: 0.08, a: 6, r: 5, pan: -0.4 });
-        if (R() < 0.01 * d) play(L, "harp", r + 24 + pick([0, 1, 6, 7]), t, { gain: 0.2, pan: rpan(0.9), cutoff: 1800 });
+        if (s % 64 === 32 && R() < 0.5) hold(L, "vcs_p", r + 6, t, 30 * sd, { gain: 0.08, a: 6, r: 5, pan: -0.4 });
+        if (R() < 0.01 * d) play(L, "harp2", r + 24 + pick([0, 1, 6, 7]), t, { gain: 0.2, pan: rpan(0.9), cutoff: 1800 });
         if (R() < 0.004 * d) play(L, "bells2", null, t, { gain: 0.08, rate: 0.5, pan: rpan(0.9) });
         if (R() < 0.003 * d) play(L, "gong", null, t, { gain: 0.15, rate: 0.7, pan: rpan(0.4) });
         if (R() < 0.003 * d) play(L, "swell", null, t, { gain: 0.1, pan: rpan(0.5), rate: 0.85 });
@@ -1024,52 +879,44 @@
     thriller: {
       name: "Thriller", line: "A train you might be followed on. Keep looking ahead.",
       colors: ["#ff4b3e", "#b0233a", "#3a0f12"],
-      uses: layersOf(["cellospic", "vlnspic", "basses", "cellos", "violas", "violins", "horn", "timpani", "kick", "taps", "swell"]),
-      bpm: 116, wet: 0.4, dry: 0.85, root: 45, melRoot: 45, level: 1.3,
+      uses: layersOf(["cellospic", "dbarco", "vcs", "vlas", "vlntrem", "horn", "timpani", "kick", "taps", "swell", "piano2_pp"]),
+      bpm: 112, wet: 0.45, dry: 0.85, root: 45, melRoot: 45, level: 2.05,
       scale: [0, 2, 3, 5, 7, 8, 10],
-      chords: { i: [0, 3, 7], VI: [8, 12, 15], bII: [1, 5, 8], iv: [5, 8, 12], V: [7, 11, 14] },
+      chords: { i: [0, 7, 3], bVI: [8, 15, 12], bII: [1, 8, 5], V: [7, 14, 11], iv: [5, 12, 8] },
       voices: [
-        { inst: "violins", range: [64, 79], gain: 0.07, pan: 0.45, when: (sec) => sec.i >= 0.6 },
-        { inst: "violas", range: [55, 69], gain: 0.08, pan: 0.2, when: (sec) => sec.i >= 0.4 },
-        { inst: "cellos", range: [45, 57], gain: 0.1, pan: -0.2 },
-        { inst: "basses", bass: true, range: [33, 45], gain: 0.14, pan: 0 },
+        { inst: "vlntrem", range: [69, 81], gain: 0.03, pan: 0.45, when: (sec) => sec.i >= 0.6 },
+        { inst: "vlas", range: [55, 67], gain: 0.07, pan: 0.2, when: (sec) => sec.i >= 0.4 },
+        { inst: "vcs", range: [45, 57], gain: 0.09, pan: -0.2 },
+        { inst: "dbarco", bass: true, range: [28, 40], gain: 0.12, pan: 0 },
       ],
-      theme: {
-        A: [[0, 8], [1, 8], [0, 4], [7, 4], [3, 8]],
-        B: [[3, 8], [5, 8], [7, 8], [8, 8]],
-        C: [[12, 8], [11, 8], [8, 8], [7, 8]],
-      },
+      theme: { A: [[0, 16], [8, 16], [7, 32]], B: [[3, 16], [2, 16], [0, 32]] },
       get form() {
-        const T = this.theme, hn = { inst: "horn", gain: 0.15, pan: -0.25 };
+        const T = this.theme, hn = { inst: "horn", gain: 0.14, pan: -0.25 };
         return [
-          { name: "intro", bars: 4, i: 0.25, prog: ["i", "i", "i", "i"] },
-          { name: "theme", bars: 8, i: 0.45, prog: ["i", "VI", "i", "bII", "i", "VI", "iv", "V"],
-            mel: (L, m, put) => { put(T.A, 0, hn); put(T.B, 2, hn); put(T.A, 4, hn); put(T.C, 6, hn); } },
-          { name: "develop", bars: 8, i: 0.55, prog: ["VI", "bII", "i", "i", "iv", "VI", "V", "V"],
-            mel: (L, m, put) => { put(seq(T.A, 2, m.scale), 0, hn); put(T.B, 4, { inst: "violas", gain: 0.1, oct: 12, pan: 0.3 }); } },
-          { name: "build", bars: 4, i: 0.7, prog: ["VI", "bII", "VI", "V"] },
-          { name: "peak", bars: 8, i: 0.85, prog: ["i", "VI", "i", "bII", "i", "VI", "V", "i"],
-            mel: (L, m, put) => { const vn = { inst: "violins", gain: 0.11, oct: 24, pan: 0.4 };
-              [[T.A, 0], [T.C, 2], [T.A, 4], [T.C, 6]].forEach(([mo, b]) => { put(mo, b, hn); put(mo, b, vn); }); } },
-          { name: "release", bars: 4, i: 0.4, prog: ["i", "VI", "V", "i"] },
-          { name: "breath", bars: 4, i: 0.2, prog: ["i", "i", "i", "i"] },
+          { name: "intro", bars: 4, i: 0.25, prog: four("i") },
+          { name: "A", bars: 8, i: 0.42, prog: two("i", "bVI", "i", "V"), mel: (L, m, put) => put(T.A, 2, hn) },
+          { name: "B", bars: 8, i: 0.52, prog: two("bII", "V", "iv", "V"), mel: (L, m, put) => put(T.B, 2, hn) },
+          { name: "build", bars: 4, i: 0.68, prog: two("bVI", "V") },
+          { name: "peak", bars: 8, i: 0.85, prog: two("i", "bVI", "bII", "V"), mel: (L, m, put) => { put(T.A, 0, hn); put(T.A, 4, { inst: "vlas", gain: 0.1, oct: 12, pan: 0.3 }); } },
+          { name: "release", bars: 4, i: 0.35, prog: two("i", "i") },
         ];
       },
       ost: [0, 0, 12, 0, 0, 12, 0, 7, 0, 0, 12, 0, 0, 12, 7, 12],
       step(L, t, s) { composedStep(this, L, t, s); },
       colour(L, t, s, bar) {
         const m = this, d = L.e.density, st = s % 16, ten = L.tension, sec = bar.sec;
-        if (R() < 0.7 + 0.3 * d) play(L, "cellospic", m.root - 12 + bar.chord[0] + m.ost[st], t, { gain: (st % 4 === 0 ? 0.12 : 0.08) + 0.1 * ten, pan: -0.15 });
-        if (st === 14 && ten > 0.5 && R() < 0.5 * d) play(L, "vlnspic", m.root + 12 + bar.safe[2 % bar.safe.length], t, { gain: 0.09, pan: 0.35 });
-        if (s % 2 === 0) play(L, "taps", null, t, { gain: (0.01 + 0.025 * ten) * d, rate: 1.4, pan: -0.3 });
-        if (st === 0) play(L, "kick", null, t, { gain: 0.08 + 0.14 * ten, human: 0, pan: 0 });
-        if (st === 3) play(L, "kick", null, t, { gain: 0.05 + 0.09 * ten, human: 0, pan: 0 });
+        play(L, "cellospic", m.root - 12 + bar.chord[0] + m.ost[st], t, { gain: (st % 4 === 0 ? 0.09 : 0.06) + 0.1 * ten, pan: -0.15 });
+        if (s % 2 === 0) play(L, "taps", null, t, { gain: (0.008 + 0.02 * ten) * d, rate: 1.4, pan: -0.3 });
+        if (st === 0) play(L, "kick", null, t, { gain: 0.07 + 0.13 * ten, human: 0, pan: 0 });
+        if (st === 3) play(L, "kick", null, t, { gain: 0.04 + 0.08 * ten, human: 0, pan: 0 });
         if (sec.name === "build" && s % 4 === 0) play(L, "timpani", m.root - 24 + bar.chord[0], t, { gain: 0.05 + 0.04 * bar.b, pan: 0 });
-        if (bar.b === 0 && st === 0 && sec.i >= 0.45) play(L, "timpani", m.root - 24 + bar.chord[0], t, { gain: 0.22, pan: 0 });
-        if (sec.name === "build" && bar.b === 2 && st === 0) play(L, "swell", null, t, { gain: 0.1, pan: rpan(0.3) });
+        if (bar.b === 0 && st === 0 && sec.i >= 0.45) play(L, "timpani", m.root - 24 + bar.chord[0], t, { gain: 0.2, pan: 0 });
+        if (sec.name === "build" && bar.b === 2 && st === 0) play(L, "swell", null, t, { gain: 0.09, pan: rpan(0.3) });
+        if (st === 8 && R() < 0.15 + 0.2 * ten) felt(L, m.root + 36 + pick([0, 7]), t, { gain: 0.05, cutoff: 3000, pan: 0.4 });
       },
     },
   };
+
   const ORDER = ["dreamy", "lovely", "happy", "wonder", "fairytale", "melancholy", "scifi", "neon", "noir", "mystery", "spy", "western", "epic", "scary", "thriller"];
 
   /* ---------- engine ---------- */

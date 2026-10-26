@@ -376,7 +376,7 @@
     name: "Dreamy", line: "Half-awake, floating, slow light through a window.",
     colors: ["#7f9cff", "#c3a2ff", "#3b3f8f"],
     uses: ["piano2_pp", "piano2_mp", "piano2_mf"].concat(layersOf(["vlns", "vlas", "vcs"]), ["solovln", "harp2"]),
-    bpm: 60, beats: 4, key: 62, wet: 0.62, dry: 0.78, level: 2.6,
+    bpm: 60, beats: 4, key: 62, wet: 0.62, dry: 0.78, level: 1.86,
     eq: { low: -5, lowF: 170, mid: -2, midF: 320, high: 4, highF: 3800 },
     scale: [0, 2, 4, 6, 7, 9, 11],      // Lydian D: the raised 4th gives the floating quality
     home: "I",
@@ -418,7 +418,7 @@
     ],
     siblings: { alone: ["drift"], bloom: ["song"], settle: ["alone"] },
     sections: {
-      alone: { phrases: [2, 3], chords: 2, barsPerChord: 2, level: 0.25, motif: true, motifChance: 0.75, motifForms: ["plain", "fragment", "echo"], breath: [0.8, 2.2], after: 0.6,
+      alone: { phrases: [2, 3], chords: 2, barsPerChord: 2, level: 0.25, motif: true, motifChance: 0.45, motifForms: ["plain", "fragment", "echo"], breath: [0.8, 2.2], after: 0.6,
         write(c) {   // piano alone, a few notes, lots of space
           const { L, m, at, beat, timeline } = c;
           timeline.forEach((seg) => {
@@ -432,7 +432,7 @@
           });
           if (c.line) playLine(c, fitLine(c.line, timeline, m, [66, 86], beat), "piano", { vel: 0.52, late: beat * (R() < 0.5 ? 0 : 1) });
         } },
-      bloom: { phrases: [2, 3], chords: 4, barsPerChord: 1, level: 0.38, motif: true, motifChance: 0.5, motifForms: ["fragment", "seqUp", "invert"], breath: [0.5, 2],
+      bloom: { phrases: [2, 3], chords: 4, barsPerChord: 1, level: 0.38, motif: true, motifChance: 0.3, motifForms: ["fragment", "seqUp", "invert"], breath: [0.5, 2],
         write(c) {   // slow piano arpeggios, cellos and violas enter underneath
           const { L, m, at, beat, timeline } = c;
           const pat = pick([[0, 1, 2, 1], [0, 2, 1, 2], [0, 1, 2, 3]]);
@@ -450,7 +450,7 @@
           stringPad(c, R() < 0.5 ? ["vcs", "vlas"] : ["vlas", "vlns"], { stagger: true, gain: 0.11, gainBass: 0.11, lo: 55, hi: 74 });
           if (c.line) playLine(c, fitLine(c.line, timeline, m, [69, 88], beat), "piano", { vel: 0.5 });
         } },
-      song: { phrases: [2, 3], chords: 4, barsPerChord: 1, level: 0.48, motif: true, motifChance: 0.65, motifForms: ["plain", "ornament", "seqUp", "seqDown", "invert"], breath: [0, 1.2], lastEnding: "answer",
+      song: { phrases: [2, 3], chords: 4, barsPerChord: 1, level: 0.48, motif: true, motifChance: 0.45, motifForms: ["plain", "ornament", "seqUp", "seqDown", "invert"], breath: [0, 1.2], lastEnding: "answer",
         write(c) {   // the motif on piano over the full string trio, with broken-chord left hand
           const { L, m, at, beat, timeline } = c;
           timeline.forEach((seg) => {
@@ -462,11 +462,11 @@
           });
           stringPad(c, ["vcs", "vlas", "vlns"], { stagger: R() < 0.5, gain: 0.1, gainBass: 0.11, lo: 55, hi: 76, ext: R() < 0.5, grow: c.ending === "question" });
           if (c.line) playLine(c, fitLine(c.line, timeline, m, [69, 88], beat), "piano", { vel: 0.58 });
-          else if (R() < 0.7) {   // no tune this time: the cellos answer with the motif turned upside down, slowly
+          else if (R() < 0.4) {   // no tune this time: the cellos answer with the motif turned upside down, slowly
             const cl = transform(transform(m.motif, "invert", m.scale), "augment", m.scale).slice(0, 3);
             playLine(c, fitLine(cl, timeline, m, [50, 64], beat), "vcs", { vel: 0.45, gain: 0.17, pan: 0.32, a: 0.5, overlap: 0.3, late: beat });
           }
-          if (R() < 0.3) { const ch = timeline[timeline.length - 1].ch; note(L, "harp2", m.key + 24 + pick(ch.tones), at + c.total - beat, { gain: 0.12, pan: -0.55 }); }
+          if (R() < 0.15) { const ch = timeline[timeline.length - 1].ch; note(L, "harp2", m.key + 24 + pick(ch.tones), at + c.total - beat, { gain: 0.12, pan: -0.55 }); }
         } },
       drift: { phrases: [2, 3], chords: 3, barsPerChord: 2, level: 0.32, motif: false, breath: [0.6, 2],
         write(c) {   // harmony wandering through borrowed colours; no tune, just slowly changing light
@@ -526,7 +526,7 @@
     name: "Noir", line: "Paris, 3 a.m. Wet cobblestones and a muted trumpet somewhere.",
     colors: ["#c9b38a", "#7d6a52", "#1a1714"],
     uses: ["piano2_pp", "piano2_mp", "piano2_mf", "dbpizz_p", "dbpizz_f", "dbarco"].concat(layersOf(["mutetpt", "clar2"])),
-    bpm: 58, beats: 4, key: 62, wet: 0.55, dry: 0.86, level: 2.1, swing: 0.62,
+    bpm: 58, beats: 4, key: 62, wet: 0.55, dry: 0.86, level: 1.56, swing: 0.62,
     eq: { low: -2, lowF: 120, mid: -1.5, midF: 300, high: 2, highF: 5000 },
     scale: [0, 2, 3, 5, 7, 9, 10],      // D Dorian as the default colour; chords borrow b2, b6, #7
     home: "i",
