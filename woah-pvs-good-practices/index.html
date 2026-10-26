@@ -117,8 +117,8 @@ function srcHTML(s){
 }
 function xwalk(t){
   const j=t.jee.map(id=>`<a class="tag" href="../jee-good-practices/#/indicators/${esc(id)}">JEE ${esc(id)}</a>`).join("");
-  const sp=t.spar.map(c=>`<a class="tag" href="../spar-good-practices/">SPAR ${esc(c)}</a>`).join("");
-  const ph=t.phepa.map(c=>`<a class="tag" href="../phepa-good-practices/">PHEPA ${c}</a>`).join("");
+  const sp=t.spar.map(c=>`<a class="tag" href="../spar-good-practices/#${encodeURIComponent(c)}">SPAR ${esc(c)}</a>`).join("");
+  const ph=t.phepa.map(c=>`<a class="tag" href="../phepa-good-practices/#/topics/cap-${encodeURIComponent(c)}">PHEPA ${esc(String(c))}</a>`).join("");
   const ex=(t.extra||[]).map(e=>`<a class="tag" href="${esc(e[1])}">${esc(e[0])}</a>`).join("");
   const all=j+sp+ph+ex;
   return all?all:'<span class="small muted">No close match in JEE, SPAR or PHEPA.</span>';

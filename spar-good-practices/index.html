@@ -86,8 +86,9 @@ details.ctx>summary{cursor:pointer;font-size:13px;color:var(--muted)}
 const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 let S,L,BM,BL,A=null,TYPES={},byBm={};
-const st={q:"",cap:"",type:"",pr:false,only:false};
-const PRT=["peer-reviewed","systematic-review","review","perspective","case-study","iar"];
+const st={q:"",cap:"",type:"",pr:false,only:false,focus:""};
+// Peer-reviewed = explicit pr flag on the source; without one, only research article and review types count.
+const PRT=["peer-reviewed","systematic-review","review"];
 const isPR=s=>s.pr!==undefined?s.pr:PRT.includes(s.type);
 const isCS=s=>s.type==="case-study"||s.type==="iar";
 Promise.all([
@@ -111,6 +112,13 @@ function init(){
   $("#ft").oninput=e=>{st.type=e.target.value;render()};
   $("#fp").onchange=e=>{st.pr=e.target.checked;render()};
   $("#fs").onchange=e=>{st.only=e.target.checked;render()};
+  readHash(); window.addEventListener("hashchange",()=>{readHash();render()});
+}
+// #C4.1 opens exactly that indicator, #C10 that capacity (deep links from other tools).
+function readHash(){
+  const h=decodeURIComponent(location.hash.slice(1)).trim().toUpperCase();
+  st.focus=S.indicators.some(i=>i.id===h)?h:"";
+  if(S.caps.some(c=>c.id===h)){st.cap=h;$("#fa").value=h;}
 }
 function jeeHTML(ids){
   if(!A) return ids.map(id=>`<a class="tag" href="../jee-good-practices/#/indicators/${esc(id)}">${esc(id)}</a>`).join("");
@@ -141,6 +149,7 @@ function render(){
     if(st.cap&&c.id!==st.cap) return;
     const items=S.indicators.filter(i=>i.cap===c.id).map(i=>({i,ss:sourcesFor(i).filter(s=>(!st.type||(st.type==="cs"?isCS(s):s.type===st.type))&&(!st.pr||isPR(s)))}))
     .filter(({i,ss})=>{
+      if(st.focus&&!q) return i.id===st.focus;
       if(st.only&&!ss.length) return false;
       if((st.type||st.pr)&&!ss.length) return false;
       if(!q) return true;
@@ -153,14 +162,15 @@ function render(){
     items.forEach(({i,ss})=>{
       shown++;srcN+=ss.length;
       const lv=i.l1?`<table class="lv"><tbody><tr><td class="n">Level 1</td><td>${esc(i.l1)}</td></tr><tr><td class="n">Level 3</td><td>${esc(i.l3)}</td></tr><tr><td class="n">Level 5</td><td>${esc(i.l5)}</td></tr></tbody></table>${i.step?`<p class="small muted">Step from 2 to 3: ${esc(i.step)}</p>`:""}`:`<p class="small muted">Level descriptions for this indicator were not read from the PDF; see the <a href="${esc(S.meta.pdf)}">SPAR questionnaire</a>.</p>`;
-      const bms=i.bm.map(b=>BM[b]?`<span class="tag" title="${esc(BM[b].title)}">IHR benchmark ${esc(b)}</span>`:"").join("");
-      h+=`<details class="bm" ${ss.length||q||items.length===1?"open":""}><summary><span class="id">${esc(i.id)}</span><span>${esc(i.title)}</span><span class="cnt">${ss.length?ss.length+" good practice"+(ss.length>1?"s":""):"no good practice yet"}</span></summary><div class="body">
+      const bms=i.bm.map(b=>BM[b]?`<a class="tag" href="../ihr-benchmarks-good-practices/#${esc(b)}" title="${esc(BM[b].title)}">IHR benchmark ${esc(b)}</a>`:"").join("");
+      h+=`<details class="bm" id="i-${esc(i.id)}" ${ss.length||q||st.focus||items.length===1?"open":""}><summary><span class="id">${esc(i.id)}</span><span>${esc(i.title)}</span><span class="cnt">${ss.length?ss.length+" good practice"+(ss.length>1?"s":""):"no good practice yet"}</span></summary><div class="body">
       <h4>Good practices and literature</h4>${ss.length?ss.map(srcHTML).join(""):'<p class="empty">No good practice found yet for this indicator. That does not mean none exists.</p>'}
       <details class="ctx"><summary>Context: levels, matching indicators and peers</summary><h4>What the levels mean (paraphrased)</h4>${lv}
       <h4>Matching JEE indicator and peer countries to learn from</h4>${jeeHTML(i.jee)}
       <h4>Matching IHR benchmarks</h4><div>${bms} <a class="small" href="../ihr-benchmarks-good-practices/">open benchmarks page</a></div></details></div></details>`;
     });
   });
+  if(st.focus&&!q) h=`<p class="small"><a href="#" onclick="history.replaceState(null,'',location.pathname);st.focus='';render();return false">Show all indicators</a></p>`+h;
   $("#view").innerHTML=h||'<p class="muted">Nothing matches.</p>';
   $("#stat").textContent=`${shown} indicators, ${srcN} good practice links shown.`;
 }

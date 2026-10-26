@@ -72,8 +72,10 @@ const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const LABELS={4:"Demonstrated capacity",5:"Sustainable capacity"};
 let B,L,A=null,byBm={};
-const st={q:"",area:"",type:"",pr:false,only:false};
-function isPR(s){return s.pr!==undefined?s.pr:["peer-reviewed","systematic-review","review","perspective","case-study","iar"].includes(s.type)}
+const st={q:"",area:"",type:"",pr:false,only:false,focus:""};
+// Peer-reviewed = explicit pr flag on the source; without one, only research article and review types count.
+// Commentaries, case studies and after-action reviews are not assumed peer-reviewed.
+function isPR(s){return s.pr!==undefined?s.pr:["peer-reviewed","systematic-review","review"].includes(s.type)}
 Promise.all([
   fetch("data/benchmarks.json").then(r=>r.json()),
   fetch("data/literature.json").then(r=>r.json()),
@@ -90,7 +92,14 @@ function init(){
   ["q","fa","ft"].forEach(id=>$("#"+id).addEventListener("input",e=>{st[{q:"q",fa:"area",ft:"type"}[id]]=e.target.value.trim().toLowerCase();render()}));
   $("#fp").onchange=e=>{st.pr=e.target.checked;render()};
   $("#fs").onchange=e=>{st.only=e.target.checked;render()};
-  if(location.hash.length>1) st.q=decodeURIComponent(location.hash.slice(1)).toLowerCase(),$("#q").value=st.q;
+  readHash();
+  window.addEventListener("hashchange",()=>{readHash();render()});
+}
+// #12A.3 opens exactly that benchmark (deep link from SPAR and other tools); any other hash is used as a search.
+function readHash(){
+  const h=decodeURIComponent(location.hash.slice(1)).trim();
+  st.focus=B.benchmarks.some(b=>b.id.toLowerCase()===h.toLowerCase())?h.toLowerCase():"";
+  st.q=st.focus?"":h.toLowerCase(); $("#q").value=st.q;
 }
 function topHTML(ids){
   if(!A) return "";
@@ -118,6 +127,7 @@ function render(){
       let ss=(byBm[b.id]||[]).filter(s=>(!st.type||s.type===st.type)&&(!st.pr||isPR(s)));
       return {b,ss};
     }).filter(({b,ss})=>{
+      if(st.focus&&!st.q) return b.id.toLowerCase()===st.focus;
       if(st.only&&!ss.length) return false;
       if((st.type||st.pr)&&!ss.length) return false;
       if(!q) return true;
@@ -129,11 +139,12 @@ function render(){
     h+=window.Programmes?Programmes.html(B.benchmarks.filter(b=>b.area===a.id).flatMap(b=>b.jee),{includeAll:true}):"";
     items.forEach(({b,ss})=>{
       shown++;srcN+=ss.length;
-      h+=`<details class="bm" ${ss.length||q||items.length===1?"open":""}><summary><span class="id">${esc(b.id)}</span><span>${esc(b.title)}</span><span class="cnt">${ss.length?ss.length+" good practice"+(ss.length>1?"s":""):"no good practice yet"}</span></summary><div class="body">
+      h+=`<details class="bm" id="bm-${esc(b.id)}" ${ss.length||q||st.focus||items.length===1?"open":""}><summary><span class="id">${esc(b.id)}</span><span>${esc(b.title)}</span><span class="cnt">${ss.length?ss.length+" good practice"+(ss.length>1?"s":""):"no good practice yet"}</span></summary><div class="body">
       <h4>Good practices and literature</h4>${ss.length?ss.map(srcHTML).join(""):'<p class="empty">No good practice found yet for this benchmark. That does not mean none exists.</p>'}
       <details class="ctx"><summary>Context: levels, matching indicators and peers</summary>${b.jee.length?`<h4>Matching JEE indicator and peer countries to learn from</h4>${topHTML(b.jee)}`:`<p class="small muted">No matching JEE indicator.</p>`}</details></div></details>`;
     });
   });
+  if(st.focus&&!st.q) h=`<p class="small"><a href="#" onclick="history.replaceState(null,'',location.pathname);readHash();render();return false">Show all benchmarks</a></p>`+h;
   $("#view").innerHTML=h||'<p class="muted">Nothing matches.</p>';
   $("#stat").textContent=`${shown} benchmarks, ${srcN} good practice links shown (${L.sources.length} good practices in total).`;
 }

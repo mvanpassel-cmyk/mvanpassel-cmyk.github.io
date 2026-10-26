@@ -166,7 +166,7 @@ function list(vis){
     <p>${esc(p.summary)}</p>
     <div class="tags"><span class="st ${p.status}">${STATUS[p.status]}</span><span class="tag">${years(p)}</span>
       ${p.topics.map(t=>`<span class="tag">${TOPICS[t]||t}</span>`).join("")}<span class="tag">${esc(p.type)}</span>${p.nphi===false?'<span class="tag">not NPHI-led</span>':""}
-      <a href="${esc(p.url)}" target="_blank" rel="noopener">Source ↗</a></div>
+      <a href="${esc(p.url)}" target="_blank" rel="noopener">Source ↗</a>${p.checked?`<span style="color:var(--muted);font-size:12px;margin-left:6px" title="Date the source link was last opened and checked">checked ${esc(p.checked)}</span>`:""}</div>
     ${p.note?`<div class="note">${esc(p.note)}</div>`:""}</article>`).join("")||"<p>No collaborations match these filters.</p>";
 }
 
@@ -181,7 +181,7 @@ document.getElementById("csvAll").onclick=()=>csv(data,"nphi-collaborations.csv"
 document.getElementById("csvVis").onclick=()=>csv(visible(),"nphi-collaborations-filtered.csv");
 Promise.all([d3.json(ATLAS),d3.json("projects.json")]).then(([topo,pj])=>{
   data=pj.projects;data.forEach(p=>p.kind=kind(p.type));
-  document.getElementById("upd").textContent="Data last updated "+pj.updated+".";
+  document.getElementById("upd").textContent="List last edited "+pj.updated+"; each entry shows when its source was last checked.";
   feats=topojson.feature(topo,topo.objects.countries).features.filter(f=>f.properties.name!=="Antarctica");
   // Small states missing from the 110m atlas are drawn as dots so their collaborations stay clickable.
   const SMALL={"Singapore":[103.8,1.35],"Tonga":[-175.2,-21.2],"Samoa":[-172.1,-13.8],"Kiribati":[173,1.4],"Palau":[134.5,7.5],"Nauru":[166.9,-0.53],"Tuvalu":[179.2,-8.5],"Niue":[-169.9,-19.05],"Marshall Is.":[171.2,7.1]};

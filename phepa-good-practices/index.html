@@ -147,6 +147,8 @@ function vStart(){
 }
 
 function vTopics(open){
+  // #/topics/cap-6 filters to one PHEPA capacity (deep link from TrACSS, NPHI and WOAH PVS tools)
+  const cm=/^cap-(\d+)$/.exec(open||""); if(cm){ if(D.cap[cm[1]]) st.cap=cm[1]; open=null; }
   const q=st.q;
   let h=`<p class="lead">Topics follow the structure of ECDC's interim report on the first assessment cycle. Under each topic: ECDC's opportunities for improvement, good practices found in assessed countries, the recommendations given, and related WHO JEE material.</p>
   <div class="bar"><input id="q" type="search" placeholder="Search topics and findings…" aria-label="Search" value="${esc(q)}" size="30">
