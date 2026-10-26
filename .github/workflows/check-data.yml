@@ -1,0 +1,23 @@
+name: Check portal data
+
+# Runs only when portal or NPHI data changes. Read-only: it never edits files.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "*-good-practices/data/**"
+      - "nphi-map/projects.json"
+      - ".github/scripts/check-data.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate ids and cross-framework references
+        run: python3 .github/scripts/check-data.py
