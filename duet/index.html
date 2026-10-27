@@ -68,6 +68,25 @@ h2{font-size:1.05rem;margin:34px 0 10px}
 .tag.ok{border-color:var(--c);color:var(--c)}
 .how{color:var(--mute);font-size:.88rem;max-width:75ch}
 .how li{margin:4px 0}
+.sampler{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.sbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 12px;font-size:.86rem;color:var(--mute)}
+.sbar input[type=number],.sbar select{background:#0f1013;color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:4px 6px;font:inherit;font-size:.86rem}
+.sbar input[type=number]{width:70px}
+.sbar input[type=range]{accent-color:var(--fg);width:90px;vertical-align:middle}
+.pgroup{margin:0 0 10px}
+.pgroup h4{margin:0 0 6px;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);font-weight:600}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:6px}
+.pad{background:#101115;border:1px solid var(--line);border-left:3px solid var(--pc);color:var(--fg);border-radius:8px;padding:10px 8px;font:inherit;font-size:.8rem;text-align:left;cursor:pointer;user-select:none;touch-action:manipulation}
+.pad.hit{background:var(--pc);color:#0e0f12}
+.seq{border-top:1px solid var(--line);margin-top:12px;padding-top:12px}
+.lane{display:grid;grid-template-columns:140px 1fr;gap:8px;align-items:center;margin:0 0 6px}
+.lane select{width:100%;background:#0f1013;color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:4px;font:inherit;font-size:.8rem}
+.steps{display:grid;grid-template-columns:repeat(16,1fr);gap:3px}
+.step{height:26px;border-radius:4px;border:1px solid var(--line);background:#101115;cursor:pointer;padding:0}
+.step:nth-child(4n+1){border-color:#3a3c45}
+.step.on{background:var(--lc);border-color:var(--lc)}
+.step.now{outline:2px solid var(--fg);outline-offset:-2px}
+@media (max-width:560px){.lane{grid-template-columns:1fr}.step{height:22px}}
 .toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:8px 14px;border-radius:8px;font-size:.88rem;opacity:0;transition:opacity .2s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -92,6 +111,27 @@ h2{font-size:1.05rem;margin:34px 0 10px}
   <div class="status" id="status">Paste a YouTube link in each deck, or pick a pairing below.</div>
 
   <div class="decks" id="decks" style="margin-top:12px"></div>
+
+  <h2>Sampler deck</h2>
+  <div class="sampler">
+    <div class="sbar">
+      <label>BPM <input type="number" id="bpm" min="40" max="220" step="0.5" value="100"></label>
+      <label>Snap <select id="quant"><option value="0">Off</option><option value="4" selected>1/16</option><option value="2">1/8</option><option value="1">Beat</option></select></label>
+      <button class="btn small" id="downbeat" title="Press on the &quot;one&quot; of the YouTube track to line up the grid">⬤ Set downbeat</button>
+      <label>Volume <input type="range" id="svol" min="0" max="100" value="80"></label>
+      <span class="status" id="sstatus">59 free (CC0) samples. Type the BPM of your YouTube track, then play pads or the sequencer.</span>
+    </div>
+    <div id="pads"></div>
+    <div class="seq">
+      <div class="sbar">
+        <button class="btn small primary" id="seqPlay">▶ Sequencer</button>
+        <select id="preset"><option value="">Pattern…</option><option value="four">Four on the floor</option><option value="afro">Afrobeat-ish</option><option value="half">Half-time</option><option value="shaker">Just shakers</option><option value="clear">Clear</option></select>
+        <span class="status">Click steps to toggle. Lanes start on the downbeat.</span>
+      </div>
+      <div id="lanes"></div>
+    </div>
+    <p class="status" style="margin:10px 0 0">Samples: <a href="https://github.com/sgossner/VCSL" target="_blank" rel="noopener">Versilian Community Sample Library</a>, CC0 (public domain). The browser can't hear the YouTube audio, so the tempo is the BPM you type: tap “Set downbeat” on a strong beat to line the grid up, and adjust BPM by 0.5 if it drifts.</p>
+  </div>
 
   <h2>Pairing finder</h2>
   <div class="finder">
@@ -320,6 +360,94 @@ async function restart() {
   ds.forEach(d => { d.player.unMute(); d.player.setVolume(d.vol); d.player.playVideo(); });
   playing = true; $('#play').textContent = '❚❚ Pause all'; status('Playing from the start points.');
 }
+
+// ------------------------------- sampler deck --------------------------------
+const SAMPLES = [["kick", "Kick", "Drums"], ["kick-soft", "Kick soft", "Drums"], ["snare", "Snare", "Drums"], ["snare-dry", "Snare dry", "Drums"], ["hat", "Hi-hat closed", "Drums"], ["hat-loose", "Hi-hat loose", "Drums"], ["clap", "Clap", "Drums"], ["tom-hi", "Tom", "Drums"], ["tom-lo", "Tom low", "Drums"], ["crash", "Cymbal", "Drums"], ["conga", "Conga", "Hand drums"], ["conga-slap", "Conga slap", "Hand drums"], ["bongo", "Bongo", "Hand drums"], ["darbuka", "Darbuka", "Hand drums"], ["darbuka-2", "Darbuka high", "Hand drums"], ["cajon", "Cajón", "Hand drums"], ["slit", "Slit drum", "Hand drums"], ["timpani", "Timpani", "Hand drums"], ["shaker", "Shaker", "Percussion"], ["shaker-big", "Shaker large", "Percussion"], ["tamb", "Tambourine", "Percussion"], ["cowbell", "Cowbell", "Percussion"], ["agogo", "Agogô", "Percussion"], ["claves", "Claves", "Percussion"], ["woodblock", "Woodblock", "Percussion"], ["guiro", "Güiro", "Percussion"], ["cabasa", "Cabasa", "Percussion"], ["triangle", "Triangle", "Percussion"], ["vibraslap", "Vibraslap", "Percussion"], ["brake", "Brake drum", "Percussion"], ["kalimba-1", "Kalimba 1", "Melodic"], ["kalimba-2", "Kalimba 2", "Melodic"], ["kalimba-3", "Kalimba 3", "Melodic"], ["mbira-1", "Mbira 1", "Melodic"], ["mbira-2", "Mbira 2", "Melodic"], ["mbira-3", "Mbira 3", "Melodic"], ["balafon-1", "Balafon 1", "Melodic"], ["balafon-2", "Balafon 2", "Melodic"], ["balafon-3", "Balafon 3", "Melodic"], ["marimba-1", "Marimba 1", "Melodic"], ["marimba-2", "Marimba 2", "Melodic"], ["marimba-3", "Marimba 3", "Melodic"], ["vibes-1", "Vibraphone 1", "Melodic"], ["vibes-2", "Vibraphone 2", "Melodic"], ["vibes-3", "Vibraphone 3", "Melodic"], ["glock-1", "Glockenspiel 1", "Melodic"], ["glock-2", "Glockenspiel 2", "Melodic"], ["fmpiano-1", "FM piano 1", "Melodic"], ["fmpiano-2", "FM piano 2", "Melodic"], ["fmpiano-3", "FM piano 3", "Melodic"], ["clavi-1", "Clavisynth 1", "Melodic"], ["clavi-2", "Clavisynth 2", "Melodic"], ["tubular", "Tubular bell", "Texture"], ["gong", "Gong", "Texture"], ["chimes", "Mark tree", "Texture"], ["belltree", "Bell tree", "Texture"], ["handchime", "Hand chime", "Texture"], ["glass", "Wine glass", "Texture"], ["roll", "Drum roll", "Texture"]];
+const GROUP_COLOR = { 'Drums': 'var(--m)', 'Hand drums': '#ff9b3d', 'Percussion': 'var(--y)', 'Melodic': 'var(--c)', 'Texture': '#a58cff' };
+let actx = null, master = null, downbeat = 0, seqOn = false, nextStep = 0, stepIdx = 0, timer = null;
+const buffers = {}, loading = {};
+function ctx() {
+  if (!actx) { actx = new (window.AudioContext || window.webkitAudioContext)(); master = actx.createGain();
+    master.gain.value = $('#svol').value / 100; master.connect(actx.destination); downbeat = actx.currentTime; }
+  if (actx.state === 'suspended') actx.resume();
+  return actx;
+}
+function load(id) {
+  if (buffers[id]) return Promise.resolve(buffers[id]);
+  if (!loading[id]) loading[id] = fetch('samples/' + id + '.mp3').then(r => r.arrayBuffer())
+    .then(b => new Promise((ok, no) => ctx().decodeAudioData(b, ok, no))).then(buf => (buffers[id] = buf));
+  return loading[id];
+}
+const bpm = () => Math.min(220, Math.max(40, +$('#bpm').value || 100));
+const stepDur = () => 60 / bpm() / 4;               // one 16th note
+function snapTime() {
+  const q = +$('#quant').value, now = ctx().currentTime + 0.01;
+  if (!q) return now;
+  const grid = 60 / bpm() / q;
+  return downbeat + Math.ceil((now - downbeat) / grid) * grid;
+}
+function play(id, when, gain = 1) {
+  const buf = buffers[id]; if (!buf) { load(id); return; }
+  const src = actx.createBufferSource(), g = actx.createGain();
+  src.buffer = buf; g.gain.value = gain; src.connect(g); g.connect(master); src.start(when);
+}
+function renderPads() {
+  const groups = {};
+  SAMPLES.forEach(([id, label, grp]) => (groups[grp] = groups[grp] || []).push([id, label]));
+  $('#pads').innerHTML = Object.entries(groups).map(([g, list]) => `<div class="pgroup" style="--pc:${GROUP_COLOR[g] || 'var(--fg)'}"><h4>${esc(g)}</h4><div class="pgrid">${
+    list.map(([id, l]) => `<button class="pad" data-id="${id}">${esc(l)}</button>`).join('')}</div></div>`).join('');
+  $('#pads').onpointerdown = async e => {
+    const b = e.target.closest('.pad'); if (!b) return; e.preventDefault();
+    ctx(); await load(b.dataset.id); const t = snapTime(); play(b.dataset.id, t);
+    setTimeout(() => { b.classList.add('hit'); setTimeout(() => b.classList.remove('hit'), 120); }, Math.max(0, (t - actx.currentTime) * 1000));
+  };
+}
+// Sequencer: 4 lanes x 16 steps
+const LANE_COLORS = ['var(--m)', 'var(--y)', 'var(--c)', '#ff9b3d'];
+const lanes = [{ id: 'kick', steps: [] }, { id: 'snare', steps: [] }, { id: 'hat', steps: [] }, { id: 'shaker', steps: [] }];
+const PRESETS = {
+  four:   ['x...x...x...x...', '....x.......x...', '..x...x...x...x.', 'x.x.x.x.x.x.x.x.'],
+  afro:   ['x.....x...x.....', '....x.......x..x', 'x.x.xx.xx.x.xx.x', '..x...x...x...x.'],
+  half:   ['x.........x.....', '........x.......', 'x.x.x.x.x.x.x.x.', '................'],
+  shaker: ['................', '................', '................', 'x.xxx.xxx.xxx.xx'],
+  clear:  ['................', '................', '................', '................'],
+};
+function setPattern(name) { PRESETS[name].forEach((pat, i) => lanes[i].steps = [...pat].map(c => c === 'x')); renderLanes(); }
+function renderLanes() {
+  const opts = SAMPLES.map(([id, l]) => `<option value="${id}">${esc(l)}</option>`).join('');
+  $('#lanes').innerHTML = lanes.map((ln, i) => `<div class="lane" style="--lc:${LANE_COLORS[i]}">
+    <select data-lane="${i}">${opts}</select>
+    <div class="steps">${ln.steps.map((on, k) => `<button class="step ${on ? 'on' : ''}" data-lane="${i}" data-k="${k}" aria-label="Step ${k + 1}"></button>`).join('')}</div></div>`).join('');
+  lanes.forEach((ln, i) => { $(`#lanes select[data-lane="${i}"]`).value = ln.id; });
+}
+$('#lanes').addEventListener('click', e => { const b = e.target.closest('.step'); if (!b) return;
+  const ln = lanes[+b.dataset.lane]; ln.steps[+b.dataset.k] = !ln.steps[+b.dataset.k]; b.classList.toggle('on'); });
+$('#lanes').addEventListener('change', e => { const sel = e.target.closest('select'); if (!sel) return;
+  lanes[+sel.dataset.lane].id = sel.value; ctx(); load(sel.value); });
+function tick() {
+  while (nextStep < actx.currentTime + 0.12) {
+    const k = stepIdx % 16;
+    lanes.forEach(ln => { if (ln.steps[k]) play(ln.id, nextStep, k % 4 === 0 ? 1 : 0.8); });
+    const at = nextStep; setTimeout(() => { document.querySelectorAll('.step.now').forEach(x => x.classList.remove('now'));
+      document.querySelectorAll(`.step[data-k="${k}"]`).forEach(x => x.classList.add('now')); }, Math.max(0, (at - actx.currentTime) * 1000));
+    nextStep += stepDur(); stepIdx++;
+  }
+}
+async function startSeq() {
+  ctx(); await Promise.all(lanes.map(l => load(l.id)));
+  const sd = stepDur(), now = actx.currentTime + 0.05;
+  const n = Math.ceil((now - downbeat) / sd);         // next 16th on the downbeat grid
+  nextStep = downbeat + n * sd; stepIdx = ((n % 16) + 16) % 16;
+  seqOn = true; timer = setInterval(tick, 25); tick(); $('#seqPlay').textContent = '■ Stop';
+}
+function stopSeq() { seqOn = false; clearInterval(timer); $('#seqPlay').textContent = '▶ Sequencer'; document.querySelectorAll('.step.now').forEach(x => x.classList.remove('now')); }
+$('#seqPlay').onclick = () => seqOn ? stopSeq() : startSeq();
+$('#preset').onchange = e => { if (e.target.value) setPattern(e.target.value); e.target.value = ''; };
+$('#downbeat').onclick = () => { ctx(); downbeat = actx.currentTime;
+  if (seqOn) { stopSeq(); startSeq(); } toast('Downbeat set'); };
+$('#svol').oninput = e => { if (master) master.gain.value = e.target.value / 100; };
+$('#bpm').onchange = () => { if (seqOn) { const k = stepIdx; stopSeq(); startSeq(); } };
+renderPads(); setPattern('four');
 
 // ------------------------------- pairing finder ------------------------------
 // Rule of thumb: one track with a steady beat + one without a strict pulse.
