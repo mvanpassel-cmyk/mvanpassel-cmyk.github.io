@@ -1,19 +1,222 @@
 {
-  "meta": {
-    "note": "Good practices added for this page. Good practices from the IHR Benchmarks Good Practices page are reused through the crosswalk and shown with the benchmark they come from. Takeaways are one-line summaries in our own words, based on the abstract or page, not the full text."
+ "meta": {
+  "note": "Good practices added for this page. Good practices from the IHR Benchmarks Good Practices page are reused through the crosswalk and shown with the benchmark they come from. Takeaways are one-line summaries in our own words, based on the abstract or page, not the full text."
+ },
+ "sources": [
+  {
+   "id": "razavi-2021",
+   "title": "Evaluating implementation of International Health Regulations core capacities: using the Electronic States Parties Self-Assessment Annual Reporting Tool (e-SPAR) to monitor progress with Joint External Evaluation indicators",
+   "authors": "Razavi A, Collins S, Wilson A, Okereke E",
+   "journal": "Globalization and Health 17:69",
+   "year": 2021,
+   "country": "Global",
+   "type": "peer-reviewed",
+   "url": "https://link.springer.com/10.1186/s12992-021-00720-5",
+   "takeaway": "Most SPAR indicators match JEE indicators closely, so SPAR can track progress between JEE missions, with gaps for AMR and immunisation.",
+   "general": true
   },
-  "sources": [
-    {"id":"razavi-2021","title":"Evaluating implementation of International Health Regulations core capacities: using the Electronic States Parties Self-Assessment Annual Reporting Tool (e-SPAR) to monitor progress with Joint External Evaluation indicators","authors":"Razavi A, Collins S, Wilson A, Okereke E","journal":"Globalization and Health 17:69","year":2021,"country":"Global","type":"peer-reviewed","url":"https://link.springer.com/10.1186/s12992-021-00720-5","takeaway":"Most SPAR indicators match JEE indicators closely, so SPAR can track progress between JEE missions, with gaps for AMR and immunisation.","general":true},
-    {"id":"eze-2024","title":"Epidemic preparedness and response capacity against infectious disease outbreaks in 186 countries, 2018–2022","authors":"Eze P, et al.","journal":"BMC Infectious Diseases 24:1258","year":2024,"country":"186 countries","type":"peer-reviewed","url":"https://bmcinfectdis.biomedcentral.com/articles/10.1186/s12879-024-10168-8","takeaway":"Analysis of SPAR data shows gains in five domains from 2018 to 2022, but many countries, especially in Africa, still lack functional capacity; self-reports may overstate it.","general":true},
-    {"id":"lee-2022","title":"An ecological study on the association between International Health Regulations (IHR) core capacity scores and the Universal Health Coverage (UHC) service coverage index","authors":"Lee Y, Kim S, Oh J, Lee S","journal":"Globalization and Health 18","year":2022,"country":"96 countries","type":"peer-reviewed","url":"https://doi.org/10.1186/s12992-022-00808-6","takeaway":"Countries with higher IHR capacity scores tended to have higher service coverage, even after adjustment, suggesting health security and UHC reinforce each other.","general":true},
-    {"id":"paho-belize-2025","title":"Belize enhances health security and emergency preparedness through the 2024 e-SPAR assessment and IHR core capacities workshop","authors":"PAHO/WHO","journal":"PAHO news, 7 Feb 2025","year":2025,"country":"Belize","type":"case-study","pr":false,"url":"https://www.paho.org/en/news/7-2-2025-belize-enhances-health-security-and-emergency-preparedness-through-2024-e-spar","takeaway":"A multisectoral workshop (health, agriculture, environment and security, including civil aviation and the defence force) used the e-SPAR to find gaps that will inform a work plan, and agreed to reconvene after six months to review progress.","note":"Press release, not a study; it does not report results.","general":true},
-    {"id":"osman-2023","title":"Prioritization of zoonoses for multisectoral, One Health collaboration in Somalia, 2023","authors":"Osman AY, et al.","journal":"One Health 17:100634","year":2023,"country":"Somalia","type":"case-study","pr":true,"url":"https://www.ilri.org/knowledge/publications/prioritization-zoonoses-multisectoral-one-health-collaboration-somalia-2023","takeaway":"Human, animal, agriculture and environment sectors ranked 33 candidate zoonoses with a CDC tool and agreed seven priorities to guide joint surveillance, preparedness and workforce work.","ind":["C12.1"]},
-    {"id":"thomas-2020","title":"Outbreak of listeriosis in South Africa associated with processed meat","authors":"Thomas J, Govender N, McCarthy KM, et al.","journal":"New England Journal of Medicine 382(7)","year":2020,"country":"South Africa","type":"case-study","pr":true,"url":"https://stacks.cdc.gov/view/cdc/89525","takeaway":"Genome sequencing and a case-control study traced 937 cases to one factory's ready-to-eat meat; the recall was followed by a sharp drop in cases.","ind":["C13.1"]},
-    {"id":"rapid-micro-2018","title":"South Africa's Listeria outbreak declared over: what lessons did we learn?","authors":"Rapid Microbiology (news)","journal":"rapidmicrobiology.com","year":2018,"country":"South Africa","type":"report","pr":false,"url":"https://www.rapidmicrobiology.com/news/south-africas-listeria-outbreak-declared-over-what-lessons-did-we-learn","takeaway":"The response exposed a fragmented food control system without mandatory HACCP or a legal limit for Listeria, prompting calls for a single food safety authority and new rules for ready-to-eat meat plants.","note":"Trade news summary; check against official outbreak reports.","ind":["C13.1"]},
-    {"id":"who-mongolia-2016","title":"Country programme on food safety (Mongolia)","authors":"WHO Mongolia","journal":"WHO feature story, 4 Feb 2016","year":2016,"country":"Mongolia","type":"report","pr":false,"url":"https://www.who.int/mongolia/news/feature-stories/detail/country-programme-on-food-safety","takeaway":"Describes an emergency operations centre, a national food emergency response plan, a food laboratory network and an intersectoral strategy drafted with security and health agencies.","note":"WHO feature story; not independently evaluated.","ind":["C13.1"]},
-    {"id":"praekunatham-2023","title":"An evaluation of national capacity regarding chemical event management under the International Health Regulations: a case of Thailand, 2022","authors":"Praekunatham H, Boonmephong K","journal":"OSIR Journal 16(3)","year":2023,"country":"Thailand","type":"case-study","pr":true,"url":"https://he02.tci-thaijo.org/index.php/OSIR/article/view/262562","takeaway":"A JEE-based review found strong national and intermediate chemical event capacity but weak primary level and points of entry; it recommends an action plan and staff training.","ind":["C14.1"]},
-    {"id":"iaea-goiania-1988","title":"The radiological accident in Goiânia","authors":"IAEA","journal":"IAEA STI/PUB/815","year":1988,"country":"Brazil","type":"report","pr":false,"url":"https://www-pub.iaea.org/MTCD/publications/PubDetAR.asp?pubId=3684","takeaway":"Classic case report on a stolen radiotherapy source: chronology, medical and remedial response, and recommendations.","ind":["C15.1"]},
-    {"id":"shaw-2010","title":"The international follow-up of individuals potentially exposed to polonium-210 in London 2006","authors":"Shaw K, Anders K, Olowokure B, et al.","journal":"Public Health 124(6)","year":2010,"country":"United Kingdom and 50+ countries","type":"case-study","pr":true,"url":"https://researchportal.ukhsa.gov.uk/en/publications/the-international-follow-up-of-individuals-potentially-exposed-to/","takeaway":"The UK followed up 664 people abroad who may have been exposed and found few with meaningful contamination, showing how much cross-border cooperation such events need.","ind":["C15.1"]},
-    {"id":"gds-litvinenko-2014","title":"Radiological incident: London, England","authors":"UK Government Decontamination Service","journal":"GOV.UK case study","year":2014,"country":"United Kingdom","type":"case-study","pr":false,"url":"https://gov.uk/government/case-studies/radiological-incident-london-england","takeaway":"Describes how an operations centre, specialist contractors and multi-agency partners decontaminated nine venues after the polonium-210 poisoning.","note":"Government case study, not peer-reviewed.","ind":["C15.1"]}
-  ]
+  {
+   "id": "eze-2024",
+   "title": "Epidemic preparedness and response capacity against infectious disease outbreaks in 186 countries, 2018–2022",
+   "authors": "Eze P, et al.",
+   "journal": "BMC Infectious Diseases 24:1258",
+   "year": 2024,
+   "country": "186 countries",
+   "type": "peer-reviewed",
+   "url": "https://bmcinfectdis.biomedcentral.com/articles/10.1186/s12879-024-10168-8",
+   "takeaway": "Analysis of SPAR data shows gains in five domains from 2018 to 2022, but many countries, especially in Africa, still lack functional capacity; self-reports may overstate it.",
+   "general": true
+  },
+  {
+   "id": "lee-2022",
+   "title": "An ecological study on the association between International Health Regulations (IHR) core capacity scores and the Universal Health Coverage (UHC) service coverage index",
+   "authors": "Lee Y, Kim S, Oh J, Lee S",
+   "journal": "Globalization and Health 18",
+   "year": 2022,
+   "country": "96 countries",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.1186/s12992-022-00808-6",
+   "takeaway": "Countries with higher IHR capacity scores tended to have higher service coverage, even after adjustment, suggesting health security and UHC reinforce each other.",
+   "general": true
+  },
+  {
+   "id": "paho-belize-2025",
+   "title": "Belize enhances health security and emergency preparedness through the 2024 e-SPAR assessment and IHR core capacities workshop",
+   "authors": "PAHO/WHO",
+   "journal": "PAHO news, 7 Feb 2025",
+   "year": 2025,
+   "country": "Belize",
+   "type": "case-study",
+   "pr": false,
+   "url": "https://www.paho.org/en/news/7-2-2025-belize-enhances-health-security-and-emergency-preparedness-through-2024-e-spar",
+   "takeaway": "A multisectoral workshop (health, agriculture, environment and security, including civil aviation and the defence force) used the e-SPAR to find gaps that will inform a work plan, and agreed to reconvene after six months to review progress.",
+   "note": "Press release, not a study; it does not report results.",
+   "general": true
+  },
+  {
+   "id": "osman-2023",
+   "title": "Prioritization of zoonoses for multisectoral, One Health collaboration in Somalia, 2023",
+   "authors": "Osman AY, et al.",
+   "journal": "One Health 17:100634",
+   "year": 2023,
+   "country": "Somalia",
+   "type": "case-study",
+   "pr": true,
+   "url": "https://www.ilri.org/knowledge/publications/prioritization-zoonoses-multisectoral-one-health-collaboration-somalia-2023",
+   "takeaway": "Human, animal, agriculture and environment sectors ranked 33 candidate zoonoses with a CDC tool and agreed seven priorities to guide joint surveillance, preparedness and workforce work.",
+   "ind": [
+    "C12.1"
+   ]
+  },
+  {
+   "id": "thomas-2020",
+   "title": "Outbreak of listeriosis in South Africa associated with processed meat",
+   "authors": "Thomas J, Govender N, McCarthy KM, et al.",
+   "journal": "New England Journal of Medicine 382(7)",
+   "year": 2020,
+   "country": "South Africa",
+   "type": "case-study",
+   "pr": true,
+   "url": "https://stacks.cdc.gov/view/cdc/89525",
+   "takeaway": "Genome sequencing and a case-control study traced 937 cases to one factory's ready-to-eat meat; the recall was followed by a sharp drop in cases.",
+   "ind": [
+    "C13.1"
+   ]
+  },
+  {
+   "id": "rapid-micro-2018",
+   "title": "South Africa's Listeria outbreak declared over: what lessons did we learn?",
+   "authors": "Rapid Microbiology (news)",
+   "journal": "rapidmicrobiology.com",
+   "year": 2018,
+   "country": "South Africa",
+   "type": "report",
+   "pr": false,
+   "url": "https://www.rapidmicrobiology.com/news/south-africas-listeria-outbreak-declared-over-what-lessons-did-we-learn",
+   "takeaway": "The response exposed a fragmented food control system without mandatory HACCP or a legal limit for Listeria, prompting calls for a single food safety authority and new rules for ready-to-eat meat plants.",
+   "note": "Trade news summary; check against official outbreak reports.",
+   "ind": [
+    "C13.1"
+   ]
+  },
+  {
+   "id": "who-mongolia-2016",
+   "title": "Country programme on food safety (Mongolia)",
+   "authors": "WHO Mongolia",
+   "journal": "WHO feature story, 4 Feb 2016",
+   "year": 2016,
+   "country": "Mongolia",
+   "type": "report",
+   "pr": false,
+   "url": "https://www.who.int/mongolia/news/feature-stories/detail/country-programme-on-food-safety",
+   "takeaway": "Describes an emergency operations centre, a national food emergency response plan, a food laboratory network and an intersectoral strategy drafted with security and health agencies.",
+   "note": "WHO feature story; not independently evaluated.",
+   "ind": [
+    "C13.1"
+   ]
+  },
+  {
+   "id": "praekunatham-2023",
+   "title": "An evaluation of national capacity regarding chemical event management under the International Health Regulations: a case of Thailand, 2022",
+   "authors": "Praekunatham H, Boonmephong K",
+   "journal": "OSIR Journal 16(3)",
+   "year": 2023,
+   "country": "Thailand",
+   "type": "case-study",
+   "pr": true,
+   "url": "https://he02.tci-thaijo.org/index.php/OSIR/article/view/262562",
+   "takeaway": "A JEE-based review found strong national and intermediate chemical event capacity but weak primary level and points of entry; it recommends an action plan and staff training.",
+   "ind": [
+    "C14.1"
+   ]
+  },
+  {
+   "id": "iaea-goiania-1988",
+   "title": "The radiological accident in Goiânia",
+   "authors": "IAEA",
+   "journal": "IAEA STI/PUB/815",
+   "year": 1988,
+   "country": "Brazil",
+   "type": "report",
+   "pr": false,
+   "url": "https://www-pub.iaea.org/MTCD/publications/PubDetAR.asp?pubId=3684",
+   "takeaway": "Classic case report on a stolen radiotherapy source: chronology, medical and remedial response, and recommendations.",
+   "ind": [
+    "C15.1"
+   ]
+  },
+  {
+   "id": "shaw-2010",
+   "title": "The international follow-up of individuals potentially exposed to polonium-210 in London 2006",
+   "authors": "Shaw K, Anders K, Olowokure B, et al.",
+   "journal": "Public Health 124(6)",
+   "year": 2010,
+   "country": "United Kingdom and 50+ countries",
+   "type": "case-study",
+   "pr": true,
+   "url": "https://researchportal.ukhsa.gov.uk/en/publications/the-international-follow-up-of-individuals-potentially-exposed-to/",
+   "takeaway": "The UK followed up 664 people abroad who may have been exposed and found few with meaningful contamination, showing how much cross-border cooperation such events need.",
+   "ind": [
+    "C15.1"
+   ]
+  },
+  {
+   "id": "gds-litvinenko-2014",
+   "title": "Radiological incident: London, England",
+   "authors": "UK Government Decontamination Service",
+   "journal": "GOV.UK case study",
+   "year": 2014,
+   "country": "United Kingdom",
+   "type": "case-study",
+   "pr": false,
+   "url": "https://gov.uk/government/case-studies/radiological-incident-london-england",
+   "takeaway": "Describes how an operations centre, specialist contractors and multi-agency partners decontaminated nine venues after the polonium-210 poisoning.",
+   "note": "Government case study, not peer-reviewed.",
+   "ind": [
+    "C15.1"
+   ]
+  },
+  {
+   "id": "yao-2014-slmta",
+   "title": "Evidence from 617 laboratories in 47 countries for SLMTA-driven improvement in quality management systems",
+   "authors": "Yao K, Luman ET, SLMTA Collaborating Authors",
+   "journal": "African Journal of Laboratory Medicine 3(2)",
+   "year": 2014,
+   "country": "Multi-country (Africa, Caribbean, Asia)",
+   "type": "peer-reviewed",
+   "url": "https://library.aosis.co.za/index.php/record/view/8882",
+   "takeaway": "Shows a stepwise route to a working laboratory quality system before formal accreditation, with measurable gains across many countries.",
+   "ind": [
+    "C4.3"
+   ]
+  },
+  {
+   "id": "gueye-2024-who-surge",
+   "title": "Willingness of WHO staff to work in health emergencies in the African Region: opportunity for phased deployment of staff and ensure continuity of health services",
+   "authors": "Gueye AS, Okeibunor J, Ngofa R, et al.",
+   "journal": "Pan African Medical Journal 47:68",
+   "year": 2024,
+   "country": "WHO African Region",
+   "type": "peer-reviewed",
+   "url": "https://www.panafrican-med-journal.com/content/article/47/68/full",
+   "takeaway": "A volunteer surge roster is a quick way to find deployable staff, but planning has to account for gender balance, family duties and safety.",
+   "ind": [
+    "C6.2"
+   ]
+  },
+  {
+   "id": "jalloh-2017-kap",
+   "title": "National survey of Ebola-related knowledge, attitudes and practices before the outbreak peak in Sierra Leone: August 2014",
+   "authors": "Jalloh MF, Sengeh P, Monasch R, et al.",
+   "journal": "BMJ Global Health 2(4):e000285",
+   "year": 2017,
+   "country": "Sierra Leone",
+   "type": "peer-reviewed",
+   "url": "https://gh.bmj.com/content/2/4/e000285",
+   "takeaway": "A rapid national KAP survey mid-epidemic found near-universal awareness but common misconceptions and stigma, giving community engagement a concrete target.",
+   "ind": [
+    "C10.3"
+   ]
+  }
+ ]
 }
