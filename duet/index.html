@@ -72,7 +72,7 @@ h2{font-size:1.05rem;margin:34px 0 10px}
     <h1>YouTube Duet</h1>
     <a class="home" href="/">← Tools &amp; experiments</a>
   </div>
-  <p class="sub">Play two or three YouTube videos at the same time, each with its own start point, volume and speed. That's how the Miles Davis × LCD Soundsystem duet was made: no editing, no downloads, just two players running together.</p>
+  <p class="sub">Play two or three YouTube videos at the same time, each with its own start point, volume and speed. That's how the Miles Davis × LCD Soundsystem duet was made: no editing, no downloads, just two players running together. Tip: use official uploads (artist or “- Topic” channels); those stay online and allow embedding.</p>
 
   <div class="bar">
     <button class="btn primary" id="play">▶ Play all</button>
@@ -107,8 +107,8 @@ h2{font-size:1.05rem;margin:34px 0 10px}
 // ---------------------------------------------------------------------------
 const PAIRINGS = [
   { title: "LCD Soundsystem × Miles Davis", ok: true,
-    note: "The original 2011 YouTube duet by Alessandro Grespan: “New York, I Love You But You're Bringing Me Down” with Miles Davis recording the Elevator to the Gallows score. Start the LCD track 32 s in.",
-    decks: [{ id: "-eohHwsplvY", start: 32 }, { id: "E-XVlrauLxc", start: 0 }],
+    note: "The original 2011 YouTube duet by Alessandro Grespan: “New York, I Love You But You're Bringing Me Down” with Miles Davis's Elevator to the Gallows score. Pick the official uploads (the artist or “- Topic” channels), paste them in, and start the LCD track about 32 s in. The session footage from the original was taken down after a rights claim.",
+    search: ["LCD Soundsystem New York I Love You But You're Bringing Me Down", "Miles Davis Ascenseur pour l'échafaud Générique"],
     watch: "https://www.youtube.com/watch?v=huEtJw7pfLk" },
   { title: "Bill Evans × Nils Frahm", ok: false,
     note: "“Peace Piece” is one repeating two-chord vamp, so a slow, sparse piano piece like Frahm's “Says” can sit on top.",
@@ -209,7 +209,7 @@ function loadDeck(i, id) {
       onReady: () => { d.ready = true; d.player.setVolume(d.vol); fillRates(i); status('Ready. Press Play all.'); },
       onError: e => {
         const why = { 2: 'invalid link', 5: 'cannot play in a browser player', 100: 'video removed or private', 101: 'owner does not allow embedding', 150: 'owner does not allow embedding' }[e.data] || 'error ' + e.data;
-        el.querySelector('[data-v=err]').textContent = 'This video won\'t play here (' + why + '). Try another upload of the same track.';
+        el.querySelector('[data-v=err]').textContent = 'This video won\'t play here (' + why + '). Try the official upload from the artist's own channel.';
       },
       onStateChange: () => {},
     }
@@ -345,8 +345,7 @@ $('#addDeck').onclick = () => addDeck();
 
 // ------------------------------- start up -----------------------------------
 const initial = fromParams(new URLSearchParams(location.search));
-const startCfg = initial.length ? initial : PAIRINGS[0].decks;
-addDeck(startCfg[0]); addDeck(startCfg[1]); if (startCfg[2]) addDeck(startCfg[2]);
+addDeck(initial[0]); addDeck(initial[1]); if (initial[2]) addDeck(initial[2]);
 renderPairs();
 
 window.onYouTubeIframeAPIReady = () => { apiReady = true; decks.forEach((d, i) => d.id && loadDeck(i, d.id)); };
