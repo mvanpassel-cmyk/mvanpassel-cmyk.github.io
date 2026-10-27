@@ -52,6 +52,13 @@ a.btn{text-decoration:none;display:inline-block}
 .nudge{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 .err{color:#ff8a80;font-size:.82rem;margin-top:6px}
 h2{font-size:1.05rem;margin:34px 0 10px}
+.finder{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.step{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 10px}
+.step .q{color:var(--mute);font-size:.88rem;min-width:170px}
+.opts{display:flex;gap:6px;flex-wrap:wrap}
+.opt{border:1px solid var(--line);background:transparent;color:var(--fg);padding:5px 12px;border-radius:999px;font:inherit;font-size:.85rem;cursor:pointer}
+.opt.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+#found .pair{background:#121317}
 .pairs{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
 .pair{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
 .pair h3{font-size:.95rem;margin:0 0 4px}
@@ -86,7 +93,16 @@ h2{font-size:1.05rem;margin:34px 0 10px}
 
   <div class="decks" id="decks" style="margin-top:12px"></div>
 
-  <h2>Pairings</h2>
+  <h2>Pairing finder</h2>
+  <div class="finder">
+    <div class="step"><span class="q">1. The beat comes from…</span><div class="opts" data-step="beat"></div></div>
+    <div class="step"><span class="q">2. Floating on top…</span><div class="opts" data-step="float"></div></div>
+    <div class="step"><span class="q">3. Tempo feel</span><div class="opts" data-step="feel"></div></div>
+    <div class="row" style="margin-top:6px"><button class="btn small" id="surprise">🎲 Surprise me</button><span class="status" id="fcount"></span></div>
+    <div class="pairs" id="found" style="margin-top:12px"></div>
+  </div>
+
+  <h2>Hand-picked pairings</h2>
   <div class="pairs" id="pairs"></div>
 
   <h2>How to find more that work</h2>
@@ -105,23 +121,47 @@ h2{font-size:1.05rem;margin:34px 0 10px}
 // Pairings. "ok" = known to work (published duet). Others are untested ideas:
 // pick a version on YouTube, paste the links, and save it if it works.
 // ---------------------------------------------------------------------------
+// Tracks: official uploads only (artist, label or "- Topic" channels), so they
+// stay online and allow embedding. role: "groove" has a steady beat, "float"
+// has no strict pulse (modal jazz, kora, ambient). feel = rough tempo feel.
+const TRACKS = {
+  lcd:      { t: "New York, I Love You But You're Bringing Me Down", a: "LCD Soundsystem", id: "c5kM3iwYVi0", world: "electronic", role: "groove", feel: "slow" },
+  boc:      { t: "Roygbiv", a: "Boards of Canada", id: "SM4tQcUt_mQ", world: "electronic", role: "groove", feel: "slow" },
+  teardrop: { t: "Teardrop", a: "Massive Attack", id: "3h-JYx76QNM", world: "electronic", role: "groove", feel: "slow" },
+  bonobo:   { t: "Kerala", a: "Bonobo", id: "S0Q4gqBUs7c", world: "electronic", role: "groove", feel: "up" },
+  khru:     { t: "Maria También", a: "Khruangbin", id: "7hlGqj3ImQI", world: "electronic", role: "groove", feel: "up" },
+  mulatu:   { t: "Yèkèrmo Sèw", a: "Mulatu Astatke", id: "jwdBRqIsVUY", world: "africa", role: "groove", feel: "slow" },
+  fela:     { t: "Water No Get Enemy", a: "Fela Kuti", id: "kisTH3SFegc", world: "africa", role: "groove", feel: "mid" },
+  tinariwen:{ t: "Cler Achel", a: "Tinariwen", id: "cHqdmOURIkc", world: "africa", role: "groove", feel: "mid" },
+  debe:     { t: "Debe", a: "Ali Farka Touré & Toumani Diabaté", id: "ugVw8cSGNoE", world: "africa", role: "float" },
+  jarabi:   { t: "Jarabi", a: "Toumani Diabaté", id: "asvPlOGh5tI", world: "africa", role: "float" },
+  generique:{ t: "Générique (Elevator to the Gallows)", a: "Miles Davis", id: "em0LbTF1fpg", world: "jazz", role: "float" },
+  big:      { t: "Blue in Green", a: "Miles Davis", id: "TLDflhhdPCg", world: "jazz", role: "float" },
+  fs:       { t: "Flamenco Sketches", a: "Miles Davis", id: "nTwp1sgUJrM", world: "jazz", role: "float" },
+  peace:    { t: "Peace Piece", a: "Bill Evans", id: "-49G2-0GBSA", world: "jazz", role: "float" },
+  alice:    { t: "Journey in Satchidananda (live)", a: "Alice Coltrane", id: "_Jie_usHtes", world: "jazz", role: "float" },
+  eno:      { t: "An Ending (Ascent)", a: "Brian Eno", id: "OlaTeXX3uH8", world: "ambient", role: "float" },
+  frahm:    { t: "Says", a: "Nils Frahm", id: "dIwwjy4slI8", world: "ambient", role: "float" },
+};
+const WORLD = { electronic: "Electronic & indie", africa: "African", jazz: "Jazz", ambient: "Ambient & piano" };
+const FEEL  = { slow: "Slow", mid: "Mid", up: "Upbeat" };
+const deck = (k, extra = {}) => ({ id: TRACKS[k].id, start: 0, vol: TRACKS[k].role === 'float' ? 65 : 85, ...extra });
+
+// Hand-picked starting points. "ok" = a published duet that's known to work.
 const PAIRINGS = [
   { title: "LCD Soundsystem × Miles Davis", ok: true,
-    note: "The original 2011 YouTube duet by Alessandro Grespan: “New York, I Love You But You're Bringing Me Down” with Miles Davis's Elevator to the Gallows score. Pick the official uploads (the artist or “- Topic” channels), paste them in, and start the LCD track about 32 s in. The session footage from the original was taken down after a rights claim.",
-    search: ["LCD Soundsystem New York I Love You But You're Bringing Me Down", "Miles Davis Ascenseur pour l'échafaud Générique"],
-    watch: "https://www.youtube.com/watch?v=huEtJw7pfLk" },
-  { title: "Bill Evans × Nils Frahm", ok: false,
-    note: "“Peace Piece” is one repeating two-chord vamp, so a slow, sparse piano piece like Frahm's “Says” can sit on top.",
-    search: ["Bill Evans Peace Piece", "Nils Frahm Says"] },
-  { title: "Miles Davis × Brian Eno", ok: false,
-    note: "“Flamenco Sketches” is modal and free-floating; Eno's “An Ending (Ascent)” is a slow pad with no beat at all.",
-    search: ["Miles Davis Flamenco Sketches", "Brian Eno An Ending Ascent"] },
-  { title: "Alice Coltrane × Massive Attack", ok: false,
-    note: "A drone-based harp and saxophone piece (“Journey in Satchidananda”) over a slow trip-hop beat like “Teardrop”.",
-    search: ["Alice Coltrane Journey in Satchidananda", "Massive Attack Teardrop"] },
-  { title: "Chet Baker × Boards of Canada", ok: false,
-    note: "A muted trumpet ballad over a hazy, slow electronic loop. Try lowering the electronic track to 50%.",
-    search: ["Chet Baker trumpet ballad", "Boards of Canada Roygbiv"] },
+    note: "The original 2011 YouTube duet by Alessandro Grespan. Here with the official uploads; start the Miles track a few seconds in and nudge until the trumpet sits on the piano.",
+    decks: [deck('lcd'), deck('generique', { vol: 75 })], watch: "https://www.youtube.com/watch?v=huEtJw7pfLk" },
+  { title: "Mulatu Astatke × Miles Davis", note: "Ethio-jazz groove with modal Miles floating over it. Both lean on the same smoky, minor-ish mood.",
+    decks: [deck('mulatu'), deck('fs')] },
+  { title: "Tinariwen × Toumani Diabaté", note: "Desert-blues guitar groove with kora cascading over it: two Malian traditions that grew up side by side.",
+    decks: [deck('tinariwen'), deck('jarabi')] },
+  { title: "Boards of Canada × Bill Evans", note: "A hazy, slow synth loop under a piano piece built on one repeating two-chord vamp.",
+    decks: [deck('boc'), deck('peace')] },
+  { title: "Massive Attack × Alice Coltrane", note: "Slow trip-hop heartbeat under harp and saxophone over a drone.",
+    decks: [deck('teardrop', { vol: 70 }), deck('alice')] },
+  { title: "Fela Kuti × Brian Eno", note: "Afrobeat groove with an Eno pad underneath: the pad has no beat, so it can't clash in time.",
+    decks: [deck('fela'), deck('eno', { vol: 55 })] },
 ];
 
 // ---------------------------------------------------------------------------
@@ -209,7 +249,7 @@ function loadDeck(i, id) {
       onReady: () => { d.ready = true; d.player.setVolume(d.vol); fillRates(i); status('Ready. Press Play all.'); },
       onError: e => {
         const why = { 2: 'invalid link', 5: 'cannot play in a browser player', 100: 'video removed or private', 101: 'owner does not allow embedding', 150: 'owner does not allow embedding' }[e.data] || 'error ' + e.data;
-        el.querySelector('[data-v=err]').textContent = 'This video won\'t play here (' + why + '). Try the official upload from the artist's own channel.';
+        el.querySelector('[data-v=err]').textContent = 'This video won\'t play here (' + why + '). Try the official upload from the artist\'s own channel.';
       },
       onStateChange: () => {},
     }
@@ -281,6 +321,43 @@ async function restart() {
   playing = true; $('#play').textContent = '❚❚ Pause all'; status('Playing from the start points.');
 }
 
+// ------------------------------- pairing finder ------------------------------
+// Rule of thumb: one track with a steady beat + one without a strict pulse.
+// The floating track can't fight the beat, so tempo never has to match.
+const pick = { beat: 'any', float: 'any', feel: 'any' };
+const OPTS = {
+  beat:  [['any', 'Anything'], ['africa', 'African'], ['electronic', 'Electronic & indie']],
+  float: [['any', 'Anything'], ['jazz', 'Jazz'], ['africa', 'African (kora)'], ['ambient', 'Ambient & piano']],
+  feel:  [['any', 'Any'], ['slow', 'Slow'], ['mid', 'Mid'], ['up', 'Upbeat']],
+};
+function finderMatches() {
+  const T = Object.entries(TRACKS);
+  const grooves = T.filter(([, x]) => x.role === 'groove' && (pick.beat === 'any' || x.world === pick.beat) && (pick.feel === 'any' || x.feel === pick.feel));
+  const floats  = T.filter(([, x]) => x.role === 'float'  && (pick.float === 'any' || x.world === pick.float));
+  const out = [];
+  for (const [gk, g] of grooves) for (const [fk, f] of floats) if (g.world !== f.world || pick.beat === pick.float) out.push([gk, fk]);
+  return out;
+}
+function renderFinder() {
+  document.querySelectorAll('.opts').forEach(el => {
+    const step = el.dataset.step;
+    el.innerHTML = OPTS[step].map(([v, l]) => `<button class="opt ${pick[step] === v ? 'on' : ''}" data-v="${v}">${l}</button>`).join('');
+    el.onclick = e => { const b = e.target.closest('.opt'); if (!b) return; pick[step] = b.dataset.v; renderFinder(); };
+  });
+  const m = finderMatches();
+  $('#fcount').textContent = m.length ? `${m.length} combination${m.length === 1 ? '' : 's'}` : 'No combinations: loosen one of the choices.';
+  $('#found').innerHTML = m.slice(0, 12).map(([gk, fk]) => { const g = TRACKS[gk], f = TRACKS[fk];
+    return `<div class="pair"><h3>${esc(g.a)} × ${esc(f.a)}</h3>
+      <p><b>Beat:</b> ${esc(g.t)} (${FEEL[g.feel].toLowerCase()})<br><b>On top:</b> ${esc(f.t)}</p>
+      <div class="row"><span class="tag">${esc(WORLD[g.world])} + ${esc(WORLD[f.world])}</span>
+      <button class="btn small" data-g="${gk}" data-f="${fk}">Load</button></div></div>`; }).join('');
+  $('#found').onclick = e => { const b = e.target.closest('button[data-g]'); if (!b) return;
+    applyConfig([deck(b.dataset.g), deck(b.dataset.f)]); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+}
+$('#surprise').onclick = () => { const m = finderMatches(); const all = m.length ? m : (pick.beat = pick.float = pick.feel = 'any', finderMatches());
+  const [gk, fk] = all[Math.floor(Math.random() * all.length)]; renderFinder();
+  applyConfig([deck(gk), deck(fk)]); window.scrollTo({ top: 0, behavior: 'smooth' }); toast(`${TRACKS[gk].a} × ${TRACKS[fk].a}`); };
+
 // ------------------------- share links & saved pairings ---------------------
 function stateParams() {
   const p = new URLSearchParams();
@@ -345,7 +422,9 @@ $('#addDeck').onclick = () => addDeck();
 
 // ------------------------------- start up -----------------------------------
 const initial = fromParams(new URLSearchParams(location.search));
-addDeck(initial[0]); addDeck(initial[1]); if (initial[2]) addDeck(initial[2]);
+const startCfg = initial.length ? initial : PAIRINGS[0].decks;
+addDeck(startCfg[0]); addDeck(startCfg[1]); if (startCfg[2]) addDeck(startCfg[2]);
+renderFinder();
 renderPairs();
 
 window.onYouTubeIframeAPIReady = () => { apiReady = true; decks.forEach((d, i) => d.id && loadDeck(i, d.id)); };
