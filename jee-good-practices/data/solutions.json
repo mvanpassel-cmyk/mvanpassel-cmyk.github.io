@@ -2,8 +2,8 @@
  "meta": {
   "status": "Good practices were found by searching WHO, partner and peer-reviewed literature for each technical question (October 2026), starting from the tools that WHO lists in its benchmarks for each technical area. Relevance is judged from each source's title and summary, not from reading every document in full. A good practice can help answer a question or close the gap behind it; it is not a claim that it raises a JEE score. Questions without a good practice are shown as 'no good practice yet'. An independent review (18 October 2026) checked every literature item, about 65 other sources and all 1,039 question links; verified corrections were applied and 10 links that did not fit the question were removed. 43 WHO IRIS links and a few publisher pages could not be checked automatically.",
   "built": "2026-10-17",
-  "nSources": 322,
-  "nQuestionsCovered": 467,
+  "nSources": 337,
+  "nQuestionsCovered": 473,
   "nQuestions": 479,
   "sourceTypes": {
    "guideline": "Normative WHO or partner guidance. Says what to do; not itself evidence that it works.",
@@ -20,7 +20,7 @@
    "presentation": "Slide presentation."
   },
   "nSubQuestions": 391,
-  "nSubQuestionsCovered": 148
+  "nSubQuestionsCovered": 170
  },
  "solutions": [
   {
@@ -4923,6 +4923,224 @@
     "P7.1:q10"
    ],
    "why": "WHO monograph on decontamination methods and laboratory waste streams; the practical companion to the waste section of the manual."
+  },
+  {
+   "addedBy": "claude",
+   "id": "who-afro-slipta",
+   "title": "WHO Guide for the Stepwise Laboratory Improvement Process Towards Accreditation (SLIPTA) in the African Region, with checklist",
+   "citation": "World Health Organization Regional Office for Africa. Brazzaville: WHO AFRO.",
+   "url": "https://www.afro.who.int/publications/who-guide-stepwise-laboratory-improvement-process-towards-accreditation-slipta-African",
+   "year": 2015,
+   "type": "tool",
+   "questions": [
+    "D1.2:q4",
+    "D1.2:q4.b"
+   ],
+   "why": "Star-rated audit path towards ISO 15189 that countries without their own accreditation body use to prepare labs for national or regional accreditation."
+  },
+  {
+   "addedBy": "claude",
+   "id": "sadcas-annual-report-2024",
+   "title": "SADCAS Annual Report 2023-24",
+   "citation": "Southern African Development Community Accreditation Service. Gaborone: SADCAS; 2025.",
+   "url": "https://www.sadcas.org/sites/default/files/2025-01/SADCAS%20-%20Annual%20Report%202023-24%20FINAL%2020%20Jan%202025.pdf",
+   "year": 2025,
+   "type": "case-study",
+   "questions": [
+    "D1.2:q4",
+    "D1.2:q4.a",
+    "D1.2:q4.b"
+   ],
+   "why": "A shared regional accreditation body that accredits medical laboratories to ISO 15189 for SADC countries that have no national accreditation body of their own."
+  },
+  {
+   "addedBy": "claude",
+   "id": "oecd-chem-accidents-gp3",
+   "title": "OECD Guiding Principles for Chemical Accident Prevention, Preparedness and Response, third edition",
+   "citation": "OECD. Paris: OECD Publishing; 2023.",
+   "url": "https://www.oecd.org/en/publications/oecd-guiding-principles-for-chemical-accident-prevention-preparedness-and-response-third-edition_162756bf-en.html",
+   "year": 2023,
+   "type": "guideline",
+   "questions": [
+    "CE2:q2.c",
+    "CE2:q2.d",
+    "CE2:q2.e",
+    "CE2:q2.f",
+    "CE2:q2.l"
+   ],
+   "why": "Reference set of what industry, authorities and communities should each do around hazardous installations: safety management, on- and off-site plans, land-use planning and inspection."
+  },
+  {
+   "addedBy": "claude",
+   "id": "eu-seveso-iii",
+   "title": "Seveso III Directive (2012/18/EU) on the control of major-accident hazards involving dangerous substances: EU industrial sites portal",
+   "citation": "European Environment Agency. Industrial reporting portal, Seveso establishments.",
+   "url": "https://industry.eea.europa.eu/seveso",
+   "year": 2012,
+   "type": "strategy",
+   "questions": [
+    "CE2:q2.b",
+    "CE2:q2.c",
+    "CE2:q2.d",
+    "CE2:q2.e",
+    "CE2:q2.f",
+    "CE2:q2.l"
+   ],
+   "why": "A worked legal model: sites above set chemical thresholds must register, file safety reports, keep internal and external emergency plans, be inspected and be considered in land-use planning."
+  },
+  {
+   "addedBy": "claude",
+   "id": "unep-apell",
+   "title": "APELL: Awareness and Preparedness for Emergencies at Local Level, a process for responding to technological accidents",
+   "citation": "United Nations Environment Programme. Paris: UNEP.",
+   "url": "https://wedocs.unep.org/20.500.11822/8051",
+   "year": 1988,
+   "type": "tool",
+   "questions": [
+    "CE2:q2.e",
+    "CE2:q7"
+   ],
+   "why": "Step-by-step process that brings plant operators, local authorities and residents together to write and test a shared off-site plan for industrial accidents."
+  },
+  {
+   "addedBy": "claude",
+   "id": "iaea-epr-public-comms",
+   "title": "Communication with the Public in a Nuclear or Radiological Emergency (EPR-Public Communications 2012)",
+   "citation": "International Atomic Energy Agency. Vienna: IAEA; 2012.",
+   "url": "https://www.iaea.org/publications/8889/communication-with-the-public-in-a-nuclear-or-radiological-emergency",
+   "year": 2012,
+   "type": "guideline",
+   "questions": [
+    "RE2:q4.b",
+    "RE2:q5.f"
+   ],
+   "why": "Training manual with message templates and a plan structure for public information officers, including how to explain radiation risk and coordinate one voice across agencies."
+  },
+  {
+   "addedBy": "claude",
+   "id": "iaea-epr-medical-2024",
+   "title": "Generic Procedures for Medical Response during a Nuclear or Radiological Emergency (EPR-Medical 2024)",
+   "citation": "International Atomic Energy Agency. Vienna: IAEA; 2024.",
+   "url": "https://www.iaea.org/publications/13605/generic-procedures-for-medical-response-during-a-nuclear-or-radiological-emergency",
+   "year": 2024,
+   "type": "protocol",
+   "questions": [
+    "RE2:q4.e",
+    "RE2:q4.f",
+    "RE2:q5.a"
+   ],
+   "why": "Ready-to-adapt procedures for hospitals and first responders: triage, decontamination of people and registration and follow-up of those who were over-exposed."
+  },
+  {
+   "addedBy": "claude",
+   "id": "who-mass-gatherings-2015",
+   "title": "Public health for mass gatherings: key considerations",
+   "citation": "World Health Organization. Geneva: WHO; 2015.",
+   "url": "https://www.who.int/publications/i/item/9789241564939",
+   "year": 2015,
+   "type": "guideline",
+   "questions": [
+    "P3.3:q1.e"
+   ],
+   "why": "Covers risk assessment, surveillance, medical services and the decision process for going ahead with, adapting or cancelling mass gatherings."
+  },
+  {
+   "addedBy": "claude",
+   "id": "who-cso-framework-2024",
+   "title": "A framework for civil society organization engagement in health emergencies",
+   "citation": "World Health Organization. Geneva: WHO; 2024.",
+   "url": "https://www.who.int/publications/i/item/9789240109520",
+   "year": 2024,
+   "type": "guideline",
+   "questions": [
+    "P3.1:q4",
+    "R5.3:q13.j"
+   ],
+   "why": "Shows how to bring civil society, including groups that represent vulnerable people, into preparedness and response structures in a formal, accountable way."
+  },
+  {
+   "addedBy": "claude",
+   "id": "who-national-response-guidance-2021",
+   "title": "WHO guidance on preparing for national response to health emergencies and disasters",
+   "citation": "World Health Organization. Geneva: WHO; 2021.",
+   "url": "https://www.who.int/publications/i/item/9789240037182",
+   "year": 2021,
+   "type": "guideline",
+   "questions": [
+    "P3.3:q1.f",
+    "P3.3:q2.d",
+    "P3.3:q2.e",
+    "P3.3:q2.f",
+    "P3.3:q2.h"
+   ],
+   "why": "Walks through building an all-hazards response plan: roles, activation triggers and SOPs, hazard-specific contingency plans and matching resources to scenarios."
+  },
+  {
+   "addedBy": "claude",
+   "id": "cdc-sns-rdd-guide-v11",
+   "title": "Receiving, distributing, and dispensing Strategic National Stockpile assets: guide to preparedness, version 11",
+   "citation": "Centers for Disease Control and Prevention. Atlanta: CDC; 2014.",
+   "url": "https://stacks.cdc.gov/view/cdc/77036",
+   "year": 2014,
+   "type": "tool",
+   "questions": [
+    "R1.5:q1",
+    "R1.5:q8",
+    "R1.5:q9"
+   ],
+   "why": "Planning guide for the receiving, staging, inventory tracking and onward distribution of countermeasures, with the staff roles each step needs."
+  },
+  {
+   "addedBy": "claude",
+   "id": "jalloh-2017-kap-sierra-leone",
+   "title": "National survey of Ebola-related knowledge, attitudes and practices before the outbreak peak in Sierra Leone: August 2014",
+   "citation": "Jalloh MF, Sengeh P, Monasch R, et al. BMJ Glob Health. 2017;2(4):e000285.",
+   "url": "https://gh.bmj.com/content/2/4/e000285",
+   "year": 2017,
+   "type": "case-study",
+   "questions": [
+    "R5.3:q13.g"
+   ],
+   "why": "A nationwide KAP survey run in the middle of an epidemic: awareness was near-universal but misconceptions and stigma were common, which redirected the messaging."
+  },
+  {
+   "addedBy": "claude",
+   "id": "alpren-2017-117-hotline",
+   "title": "The 117 call alert system in Sierra Leone: from rapid Ebola notification to routine death reporting",
+   "citation": "Alpren C, Jalloh MF, Kaiser R, et al. BMJ Glob Health. 2017;2(3):e000392.",
+   "url": "https://gh.bmj.com/content/2/3/e000392",
+   "year": 2017,
+   "type": "case-study",
+   "questions": [
+    "R5.3:q13.f"
+   ],
+   "why": "A toll-free hotline that handled hundreds of thousands of calls during Ebola; call data showed public needs and trends, and the line was kept for routine death reporting."
+  },
+  {
+   "addedBy": "claude",
+   "id": "khan-2012-nipah-date-palm",
+   "title": "A randomized controlled trial of interventions to impede date palm sap contamination by bats to prevent Nipah virus transmission in Bangladesh",
+   "citation": "Khan SU, Gurley ES, Hossain MJ, et al. PLoS One. 2012.",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3414453/",
+   "year": 2012,
+   "type": "peer-reviewed",
+   "questions": [
+    "P5.3:q2"
+   ],
+   "why": "Well-documented spillover route (bats contaminating raw date palm sap) and a cheap barrier, the bamboo skirt, that cut bat contact with the sap in a trial."
+  },
+  {
+   "addedBy": "claude",
+   "id": "who-wpro-primary-care-covid",
+   "title": "Role of primary care in the COVID-19 response",
+   "citation": "World Health Organization Regional Office for the Western Pacific. Manila: WHO WPRO; 2020.",
+   "url": "https://www.who.int/publications/i/item/WPR-DSE-2020-004",
+   "year": 2020,
+   "type": "guideline",
+   "questions": [
+    "R3.1:q6"
+   ],
+   "why": "Sets out what primary care facilities should do for case management in an epidemic (triage, referral, home-care follow-up) so that hospitals are not the only entry point."
   }
  ]
 }
