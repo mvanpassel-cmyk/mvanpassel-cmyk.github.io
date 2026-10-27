@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>YouTube Duet</title>
+<meta name="description" content="Play two or three YouTube videos at the same time, each with its own start, volume and speed. A mashup machine without downloading anything.">
+<link rel="icon" type="image/svg+xml" href="/logos/duet.svg">
+<link rel="apple-touch-icon" href="/logos/duet.svg">
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#0e0f12; --fg:#e8e6e1; --mute:#8a8780; --card:#17181c; --line:#2a2b31;
+  --c:#00a3e0; --m:#e6007e; --y:#ffe600;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:
+  radial-gradient(34rem 26rem at 6% 0%,rgba(0,163,224,.14),transparent 70%),
+  radial-gradient(30rem 24rem at 100% 40%,rgba(230,0,126,.11),transparent 70%),
+  radial-gradient(36rem 26rem at 40% 105%,rgba(255,230,0,.07),transparent 70%)}
+.wrap{max-width:1120px;margin:0 auto;padding:28px 16px 64px}
+a{color:inherit}
+.top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.top img{width:40px;height:40px;border-radius:10px}
+h1{font-size:1.5rem;font-weight:650;margin:0}
+.home{margin-left:auto;color:var(--mute);font-size:.85rem;text-decoration:none}
+.sub{color:var(--mute);margin:6px 0 22px;max-width:70ch}
+.btn{background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:9px 14px;font:inherit;font-size:.92rem;cursor:pointer}
+.btn:hover{border-color:#44464f}
+a.btn{text-decoration:none;display:inline-block}
+.btn.primary{background:var(--fg);color:var(--bg);border-color:var(--fg);font-weight:650;min-width:110px}
+.btn.small{padding:5px 9px;font-size:.8rem;border-radius:8px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 16px}
+.bar .grow{flex:1}
+.status{color:var(--mute);font-size:.85rem}
+.decks{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.deck{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;border-top:3px solid var(--accent)}
+.deck[data-i="0"]{--accent:var(--c)} .deck[data-i="1"]{--accent:var(--m)} .deck[data-i="2"]{--accent:var(--y)}
+.deck-hd{display:flex;align-items:center;gap:8px;margin-bottom:8px;min-height:28px}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--accent)}
+.deck-hd b{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase}
+.deck-hd .x{margin-left:auto}
+.url{width:100%;background:#0f1013;color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font:inherit;font-size:.88rem}
+.frame{position:relative;aspect-ratio:16/9;background:#000;border-radius:10px;overflow:hidden;margin:10px 0}
+.frame>div,.frame iframe{position:absolute;inset:0;width:100%;height:100%}
+.frame .empty{display:flex;align-items:center;justify-content:center;color:var(--mute);font-size:.85rem;text-align:center;padding:16px}
+.ctl{display:grid;grid-template-columns:72px 1fr 60px;gap:6px 10px;align-items:center;font-size:.84rem;color:var(--mute)}
+.ctl input[type=range]{width:100%;accent-color:var(--accent)}
+.ctl .v{color:var(--fg);text-align:right;font-variant-numeric:tabular-nums}
+.ctl select,.ctl input[type=number]{background:#0f1013;color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:4px 6px;font:inherit;font-size:.84rem;width:100%}
+.nudge{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.err{color:#ff8a80;font-size:.82rem;margin-top:6px}
+h2{font-size:1.05rem;margin:34px 0 10px}
+.pairs{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.pair{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.pair h3{font-size:.95rem;margin:0 0 4px}
+.pair p{margin:0 0 8px;color:var(--mute);font-size:.86rem}
+.pair .row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.tag{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:4px;border:1px solid var(--line);color:var(--mute)}
+.tag.ok{border-color:var(--c);color:var(--c)}
+.how{color:var(--mute);font-size:.88rem;max-width:75ch}
+.how li{margin:4px 0}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:8px 14px;border-radius:8px;font-size:.88rem;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.on{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <img src="/logos/duet.svg" alt="">
+    <h1>YouTube Duet</h1>
+    <a class="home" href="/">← Tools &amp; experiments</a>
+  </div>
+  <p class="sub">Play two or three YouTube videos at the same time, each with its own start point, volume and speed. That's how the Miles Davis × LCD Soundsystem duet was made: no editing, no downloads, just two players running together.</p>
+
+  <div class="bar">
+    <button class="btn primary" id="play">▶ Play all</button>
+    <button class="btn" id="restart">⟲ From start points</button>
+    <button class="btn" id="addDeck">+ Third deck</button>
+    <span class="grow"></span>
+    <button class="btn" id="save">☆ Save pairing</button>
+    <button class="btn" id="share">🔗 Copy share link</button>
+  </div>
+  <div class="status" id="status">Paste a YouTube link in each deck, or pick a pairing below.</div>
+
+  <div class="decks" id="decks" style="margin-top:12px"></div>
+
+  <h2>Pairings</h2>
+  <div class="pairs" id="pairs"></div>
+
+  <h2>How to find more that work</h2>
+  <ul class="how">
+    <li><b>One steady groove plus one free-floating part.</b> A track with a fixed beat, layered with music that has no strict tempo (modal jazz solos, ambient pads, a solo instrument), almost always fits. You never have to match BPM.</li>
+    <li><b>Modal or one-chord music is forgiving.</b> Tracks that sit on one scale for minutes (Kind of Blue, Eno, drones) clash with very little. Songs with lots of chord changes clash with almost everything.</li>
+    <li><b>Same key, or a key a fifth apart.</b> If both tracks are listed in the same key (or e.g. C and G), they'll blend. Sites like tunebat.com list the key and BPM for most pop and electronic tracks.</li>
+    <li><b>Tempo off by a few %?</b> Use the speed control on one deck (0.25 steps on most videos, finer on some), then nudge the offset until the beats lock.</li>
+    <li><b>Turn one deck down.</b> A duet usually works best with one track leading and the other at 40–60% volume.</li>
+  </ul>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+// ---------------------------------------------------------------------------
+// Pairings. "ok" = known to work (published duet). Others are untested ideas:
+// pick a version on YouTube, paste the links, and save it if it works.
+// ---------------------------------------------------------------------------
+const PAIRINGS = [
+  { title: "LCD Soundsystem × Miles Davis", ok: true,
+    note: "The original 2011 YouTube duet by Alessandro Grespan: “New York, I Love You But You're Bringing Me Down” with Miles Davis recording the Elevator to the Gallows score. Start the LCD track 32 s in.",
+    decks: [{ id: "-eohHwsplvY", start: 32 }, { id: "E-XVlrauLxc", start: 0 }],
+    watch: "https://www.youtube.com/watch?v=huEtJw7pfLk" },
+  { title: "Bill Evans × Nils Frahm", ok: false,
+    note: "“Peace Piece” is one repeating two-chord vamp, so a slow, sparse piano piece like Frahm's “Says” can sit on top.",
+    search: ["Bill Evans Peace Piece", "Nils Frahm Says"] },
+  { title: "Miles Davis × Brian Eno", ok: false,
+    note: "“Flamenco Sketches” is modal and free-floating; Eno's “An Ending (Ascent)” is a slow pad with no beat at all.",
+    search: ["Miles Davis Flamenco Sketches", "Brian Eno An Ending Ascent"] },
+  { title: "Alice Coltrane × Massive Attack", ok: false,
+    note: "A drone-based harp and saxophone piece (“Journey in Satchidananda”) over a slow trip-hop beat like “Teardrop”.",
+    search: ["Alice Coltrane Journey in Satchidananda", "Massive Attack Teardrop"] },
+  { title: "Chet Baker × Boards of Canada", ok: false,
+    note: "A muted trumpet ballad over a hazy, slow electronic loop. Try lowering the electronic track to 50%.",
+    search: ["Chet Baker trumpet ballad", "Boards of Canada Roygbiv"] },
+];
+
+// ---------------------------------------------------------------------------
+const MAX_DECKS = 3;
+const decks = [];          // { player, id, start, vol, rate, ready, err }
+let apiReady = false, playing = false;
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('on'), 1800); }
+function status(msg) { $('#status').textContent = msg; }
+
+function parseId(input) {
+  const s = (input || '').trim();
+  if (/^[\w-]{11}$/.test(s)) return { id: s };
+  try {
+    const u = new URL(s);
+    let id = u.searchParams.get('v');
+    if (!id && /youtu\.be$/.test(u.hostname)) id = u.pathname.slice(1, 12);
+    if (!id) { const m = u.pathname.match(/\/(embed|shorts|live)\/([\w-]{11})/); if (m) id = m[2]; }
+    const t = u.searchParams.get('t') || u.searchParams.get('start');
+    let start;
+    if (t) { const m = String(t).match(/^(?:(\d+)h)?(?:(\d+)m)?(\d+)s?$/); start = m ? (+(m[1]||0))*3600 + (+(m[2]||0))*60 + (+m[3]) : parseFloat(t); }
+    return /^[\w-]{11}$/.test(id || '') ? { id, start } : null;
+  } catch (e) { return null; }
+}
+
+function deckHTML(i) {
+  return `<div class="deck" data-i="${i}">
+    <div class="deck-hd"><span class="dot"></span><b>Deck ${'ABC'[i]}</b>
+      ${i === 2 ? '<button class="btn small x" data-act="remove">Remove</button>' : ''}</div>
+    <input class="url" placeholder="Paste a YouTube link or video ID" data-act="url">
+    <div class="frame"><div class="empty" id="p${i}">No video yet</div></div>
+    <div class="ctl">
+      <span>Start (s)</span><input type="number" min="0" step="0.1" value="0" data-act="start"><span></span>
+      <span>Volume</span><input type="range" min="0" max="100" value="80" data-act="vol"><span class="v" data-v="vol">80</span>
+      <span>Speed</span><select data-act="rate"><option value="1">1×</option></select><span></span>
+    </div>
+    <div class="nudge">
+      <button class="btn small" data-act="nudge" data-d="-1">−1 s</button>
+      <button class="btn small" data-act="nudge" data-d="-0.1">−0.1 s</button>
+      <button class="btn small" data-act="nudge" data-d="0.1">+0.1 s</button>
+      <button class="btn small" data-act="nudge" data-d="1">+1 s</button>
+      <button class="btn small" data-act="mark">Set start here</button>
+    </div>
+    <div class="err" data-v="err"></div>
+  </div>`;
+}
+
+function addDeck(cfg = {}) {
+  if (decks.length >= MAX_DECKS) return;
+  const i = decks.length;
+  $('#decks').insertAdjacentHTML('beforeend', deckHTML(i));
+  const d = { id: null, start: 0, vol: 80, rate: 1, player: null, ready: false };
+  decks.push(d);
+  const el = deckEl(i);
+  el.addEventListener('input', e => onInput(i, e));
+  el.addEventListener('change', e => onInput(i, e));
+  el.addEventListener('click', e => onClick(i, e));
+  if (cfg.vol != null) setVol(i, cfg.vol);
+  if (cfg.start != null) setStart(i, cfg.start);
+  if (cfg.rate) d.rate = cfg.rate;
+  if (cfg.id) loadDeck(i, cfg.id);
+  $('#addDeck').hidden = decks.length >= MAX_DECKS;
+}
+const deckEl = i => document.querySelector(`.deck[data-i="${i}"]`);
+
+function setVol(i, v) { const d = decks[i]; d.vol = +v; const el = deckEl(i);
+  el.querySelector('[data-act=vol]').value = v; el.querySelector('[data-v=vol]').textContent = v;
+  if (d.ready) d.player.setVolume(d.vol); }
+function setStart(i, s) { const d = decks[i]; d.start = Math.max(0, Math.round(+s * 10) / 10);
+  deckEl(i).querySelector('[data-act=start]').value = d.start; }
+
+function loadDeck(i, id) {
+  const d = decks[i]; d.id = id; d.ready = false;
+  const el = deckEl(i);
+  el.querySelector('[data-act=url]').value = 'https://www.youtube.com/watch?v=' + id;
+  el.querySelector('[data-v=err]').textContent = '';
+  if (!apiReady) return;                           // created once the API loads
+  if (d.player) { d.player.cueVideoById({ videoId: id, startSeconds: d.start }); return; }
+  d.player = new YT.Player('p' + i, {
+    videoId: id,
+    playerVars: { start: Math.floor(d.start), playsinline: 1, rel: 0, modestbranding: 1 },
+    events: {
+      onReady: () => { d.ready = true; d.player.setVolume(d.vol); fillRates(i); status('Ready. Press Play all.'); },
+      onError: e => {
+        const why = { 2: 'invalid link', 5: 'cannot play in a browser player', 100: 'video removed or private', 101: 'owner does not allow embedding', 150: 'owner does not allow embedding' }[e.data] || 'error ' + e.data;
+        el.querySelector('[data-v=err]').textContent = 'This video won\'t play here (' + why + '). Try another upload of the same track.';
+      },
+      onStateChange: () => {},
+    }
+  });
+}
+
+function fillRates(i) {
+  const d = decks[i], sel = deckEl(i).querySelector('[data-act=rate]');
+  let rates = [1];
+  try { rates = d.player.getAvailablePlaybackRates(); } catch (e) {}
+  if (!rates.includes(d.rate)) d.rate = 1;
+  sel.innerHTML = rates.map(r => `<option value="${r}" ${r === d.rate ? 'selected' : ''}>${r}×</option>`).join('');
+  d.player.setPlaybackRate(d.rate);
+}
+
+function onInput(i, e) {
+  const act = e.target.dataset.act, d = decks[i];
+  if (act === 'url' && e.type === 'change') {
+    const p = parseId(e.target.value);
+    if (!p) { deckEl(i).querySelector('[data-v=err]').textContent = 'That doesn\'t look like a YouTube link.'; return; }
+    if (p.start != null) setStart(i, p.start);
+    loadDeck(i, p.id);
+  }
+  if (act === 'vol') setVol(i, e.target.value);
+  if (act === 'start' && e.type === 'change') setStart(i, e.target.value);
+  if (act === 'rate') { d.rate = +e.target.value; if (d.ready) d.player.setPlaybackRate(d.rate); }
+}
+
+function onClick(i, e) {
+  const b = e.target.closest('button'); if (!b) return;
+  const d = decks[i];
+  if (b.dataset.act === 'nudge' && d.ready) {
+    const delta = +b.dataset.d;
+    d.player.seekTo(Math.max(0, d.player.getCurrentTime() + delta), true);
+    setStart(i, d.start + delta);                  // keep the start point in step, so a restart keeps the alignment
+  }
+  if (b.dataset.act === 'mark' && d.ready) { setStart(i, d.player.getCurrentTime()); toast('Start point set'); }
+  if (b.dataset.act === 'remove') removeThird();
+}
+
+function removeThird() {
+  const d = decks[2]; if (!d) return;
+  try { d.player && d.player.destroy(); } catch (e) {}
+  decks.pop(); deckEl(2).remove(); $('#addDeck').hidden = false;
+}
+
+const active = () => decks.filter(d => d.ready && d.id);
+
+function playAll() {
+  const ds = active();
+  if (!ds.length) { status('Load at least one video first.'); return; }
+  if (playing) { ds.forEach(d => d.player.pauseVideo()); playing = false; $('#play').textContent = '▶ Play all'; status('Paused.'); return; }
+  ds.forEach(d => d.player.playVideo());
+  playing = true; $('#play').textContent = '❚❚ Pause all'; status('Playing.');
+}
+
+// From start points: seek everything, wait until every player is actually
+// playing (buffering differs per video), then re-seek once so they line up.
+async function restart() {
+  const ds = active(); if (!ds.length) { status('Load at least one video first.'); return; }
+  ds.forEach(d => { d.player.pauseVideo(); d.player.seekTo(d.start, true); });
+  status('Buffering…');
+  ds.forEach(d => { d.player.mute(); d.player.playVideo(); });
+  const t0 = Date.now();
+  while (Date.now() - t0 < 8000 && !ds.every(d => d.player.getPlayerState() === YT.PlayerState.PLAYING)) await new Promise(r => setTimeout(r, 120));
+  ds.forEach(d => { d.player.pauseVideo(); d.player.seekTo(d.start, true); });
+  await new Promise(r => setTimeout(r, 350));
+  ds.forEach(d => { d.player.unMute(); d.player.setVolume(d.vol); d.player.playVideo(); });
+  playing = true; $('#play').textContent = '❚❚ Pause all'; status('Playing from the start points.');
+}
+
+// ------------------------- share links & saved pairings ---------------------
+function stateParams() {
+  const p = new URLSearchParams();
+  decks.forEach((d, i) => { if (!d.id) return; const k = 'abc'[i];
+    p.set(k, d.id); if (d.start) p.set(k + 's', d.start); if (d.vol !== 80) p.set(k + 'v', d.vol); if (d.rate !== 1) p.set(k + 'r', d.rate); });
+  return p;
+}
+function fromParams(p) {
+  const cfgs = [];
+  for (const [i, k] of ['a', 'b', 'c'].entries()) {
+    const id = p.get(k); if (!id || !/^[\w-]{11}$/.test(id)) continue;
+    cfgs.push({ id, start: +(p.get(k + 's') || 0), vol: p.has(k + 'v') ? +p.get(k + 'v') : 80, rate: +(p.get(k + 'r') || 1) });
+  }
+  return cfgs;
+}
+function applyConfig(cfgs) {
+  playing = false; $('#play').textContent = '▶ Play all';
+  while (decks.length > 2) removeThird();
+  while (decks.length < Math.max(2, cfgs.length)) addDeck();
+  decks.forEach((d, i) => { const c = cfgs[i];
+    if (!c) { if (d.player) d.player.stopVideo(); return; }
+    setStart(i, c.start || 0); setVol(i, c.vol ?? 80); d.rate = c.rate || 1;
+    loadDeck(i, c.id); if (d.ready) setTimeout(() => fillRates(i), 800); });
+  status('Loaded. Press “From start points” to line them up.');
+}
+
+function loadSaved() { try { return JSON.parse(localStorage.getItem('duet-saved') || '[]'); } catch (e) { return []; } }
+function storeSaved(list) { try { localStorage.setItem('duet-saved', JSON.stringify(list)); } catch (e) { toast('Could not save in this browser'); } }
+
+function renderPairs() {
+  const saved = loadSaved().map(s => ({ ...s, mine: true }));
+  const all = [...saved, ...PAIRINGS];
+  $('#pairs').innerHTML = all.map((p, n) => `<div class="pair">
+      <h3>${esc(p.title)}</h3>
+      <p>${esc(p.note || '')}</p>
+      <div class="row">
+        ${p.mine ? '<span class="tag ok">Saved</span>' : p.ok ? '<span class="tag ok">Known to work</span>' : '<span class="tag">Untested idea</span>'}
+        ${p.decks ? `<button class="btn small" data-load="${n}">Load</button>` : ''}
+        ${p.watch ? `<a class="btn small" href="${esc(p.watch)}" target="_blank" rel="noopener">Watch the original</a>` : ''}
+        ${(p.search || []).map(q => `<a class="btn small" href="https://www.youtube.com/results?search_query=${encodeURIComponent(q)}" target="_blank" rel="noopener">Find: ${esc(q)}</a>`).join('')}
+        ${p.mine ? `<button class="btn small" data-del="${n}">Delete</button>` : ''}
+      </div></div>`).join('');
+  $('#pairs').onclick = e => {
+    const b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.load != null) { applyConfig(all[+b.dataset.load].decks); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    if (b.dataset.del != null) { const list = loadSaved(); list.splice(+b.dataset.del, 1); storeSaved(list); renderPairs(); }
+  };
+}
+
+$('#share').onclick = async () => {
+  const url = location.origin + location.pathname + '?' + stateParams().toString();
+  try { await navigator.clipboard.writeText(url); toast('Share link copied'); } catch (e) { prompt('Copy this link:', url); }
+};
+$('#save').onclick = () => {
+  const cfgs = fromParams(stateParams()); if (cfgs.length < 2) { toast('Load two videos first'); return; }
+  const title = prompt('Name this pairing:', 'My duet'); if (!title) return;
+  const list = loadSaved(); list.unshift({ title, note: '', decks: cfgs }); storeSaved(list); renderPairs(); toast('Saved in this browser');
+};
+$('#play').onclick = playAll;
+$('#restart').onclick = restart;
+$('#addDeck').onclick = () => addDeck();
+
+// ------------------------------- start up -----------------------------------
+const initial = fromParams(new URLSearchParams(location.search));
+const startCfg = initial.length ? initial : PAIRINGS[0].decks;
+addDeck(startCfg[0]); addDeck(startCfg[1]); if (startCfg[2]) addDeck(startCfg[2]);
+renderPairs();
+
+window.onYouTubeIframeAPIReady = () => { apiReady = true; decks.forEach((d, i) => d.id && loadDeck(i, d.id)); };
+const s = document.createElement('script'); s.src = 'https://www.youtube.com/iframe_api';
+s.onerror = () => status('Could not reach YouTube. Check your connection or ad blocker.');
+document.head.appendChild(s);
+</script>
+</body>
+</html>
