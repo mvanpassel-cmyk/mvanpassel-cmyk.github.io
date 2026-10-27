@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25",
+ "updated": "2026-10-27",
  "projects": [
   {
    "id": "rki-twinit",
@@ -44,7 +44,7 @@
    "url": "https://ghpp.de/en/projects/pacci/",
    "note": "Project page lists an end date of 31 Dec 2025.",
    "nphi": true,
-   "checked": "2026-10-15"
+   "checked": "2026-10-27"
   },
   {
    "id": "rki-strain",
@@ -261,10 +261,10 @@
    "end": null,
    "status": "ongoing",
    "type": "Programme",
-   "url": "https://devtracker.fcdo.gov.uk/projects/GB-GOV-10-IHR-PHE",
+   "url": "https://devtracker.fcdo.gov.uk/programme/GB-GOV-10-IHR-PHE/summary",
    "note": "Classified as 'implementation' on DevTracker; start/end dates not shown.",
    "nphi": true,
-   "checked": "2026-10-15"
+   "checked": "2026-10-27"
   },
   {
    "id": "cdc-nphi",
@@ -411,18 +411,20 @@
    ],
    "institutes": "European Centre for Disease Prevention and Control (ECDC, Stockholm)",
    "title": "Africa CDC – ECDC MoU",
-   "summary": "MoU (reported March 2026) on surveillance, risk assessment, emergency preparedness, AMR, vaccine-preventable diseases, modelling, laboratories and training. A new five-year Team Europe initiative was reported to start in May 2026 after the previous partnership ended in April 2026.",
+   "summary": "First formal MoU between Africa CDC and ECDC, signed in Addis Ababa (reported March 2026) after a decade of cooperation, covering surveillance, risk assessment, preparedness, AMR, vaccine-preventable diseases, modelling, laboratories and workforce. A new five-year Team Europe initiative was reported to start in May 2026.",
    "topics": [
     "preparedness",
-    "amr"
+    "amr",
+    "building"
    ],
    "start": 2026,
    "end": null,
    "status": "ongoing",
-   "type": "Agreement",
+   "type": "Agreement (MoU)",
    "url": "https://capitalfm.africa/africa-cdc-ecdc-health-security-mou/",
    "nphi": true,
-   "checked": "2026-10-15"
+   "checked": "2026-10-15",
+   "note": "Merged with former duplicate entry africacdc-ecdc-mou-2026 on 2026-10-27."
   },
   {
    "id": "chinacdc-africacdc",
@@ -1035,9 +1037,9 @@
    "end": 2028,
    "status": "ongoing",
    "type": "Project (GHPP)",
-   "url": "https://ghpp.de/projekte/sphere/",
+   "url": "https://ghpp.de/en/projects/sphere/",
    "nphi": true,
-   "checked": "2026-10-15"
+   "checked": "2026-10-27"
   },
   {
    "id": "rki-amr-effect",
@@ -1185,7 +1187,7 @@
    "url": "https://www.ecdc.europa.eu/en/news-events/ecdc-signs-memoranda-understanding-albania-kosovo-montenegro-and-moldova",
    "note": "ECDC is an EU agency, not an NPHI.",
    "nphi": false,
-   "checked": "2026-10-15"
+   "checked": "2026-10-27"
   },
   {
    "id": "chinacdc-gulfcdc-exchange",
@@ -1450,7 +1452,7 @@
    "url": "https://www.cdc.gov/mmwr/volumes/72/wr/mm7249a5.htm",
    "note": "Kuzin et al., MMWR 2023;72(49).",
    "nphi": true,
-   "checked": "2026-10-15"
+   "checked": "2026-10-27"
   },
   {
    "id": "spf-ukhsa-ianphi-climate-roadmap",
@@ -2693,7 +2695,7 @@
    "url": "https://belmontforum.org/archives/projects/community-collective-action-to-respond-to-climate-change-influencing-the-environment-health-nexus/",
    "note": "NIPH lists itself as a partner on fhi.no/en/globalhealth/climate-and-health/our-projects/. The Belmont page names University of Oslo staff. The 36-month duration from the 2020 award gives an estimated end year. Trinidad and Tobago may not be in the 110m atlas.",
    "nphi": true,
-   "checked": "2026-10-15"
+   "checked": "2026-10-27"
   },
   {
    "id": "ukhsa-ipd-mou",
@@ -3405,7 +3407,7 @@
    "url": "https://ghpp.de/en/projects/labtrain-2-0/",
    "note": "Partner INSP Burundi is an NPHI",
    "nphi": true,
-   "checked": "2026-10-15"
+   "checked": "2026-10-27"
   },
   {
    "id": "ghpp-labtrain",
@@ -4455,7 +4457,8 @@
    "type": "Project (GHPP)",
    "url": "https://ghpp.de/en/projects/tip-bangladesh/",
    "nphi": true,
-   "checked": "2026-10-15"
+   "checked": "2026-10-27",
+   "note": "GHPP page gives 01.05.2021–30.06.2023."
   },
   {
    "id": "ghpp-trice-training-on-investigation-and-control-of-epidemics",
@@ -4635,7 +4638,7 @@
    "url": "https://ghpp.de/en/projects/international-health-regulations-ihr-summer-school/",
    "note": "Worldwide; SE Europe and African countries",
    "nphi": true,
-   "checked": "2026-10-15"
+   "checked": "2026-10-27"
   },
   {
    "id": "ghpp-learn",
@@ -5041,7 +5044,7 @@
    "type": "Project (GHPP)",
    "url": "https://ghpp.de/en/projects/bchw-burden-of-covid-19-among-health-care-workers/",
    "nphi": true,
-   "checked": "2026-10-15"
+   "checked": "2026-10-27"
   },
   {
    "id": "ghpp-bloodtrain",
@@ -5968,7 +5971,7 @@
    "type": "Project",
    "url": "https://www.rivm.nl/en/global-health-security/biosafety-and-biosecurity/biosecurity-laboratory-iso-bank-system",
    "nphi": false,
-   "checked": "2026-10-15"
+   "checked": "2026-10-27"
   },
   {
    "id": "rivm-biosecurity-seee",
@@ -6090,7 +6093,7 @@
    "type": "Peer-to-peer (bilateral cooperation)",
    "url": "https://en.ssi.dk/about-us/missionandtasks/health-diplomacy-at-ssi",
    "nphi": false,
-   "checked": "2026-10-15"
+   "checked": "2026-10-27"
   },
   {
    "id": "ssi-us-collaboration",
@@ -7114,7 +7117,7 @@
    "type": "Peer-to-peer (delegation exchange preparing research collaboration)",
    "url": "https://en.chinacdc.cn/news/latest/202601/t20260106_314456.html",
    "nphi": true,
-   "checked": "2026-10-15"
+   "checked": "2026-10-27"
   },
   {
    "id": "chinacdc-znphi-mou-2019",
@@ -7610,7 +7613,7 @@
    "url": "https://icars-global.org/team-europe-initiative-amr-partnership/",
    "note": "A March 2026 report says a new five-year ECDC–Africa CDC initiative under this TEI starts May 2026 (with EFSA).",
    "nphi": true,
-   "checked": "2026-10-15"
+   "checked": "2026-10-27"
   },
   {
    "id": "africacdc-aslm-eu-arilac",
@@ -8139,7 +8142,7 @@
    "url": "https://cdc.gov/global-health/countries/vietnam.html",
    "note": "Partner is the Ministry of Health rather than a single NPHI; see also IANPHI–CDC Vietnam NPHI creation entry.",
    "nphi": true,
-   "checked": "2026-10-15"
+   "checked": "2026-10-27"
   },
   {
    "id": "cdc-kenya-knphi",
@@ -16958,30 +16961,6 @@
    "checked": "2026-10-16"
   },
   {
-   "id": "africacdc-ecdc-mou-2026",
-   "actor": "Africa CDC",
-   "actorCountry": "Ethiopia",
-   "partners": [
-    "Sweden"
-   ],
-   "institutes": "ECDC",
-   "title": "Africa CDC – ECDC first MoU (2026)",
-   "summary": "First formal MoU, signed in Addis Ababa, covering surveillance, AMR, vaccine-preventable diseases, labs and workforce; follows a decade of cooperation.",
-   "topics": [
-    "preparedness",
-    "amr",
-    "building"
-   ],
-   "start": 2026,
-   "end": null,
-   "status": "ongoing",
-   "type": "Agreement (MoU)",
-   "url": "https://capitalfm.africa/africa-cdc-ecdc-health-security-mou/",
-   "note": "Possible overlap with existing africacdc-ecdc; reported 10 March 2026",
-   "nphi": true,
-   "checked": "2026-10-16"
-  },
-  {
    "id": "kdca-ivi-mou-2022",
    "actor": "Korea Disease Control and Prevention Agency",
    "actorCountry": "South Korea",
@@ -19460,7 +19439,7 @@
    ],
    "start": 2020,
    "end": 2025,
-   "status": "unclear",
+   "status": "completed",
    "type": "Agreement (MoU)",
    "url": "https://web-archive-2022.ait.org.tw/ait-and-tecro-memorandum-of-understanding-on-health-cooperation/index~1.html",
    "note": "Five-year renewable term; renewal not verified.",
@@ -19686,7 +19665,7 @@
    ],
    "start": 2020,
    "end": 2024,
-   "status": "unclear",
+   "status": "completed",
    "type": "Programme",
    "url": "https://www.phgfoundation.org/blog/pathogen-genomics-initiative-to-boost-disease-control-in-Africa",
    "nphi": true,
@@ -21375,7 +21354,7 @@
    ],
    "start": 2010,
    "end": 2024,
-   "status": "unclear",
+   "status": "completed",
    "type": "Research collaboration (NIH ICEMR)",
    "url": "https://today.ucsd.edu/story/nih_funds_uc_san_diego_amazonian_center_of_excellence_in_malaria_research",
    "nphi": false,
@@ -23082,6 +23061,132 @@
    "url": "https://www.quotidianosanita.it/?p=5098",
    "nphi": true,
    "checked": "2026-10-25"
+  },
+  {
+   "id": "iss-libya-arbo-zoonoses-2024",
+   "actor": "Istituto Superiore di Sanità (ISS)",
+   "actorCountry": "Italy",
+   "partners": [
+    "Libya"
+   ],
+   "institutes": "WHO Libya; National Centre for Disease Control (NCDC) Libya; National Center for Animal Health (NCAH); Libyan Ministry of Environment; funded by AICS",
+   "title": "Arboviral and zoonotic diseases in Libya (ISS–WHO, AICS-funded)",
+   "summary": "Two-year Italian-funded project run by ISS and WHO with Libya's NCDC and animal-health and environment authorities to strengthen One Health surveillance, early detection and laboratory diagnosis of arboviruses and zoonoses; ISS leads staff training.",
+   "topics": [
+    "onehealth",
+    "preparedness"
+   ],
+   "start": 2024,
+   "end": null,
+   "status": "unclear",
+   "type": "Project",
+   "url": "https://www.aics.gov.it/news/arboviral-and-zoonotic-diseases-in-libya/?lang=en",
+   "note": "Signed June 2024 for two years; current status not verified.",
+   "nphi": true,
+   "checked": "2026-10-27"
+  },
+  {
+   "id": "spb-pasteur-inhrr-venezuela-2026",
+   "actor": "Saint Petersburg Pasteur Institute (Rospotrebnadzor)",
+   "actorCountry": "Russia",
+   "partners": [
+    "Venezuela"
+   ],
+   "institutes": "Instituto Nacional de Higiene Rafael Rangel (INHRR)",
+   "title": "Saint Petersburg Pasteur Institute – INHRR joint diagnostic research",
+   "summary": "Russian experts agreed a joint research plan with Venezuela's national hygiene institute in Caracas in June 2026, covering laboratory diagnosis of viral hepatitis, measles, rubella, parvovirus B19, diphtheria and pertussis with Russian test systems.",
+   "topics": [
+    "preparedness",
+    "building"
+   ],
+   "start": 2026,
+   "end": null,
+   "status": "unclear",
+   "type": "Research collaboration",
+   "url": "https://www.pasteurorg.ru/article/363/5061/Russia-and-Venezuela-expand-scientific-partnership-in-biosecurity",
+   "note": "Joint research stage reported for 18 June – 2 July 2026; follow-up not verified.",
+   "nphi": true,
+   "checked": "2026-10-27"
+  },
+  {
+   "id": "itm-cambodia-national-institutes-fa4-2018",
+   "actor": "Institute of Tropical Medicine Antwerp (ITM)",
+   "actorCountry": "Belgium",
+   "partners": [
+    "Cambodia"
+   ],
+   "institutes": "National Institute of Public Health (NIPH) Cambodia; National Centre for Parasitology, Entomology and Malaria Control (CNM); NCHADS; Sihanouk Hospital Centre of Hope",
+   "title": "Research capacity of Cambodian national institutes (ITM FA4, 2018)",
+   "summary": "Belgian-funded ITM programme that built clinical, operational, entomological and health-systems research capacity at Cambodian national institutes including NIPH, covering malaria and vector control, HIV/syphilis MTCT elimination and health policy research.",
+   "topics": [
+    "building",
+    "other"
+   ],
+   "start": 2018,
+   "end": 2018,
+   "status": "completed",
+   "type": "Programme",
+   "url": "https://research.itg.be/en/projects/national-institutes-in-cambodia-have-increased-capacity-to-genera/",
+   "note": "Project record covers 2018 only (part of the DGD FA4 framework).",
+   "nphi": true,
+   "checked": "2026-10-27"
+  },
+  {
+   "id": "secid-southeast-europe",
+   "actor": "SECID / Institute of Public Health, Albania (SEEHN)",
+   "actorCountry": "Albania",
+   "partners": [
+    "Bosnia and Herz.",
+    "Bulgaria",
+    "Croatia",
+    "Macedonia",
+    "Montenegro",
+    "Moldova",
+    "Serbia",
+    "Romania",
+    "Kosovo",
+    "Israel"
+   ],
+   "institutes": "South East European Center for Surveillance and Control of Infectious Diseases (Tirana); South-eastern Europe Health Network (SEEHN); national public health institutes of the region; CORDS network; assisted by US CDC",
+   "title": "SECID – South East European Center for Surveillance and Control of Infectious Diseases",
+   "summary": "Regional centre set up in Tirana in 2013 under SEEHN, linked to Albania's Institute of Public Health, that supports national authorities across South-East Europe on influenza and respiratory-pathogen surveillance, pandemic preparedness and cross-border capacity building.",
+   "topics": [
+    "preparedness",
+    "onehealth",
+    "building"
+   ],
+   "start": 2013,
+   "end": null,
+   "status": "unclear",
+   "type": "Network",
+   "url": "https://www.cordsnetwork.org/networks/secid/",
+   "note": "Member list from hzjz.hr SECID page (project period 2013–2018). IPH North Macedonia met SECID on 9 Feb 2026 to continue cooperation (iph.mk/en/news/index/1707).",
+   "nphi": true,
+   "checked": "2026-10-27"
+  },
+  {
+   "id": "dtu-ssi-gpap-2025",
+   "actor": "Technical University of Denmark (DTU) with Statens Serum Institut",
+   "actorCountry": "Denmark",
+   "partners": [
+    "United Kingdom"
+   ],
+   "institutes": "Statens Serum Institut; University of Copenhagen; Imperial College London; unnamed collaborators in Europe, Africa and Asia; funded by Novo Nordisk Foundation",
+   "title": "Global Pathogen Analysis Platform (GPAP)",
+   "summary": "AI and bioinformatics platform for One Health pathogen surveillance being built at DTU with SSI, Copenhagen and Imperial, to be developed and piloted with researchers and health authorities in low- and middle-income countries over six years.",
+   "topics": [
+    "preparedness",
+    "onehealth",
+    "amr"
+   ],
+   "start": null,
+   "end": null,
+   "status": "planned",
+   "type": "Programme",
+   "url": "https://en.ssi.dk/news/news/2025/new-partnership-to-strengthen-global-pandemic-preparedness",
+   "note": "Announced in 2025 with up to DKK 200 million over six years; start date not stated.",
+   "nphi": true,
+   "checked": "2026-10-27"
   }
  ]
 }
