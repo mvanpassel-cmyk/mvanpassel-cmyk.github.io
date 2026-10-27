@@ -16,16 +16,17 @@
   :root{--bg:#14161b; --ink:#eceae4; --muted:#9aa1ae; --card:#1c1f26; --line:#2b303a; --accent:#f4c95d;}
 }
 *{box-sizing:border-box}
-/* Zachte CMYK-achtergrond: drie vage inktvlekken (cyaan, magenta, geel)
+/* Zachte CMYK-achtergrond: vier vage inktvlekken (cyaan, magenta, geel, key)
    op vaste positie, plus een heel lichte rasterpunt. Kaarten blijven dekkend. */
-:root{--c:rgba(0,174,239,.15);--m:rgba(236,0,140,.11);--y:rgba(255,212,0,.17);--dot:rgba(28,31,38,.045)}
-@media (prefers-color-scheme:dark){:root{--c:rgba(0,174,239,.18);--m:rgba(236,0,140,.14);--y:rgba(255,212,0,.09);--dot:rgba(236,234,228,.05)}}
+:root{--k:rgba(28,31,38,.07);--c:rgba(0,174,239,.15);--m:rgba(236,0,140,.11);--y:rgba(255,212,0,.17);--dot:rgba(28,31,38,.045)}
+@media (prefers-color-scheme:dark){:root{--k:rgba(120,110,190,.10);--c:rgba(0,174,239,.18);--m:rgba(236,0,140,.14);--y:rgba(255,212,0,.09);--dot:rgba(236,234,228,.05)}}
 body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
   background:
     radial-gradient(circle at 1px 1px,var(--dot) 1px,transparent 1.5px) 0 0/14px 14px,
     radial-gradient(38rem 30rem at 8% 4%,var(--c),transparent 70%),
     radial-gradient(34rem 28rem at 96% 30%,var(--m),transparent 70%),
-    radial-gradient(40rem 30rem at 30% 104%,var(--y),transparent 70%);}
+    radial-gradient(40rem 30rem at 30% 104%,var(--y),transparent 70%),
+    radial-gradient(30rem 24rem at 62% 58%,var(--k),transparent 70%);}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
 .wrap{max-width:980px;margin:0 auto;padding:56px 16px 72px}
 header h1 .mark{width:1.15em;height:1.15em;border-radius:.26em;vertical-align:-.2em;margin-right:.35em;box-shadow:0 1px 3px rgba(0,0,0,.12)}
