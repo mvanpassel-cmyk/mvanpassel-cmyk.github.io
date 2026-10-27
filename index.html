@@ -19,7 +19,7 @@
 /* Zachte CMYK-achtergrond: drie vage inktvlekken (cyaan, magenta, geel)
    op vaste positie, plus een heel lichte rasterpunt. Kaarten blijven dekkend. */
 :root{--c:rgba(0,174,239,.15);--m:rgba(236,0,140,.11);--y:rgba(255,212,0,.17);--dot:rgba(28,31,38,.045)}
-@media (prefers-color-scheme:dark){:root{--c:rgba(0,174,239,.10);--m:rgba(236,0,140,.08);--y:rgba(255,212,0,.06);--dot:rgba(236,234,228,.035)}}
+@media (prefers-color-scheme:dark){:root{--c:rgba(0,174,239,.18);--m:rgba(236,0,140,.14);--y:rgba(255,212,0,.09);--dot:rgba(236,234,228,.05)}}
 body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
   background:
     radial-gradient(circle at 1px 1px,var(--dot) 1px,transparent 1.5px) 0 0/14px 14px,
