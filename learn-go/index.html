@@ -1,0 +1,1283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Learn on the Go</title>
+<meta name="description" content="A friendly, hands-on beginner's tutorial for the board game Go: short lessons with interactive boards, puzzles, and a practice game against a gentle computer opponent.">
+<link rel="icon" type="image/svg+xml" href="/logos/learn-go.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:light dark;
+  --paper:#f4eee2; --paper2:#fbf8f1; --card:#fffdf8; --ink:#231e18; --muted:#6c6255; --line:#e3d9c7;
+  --accent:#a8432a; --accent-ink:#fff; --good:#2f7a4f; --bad:#b23a2a; --soft:#efe6d4;
+  --shadow:0 1px 2px rgba(60,40,10,.06),0 8px 24px rgba(60,40,10,.07);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#151311; --paper2:#1c1916; --card:#201d19; --ink:#ede6d9; --muted:#a59a8a; --line:#36312a;
+    --accent:#e0805f; --accent-ink:#1b0f0a; --good:#74c595; --bad:#f08573; --soft:#2a2520;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:var(--accent)}
+h1,h2,h3{font-family:Fraunces,ui-serif,Georgia,serif;font-weight:650;letter-spacing:-.01em;line-height:1.2}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+header.top{max-width:1160px;margin:0 auto;padding:22px 16px 6px;display:flex;align-items:center;gap:14px}
+header.top .logo{width:44px;height:44px;flex:none}
+header.top h1{margin:0;font-size:clamp(24px,4vw,32px)}
+header.top p{margin:0;color:var(--muted);font-size:14px}
+header.top .home{margin-left:auto;color:var(--muted);font-size:14px;text-decoration:none;white-space:nowrap}
+header.top .home:hover{color:var(--accent)}
+
+.layout{max-width:1160px;margin:0 auto;padding:10px 16px 60px;display:grid;grid-template-columns:220px minmax(0,1fr);gap:28px;align-items:start}
+nav.side{position:sticky;top:12px}
+nav.side ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+nav.side a{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;color:var(--ink);text-decoration:none;font-size:15px}
+nav.side a:hover{background:var(--soft)}
+nav.side a[aria-current="page"]{background:var(--ink);color:var(--paper)}
+nav.side .num{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:600;border:1.5px solid currentColor;opacity:.75}
+nav.side .done .num{background:var(--good);border-color:var(--good);color:#fff;opacity:1}
+nav.side .count{margin-left:auto;font-size:12px;opacity:.65}
+nav.side .sep{height:1px;background:var(--line);margin:8px 6px}
+.overall{margin:14px 10px 0;font-size:13px;color:var(--muted)}
+.bar{height:6px;border-radius:9px;background:var(--line);overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--good);width:0;transition:width .4s}
+
+main{min-width:0}
+main:focus{outline:none}
+.lesson{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:28px;align-items:start}
+.text{min-width:0}
+.kicker{margin:0;color:var(--accent);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.text h2{font-size:clamp(26px,3.4vw,34px);margin:4px 0 14px}
+.text h3{font-size:19px;margin:22px 0 6px}
+.text p,.text li{color:var(--ink)}
+.text ul{padding-left:20px}
+.text .tip{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:10px 14px;margin:16px 0;font-size:15px}
+.text kbd,.text b.k{font-weight:600}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:12px 0}
+.cards div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:15px}
+.cards b{display:block;font-family:Fraunces,Georgia,serif;font-size:17px;margin-bottom:2px}
+
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;box-shadow:var(--shadow);position:sticky;top:12px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.tab{font:inherit;font-size:13px;font-weight:500;border:1px solid var(--line);background:transparent;color:var(--ink);padding:6px 11px;border-radius:999px;cursor:pointer;min-height:34px;display:inline-flex;align-items:center;gap:6px}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.tab .ck{color:var(--good);font-weight:700}
+.tab[aria-selected="true"] .ck{color:#8fe0ae}
+.prompt{margin:0 0 10px;font-weight:600;font-size:16px;min-height:1.6em}
+.prompt small{display:block;font-weight:400;color:var(--muted);font-size:14px}
+.boardwrap{width:100%;max-width:520px;margin:0 auto}
+svg.board{display:block;width:100%;height:auto;touch-action:manipulation;border-radius:12px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+svg.board:focus{outline:none}
+svg.board:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+svg.board.locked{cursor:default}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center}
+.btn{font:inherit;font-size:14px;font-weight:500;border:1px solid var(--line);background:var(--paper2);color:var(--ink);padding:8px 14px;border-radius:10px;cursor:pointer;min-height:40px;display:inline-flex;align-items:center;gap:6px}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn[disabled]{opacity:.45;cursor:default}
+.btn[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg .btn{border:0;border-radius:0;min-height:38px;padding:6px 11px}
+.seg .btn+.btn{border-left:1px solid var(--line)}
+.spacer{flex:1}
+.feedback{margin:10px 0 0;min-height:1.6em;font-size:15px}
+.feedback.good{color:var(--good);font-weight:600}
+.feedback.bad{color:var(--bad)}
+.choices{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.choices .btn{justify-content:flex-start;text-align:left}
+.choices .btn.right{border-color:var(--good);background:color-mix(in srgb,var(--good) 14%,var(--paper2))}
+.choices .btn.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--paper2))}
+.jump{display:none;margin:-4px 0 10px;font-size:13px;min-height:34px;padding:5px 12px}
+.pager{display:flex;justify-content:space-between;gap:10px;margin-top:30px;flex-wrap:wrap}
+.pager a{text-decoration:none;font-weight:600}
+
+.game{display:grid;grid-template-columns:minmax(0,560px) minmax(0,1fr);gap:28px;align-items:start}
+.game .panel{position:static}
+.score{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.score div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.score b{display:flex;align-items:center;gap:8px;font-size:15px}
+.score .dotb,.score .dotw{width:14px;height:14px;border-radius:50%;display:inline-block;border:1px solid #0006}
+.score .dotb{background:#1b1a18}.score .dotw{background:#f6f3ec}
+.score span{font-size:13px;color:var(--muted)}
+.log{list-style:none;margin:12px 0 0;padding:0;max-height:300px;overflow:auto;font-size:14px;border-top:1px solid var(--line)}
+.log li{padding:6px 2px;border-bottom:1px solid var(--line)}
+.log li.me b{color:var(--ink)} .log li.ai{color:var(--muted)}
+.log li.note{color:var(--accent);font-weight:500}
+.opts{display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:14px;margin:8px 0}
+.opts label{display:inline-flex;gap:6px;align-items:center}
+select{font:inherit;font-size:14px;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:var(--paper2);color:var(--ink);min-height:36px}
+.result{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:12px;padding:12px 14px;margin-top:12px}
+.result h3{margin:0 0 4px;font-size:20px}
+
+dl.gloss{display:grid;grid-template-columns:minmax(120px,190px) 1fr;gap:0;margin:16px 0;border-top:1px solid var(--line)}
+dl.gloss dt,dl.gloss dd{padding:10px 0;border-bottom:1px solid var(--line);margin:0}
+dl.gloss dt{font-weight:600;font-family:Fraunces,Georgia,serif;font-size:17px;padding-right:12px}
+dl.gloss dd{color:var(--ink)}
+dl.gloss dd i{color:var(--muted);font-style:normal;font-size:14px}
+
+@keyframes pulse{0%,100%{opacity:.25}50%{opacity:1}}
+.hintring{animation:pulse 1.2s ease-in-out infinite}
+
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr;gap:12px}
+  nav.side{position:static;margin:0 -16px;padding:0 16px;overflow-x:auto;scrollbar-width:none}
+  nav.side::-webkit-scrollbar{display:none}
+  nav.side ol{flex-direction:row;gap:6px;width:max-content;padding-bottom:4px}
+  nav.side a{padding:6px 12px 6px 7px;border:1px solid var(--line);border-radius:999px;font-size:14px;white-space:nowrap}
+  nav.side .count{display:none}
+  nav.side .sep{display:none}
+  .overall{display:none}
+  .lesson,.game{grid-template-columns:1fr}
+  .panel{position:static;scroll-margin-top:10px}
+  .jump{display:inline-flex}
+  header.top{padding-top:16px}
+  header.top p{display:none}
+}
+@media (max-width:420px){
+  .panel{padding:10px;margin:0 -6px;border-radius:14px}
+  .btn{padding:8px 11px}
+  dl.gloss{grid-template-columns:1fr}
+  dl.gloss dt{border-bottom:0;padding-bottom:0}
+}
+@media (prefers-reduced-motion:reduce){.hintring{animation:none;opacity:.8}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="wood" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e8c58e"/><stop offset=".55" stop-color="#ddb377"/><stop offset="1" stop-color="#cf9f62"/>
+    </linearGradient>
+    <pattern id="grain" width="160" height="60" patternUnits="userSpaceOnUse">
+      <path d="M0 8c40-6 80 6 160 0M0 22c50 5 90-7 160 2M0 37c30-4 100 6 160-3M0 51c60 4 100-5 160 1" fill="none" stroke="#9a6a32" stroke-opacity=".13" stroke-width="1.4"/>
+    </pattern>
+    <radialGradient id="sb" cx=".36" cy=".32" r=".75">
+      <stop offset="0" stop-color="#5b5955"/><stop offset=".45" stop-color="#262522"/><stop offset="1" stop-color="#0b0b0a"/>
+    </radialGradient>
+    <radialGradient id="sw" cx=".36" cy=".32" r=".8">
+      <stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#f1ede4"/><stop offset="1" stop-color="#cfc8ba"/>
+    </radialGradient>
+  </defs>
+</svg>
+
+<header class="top">
+  <svg class="logo" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#e3bd83"/><g stroke="#3b2a17" stroke-width="2" opacity=".7"><path d="M14 10v44M32 10v44M50 10v44M10 14h44M10 32h44M10 50h44"/></g><circle cx="32" cy="32" r="9" fill="url(#sb)"/><circle cx="50" cy="32" r="9" fill="url(#sw)" stroke="#0002"/><circle cx="32" cy="14" r="9" fill="url(#sw)" stroke="#0002"/><circle cx="14" cy="50" r="9" fill="url(#sb)"/></svg>
+  <div>
+    <h1>Learn on the Go</h1>
+    <p>A hands-on beginner's tutorial for the board game Go.</p>
+  </div>
+  <a class="home" href="/">← Toolbox</a>
+</header>
+
+<div class="layout">
+  <nav class="side" aria-label="Lessons"><ol id="navlist"></ol><div class="overall" id="overall"></div></nav>
+  <main id="main" tabindex="-1"></main>
+</div>
+<div class="sr" aria-live="polite" id="sr"></div>
+
+<script>
+"use strict";
+/* =====================================================================
+   RULES ENGINE
+   ===================================================================== */
+const EMPTY = 0, BLACK = 1, WHITE = 2;
+const opp = c => 3 - c;
+const NAME = {1: "Black", 2: "White"};
+const nbCache = {};
+function neighbours(n) {
+  if (nbCache[n]) return nbCache[n];
+  const a = [];
+  for (let i = 0; i < n * n; i++) {
+    const x = i % n, y = (i / n) | 0, l = [];
+    if (x > 0) l.push(i - 1);
+    if (x < n - 1) l.push(i + 1);
+    if (y > 0) l.push(i - n);
+    if (y < n - 1) l.push(i + n);
+    a.push(l);
+  }
+  return (nbCache[n] = a);
+}
+class Board {
+  constructor(n) {
+    this.n = n; this.g = new Int8Array(n * n); this.nb = neighbours(n);
+    this.ko = -1; this.koc = 0; this.caps = [0, 0, 0];
+  }
+  clone() {
+    const b = new Board(this.n);
+    b.g.set(this.g); b.ko = this.ko; b.koc = this.koc; b.caps = this.caps.slice();
+    return b;
+  }
+  // rows: '.' empty, 'X' black, 'O' white, '1'-'9' or 'a'-'w' = labelled empty point
+  static parse(rows) {
+    const n = rows.length, b = new Board(n), labels = {};
+    rows.forEach((r, y) => [...r].forEach((ch, x) => {
+      const i = y * n + x;
+      if (ch === "X") b.g[i] = BLACK;
+      else if (ch === "O") b.g[i] = WHITE;
+      else if (ch !== ".") labels[ch] = i;
+    }));
+    return {board: b, labels};
+  }
+  group(i) {
+    const c = this.g[i], stack = [i], seen = new Set([i]), libs = new Set(), stones = [];
+    while (stack.length) {
+      const p = stack.pop(); stones.push(p);
+      for (const q of this.nb[p]) {
+        const v = this.g[q];
+        if (v === EMPTY) libs.add(q);
+        else if (v === c && !seen.has(q)) { seen.add(q); stack.push(q); }
+      }
+    }
+    return {color: c, stones, libs};
+  }
+  // Plays a stone. Returns {ok:false, reason} or {ok:true, captured:[...], group}
+  play(i, c) {
+    if (i < 0 || i >= this.g.length) return {ok: false, reason: "offboard"};
+    if (this.g[i] !== EMPTY) return {ok: false, reason: "occupied"};
+    if (i === this.ko && c === this.koc) return {ok: false, reason: "ko"};
+    this.g[i] = c;
+    const cap = [];
+    for (const q of this.nb[i]) {
+      if (this.g[q] === opp(c)) {
+        const gr = this.group(q);
+        if (gr.libs.size === 0) for (const s of gr.stones) { this.g[s] = EMPTY; cap.push(s); }
+      }
+    }
+    const me = this.group(i);
+    if (me.libs.size === 0) { this.g[i] = EMPTY; return {ok: false, reason: "suicide"}; }
+    if (cap.length === 1 && me.stones.length === 1 && me.libs.size === 1) { this.ko = cap[0]; this.koc = opp(c); }
+    else { this.ko = -1; this.koc = 0; }
+    this.caps[c] += cap.length;
+    return {ok: true, captured: cap, group: me};
+  }
+  pass() { this.ko = -1; this.koc = 0; }
+  legal(i, c) { return this.g[i] === EMPTY && this.clone().play(i, c).ok; }
+  groups() {
+    const seen = new Uint8Array(this.g.length), out = [];
+    for (let i = 0; i < this.g.length; i++) if (this.g[i] && !seen[i]) {
+      const gr = this.group(i); gr.stones.forEach(s => seen[s] = 1); out.push(gr);
+    }
+    return out;
+  }
+}
+// Area scoring: stones on the board + empty points surrounded by one colour only.
+function areaScore(b, dead = new Set()) {
+  const n = b.n, g = b.g.slice();
+  for (const d of dead) g[d] = EMPTY;
+  const terr = new Int8Array(n * n), seen = new Uint8Array(n * n), nb = b.nb;
+  let bs = 0, ws = 0, bt = 0, wt = 0;
+  for (let i = 0; i < g.length; i++) { if (g[i] === BLACK) bs++; else if (g[i] === WHITE) ws++; }
+  for (let i = 0; i < g.length; i++) {
+    if (g[i] !== EMPTY || seen[i]) continue;
+    const region = [], stack = [i]; let touch = 0; seen[i] = 1;
+    while (stack.length) {
+      const p = stack.pop(); region.push(p);
+      for (const q of nb[p]) {
+        if (g[q] === EMPTY) { if (!seen[q]) { seen[q] = 1; stack.push(q); } }
+        else touch |= g[q];
+      }
+    }
+    if (touch === BLACK || touch === WHITE) {
+      for (const p of region) terr[p] = touch;
+      if (touch === BLACK) bt += region.length; else wt += region.length;
+    }
+  }
+  return {black: bs + bt, white: ws + wt, bs, ws, bt, wt, terr};
+}
+// Would playing here fill one of c's own eyes?
+function isOwnEye(b, i, c) {
+  if (b.g[i] !== EMPTY) return false;
+  for (const q of b.nb[i]) if (b.g[q] !== c) return false;
+  const n = b.n, x = i % n, y = (i / n) | 0;
+  let bad = 0, edge = false;
+  for (const [dx, dy] of [[-1,-1],[1,-1],[-1,1],[1,1]]) {
+    const xx = x + dx, yy = y + dy;
+    if (xx < 0 || yy < 0 || xx >= n || yy >= n) { edge = true; continue; }
+    if (b.g[yy * n + xx] === opp(c)) bad++;
+  }
+  return edge ? bad === 0 : bad <= 1;
+}
+// Random playout to the end, used to estimate who owns what.
+function playout(start, toPlay) {
+  const b = start.clone(), N = b.g.length, idx = new Int16Array(N);
+  let c = toPlay, passes = 0, moves = 0;
+  while (passes < 2 && moves < N * 3) {
+    let k = 0;
+    for (let i = 0; i < N; i++) if (b.g[i] === EMPTY) idx[k++] = i;
+    let played = false;
+    while (k > 0) {
+      const r = (Math.random() * k) | 0, i = idx[r];
+      idx[r] = idx[--k];
+      if (isOwnEye(b, i, c)) continue;
+      if (b.play(i, c).ok) { played = true; break; }
+    }
+    if (played) passes = 0; else { passes++; b.pass(); }
+    c = opp(c); moves++;
+  }
+  return b;
+}
+// Ownership estimate in [-1, 1]: +1 = black owns, -1 = white owns.
+function ownership(b, toPlay, runs = 48) {
+  const own = new Float32Array(b.g.length);
+  for (let r = 0; r < runs; r++) {
+    const end = playout(b, toPlay), s = areaScore(end);
+    for (let i = 0; i < own.length; i++) {
+      const v = end.g[i] || s.terr[i];
+      if (v === BLACK) own[i] += 1; else if (v === WHITE) own[i] -= 1;
+    }
+  }
+  for (let i = 0; i < own.length; i++) own[i] /= runs;
+  return own;
+}
+// Small tactical reader: can the attacker capture the group at t (attacker to move)?
+// The defender "escapes" once it reaches 3 liberties.
+function attackMove(b, t, depth) {
+  const gr = b.group(t);
+  if (gr.color === EMPTY) return -1;
+  const A = opp(gr.color);
+  if (gr.libs.size === 1) return [...gr.libs][0];
+  if (depth <= 0 || gr.libs.size >= 3) return null;
+  const cands = new Set(gr.libs);
+  for (const l of gr.libs) for (const q of b.nb[l]) if (b.g[q] === EMPTY) cands.add(q);
+  for (const m of cands) {
+    const c = b.clone(), r = c.play(m, A);
+    if (!r.ok) continue;
+    if (c.g[t] === EMPTY) return m;
+    if (c.group(t).libs.size >= 3) continue;
+    if (!defenceMove(c, t, depth - 1).holds) return m;
+  }
+  return null;
+}
+function defenderMoves(b, t) {
+  const gr = b.group(t), D = gr.color, moves = new Set(gr.libs);
+  const seen = new Set();
+  for (const s of gr.stones) for (const q of b.nb[s]) {
+    if (b.g[q] === opp(D) && !seen.has(q)) {
+      const eg = b.group(q); eg.stones.forEach(x => seen.add(x));
+      if (eg.libs.size === 1) moves.add([...eg.libs][0]);
+    }
+  }
+  return [...moves];
+}
+function defenceMove(b, t, depth) {
+  const gr = b.group(t), D = gr.color;
+  if (gr.libs.size >= 3) return {holds: true, move: null};
+  let best = null, bestLibs = -1;
+  for (const m of defenderMoves(b, t)) {
+    const c = b.clone(), r = c.play(m, D);
+    if (!r.ok) continue;
+    const libs = c.group(t).libs.size;
+    if (libs >= 3) return {holds: true, move: m};
+    if (attackMove(c, t, depth - 1) === null) return {holds: true, move: m};
+    if (libs > bestLibs) { bestLibs = libs; best = m; }
+  }
+  return {holds: false, move: best};
+}
+
+/* =====================================================================
+   SIMPLE COMPUTER OPPONENT
+   ===================================================================== */
+function chooseMove(b, color, opts) {
+  const n = b.n, N = n * n, me = color, them = opp(color);
+  const own = ownership(b, color, opts.runs || 40);
+  const sign = me === BLACK ? 1 : -1;
+  const groupsBefore = b.groups();
+  const myAtari = groupsBefore.filter(g => g.color === me && g.libs.size === 1);
+  let best = -1, bestScore = -1e9;
+  const moveNo = opts.moveNo || 0;
+  for (let i = 0; i < N; i++) {
+    if (b.g[i] !== EMPTY) continue;
+    if (isOwnEye(b, i, me)) continue;
+    const c = b.clone(), r = c.play(i, me);
+    if (!r.ok) continue;
+    let s = Math.random() * opts.noise;
+    const mine = r.group, libs = mine.libs.size;
+    s += r.captured.length * 12;
+    if (r.captured.length && myAtari.length) s += 6;
+    // rescue my stones that were in atari
+    for (const g of myAtari) {
+      if (c.g[g.stones[0]] === me && c.group(g.stones[0]).libs.size >= 2) s += (opts.careless ? 3 : 9) + 3 * g.stones.length;
+    }
+    // self-atari is bad
+    if (libs === 1 && !r.captured.length) s -= 18 + 5 * mine.stones.length;
+    else if (libs === 2) s -= 1.5;
+    // put opponent in atari (only if we are safe ourselves)
+    if (libs >= 2) {
+      const seen = new Set();
+      for (const q of c.nb[i]) if (c.g[q] === them && !seen.has(q)) {
+        const og = c.group(q); og.stones.forEach(x => seen.add(x));
+        if (og.libs.size === 1) s += 3 + og.stones.length;
+      }
+    }
+    // play where things are still undecided
+    const o = own[i] * sign;
+    s += (1 - Math.abs(own[i])) * 7;
+    if (o > 0.85) s -= 5;           // already ours
+    if (o < -0.85 && !r.captured.length) s -= 4; // deep in their area: likely to die
+    // shape of the board: avoid the first line early on
+    const x = i % n, y = (i / n) | 0, line = Math.min(x, y, n - 1 - x, n - 1 - y);
+    if (moveNo < 12) { if (line === 0) s -= 6; else if (line === 1) s -= 1; else if (line === 2) s += 2; }
+    else if (line === 0) s -= 1;
+    if (opts.last >= 0) {
+      const lx = opts.last % n, ly = (opts.last / n) | 0, d = Math.abs(lx - x) + Math.abs(ly - y);
+      if (d <= 2) s += 1.5;
+    }
+    if (s > bestScore) { bestScore = s; best = i; }
+  }
+  const threshold = opts.opponentPassed ? 2.5 : 0.5;
+  if (best < 0 || bestScore < threshold) return -1; // pass
+  return best;
+}
+function estimateDead(b) {
+  const own = ownership(b, BLACK, 80), dead = new Set();
+  for (const gr of b.groups()) {
+    let sum = 0; for (const s of gr.stones) sum += own[s];
+    const avg = sum / gr.stones.length;
+    if ((gr.color === BLACK && avg < -0.4) || (gr.color === WHITE && avg > 0.4)) gr.stones.forEach(s => dead.add(s));
+  }
+  return dead;
+}
+
+/* =====================================================================
+   BOARD VIEW (SVG)
+   ===================================================================== */
+const S = 40, M = 30;
+const COLS = "ABCDEFGHJKLMNOPQRST";
+function ptName(i, n) { return COLS[i % n] + (n - ((i / n) | 0)); }
+function stars(n) {
+  if (n === 9) return [[2,2],[6,2],[4,4],[2,6],[6,6]];
+  if (n === 7) return [[2,2],[4,2],[3,3],[2,4],[4,4]];
+  if (n === 13) return [[3,3],[9,3],[6,6],[3,9],[9,9]];
+  if (n === 19) return [3,9,15].flatMap(a => [3,9,15].map(b => [a,b]));
+  return [];
+}
+class BoardView {
+  constructor(svg, opts = {}) {
+    this.svg = svg; this.opts = opts;
+    this.board = null; this.marks = new Map(); this.hints = []; this.dead = null; this.terr = null;
+    this.last = -1; this.hover = -1; this.cursor = -1; this.kbd = false;
+    this.locked = false; this.ghost = BLACK; this.libLabels = false; this.coords = !!opts.coords;
+    this.onPlay = null; this.onCursor = null;
+    svg.setAttribute("tabindex", "0");
+    svg.setAttribute("role", "application");
+    svg.classList.add("board");
+    svg.addEventListener("pointermove", e => {
+      if (e.pointerType !== "mouse") return;
+      const i = this.hit(e); if (i !== this.hover) { this.hover = i; this.render(); }
+    });
+    svg.addEventListener("pointerleave", () => { if (this.hover !== -1) { this.hover = -1; this.render(); } });
+    svg.addEventListener("pointerdown", () => { if (this.kbd) { this.kbd = false; this.render(); } });
+    svg.addEventListener("click", e => {
+      const i = this.hit(e);
+      if (i >= 0 && !this.locked && this.onPlay) this.onPlay(i);
+    });
+    svg.addEventListener("keydown", e => this.key(e));
+    svg.addEventListener("blur", () => { if (this.kbd) { this.kbd = false; this.render(); } });
+  }
+  set(board) { this.board = board; this.render(); }
+  hit(e) {
+    const ctm = this.svg.getScreenCTM(); if (!ctm || !this.board) return -1;
+    const pt = new DOMPoint(e.clientX, e.clientY).matrixTransform(ctm.inverse());
+    const n = this.board.n, fx = (pt.x - M) / S, fy = (pt.y - M) / S;
+    const x = Math.round(fx), y = Math.round(fy);
+    if (x < 0 || y < 0 || x >= n || y >= n) return -1;
+    if (Math.abs(fx - x) > 0.55 || Math.abs(fy - y) > 0.55) return -1;
+    return y * n + x;
+  }
+  key(e) {
+    if (!this.board) return;
+    const n = this.board.n;
+    const k = e.key;
+    if (!["ArrowUp","ArrowDown","ArrowLeft","ArrowRight","Enter"," ","Home"].includes(k)) return;
+    e.preventDefault();
+    this.kbd = true;
+    if (this.cursor < 0) this.cursor = ((n / 2) | 0) * n + ((n / 2) | 0);
+    let x = this.cursor % n, y = (this.cursor / n) | 0;
+    if (k === "ArrowUp") y = Math.max(0, y - 1);
+    if (k === "ArrowDown") y = Math.min(n - 1, y + 1);
+    if (k === "ArrowLeft") x = Math.max(0, x - 1);
+    if (k === "ArrowRight") x = Math.min(n - 1, x + 1);
+    if (k === "Home") { x = (n / 2) | 0; y = (n / 2) | 0; }
+    this.cursor = y * n + x;
+    if ((k === "Enter" || k === " ") && !this.locked && this.onPlay) { this.onPlay(this.cursor); }
+    else {
+      const v = this.board.g[this.cursor];
+      announce(ptName(this.cursor, n) + ": " + (v ? NAME[v] + " stone" : "empty"));
+    }
+    this.render();
+  }
+  render() {
+    const b = this.board; if (!b) return;
+    const n = b.n, W = 2 * M + (n - 1) * S, P = i => [M + (i % n) * S, M + ((i / n) | 0) * S];
+    this.svg.setAttribute("viewBox", `0 0 ${W} ${W}`);
+    this.svg.setAttribute("aria-label", `Go board, ${n} by ${n}. Click a point, or use the arrow keys and Enter to place a stone.`);
+    this.svg.classList.toggle("locked", this.locked);
+    const o = [];
+    o.push(`<rect width="${W}" height="${W}" rx="12" fill="url(#wood)"/><rect width="${W}" height="${W}" rx="12" fill="url(#grain)"/>`);
+    const a = M, z = M + (n - 1) * S;
+    let d = "";
+    for (let k = 0; k < n; k++) { const p = M + k * S; d += `M${a} ${p}H${z}M${p} ${a}V${z}`; }
+    o.push(`<path d="${d}" stroke="#3b2a17" stroke-opacity=".8" stroke-width="1.2" fill="none"/>`);
+    o.push(`<rect x="${a}" y="${a}" width="${z - a}" height="${z - a}" fill="none" stroke="#3b2a17" stroke-width="2"/>`);
+    for (const [x, y] of stars(n)) o.push(`<circle cx="${M + x * S}" cy="${M + y * S}" r="3.6" fill="#3b2a17"/>`);
+    if (this.coords) {
+      for (let k = 0; k < n; k++) {
+        o.push(`<text x="${M + k * S}" y="${W - 9}" font-size="11" text-anchor="middle" fill="#5a3f1f" font-family="Inter,sans-serif">${COLS[k]}</text>`);
+        o.push(`<text x="11" y="${M + k * S + 4}" font-size="11" text-anchor="middle" fill="#5a3f1f" font-family="Inter,sans-serif">${n - k}</text>`);
+      }
+    }
+    // territory
+    if (this.terr) for (let i = 0; i < n * n; i++) {
+      const t = this.terr[i]; if (!t) continue;
+      const [x, y] = P(i);
+      const occupied = b.g[i] && !(this.dead && this.dead.has(i));
+      if (occupied) continue;
+      o.push(`<rect x="${x - 7}" y="${y - 7}" width="14" height="14" rx="2" fill="${t === BLACK ? "#1b1a18" : "#f7f4ec"}" stroke="${t === BLACK ? "none" : "#0005"}" opacity=".85"/>`);
+    }
+    // stones
+    const libCount = this.libLabels ? new Map() : null;
+    if (libCount) for (const gr of b.groups()) for (const s of gr.stones) libCount.set(s, gr.libs.size);
+    for (let i = 0; i < n * n; i++) {
+      const v = b.g[i]; if (!v) continue;
+      const [x, y] = P(i), deadS = this.dead && this.dead.has(i);
+      o.push(`<g opacity="${deadS ? .38 : 1}"><circle cx="${x + 1.5}" cy="${y + 2.5}" r="${S * .47}" fill="#000" opacity=".22"/>`);
+      o.push(`<circle cx="${x}" cy="${y}" r="${S * .47}" fill="url(#${v === BLACK ? "sb" : "sw"})" ${v === WHITE ? 'stroke="#0003" stroke-width=".8"' : ""}/></g>`);
+      if (libCount) {
+        const L = libCount.get(i);
+        o.push(`<text x="${x}" y="${y + 5.5}" font-size="16" font-weight="600" text-anchor="middle" font-family="Inter,sans-serif" fill="${L === 1 ? "#e5482f" : v === BLACK ? "#f4efe6" : "#2a241d"}">${L}</text>`);
+      }
+      if (i === this.last && !libCount) {
+        o.push(`<circle cx="${x}" cy="${y}" r="${S * .17}" fill="none" stroke="${v === BLACK ? "#f2ede4" : "#1b1a18"}" stroke-width="2.2"/>`);
+      }
+    }
+    // marks
+    for (const [i, m] of this.marks) {
+      const [x, y] = P(i);
+      if (m === "ok") o.push(`<circle cx="${x}" cy="${y}" r="${S * .3}" fill="#2f9a5f" fill-opacity=".85" stroke="#fff" stroke-width="2"/><path d="M${x - 6} ${y}l4 4 8-8" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`);
+      else if (m === "bad") o.push(`<path d="M${x - 9} ${y - 9}l18 18M${x + 9} ${y - 9}l-18 18" stroke="#d2402a" stroke-width="4" stroke-linecap="round"/>`);
+      else if (m === "dot") o.push(`<circle cx="${x}" cy="${y}" r="6" fill="#2f7fbf" opacity=".85"/>`);
+    }
+    for (const i of this.hints) {
+      const [x, y] = P(i);
+      o.push(`<circle class="hintring" cx="${x}" cy="${y}" r="${S * .44}" fill="none" stroke="#c2412a" stroke-width="3.5"/>`);
+    }
+    // ghost stone
+    if (!this.locked && this.hover >= 0 && b.g[this.hover] === EMPTY && this.ghost) {
+      const [x, y] = P(this.hover);
+      o.push(`<circle cx="${x}" cy="${y}" r="${S * .47}" fill="url(#${this.ghost === BLACK ? "sb" : "sw"})" opacity=".45" pointer-events="none"/>`);
+    }
+    if (this.kbd && this.cursor >= 0) {
+      const [x, y] = P(this.cursor);
+      o.push(`<rect x="${x - S / 2 + 1}" y="${y - S / 2 + 1}" width="${S - 2}" height="${S - 2}" rx="7" fill="none" stroke="#c2412a" stroke-width="3"/>`);
+    }
+    this.svg.innerHTML = o.join("");
+  }
+}
+function announce(t) { const el = document.getElementById("sr"); el.textContent = ""; setTimeout(() => el.textContent = t, 30); }
+
+/* =====================================================================
+   PROGRESS (localStorage, best effort)
+   ===================================================================== */
+const STORE = "learn-go-progress-v1";
+let progress = {solved: {}, games: {played: 0, won: 0}, last: ""};
+try { const raw = localStorage.getItem(STORE); if (raw) progress = Object.assign(progress, JSON.parse(raw)); } catch (e) {}
+function save() { try { localStorage.setItem(STORE, JSON.stringify(progress)); } catch (e) {} }
+
+/* =====================================================================
+   LESSONS & PUZZLES
+   ===================================================================== */
+const whiteGroupLibs = b => [...b.group(b.g.indexOf(WHITE)).libs];
+const illegalFor = c => b => { const out = []; for (let i = 0; i < b.g.length; i++) if (b.g[i] === EMPTY && !b.legal(i, c)) out.push(i); return out; };
+
+const LESSONS = [
+{
+  id: "board", title: "The board and the stones",
+  html: `
+  <p>Go is played on a grid of lines. Stones go on the <b>points where lines cross</b>, not inside the squares. The full board is 19×19, but beginners usually learn on small boards like 9×9, which give quick games.</p>
+  <ul>
+    <li><b>Black moves first</b>, then the players take turns, one stone per turn.</li>
+    <li>A stone <b>never moves</b> once it is placed. It can only leave the board by being captured.</li>
+    <li>Instead of playing, you may <b>pass</b>. When both players pass one after the other, the game is over.</li>
+    <li>The goal: at the end, <b>own more of the board</b> than your opponent: your stones plus the empty points you have walled in.</li>
+  </ul>
+  <p>The little dots are <b>star points</b>. They are just landmarks to help you find your way; the rules treat them like any other point.</p>
+  <div class="tip">Try it: tap the board to place stones. Black and White take turns automatically.</div>`,
+  explore: {rows: Array(9).fill(".........")},
+  puzzles: [
+    {id: "b1", type: "move", prompt: "Put a black stone on the very centre point.", sub: "On a 9×9 board the centre is also a star point.",
+      rows: Array(9).fill("........."), check: c => c.i === 40,
+      wrong: "Close! Count four points in from any edge.", hint: "The centre is the middle dot.", hintAt: () => [40], ok: "Spot on. That central point even has a name: tengen."},
+    {id: "b2", type: "move", prompt: "Now place a stone on one of the four corner star points.", rows: Array(9).fill("........."),
+      check: c => [20, 24, 56, 60].includes(c.i), wrong: "Not quite. Look for the dots three lines in from two edges.",
+      hint: "There are four of them, one near each corner.", hintAt: () => [20, 24, 56, 60], ok: "Yes! Openings often start on or near these points, because corners are the easiest place to build territory."}
+  ]
+},
+{
+  id: "liberties", title: "Liberties",
+  html: `
+  <p>The empty points right next to a stone, along the lines, are its <b>liberties</b>. Think of them as breathing room. Diagonals don't count.</p>
+  <ul>
+    <li>A stone in the middle has <b>4</b> liberties, on the edge <b>3</b>, and in a corner only <b>2</b>.</li>
+    <li>Stones of the same colour that touch along a line form a <b>group</b> (or chain). The group shares all its liberties and lives or dies as one.</li>
+    <li>Stones that only touch diagonally are <b>not</b> connected.</li>
+    <li>When an opponent's stone sits next to yours, that point is no longer a liberty.</li>
+  </ul>
+  <div class="tip">Try it: the numbers on the stones show how many liberties each group has. Build a chain and watch the number grow; surround a stone and watch it shrink. A red number means only one liberty is left.</div>`,
+  explore: {rows: [".......", ".......", "..X....", "...O...", ".......", ".......", "......."], libs: true},
+  puzzles: [
+    {id: "l1", type: "mark", prompt: "Tap every liberty of the white stone.", rows: [".....", ".....", "..O..", ".....", "....."],
+      targets: whiteGroupLibs, wrong: "That point doesn't touch the stone along a line.", hint: "Look straight up, down, left and right of the stone.", ok: "Four liberties: up, down, left and right."},
+    {id: "l2", type: "mark", prompt: "A stone on the edge: tap all its liberties.", rows: [".....", ".....", "O....", ".....", "....."],
+      targets: whiteGroupLibs, wrong: "Not a liberty. Only points connected by a line count.", hint: "The edge takes one away. There are three left.", ok: "Right: on the edge there are only three."},
+    {id: "l3", type: "mark", prompt: "These two white stones are one group. Tap all of its liberties.", sub: "A black stone is already taking one away.",
+      rows: [".....", "..X..", ".OO..", ".....", "....."],
+      targets: whiteGroupLibs, wrong: "That point isn't next to either white stone along a line.", hint: "Go round both stones. The black stone's point doesn't count. There are five.", ok: "Five liberties, shared by the whole group."}
+  ]
+},
+{
+  id: "capture", title: "Capturing",
+  html: `
+  <p>When you fill the <b>last liberty</b> of a stone or group, it is <b>captured</b>: the stones are taken off the board. Captured stones are called prisoners.</p>
+  <p>A group with just one liberty left is in <b>atari</b>. It's a bit like "check" in chess: if its owner does nothing, it will be captured next turn.</p>
+  <p>To rescue a group in atari you can <b>extend</b> it (add a stone on its last liberty so it gets new ones), connect it to a friendly group, or capture something of your opponent's that is squeezing it.</p>
+  <div class="tip">Try it: surround the white stones and fill their last liberty. Black and White alternate, so White may try to run away!</div>`,
+  explore: {rows: [".......", ".......", "...O...", "..XO...", ".......", ".......", "......."], libs: true},
+  puzzles: [
+    {id: "c1", type: "move", prompt: "Capture the white stone.", rows: [".....", "..X..", ".XO..", "..X..", "....."],
+      check: c => c.r.captured.length > 0, wrong: "White still has a liberty. Find its last empty neighbour.", hint: "Only one empty point touches the white stone.", hintAt: () => [13], ok: "Captured! The stone comes off the board."},
+    {id: "c2", type: "move", prompt: "Capture both white stones at once.", rows: [".....", ".XX..", "XOO..", ".XX..", "....."],
+      check: c => c.r.captured.length === 2, wrong: "That didn't take their last liberty.", hint: "A group dies together. Where is its last liberty?", ok: "Two prisoners in one move."},
+    {id: "c3", type: "move", prompt: "Stones in the corner are easy to catch. Capture White.", rows: ["OX...", ".....", ".....", ".....", "....."],
+      check: c => c.r.captured.length > 0, wrong: "Not yet. The corner stone has only one liberty left.", hint: "Right under the white stone.", hintAt: () => [5], ok: "Only two liberties to begin with, so it didn't last long."},
+    {id: "c4", type: "move", prompt: "Two white groups. One of them can be captured right now. Which?",
+      rows: [".......", ".X.....", "XO.....", ".X.....", "....XX.", "...XOO.", "....X.."],
+      check: c => c.r.captured.length > 0, wrong: "That group still had more than one liberty. Look for the one in atari.", hint: "Count the liberties of each white group. One has only a single liberty.", ok: "Well spotted. The other group had two liberties, so it could have run away."}
+  ]
+},
+{
+  id: "suicide", title: "No suicide",
+  html: `
+  <p>You may not place a stone where it would have <b>no liberties at all</b>. Such a move would just kill your own stone, so the rules forbid it.</p>
+  <p>There is one important exception: if your stone <b>captures</b> something, it's fine. The rule works in this order:</p>
+  <ol>
+    <li>Place your stone.</li>
+    <li>Remove any opponent stones that now have no liberties.</li>
+    <li>Only then check your own stone. Thanks to step 2 it now has liberties, so the move stands.</li>
+  </ol>
+  <div class="tip">Try it: you play White here. Try to play in the middle of Black's ring (top left), or in the gap of your own shape (bottom right). Both are suicide. Then switch to Black and play in that gap: for Black it's allowed, because it captures.</div>`,
+  explore: {rows: [".X.....", "X.X....", ".X.....", ".......", "....XXX", "...XOOO", "...XO.O"], mode: WHITE, libs: true},
+  puzzles: [
+    {id: "s1", type: "mark", prompt: "One point on this board is forbidden for White. Tap it.", rows: [".....", "..X..", ".X.X.", "..X..", "....."],
+      targets: illegalFor(WHITE), wrong: "White could play there: the stone would still have a liberty.", hint: "Look for an empty point with black stones on all sides.", ok: "Yes: a white stone there would have no liberties and capture nothing."},
+    {id: "s2", type: "move", prompt: "It looks like suicide, but it isn't. Black to play and capture eight stones.",
+      rows: [".XXX.", "XOOOX", "XO.OX", "XOOOX", ".XXX."],
+      check: c => c.r.captured.length === 8, wrong: "Look inside the white ring.", hint: "The white group has a single liberty, right in the middle.", hintAt: () => [12], ok: "Boom. Because it captures, the move is allowed, and your stone ends up with four liberties."}
+  ]
+},
+{
+  id: "ko", title: "Ko",
+  html: `
+  <p>Sometimes a single stone can be captured, and the capturing stone could <b>immediately be captured back</b> in the same way. Without a rule, both players could repeat this forever.</p>
+  <p>The <b>ko rule</b>: you may not make a move that brings back the position from just before your opponent's last move. In practice: after a ko capture, the other player must <b>play somewhere else first</b>. Next turn they may retake.</p>
+  <p>That "somewhere else" is usually a <b>ko threat</b>: a move so annoying that the opponent wants to answer it. If they answer, you may retake the ko. If they ignore it and end the ko, you get to carry out your threat. Ko fights are among the most exciting parts of Go.</p>
+  <div class="tip">Try it: Black captures in the middle. Then try to retake with White straight away. You'll be stopped. Play elsewhere, let Black answer, then retake.</div>`,
+  explore: {rows: [".......", ".......", "..XO...", ".XO.O..", "..XO...", ".......", "......."]},
+  puzzles: [
+    {id: "k1", type: "move", prompt: "Black to play: capture the white stone.", rows: [".....", ".XO..", "XO.O.", ".XO..", "....."],
+      check: c => c.r.captured.length === 1, wrong: "The white stone in atari has a single liberty. Find it.", hint: "The empty point between the white stones.", hintAt: () => [12], ok: "Captured. Notice that your stone now has only one liberty itself: that's a ko."},
+    {id: "k2", type: "mark", prompt: "Black just took the ko. Tap the point where White is not allowed to play right now.",
+      rows: [".....", ".XO..", "XO1O.", ".XO..", "....."], pre: [["1", BLACK]],
+      targets: illegalFor(WHITE), wrong: "White may play there. Look at where Black just captured.", hint: "Retaking at once would repeat the position.", ok: "Right. White must wait one turn before retaking there."},
+    {id: "k3", type: "move", prompt: "White threatens to take your stone in a ko. End the ko!", sub: "Hint: you don't have to fight a ko if you can simply close it.",
+      rows: [".....", ".OX..", "OX.X.", ".OX..", "....."],
+      check: c => c.i === 12, wrong: "White can still capture your stone at the empty point.", hint: "Fill the empty point yourself and connect your stones.", hintAt: () => [12], ok: "Connected: no more ko, and your stones are now one solid group."}
+  ]
+},
+{
+  id: "eyes", title: "Eyes and life",
+  html: `
+  <p>An <b>eye</b> is an empty point (or a small empty area) completely surrounded by one group. The opponent can only play inside an eye if that move captures (no suicide!).</p>
+  <ul>
+    <li>A group with <b>one eye</b> can still be captured: the opponent fills all the outside liberties first, then plays in the eye as the very last liberty.</li>
+    <li>A group with <b>two separate eyes</b> can <b>never</b> be captured. The opponent would have to fill both eyes at once, and a stone in either eye alone would be suicide.</li>
+  </ul>
+  <p>That's why "two eyes live" is the most important idea about life and death. A group that can't make two eyes (and can't escape) is called <b>dead</b>.</p>
+  <p>With a row of three empty points inside your group, the middle point is the <b>vital point</b>: if you play there you get two eyes, if your opponent plays there you're left with one.</p>
+  <div class="tip">Try it: both black groups are completely surrounded. The left one has one eye, the right one has two. You play White: try to capture each of them.</div>`,
+  explore: {rows: [".........", ".........", ".........", ".........", "OOOO.OOOO", "XXXO.OXXX", "X.XO.OX.X", "XXXO.OXXX", "XXXO.OX.X"], mode: WHITE},
+  puzzles: [
+    {id: "e1", type: "move", prompt: "Make two eyes so your black group lives.",
+      rows: ["OOOOO..", "XXXXO..", "...XO..", "XXXXO..", "OOOOO..", ".......", "......."],
+      check: c => c.i === 15, wrong: "Now White plays the middle point and you only have one eye.", hint: "With three empty points in a row, the middle one decides.", hintAt: () => [15], ok: "Two separate eyes. This group can never be captured."},
+    {id: "e2", type: "move", prompt: "Now the other way round: stop White from making two eyes.",
+      rows: ["XXXXX..", "OOOOX..", "...OX..", "OOOOX..", "XXXXX..", ".......", "......."],
+      check: c => c.i === 15, wrong: "White answers on the middle point and makes two eyes.", hint: "Your opponent's vital point is your vital point.", hintAt: () => [15], ok: "Killed. White has only one eye left and Black can capture whenever needed."},
+    {id: "e3", type: "choice", prompt: "Can White ever capture this black group?",
+      rows: [".......", ".......", ".......", "OOOOOOO", "OXXXXXO", "OX.X.XO", "OXXXXXO"],
+      choices: [
+        {t: "No: it has two separate eyes, so it is alive.", right: true, why: "Exactly. White can never fill both eyes at the same time."},
+        {t: "Yes: White can fill the eyes one by one.", why: "Try it in your head: a white stone in one eye would have no liberties and capture nothing. That's suicide."},
+        {t: "Yes: it is completely surrounded.", why: "Being surrounded isn't enough. White still needs to fill every liberty, including both eyes."}
+      ]}
+  ]
+},
+{
+  id: "territory", title: "Territory and counting",
+  html: `
+  <p>When both players pass, the game ends and we count. This page uses <b>area scoring</b>, which is the simplest to explain:</p>
+  <div class="tip"><b>Your score = your stones on the board + the empty points that only your stones surround.</b></div>
+  <ul>
+    <li>Empty points that touch both colours belong to nobody. They're called <b>dame</b> (neutral points).</li>
+    <li><b>Dead stones</b>, ones that clearly can't avoid capture, are removed before counting, as if they had been captured.</li>
+    <li>Because Black moved first, White gets a few bonus points called <b>komi</b> (7.5 on this page). The half point makes ties impossible.</li>
+  </ul>
+  <p>Before you pass, make sure your <b>borders are closed</b>. A gap lets your opponent walk into your area.</p>
+  <div class="tip">Try it: tap "Show territory" to see who owns what. Then play a few stones and see how the counting changes.</div>`,
+  explore: {rows: ["...XO..", "...XO..", "..XXO..", "..XOO..", "..XO...", "..XO...", "..XO..."], terr: true},
+  puzzles: [
+    {id: "t1", type: "move", prompt: "The game is almost over, but Black's wall has a gap. Close it.",
+      rows: ["...XO..", "...XO..", "..XXO..", "..XOO..", "..XO...", "..XO...", "...O..."],
+      check: c => c.i === 44, wrong: "That doesn't close the gap. Follow Black's wall down to the edge.", hint: "Look at the bottom edge, where the wall stops.", hintAt: () => [44], ok: "Closed. Every empty point on the left now counts for Black."},
+    {id: "t2", type: "choice", prompt: "Count Black's score: black stones plus black territory.",
+      rows: ["...XO..", "...XO..", "..XXO..", "..XOO..", "..XO...", "..XO...", "..XO..."], showTerr: true,
+      choices: b => { const s = areaScore(b); return [
+        {t: String(s.bt), why: `That's only the territory. Add the ${s.bs} black stones too.`},
+        {t: String(s.black), right: true, why: `${s.bs} stones + ${s.bt} territory = ${s.black}.`},
+        {t: String(s.black + 4), why: "Too many. Count only the empty points that are fully walled in by Black."}
+      ]; }},
+    {id: "t3", type: "choice", prompt: "Same board. White has 25. With komi of 7.5, who wins and by how much?",
+      rows: ["...XO..", "...XO..", "..XXO..", "..XOO..", "..XO...", "..XO...", "..XO..."], showTerr: true,
+      choices: b => { const s = areaScore(b), m = s.white + 7.5 - s.black; return [
+        {t: `White, by ${m}`, right: true, why: `White ${s.white} + 7.5 = ${s.white + 7.5}, Black ${s.black}. White wins by ${m}.`},
+        {t: `White, by ${s.white - s.black}`, why: "That's the difference without komi. White gets 7.5 extra points for moving second."},
+        {t: "It's a tie", why: "With half-point komi a tie can't happen."}
+      ]; }}
+  ]
+},
+{
+  id: "shapes", title: "Shapes and proverbs",
+  html: `
+  <p>Go players pass on their experience as short <b>proverbs</b> and named <b>shapes</b>. Here are some you'll use from your very first games.</p>
+  <div class="cards">
+    <div><b>Atari</b>Putting a group down to one liberty. Useful, but don't atari just because you can: often it only helps your opponent get stronger.</div>
+    <div><b>Ladder</b>A chase where you keep a group in atari while it zig-zags across the board until it hits the edge and dies. Check where it ends first: a friendly stone of theirs in the way (a <i>ladder breaker</i>) ruins it.</div>
+    <div><b>Net</b>Instead of chasing, you place a stone a little further away that blocks every escape route at once. Quiet, but deadly.</div>
+    <div><b>Connect and cut</b>Two stones that only touch diagonally can be cut apart. Separated groups are weaker, so cut your opponent's stones and keep yours connected.</div>
+    <div><b>Two eyes live</b>A group that can make two eyes is safe for good. Before you attack, ask whether the group can still make two.</div>
+    <div><b>Your opponent's key point is yours</b>If a point would be great for them, it's usually great for you too. The vital point of an eye shape is the classic example.</div>
+    <div><b>Corners, then sides, then centre</b>It takes the fewest stones to surround space in a corner. That's why openings start there.</div>
+  </div>
+  <div class="tip">Try it: Black and White alternate. Put White in atari from below, let White run, and keep chasing to see the ladder unfold. Then reset, add a white stone near the bottom right corner (switch colour to White) and try again: that's a ladder breaker.</div>`,
+  explore: {rows: [".......", "..XX...", ".XO....", ".......", ".......", ".......", "......."], libs: true},
+  puzzles: [
+    {id: "p1", type: "move", prompt: "Put the white stone in atari.", rows: [".....", "..X..", ".XO..", ".....", "....."],
+      check: c => c.after.group(12).libs.size === 1, wrong: "White still has two liberties after that.", hint: "Take away one of its two liberties.", hintAt: () => [13, 17], ok: "Atari! White has one liberty left and must run."},
+    {id: "p2", type: "move", prompt: "Your stone is in atari. Save it!", rows: [".....", "..O..", ".OX..", "..O..", "....."],
+      check: c => c.after.g[12] === BLACK && c.after.group(12).libs.size >= 2, wrong: "That doesn't help: your stone is still in atari, or gone.", hint: "Extend onto the last liberty to gain new ones.", hintAt: () => [13], ok: "Extended. Your two stones now have three liberties."},
+    {id: "p3", type: "capture", prompt: "Ladder! Keep White in atari until it's captured.", sub: "White will run each time. Always atari from the side that drives it towards the edge.",
+      rows: [".......", "..XX...", ".XO....", ".......", ".......", ".......", "......."], target: 16, depth: 18,
+      hint: "Atari from below first. Leave White exactly one way out, the way that leads to the corner.", hintAt: b => { const m = attackMove(b, 16, 18); return m >= 0 && m !== null ? [m] : []; },
+      ok: "Captured! A ladder runs all the way to the edge. That's why you should check ladders before chasing."},
+    {id: "p4", type: "capture", prompt: "Catch the white stone at the top left. A ladder won't work: the white stone at the bottom right would rescue it. Use a net.",
+      rows: [".......", "..XX...", ".XO....", ".X.....", ".......", ".....O.", "......."], target: 16, depth: 14,
+      hint: "Don't touch the white stone. Block its escape routes from a little distance.", hintAt: b => { const m = attackMove(b, 16, 14); return m >= 0 && m !== null ? [m] : []; },
+      ok: "Caught in the net. Every way out was blocked."},
+    {id: "p5", type: "move", prompt: "Cut the two white stones apart.", rows: [".....", ".O...", "..O..", ".X...", "....."],
+      check: c => c.i === 7 || c.i === 11, wrong: "The white stones are still able to connect.", hint: "Diagonal stones have two connection points. Take one of them.", hintAt: () => [7, 11], ok: "Cut! Two weak stones are easier to attack than one strong group."},
+    {id: "p6", type: "move", prompt: "White wants to cut your stones. Connect them.", rows: [".....", ".X...", ".OX..", ".....", "....."],
+      check: c => c.i === 7, wrong: "White can still cut at the other connection point.", hint: "Your stones touch diagonally. One link is gone. Take the other.", hintAt: () => [7], ok: "Solidly connected."}
+  ]
+}
+];
+
+/* =====================================================================
+   APP
+   ===================================================================== */
+const main = document.getElementById("main");
+const navlist = document.getElementById("navlist");
+const lessonDone = L => L.puzzles.every(p => progress.solved[p.id]);
+const lessonCount = L => L.puzzles.filter(p => progress.solved[p.id]).length;
+
+function renderNav(current) {
+  const items = LESSONS.map((L, k) => `<li><a href="#${L.id}" class="${lessonDone(L) ? "done" : ""}" ${current === L.id ? 'aria-current="page"' : ""}>
+    <span class="num" aria-hidden="true">${lessonDone(L) ? "✓" : k + 1}</span>${L.title}<span class="count">${lessonCount(L)}/${L.puzzles.length}</span></a></li>`);
+  items.push(`<li class="sep" aria-hidden="true"></li>`);
+  items.push(`<li><a href="#play" ${current === "play" ? 'aria-current="page"' : ""}><span class="num" aria-hidden="true">▶</span>Practice game</a></li>`);
+  items.push(`<li><a href="#glossary" ${current === "glossary" ? 'aria-current="page"' : ""}><span class="num" aria-hidden="true">A</span>Glossary</a></li>`);
+  navlist.innerHTML = items.join("");
+  const total = LESSONS.reduce((a, L) => a + L.puzzles.length, 0);
+  const done = LESSONS.reduce((a, L) => a + lessonCount(L), 0);
+  document.getElementById("overall").innerHTML = `${done} of ${total} puzzles solved<div class="bar"><i style="width:${(100 * done / total).toFixed(1)}%"></i></div>`;
+  const cur = navlist.querySelector('[aria-current="page"]');
+  if (cur && window.matchMedia("(max-width:900px)").matches) {
+    const nav = cur.closest("nav");
+    nav.scrollLeft = cur.offsetLeft - 16;
+  }
+}
+
+function illegalMsg(reason, c) {
+  if (reason === "occupied") return "That point is taken. Stones go on empty points.";
+  if (reason === "suicide") return `Not allowed: a ${NAME[c].toLowerCase()} stone there would have no liberties and captures nothing (suicide).`;
+  if (reason === "ko") return "Ko! You can't retake straight away. Play somewhere else first.";
+  return "You can't play there.";
+}
+function setFb(el, text, cls = "") { el.className = "feedback " + cls; el.textContent = text; }
+function plural(k, w) { return `${k} ${w}${k === 1 ? "" : "s"}`; }
+
+function showLesson(id) {
+  const k = LESSONS.findIndex(L => L.id === id), L = LESSONS[k];
+  progress.last = id; save();
+  renderNav(id);
+  const prev = LESSONS[k - 1], next = LESSONS[k + 1];
+  main.innerHTML = `
+  <article class="lesson">
+    <div class="text">
+      <p class="kicker">Lesson ${k + 1} of ${LESSONS.length}</p>
+      <h2>${L.title}</h2>
+      <button class="btn jump" type="button">Skip to the board ↓</button>
+      ${L.html}
+    </div>
+    <section class="panel" aria-label="Interactive board">
+      <div class="tabs" role="tablist"></div>
+      <p class="prompt" id="prompt"></p>
+      <div class="boardwrap"><svg></svg></div>
+      <div class="choices" hidden></div>
+      <div class="controls"></div>
+      <p class="feedback" aria-live="polite"></p>
+    </section>
+  </article>
+  <div class="pager">
+    ${prev ? `<a href="#${prev.id}">← ${prev.title}</a>` : "<span></span>"}
+    ${next ? `<a href="#${next.id}">${next.title} →</a>` : `<a href="#play">Play a practice game →</a>`}
+  </div>`;
+  const panel = main.querySelector(".panel");
+  main.querySelector(".jump").onclick = () => { panel.scrollIntoView({behavior: "smooth", block: "start"}); panel.querySelector("svg").focus({preventScroll: true}); };
+  const view = new BoardView(panel.querySelector("svg"));
+  const tabs = panel.querySelector(".tabs"), promptEl = panel.querySelector(".prompt"),
+    controls = panel.querySelector(".controls"), fb = panel.querySelector(".feedback"), choicesEl = panel.querySelector(".choices");
+  let current = "explore", timer = null;
+
+  function drawTabs() {
+    const t = [`<button class="tab" role="tab" data-t="explore" aria-selected="${current === "explore"}">Explore</button>`];
+    L.puzzles.forEach((p, j) => t.push(`<button class="tab" role="tab" data-t="${j}" aria-selected="${current === j}">Puzzle ${j + 1}${progress.solved[p.id] ? ' <span class="ck" aria-label="solved">✓</span>' : ""}</button>`));
+    tabs.innerHTML = t.join("");
+  }
+  tabs.addEventListener("click", e => {
+    const b = e.target.closest(".tab"); if (!b) return;
+    const t = b.dataset.t; open(t === "explore" ? "explore" : +t);
+  });
+  tabs.addEventListener("keydown", e => {
+    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+    const all = [...tabs.querySelectorAll(".tab")], i = all.indexOf(document.activeElement);
+    if (i < 0) return;
+    const j = (i + (e.key === "ArrowRight" ? 1 : all.length - 1)) % all.length;
+    all[j].click(); tabs.querySelectorAll(".tab")[j].focus();
+  });
+
+  function reset() {
+    clearTimeout(timer);
+    view.marks = new Map(); view.hints = []; view.terr = null; view.dead = null; view.last = -1;
+    view.locked = false; view.libLabels = false; view.ghost = BLACK;
+    choicesEl.hidden = true; choicesEl.innerHTML = ""; controls.innerHTML = ""; setFb(fb, "");
+    view.onPlay = null;
+  }
+  function open(t) { current = t; drawTabs(); reset(); if (t === "explore") explore(); else puzzle(L.puzzles[t], t); }
+
+  /* ---------- explore sandbox ---------- */
+  function explore() {
+    const ex = L.explore;
+    let board = Board.parse(ex.rows).board, history = [], mode = ex.mode || "alt", next = BLACK, showLibs = !!ex.libs, showTerr = false;
+    promptEl.innerHTML = `Explore freely<small>Place stones and see the rules in action.</small>`;
+    const colour = () => mode === "alt" ? next : mode;
+    controls.innerHTML = `
+      <div class="seg" role="group" aria-label="Stone colour">
+        <button class="btn" data-m="alt">Alternate</button><button class="btn" data-m="${BLACK}">● Black</button><button class="btn" data-m="${WHITE}">○ White</button>
+      </div>
+      <button class="btn" data-a="undo">Undo</button>
+      <button class="btn" data-a="reset">Reset</button>
+      <button class="btn" data-a="libs">Show liberties</button>
+      ${ex.terr ? `<button class="btn" data-a="terr">Show territory</button>` : ""}`;
+    function sync() {
+      controls.querySelectorAll("[data-m]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.m == mode)));
+      controls.querySelector('[data-a="libs"]').setAttribute("aria-pressed", String(showLibs));
+      const tb = controls.querySelector('[data-a="terr"]'); if (tb) tb.setAttribute("aria-pressed", String(showTerr));
+      controls.querySelector('[data-a="undo"]').disabled = !history.length;
+      view.libLabels = showLibs; view.ghost = colour();
+      view.terr = showTerr ? areaScore(board).terr : null;
+      view.set(board);
+      if (showTerr) { const s = areaScore(board); setFb(fb, `Black: ${s.bs} stones + ${s.bt} territory = ${s.black}.  White: ${s.ws} + ${s.wt} = ${s.white}.`); }
+    }
+    controls.onclick = e => {
+      const b = e.target.closest("button"); if (!b) return;
+      if (b.dataset.m) { mode = b.dataset.m === "alt" ? "alt" : +b.dataset.m; }
+      const a = b.dataset.a;
+      if (a === "undo" && history.length) { const h = history.pop(); board = h.board; next = h.next; view.last = h.last; setFb(fb, ""); }
+      if (a === "reset") { board = Board.parse(ex.rows).board; history = []; next = BLACK; view.last = -1; setFb(fb, ""); }
+      if (a === "libs") showLibs = !showLibs;
+      if (a === "terr") { showTerr = !showTerr; if (!showTerr) setFb(fb, ""); }
+      sync();
+    };
+    view.onPlay = i => {
+      const c = colour(), nb = board.clone(), r = nb.play(i, c);
+      if (!r.ok) { setFb(fb, illegalMsg(r.reason, c), "bad"); return; }
+      history.push({board, next, last: view.last});
+      board = nb; view.last = i; next = opp(c);
+      let msg = `${NAME[c]} played ${ptName(i, board.n)}.`;
+      if (r.captured.length) msg = `${NAME[c]} captured ${plural(r.captured.length, "stone")}!`;
+      const seen = new Set();
+      for (const q of board.nb[i]) if (board.g[q] === opp(c) && !seen.has(q)) {
+        const g = board.group(q); g.stones.forEach(s => seen.add(s));
+        if (g.libs.size === 1) msg += ` Atari: ${NAME[opp(c)].toLowerCase()} has one liberty left.`;
+      }
+      if (board.ko >= 0) msg += ` That was a ko capture: ${NAME[board.koc]} can't retake at ${ptName(board.ko, board.n)} right away.`;
+      if (r.group.libs.size === 1 && !r.captured.length) msg += ` Careful, that ${NAME[c].toLowerCase()} group is now in atari itself.`;
+      setFb(fb, msg, r.captured.length ? "good" : "");
+      announce(msg);
+      sync();
+    };
+    sync();
+  }
+
+  /* ---------- puzzles ---------- */
+  function puzzle(p, j) {
+    const parsed = Board.parse(p.rows);
+    let board = parsed.board;
+    for (const [lab, c] of (p.pre || [])) { const i = parsed.labels[lab]; board.play(i, c); view.last = i; }
+    const start = board.clone(), startLast = view.last;
+    const toPlay = p.toPlay || BLACK;
+    let done = false;
+    promptEl.innerHTML = `${p.prompt}${p.sub ? `<small>${p.sub}</small>` : ""}`;
+    view.ghost = p.type === "mark" || p.type === "choice" ? 0 : toPlay;
+    if (p.showTerr) view.terr = areaScore(board).terr;
+    view.set(board);
+
+    const isLast = j === L.puzzles.length - 1;
+    const nextLabel = isLast ? (LESSONS[k + 1] ? "Next lesson →" : "Practice game →") : "Next puzzle →";
+    controls.innerHTML = `<button class="btn" data-a="hint">💡 Hint</button><button class="btn" data-a="reset">Start over</button><span class="spacer"></span><button class="btn primary" data-a="next" hidden>${nextLabel}</button>`;
+    if (p.type === "choice") controls.querySelector('[data-a="reset"]').hidden = true;
+    controls.onclick = e => {
+      const b = e.target.closest("button"); if (!b) return;
+      if (b.dataset.a === "hint") {
+        setFb(fb, "Hint: " + p.hint);
+        view.hints = p.hintAt ? p.hintAt(board) : [];
+        view.render();
+      }
+      if (b.dataset.a === "reset") { open(j); }
+      if (b.dataset.a === "next") {
+        if (!isLast) open(j + 1);
+        else location.hash = LESSONS[k + 1] ? LESSONS[k + 1].id : "play";
+      }
+    };
+    function solved(msg) {
+      done = true; view.locked = true; view.hints = []; view.render();
+      setFb(fb, "✓ " + msg, "good"); announce("Solved. " + msg);
+      const first = !progress.solved[p.id];
+      progress.solved[p.id] = true; save();
+      drawTabs(); renderNav(L.id);
+      const nb = controls.querySelector('[data-a="next"]'); nb.hidden = false;
+      if (first && lessonDone(L)) setFb(fb, "✓ " + msg + "  Lesson complete!", "good");
+      nb.focus({preventScroll: true});
+    }
+    function flashWrong(after, i, msg, then) {
+      view.locked = true; view.set(after); view.marks.set(i, "bad"); view.render();
+      setFb(fb, msg, "bad"); announce(msg);
+      timer = setTimeout(() => { view.marks.delete(i); view.locked = false; if (then) then(); view.set(board); }, 1300);
+    }
+
+    if (p.type === "move") {
+      view.onPlay = i => {
+        if (done) return;
+        const after = board.clone(), r = after.play(i, toPlay);
+        if (!r.ok) { setFb(fb, illegalMsg(r.reason, toPlay), "bad"); return; }
+        const ok = p.check({before: board, after, i, r});
+        if (ok) { board = after; view.last = i; view.set(board); solved(p.ok); }
+        else flashWrong(after, i, p.wrong);
+      };
+    }
+    if (p.type === "mark") {
+      const targets = new Set(p.targets(board)), found = new Set();
+      view.locked = false;
+      view.onPlay = i => {
+        if (done) return;
+        if (targets.has(i)) {
+          if (found.has(i)) return;
+          found.add(i); view.marks.set(i, "ok"); view.render();
+          const left = targets.size - found.size;
+          if (!left) solved(p.ok);
+          else { setFb(fb, `Yes! ${left} more to find.`); announce(`Correct, ${left} more.`); }
+        } else {
+          view.marks.set(i, "bad"); view.render(); setFb(fb, p.wrong, "bad"); announce(p.wrong);
+          clearTimeout(timer); timer = setTimeout(() => { view.marks.delete(i); view.render(); }, 900);
+        }
+      };
+    }
+    if (p.type === "capture") {
+      const D = depthFor(p);
+      view.onPlay = i => {
+        if (done) return;
+        const after = board.clone(), r = after.play(i, toPlay);
+        if (!r.ok) { setFb(fb, illegalMsg(r.reason, toPlay), "bad"); return; }
+        if (after.g[p.target] === EMPTY) { board = after; view.last = i; view.set(board); solved(p.ok); return; }
+        const tg = after.group(p.target);
+        const def = defenceMove(after, p.target, D);
+        if (def.holds) {
+          flashWrong(after, i, tg.libs.size >= 3 ? "Too loose: White now has three liberties and gets away." :
+            "White escapes after that. Try a different move.", null);
+          return;
+        }
+        board = after; view.last = i; view.set(board);
+        view.locked = true;
+        setFb(fb, "Good. White tries to run…");
+        timer = setTimeout(() => {
+          const m = def.move;
+          if (m != null && m >= 0) { board.play(m, opp(toPlay)); view.last = m; }
+          view.locked = false; view.set(board);
+          const libs = board.group(p.target).libs.size;
+          setFb(fb, `White ran to ${ptName(m, board.n)} and has ${plural(libs, "liberty").replace("libertys", "liberties")}. Keep chasing!`);
+        }, 550);
+      };
+    }
+    if (p.type === "choice") {
+      view.locked = true; view.render();
+      const opts = typeof p.choices === "function" ? p.choices(board) : p.choices;
+      choicesEl.hidden = false;
+      choicesEl.innerHTML = opts.map((o, q) => `<button class="btn" data-q="${q}">${o.t}</button>`).join("");
+      choicesEl.onclick = e => {
+        const b = e.target.closest("button"); if (!b || done) return;
+        const o = opts[+b.dataset.q];
+        if (o.right) { b.classList.add("right"); solved(o.why); }
+        else { b.classList.add("wrong"); setFb(fb, o.why, "bad"); announce(o.why); }
+      };
+    }
+  }
+  function depthFor(p) { return p.depth || 10; }
+
+  open("explore");
+}
+
+/* ---------- glossary ---------- */
+const GLOSSARY = [
+  ["Area scoring", "Counting method where your score is your stones on the board plus the empty points only you surround. Used on this page."],
+  ["Atari", "A stone or group with only one liberty left. It will be captured next move unless its owner does something."],
+  ["Capture", "Removing stones whose last liberty has been filled."],
+  ["Connection", "Stones of one colour that touch along a line. They form a group and share liberties."],
+  ["Cut", "Separating two of your opponent's stones or groups so they can't join up."],
+  ["Dame", "A neutral empty point that touches both colours. It counts for nobody."],
+  ["Dead stones", "Stones that can't escape capture or make two eyes. At the end they are removed before counting."],
+  ["Eye", "An empty point or space completely surrounded by one group. Two separate eyes make a group alive."],
+  ["False eye", "Something that looks like an eye, but the opponent can break it by capturing the stones around it. It doesn't count as a real eye."],
+  ["Gote / sente", "A move the opponent doesn't need to answer is gote (you lose the initiative). A move that forces an answer is sente (you keep the initiative)."],
+  ["Group", "A set of connected stones of one colour. They live or die together."],
+  ["Hane", "A move that bends around the head of an opponent's stone, diagonally next to your own."],
+  ["Handicap", "Extra black stones placed at the start so players of different strengths can have an even game."],
+  ["Ko", "A position where one stone can be captured back and forth. After a ko capture, the other player must play elsewhere for one move before retaking."],
+  ["Ko threat", "A move played elsewhere during a ko, so strong that the opponent wants to answer it, which gives you the chance to retake the ko."],
+  ["Komi", "Bonus points White receives for moving second. This page uses 7.5."],
+  ["Ladder", "A zig-zag chase in which a group is kept in atari until it hits the edge or a friendly stone."],
+  ["Liberty", "An empty point directly next to a stone or group, along a line."],
+  ["Life and death", "The question of whether a group can make two eyes (alive) or not (dead)."],
+  ["Net (geta)", "A move that blocks a stone's escape from a distance, so it can't get away whichever way it runs."],
+  ["Pass", "Skipping your turn. Two passes in a row end the game."],
+  ["Seki", "A standoff where neither side can attack without getting captured itself. Both groups stay on the board, alive."],
+  ["Star point (hoshi)", "The marked dots on the board. Landmarks only."],
+  ["Suicide", "Playing a stone that would have no liberties and captures nothing. Not allowed."],
+  ["Tengen", "The centre point of the board."],
+  ["Territory", "Empty points surrounded by only one player's stones."],
+  ["Vital point", "The key point of an eye shape: whoever plays there decides whether the group lives."]
+];
+function showGlossary() {
+  renderNav("glossary");
+  main.innerHTML = `<article class="text" style="max-width:760px">
+    <p class="kicker">Reference</p><h2>Glossary</h2>
+    <p>Go uses a handful of words, many of them Japanese. Here they are in plain language.</p>
+    <dl class="gloss">${GLOSSARY.map(([t, d]) => `<dt>${t}</dt><dd>${d}</dd>`).join("")}</dl>
+  </article>`;
+}
+
+/* ---------- practice game ---------- */
+let game = null;
+function showGame() {
+  renderNav("play");
+  main.innerHTML = `
+  <article class="game">
+    <section class="panel" aria-label="Practice game board">
+      <div class="opts">
+        <label>Opponent <select id="lvl"><option value="gentle">Gentle</option><option value="normal" selected>Normal</option></select></label>
+        <label>Komi <select id="komi"><option value="7.5" selected>7.5 (standard)</option><option value="0.5">0.5 (easier for you)</option></select></label>
+      </div>
+      <div class="boardwrap"><svg></svg></div>
+      <div class="controls">
+        <button class="btn" data-a="pass">Pass</button>
+        <button class="btn" data-a="undo">Undo</button>
+        <button class="btn" data-a="libs">Liberties</button>
+        <span class="spacer"></span>
+        <button class="btn primary" data-a="new">New game</button>
+      </div>
+      <p class="feedback" aria-live="polite"></p>
+    </section>
+    <div class="text">
+      <p class="kicker">Practice</p>
+      <h2>Your first game on 9×9</h2>
+      <p>You play <b>Black</b> and move first. The computer is a simple opponent that captures what it can and tries to stay safe, but it makes plenty of mistakes. When you think nothing useful is left to play, <b>pass</b>. When both of you pass, the game is counted with area scoring.</p>
+      <div class="score" id="score"></div>
+      <div id="result"></div>
+      <ul class="log" id="log" aria-label="Game log"></ul>
+    </div>
+  </article>`;
+  const panel = main.querySelector(".panel");
+  const view = new BoardView(panel.querySelector("svg"), {coords: true});
+  const fb = panel.querySelector(".feedback"), logEl = document.getElementById("log"),
+    scoreEl = document.getElementById("score"), resultEl = document.getElementById("result");
+  const lvl = document.getElementById("lvl"), komiSel = document.getElementById("komi");
+  let st;
+  function fresh() {
+    st = {board: new Board(9), history: [], passes: 0, over: false, scoring: false, dead: new Set(), moveNo: 0, thinking: false, showLibs: false, counted: false};
+    logEl.innerHTML = ""; resultEl.innerHTML = "";
+    view.last = -1; view.terr = null; view.dead = null; view.locked = false; view.marks = new Map(); view.ghost = BLACK;
+    setFb(fb, "Your move. Tap any point to place a black stone.");
+    log("New game. You are Black, the computer is White. Komi " + komiSel.value + ".", "note");
+    update();
+  }
+  function log(t, cls = "") {
+    const li = document.createElement("li"); li.className = cls; li.innerHTML = t; logEl.prepend(li);
+  }
+  function update() {
+    const b = st.board;
+    view.libLabels = st.showLibs && !st.scoring;
+    view.set(b);
+    const komi = +komiSel.value;
+    scoreEl.innerHTML = `<div><b><i class="dotb"></i>You (Black)</b><span>Captured ${b.caps[BLACK]} stones</span></div>
+      <div><b><i class="dotw"></i>Computer</b><span>Captured ${b.caps[WHITE]} · komi ${komi}</span></div>`;
+    panel.querySelector('[data-a="pass"]').disabled = st.over || st.thinking || st.scoring;
+    panel.querySelector('[data-a="undo"]').disabled = !st.history.length || st.thinking || st.over;
+    panel.querySelector('[data-a="libs"]').setAttribute("aria-pressed", String(st.showLibs));
+  }
+  function ataris(b, color) {
+    return b.groups().filter(g => g.color === color && g.libs.size === 1);
+  }
+  function computerTurn(userPassed) {
+    st.thinking = true; view.locked = true; update();
+    setFb(fb, "The computer is thinking…");
+    setTimeout(() => {
+      const b = st.board;
+      const m = chooseMove(b, WHITE, {noise: lvl.value === "gentle" ? 9 : 3, careless: lvl.value === "gentle", runs: lvl.value === "gentle" ? 24 : 48, moveNo: st.moveNo, last: view.last, opponentPassed: userPassed});
+      st.thinking = false; view.locked = false;
+      if (m < 0) {
+        b.pass(); st.passes++;
+        log("<b>Computer</b> passes.", "ai");
+        if (st.passes >= 2) { startScoring(); return; }
+        setFb(fb, "The computer passes. If you also pass, the game ends and we count.");
+        update(); return;
+      }
+      const r = b.play(m, WHITE); st.passes = 0; st.moveNo++; view.last = m;
+      let t = `<b>Computer</b> plays ${ptName(m, 9)}.`;
+      if (r.captured.length) t += ` It captured ${plural(r.captured.length, "of your stones")}.`;
+      log(t, "ai");
+      let msg = r.captured.length ? `The computer captured ${plural(r.captured.length, "stone")} at ${ptName(r.captured[0], 9)}. ` : `Computer played ${ptName(m, 9)}. `;
+      const danger = ataris(b, BLACK);
+      if (danger.length) {
+        const g = danger.sort((a, c) => c.stones.length - a.stones.length)[0];
+        msg += `Careful: your ${g.stones.length > 1 ? plural(g.stones.length, "stone") : "stone"} at ${ptName(g.stones[0], 9)} ${g.stones.length > 1 ? "are" : "is"} in atari (last liberty ${ptName([...g.libs][0], 9)}).`;
+      } else {
+        const chance = ataris(b, WHITE);
+        msg += chance.length ? `White has stones in atari. Can you capture them?` : "Your move.";
+      }
+      setFb(fb, msg, danger.length ? "bad" : "");
+      announce(msg);
+      update();
+    }, 280);
+  }
+  function userPlay(i) {
+    if (st.scoring) { toggleDead(i); return; }
+    if (st.over || st.thinking) return;
+    const b = st.board, snapshot = {board: b.clone(), last: view.last, passes: st.passes, moveNo: st.moveNo};
+    const r = b.play(i, BLACK);
+    if (!r.ok) { setFb(fb, illegalMsg(r.reason, BLACK), "bad"); announce(illegalMsg(r.reason, BLACK)); return; }
+    st.history.push(snapshot);
+    st.passes = 0; st.moveNo++; view.last = i;
+    let t = `<b>You</b> play ${ptName(i, 9)}.`;
+    if (r.captured.length) t += ` You captured ${plural(r.captured.length, "stone")}!`;
+    log(t, "me");
+    if (r.captured.length) announce(`You captured ${plural(r.captured.length, "stone")}.`);
+    update();
+    computerTurn(false);
+  }
+  function startScoring() {
+    st.scoring = true; st.dead = estimateDead(st.board);
+    view.dead = st.dead;
+    log("Both players passed. Time to count.", "note");
+    setFb(fb, "Game over. Faded stones are counted as dead. Tap a group to change that, then confirm the score.");
+    resultEl.innerHTML = `<div class="result"><h3>Counting</h3><p>Dead stones are taken off before counting, as if captured. The computer has made a guess; tap any group to toggle it.</p><button class="btn primary" id="confirm">Confirm score</button></div>`;
+    document.getElementById("confirm").onclick = finish;
+    showTerr(); update();
+  }
+  function showTerr() { view.terr = areaScore(st.board, st.dead).terr; view.dead = st.dead; }
+  function toggleDead(i) {
+    if (st.over || !st.board.g[i]) return;
+    const g = st.board.group(i), isDead = st.dead.has(i);
+    g.stones.forEach(s => isDead ? st.dead.delete(s) : st.dead.add(s));
+    showTerr(); view.render();
+  }
+  function finish() {
+    st.over = true; st.scoring = false; view.locked = true;
+    const s = areaScore(st.board, st.dead), komi = +komiSel.value;
+    const deadB = [...st.dead].filter(i => st.board.g[i] === BLACK).length, deadW = [...st.dead].filter(i => st.board.g[i] === WHITE).length;
+    const w = s.white + komi, diff = Math.abs(s.black - w), youWin = s.black > w;
+    progress.games.played++; if (youWin) progress.games.won++; save();
+    resultEl.innerHTML = `<div class="result"><h3>${youWin ? "You win" : "The computer wins"} by ${diff}</h3>
+      <p>Black: ${s.bs} stones + ${s.bt} territory = <b>${s.black}</b><br>
+      White: ${s.ws} stones + ${s.wt} territory + ${komi} komi = <b>${w}</b></p>
+      <p>${deadW ? `${plural(deadW, "dead white stone")} were removed. ` : ""}${deadB ? `${plural(deadB, "dead black stone")} were removed. ` : ""}During the game you captured ${st.board.caps[BLACK]} and lost ${st.board.caps[WHITE]}.</p>
+      <p style="color:var(--muted);font-size:14px">Games played here: ${progress.games.played}, won: ${progress.games.won}.</p>
+      <button class="btn primary" id="again">Play again</button></div>`;
+    document.getElementById("again").onclick = fresh;
+    log(`Final score: Black ${s.black}, White ${w}. ${youWin ? "You win!" : "White wins."}`, "note");
+    setFb(fb, youWin ? "Well played!" : "Good game. Try again, maybe with the gentle opponent or lower komi.", youWin ? "good" : "");
+    update();
+  }
+  view.onPlay = userPlay;
+  panel.querySelector(".controls").onclick = e => {
+    const b = e.target.closest("button"); if (!b) return;
+    const a = b.dataset.a;
+    if (a === "new") fresh();
+    if (a === "libs") { st.showLibs = !st.showLibs; update(); }
+    if (a === "pass" && !st.over && !st.thinking && !st.scoring) {
+      st.board.pass(); st.passes++; log("<b>You</b> pass.", "me");
+      if (st.passes >= 2) { startScoring(); return; }
+      computerTurn(true);
+    }
+    if (a === "undo" && st.history.length && !st.thinking) {
+      const h = st.history.pop();
+      if (st.scoring) { st.scoring = false; view.terr = null; view.dead = null; resultEl.innerHTML = ""; }
+      st.board = h.board; view.last = h.last; st.passes = h.passes; st.moveNo = h.moveNo;
+      log("Took back your last move.", "note"); setFb(fb, "Move taken back. Your turn."); update();
+    }
+  };
+  komiSel.onchange = update;
+  fresh();
+}
+
+/* ---------- routing ---------- */
+function route() {
+  const h = location.hash.slice(1);
+  if (h === "play") showGame();
+  else if (h === "glossary") showGlossary();
+  else if (LESSONS.some(L => L.id === h)) showLesson(h);
+  else { showLesson(LESSONS.some(L => L.id === progress.last) ? progress.last : LESSONS[0].id); return; }
+}
+window.addEventListener("hashchange", () => { route(); window.scrollTo({top: 0}); main.focus({preventScroll: true}); });
+route();
+window.GoTest = {Board, areaScore, attackMove, defenceMove, chooseMove, estimateDead, LESSONS, BLACK, WHITE, EMPTY};
+</script>
+</body>
+</html>
