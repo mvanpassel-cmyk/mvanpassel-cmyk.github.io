@@ -151,7 +151,7 @@ function draw(){
   ga.selectAll("path").data(arcs).join("path").attr("class",d=>"arc "+d.s)
     .attr("d",d=>{const a=proj(d.a),b=proj(d.b),dx=b[0]-a[0],dy=b[1]-a[1],L=Math.hypot(dx,dy),k=Math.min(.25,40/Math.max(L,1)+.12);
       return `M${a}Q${(a[0]+b[0])/2-dy*k},${(a[1]+b[1])/2+dx*k-Math.min(L*.15,30)} ${b}`});
-  gd.selectAll("circle").data([...new Set(vis.map(p=>p.actorCountry))]).join("circle").attr("class","dot")
+  gd.selectAll("circle").data([...new Set(vis.map(p=>p.actorCountry))].filter(c=>cent[c])).join("circle").attr("class","dot")
     .attr("r",3).attr("transform",c=>{const p=proj(cent[c]);return `translate(${p})`});
   list(vis);
 }
@@ -184,7 +184,7 @@ Promise.all([d3.json(ATLAS),d3.json("projects.json")]).then(([topo,pj])=>{
   document.getElementById("upd").textContent="List last edited "+pj.updated+"; each entry shows when its source was last checked.";
   feats=topojson.feature(topo,topo.objects.countries).features.filter(f=>f.properties.name!=="Antarctica");
   // Small states missing from the 110m atlas are drawn as dots so their collaborations stay clickable.
-  const SMALL={"Singapore":[103.8,1.35],"Tonga":[-175.2,-21.2],"Samoa":[-172.1,-13.8],"Kiribati":[173,1.4],"Palau":[134.5,7.5],"Nauru":[166.9,-0.53],"Tuvalu":[179.2,-8.5],"Niue":[-169.9,-19.05],"Marshall Is.":[171.2,7.1]};
+  const SMALL={"Singapore":[103.8,1.35],"Tonga":[-175.2,-21.2],"Samoa":[-172.1,-13.8],"Kiribati":[173,1.4],"Palau":[134.5,7.5],"Nauru":[166.9,-0.53],"Tuvalu":[179.2,-8.5],"Niue":[-169.9,-19.05],"Marshall Is.":[171.2,7.1],"Mauritius":[57.55,-20.25],"Comoros":[43.35,-11.7],"Seychelles":[55.45,-4.65],"Maldives":[73.5,3.2]};
   const have=new Set(feats.map(f=>f.properties.name));
   Object.entries(SMALL).forEach(([n,c])=>{if(!have.has(n))feats.push({type:"Feature",properties:{name:n},geometry:{type:"Point",coordinates:c}})});
   feats.forEach(f=>{cent[f.properties.name]=OVR[f.properties.name]||d3.geoCentroid(f)});
