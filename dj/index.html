@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VEKTOR NOX</title>
+<meta name="description" content="VEKTOR NOX — deep-space techno transmissions. Concept DJ site.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#04050a; --ink:#d9f3ff; --dim:#6f8aa0; --cy:#2ef2ff; --mg:#ff2bd6; --am:#ffb02e; --line:rgba(46,242,255,.18);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 "JetBrains Mono",ui-monospace,monospace;overflow-x:hidden}
+#space{position:fixed;inset:0;width:100%;height:100%;z-index:0}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:5;
+  background:repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px)}
+main{position:relative;z-index:2}
+a{color:var(--cy)}
+nav{position:fixed;top:0;left:0;right:0;z-index:6;display:flex;gap:18px;align-items:center;padding:14px 20px;
+  background:linear-gradient(#04050ae6,#04050a00);font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+nav .id{font-family:Orbitron,sans-serif;font-weight:800;color:var(--cy);letter-spacing:.3em;margin-right:auto}
+nav a{color:var(--dim);text-decoration:none} nav a:hover{color:var(--ink)}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 16px 40px}
+.tag{font-size:11px;letter-spacing:.45em;color:var(--am);text-transform:uppercase;margin-bottom:18px}
+h1{font-family:Orbitron,sans-serif;font-weight:800;font-size:clamp(46px,11vw,150px);line-height:.9;margin:0;letter-spacing:.04em;
+  color:var(--ink);text-shadow:0 0 18px rgba(46,242,255,.55),0 0 60px rgba(46,242,255,.25);position:relative}
+h1 .g{position:relative;display:inline-block}
+h1 .g::before,h1 .g::after{content:attr(data-t);position:absolute;inset:0;mix-blend-mode:screen;opacity:.7}
+h1 .g::before{color:var(--mg);animation:gl1 3.2s infinite steps(1)}
+h1 .g::after{color:var(--cy);animation:gl2 2.7s infinite steps(1)}
+@keyframes gl1{0%,92%,100%{transform:none;clip-path:none}93%{transform:translate(-6px,2px);clip-path:inset(10% 0 55% 0)}96%{transform:translate(4px,-1px);clip-path:inset(60% 0 8% 0)}}
+@keyframes gl2{0%,88%,100%{transform:none;clip-path:none}89%{transform:translate(5px,-2px);clip-path:inset(30% 0 40% 0)}94%{transform:translate(-3px,1px);clip-path:inset(75% 0 2% 0)}}
+.sub{margin:22px 0 34px;color:var(--dim);max-width:52ch}
+.hud{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.btn{font:600 12px/1 "JetBrains Mono",monospace;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);background:rgba(46,242,255,.06);
+  border:1px solid var(--cy);padding:14px 20px;cursor:pointer;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);text-decoration:none}
+.btn:hover{background:rgba(46,242,255,.18)}
+.btn.mg{border-color:var(--mg);background:rgba(255,43,214,.08)}
+.btn.on{background:var(--cy);color:#001014}
+.meters{display:flex;gap:3px;height:30px;align-items:flex-end;margin-top:26px}
+.meters i{width:6px;background:linear-gradient(var(--mg),var(--cy));height:4px;transition:height .08s}
+section{max-width:1080px;margin:0 auto;padding:90px 16px}
+.h{display:flex;align-items:baseline;gap:14px;margin-bottom:30px;border-bottom:1px solid var(--line);padding-bottom:12px}
+.h h2{font-family:Orbitron,sans-serif;font-size:clamp(22px,4vw,34px);margin:0;letter-spacing:.1em}
+.h span{color:var(--am);font-size:11px;letter-spacing:.3em}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.panel{border:1px solid var(--line);background:linear-gradient(160deg,rgba(46,242,255,.06),rgba(4,5,10,.6));padding:18px;position:relative;backdrop-filter:blur(3px)}
+.panel::before{content:"";position:absolute;top:-1px;left:-1px;width:14px;height:14px;border-top:2px solid var(--cy);border-left:2px solid var(--cy)}
+.panel::after{content:"";position:absolute;bottom:-1px;right:-1px;width:14px;height:14px;border-bottom:2px solid var(--mg);border-right:2px solid var(--mg)}
+.date{font-family:Orbitron,sans-serif;font-size:26px;color:var(--cy)}
+.k{font-size:11px;letter-spacing:.25em;color:var(--dim);text-transform:uppercase}
+.mix{display:flex;gap:14px;align-items:center}
+#mixes{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.mix .k{display:block}
+.mix canvas{width:84px;height:84px;flex:none;border:1px solid var(--line)}
+.mix b{display:block;font-family:Orbitron,sans-serif;letter-spacing:.06em}
+.log{columns:2 320px;column-gap:40px;color:var(--dim)}
+.log p{margin:0 0 14px;break-inside:avoid} .log p b{color:var(--ink)}
+.coords{font-size:12px;color:var(--dim);margin-top:24px}
+footer{text-align:center;color:var(--dim);font-size:11px;letter-spacing:.2em;padding:40px 16px 60px;border-top:1px solid var(--line)}
+@media (prefers-reduced-motion:reduce){h1 .g::before,h1 .g::after{animation:none}}
+@media (max-width:600px){nav a:not(.id){display:none}}
+</style>
+</head>
+<body>
+<canvas id="space" aria-hidden="true"></canvas>
+<nav><span class="id">V·NOX</span><a href="#signals">Signals</a><a href="#archive">Archive</a><a href="#log">Log</a><a href="#contact">Contact</a></nav>
+<main>
+  <header class="hero">
+    <div class="tag">◢ Incoming transmission · sector 7G ◣</div>
+    <h1><span class="g" data-t="VEKTOR">VEKTOR</span><br><span class="g" data-t="NOX">NOX</span></h1>
+    <p class="sub">Deep-space techno and slow-orbit electro, broadcast from the dark side of the dancefloor. 124–138 BPM. No gravity.</p>
+    <div class="hud">
+      <button class="btn" id="engage">▶ Engage signal</button>
+      <a class="btn mg" href="#signals">Next landings</a>
+    </div>
+    <div class="meters" id="meters" aria-hidden="true"></div>
+    <p class="coords" id="coords">T-MINUS — · LAT 52.09 · LON 5.12 · SIGNAL STABLE</p>
+  </header>
+
+  <section id="signals">
+    <div class="h"><h2>NEXT SIGNALS</h2><span>// UPCOMING SETS</span></div>
+    <div class="grid" id="gigs"></div>
+  </section>
+
+  <section id="archive">
+    <div class="h"><h2>ARCHIVE</h2><span>// RECORDED TRANSMISSIONS</span></div>
+    <div class="grid" id="mixes"></div>
+  </section>
+
+  <section id="log">
+    <div class="h"><h2>CAPTAIN'S LOG</h2><span>// ABOUT</span></div>
+    <div class="log">
+      <p><b>Origin.</b> VEKTOR NOX started as a late-night radio experiment: what if a techno set was scored like a space voyage, launch, drift, contact, re-entry?</p>
+      <p><b>Sound.</b> Rolling basslines, analogue arpeggios, field recordings from empty places, and the occasional transmission that should not be there.</p>
+      <p><b>Live rig.</b> Two decks, one modular case, a tape echo that has seen too much, and a strict no-phones-on-the-bridge policy.</p>
+      <p><b>Mission.</b> Long sets. Low light. A room that forgets what time it is.</p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="h"><h2>OPEN CHANNEL</h2><span>// BOOKINGS</span></div>
+    <div class="grid">
+      <div class="panel"><div class="k">Bookings</div><p>Clubs, festivals, planetariums, decommissioned power plants.</p><a class="btn" href="mailto:booking@example.com">Hail the ship</a></div>
+      <div class="panel"><div class="k">Press kit</div><p>Bio, logos and hi-res photos on request.</p><span class="k">Coming soon</span></div>
+      <div class="panel"><div class="k">Frequencies</div><p>Mixes and set times are posted here first.</p><span class="k">Placeholder links</span></div>
+    </div>
+  </section>
+</main>
+<footer>VEKTOR NOX · concept site · all names, dates and mixes are placeholders · © 2026</footer>
+
+<script>
+// ---------------- placeholder content (edit these) ----------------
+const GIGS = [
+  { d: "TBA", m: "NOV", where: "Your club here", what: "Extended set · 4h", status: "Open for booking" },
+  { d: "TBA", m: "DEC", where: "Planetarium night", what: "Ambient-to-techno voyage", status: "In planning" },
+  { d: "TBA", m: "JAN", where: "Warehouse, sector 7G", what: "Closing set", status: "Rumoured" },
+];
+const MIXES = [
+  { t: "LAUNCH WINDOW", n: "TX-01", len: "62:00", seed: 3 },
+  { t: "EVENT HORIZON DUB", n: "TX-02", len: "75:30", seed: 11 },
+  { t: "SLOW ORBIT", n: "TX-03", len: "58:12", seed: 23 },
+  { t: "RE-ENTRY", n: "TX-04", len: "90:00", seed: 41 },
+];
+const $ = s => document.querySelector(s);
+$('#gigs').innerHTML = GIGS.map(g => `<div class="panel"><div class="date">${g.d} <span class="k">${g.m}</span></div>
+  <p><b>${g.where}</b><br>${g.what}</p><span class="k">◉ ${g.status}</span></div>`).join('');
+$('#mixes').innerHTML = MIXES.map((m, i) => `<div class="panel mix"><canvas width="168" height="168" data-seed="${m.seed}"></canvas>
+  <div><span class="k">${m.n} · ${m.len}</span><b>${m.t}</b><span class="k">Audio coming soon</span></div></div>`).join('');
+
+// Generated cover art: concentric rings and a planet per mix.
+document.querySelectorAll('#mixes canvas').forEach(c => {
+  const x = c.getContext('2d'), s = +c.dataset.seed; let r = s;
+  const rnd = () => (r = (r * 9301 + 49297) % 233280) / 233280;
+  x.fillStyle = '#04050a'; x.fillRect(0, 0, 168, 168);
+  for (let i = 0; i < 60; i++) { x.fillStyle = `rgba(217,243,255,${rnd() * .8})`; x.fillRect(rnd() * 168, rnd() * 168, 1.2, 1.2); }
+  const cx = 50 + rnd() * 68, cy = 50 + rnd() * 68, rad = 22 + rnd() * 26;
+  const g = x.createRadialGradient(cx - rad / 3, cy - rad / 3, 2, cx, cy, rad);
+  g.addColorStop(0, rnd() > .5 ? '#2ef2ff' : '#ff2bd6'); g.addColorStop(1, '#0a0f24');
+  x.fillStyle = g; x.beginPath(); x.arc(cx, cy, rad, 0, 7); x.fill();
+  x.strokeStyle = 'rgba(255,176,46,.7)'; x.lineWidth = 1.5; x.beginPath(); x.ellipse(cx, cy, rad * 1.7, rad * .45, -.4, 0, 7); x.stroke();
+});
+
+// ---------------- warp starfield + horizon grid ----------------
+const cv = $('#space'), ctx = cv.getContext('2d');
+let W, H, stars = [], speed = .6, target = .6, t0 = performance.now();
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+function size() { W = cv.width = innerWidth * devicePixelRatio; H = cv.height = innerHeight * devicePixelRatio; }
+function seed() { stars = Array.from({ length: 700 }, () => ({ x: (Math.random() - .5) * W, y: (Math.random() - .5) * H, z: Math.random() * W })); }
+size(); seed(); addEventListener('resize', () => { size(); seed(); });
+function frame(now) {
+  const t = (now - t0) / 1000; speed += (target - speed) * .03;
+  ctx.fillStyle = 'rgba(4,5,10,.35)'; ctx.fillRect(0, 0, W, H);
+  const cx = W / 2, cy = H * .42;
+  for (const s of stars) {
+    const pz = s.z; s.z -= speed * 8 * devicePixelRatio; if (s.z < 1) { s.x = (Math.random() - .5) * W; s.y = (Math.random() - .5) * H; s.z = W; continue; }
+    const k = W / 2 / s.z, pk = W / 2 / pz, x = cx + s.x * k, y = cy + s.y * k;
+    ctx.strokeStyle = `rgba(${s.z < W / 3 ? '46,242,255' : '217,243,255'},${Math.min(1, 1.4 - s.z / W)})`;
+    ctx.lineWidth = Math.max(.6, 2.2 - s.z / W * 2) * devicePixelRatio;
+    ctx.beginPath(); ctx.moveTo(cx + s.x * pk, cy + s.y * pk); ctx.lineTo(x, y); ctx.stroke();
+  }
+  // horizon grid
+  const hy = H * .68; ctx.strokeStyle = 'rgba(255,43,214,.28)'; ctx.lineWidth = 1 * devicePixelRatio;
+  for (let i = 0; i < 14; i++) { const p = ((i + (t * speed * .5) % 1) / 14); const y = hy + Math.pow(p, 2.2) * (H - hy);
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+  for (let i = -12; i <= 12; i++) { ctx.beginPath(); ctx.moveTo(cx + i * W * .012, hy); ctx.lineTo(cx + i * W * .14, H); ctx.stroke(); }
+  if (!reduce) requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+// ---------------- "Engage signal": a small generative sci-fi loop ----------------
+let ac = null, nodes = null, an = null, raf = 0;
+const meters = $('#meters'); meters.innerHTML = '<i></i>'.repeat(24);
+function startAudio() {
+  ac = new (window.AudioContext || window.webkitAudioContext)();
+  const out = ac.createGain(); out.gain.value = .0; out.gain.linearRampToValueAtTime(.5, ac.currentTime + 2);
+  const delay = ac.createDelay(1), fb = ac.createGain(); delay.delayTime.value = .375; fb.gain.value = .38;
+  delay.connect(fb); fb.connect(delay); delay.connect(out);
+  an = ac.createAnalyser(); an.fftSize = 64; out.connect(an); an.connect(ac.destination);
+  const bpm = 128, beat = 60 / bpm, start = ac.currentTime + .1;
+  const notes = [45, 48, 52, 55, 57, 60, 55, 52];             // A minor-ish arpeggio (MIDI)
+  const hz = m => 440 * Math.pow(2, (m - 69) / 12);
+  let step = 0, next = start;
+  function kick(t) { const o = ac.createOscillator(), g = ac.createGain(); o.frequency.setValueAtTime(140, t); o.frequency.exponentialRampToValueAtTime(42, t + .18);
+    g.gain.setValueAtTime(.9, t); g.gain.exponentialRampToValueAtTime(.001, t + .35); o.connect(g); g.connect(out); o.start(t); o.stop(t + .4); }
+  function hat(t) { const b = ac.createBuffer(1, ac.sampleRate * .05, ac.sampleRate), d = b.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    const s = ac.createBufferSource(), f = ac.createBiquadFilter(), g = ac.createGain(); s.buffer = b; f.type = 'highpass'; f.frequency.value = 8000;
+    g.gain.setValueAtTime(.18, t); g.gain.exponentialRampToValueAtTime(.001, t + .05); s.connect(f); f.connect(g); g.connect(out); s.start(t); }
+  function arp(t, m) { const o = ac.createOscillator(), f = ac.createBiquadFilter(), g = ac.createGain(); o.type = 'sawtooth'; o.frequency.value = hz(m + 12);
+    f.type = 'lowpass'; f.frequency.setValueAtTime(600 + 1800 * (.5 + .5 * Math.sin(t / 4)), t); f.Q.value = 8;
+    g.gain.setValueAtTime(.12, t); g.gain.exponentialRampToValueAtTime(.001, t + beat * .45); o.connect(f); f.connect(g); g.connect(out); g.connect(delay); o.start(t); o.stop(t + beat * .5); }
+  function bass(t, m) { const o = ac.createOscillator(), g = ac.createGain(); o.type = 'triangle'; o.frequency.value = hz(m - 12);
+    g.gain.setValueAtTime(.35, t); g.gain.exponentialRampToValueAtTime(.001, t + beat * .4); o.connect(g); g.connect(out); o.start(t); o.stop(t + beat * .45); }
+  nodes = { out, timer: setInterval(() => {
+    while (next < ac.currentTime + .2) {
+      const s16 = step % 16;
+      if (s16 % 4 === 0) kick(next);
+      if (s16 % 4 === 2) { hat(next); bass(next, notes[(step >> 2) % 8]); }
+      if (s16 % 2 === 1) arp(next, notes[(step + (step >> 4)) % 8]);
+      step++; next += beat / 4;
+    }
+  }, 30) };
+  const bins = new Uint8Array(32), bars = meters.querySelectorAll('i');
+  (function draw() { an.getByteFrequencyData(bins); bars.forEach((b, i) => b.style.height = (4 + bins[i] / 255 * 26) + 'px'); raf = requestAnimationFrame(draw); })();
+}
+function stopAudio() { clearInterval(nodes.timer); nodes.out.gain.linearRampToValueAtTime(0, ac.currentTime + .6);
+  setTimeout(() => { ac.close(); ac = null; }, 700); cancelAnimationFrame(raf); meters.querySelectorAll('i').forEach(b => b.style.height = '4px'); }
+$('#engage').onclick = e => {
+  const b = e.currentTarget;
+  if (ac) { stopAudio(); b.textContent = '▶ Engage signal'; b.classList.remove('on'); target = .6; }
+  else { startAudio(); b.textContent = '■ Cut signal'; b.classList.add('on'); target = 3.2; }
+};
+
+// HUD clock
+setInterval(() => { const d = new Date(); $('#coords').textContent =
+  `T+${d.toISOString().slice(11, 19)} UTC · LAT 52.09 · LON 5.12 · ${ac ? 'SIGNAL LIVE · 128 BPM' : 'SIGNAL STABLE'}`; }, 1000);
+</script>
+</body>
+</html>
