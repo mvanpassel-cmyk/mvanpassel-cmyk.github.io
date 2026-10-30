@@ -22,7 +22,9 @@ html,body{height:100%}
 body{background:var(--bg);color:var(--fg);font-family:var(--ui);-webkit-tap-highlight-color:transparent;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 *{box-sizing:border-box}
-button{font-family:inherit;color:inherit;cursor:pointer}
+html,body{touch-action:manipulation}
+button{font-family:inherit;color:inherit;cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+.game,.entry{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 button:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
 
 header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:12px;border-bottom:1px solid var(--line);max-width:1080px;margin:0 auto}
@@ -33,8 +35,9 @@ header{display:flex;align-items:center;justify-content:space-between;gap:12px;pa
 .tbtn{white-space:nowrap;border:1px solid var(--line);background:transparent;border-radius:999px;height:36px;padding:0 14px;font-size:.85rem;font-weight:600}
 .tbtn.icon{width:36px;padding:0;font-size:1rem;font-weight:700}
 
-main{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:8px;padding-block:14px 24px}
-@media (min-width:900px){main{grid-template-columns:1fr 1fr;gap:48px;align-items:start;padding-top:28px}.side{order:2}.game{order:1}}
+main{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr);gap:8px;padding-block:14px 24px}
+main>section{min-width:0}
+@media (min-width:900px){main{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:start;padding-top:28px}.side{order:2}.game{order:1}}
 
 /* progress */
 .progress{display:flex;align-items:center;gap:14px;padding:6px 0 10px;cursor:pointer;background:none;border:0;width:100%;text-align:left}
@@ -48,7 +51,7 @@ main{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:8
 .dot.last{border-radius:2px}
 
 /* found words */
-.found{border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+.found{border:1px solid var(--line);border-radius:8px;background:var(--panel);min-width:0;overflow:hidden}
 .found-bar{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;padding:12px 14px;text-align:left;font-size:.95rem;min-width:0}
 .found-bar .recent{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-transform:capitalize}
 .found-bar .recent.empty{color:var(--muted)}
