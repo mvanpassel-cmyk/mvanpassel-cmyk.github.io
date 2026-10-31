@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hack Ticker</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/logos/hack-ticker-32.png">
+<link rel="icon" type="image/svg+xml" href="/logos/hack-ticker.svg">
+<link rel="apple-touch-icon" href="/logos/hack-ticker-180.png">
+<meta name="description" content="A running timeline of cyber attacks, data breaches and crypto hacks, counted by impact class, with the Netherlands and Europe highlighted.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: a black stock-exchange ticker on top, then a board of five impact classes, a weekly bar chart that answers
+   "is it happening more often?", and the incident timeline. Impact uses a heat scale from grey to deep red. */
+:root{
+  --bg:#e8ebee; --card:#f6f7f8; --ink:#0d1015; --muted:#58616d; --line:#cdd3da; --soft:#dde1e6;
+  --tick:#0d1015; --tick-ink:#f1f3f5;
+  --s1:#8a94a0; --s2:#d9a400; --s3:#ee7a14; --s4:#d6370f; --s5:#8e0b22;
+  --nl:#1d5bd6; --line-news:#0d1015; --line-rw:#7a3fd1;
+  --display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#0f1217; --card:#161a21; --ink:#e9ecef; --muted:#97a1ad; --line:#2a313b; --soft:#20262f;
+  --tick:#000; --tick-ink:#f1f3f5; --s1:#7d8794; --s2:#e8b81c; --s3:#ff8a2a; --s4:#ff5533; --s5:#e02a4a;
+  --nl:#5d8dff; --line-news:#e9ecef; --line-rw:#a77bff; color-scheme:dark}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 var(--display);font-stretch:100%;overflow-x:hidden}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+/* ticker band */
+.ticker{background:var(--tick);color:var(--tick-ink);height:42px;overflow:hidden;position:relative;display:flex;align-items:center;
+  padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+.ticker .live{flex:none;height:100%;display:flex;align-items:center;gap:8px;padding:0 14px 0 max(16px,env(safe-area-inset-left,0px));background:var(--s4);color:#fff;
+  font:800 13px/1 var(--display);font-stretch:75%;letter-spacing:.14em;text-transform:uppercase;z-index:2}
+.ticker .live i{width:8px;height:8px;border-radius:50%;background:#fff;animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.25}}
+.ticker .track{display:flex;white-space:nowrap;animation:scroll var(--dur,80s) linear infinite;will-change:transform}
+.ticker:hover .track,.ticker:focus-within .track{animation-play-state:paused}
+@keyframes scroll{to{transform:translateX(-50%)}}
+.ticker .it{display:inline-flex;align-items:center;gap:8px;padding:0 22px;font:500 13px/1 var(--mono);text-decoration:none;border-right:1px solid #2c323b;height:42px}
+.ticker .it b{font:800 14px/1 var(--display);font-stretch:80%;letter-spacing:.03em;text-transform:uppercase}
+.ticker .it .sv{width:20px;height:20px;border-radius:3px;display:grid;place-items:center;font:700 12px/1 var(--mono);color:#fff}
+.ticker .it .amt{color:#c9ced4}
+
+.wrap{max-width:1040px;margin:0 auto;padding:30px max(16px,env(safe-area-inset-right,0px)) 70px max(16px,env(safe-area-inset-left,0px))}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px 24px}
+h1{margin:0;font:900 clamp(44px,10vw,92px)/.86 var(--display);font-stretch:68%;letter-spacing:-.01em;text-transform:uppercase}
+h1 span{color:var(--s4)}
+.dek{margin:12px 0 0;max-width:46ch;font-size:17px;color:var(--muted);text-wrap:pretty}
+.stamp{font:500 12px/1.5 var(--mono);color:var(--muted);text-align:right}
+.stamp b{color:var(--ink)}
+
+/* board */
+.periods{display:flex;gap:6px;margin:30px 0 10px;flex-wrap:wrap;align-items:center}
+.chip{border:1px solid var(--line);background:transparent;padding:6px 12px;border-radius:3px;font:700 13px/1 var(--display);font-stretch:85%;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.periods .sum{margin-left:auto;font:500 12px/1.4 var(--mono);color:var(--muted);text-align:right}
+.periods .sum b{color:var(--ink)}
+.board{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.cls{background:var(--card);border:1px solid var(--line);border-top:6px solid var(--c);padding:12px 12px 10px;border-radius:3px;cursor:pointer;text-align:left;min-width:0}
+.cls[aria-pressed=true]{outline:2px solid var(--c);outline-offset:-2px}
+.cls .n{font:900 clamp(34px,7vw,56px)/.9 var(--display);font-stretch:70%;font-variant-numeric:tabular-nums}
+.cls .l{display:flex;align-items:center;gap:6px;margin-top:6px;font:800 13px/1.1 var(--display);font-stretch:80%;letter-spacing:.08em;text-transform:uppercase}
+.cls .l i{font:700 11px/1 var(--mono);color:#fff;background:var(--c);border-radius:2px;padding:3px 5px;font-style:normal}
+.cls .short{display:none}
+.cls .d{margin-top:4px;font-size:12px;line-height:1.3;color:var(--muted)}
+
+/* chart */
+.chart{margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:3px;padding:14px 14px 10px}
+.chart h2,.list-h{margin:0;font:800 15px/1.2 var(--display);font-stretch:85%;letter-spacing:.1em;text-transform:uppercase}
+.chart .legend{display:flex;flex-wrap:wrap;gap:4px 14px;margin:6px 0 4px;font-size:12px;color:var(--muted)}
+.chart .legend span{display:inline-flex;align-items:center;gap:5px}
+.chart .legend i{width:10px;height:10px;border-radius:2px;display:inline-block}
+.chart .legend i.ln{height:2px;width:14px;border-radius:0}
+.chart .scroll{overflow-x:auto}
+.chart svg{display:block;width:100%;height:auto}
+.chart .note{margin:6px 0 0;font-size:12px;color:var(--muted)}
+
+/* list */
+.filters{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:36px 0 6px;padding-bottom:12px;border-bottom:2px solid var(--ink)}
+.filters .sep{width:1px;height:22px;background:var(--line);margin:0 2px}
+.filters .count{margin-left:auto;font:500 12px/1 var(--mono);color:var(--muted)}
+.month{margin:24px 0 2px;font:800 13px/1 var(--display);font-stretch:85%;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.inc{display:grid;grid-template-columns:52px minmax(0,1fr);gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.inc .sev{width:52px;height:52px;border-radius:3px;background:var(--c);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font:900 26px/1 var(--display);font-stretch:75%}
+.inc .sev small{font:600 9px/1 var(--mono);letter-spacing:.06em;opacity:.85;margin-top:2px}
+.inc h3{margin:0 0 3px;font:800 clamp(18px,3.2vw,21px)/1.2 var(--display);font-stretch:90%;text-wrap:balance}
+.inc p{margin:0 0 6px;color:var(--muted);font-size:15px;max-width:70ch}
+.meta{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;font:500 12px/1.4 var(--mono);color:var(--muted)}
+.meta .tag{font:800 11px/1 var(--display);font-stretch:85%;letter-spacing:.1em;text-transform:uppercase;padding:4px 6px;border-radius:2px;border:1px solid var(--line);color:var(--ink)}
+.meta .tag.nl{background:var(--nl);border-color:var(--nl);color:#fff}
+.meta .tag.eu{border-color:var(--nl);color:var(--nl)}
+.meta .tag.claim{border-style:dashed}
+.meta .big{color:var(--ink);font-weight:700}
+.meta a{text-decoration:none;border-bottom:1px solid var(--line)}
+.meta a:hover{border-color:var(--ink)}
+.empty{padding:28px 0;color:var(--muted)}
+
+footer{margin-top:54px;padding-top:18px;border-top:2px solid var(--ink);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:18px 30px;font-size:14px;color:var(--muted)}
+footer h4{margin:0 0 6px;font:800 13px/1 var(--display);font-stretch:85%;letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
+footer p,footer ol{margin:0 0 8px}
+footer ol{padding-left:20px}
+footer li{margin-bottom:3px}
+footer li b{color:var(--ink)}
+
+@media (max-width:640px){
+  .board{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
+  .cls{padding:8px 6px;border-top-width:5px}
+  .cls .d{display:none}
+  .cls .l{font-size:11px;letter-spacing:.04em}
+  .cls .l i{display:none}
+  .cls .full{display:none}.cls .short{display:inline}
+  .stamp{text-align:left}
+  .periods .sum{margin-left:0;text-align:left;width:100%}
+}
+@media (prefers-reduced-motion:reduce){.ticker .track{animation:none;overflow-x:auto}.ticker .live i{animation:none}}
+</style>
+</head>
+<body>
+<div class="ticker" aria-label="Latest incidents">
+  <div class="live"><i></i>Live</div>
+  <div class="track" id="track"></div>
+</div>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Hack<span>·</span>Ticker</h1>
+      <p class="dek">Cyber attacks, data breaches and crypto hacks as they come in, each with an impact class from 1 to 5. The Netherlands and Europe are marked.</p>
+    </div>
+    <div class="stamp" id="stamp">Loading…</div>
+  </header>
+
+  <div class="periods" role="group" aria-label="Period">
+    <button class="chip" data-p="7">7 days</button>
+    <button class="chip" data-p="30">30 days</button>
+    <button class="chip" data-p="year">This year</button>
+    <button class="chip" data-p="all">All</button>
+    <span class="sum" id="sum"></span>
+  </div>
+  <section class="board" id="board" aria-label="Incidents by impact class"></section>
+
+  <section class="chart" aria-label="Incidents per week">
+    <h2>Is it happening more often?</h2>
+    <div class="legend" id="legend"></div>
+    <div class="scroll"><svg id="chart" viewBox="0 0 900 260" role="img" aria-label="Incidents per week by impact class, with news attention and ransomware postings"></svg></div>
+    <p class="note" id="chartnote"></p>
+  </section>
+
+  <div class="filters" id="filters"></div>
+  <main id="list" aria-live="polite"></main>
+
+  <footer>
+    <div>
+      <h4>Impact classes</h4>
+      <ol>
+        <li><b>Minor</b>: one small organisation, under 10,000 people.</li>
+        <li><b>Limited</b>: up to 1 million people, local disruption, under $10M.</li>
+        <li><b>Significant</b>: 1–10 million people, services down for days, a national chain hit, $10–100M.</li>
+        <li><b>Major</b>: 10–100 million people, hospitals, energy, telecom or government disrupted, $100M–1B, state espionage.</li>
+        <li><b>Severe</b>: over 100 million people, several countries disrupted, over $1B, or risk to life.</li>
+      </ol>
+      <p>Claims by criminal groups that the victim has not confirmed are marked "claimed" and stay at class 3 or lower.</p>
+    </div>
+    <div>
+      <h4>Where it comes from</h4>
+      <p>Every four hours: a dozen security news feeds (The Record, BleepingComputer, DataBreaches.net, SecurityWeek, Security.nl and others), read by an AI editor that merges headlines into incidents and scores them; confirmed breaches from <a href="https://haveibeenpwned.com">Have I Been Pwned</a> (CC BY 4.0); crypto hacks from <a href="https://defillama.com/hacks">DeFiLlama</a>; and the number of victims posted on ransomware leak sites, from <a href="https://www.ransomware.live">ransomware.live</a>.</p>
+      <p>Summaries are written fresh. Follow the source links for the original reporting.</p>
+    </div>
+    <div>
+      <h4>Reading the chart</h4>
+      <p>Bars count incidents on this page per week. The black line counts security news headlines about hacks, so you can see whether there is more news or more hacks. The purple line counts victims posted by ransomware groups, which rises with actual attacks rather than coverage.</p>
+      <p id="status"></p>
+    </div>
+  </footer>
+</div>
+
+<script>
+"use strict";
+const $=s=>document.querySelector(s);
+const CLS=[null,{n:"Minor",s:"Minor",d:"Small, contained"},{n:"Limited",s:"Limited",d:"Up to 1M people"},{n:"Significant",s:"Signif.",d:"Millions, or days of disruption"},{n:"Major",s:"Major",d:"Critical services, tens of millions"},{n:"Severe",s:"Severe",d:"Global scale or risk to life"}];
+const MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const MONL=["January","February","March","April","May","June","July","August","September","October","November","December"];
+let inc=[],weekly={news:{},ransomware:{},ransomware_nl:{}},period="year",minImp=0,onlyCls=null,region="all",type="all";
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const today=new Date();
+const day=s=>new Date(s.slice(0,10)+"T12:00:00Z");
+function fmtN(n){if(n==null)return"";if(n>=1e9)return(n/1e9).toFixed(n>=1e10?0:1)+" billion";if(n>=1e6)return(n/1e6).toFixed(n>=1e7?0:1)+" million";if(n>=1e3)return Math.round(n/1e3)+",000";return String(n)}
+function fmtUsd(n){if(n==null)return"";if(n>=1e9)return"$"+(n/1e9).toFixed(1)+"B";if(n>=1e6)return"$"+(n/1e6).toFixed(n>=1e8?0:1)+"M";return"$"+Math.round(n/1e3)+"K"}
+function inPeriod(i){if(period==="all")return true;const d=day(i.date);if(period==="year")return d.getUTCFullYear()===today.getUTCFullYear();return (today-d)/864e5<=+period}
+function isoWeek(d){const t=new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate()));const dn=t.getUTCDay()||7;t.setUTCDate(t.getUTCDate()+4-dn);
+  const y=t.getUTCFullYear(),w=Math.ceil(((t-Date.UTC(y,0,1))/864e5+1)/7);return y+"-W"+String(w).padStart(2,"0")}
+function fmtDate(i,short){const d=day(i.date);if(i.approx==="month")return(short?MON:MONL)[d.getUTCMonth()]+" "+d.getUTCFullYear();return d.getUTCDate()+" "+MON[d.getUTCMonth()]+(short?"":" "+d.getUTCFullYear())}
+
+function ticker(){
+  const top=inc.slice(0,14);if(!top.length)return;
+  const one=top.map(i=>`<a class="it" href="#${esc(i.id)}"><span class="sv" style="background:var(--s${i.impact})">${i.impact}</span><b>${esc(i.victim||i.title)}</b><span>${esc(i.type)}</span><span class="amt">${i.usd?fmtUsd(i.usd):i.people?fmtN(i.people)+" people":""}</span><span class="amt">${fmtDate(i,true)}</span></a>`).join("");
+  $("#track").innerHTML=one+one;$("#track").style.setProperty("--dur",Math.max(40,top.length*7)+"s");
+}
+function board(){
+  const list=inc.filter(inPeriod);
+  $("#board").innerHTML=[1,2,3,4,5].map(c=>{const n=list.filter(i=>i.impact===c).length;
+    return `<button class="cls" style="--c:var(--s${c})" data-c="${c}" aria-pressed="${onlyCls===c}"><div class="n">${n}</div><div class="l"><i>${c}</i><span class="full">${CLS[c].n}</span><span class="short">${CLS[c].s}</span></div><div class="d">${CLS[c].d}</div></button>`}).join("");
+  const ppl=list.reduce((a,i)=>a+(i.confirmed&&i.people?i.people:0),0),usd=list.reduce((a,i)=>a+(i.usd||0),0),nl=list.filter(i=>i.region==="NL").length;
+  $("#sum").innerHTML=`<b>${list.length}</b> incidents · <b>${fmtN(ppl)||0}</b> people in confirmed breaches · <b>${fmtUsd(usd)||"$0"}</b> stolen · <b>${nl}</b> in NL`;
+}
+function chart(){
+  const narrow=innerWidth<640,N=narrow?13:26,weeks=[];$("#chart").setAttribute("viewBox",`0 0 ${narrow?440:900} 260`);const d=new Date(Date.UTC(today.getUTCFullYear(),today.getUTCMonth(),today.getUTCDate()));
+  for(let k=N-1;k>=0;k--){const x=new Date(d-k*7*864e5);weeks.push(isoWeek(x))}
+  const per=weeks.map(w=>[0,0,0,0,0,0]);
+  inc.forEach(i=>{if(i.approx)return;const k=weeks.indexOf(isoWeek(day(i.date)));if(k>=0)per[k][i.impact]++});
+  const tot=per.map(p=>p.reduce((a,b)=>a+b,0)),news=weeks.map(w=>weekly.news[w]),rw=weeks.map(w=>weekly.ransomware[w]);
+  const W=narrow?440:900,H=260,L=34,R=40,T=14,B=30,cw=(W-L-R)/N,max=Math.max(4,...tot),nmax=Math.max(10,...news.filter(Boolean),...rw.filter(Boolean));
+  const y=v=>T+(H-T-B)*(1-v/max),y2=v=>T+(H-T-B)*(1-v/nmax);
+  const step=max<=8?1:max<=20?5:10;let g="";
+  for(let v=0;v<=max;v+=step)g+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${L-6}" y="${y(v)+4}" text-anchor="end" font-size="11" fill="var(--muted)" font-family="JetBrains Mono">${v}</text>`;
+  g+=`<text x="${W-R+6}" y="${T+8}" font-size="11" fill="var(--muted)" font-family="JetBrains Mono">${nmax}</text><text x="${W-R+6}" y="${H-B}" font-size="11" fill="var(--muted)" font-family="JetBrains Mono">0</text>`;
+  per.forEach((p,k)=>{let acc=0;for(let c=1;c<=5;c++){if(!p[c])continue;const y0=y(acc),y1=y(acc+p[c]);acc+=p[c];
+    g+=`<rect x="${L+k*cw+cw*.18}" y="${y1}" width="${cw*.64}" height="${y0-y1}" fill="var(--s${c})"><title>${weeks[k]}: ${p[c]} × class ${c}</title></rect>`}
+    if(k%(narrow?3:4)===0||k===N-1){const wd=new Date(d-(N-1-k)*7*864e5);g+=`<text x="${L+k*cw+cw/2}" y="${H-10}" text-anchor="middle" font-size="11" fill="var(--muted)" font-family="JetBrains Mono">${wd.getUTCDate()} ${MON[wd.getUTCMonth()]}</text>`}});
+  const line=(arr,color)=>{let p="",dots="";arr.forEach((v,k)=>{if(v==null)return;const X=L+k*cw+cw/2,Y=y2(v);p+=(p?"L":"M")+X.toFixed(1)+" "+Y.toFixed(1);dots+=`<circle cx="${X}" cy="${Y}" r="3" fill="${color}"><title>${weeks[k]}: ${v}</title></circle>`});
+    return p?`<path d="${p}" fill="none" stroke="${color}" stroke-width="2"/>`+dots:""};
+  g+=line(news,"var(--line-news)")+line(rw,"var(--line-rw)");
+  $("#chart").innerHTML=g;
+  $("#legend").innerHTML=[1,2,3,4,5].map(c=>`<span><i style="background:var(--s${c})"></i>${CLS[c].n}</span>`).join("")+
+    `<span><i class="ln" style="background:var(--line-news)"></i>News headlines about hacks (right axis)</span><span><i class="ln" style="background:var(--line-rw)"></i>Ransomware leak-site victims (right axis)</span>`;
+  const have=news.filter(v=>v!=null).length;
+  $("#chartnote").textContent=have<4?"Tracking started on 31 October 2026, so the lines grow week by week. Earlier weeks only hold major incidents added by hand.":"Weeks without a line point were not yet tracked.";
+}
+function filters(){
+  const types=[...new Set(inc.map(i=>i.type))].sort();
+  const R=[["all","All regions"],["NL","Netherlands"],["EU","Europe"],["World","Rest of world"]],M=[[0,"All impact"],[3,"3 and up"],[4,"4 and up"]];
+  $("#filters").innerHTML=`<h2 class="list-h" style="width:100%;margin-bottom:4px">Timeline</h2>`+
+    R.map(([k,l])=>`<button class="chip" data-r="${k}" aria-pressed="${region===k}">${l}</button>`).join("")+'<span class="sep"></span>'+
+    M.map(([k,l])=>`<button class="chip" data-m="${k}" aria-pressed="${minImp===k&&!onlyCls}">${l}</button>`).join("")+'<span class="sep"></span>'+
+    [["all","All types"],...types.map(t=>[t,t])].map(([k,l])=>`<button class="chip" data-t="${esc(k)}" aria-pressed="${type===k}">${esc(l)}</button>`).join("")+
+    `<span class="count" id="count"></span>`;
+}
+function list(){
+  const L=inc.filter(i=>inPeriod(i)&&(region==="all"||i.region===region||(region==="EU"&&i.region==="NL"))&&(type==="all"||i.type===type)&&(onlyCls?i.impact===onlyCls:i.impact>=minImp));
+  $("#count").textContent=`${L.length} shown`;
+  if(!L.length){$("#list").innerHTML=`<p class="empty">No incidents match these filters in this period. Try "All" at the top.</p>`;return}
+  let h="",m="";
+  for(const i of L){const d=day(i.date),mk=d.getUTCFullYear()+"-"+d.getUTCMonth();
+    if(mk!==m){m=mk;h+=`<div class="month">${MONL[d.getUTCMonth()]} ${d.getUTCFullYear()}</div>`}
+    const size=i.usd?`<span class="big">${fmtUsd(i.usd)}</span>`:i.people?`<span class="big">${fmtN(i.people)} ${i.type==="Data breach"?"records":"people"}${i.confirmed?"":" (claimed)"}</span>`:"";
+    const reg=i.region==="NL"?'<span class="tag nl">NL</span>':i.region==="EU"?`<span class="tag eu">${esc(i.country||"EU")}</span>`:(i.country?`<span class="tag">${esc(i.country)}</span>`:"");
+    h+=`<article class="inc" id="${esc(i.id)}"><div class="sev" style="--c:var(--s${i.impact})">${i.impact}<small>of 5</small></div><div>
+      <h3>${esc(i.title)}</h3>${i.summary?`<p>${esc(i.summary)}</p>`:""}
+      <div class="meta"><span>${fmtDate(i)}</span>${reg}<span class="tag">${esc(i.type)}</span><span class="tag">${esc(i.sector)}</span>${i.confirmed?"":'<span class="tag claim">Claimed</span>'}${size}
+      ${(i.sources||[]).slice(0,4).map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)} ↗</a>`).join("")}</div></div></article>`}
+  $("#list").innerHTML=h;
+}
+function render(){document.querySelectorAll(".periods .chip").forEach(b=>b.setAttribute("aria-pressed",b.dataset.p===period));board();filters();list()}
+document.addEventListener("click",e=>{
+  const p=e.target.closest(".periods .chip");if(p){period=p.dataset.p;render();return}
+  const c=e.target.closest(".cls");if(c){const v=+c.dataset.c;onlyCls=onlyCls===v?null:v;render();return}
+  const r=e.target.closest("[data-r]");if(r){region=r.dataset.r;render();return}
+  const m=e.target.closest("[data-m]");if(m){minImp=+m.dataset.m;onlyCls=null;render();return}
+  const t=e.target.closest("[data-t]");if(t){type=t.dataset.t;render();return}
+});
+async function load(){
+  try{
+    const [a,w,s]=await Promise.all(["incidents","weekly","status"].map(n=>fetch(`data/${n}.json`,{cache:"no-cache"}).then(r=>r.json()).catch(()=>null)));
+    inc=(a||[]).filter(i=>i&&i.title&&i.impact>=1&&i.impact<=5).sort((x,y)=>y.date.localeCompare(x.date)||y.impact-x.impact);
+    if(w)weekly=Object.assign(weekly,w);
+    ticker();render();chart();
+    if(s&&s.last_run){const d=new Date(s.last_run);
+      $("#stamp").innerHTML=`Updated <b>${d.toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}</b><br>${s.feeds_ok} feeds read · every 4 hours`;
+      $("#status").textContent=s.ai?"":"The AI editor is not switched on yet, so new incidents come only from Have I Been Pwned and DeFiLlama for now; news is counted for the chart."}
+    else{$("#stamp").innerHTML=`<b>${inc.length}</b> incidents<br>updates every 4 hours`;$("#status").textContent=s&&s.note||""}
+  }catch(e){$("#list").innerHTML='<p class="empty">Could not load the incidents. Reload the page to try again.</p>'}
+}
+load();
+let rz=0;addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(chart,200)});
+</script>
+</body>
+</html>

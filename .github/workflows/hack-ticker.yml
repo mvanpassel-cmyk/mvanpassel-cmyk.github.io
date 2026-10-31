@@ -1,0 +1,54 @@
+name: Hack Ticker update
+
+on:
+  schedule:
+    - cron: "23 */4 * * *"   # every four hours
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "hack-ticker/pipeline/**"
+      - "hack-ticker/data/feeds.json"
+      - ".github/workflows/hack-ticker.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hack-ticker
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Unit tests
+        run: python -m unittest discover -s hack-ticker/tests -v
+
+      - name: Fetch sources and update the timeline
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python hack-ticker/pipeline/update.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "hack-ticker bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add hack-ticker/data
+          if git diff --cached --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+          git commit -m "Hack Ticker: update $(date -u +%F' '%H:%M)"
+          for i in 1 2 3; do
+            git pull --rebase origin "${GITHUB_REF_NAME}" && git push && exit 0
+            sleep 5
+          done
+          exit 1
