@@ -1,0 +1,54 @@
+name: The Long View daily update
+
+on:
+  schedule:
+    - cron: "29 4 * * *"   # daily, 05:29 Amsterdam (winter) / 06:29 (summer)
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "long-view/pipeline/**"
+      - "long-view/data/feeds.json"
+      - ".github/workflows/long-view.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: long-view
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Unit tests
+        run: python -m unittest discover -s long-view/tests -v
+
+      - name: Fetch news and pick the long stories
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python long-view/pipeline/update.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "long-view bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add long-view/data
+          if git diff --cached --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+          git commit -m "The Long View: daily update $(date -u +%F)"
+          for i in 1 2 3; do
+            git pull --rebase origin "${GITHUB_REF_NAME}" && git push && exit 0
+            sleep 5
+          done
+          exit 1

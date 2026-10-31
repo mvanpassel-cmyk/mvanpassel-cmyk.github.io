@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Long View</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/logos/long-view-32.png">
+<link rel="icon" type="image/svg+xml" href="/logos/long-view.svg">
+<link rel="apple-touch-icon" href="/logos/long-view-180.png">
+<meta name="description" content="News that will still matter in a hundred years. A daily selection of stories with lasting significance, each with its time horizon.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: a single reading column under a deep-time ruler (10 → 10,000 years) that doubles as the horizon filter.
+   Years are written with five digits, the Long Now way. Horizon colours borrow the CMY inks: decades cyan, centuries magenta, millennia yellow. */
+:root{
+  --bg:#eef0ec; --card:#f8f9f6; --ink:#15171b; --muted:#5b636d; --line:#d3d8d0; --soft:#e2e6df;
+  --dec:#0090c4; --cen:#c8006c; --mil:#e0b400; --mil-ink:#7a6100;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#121418; --card:#191c21; --ink:#e9e7e1; --muted:#9aa2ad; --line:#2b3038; --soft:#20242a;
+  --dec:#36b6ea; --cen:#ff4fa6; --mil:#ffd400; --mil-ink:#ffd400; color-scheme:dark}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--sans);overflow-x:hidden}
+a{color:inherit}
+.wrap{max-width:760px;margin:0 auto;padding:56px max(16px,env(safe-area-inset-right)) 80px max(16px,env(safe-area-inset-left))}
+
+header .eyebrow{font:500 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+header h1{font:600 clamp(40px,9vw,68px)/.95 var(--serif);letter-spacing:-.02em;margin:14px 0 14px;text-wrap:balance}
+header h1 em{font-weight:400;font-style:italic}
+header .dek{font:400 clamp(18px,3.2vw,21px)/1.45 var(--serif);color:var(--muted);margin:0;max-width:34em;text-wrap:pretty}
+header .dek b{color:var(--ink);font-weight:600}
+
+/* deep-time ruler */
+.ruler{margin:36px 0 10px}
+.ruler .scale{position:relative;height:72px}
+.ruler .band{position:absolute;top:0;height:44px;border:0;padding:0 10px;cursor:pointer;text-align:left;font:inherit;color:var(--ink);
+  display:flex;flex-direction:column;justify-content:center;border-radius:3px;transition:opacity .15s,transform .15s}
+.ruler .band b{font:600 15px/1.1 var(--sans)}
+.ruler .band span{font:500 11px/1.2 var(--mono);opacity:.8}
+.ruler .band[data-h=decades]{left:0;width:33.333%;background:color-mix(in srgb,var(--dec) 26%,transparent);box-shadow:inset 0 -4px 0 var(--dec)}
+.ruler .band[data-h=centuries]{left:33.333%;width:33.333%;background:color-mix(in srgb,var(--cen) 22%,transparent);box-shadow:inset 0 -4px 0 var(--cen)}
+.ruler .band[data-h=millennia]{left:66.666%;width:33.334%;background:color-mix(in srgb,var(--mil) 30%,transparent);box-shadow:inset 0 -4px 0 var(--mil)}
+.ruler .band:hover{transform:translateY(-1px)}
+.ruler.filtered .band:not(.on){opacity:.35}
+.ruler .band:focus-visible,.chip:focus-visible,.story a:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.ruler .ticks{position:absolute;left:0;right:0;top:48px;height:24px;border-top:1px solid var(--ink)}
+.ruler .tick{position:absolute;top:0;transform:translateX(-50%);font:500 11px/1 var(--mono);color:var(--muted);padding-top:8px;white-space:nowrap}
+.ruler .tick::before{content:"";position:absolute;left:50%;top:0;width:1px;height:6px;background:var(--ink)}
+.ruler .tick.first{transform:none}.ruler .tick.first::before{left:0}
+.ruler .tick.last{transform:translateX(-100%)}.ruler .tick.last::before{left:auto;right:0}
+.ruler .minor{position:absolute;top:0;width:1px;height:3px;background:var(--muted)}
+.ruler p{margin:8px 0 0;font-size:13px;color:var(--muted)}
+
+/* filters */
+.controls{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:26px 0 8px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.chip{border:1px solid var(--line);background:transparent;color:var(--ink);padding:5px 11px;border-radius:999px;font:500 13px/1.2 var(--sans);cursor:pointer}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.count{margin-left:auto;font:500 12px/1 var(--mono);color:var(--muted)}
+
+/* stories */
+h2.month{font:500 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:34px 0 4px;display:flex;align-items:center;gap:10px}
+h2.month::after{content:"";flex:1;height:1px;background:var(--line)}
+.story{display:grid;grid-template-columns:62px minmax(0,1fr);gap:14px;padding:18px 0;border-bottom:1px solid var(--line)}
+.story:last-child{border-bottom:0}
+.when{font:500 11px/1.25 var(--mono);color:var(--muted);text-transform:uppercase;padding-top:5px}
+.when b{display:block;font:600 26px/1 var(--serif);color:var(--ink);letter-spacing:-.01em;margin-bottom:3px}
+.hz{display:flex;gap:3px;margin-top:10px}
+.hz i{width:14px;height:5px;border-radius:1px;background:var(--soft)}
+.story[data-h=decades] .hz i:nth-child(-n+1){background:var(--dec)}
+.story[data-h=centuries] .hz i:nth-child(-n+2){background:var(--cen)}
+.story[data-h=millennia] .hz i:nth-child(-n+3){background:var(--mil)}
+.story h3{font:600 clamp(20px,3.6vw,24px)/1.22 var(--serif);margin:0 0 6px;letter-spacing:-.005em;text-wrap:balance}
+.story h3 a{text-decoration:none}
+.story h3 a:hover{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.story .why{font:400 17px/1.5 var(--serif);margin:0 0 8px;color:var(--ink);opacity:.86;text-wrap:pretty;max-width:36em}
+.meta{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:13px;color:var(--muted)}
+.meta .tag{font-weight:600}
+.story[data-h=decades] .meta .tag{color:var(--dec)}
+.story[data-h=centuries] .meta .tag{color:var(--cen)}
+.story[data-h=millennia] .meta .tag{color:var(--mil-ink)}
+.meta a{text-decoration:none;border-bottom:1px solid var(--line)}
+.meta a:hover{border-color:var(--ink)}
+.empty{padding:30px 0;color:var(--muted);font:400 18px/1.5 var(--serif)}
+
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--ink);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:20px 28px;font-size:14px;color:var(--muted)}
+footer h4{margin:0 0 6px;font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
+footer p{margin:0 0 8px}
+#status{font-family:var(--mono);font-size:12px}
+@media (max-width:520px){.wrap{padding-top:36px}.story{grid-template-columns:50px minmax(0,1fr);gap:10px}.when b{font-size:22px}
+  .ruler .band{padding:0 6px}.ruler .band b{font-size:13px}.ruler .band span{font-size:10px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow" id="today">News for the long now</div>
+    <h1>The Long <em>View</em></h1>
+    <p class="dek">Most news is forgotten by next week. This page keeps only the stories people will still find significant in <b id="future">02126</b>: turning points in climate, life, science and how we live together.</p>
+  </header>
+
+  <section class="ruler" id="ruler" aria-label="Filter by time horizon">
+    <div class="scale">
+      <button class="band" data-h="decades" aria-pressed="false"><b>Decades</b><span id="n-decades">0 stories</span></button>
+      <button class="band" data-h="centuries" aria-pressed="false"><b>Centuries</b><span id="n-centuries">0 stories</span></button>
+      <button class="band" data-h="millennia" aria-pressed="false"><b>Millennia</b><span id="n-millennia">0 stories</span></button>
+      <div class="ticks" id="ticks"></div>
+    </div>
+    <p>How long will it matter? The scale runs from 10 to 10,000 years ahead, each step ten times longer. Tap a band to filter.</p>
+  </section>
+
+  <div class="controls" id="themes" aria-label="Filter by theme"></div>
+  <main id="list" aria-live="polite"></main>
+
+  <footer>
+    <div>
+      <h4>How stories are chosen</h4>
+      <p>Every morning about two dozen science, health, environment and world news feeds are read. An AI editor asks one question of each item: will this still matter in 50 years? Most days nothing passes. The headlines and reasons here are written fresh; follow the source for the original reporting.</p>
+    </div>
+    <div>
+      <h4>Where the idea comes from</h4>
+      <p>Kirk Citron's <a href="https://www.ted.com/talks/kirk_citron_and_now_the_real_news">The Long News</a> (TED, 2010), later a Long Now Foundation project, collected stories that would resonate for decades or centuries. It is no longer kept up. This is a new take on it.</p>
+      <p id="status">Loading…</p>
+    </div>
+  </footer>
+</div>
+
+<script>
+"use strict";
+const $=s=>document.querySelector(s);
+const HZ=["decades","centuries","millennia"];
+const MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const LONG=["January","February","March","April","May","June","July","August","September","October","November","December"];
+const y5=y=>String(y).padStart(5,"0");
+let stories=[],fH=null,fT=null;
+
+const now=new Date();
+$("#future").textContent=y5(now.getFullYear()+100);
+$("#today").textContent=`News for the long now · ${now.getDate()} ${LONG[now.getMonth()]} ${y5(now.getFullYear())}`;
+
+// log ruler ticks: 10, 100, 1,000, 10,000 years ahead
+(function ticks(){
+  const t=$("#ticks"),marks=[[0,"10 yr"],[33.333,"100 yr"],[66.666,"1,000 yr"],[100,"10,000 yr"]];
+  t.innerHTML=marks.map(([p,l],i)=>`<span class="tick${i===0?" first":i===marks.length-1?" last":""}" style="left:${p}%">${l}</span>`).join("");
+  for(let d=0;d<3;d++)for(let k=2;k<10;k++){const p=(d+Math.log10(k))*33.333;const m=document.createElement("span");m.className="minor";m.style.left=p+"%";t.appendChild(m)}
+})();
+
+function esc(s){return String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function host(u){try{return new URL(u).hostname.replace(/^www\./,"")}catch(e){return ""}}
+
+function render(){
+  const list=stories.filter(s=>(!fH||s.horizon===fH)&&(!fT||s.theme===fT));
+  for(const h of HZ){const n=stories.filter(s=>s.horizon===h&&(!fT||s.theme===fT)).length;$("#n-"+h).textContent=`${n} ${n===1?"story":"stories"}`}
+  document.querySelectorAll(".band").forEach(b=>{const on=b.dataset.h===fH;b.classList.toggle("on",on);b.setAttribute("aria-pressed",on)});
+  $("#ruler").classList.toggle("filtered",!!fH);
+  const themes=[...new Set(stories.map(s=>s.theme))].sort();
+  $("#themes").innerHTML=`<button class="chip" data-t="" aria-pressed="${!fT}">All themes</button>`+
+    themes.map(t=>`<button class="chip" data-t="${esc(t)}" aria-pressed="${fT===t}">${esc(t)}</button>`).join("")+
+    `<span class="count">${list.length} of ${stories.length}</span>`;
+  if(!list.length){$("#list").innerHTML=`<p class="empty">Nothing here yet for this filter. The long stories are rare; that is the point.</p>`;return}
+  let html="",month="";
+  for(const s of list){
+    const [Y,M,D]=s.date.split("-").map(Number),key=Y+"-"+M;
+    if(key!==month){month=key;html+=`<h2 class="month">${LONG[M-1]} ${y5(Y)}</h2>`}
+    html+=`<article class="story" data-h="${esc(s.horizon)}">
+      <div class="when"><b>${D}</b>${MONTHS[M-1]}<div class="hz" aria-hidden="true"><i></i><i></i><i></i></div></div>
+      <div><h3><a href="${esc(s.url)}" rel="noopener" target="_blank">${esc(s.headline)}</a></h3>
+        <p class="why">${esc(s.why)}</p>
+        <div class="meta"><span class="tag">Matters for ${esc(s.horizon)}</span><span>${esc(s.theme)}</span><a href="${esc(s.url)}" rel="noopener" target="_blank">${esc(s.source||host(s.url))} ↗</a></div></div>
+    </article>`;
+  }
+  $("#list").innerHTML=html;
+}
+document.addEventListener("click",e=>{
+  const b=e.target.closest(".band");if(b){fH=fH===b.dataset.h?null:b.dataset.h;render();return}
+  const c=e.target.closest(".chip");if(c){fT=c.dataset.t||null;render()}
+});
+
+async function load(){
+  try{
+    const [st,ss]=await Promise.all([fetch("data/stories.json",{cache:"no-cache"}).then(r=>r.json()),fetch("data/status.json",{cache:"no-cache"}).then(r=>r.json()).catch(()=>null)]);
+    stories=st.filter(s=>s&&s.headline&&s.url&&HZ.includes(s.horizon)).sort((a,b)=>b.date.localeCompare(a.date)||(b.score||0)-(a.score||0));
+    render();
+    if(ss&&ss.last_run){const d=new Date(ss.last_run);
+      $("#status").textContent=`Last checked ${d.toLocaleDateString("en-GB",{day:"numeric",month:"long"})}: ${ss.candidates} new items read from ${ss.feeds_ok} feeds, ${ss.picked} kept.`+(ss.ai?"":" (AI editor not yet switched on.)")}
+    else $("#status").textContent=ss&&ss.note?ss.note:"";
+  }catch(e){$("#list").innerHTML=`<p class="empty">Couldn't load the stories. Reload the page to try again.</p>`;$("#status").textContent=""}
+}
+load();
+</script>
+</body>
+</html>
