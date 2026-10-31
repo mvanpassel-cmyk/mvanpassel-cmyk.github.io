@@ -99,6 +99,8 @@ h1 span{color:var(--s4)}
 .meta .tag.nl{background:var(--nl);border-color:var(--nl);color:#fff}
 .meta .tag.eu{border-color:var(--nl);color:var(--nl)}
 .meta .tag.claim{border-style:dashed}
+.meta .tag.ai{background:var(--line-rw);border-color:var(--line-rw);color:#fff}
+.chip.ai[aria-pressed=true]{background:var(--line-rw);border-color:var(--line-rw);color:#fff}
 .meta .big{color:var(--ink);font-weight:700}
 .meta a{text-decoration:none;border-bottom:1px solid var(--line)}
 .meta a:hover{border-color:var(--ink)}
@@ -189,7 +191,7 @@ const $=s=>document.querySelector(s);
 const CLS=[null,{n:"Minor",s:"Minor",d:"Small, contained"},{n:"Limited",s:"Limited",d:"Up to 1M people"},{n:"Significant",s:"Signif.",d:"Millions, or days of disruption"},{n:"Major",s:"Major",d:"Critical services, tens of millions"},{n:"Severe",s:"Severe",d:"Global scale or risk to life"}];
 const MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 const MONL=["January","February","March","April","May","June","July","August","September","October","November","December"];
-let inc=[],weekly={news:{},ransomware:{},ransomware_nl:{}},period="year",minImp=0,onlyCls=null,region="all",type="all";
+let inc=[],weekly={news:{},ransomware:{},ransomware_nl:{}},period="year",minImp=0,onlyCls=null,region="all",type="all",aiOnly=false;
 const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const today=new Date();
@@ -242,11 +244,12 @@ function filters(){
   $("#filters").innerHTML=`<h2 class="list-h" style="width:100%;margin-bottom:4px">Timeline</h2>`+
     R.map(([k,l])=>`<button class="chip" data-r="${k}" aria-pressed="${region===k}">${l}</button>`).join("")+'<span class="sep"></span>'+
     M.map(([k,l])=>`<button class="chip" data-m="${k}" aria-pressed="${minImp===k&&!onlyCls}">${l}</button>`).join("")+'<span class="sep"></span>'+
-    [["all","All types"],...types.map(t=>[t,t])].map(([k,l])=>`<button class="chip" data-t="${esc(k)}" aria-pressed="${type===k}">${esc(l)}</button>`).join("")+
+    [["all","All types"],...types.map(t=>[t,t])].map(([k,l])=>`<button class="chip" data-t="${esc(k)}" aria-pressed="${type===k}">${esc(l)}</button>`).join("")+'<span class="sep"></span>'+
+    `<button class="chip ai" data-ai="1" aria-pressed="${aiOnly}">AI-related</button>`+
     `<span class="count" id="count"></span>`;
 }
 function list(){
-  const L=inc.filter(i=>inPeriod(i)&&(region==="all"||i.region===region||(region==="EU"&&i.region==="NL"))&&(type==="all"||i.type===type)&&(onlyCls?i.impact===onlyCls:i.impact>=minImp));
+  const L=inc.filter(i=>inPeriod(i)&&(region==="all"||i.region===region||(region==="EU"&&i.region==="NL"))&&(type==="all"||i.type===type)&&(onlyCls?i.impact===onlyCls:i.impact>=minImp)&&(!aiOnly||i.ai));
   $("#count").textContent=`${L.length} shown`;
   if(!L.length){$("#list").innerHTML=`<p class="empty">No incidents match these filters in this period. Try "All" at the top.</p>`;return}
   let h="",m="";
@@ -256,7 +259,7 @@ function list(){
     const reg=i.region==="NL"?'<span class="tag nl">NL</span>':i.region==="EU"?`<span class="tag eu">${esc(i.country||"EU")}</span>`:(i.country?`<span class="tag">${esc(i.country)}</span>`:"");
     h+=`<article class="inc" id="${esc(i.id)}"><div class="sev" style="--c:var(--s${i.impact})">${i.impact}<small>of 5</small></div><div>
       <h3>${esc(i.title)}</h3>${i.summary?`<p>${esc(i.summary)}</p>`:""}
-      <div class="meta"><span>${fmtDate(i)}</span>${reg}<span class="tag">${esc(i.type)}</span><span class="tag">${esc(i.sector)}</span>${i.confirmed?"":'<span class="tag claim">Claimed</span>'}${size}
+      <div class="meta"><span>${fmtDate(i)}</span>${reg}<span class="tag">${esc(i.type)}</span><span class="tag">${esc(i.sector)}</span>${i.ai?'<span class="tag ai">AI</span>':""}${i.confirmed?"":'<span class="tag claim">Claimed</span>'}${size}
       ${(i.sources||[]).slice(0,4).map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)} ↗</a>`).join("")}</div></div></article>`}
   $("#list").innerHTML=h;
 }
@@ -267,6 +270,7 @@ document.addEventListener("click",e=>{
   const r=e.target.closest("[data-r]");if(r){region=r.dataset.r;render();return}
   const m=e.target.closest("[data-m]");if(m){minImp=+m.dataset.m;onlyCls=null;render();return}
   const t=e.target.closest("[data-t]");if(t){type=t.dataset.t;render();return}
+  const a=e.target.closest("[data-ai]");if(a){aiOnly=!aiOnly;render();return}
 });
 async function load(){
   try{

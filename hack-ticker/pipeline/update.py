@@ -280,7 +280,7 @@ def ask_claude(cands, recent):
             "\"victim\":\"organisation or service\",\"country\":\"ISO 3166 alpha-2 of the victim, or empty\","
             f"\"sector\":\"one of {', '.join(SECTORS)}\",\"type\":\"one of {', '.join(TYPES)}\","
             "\"impact\":1-5,\"people\":number of people or accounts affected or null,\"usd\":money stolen or demanded in USD or null,"
-            "\"confirmed\":true if the victim or authorities confirmed it,"
+            "\"confirmed\":true if the victim or authorities confirmed it,\"ai\":true if AI systems carried out the attack or were the target,"
             "\"summary\":\"one sentence in your own words, max 30 words\"}]}")
     body = json.dumps({"model": MODEL, "max_tokens": 4000, "system": system,
                        "messages": [{"role": "user", "content": user}]}).encode()
@@ -336,7 +336,7 @@ def parse_incidents(text, cands, known_ids, now):
             "sector": x.get("sector") if x.get("sector") in SECTORS else "Other",
             "type": x.get("type") if x.get("type") in TYPES else "Other", "impact": imp,
             "people": num(x.get("people")), "usd": num(x.get("usd")), "confirmed": confirmed,
-            "summary": clean(x.get("summary", ""), 240), "sources": srcs, "via": "news"})
+            "summary": clean(x.get("summary", ""), 240), "sources": srcs, "via": "news", "ai": bool(x.get("ai"))})
     return out
 
 
