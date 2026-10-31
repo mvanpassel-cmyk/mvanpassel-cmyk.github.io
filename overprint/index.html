@@ -88,6 +88,17 @@ button:disabled{opacity:.45;cursor:default}
   font-weight:900;font-size:22px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim)}
 .fx i{width:14px;height:14px;border-radius:50%;border:2px solid currentColor}
 .fx.on{background:var(--part);color:var(--k)} .fx.on i{background:var(--k);border-color:var(--k)}
+.fxgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.fx.sm{height:46px;font-size:17px;padding:0 10px}
+.fx.sm i{width:11px;height:11px}
+.axrow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;gap:6px}
+.axbtn{height:48px;border-radius:5px;background:var(--panel-2);font-weight:900;font-size:17px;letter-spacing:.06em;text-transform:uppercase;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:0 12px;min-width:0;white-space:nowrap}
+.axbtn small{font-family:var(--mono);font-size:9px;letter-spacing:0;text-transform:none;color:var(--dim);font-weight:500}
+.axbtn.clr{align-items:center;padding:0 14px}
+.modeseg{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--panel);border-radius:5px;padding:3px}
+.modeseg button{height:32px;border-radius:3px;font-weight:800;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim)}
+.modeseg button.on{background:var(--part);color:var(--k)}
+.dials.dim{opacity:.35}
 
 /* key */
 .sec{font-weight:800;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
@@ -237,8 +248,16 @@ const LANES=['Kick','Snare','Hat','Perc'];
 const TYPES=['drum','bass','lead','sampler'];
 const TNAME={drum:'Drum',bass:'Bass',lead:'Lead',sampler:'Sampler'};
 const TDESC={drum:'Kick, snare, hat and perc lanes',bass:'Low synth line',lead:'Melody synth',sampler:'Your own sound, played in key'};
-const FXN={drum:['Crush','Room'],bass:['Drive','Sub'],lead:['Echo','Octave'],sampler:['Echo','One-shot']};
-const AXES={drum:['Pitch','Decay'],bass:['Cutoff','Bite'],lead:['Brightness','Space'],sampler:['Cutoff','Space']};
+// effects you can switch on, and what the two directions of the tone pad control: pick freely per track
+const FX_ALL={echo:'Echo',room:'Room',drive:'Drive',crush:'Crush',octave:'Octave',sub:'Sub',oneshot:'One-shot'};
+const FX_FOR={drum:['echo','room','drive','crush'],bass:['echo','room','drive','crush','octave','sub'],lead:['echo','room','drive','crush','octave','sub'],sampler:['echo','room','drive','crush','octave','oneshot']};
+const OLD_FX={drum:['crush','room'],bass:['drive','sub'],lead:['echo','octave'],sampler:['echo','oneshot']};
+const AX_ALL={pitch:'Pitch',decay:'Decay',cutoff:'Cutoff',bite:'Bite',room:'Room',echo:'Echo'};
+const AX_FOR={drum:['pitch','decay','cutoff','room','echo'],bass:['cutoff','bite','room','echo'],lead:['cutoff','bite','room','echo'],sampler:['cutoff','bite','room','echo']};
+const AX_DEF={drum:['pitch','decay'],bass:['cutoff','bite'],lead:['cutoff','echo'],sampler:['cutoff','room']};
+// value of a tone parameter: from the pad if it sits on an axis, otherwise a sensible resting value
+function P(t,k){if(t.ax[0]===k)return t.tone.x;if(t.ax[1]===k)return t.tone.y;
+  const d={pitch:.5,decay:.5,cutoff:t.type==='drum'?1:t.type==='sampler'?.85:.5,bite:.4,room:{drum:0,bass:.1,lead:.35,sampler:.3}[t.type],echo:t.type==='lead'?.15:0};return d[k]}
 const INK=['#00a9e2','#e6007e','#ffd400'];
 
 const KITS=[
@@ -266,11 +285,11 @@ const MAX=128;
 /* ---------- state ---------- */
 const empty=()=>new Array(MAX).fill(0), nul=()=>new Array(MAX).fill(null);
 function newTrack(type){
-  const b={type,patch:0,tone:{x:.5,y:.45},fx:[false,false],level:.8,mute:false,free:[]};
+  const b={type,patch:0,tone:{x:.5,y:.45},fx:{},ax:AX_DEF[type].slice(),tap:false,level:.8,mute:false,free:[],auto:nul()};
   if(type==='drum')return Object.assign(b,{rhythm:[3,2,5,14],lanes:[empty(),empty(),empty(),empty()],level:.85,tone:{x:.5,y:.5}});
   if(type==='bass')return Object.assign(b,{patch:1,rhythm:9,range:1,steps:5,tone:{x:.45,y:.4},notes:nul()});
-  if(type==='lead')return Object.assign(b,{rhythm:5,range:2,steps:7,fx:[true,false],level:.6,notes:nul()});
-  return Object.assign(b,{sample:null,rhythm:3,range:1,steps:5,fx:[false,true],level:.75,tone:{x:.85,y:.25},notes:nul()});
+  if(type==='lead')return Object.assign(b,{rhythm:5,range:2,steps:7,fx:{echo:true},level:.6,tone:{x:.5,y:.3},notes:nul()});
+  return Object.assign(b,{sample:null,rhythm:3,range:1,steps:5,fx:{oneshot:true},level:.75,tone:{x:.85,y:.25},notes:nul()});
 }
 function randName(){
   const sy=['ka','lo','mi','zu','ra','ne','po','ti','va','go','be','do','shi','ru','fe','ya','ko','ma','nu','si'];
@@ -300,7 +319,11 @@ function sanitize(o){
   if(!Array.isArray(o.tracks)||o.tracks.length!==3)return null;
   const out=Object.assign(blank(),o);delete out.parts;
   out.tracks=o.tracks.map(t=>{const ty=TYPES.includes(t&&t.type)?t.type:'lead',tr=Object.assign(newTrack(ty),t,{type:ty});
-    if(PATCHES[ty])tr.patch=Math.max(0,Math.min(PATCHES[ty].length-1,tr.patch|0));if(!Array.isArray(tr.free))tr.free=[];return tr});
+    if(PATCHES[ty])tr.patch=Math.max(0,Math.min(PATCHES[ty].length-1,tr.patch|0));if(!Array.isArray(tr.free))tr.free=[];
+    if(Array.isArray(tr.fx)){const o={};tr.fx.forEach((on,k)=>{if(on)o[OLD_FX[ty][k]]=true});tr.fx=o}
+    if(!tr.fx||typeof tr.fx!=='object')tr.fx={};
+    if(!Array.isArray(tr.ax)||tr.ax.length!==2||!tr.ax.every(a=>AX_FOR[ty].includes(a)))tr.ax=AX_DEF[ty].slice();
+    if(!Array.isArray(tr.auto))tr.auto=nul();return tr});
   out.layers=Array.isArray(o.layers)?o.layers.filter(l=>l&&l.id):[];
   out.layerN=Math.max(out.layerN||0,out.layers.length);
   return out;
@@ -389,25 +412,25 @@ function curve(kind){
   return c;
 }
 const DRIVE=curve('drive'),CRUSH=curve('crush');
-function sp(E,param,v){if(E.live)param.setTargetAtTime(v,E.ac.currentTime,.02);else param.value=v}
+function sp(E,param,v,tm){if(tm!=null)param.setTargetAtTime(v,tm,.015);else if(E.live)param.setTargetAtTime(v,E.ac.currentTime,.02);else param.value=v}
+function applyTrack(E,i,tm){
+  const t=S.tracks[i],b=E.buses[i];
+  sp(E,b.level.gain,t.mute?0:Math.pow(t.level,1.6),tm);
+  b.shaper.curve=t.fx.crush?CRUSH:t.fx.drive?DRIVE:null;
+  if(t.type==='drum')sp(E,b.filt.frequency,Math.min(18000,KITS[t.patch].lp*Math.pow(2,(P(t,'cutoff')-1)*6)),tm);
+  else sp(E,b.filt.frequency,18000,tm);
+  sp(E,b.rev.gain,.03+P(t,'room')*.6+(t.fx.room?.3:0),tm);
+  sp(E,b.del.gain,(t.fx.echo?.42:0)+P(t,'echo')*.55,tm);
+}
 function applyAll(E=E0){
   if(!E)return;
-  S.tracks.forEach((t,i)=>{const b=E.buses[i];
-    sp(E,b.level.gain,t.mute?0:Math.pow(t.level,1.6));
-    b.shaper.curve=(t.type==='drum'&&t.fx[0])?CRUSH:(t.type==='bass'&&t.fx[0])?DRIVE:null;
-    sp(E,b.filt.frequency,t.type==='drum'?KITS[t.patch].lp:18000);
-    let rv=0,dl=0;
-    if(t.type==='drum')rv=.04+(t.fx[1]?.32:0);
-    else if(t.type==='bass')rv=.03+t.tone.y*.12;
-    else{rv=.08+t.tone.y*.55;dl=(t.fx[0]?.42:0)+t.tone.y*.12}
-    sp(E,b.rev.gain,rv);sp(E,b.del.gain,dl);
-  });
+  S.tracks.forEach((t,i)=>applyTrack(E,i));
   sp(E,E.delay.delayTime,.75*60/S.tempo);
 }
 
 /* drums */
 function drumHit(E,t,i,l,tm,v){
-  const A=E.ac,k=KITS[t.patch];let pm=Math.pow(2,(t.tone.x-.5)*1.2),dm=Math.pow(2,(t.tone.y-.5)*1.8);
+  const A=E.ac,k=KITS[t.patch];let pm=Math.pow(2,(P(t,'pitch')-.5)*1.2),dm=Math.pow(2,(P(t,'decay')-.5)*1.8);
   // height on the pad (stored as velocity .3-1): low = dark, short, soft; high = bright, open, snappy
   const b=Math.max(0,Math.min(1,(v-.3)/.7));pm*=Math.pow(2,(b-.5)*.5);dm*=Math.pow(2,(b-.5)*1.1);v=.4+.6*b;
   const out=A.createBiquadFilter();out.type='lowpass';out.frequency.value=Math.min(18000,700*Math.pow(2,b*4.7));out.Q.value=.5+b*.6;out.connect(E.buses[i].in);
@@ -440,7 +463,7 @@ function drumHit(E,t,i,l,tm,v){
 function voice(E,tm,f,dur,vel,bright,p,out,type,tx,ty){
   const A=E.ac,amp=A.createGain(),flt=A.createBiquadFilter();flt.type='lowpass';
   let cut=Math.min(p.cut*Math.pow(2,(tx-.5)*3+(bright-.5)*3.2),16000),q=p.q*(.8+.5*bright),envA=p.env*(.35+1.3*bright);
-  if(type==='bass'){q*=.5+ty*1.8;envA*=.4+ty*1.4}
+  q*=.5+ty*1.8;envA*=.4+ty*1.4;
   flt.Q.value=q;flt.frequency.setValueAtTime(Math.min(cut+envA,18000),tm);flt.frequency.setTargetAtTime(cut,tm+.002,p.fd);
   const pk=vel*p.vol,end=tm+Math.max(dur,p.a+.02),stopAt=end+p.r*6+.05;
   amp.gain.setValueAtTime(0,tm);amp.gain.linearRampToValueAtTime(pk,tm+p.a);
@@ -461,17 +484,19 @@ function samplerOn(E,t,i,tm,midi,dur,y){
   const buf=sampleBufs.get(t.sample);if(!buf)return;
   const A=E.ac,src=A.createBufferSource(),rate=Math.pow(2,(midi-60)/12),bright=1-y;
   src.buffer=buf;src.playbackRate.value=rate;
-  const f=A.createBiquadFilter();f.type='lowpass';f.frequency.value=Math.min(19000,180*Math.pow(2,t.tone.x*3+bright*4));f.Q.value=.6+bright*.8;
-  const g=A.createGain(),vel=(.6+.4*bright)*.9,end=t.fx[1]?tm+buf.duration/rate:tm+Math.max(dur,.03);
+  const f=A.createBiquadFilter();f.type='lowpass';f.frequency.value=Math.min(19000,180*Math.pow(2,P(t,'cutoff')*3+bright*4));f.Q.value=(.6+bright*.8)*(.5+P(t,'bite')*1.8);
+  const g=A.createGain(),vel=(.6+.4*bright)*.9,end=t.fx.oneshot?tm+buf.duration/rate:tm+Math.max(dur,.03);
   g.gain.setValueAtTime(0,tm);g.gain.linearRampToValueAtTime(vel,tm+.003);g.gain.setTargetAtTime(0,end,.04);
   src.connect(f);f.connect(g);g.connect(E.buses[i].in);src.start(tm);src.stop(end+.3);
+  if(t.fx.octave){const s2=A.createBufferSource(),g2=A.createGain();s2.buffer=buf;s2.playbackRate.value=rate*2;g2.gain.value=.4;s2.connect(g2);g2.connect(f);s2.start(tm);s2.stop(end+.3)}
 }
 function noteOn(E,t,i,tm,midi,dur,y){
   if(t.type==='sampler')return samplerOn(E,t,i,tm,midi,dur,y);
   const p=PATCHES[t.type][t.patch],f=440*Math.pow(2,(midi-69)/12),bright=1-y,vel=.65+.35*bright,out=E.buses[i].in;
-  voice(E,tm,f,dur,vel,bright,p,out,t.type,t.tone.x,t.tone.y);
-  if(t.type==='lead'&&t.fx[1])voice(E,tm,f*2,dur,vel*.4,bright,p,out,t.type,t.tone.x,t.tone.y);
-  if(t.type==='bass'&&t.fx[1]){const A=E.ac,o=A.createOscillator(),g=A.createGain(),end=tm+Math.max(dur,.05);o.type='sine';o.frequency.value=f/2;
+  const cx=P(t,'cutoff'),by=P(t,'bite');
+  voice(E,tm,f,dur,vel,bright,p,out,t.type,cx,by);
+  if(t.fx.octave)voice(E,tm,f*2,dur,vel*.4,bright,p,out,t.type,cx,by);
+  if(t.fx.sub){const A=E.ac,o=A.createOscillator(),g=A.createGain(),end=tm+Math.max(dur,.05);o.type='sine';o.frequency.value=f/2;
     g.gain.setValueAtTime(0,tm);g.gain.linearRampToValueAtTime(.5*vel,tm+.005);g.gain.setTargetAtTime(0,end,.05);o.connect(g);g.connect(out);o.start(tm);o.stop(end+.4)}
 }
 function pump(E,tm){
@@ -488,6 +513,7 @@ const nn=m=>NOTE[((m%12)+12)%12];
 
 /* ---------- sequencer ---------- */
 const pointers=[new Map(),new Map(),new Map()];
+const HOLD=.18;let toneTouch=-1;
 const arpN=[0,0,0];
 let playing=false,nextTime=0,stepCount=0,timer=0,stepLog=[],flashes=[],t0=0;
 const sd=()=>60/S.tempo/4;
@@ -508,7 +534,11 @@ function playStep(E,ls,bs,tm,live,base){
   if(base==null)base=tm;
   S.tracks.forEach((t,i)=>{
     // pointers that just tapped skip the grid hit that would land right on top of their free hit
-    const ptrs=live?[...pointers[i].values()].filter(p=>!(p.skip>tm)):[];
+    // tone moves: record them while REC is on and your finger is on the tone pad; otherwise play them back
+    if(live&&toneTouch===i){if(rec)t.auto[ls]={x:t.tone.x,y:t.tone.y}}
+    else if(t.auto[ls]){const a=t.auto[ls];t.tone.x=a.x;t.tone.y=a.y;applyTrack(E,i,tm)}
+    // a quick tap is one hit; only a finger that stays down starts the rhythm. Tap mode never plays the rhythm.
+    const ptrs=live&&!t.tap?[...pointers[i].values()].filter(p=>!(p.skip>tm)&&!(S.free&&p.down!=null&&tm<p.down+HOLD)):[];
     // free (off-grid) hits recorded inside this step
     for(const f of t.free){if(f.p<ls||f.p>=ls+1)continue;const ft=base+(f.p-ls)*sd();
       if(t.type==='drum'){drumHit(E,t,i,f.k,ft,f.v);if(live)flashes.push({i,k:f.k,t:ft});if(f.k===0)pump(E,ft)}
@@ -518,7 +548,7 @@ function playStep(E,ls,bs,tm,live,base){
       for(const p of ptrs){const l=Math.min(3,Math.floor(p.x*4));held[l]=Math.max(held[l]||0,.3+.7*(1-p.y))}
       for(let l=0;l<4;l++){let v=0;
         if(held[l]!=null){if(DR[t.rhythm[l]][bs]==='x')v=held[l];if(rec)t.lanes[l][ls]=v}
-        else if(live&&pointers[i].size&&[...pointers[i].values()].some(p=>p.skip>tm&&Math.min(3,Math.floor(p.x*4))===l))v=0
+        else if(live&&!t.tap&&pointers[i].size&&[...pointers[i].values()].some(p=>(p.skip>tm||(p.down!=null&&tm<p.down+HOLD))&&Math.min(3,Math.floor(p.x*4))===l))v=0
         else v=t.lanes[l][ls];
         if(v>0){drumHit(E,t,i,l,tm,v);if(live)flashes.push({i,k:l,t:tm});if(l===0)pump(E,tm)}
       }
@@ -529,7 +559,7 @@ function playStep(E,ls,bs,tm,live,base){
           const a=(S.arp&&t.type==='lead')?ARP[arpN[i]++%ARP.length]:0;
           evs=ptrs.slice(0,3).map(p=>({x:p.x,y:p.y,l,a}))}
         if(rec)t.notes[ls]=evs;
-      }else if(live&&pointers[i].size){evs=null}
+      }else if(live&&pointers[i].size&&!t.tap){evs=null}
       else{if(live)arpN[i]=0;evs=t.notes[ls]}
       if(evs)for(const e of evs){noteOn(E,t,i,tm,midiFor(t,e.x,e.a),e.l*sd()*.92,e.y);if(live)flashes.push({i,k:colOf(t,e.x),t:tm})}
     }
@@ -541,13 +571,13 @@ let wl=null;
 async function wake(on){try{if(on&&navigator.wakeLock&&!wl)wl=await navigator.wakeLock.request('screen');if(!on&&wl){wl.release();wl=null}}catch(e){wl=null}}
 function setBars(nb){
   const ob=S.bars;if(nb===ob)return;
-  if(nb>ob){const L=ob*16;for(let s=L;s<nb*16;s++)S.tracks.forEach(t=>{if(t.type==='drum')t.lanes.forEach(a=>a[s]=a[s%L]);else t.notes[s]=t.notes[s%L]});
+  if(nb>ob){const L=ob*16;for(let s=L;s<nb*16;s++)S.tracks.forEach(t=>{t.auto[s]=t.auto[s%L];if(t.type==='drum')t.lanes.forEach(a=>a[s]=a[s%L]);else t.notes[s]=t.notes[s%L]});
     S.tracks.forEach(t=>{const base=t.free.filter(f=>f.p<L);t.free=[];for(let k=0;k<nb/ob;k++)base.forEach(f=>t.free.push(Object.assign({},f,{p:f.p+k*L})))})}
   else S.tracks.forEach(t=>{t.free=t.free.filter(f=>f.p<nb*16)});
   S.bars=nb;touch();
 }
 function hasNotes(i){const t=S.tracks[i],L=S.bars*16;if(t.free.some(f=>f.p<L))return true;if(t.type==='drum')return t.lanes.some(a=>a.slice(0,L).some(v=>v>0));return t.notes.slice(0,L).some(Boolean)}
-function clearTrack(i){const t=S.tracks[i];t.free=[];if(t.type==='drum')t.lanes.forEach(a=>a.fill(0));else t.notes.fill(null)}
+function clearTrack(i){const t=S.tracks[i];t.free=[];t.auto=nul();if(t.type==='drum')t.lanes.forEach(a=>a.fill(0));else t.notes.fill(null)}
 const locked=()=>S.layers.length>0;
 
 /* ---------- layers: bounce the three tracks into one looping audio layer ---------- */
@@ -574,7 +604,9 @@ async function bounce(){
     const sr=E0.ac.sampleRate,L=S.bars*16,d=sd(),n=Math.round(L*d*sr);
     const OAC=window.OfflineAudioContext||window.webkitOfflineAudioContext;
     const oac=new OAC(2,n*2,sr),E=makeEngine(oac,false);
+    const tones=S.tracks.map(t=>({x:t.tone.x,y:t.tone.y}));
     for(let s=0;s<L*2;s++){const ls=s%L,bs=ls%16;playStep(E,ls,bs,s*d+(bs%2?S.swing/100*.5*d:0),false,s*d)}
+    S.tracks.forEach((t,k)=>{t.tone.x=tones[k].x;t.tone.y=tones[k].y});
     const out=await oac.startRendering();
     // keep the second pass: it already carries the reverb and echo tails that wrap round from the loop's end
     const pack={sr,len:n,ch:[0,1].map(c=>toI16(out.getChannelData(Math.min(c,out.numberOfChannels-1)).subarray(n,2*n)))};
@@ -654,14 +686,16 @@ function clearSub(i){
   const items=[{label:'Whole track',color:INK[i],act:()=>clearWith([i])}];
   if(t.type==='drum')LANES.forEach((n,l)=>{const c=t.lanes[l].slice(0,L).filter(v=>v>0).length+t.free.filter(f=>f.k===l&&f.p<L).length;
     items.push({label:n,sub:c?c+(c===1?' hit':' hits'):'empty',color:INK[i],act:()=>clearPart(i,{lane:l},n+' cleared')})});
+  const nm=t.auto.slice(0,L).filter(Boolean).length;if(nm)items.push({label:'Tone moves',sub:nm+' steps',color:INK[i],act:()=>clearPart(i,{auto:1},trackLabel(i)+' tone moves cleared')});
   if(S.bars>1)for(let b=0;b<S.bars;b++){const a=b*16,e=a+16,c=(t.type==='drum'?t.lanes.reduce((n,arr)=>n+arr.slice(a,e).filter(v=>v>0).length,0):t.notes.slice(a,e).filter(Boolean).length)+t.free.filter(f=>f.p>=a&&f.p<e).length;
     items.push({label:'Bar '+(b+1),sub:c?c+(t.type==='drum'?' hits':' notes'):'empty',color:INK[i],act:()=>clearPart(i,{bar:b},trackLabel(i)+' bar '+(b+1)+' cleared')})}
   openSheet('Clear '+trackLabel(i),t.type==='drum'?'Clear the whole track, one drum, or one bar.':'Clear the whole track or one bar.',items);
 }
 function clearPart(i,part,msg){
   const snap=JSON.stringify(S.tracks),t=S.tracks[i];
-  if(part.lane!=null){t.lanes[part.lane].fill(0);t.free=t.free.filter(f=>f.k!==part.lane)}
-  else{const a=part.bar*16,e=a+16;t.free=t.free.filter(f=>f.p<a||f.p>=e);if(t.type==='drum')t.lanes.forEach(arr=>arr.fill(0,a,e));else t.notes.fill(null,a,e)}
+  if(part.auto){t.auto=nul()}
+  else if(part.lane!=null){t.lanes[part.lane].fill(0);t.free=t.free.filter(f=>f.k!==part.lane)}
+  else{const a=part.bar*16,e=a+16;t.free=t.free.filter(f=>f.p<a||f.p>=e);t.auto.fill(null,a,e);if(t.type==='drum')t.lanes.forEach(arr=>arr.fill(0,a,e));else t.notes.fill(null,a,e)}
   touch();toast(msg,'Undo',()=>{S.tracks=JSON.parse(snap);touch();toast('Restored')});
 }
 function clearWith(list){
@@ -758,9 +792,11 @@ function vPlay(){
   V.innerHTML=`<div class="patchrow ${samp?'up':''}"><button class="arrow" data-d="-1" aria-label="Previous sound">‹</button>
     <div class="patch" id="patch"><span class="pname">${esc(pi.name)}</span><span class="pidx">${pi.idx}</span></div>
     <button class="arrow" data-d="1" aria-label="Next sound">›</button>${samp?'<button class="small" id="upl">+ Sound</button>':''}</div>
-    <div class="dials ${t.type==='drum'?'four':''}" style="--n:${t.type==='drum'?4:3}">${dials}</div>
+    <div class="dials ${t.type==='drum'?'four':''} ${t.tap?'dim':''}" style="--n:${t.type==='drum'?4:3}">${dials}</div>
+    <div class="modeseg" role="group" aria-label="What holding the pad does"><button data-m="0" class="${t.tap?'':'on'}">Hold plays rhythm</button><button data-m="1" class="${t.tap?'on':''}">Tap = one hit</button></div>
     <canvas class="pad" id="pad"></canvas>`;
   bindDials();bindPatch();bindPad(V.querySelector('#pad'),t.type==='drum'?'drum':'mel');
+  V.querySelectorAll('.modeseg button').forEach(b=>b.onclick=()=>{t.tap=b.dataset.m==='1';touch();render()});
   if(samp)V.querySelector('#upl').onclick=pickSound;
 }
 function bindPatch(){
@@ -783,10 +819,17 @@ function preview(){
 }
 function vTone(){
   const t=tr(),pi=patchInfo(t);
-  V.innerHTML=`<div class="patchrow" style="grid-template-columns:minmax(0,1fr)"><div class="patch"><span class="pname">${esc(pi.name)}</span><span class="pidx">shape the sound · ${AXES[t.type][0].toLowerCase()} ↔ · ${AXES[t.type][1].toLowerCase()} ↕</span></div></div>
-   <div class="fxrow">${FXN[t.type].map((n,i)=>`<button class="fx ${t.fx[i]?'on':''}" data-i="${i}">${n}<i></i></button>`).join('')}</div>
+  const moves=t.auto.slice(0,S.bars*16).filter(Boolean).length;
+  V.innerHTML=`<div class="patchrow" style="grid-template-columns:minmax(0,1fr)"><div class="patch"><span class="pname">${esc(pi.name)}</span><span class="pidx">effects on/off · drag the pad · with REC on, your moves are recorded</span></div></div>
+   <div class="fxgrid">${FX_FOR[t.type].map(k=>`<button class="fx sm ${t.fx[k]?'on':''}" data-k="${k}">${FX_ALL[k]}<i></i></button>`).join('')}</div>
+   <div class="axrow"><button class="axbtn" data-a="0"><small>↔ left–right</small>${AX_ALL[t.ax[0]]} ▾</button><button class="axbtn" data-a="1"><small>↕ down–up</small>${AX_ALL[t.ax[1]]} ▾</button>
+     <button class="axbtn clr" id="clrauto" ${moves?'':'disabled'}><small>${moves?moves+' steps':'no moves'}</small>Clear</button></div>
    <canvas class="pad" id="pad"></canvas>`;
-  V.querySelectorAll('.fx').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;t.fx[i]=!t.fx[i];b.classList.toggle('on',t.fx[i]);applyAll();touch()});
+  V.querySelectorAll('.fx').forEach(b=>b.onclick=()=>{const k=b.dataset.k;t.fx[k]=!t.fx[k];b.classList.toggle('on',!!t.fx[k]);applyAll();touch();if(!playing)preview()});
+  V.querySelectorAll('.axbtn[data-a]').forEach(b=>b.onclick=()=>{const a=+b.dataset.a;
+    openSheet(a?'Up and down controls':'Left and right controls','Pick what this direction of the tone pad changes.',AX_FOR[t.type].map(k=>({label:AX_ALL[k],sub:{pitch:'higher or lower drums',decay:'short or long ring',cutoff:'dark to bright',bite:'soft to sharp, resonant',room:'dry to big reverb',echo:'none to lots of delay'}[k],
+      color:INK[cur],cls:t.ax[a]===k?'cur':'',act:()=>{const o=t.ax[1-a];if(o===k)t.ax[1-a]=t.ax[a];t.ax[a]=k;applyAll();touch();render()}})))});
+  V.querySelector('#clrauto').onclick=()=>clearPart(cur,{auto:1},'Tone moves cleared');
   bindPad(V.querySelector('#pad'),'xy');
 }
 function vKey(){
@@ -884,11 +927,11 @@ function bindPad(cv,kind){
   const pos=e=>{const r=cv.getBoundingClientRect();return{x:Math.max(0,Math.min(.999,(e.clientX-r.left)/r.width)),y:Math.max(0,Math.min(.999,(e.clientY-r.top)/r.height))}};
   const key=p=>kind==='drum'?Math.min(3,Math.floor(p.x*4)):colOf(tr(),p.x);
   cv.addEventListener('pointerdown',e=>{e.preventDefault();cv.setPointerCapture(e.pointerId);const p=pos(e);
-    if(kind==='xy'){map.set(e.pointerId,p);setTone(p);resume();if(!playing)preview();return}
-    resume();map.set(e.pointerId,p);if(!playing)audition(p,kind);else if(S.free)freeHit(p,kind)});
-  cv.addEventListener('pointermove',e=>{if(!map.has(e.pointerId))return;const p=pos(e),old=map.get(e.pointerId);map.set(e.pointerId,p);
+    if(kind==='xy'){map.set(e.pointerId,p);toneTouch=cur;setTone(p);resume();if(!playing)preview();return}
+    resume();p.down=E0.ac.currentTime;map.set(e.pointerId,p);if(!playing)audition(p,kind);else if(S.free||tr().tap)freeHit(p,kind)});
+  cv.addEventListener('pointermove',e=>{if(!map.has(e.pointerId))return;const p=pos(e),old=map.get(e.pointerId);p.down=old.down;p.skip=old.skip;map.set(e.pointerId,p);
     if(kind==='xy'){setTone(p);return}if(!playing&&key(p)!==key(old))audition(p,kind)});
-  const up=e=>{map.delete(e.pointerId)};cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);cv.addEventListener('lostpointercapture',up);
+  const up=e=>{map.delete(e.pointerId);if(kind==='xy'&&!map.size)toneTouch=-1};cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);cv.addEventListener('lostpointercapture',up);
 }
 function loopPos(now){
   // exact position in the loop (in steps, fractional) at audio time `now`
@@ -943,14 +986,16 @@ function drawPad(now){
     c.fillStyle=hexA(col,.18);c.fillRect(0,y,x,h-y);
     c.strokeStyle=col;c.lineWidth=2*DPR;c.beginPath();c.moveTo(x,0);c.lineTo(x,h);c.moveTo(0,y);c.lineTo(w,y);c.stroke();
     c.fillStyle=col;c.beginPath();c.arc(x,y,16*DPR,0,Math.PI*2);c.fill();
-    c.fillStyle='#eceae4';c.textAlign='right';c.fillText(AXES[t.type][0].toUpperCase()+' →',w-10*DPR,h-10*DPR);
-    c.save();c.translate(16*DPR,10*DPR);c.rotate(Math.PI/2);c.textAlign='left';c.fillText('← '+AXES[t.type][1].toUpperCase()+' (UP = MORE)',0,0);c.restore();
+    c.fillStyle='#eceae4';c.textAlign='right';c.fillText(AX_ALL[t.ax[0]].toUpperCase()+' →',w-10*DPR,h-10*DPR);
+    c.save();c.translate(16*DPR,10*DPR);c.rotate(Math.PI/2);c.textAlign='left';c.fillText('← '+AX_ALL[t.ax[1]].toUpperCase()+' (UP = MORE)',0,0);c.restore();
+    const L=S.bars*16,pts=t.auto.slice(0,L);if(pts.some(Boolean)){c.strokeStyle=hexA(col,.45);c.lineWidth=2*DPR;c.setLineDash([4*DPR,4*DPR]);c.beginPath();let st=false;
+      pts.forEach(a=>{if(!a){st=false;return}const px=a.x*w,py=(1-a.y)*h;if(st)c.lineTo(px,py);else{c.moveTo(px,py);st=true}});c.stroke();c.setLineDash([])}
   }
   if(padKind!=='xy'){
     for(const p of pointers[cur].values()){c.strokeStyle='#eceae4';c.lineWidth=3*DPR;c.beginPath();c.arc(p.x*w,p.y*h,26*DPR,0,Math.PI*2);c.stroke();
       if(rec&&playing){c.fillStyle=hexA('#ff4436',.5);c.fill()}}
     if(!pointers[cur].size&&(!hasNotes(cur)||(t.type==='sampler'&&!t.sample))){
-      const msg=t.type==='sampler'&&!t.sample?'PRESS + SOUND TO UPLOAD ONE':playing?'HOLD TO PLAY · REC TO KEEP IT':'TAP TO HEAR · PRESS PLAY TO JAM';
+      const msg=t.type==='sampler'&&!t.sample?'PRESS + SOUND TO UPLOAD ONE':!playing?'TAP TO HEAR · PRESS PLAY TO JAM':t.tap?'TAP FOR SINGLE HITS · REC TO KEEP':'TAP = ONE HIT · HOLD = RHYTHM';
       c.fillStyle=hexA('#eceae4',.75);c.textAlign='center';c.font=`800 ${Math.round(17*DPR)}px "Big Shoulders Display",sans-serif`;c.fillText(msg,w/2,h/2)}
   }
 }
