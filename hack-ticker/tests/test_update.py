@@ -39,6 +39,12 @@ class T(unittest.TestCase):
         self.assertEqual(out[0]["region"], "NL")
         self.assertEqual(out[1]["same_as"], "x1")
 
+    def test_similar(self):
+        inc = [{"id": "a", "date": "2026-10-29", "victim": "Binance", "title": "Binance drained", "sources": []}]
+        d = datetime(2026, 10, 29, tzinfo=timezone.utc)
+        self.assertIsNotNone(update.similar(inc, "Binance CEX", d))
+        self.assertIsNone(update.similar(inc, "Fence Finance", d))
+
     def test_hack_words(self):
         self.assertTrue(update.HACK_WORDS.search("Groot datalek bij provider"))
         self.assertFalse(update.HACK_WORDS.search("New phone review"))

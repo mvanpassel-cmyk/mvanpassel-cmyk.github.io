@@ -157,11 +157,13 @@ def from_hibp(now, incidents, status):
         if iid in have:
             continue
         n = b.get("PwnCount")
+        tld = (b.get("Domain") or "").rsplit(".", 1)[-1].upper()
+        cc = "GB" if tld == "UK" else tld if len(tld) == 2 else ""
         when = b.get("BreachDate") or added_at.strftime("%Y-%m-%d")
         incidents.append({
             "id": iid, "date": when, "added": now.strftime("%Y-%m-%d"),
             "title": f"{b.get('Title') or b['Name']}: {n:,} accounts in a confirmed data breach" if n else f"{b.get('Title') or b['Name']} data breach",
-            "victim": b.get("Title") or b["Name"], "country": "", "region": "World", "sector": "Other",
+            "victim": b.get("Title") or b["Name"], "country": cc, "region": region_of(cc), "sector": "Other",
             "type": "Data breach", "impact": impact_people(n) or 2, "people": n, "usd": None, "confirmed": True,
             "summary": clean(b.get("Description"), 260),
             "sources": [{"name": "Have I Been Pwned", "url": f"https://haveibeenpwned.com/Breach/{b['Name']}"}],
@@ -190,7 +192,13 @@ def from_llama(now, incidents, status):
             continue
         name = (h.get("name") or "").strip()
         iid = "llama-" + key(name + d.strftime("%Y-%m-%d"))
-        if not name or iid in have or similar(incidents, name, d):
+        if not name or iid in have:
+            continue
+        dup = similar(incidents, name, d)
+        if dup:  # already on the timeline (e.g. from the news): add DeFiLlama as a source and the amount if missing
+            if not any(s["name"] == "DeFiLlama" for s in dup["sources"]):
+                dup["sources"].append({"name": "DeFiLlama", "url": "https://defillama.com/hacks"})
+            dup["usd"] = dup.get("usd") or int(amt)
             continue
         tech = ", ".join(x for x in [h.get("classification"), h.get("technique")] if x)
         incidents.append({
@@ -228,15 +236,20 @@ def ransomware_counts(now, weekly, status, rw_seen):
     return n
 
 
+def tokens(s):
+    return {t for t in re.findall(r"[a-z0-9]+", (s or "").lower()) if len(t) >= 4 and t not in {"finance", "protocol", "exchange", "network", "crypto"}}
+
+
 def similar(incidents, name, d, days=4):
-    n = name.lower()
+    n = tokens(name)
     for i in incidents:
         try:
             di = datetime.fromisoformat(i["date"][:10]).replace(tzinfo=timezone.utc)
         except ValueError:
             continue
-        if abs((di - d).days) <= days and (n in i.get("victim", "").lower() or n in i.get("title", "").lower()):
-            return True
+        if abs((di - d).days) <= days and n & (tokens(i.get("victim")) | tokens(i.get("title"))):
+            return i
+    return None
     return False
 
 
