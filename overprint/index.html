@@ -266,7 +266,7 @@ const MAX=128;
 /* ---------- state ---------- */
 const empty=()=>new Array(MAX).fill(0), nul=()=>new Array(MAX).fill(null);
 function newTrack(type){
-  const b={type,patch:0,tone:{x:.5,y:.45},fx:[false,false],level:.8,mute:false};
+  const b={type,patch:0,tone:{x:.5,y:.45},fx:[false,false],level:.8,mute:false,free:[]};
   if(type==='drum')return Object.assign(b,{rhythm:[3,2,5,14],lanes:[empty(),empty(),empty(),empty()],level:.85,tone:{x:.5,y:.5}});
   if(type==='bass')return Object.assign(b,{patch:1,rhythm:9,range:1,steps:5,tone:{x:.45,y:.4},notes:nul()});
   if(type==='lead')return Object.assign(b,{rhythm:5,range:2,steps:7,fx:[true,false],level:.6,notes:nul()});
@@ -278,7 +278,7 @@ function randName(){
   const suf=['beat','groove','loop','dub','tone','wave',''];
   return w(2)+' '+w(2)+suf[Math.floor(Math.random()*suf.length)];
 }
-function blank(){return {v:3,name:randName(),tempo:100,key:9,scale:'Minor',swing:14,bars:2,arp:false,pump:30,layers:[],layerN:0,
+function blank(){return {v:3,name:randName(),tempo:100,key:9,scale:'Minor',swing:14,bars:2,arp:false,free:true,pump:30,layers:[],layerN:0,
   tracks:[newTrack('drum'),newTrack('bass'),newTrack('lead')]}}
 function seedDrum(st,tr,lane,r,vel){const L=st.bars*16;for(let s=0;s<L;s++)if(DR[r][s%16]==='x')tr.lanes[lane][s]=vel*(s%4===0?1:.82)}
 function seedMel(st,tr,r,xs,y){
@@ -300,7 +300,7 @@ function sanitize(o){
   if(!Array.isArray(o.tracks)||o.tracks.length!==3)return null;
   const out=Object.assign(blank(),o);delete out.parts;
   out.tracks=o.tracks.map(t=>{const ty=TYPES.includes(t&&t.type)?t.type:'lead',tr=Object.assign(newTrack(ty),t,{type:ty});
-    if(PATCHES[ty])tr.patch=Math.max(0,Math.min(PATCHES[ty].length-1,tr.patch|0));return tr});
+    if(PATCHES[ty])tr.patch=Math.max(0,Math.min(PATCHES[ty].length-1,tr.patch|0));if(!Array.isArray(tr.free))tr.free=[];return tr});
   out.layers=Array.isArray(o.layers)?o.layers.filter(l=>l&&l.id):[];
   out.layerN=Math.max(out.layerN||0,out.layers.length);
   return out;
@@ -499,19 +499,26 @@ function stop(){playing=false;clearInterval(timer);rec=false;syncLayers();uiTran
 function sched(){
   while(nextTime<E0.ac.currentTime+.1){
     const L=S.bars*16,ls=stepCount%L,bs=ls%16,tm=nextTime+(bs%2?S.swing/100*.5*sd():0);
-    playStep(E0,ls,bs,tm,true);stepLog.push({t:nextTime,ls});if(stepLog.length>48)stepLog.shift();
+    playStep(E0,ls,bs,tm,true,nextTime);stepLog.push({t:nextTime,ls});if(stepLog.length>48)stepLog.shift();
     nextTime+=sd();stepCount++;
   }
 }
 // live=true: fingers on the pad override (and with REC, overwrite) the recorded steps
-function playStep(E,ls,bs,tm,live){
+function playStep(E,ls,bs,tm,live,base){
+  if(base==null)base=tm;
   S.tracks.forEach((t,i)=>{
-    const ptrs=live?[...pointers[i].values()]:[];
+    // pointers that just tapped skip the grid hit that would land right on top of their free hit
+    const ptrs=live?[...pointers[i].values()].filter(p=>!(p.skip>tm)):[];
+    // free (off-grid) hits recorded inside this step
+    for(const f of t.free){if(f.p<ls||f.p>=ls+1)continue;const ft=base+(f.p-ls)*sd();
+      if(t.type==='drum'){drumHit(E,t,i,f.k,ft,f.v);if(live)flashes.push({i,k:f.k,t:ft});if(f.k===0)pump(E,ft)}
+      else{noteOn(E,t,i,ft,midiFor(t,f.x,0),f.l*sd()*.92,f.y);if(live)flashes.push({i,k:colOf(t,f.x),t:ft})}}
     if(t.type==='drum'){
       const held=[null,null,null,null];
       for(const p of ptrs){const l=Math.min(3,Math.floor(p.x*4));held[l]=Math.max(held[l]||0,.3+.7*(1-p.y))}
       for(let l=0;l<4;l++){let v=0;
         if(held[l]!=null){if(DR[t.rhythm[l]][bs]==='x')v=held[l];if(rec)t.lanes[l][ls]=v}
+        else if(live&&pointers[i].size&&[...pointers[i].values()].some(p=>p.skip>tm&&Math.min(3,Math.floor(p.x*4))===l))v=0
         else v=t.lanes[l][ls];
         if(v>0){drumHit(E,t,i,l,tm,v);if(live)flashes.push({i,k:l,t:tm});if(l===0)pump(E,tm)}
       }
@@ -522,7 +529,8 @@ function playStep(E,ls,bs,tm,live){
           const a=(S.arp&&t.type==='lead')?ARP[arpN[i]++%ARP.length]:0;
           evs=ptrs.slice(0,3).map(p=>({x:p.x,y:p.y,l,a}))}
         if(rec)t.notes[ls]=evs;
-      }else{if(live)arpN[i]=0;evs=t.notes[ls]}
+      }else if(live&&pointers[i].size){evs=null}
+      else{if(live)arpN[i]=0;evs=t.notes[ls]}
       if(evs)for(const e of evs){noteOn(E,t,i,tm,midiFor(t,e.x,e.a),e.l*sd()*.92,e.y);if(live)flashes.push({i,k:colOf(t,e.x),t:tm})}
     }
   });
@@ -533,11 +541,13 @@ let wl=null;
 async function wake(on){try{if(on&&navigator.wakeLock&&!wl)wl=await navigator.wakeLock.request('screen');if(!on&&wl){wl.release();wl=null}}catch(e){wl=null}}
 function setBars(nb){
   const ob=S.bars;if(nb===ob)return;
-  if(nb>ob){const L=ob*16;for(let s=L;s<nb*16;s++)S.tracks.forEach(t=>{if(t.type==='drum')t.lanes.forEach(a=>a[s]=a[s%L]);else t.notes[s]=t.notes[s%L]})}
+  if(nb>ob){const L=ob*16;for(let s=L;s<nb*16;s++)S.tracks.forEach(t=>{if(t.type==='drum')t.lanes.forEach(a=>a[s]=a[s%L]);else t.notes[s]=t.notes[s%L]});
+    S.tracks.forEach(t=>{const base=t.free.filter(f=>f.p<L);t.free=[];for(let k=0;k<nb/ob;k++)base.forEach(f=>t.free.push(Object.assign({},f,{p:f.p+k*L})))})}
+  else S.tracks.forEach(t=>{t.free=t.free.filter(f=>f.p<nb*16)});
   S.bars=nb;touch();
 }
-function hasNotes(i){const t=S.tracks[i],L=S.bars*16;if(t.type==='drum')return t.lanes.some(a=>a.slice(0,L).some(v=>v>0));return t.notes.slice(0,L).some(Boolean)}
-function clearTrack(i){const t=S.tracks[i];if(t.type==='drum')t.lanes.forEach(a=>a.fill(0));else t.notes.fill(null)}
+function hasNotes(i){const t=S.tracks[i],L=S.bars*16;if(t.free.some(f=>f.p<L))return true;if(t.type==='drum')return t.lanes.some(a=>a.slice(0,L).some(v=>v>0));return t.notes.slice(0,L).some(Boolean)}
+function clearTrack(i){const t=S.tracks[i];t.free=[];if(t.type==='drum')t.lanes.forEach(a=>a.fill(0));else t.notes.fill(null)}
 const locked=()=>S.layers.length>0;
 
 /* ---------- layers: bounce the three tracks into one looping audio layer ---------- */
@@ -564,7 +574,7 @@ async function bounce(){
     const sr=E0.ac.sampleRate,L=S.bars*16,d=sd(),n=Math.round(L*d*sr);
     const OAC=window.OfflineAudioContext||window.webkitOfflineAudioContext;
     const oac=new OAC(2,n*2,sr),E=makeEngine(oac,false);
-    for(let s=0;s<L*2;s++){const ls=s%L,bs=ls%16;playStep(E,ls,bs,s*d+(bs%2?S.swing/100*.5*d:0),false)}
+    for(let s=0;s<L*2;s++){const ls=s%L,bs=ls%16;playStep(E,ls,bs,s*d+(bs%2?S.swing/100*.5*d:0),false,s*d)}
     const out=await oac.startRendering();
     // keep the second pass: it already carries the reverb and echo tails that wrap round from the loop's end
     const pack={sr,len:n,ch:[0,1].map(c=>toI16(out.getChannelData(Math.min(c,out.numberOfChannels-1)).subarray(n,2*n)))};
@@ -642,16 +652,16 @@ function openClear(){
 function clearSub(i){
   const t=S.tracks[i],L=S.bars*16;
   const items=[{label:'Whole track',color:INK[i],act:()=>clearWith([i])}];
-  if(t.type==='drum')LANES.forEach((n,l)=>{const c=t.lanes[l].slice(0,L).filter(v=>v>0).length;
+  if(t.type==='drum')LANES.forEach((n,l)=>{const c=t.lanes[l].slice(0,L).filter(v=>v>0).length+t.free.filter(f=>f.k===l&&f.p<L).length;
     items.push({label:n,sub:c?c+(c===1?' hit':' hits'):'empty',color:INK[i],act:()=>clearPart(i,{lane:l},n+' cleared')})});
-  if(S.bars>1)for(let b=0;b<S.bars;b++){const a=b*16,e=a+16,c=t.type==='drum'?t.lanes.reduce((n,arr)=>n+arr.slice(a,e).filter(v=>v>0).length,0):t.notes.slice(a,e).filter(Boolean).length;
+  if(S.bars>1)for(let b=0;b<S.bars;b++){const a=b*16,e=a+16,c=(t.type==='drum'?t.lanes.reduce((n,arr)=>n+arr.slice(a,e).filter(v=>v>0).length,0):t.notes.slice(a,e).filter(Boolean).length)+t.free.filter(f=>f.p>=a&&f.p<e).length;
     items.push({label:'Bar '+(b+1),sub:c?c+(t.type==='drum'?' hits':' notes'):'empty',color:INK[i],act:()=>clearPart(i,{bar:b},trackLabel(i)+' bar '+(b+1)+' cleared')})}
   openSheet('Clear '+trackLabel(i),t.type==='drum'?'Clear the whole track, one drum, or one bar.':'Clear the whole track or one bar.',items);
 }
 function clearPart(i,part,msg){
   const snap=JSON.stringify(S.tracks),t=S.tracks[i];
-  if(part.lane!=null)t.lanes[part.lane].fill(0);
-  else{const a=part.bar*16,e=a+16;if(t.type==='drum')t.lanes.forEach(arr=>arr.fill(0,a,e));else t.notes.fill(null,a,e)}
+  if(part.lane!=null){t.lanes[part.lane].fill(0);t.free=t.free.filter(f=>f.k!==part.lane)}
+  else{const a=part.bar*16,e=a+16;t.free=t.free.filter(f=>f.p<a||f.p>=e);if(t.type==='drum')t.lanes.forEach(arr=>arr.fill(0,a,e));else t.notes.fill(null,a,e)}
   touch();toast(msg,'Undo',()=>{S.tracks=JSON.parse(snap);touch();toast('Restored')});
 }
 function clearWith(list){
@@ -790,11 +800,13 @@ function vKey(){
     <div class="sec">Loop length</div>
     <div class="grid4">${[1,2,4,8].map(b=>`<button class="opt ${b===S.bars?'on':''}" data-b="${b}" ${locked()&&b!==S.bars?'disabled':''}>${b} bar${b>1?'s':''}</button>`).join('')}</div>
     ${locked()?'<p class="note">Tempo, swing and loop length are locked while you have layers, so everything stays in time. Changing key or scale only affects the tracks, not the layers.</p>':''}
+    <button class="toggle ${S.free?'on':''}" id="freet"><span>Free timing<small>A tap sounds the moment you touch, even between beats. Holding plays the rhythm on the beat.</small></span><span class="sw"></span></button>
     <button class="toggle ${S.arp?'on':''}" id="arp"><span>Arpeggiator<small>Lead hits walk up the chord while you hold</small></span><span class="sw"></span></button>
   </div>`;
   V.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{S.scale=b.dataset.s;touch();V.querySelectorAll('[data-s]').forEach(x=>x.classList.toggle('on',x===b))});
   V.querySelectorAll('[data-b]').forEach(b=>b.onclick=()=>{if(locked())return;setBars(+b.dataset.b);V.querySelectorAll('[data-b]').forEach(x=>x.classList.toggle('on',x===b))});
   V.querySelector('#arp').onclick=e=>{S.arp=!S.arp;e.currentTarget.classList.toggle('on',S.arp);touch()};
+  V.querySelector('#freet').onclick=e=>{S.free=!S.free;e.currentTarget.classList.toggle('on',S.free);touch()};
   bindDials();
 }
 function vMix(){
@@ -873,10 +885,26 @@ function bindPad(cv,kind){
   const key=p=>kind==='drum'?Math.min(3,Math.floor(p.x*4)):colOf(tr(),p.x);
   cv.addEventListener('pointerdown',e=>{e.preventDefault();cv.setPointerCapture(e.pointerId);const p=pos(e);
     if(kind==='xy'){map.set(e.pointerId,p);setTone(p);resume();if(!playing)preview();return}
-    resume();map.set(e.pointerId,p);if(!playing)audition(p,kind)});
+    resume();map.set(e.pointerId,p);if(!playing)audition(p,kind);else if(S.free)freeHit(p,kind)});
   cv.addEventListener('pointermove',e=>{if(!map.has(e.pointerId))return;const p=pos(e),old=map.get(e.pointerId);map.set(e.pointerId,p);
     if(kind==='xy'){setTone(p);return}if(!playing&&key(p)!==key(old))audition(p,kind)});
   const up=e=>{map.delete(e.pointerId)};cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);cv.addEventListener('lostpointercapture',up);
+}
+function loopPos(now){
+  // exact position in the loop (in steps, fractional) at audio time `now`
+  let e=null;for(const x of stepLog)if(x.t<=now)e=x;
+  if(!e)return null;const L=S.bars*16;return ((e.ls+(now-e.t)/sd())%L+L)%L;
+}
+function freeHit(p,kind){
+  const t=tr(),now=E0.ac.currentTime+.005,pos=loopPos(now);
+  // if a grid hit is due within a third of a step, let that one play instead of doubling it
+  p.skip=now+sd()*.34;
+  if(kind==='drum'){const l=Math.min(3,Math.floor(p.x*4)),v=.3+.7*(1-p.y);
+    drumHit(E0,t,cur,l,now,v);flashes.push({i:cur,k:l,t:now});if(l===0)pump(E0,now);
+    if(rec&&pos!=null){t.free.push({p:pos,k:l,v});touch()}}
+  else{if(t.type==='sampler'&&!sampleBufs.has(t.sample))return;
+    noteOn(E0,t,cur,now,midiFor(t,p.x,0),2*sd()*.92,p.y);flashes.push({i:cur,k:colOf(t,p.x),t:now});
+    if(rec&&pos!=null){t.free.push({p:pos,x:p.x,y:p.y,l:2});touch()}}
 }
 // stopped: touching a pad plays the sound once (and again when you slide to another lane/note); nothing is recorded
 function audition(p,kind){
