@@ -63,6 +63,11 @@ header .dek b{color:var(--ink);font-weight:600}
 .chip{border:1px solid var(--line);background:transparent;color:var(--ink);padding:5px 11px;border-radius:999px;font:500 13px/1.2 var(--sans);cursor:pointer}
 .chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .count{margin-left:auto;font:500 12px/1 var(--mono);color:var(--muted)}
+.sep{width:1px;height:20px;background:var(--line);margin:0 4px}
+.chip.per[aria-pressed=true]{background:var(--soft);color:var(--ink);border-color:var(--ink)}
+.archive-intro{margin:56px 0 0;padding:18px 0 4px;border-top:3px double var(--ink);display:flex;flex-direction:column;gap:2px}
+.archive-intro b{font:600 clamp(24px,4.5vw,30px)/1.1 var(--serif)}
+.archive-intro span{color:var(--muted);font-size:14px}
 
 /* stories */
 h2.month{font:500 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:34px 0 4px;display:flex;align-items:center;gap:10px}
@@ -103,7 +108,7 @@ footer p{margin:0 0 8px}
   <header>
     <div class="eyebrow" id="today">News for the long now</div>
     <h1>The Long <em>View</em></h1>
-    <p class="dek">Most news is forgotten by next week. This page keeps only the stories people will still find significant in <b id="future">02126</b>: turning points in climate, life, science and how we live together.</p>
+    <p class="dek">Most news is forgotten by next week. This page keeps only the stories people will still find significant in <b id="future">2126</b>, a hundred years from now: turning points in climate, life, science and how we live together.</p>
   </header>
 
   <section class="ruler" id="ruler" aria-label="Filter by time horizon">
@@ -138,12 +143,11 @@ const $=s=>document.querySelector(s);
 const HZ=["decades","centuries","millennia"];
 const MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 const LONG=["January","February","March","April","May","June","July","August","September","October","November","December"];
-const y5=y=>String(y).padStart(5,"0");
-let stories=[],fH=null,fT=null;
+let stories=[],fH=null,fT=null,fP="all";
 
 const now=new Date();
-$("#future").textContent=y5(now.getFullYear()+100);
-$("#today").textContent=`News for the long now · ${now.getDate()} ${LONG[now.getMonth()]} ${y5(now.getFullYear())}`;
+$("#future").textContent=now.getFullYear()+100;
+$("#today").textContent=`News for the long now · ${now.getDate()} ${LONG[now.getMonth()]} ${now.getFullYear()}`;
 
 // log ruler ticks: 10, 100, 1,000, 10,000 years ahead
 (function ticks(){
@@ -156,21 +160,27 @@ function esc(s){return String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt
 function host(u){try{return new URL(u).hostname.replace(/^www\./,"")}catch(e){return ""}}
 
 function render(){
-  const list=stories.filter(s=>(!fH||s.horizon===fH)&&(!fT||s.theme===fT));
-  for(const h of HZ){const n=stories.filter(s=>s.horizon===h&&(!fT||s.theme===fT)).length;$("#n-"+h).textContent=`${n} ${n===1?"story":"stories"}`}
+  const inP=s=>fP==="all"||(fP==="archive")===!!s.archive;
+  const list=stories.filter(s=>inP(s)&&(!fH||s.horizon===fH)&&(!fT||s.theme===fT));
+  for(const h of HZ){const n=stories.filter(s=>inP(s)&&s.horizon===h&&(!fT||s.theme===fT)).length;$("#n-"+h).textContent=`${n} ${n===1?"story":"stories"}`}
   document.querySelectorAll(".band").forEach(b=>{const on=b.dataset.h===fH;b.classList.toggle("on",on);b.setAttribute("aria-pressed",on)});
   $("#ruler").classList.toggle("filtered",!!fH);
   const themes=[...new Set(stories.map(s=>s.theme))].sort();
-  $("#themes").innerHTML=`<button class="chip" data-t="" aria-pressed="${!fT}">All themes</button>`+
+  const P=[["all","All time"],["recent","Recent"],["archive","Archive"]];
+  $("#themes").innerHTML=P.map(([k,l])=>`<button class="chip per" data-p="${k}" aria-pressed="${fP===k}">${l}</button>`).join("")+'<span class="sep"></span>'+
+    `<button class="chip" data-t="" aria-pressed="${!fT}">All themes</button>`+
     themes.map(t=>`<button class="chip" data-t="${esc(t)}" aria-pressed="${fT===t}">${esc(t)}</button>`).join("")+
     `<span class="count">${list.length} of ${stories.length}</span>`;
   if(!list.length){$("#list").innerHTML=`<p class="empty">Nothing here yet for this filter. The long stories are rare; that is the point.</p>`;return}
-  let html="",month="";
+  let html="",group="",inArchive=false;
   for(const s of list){
-    const [Y,M,D]=s.date.split("-").map(Number),key=Y+"-"+M;
-    if(key!==month){month=key;html+=`<h2 class="month">${LONG[M-1]} ${y5(Y)}</h2>`}
+    const [Y,M,D]=s.date.split("-").map(Number);
+    if(s.archive&&!inArchive&&fP==="all"){inArchive=true;html+=`<div class="archive-intro"><b>From the archive</b><span>Long news from before this page existed, classified with hindsight.</span></div>`}
+    const g=s.archive?"The "+Math.floor(Y/10)*10+"s":LONG[M-1]+" "+Y;
+    if(g!==group){group=g;html+=`<h2 class="month">${g}</h2>`}
+    const when=s.archive?(D?`<b>${D}</b>${MONTHS[M-1]} ${Y}`:`<b>${MONTHS[M-1]}</b>${Y}`):`<b>${D||MONTHS[M-1]}</b>${D?MONTHS[M-1]:Y}`;
     html+=`<article class="story" data-h="${esc(s.horizon)}">
-      <div class="when"><b>${D}</b>${MONTHS[M-1]}<div class="hz" aria-hidden="true"><i></i><i></i><i></i></div></div>
+      <div class="when">${when}<div class="hz" aria-hidden="true"><i></i><i></i><i></i></div></div>
       <div><h3><a href="${esc(s.url)}" rel="noopener" target="_blank">${esc(s.headline)}</a></h3>
         <p class="why">${esc(s.why)}</p>
         <div class="meta"><span class="tag">Matters for ${esc(s.horizon)}</span><span>${esc(s.theme)}</span><a href="${esc(s.url)}" rel="noopener" target="_blank">${esc(s.source||host(s.url))} ↗</a></div></div>
@@ -180,13 +190,13 @@ function render(){
 }
 document.addEventListener("click",e=>{
   const b=e.target.closest(".band");if(b){fH=fH===b.dataset.h?null:b.dataset.h;render();return}
-  const c=e.target.closest(".chip");if(c){fT=c.dataset.t||null;render()}
+  const c=e.target.closest(".chip");if(!c)return;if(c.dataset.p){fP=c.dataset.p;render();return}fT=c.dataset.t||null;render()
 });
 
 async function load(){
   try{
     const [st,ss]=await Promise.all([fetch("data/stories.json",{cache:"no-cache"}).then(r=>r.json()),fetch("data/status.json",{cache:"no-cache"}).then(r=>r.json()).catch(()=>null)]);
-    stories=st.filter(s=>s&&s.headline&&s.url&&HZ.includes(s.horizon)).sort((a,b)=>b.date.localeCompare(a.date)||(b.score||0)-(a.score||0));
+    stories=st.filter(s=>s&&s.headline&&s.url&&HZ.includes(s.horizon)).sort((a,b)=>(!!a.archive-!!b.archive)||b.date.localeCompare(a.date)||(b.score||0)-(a.score||0));
     render();
     if(ss&&ss.last_run){const d=new Date(ss.last_run);
       $("#status").textContent=`Last checked ${d.toLocaleDateString("en-GB",{day:"numeric",month:"long"})}: ${ss.candidates} new items read from ${ss.feeds_ok} feeds, ${ss.picked} kept.`+(ss.ai?"":" (AI editor not yet switched on.)")}
