@@ -150,6 +150,41 @@
   "via": "defillama"
  },
  {
+  "id": "seed-php2shell-2026",
+  "date": "2026-10-20",
+  "added": "2026-10-31",
+  "title": "PHP2Shell: two critical PHP flaws exploited across the web",
+  "victim": "PHP (about 70% of websites)",
+  "country": "",
+  "region": "World",
+  "sector": "Tech",
+  "type": "Mass exploitation",
+  "impact": 4,
+  "people": null,
+  "usd": null,
+  "confirmed": true,
+  "summary": "Flaws allowing takeover of servers without a password; attacks began before the 21 October patch, CISA confirmed exploitation, and sites from Wikimedia to European government portals went offline to patch.",
+  "sources": [
+   {
+    "name": "TechCrunch",
+    "url": "https://techcrunch.com/2026/10/24/php-ocalypse-how-two-critical-web-bugs-almost-broke-the-internet/"
+   },
+   {
+    "name": "TechCrunch (CISA)",
+    "url": "https://techcrunch.com/2026/10/27/us-government-says-hackers-are-now-exploiting-critical-php-web-bugs/"
+   },
+   {
+    "name": "The Hacker News",
+    "url": "https://thehackernews.com/2026/10/someone-tried-to-exploit-php2shell-4.html"
+   },
+   {
+    "name": "watchTowr",
+    "url": "https://watchtowr.com/intelligence/php-cve-2026-109618-faq/"
+   }
+  ],
+  "via": "seed"
+ },
+ {
   "id": "llama-4f68c42ef014c654",
   "date": "2026-10-17",
   "added": "2026-10-31",

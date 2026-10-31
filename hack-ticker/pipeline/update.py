@@ -21,7 +21,7 @@ UA = "HackTicker/1.0 (+https://mvanpassel-cmyk.github.io/hack-ticker/)"
 MODEL = os.environ.get("HACK_TICKER_MODEL", "claude-sonnet-5-5")
 WINDOW_DAYS = 3
 KEEP_SEEN_DAYS = 60
-TYPES = ["Ransomware", "Data breach", "Crypto theft", "Disruption", "Espionage", "Supply chain", "Sabotage", "Other"]
+TYPES = ["Ransomware", "Data breach", "Crypto theft", "Disruption", "Espionage", "Supply chain", "Sabotage", "Mass exploitation", "Other"]
 SECTORS = ["Health", "Government", "Finance", "Crypto", "Telecom", "Energy", "Transport", "Retail", "Tech",
            "Education", "Industry", "Media", "Defence", "Other"]
 EU = {"AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE", "IT", "LV", "LT", "LU",
@@ -270,7 +270,8 @@ def ask_claude(cands, recent):
     known = [f"{i['id']} | {i['date']} | {i['title']}" for i in recent]
     system = ("You are the editor of Hack Ticker, a timeline of real cyber incidents. From security news headlines you "
               "identify concrete incidents: an attack, breach, theft, leak or disruption that happened to a named "
-              "organisation, country or service. Ignore advice, product news, vulnerability write-ups without a victim, "
+              "organisation, country or service. Also include software flaws confirmed to be exploited at scale (type Mass exploitation). "
+              "Ignore advice, product news, vulnerability write-ups without confirmed exploitation, "
               "arrests, opinion and trend reports. Merge headlines about the same incident. " + RUBRIC)
     user = ("Incidents already on the timeline (use same_as to add a new source to one of these instead of repeating it):\n"
             + "\n".join(known[:120]) + "\n\nNew headlines:\n" + "\n".join(lines) +
