@@ -24,7 +24,7 @@ MIN_SCORE = int(os.environ.get("LONG_VIEW_MIN_SCORE", "80"))
 WINDOW_DAYS = 4
 SEEN_KEEP_DAYS = 90
 MAX_CANDIDATES = 220
-HORIZONS = ["decades", "centuries", "millennia"]
+HORIZONS = ["years", "decades", "centuries", "millennia"]
 THEMES = ["Climate", "Nature", "Health", "Science", "Technology", "Space", "Energy", "Society", "Governance"]
 
 
@@ -129,7 +129,7 @@ def ask_claude(candidates, recent_headlines):
         lines.append(f"[{i}] {c['source']} | {c['title']} | {c['summary'][:260]}")
     system = (
         "You are the editor of The Long View, a news page in the spirit of Kirk Citron's 'The Long News': "
-        "it keeps only stories that people will still find significant in 50, 100 or 1,000 years. "
+        "it keeps only stories that will still matter years from now, and prizes the rare ones people will still find significant in 50, 100 or 1,000 years. "
         "Ignore the daily churn: elections, markets, celebrities, scandals, sport, single disasters, ordinary policy fights, "
         "product launches, and incremental studies. Look for turning points and long arcs: firsts in science and exploration, "
         "irreversible shifts in climate, ecosystems or demography, durable treaties and institutions, changes in how humans live, "
@@ -141,11 +141,12 @@ def ask_claude(candidates, recent_headlines):
         f"Recent picks (do not repeat these developments):\n- " + "\n- ".join(recent_headlines[:60]) +
         f"\n\nToday's candidates:\n" + "\n".join(lines) +
         f"\n\nReturn JSON only, no prose: {{\"picks\":[{{\"i\":<index>,\"score\":<0-100 lasting significance>,"
-        f"\"horizon\":\"decades|centuries|millennia\",\"theme\":\"one of {', '.join(THEMES)}\","
+        f"\"horizon\":\"years|decades|centuries|millennia\",\"theme\":\"one of {', '.join(THEMES)}\","
         f"\"headline\":\"neutral headline in your own words, max 12 words\","
-        f"\"why\":\"one sentence in your own words, max 32 words, on why this will still matter in 50+ years\"}}]}}. "
+        f"\"why\":\"one sentence in your own words, max 32 words, on why this will still matter years or generations from now\"}}]}}. "
         f"Pick at most {MAX_PICKS}. Only include items scoring {MIN_SCORE} or more. "
-        "Use 'decades' for shifts that shape the next 50-100 years, 'centuries' for changes that will define an era, "
+        "Use 'years' for developments that will clearly shape the next 1-10 years: a pandemic declared, a war begun or ended, a landmark law or treaty taking effect, a major institution changing. Ordinary news does not qualify even at this tier. "
+        "Use 'decades' for shifts that shape the next 10-100 years, 'centuries' for changes that will define an era, "
         "'millennia' only for the rare event that changes humanity's or the planet's long trajectory."
     )
     body = json.dumps({"model": MODEL, "max_tokens": 2000, "system": system,
