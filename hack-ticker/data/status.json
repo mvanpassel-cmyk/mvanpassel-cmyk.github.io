@@ -1,4 +1,12 @@
 {
- "last_run": null,
- "note": "Started 31 October 2026 with eleven incidents added by hand. Automatic updates every four hours."
+ "last_run": "2026-10-31T09:23:34Z",
+ "feeds_ok": 13,
+ "feeds_failed": [],
+ "sources_failed": [],
+ "news_new": 116,
+ "incidents_added": 14,
+ "ai": false,
+ "model": "claude-sonnet-5-5",
+ "ransomware_new": 100,
+ "note": "No ANTHROPIC_API_KEY secret: news is counted but not turned into incidents."
 }
