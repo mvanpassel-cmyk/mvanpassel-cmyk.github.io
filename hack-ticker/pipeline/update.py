@@ -10,7 +10,7 @@ Sources, read every few hours:
 
 Standard library only. Writes data/incidents.json, data/weekly.json, data/status.json.
 """
-import hashlib, html, json, os, re, sys, time, urllib.request
+import csv, hashlib, html, json, io, os, re, sys, time, urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
@@ -340,6 +340,29 @@ def parse_incidents(text, cands, known_ids, now):
     return out
 
 
+# ---------- CSV record ----------
+CSV_COLUMNS = ["id", "date", "date_precision", "added", "impact", "impact_label", "title", "victim", "country", "region",
+               "sector", "type", "people_affected", "usd", "confirmed", "ai_related", "summary", "sources", "found_via"]
+LABELS = {1: "Minor", 2: "Limited", 3: "Significant", 4: "Major", 5: "Severe"}
+
+
+def write_csv(incidents):
+    """The full record of every incident, one row each, for spreadsheets."""
+    buf = io.StringIO()
+    w = csv.writer(buf, lineterminator="\n")
+    w.writerow(CSV_COLUMNS)
+    for i in incidents:
+        w.writerow([i["id"], i["date"], "month" if i.get("approx") == "month" else "day", i.get("added", ""),
+                    i["impact"], LABELS.get(i["impact"], ""), i["title"], i.get("victim", ""), i.get("country", ""),
+                    i.get("region", ""), i.get("sector", ""), i.get("type", ""), i.get("people") or "", i.get("usd") or "",
+                    "yes" if i.get("confirmed") else "claimed", "yes" if i.get("ai") else "no", i.get("summary", ""),
+                    " | ".join(f"{s['name']}: {s['url']}" for s in i.get("sources", [])), i.get("via", "")])
+    path = os.path.join(DATA, "incidents.csv")
+    with open(path + ".tmp", "w", encoding="utf-8-sig", newline="") as f:  # BOM so Excel reads accents correctly
+        f.write(buf.getvalue())
+    os.replace(path + ".tmp", path)
+
+
 # ---------- main ----------
 def main():
     now = datetime.now(timezone.utc)
@@ -412,6 +435,7 @@ def main():
             del d[k]
     incidents.sort(key=lambda i: (i["date"], i.get("impact", 0)), reverse=True)
     save("incidents.json", incidents[:5000])
+    write_csv(incidents)
     save("weekly.json", weekly)
     save("seen.json", seen)
     save("status.json", status)

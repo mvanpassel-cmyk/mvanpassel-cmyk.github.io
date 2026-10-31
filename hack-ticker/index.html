@@ -63,6 +63,8 @@ h1 span{color:var(--s4)}
 .chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .periods .sum{margin-left:auto;font:500 12px/1.4 var(--mono);color:var(--muted);text-align:right}
 .periods .sum b{color:var(--ink)}
+.dl{display:inline-flex;align-items:center;gap:6px;font:700 13px/1 var(--display);font-stretch:85%;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:1px solid var(--ink);padding:6px 10px;border-radius:3px}
+.dl:hover{background:var(--ink);color:var(--bg)}
 .board{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
 .cls{background:var(--card);border:1px solid var(--line);border-top:6px solid var(--c);padding:12px 12px 10px;border-radius:3px;cursor:pointer;text-align:left;min-width:0}
 .cls[aria-pressed=true]{outline:2px solid var(--c);outline-offset:-2px}
@@ -176,6 +178,7 @@ footer li b{color:var(--ink)}
       <h4>Where it comes from</h4>
       <p>Every four hours: a dozen security news feeds (The Record, BleepingComputer, DataBreaches.net, SecurityWeek, Security.nl and others), read by an AI editor that merges headlines into incidents and scores them; confirmed breaches from <a href="https://haveibeenpwned.com">Have I Been Pwned</a> (CC BY 4.0); crypto hacks from <a href="https://defillama.com/hacks">DeFiLlama</a>; and the number of victims posted on ransomware leak sites, from <a href="https://www.ransomware.live">ransomware.live</a>.</p>
       <p>Summaries are written fresh. Follow the source links for the original reporting.</p>
+      <p>The full record is kept as <a href="data/incidents.csv">a CSV file</a> (one row per incident, refreshed every four hours) and as <a href="data/incidents.json">JSON</a>.</p>
     </div>
     <div>
       <h4>Reading the chart</h4>
@@ -246,7 +249,7 @@ function filters(){
     M.map(([k,l])=>`<button class="chip" data-m="${k}" aria-pressed="${minImp===k&&!onlyCls}">${l}</button>`).join("")+'<span class="sep"></span>'+
     [["all","All types"],...types.map(t=>[t,t])].map(([k,l])=>`<button class="chip" data-t="${esc(k)}" aria-pressed="${type===k}">${esc(l)}</button>`).join("")+'<span class="sep"></span>'+
     `<button class="chip ai" data-ai="1" aria-pressed="${aiOnly}">AI-related</button>`+
-    `<span class="count" id="count"></span>`;
+    `<span class="count" id="count"></span><a class="dl" href="data/incidents.csv" download="hack-ticker-incidents.csv">↓ All incidents (CSV)</a>`;
 }
 function list(){
   const L=inc.filter(i=>inPeriod(i)&&(region==="all"||i.region===region||(region==="EU"&&i.region==="NL"))&&(type==="all"||i.type===type)&&(onlyCls?i.impact===onlyCls:i.impact>=minImp)&&(!aiOnly||i.ai));

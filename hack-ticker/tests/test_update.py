@@ -45,6 +45,20 @@ class T(unittest.TestCase):
         self.assertIsNotNone(update.similar(inc, "Binance CEX", d))
         self.assertIsNone(update.similar(inc, "Fence Finance", d))
 
+    def test_csv(self):
+        import csv, tempfile
+        d = tempfile.mkdtemp()
+        old, update.DATA = update.DATA, d
+        try:
+            update.write_csv([{"id": "a", "date": "2026-10-29", "impact": 5, "title": "T, with comma", "victim": "V",
+                               "confirmed": True, "sources": [{"name": "S", "url": "https://x"}]}])
+            rows = list(csv.reader(open(os.path.join(d, "incidents.csv"), encoding="utf-8-sig")))
+        finally:
+            update.DATA = old
+        self.assertEqual(rows[0][0], "id")
+        self.assertEqual(rows[1][6], "T, with comma")
+        self.assertEqual(rows[1][5], "Severe")
+
     def test_hack_words(self):
         self.assertTrue(update.HACK_WORDS.search("Groot datalek bij provider"))
         self.assertFalse(update.HACK_WORDS.search("New phone review"))
