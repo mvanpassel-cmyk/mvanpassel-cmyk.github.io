@@ -1,9 +1,10 @@
 {
- "last_run": null,
- "feeds_ok": 0,
+ "last_run": "2026-10-31T00:00:58Z",
+ "feeds_ok": 24,
  "feeds_failed": [],
- "candidates": 0,
+ "candidates": 220,
  "picked": 0,
  "ai": false,
- "note": "Starting set chosen by hand. Daily selection begins after the first scheduled run."
+ "model": "claude-sonnet-5-5",
+ "note": "No ANTHROPIC_API_KEY secret set: candidates fetched, nothing selected."
 }
