@@ -7,18 +7,19 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/logos/hack-ticker-32.png">
 <link rel="icon" type="image/svg+xml" href="/logos/hack-ticker.svg">
 <link rel="apple-touch-icon" href="/logos/hack-ticker-180.png">
-<meta name="description" content="A running timeline of cyber attacks, data breaches and crypto hacks, counted by impact class, with the Netherlands and Europe highlighted.">
+<meta name="description" content="A running timeline of cyber attacks, data breaches and crypto hacks, with impact and certainty scored separately, and the Netherlands and Europe highlighted.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>
-/* Layout: a black stock-exchange ticker on top, then a board of five impact classes, a weekly bar chart that answers
-   "is it happening more often?", and the incident timeline. Impact uses a heat scale from grey to deep red. */
+/* Layout: black ticker on top; a header with the live coverage of every source; ONE filter bar that scopes everything below
+   it (board, totals, chart, timeline); then the timeline with each incident's history. Impact = heat scale grey→deep red;
+   certainty is a separate outline label. */
 :root{
   --bg:#e8ebee; --card:#f6f7f8; --ink:#0d1015; --muted:#58616d; --line:#cdd3da; --soft:#dde1e6;
   --tick:#0d1015; --tick-ink:#f1f3f5;
   --s1:#8a94a0; --s2:#d9a400; --s3:#ee7a14; --s4:#d6370f; --s5:#8e0b22;
-  --nl:#1d5bd6; --line-news:#0d1015; --line-rw:#7a3fd1;
+  --nl:#1d5bd6; --line-news:#0d1015; --line-rw:#7a3fd1; --ok:#1f8a4c; --bad:#c2331a; --new:#1d5bd6;
   --display:"Archivo","Arial Narrow",system-ui,sans-serif;
   --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
   color-scheme:light;
@@ -26,12 +27,12 @@
 @media (prefers-color-scheme:dark){:root{
   --bg:#0f1217; --card:#161a21; --ink:#e9ecef; --muted:#97a1ad; --line:#2a313b; --soft:#20262f;
   --tick:#000; --tick-ink:#f1f3f5; --s1:#7d8794; --s2:#e8b81c; --s3:#ff8a2a; --s4:#ff5533; --s5:#e02a4a;
-  --nl:#5d8dff; --line-news:#e9ecef; --line-rw:#a77bff; color-scheme:dark}}
+  --nl:#5d8dff; --line-news:#e9ecef; --line-rw:#a77bff; --ok:#4fc27f; --bad:#ff6a4d; --new:#6f9dff; color-scheme:dark}}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 var(--display);font-stretch:100%;overflow-x:hidden}
 a{color:inherit}
-button{font:inherit;color:inherit}
+button,select,input{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 
 /* ticker band */
@@ -49,22 +50,52 @@ button{font:inherit;color:inherit}
 .ticker .it .sv{width:20px;height:20px;border-radius:3px;display:grid;place-items:center;font:700 12px/1 var(--mono);color:#fff}
 .ticker .it .amt{color:#c9ced4}
 
-.wrap{max-width:1040px;margin:0 auto;padding:30px max(16px,env(safe-area-inset-right,0px)) 70px max(16px,env(safe-area-inset-left,0px))}
-header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px 24px}
+.wrap{max-width:1040px;margin:0 auto;padding:28px max(16px,env(safe-area-inset-right,0px)) 70px max(16px,env(safe-area-inset-left,0px))}
+header{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
 h1{margin:0;font:900 clamp(44px,10vw,92px)/.86 var(--display);font-stretch:68%;letter-spacing:-.01em;text-transform:uppercase}
 h1 span{color:var(--s4)}
-.dek{margin:12px 0 0;max-width:46ch;font-size:17px;color:var(--muted);text-wrap:pretty}
-.stamp{font:500 12px/1.5 var(--mono);color:var(--muted);text-align:right}
-.stamp b{color:var(--ink)}
+.dek{margin:0;max-width:52ch;font-size:17px;color:var(--muted);text-wrap:pretty}
+/* coverage strip: what was checked, when */
+.coverage{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;padding:10px 12px;border:1px solid var(--line);background:var(--card);border-radius:3px;font:500 12px/1.4 var(--mono);color:var(--muted)}
+.coverage b{color:var(--ink)}
+.coverage .src{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.coverage .src i{width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.coverage .src.ok i{background:var(--ok)} .coverage .src.bad i{background:var(--bad)} .coverage .src.off i{background:transparent;border:1.5px solid var(--muted)}
+.coverage .warn{flex-basis:100%;color:var(--ink);font-family:var(--display);font-size:13px}
+
+/* one filter bar for the whole page */
+.scope{margin-top:22px;padding:14px 0 12px;border-top:2px solid var(--ink);border-bottom:1px solid var(--line);display:grid;gap:10px}
+.row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.seg button{border:0;background:transparent;padding:7px 11px;font:700 13px/1 var(--display);font-stretch:85%;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;border-right:1px solid var(--line)}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+select,input[type=search]{border:1px solid var(--line);background:var(--card);border-radius:3px;padding:6px 8px;font-size:14px;min-width:0;max-width:100%}
+input[type=search]{flex:1 1 220px}
+.chip{border:1px solid var(--line);background:transparent;padding:6px 11px;border-radius:3px;font:700 13px/1 var(--display);font-stretch:85%;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip.ai[aria-pressed=true]{background:var(--line-rw);border-color:var(--line-rw);color:#fff}
+.chip.quiet{border-style:dashed;color:var(--muted)}
+.views{font-size:13px;color:var(--muted)}
+#more{display:grid;gap:10px}
+#more>summary{cursor:pointer;font:700 13px/1 var(--display);font-stretch:85%;letter-spacing:.06em;text-transform:uppercase;padding:6px 0;list-style:none}
+#more>summary::-webkit-details-marker{display:none}
+#more>summary::before{content:"+ "} #more[open]>summary::before{content:"− "}
+#more[open]>.row{margin-top:10px}
+@media (min-width:641px){#more>summary{display:none}}
+.views .v{display:inline-flex;align-items:center;border:1px solid var(--nl);border-radius:3px;overflow:hidden}
+.views .v button{border:0;background:transparent;color:var(--nl);padding:5px 8px;font:700 12px/1 var(--display);font-stretch:85%;letter-spacing:.04em;text-transform:uppercase;cursor:pointer}
+.views .v button.x{border-left:1px solid var(--nl);padding:5px 7px}
+.views .v.on{background:var(--nl)} .views .v.on button{color:#fff}
+
+/* since last visit */
+.since{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;padding:9px 12px;border-left:4px solid var(--new);background:var(--card);font-size:14px}
+.since b{font-weight:800}
 
 /* board */
-.periods{display:flex;gap:6px;margin:30px 0 10px;flex-wrap:wrap;align-items:center}
-.chip{border:1px solid var(--line);background:transparent;padding:6px 12px;border-radius:3px;font:700 13px/1 var(--display);font-stretch:85%;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
-.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.periods .sum{margin-left:auto;font:500 12px/1.4 var(--mono);color:var(--muted);text-align:right}
-.periods .sum b{color:var(--ink)}
-.dl{display:inline-flex;align-items:center;gap:6px;font:700 13px/1 var(--display);font-stretch:85%;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:1px solid var(--ink);padding:6px 10px;border-radius:3px}
-.dl:hover{background:var(--ink);color:var(--bg)}
+.overview{margin-top:20px}
+.overview h2{margin:0 0 8px;font:800 15px/1.3 var(--display);font-stretch:85%;letter-spacing:.1em;text-transform:uppercase}
+.overview h2 span{color:var(--muted);font-weight:600;letter-spacing:.04em}
 .board{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
 .cls{background:var(--card);border:1px solid var(--line);border-top:6px solid var(--c);padding:12px 12px 10px;border-radius:3px;cursor:pointer;text-align:left;min-width:0}
 .cls[aria-pressed=true]{outline:2px solid var(--c);outline-offset:-2px}
@@ -73,39 +104,53 @@ h1 span{color:var(--s4)}
 .cls .l i{font:700 11px/1 var(--mono);color:#fff;background:var(--c);border-radius:2px;padding:3px 5px;font-style:normal}
 .cls .short{display:none}
 .cls .d{margin-top:4px;font-size:12px;line-height:1.3;color:var(--muted)}
+.cls .c{margin-top:4px;font:500 11px/1.3 var(--mono);color:var(--muted)}
+.sum{margin:8px 0 0;font:500 12px/1.6 var(--mono);color:var(--muted)}
+.sum b{color:var(--ink)}
 
 /* chart */
 .chart{margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:3px;padding:14px 14px 10px}
-.chart h2,.list-h{margin:0;font:800 15px/1.2 var(--display);font-stretch:85%;letter-spacing:.1em;text-transform:uppercase}
+.chart h2{margin:0;font:800 15px/1.2 var(--display);font-stretch:85%;letter-spacing:.1em;text-transform:uppercase}
 .chart .legend{display:flex;flex-wrap:wrap;gap:4px 14px;margin:6px 0 4px;font-size:12px;color:var(--muted)}
 .chart .legend span{display:inline-flex;align-items:center;gap:5px}
 .chart .legend i{width:10px;height:10px;border-radius:2px;display:inline-block}
 .chart .legend i.ln{height:2px;width:14px;border-radius:0}
-.chart .scroll{overflow-x:auto}
 .chart svg{display:block;width:100%;height:auto}
-.chart .note{margin:6px 0 0;font-size:12px;color:var(--muted)}
+.chart .note{margin:6px 0 0;font-size:12px;color:var(--muted);max-width:80ch}
 
-/* list */
-.filters{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:36px 0 6px;padding-bottom:12px;border-bottom:2px solid var(--ink)}
-.filters .sep{width:1px;height:22px;background:var(--line);margin:0 2px}
-.filters .count{margin-left:auto;font:500 12px/1 var(--mono);color:var(--muted)}
+/* timeline */
+.tl-h{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:34px 0 4px;padding-bottom:10px;border-bottom:2px solid var(--ink)}
+.tl-h h2{margin:0;font:800 15px/1.2 var(--display);font-stretch:85%;letter-spacing:.1em;text-transform:uppercase;margin-right:auto}
+.tl-h .count{font:500 12px/1 var(--mono);color:var(--muted)}
+.dl{display:inline-flex;align-items:center;gap:6px;font:700 13px/1 var(--display);font-stretch:85%;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:1px solid var(--ink);padding:6px 10px;border-radius:3px}
+.dl:hover{background:var(--ink);color:var(--bg)}
 .month{margin:24px 0 2px;font:800 13px/1 var(--display);font-stretch:85%;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .inc{display:grid;grid-template-columns:52px minmax(0,1fr);gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
 .inc .sev{width:52px;height:52px;border-radius:3px;background:var(--c);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;
   font:900 26px/1 var(--display);font-stretch:75%}
 .inc .sev small{font:600 9px/1 var(--mono);letter-spacing:.06em;opacity:.85;margin-top:2px}
+.inc.claimed .sev,.inc.disputed .sev{background:transparent;color:var(--c);border:3px dashed var(--c)}
 .inc h3{margin:0 0 3px;font:800 clamp(18px,3.2vw,21px)/1.2 var(--display);font-stretch:90%;text-wrap:balance}
 .inc p{margin:0 0 6px;color:var(--muted);font-size:15px;max-width:70ch}
+.judge{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin:0 0 6px;font-size:14px}
+.judge .imp{font-weight:800}
+.judge .why{color:var(--muted)}
+.st{font:800 11px/1 var(--display);font-stretch:85%;letter-spacing:.1em;text-transform:uppercase;padding:4px 6px;border-radius:2px;border:1px solid}
+.st.confirmed{color:var(--ok);border-color:var(--ok)} .st.claimed{color:var(--s3);border-color:var(--s3);border-style:dashed} .st.disputed{color:var(--muted);border-color:var(--muted);border-style:dashed}
+.st.restored{color:var(--ok);border-color:var(--ok);background:transparent}
+.badge{font:800 11px/1 var(--display);font-stretch:85%;letter-spacing:.1em;text-transform:uppercase;padding:4px 6px;border-radius:2px;background:var(--new);color:#fff}
 .meta{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;font:500 12px/1.4 var(--mono);color:var(--muted)}
 .meta .tag{font:800 11px/1 var(--display);font-stretch:85%;letter-spacing:.1em;text-transform:uppercase;padding:4px 6px;border-radius:2px;border:1px solid var(--line);color:var(--ink)}
 .meta .tag.nl{background:var(--nl);border-color:var(--nl);color:#fff}
 .meta .tag.eu{border-color:var(--nl);color:var(--nl)}
-.meta .tag.claim{border-style:dashed}
 .meta .tag.ai{background:var(--line-rw);border-color:var(--line-rw);color:#fff}
-.chip.ai[aria-pressed=true]{background:var(--line-rw);border-color:var(--line-rw);color:#fff}
 .meta .big{color:var(--ink);font-weight:700}
 .meta a{text-decoration:none;border-bottom:1px solid var(--line)}
 .meta a:hover{border-color:var(--ink)}
+details.hist{margin-top:6px;font-size:13px;color:var(--muted)}
+details.hist summary{cursor:pointer;font:700 12px/1.4 var(--mono)}
+details.hist ol{margin:6px 0 0;padding-left:18px}
+details.hist li{margin-bottom:2px}
 .empty{padding:28px 0;color:var(--muted)}
 
 footer{margin-top:54px;padding-top:18px;border-top:2px solid var(--ink);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:18px 30px;font-size:14px;color:var(--muted)}
@@ -116,14 +161,13 @@ footer li{margin-bottom:3px}
 footer li b{color:var(--ink)}
 
 @media (max-width:640px){
-  .board{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
+  .board{gap:4px}
   .cls{padding:8px 6px;border-top-width:5px}
-  .cls .d{display:none}
+  .cls .d,.cls .c{display:none}
   .cls .l{font-size:11px;letter-spacing:.04em}
-  .cls .l i{display:none}
-  .cls .full{display:none}.cls .short{display:inline}
-  .stamp{text-align:left}
-  .periods .sum{margin-left:0;text-align:left;width:100%}
+  .cls .l i,.cls .full{display:none} .cls .short{display:inline}
+  .seg button{padding:7px 8px;font-size:12px}
+  select{flex:1 1 45%}
 }
 @media (prefers-reduced-motion:reduce){.ticker .track{animation:none;overflow-x:auto}.ticker .live i{animation:none}}
 </style>
@@ -136,54 +180,79 @@ footer li b{color:var(--ink)}
 
 <div class="wrap">
   <header>
-    <div>
-      <h1>Hack<span>·</span>Ticker</h1>
-      <p class="dek">Cyber attacks, data breaches and crypto hacks as they come in, each with an impact class from 1 to 5. The Netherlands and Europe are marked.</p>
-    </div>
-    <div class="stamp" id="stamp">Loading…</div>
+    <h1>Hack<span>·</span>Ticker</h1>
+    <p class="dek">Cyber attacks, data breaches and crypto hacks, each scored twice: how serious it would be, and how sure we are. The Netherlands and Europe are marked.</p>
+    <div class="coverage" id="coverage">Loading…</div>
   </header>
 
-  <div class="periods" role="group" aria-label="Period">
-    <button class="chip" data-p="7">7 days</button>
-    <button class="chip" data-p="30">30 days</button>
-    <button class="chip" data-p="year">This year</button>
-    <button class="chip" data-p="all">All</button>
-    <span class="sum" id="sum"></span>
-  </div>
-  <section class="board" id="board" aria-label="Incidents by impact class"></section>
+  <section class="scope" aria-label="Filters for the whole page">
+    <div class="row">
+      <div class="seg" id="fperiod" role="group" aria-label="Period">
+        <button data-v="7">7 days</button><button data-v="30">30 days</button><button data-v="year">This year</button><button data-v="all">All</button>
+      </div>
+      <div class="seg" id="fregion" role="group" aria-label="Region">
+        <button data-v="all">World</button><button data-v="NL">NL</button><button data-v="EU">Europe incl. NL</button><button data-v="World">Outside Europe</button>
+      </div>
+    </div>
+    <details id="more"><summary id="moresum">More filters</summary>
+    <div class="row">
+      <input type="search" id="fq" placeholder="Search victim, title or summary" aria-label="Search">
+      <select id="fsector" aria-label="Sector"></select>
+      <select id="ftype" aria-label="Type"></select>
+      <select id="fimp" aria-label="Impact">
+        <option value="0">Any impact</option><option value="2">2 and up</option><option value="3">3 and up</option><option value="4">4 and up</option>
+        <option value="=1">Only 1 Minor</option><option value="=2">Only 2 Limited</option><option value="=3">Only 3 Significant</option><option value="=4">Only 4 Major</option><option value="=5">Only 5 Severe</option>
+      </select>
+      <select id="fstatus" aria-label="Status">
+        <option value="all">Any status</option><option value="confirmed">Confirmed</option><option value="claimed">Claimed</option><option value="disputed">Disputed</option>
+      </select>
+      <button class="chip ai" id="fai" aria-pressed="false">AI-related</button>
+      <button class="chip quiet" id="freset">Reset</button>
+    </div>
+    <div class="row views" id="views"></div>
+    </details>
+  </section>
 
-  <section class="chart" aria-label="Incidents per week">
-    <h2>Is it happening more often?</h2>
+  <div class="since" id="since" hidden></div>
+
+  <section class="overview" aria-label="Overview for the current filters">
+    <h2>Overview <span id="scopeText"></span></h2>
+    <div class="board" id="board"></div>
+    <p class="sum" id="sum"></p>
+  </section>
+
+  <section class="chart" aria-label="Incidents and reporting per week">
+    <h2>Incidents and reporting captured over time</h2>
     <div class="legend" id="legend"></div>
-    <div class="scroll"><svg id="chart" viewBox="0 0 900 260" role="img" aria-label="Incidents per week by impact class, with news attention and ransomware postings"></svg></div>
+    <svg id="chart" viewBox="0 0 900 260" role="img" aria-label="Incidents per week by impact class for the current filters, with global news and ransomware lines"></svg>
     <p class="note" id="chartnote"></p>
   </section>
 
-  <div class="filters" id="filters"></div>
+  <div class="tl-h"><h2>Timeline</h2><span class="count" id="count"></span><a class="dl" href="data/incidents.csv" download="hack-ticker-incidents.csv">↓ All incidents (CSV)</a></div>
   <main id="list" aria-live="polite"></main>
 
   <footer>
     <div>
-      <h4>Impact classes</h4>
+      <h4>Impact: how serious</h4>
       <ol>
-        <li><b>Minor</b>: one small organisation, under 10,000 people.</li>
-        <li><b>Limited</b>: up to 1 million people, local disruption, under $10M.</li>
-        <li><b>Significant</b>: 1–10 million people, services down for days, a national chain hit, $10–100M.</li>
-        <li><b>Major</b>: 10–100 million people, hospitals, energy, telecom or government disrupted, $100M–1B, state espionage.</li>
-        <li><b>Severe</b>: over 100 million people, several countries disrupted, over $1B, or risk to life.</li>
+        <li><b>Minor</b>: one small organisation, under 10,000 records.</li>
+        <li><b>Limited</b>: up to 1 million records, local disruption, under $10M.</li>
+        <li><b>Significant</b>: 1–10 million records, services down for days, a national chain hit, $10–100M.</li>
+        <li><b>Major</b>: 10–100 million records, hospitals, energy, telecom or government disrupted, $100M–1B, state espionage.</li>
+        <li><b>Severe</b>: over 100 million records, several countries disrupted, over $1B, or risk to life.</li>
       </ol>
-      <p>Claims by criminal groups that the victim has not confirmed are marked "claimed" and stay at class 3 or lower.</p>
+      <p>Impact is scored as if the reported facts are true. Each incident says why it got its class.</p>
+    </div>
+    <div>
+      <h4>Status: how sure</h4>
+      <p><b>Confirmed</b>: the victim or authorities confirmed it. <b>Claimed</b>: only the attackers or researchers say so. <b>Disputed</b>: the victim denies it. Claimed and disputed incidents have an outlined impact block.</p>
+      <h4 style="margin-top:14px">Records are not people</h4>
+      <p>Totals count reported records or accounts. One person can appear in many breaches, and records can repeat, so these are not counts of unique people.</p>
     </div>
     <div>
       <h4>Where it comes from</h4>
-      <p>Every four hours: a dozen security news feeds (The Record, BleepingComputer, DataBreaches.net, SecurityWeek, Security.nl and others), read by an AI editor that merges headlines into incidents and scores them; confirmed breaches from <a href="https://haveibeenpwned.com">Have I Been Pwned</a> (CC BY 4.0); crypto hacks from <a href="https://defillama.com/hacks">DeFiLlama</a>; and the number of victims posted on ransomware leak sites, from <a href="https://www.ransomware.live">ransomware.live</a>.</p>
-      <p>Summaries are written fresh. Follow the source links for the original reporting.</p>
-      <p>The full record is kept as <a href="data/incidents.csv">a CSV file</a> (one row per incident, refreshed every four hours) and as <a href="data/incidents.json">JSON</a>.</p>
-    </div>
-    <div>
-      <h4>Reading the chart</h4>
-      <p>Bars count incidents on this page per week. The black line counts security news headlines about hacks, so you can see whether there is more news or more hacks. The purple line counts victims posted by ransomware groups, which rises with actual attacks rather than coverage.</p>
-      <p id="status"></p>
+      <p>Every four hours: about a dozen security news feeds read by an AI editor that merges headlines into incidents and updates them; confirmed breaches from <a href="https://haveibeenpwned.com">Have I Been Pwned</a> (CC BY 4.0); crypto hacks from <a href="https://defillama.com/hacks">DeFiLlama</a>; and victims posted on ransomware leak sites, from <a href="https://www.ransomware.live">ransomware.live</a>. Incidents before 31 October 2026 come from a one-off review of monthly roundups and are a selection, not a full count.</p>
+      <p>The full record, including each incident's history, is in <a href="data/incidents.csv">CSV</a> and <a href="data/incidents.json">JSON</a>.</p>
     </div>
   </footer>
 </div>
@@ -191,40 +260,104 @@ footer li b{color:var(--ink)}
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const CLS=[null,{n:"Minor",s:"Minor",d:"Small, contained"},{n:"Limited",s:"Limited",d:"Up to 1M people"},{n:"Significant",s:"Signif.",d:"Millions, or days of disruption"},{n:"Major",s:"Major",d:"Critical services, tens of millions"},{n:"Severe",s:"Severe",d:"Global scale or risk to life"}];
+const CLS=[null,{n:"Minor",s:"Minor",d:"Small, contained"},{n:"Limited",s:"Limited",d:"Up to 1M records"},{n:"Significant",s:"Signif.",d:"Millions, or days of disruption"},{n:"Major",s:"Major",d:"Critical services, tens of millions"},{n:"Severe",s:"Severe",d:"Global scale or risk to life"}];
 const MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 const MONL=["January","February","March","April","May","June","July","August","September","October","November","December"];
-let inc=[],weekly={news:{},ransomware:{},ransomware_nl:{}},period="year",minImp=0,onlyCls=null,region="all",type="all",aiOnly=false;
-const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const DEF={p:"year",r:"all",q:"",s:"all",t:"all",i:"0",st:"all",ai:false,ch:false};
+let F=Object.assign({},DEF),inc=[],weekly={news:{},ransomware:{}},status=null,prevVisit=null;
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const today=new Date();
-const day=s=>new Date(s.slice(0,10)+"T12:00:00Z");
-function fmtN(n){if(n==null)return"";if(n>=1e9)return(n/1e9).toFixed(n>=1e10?0:1)+" billion";if(n>=1e6)return(n/1e6).toFixed(n>=1e7?0:1)+" million";if(n>=1e3)return Math.round(n/1e3)+",000";return String(n)}
+const day=s=>new Date(String(s).slice(0,10)+"T12:00:00Z");
+const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+function fmtN(n){if(n==null)return"";if(n>=1e9)return(n/1e9).toFixed(1)+" billion";if(n>=1e6)return(n/1e6).toFixed(n>=1e7?0:1)+" million";if(n>=1e3)return Math.round(n/1e3)+",000";return String(n)}
 function fmtUsd(n){if(n==null)return"";if(n>=1e9)return"$"+(n/1e9).toFixed(1)+"B";if(n>=1e6)return"$"+(n/1e6).toFixed(n>=1e8?0:1)+"M";return"$"+Math.round(n/1e3)+"K"}
-function inPeriod(i){if(period==="all")return true;const d=day(i.date);if(period==="year")return d.getUTCFullYear()===today.getUTCFullYear();return (today-d)/864e5<=+period}
+function fmtDate(i,short){const d=day(i.date);if(i.approx==="month")return(short?MON:MONL)[d.getUTCMonth()]+" "+d.getUTCFullYear();return d.getUTCDate()+" "+MON[d.getUTCMonth()]+(short?"":" "+d.getUTCFullYear())}
 function isoWeek(d){const t=new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate()));const dn=t.getUTCDay()||7;t.setUTCDate(t.getUTCDate()+4-dn);
   const y=t.getUTCFullYear(),w=Math.ceil(((t-Date.UTC(y,0,1))/864e5+1)/7);return y+"-W"+String(w).padStart(2,"0")}
-function fmtDate(i,short){const d=day(i.date);if(i.approx==="month")return(short?MON:MONL)[d.getUTCMonth()]+" "+d.getUTCFullYear();return d.getUTCDate()+" "+MON[d.getUTCMonth()]+(short?"":" "+d.getUTCFullYear())}
+const lastChange=i=>{const u=i.updates||[];return u.length?u[u.length-1].date:null};
+const isNew=i=>prevVisit&&(i.added||"")>prevVisit;
+const isUpdated=i=>prevVisit&&!isNew(i)&&(lastChange(i)||"")>prevVisit;
 
+/* ---------- filtering: one definition used by every section ---------- */
+function inPeriod(i){if(F.p==="all")return true;const d=day(i.date);if(F.p==="year")return d.getUTCFullYear()===today.getUTCFullYear();return (today-d)/864e5<=+F.p}
+function match(i,skipImpact){
+  if(!inPeriod(i))return false;
+  if(F.r!=="all"&&!(i.region===F.r||(F.r==="EU"&&i.region==="NL")))return false;
+  if(F.s!=="all"&&i.sector!==F.s)return false;
+  if(F.t!=="all"&&i.type!==F.t)return false;
+  if(F.st!=="all"&&i.status!==F.st)return false;
+  if(F.ai&&!i.ai)return false;
+  if(F.ch&&!(isNew(i)||isUpdated(i)))return false;
+  if(F.q){const q=F.q.toLowerCase();if(![i.title,i.victim,i.summary,i.sector,i.type,i.country].join(" ").toLowerCase().includes(q))return false}
+  if(!skipImpact&&F.i!=="0"){if(F.i[0]==="="){if(i.impact!==+F.i.slice(1))return false}else if(i.impact<+F.i)return false}
+  return true;
+}
+function scopeText(){
+  const bits=[{7:"last 7 days",30:"last 30 days",year:"this year",all:"all time"}[F.p],{all:"world",NL:"Netherlands",EU:"Europe incl. NL",World:"outside Europe"}[F.r]];
+  if(F.s!=="all")bits.push(F.s);if(F.t!=="all")bits.push(F.t);
+  if(F.i!=="0")bits.push(F.i[0]==="="?"impact "+F.i.slice(1):"impact "+F.i+"+");
+  if(F.st!=="all")bits.push(F.st);if(F.ai)bits.push("AI-related");if(F.q)bits.push(`“${F.q}”`);if(F.ch)bits.push("changed since last visit");
+  return bits.join(" · ");
+}
+
+/* ---------- URL hash keeps the view, so it can be bookmarked ---------- */
+function toHash(){const p=[];for(const k in DEF){if(k==="ch")continue;if(String(F[k])!==String(DEF[k]))p.push(k+"="+encodeURIComponent(F[k]))}return p.join("&")}
+function fromHash(h){const o=Object.assign({},DEF);(h||"").replace(/^#/,"").split("&").forEach(kv=>{const [k,v]=kv.split("=");if(k in DEF&&v!=null)o[k]=k==="ai"?v==="true":decodeURIComponent(v)});return o}
+function syncHash(){const h=toHash();history.replaceState(null,"",h?"#"+h:location.pathname+location.search)}
+
+/* ---------- saved views (this browser only) ---------- */
+const SUGGESTED={name:"NL + Europe · Health · 3+",hash:"r=EU&s=Health&i=3"};
+function views(){
+  let v=store.get("ht.views");if(!Array.isArray(v))v=[SUGGESTED];
+  const cur=toHash();
+  $("#views").innerHTML=`<span>Saved views:</span>`+v.map((x,k)=>`<span class="v ${x.hash===cur?"on":""}"><button data-view="${k}">${esc(x.name)}</button><button class="x" data-del="${k}" aria-label="Remove ${esc(x.name)}">×</button></span>`).join("")+
+    `<button class="chip quiet" id="save" ${!cur||v.some(x=>x.hash===cur)?"disabled":""}>+ Save this view</button>`;
+  $("#views").onclick=e=>{const a=e.target.closest("[data-view]"),d=e.target.closest("[data-del]");
+    if(a){F=fromHash(v[+a.dataset.view].hash);render();return}
+    if(d){v.splice(+d.dataset.del,1);store.set("ht.views",v);views();return}
+    if(e.target.id==="save"){v.push({name:scopeText().replace(/^this year · /,""),hash:cur});store.set("ht.views",v);views()}};
+}
+
+/* ---------- sections ---------- */
+function coverage(){
+  if(!status){$("#coverage").textContent="";return}
+  const c=status.coverage||{},d=status.last_run?new Date(status.last_run):null;
+  const item=(n,v)=>{const cls=v==="ok"||v==="on"||/^(\d+)\/\1$/.test(v)?"ok":v==="off"?"off":/^\d+\/\d+$/.test(v)?"bad":"bad";return `<span class="src ${cls}"><i></i>${esc(n)} ${esc(v)}</span>`};
+  let h=d?`<span>Checked <b>${d.toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}</b> · every 4 hours</span>`:"";
+  h+=Object.entries(c).map(([n,v])=>item(n,v)).join("");
+  if(c["AI editor"]&&c["AI editor"]!=="on")h+=`<span class="warn">AI editor ${c["AI editor"]==="off"?"off":"failing"}: only Have I Been Pwned breaches and DeFiLlama crypto hacks are added automatically. Attacks reported only in the news are not.</span>`;
+  $("#coverage").innerHTML=h;
+}
 function ticker(){
   const top=inc.slice(0,14);if(!top.length)return;
-  const one=top.map(i=>`<a class="it" href="#${esc(i.id)}"><span class="sv" style="background:var(--s${i.impact})">${i.impact}</span><b>${esc(i.victim||i.title)}</b><span>${esc(i.type)}</span><span class="amt">${i.usd?fmtUsd(i.usd):i.people?fmtN(i.people)+" people":""}</span><span class="amt">${fmtDate(i,true)}</span></a>`).join("");
+  const one=top.map(i=>`<a class="it" href="#${esc(i.id)}"><span class="sv" style="background:var(--s${i.impact})">${i.impact}</span><b>${esc(i.victim||i.title)}</b><span>${esc(i.type)}</span><span class="amt">${i.usd?fmtUsd(i.usd):i.people?fmtN(i.people)+" records":""}</span><span class="amt">${fmtDate(i,true)}</span></a>`).join("");
   $("#track").innerHTML=one+one;$("#track").style.setProperty("--dur",Math.max(40,top.length*7)+"s");
 }
+function since(){
+  const el=$("#since");if(!prevVisit){el.hidden=true;return}
+  const n=inc.filter(isNew).length,u=inc.filter(isUpdated).length,d=day(prevVisit);
+  el.hidden=false;
+  el.innerHTML=`<span>Since your last visit on <b>${d.getUTCDate()} ${MON[d.getUTCMonth()]}</b>: <b>${n}</b> new, <b>${u}</b> updated.</span>`+
+    (n+u?`<button class="chip" id="fch" aria-pressed="${F.ch}">${F.ch?"Show everything":"Show only these"}</button>`:"");
+  const b=$("#fch");if(b)b.onclick=()=>{F.ch=!F.ch;render()};
+}
 function board(){
-  const list=inc.filter(inPeriod);
-  $("#board").innerHTML=[1,2,3,4,5].map(c=>{const n=list.filter(i=>i.impact===c).length;
-    return `<button class="cls" style="--c:var(--s${c})" data-c="${c}" aria-pressed="${onlyCls===c}"><div class="n">${n}</div><div class="l"><i>${c}</i><span class="full">${CLS[c].n}</span><span class="short">${CLS[c].s}</span></div><div class="d">${CLS[c].d}</div></button>`}).join("");
-  const ppl=list.reduce((a,i)=>a+(i.confirmed&&i.people?i.people:0),0),usd=list.reduce((a,i)=>a+(i.usd||0),0),nl=list.filter(i=>i.region==="NL").length;
-  $("#sum").innerHTML=`<b>${list.length}</b> incidents · <b>${fmtN(ppl)||0}</b> people in confirmed breaches · <b>${fmtUsd(usd)||"$0"}</b> stolen · <b>${nl}</b> in NL`;
+  const L=inc.filter(i=>match(i,true));
+  $("#board").innerHTML=[1,2,3,4,5].map(c=>{const all=L.filter(i=>i.impact===c),conf=all.filter(i=>i.status==="confirmed").length,on=F.i==="="+c;
+    return `<button class="cls" style="--c:var(--s${c})" data-c="${c}" aria-pressed="${on}"><div class="n">${all.length}</div><div class="l"><i>${c}</i><span class="full">${CLS[c].n}</span><span class="short">${CLS[c].s}</span></div><div class="d">${CLS[c].d}</div><div class="c">${conf} confirmed · ${all.length-conf} claimed or disputed</div></button>`}).join("");
+  const S=inc.filter(i=>match(i)),conf=S.filter(i=>i.status==="confirmed");
+  const rec=conf.reduce((a,i)=>a+(i.people||0),0),usd=conf.filter(i=>i.type==="Crypto theft").reduce((a,i)=>a+(i.usd||0),0);
+  $("#scopeText").textContent="· "+scopeText();
+  $("#sum").innerHTML=`<b>${S.length}</b> incidents (<b>${conf.length}</b> confirmed, ${S.length-conf.length} claimed or disputed) · <b>${fmtN(rec)||0}</b> records or accounts reported in confirmed breaches; not unique people, may overlap · <b>${fmtUsd(usd)||"$0"}</b> stolen in confirmed crypto thefts`;
 }
 function chart(){
-  const narrow=innerWidth<640,N=narrow?13:26,weeks=[];$("#chart").setAttribute("viewBox",`0 0 ${narrow?440:900} 260`);const d=new Date(Date.UTC(today.getUTCFullYear(),today.getUTCMonth(),today.getUTCDate()));
-  for(let k=N-1;k>=0;k--){const x=new Date(d-k*7*864e5);weeks.push(isoWeek(x))}
-  const per=weeks.map(w=>[0,0,0,0,0,0]);
-  inc.forEach(i=>{if(i.approx)return;const k=weeks.indexOf(isoWeek(day(i.date)));if(k>=0)per[k][i.impact]++});
+  const narrow=innerWidth<640,N=narrow?13:26,W=narrow?440:900,H=260,L=34,R=40,T=14,B=30;$("#chart").setAttribute("viewBox",`0 0 ${W} ${H}`);
+  const d=new Date(Date.UTC(today.getUTCFullYear(),today.getUTCMonth(),today.getUTCDate())),weeks=[];
+  for(let k=N-1;k>=0;k--)weeks.push(isoWeek(new Date(d-k*7*864e5)));
+  const per=weeks.map(()=>[0,0,0,0,0,0]);
+  inc.filter(i=>!i.approx&&match(Object.assign({},i,{date:i.date}),false)).forEach(i=>{const k=weeks.indexOf(isoWeek(day(i.date)));if(k>=0)per[k][i.impact]++});
   const tot=per.map(p=>p.reduce((a,b)=>a+b,0)),news=weeks.map(w=>weekly.news[w]),rw=weeks.map(w=>weekly.ransomware[w]);
-  const W=narrow?440:900,H=260,L=34,R=40,T=14,B=30,cw=(W-L-R)/N,max=Math.max(4,...tot),nmax=Math.max(10,...news.filter(Boolean),...rw.filter(Boolean));
+  const cw=(W-L-R)/N,max=Math.max(4,...tot),nmax=Math.max(10,...news.filter(Boolean),...rw.filter(Boolean));
   const y=v=>T+(H-T-B)*(1-v/max),y2=v=>T+(H-T-B)*(1-v/nmax);
   const step=max<=8?1:max<=20?5:10;let g="";
   for(let v=0;v<=max;v+=step)g+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${L-6}" y="${y(v)+4}" text-anchor="end" font-size="11" fill="var(--muted)" font-family="JetBrains Mono">${v}</text>`;
@@ -232,63 +365,77 @@ function chart(){
   per.forEach((p,k)=>{let acc=0;for(let c=1;c<=5;c++){if(!p[c])continue;const y0=y(acc),y1=y(acc+p[c]);acc+=p[c];
     g+=`<rect x="${L+k*cw+cw*.18}" y="${y1}" width="${cw*.64}" height="${y0-y1}" fill="var(--s${c})"><title>${weeks[k]}: ${p[c]} × class ${c}</title></rect>`}
     if(k%(narrow?3:4)===0||k===N-1){const wd=new Date(d-(N-1-k)*7*864e5);g+=`<text x="${L+k*cw+cw/2}" y="${H-10}" text-anchor="middle" font-size="11" fill="var(--muted)" font-family="JetBrains Mono">${wd.getUTCDate()} ${MON[wd.getUTCMonth()]}</text>`}});
+  // where automatic tracking began
+  const tw=weeks.indexOf(isoWeek(day((status&&status.tracking_since)||"2026-10-31")));
+  if(tw>=0){const X=L+tw*cw;g+=`<line x1="${X}" x2="${X}" y1="${T}" y2="${H-B}" stroke="var(--ink)" stroke-dasharray="3 3"/><text x="${X-4}" y="${T+10}" text-anchor="end" font-size="10" fill="var(--muted)" font-family="JetBrains Mono">automatic tracking →</text>`}
   const line=(arr,color)=>{let p="",dots="";arr.forEach((v,k)=>{if(v==null)return;const X=L+k*cw+cw/2,Y=y2(v);p+=(p?"L":"M")+X.toFixed(1)+" "+Y.toFixed(1);dots+=`<circle cx="${X}" cy="${Y}" r="3" fill="${color}"><title>${weeks[k]}: ${v}</title></circle>`});
     return p?`<path d="${p}" fill="none" stroke="${color}" stroke-width="2"/>`+dots:""};
   g+=line(news,"var(--line-news)")+line(rw,"var(--line-rw)");
   $("#chart").innerHTML=g;
   $("#legend").innerHTML=[1,2,3,4,5].map(c=>`<span><i style="background:var(--s${c})"></i>${CLS[c].n}</span>`).join("")+
-    `<span><i class="ln" style="background:var(--line-news)"></i>News headlines about hacks (right axis)</span><span><i class="ln" style="background:var(--line-rw)"></i>Ransomware leak-site victims (right axis)</span>`;
-  const have=news.filter(v=>v!=null).length;
-  $("#chartnote").textContent=have<4?"Tracking started on 31 October 2026, so the lines grow week by week. Earlier weeks only hold major incidents added by hand.":"Weeks without a line point were not yet tracked.";
-}
-function filters(){
-  const types=[...new Set(inc.map(i=>i.type))].sort();
-  const R=[["all","All regions"],["NL","Netherlands"],["EU","Europe"],["World","Rest of world"]],M=[[0,"All impact"],[3,"3 and up"],[4,"4 and up"]];
-  $("#filters").innerHTML=`<h2 class="list-h" style="width:100%;margin-bottom:4px">Timeline</h2>`+
-    R.map(([k,l])=>`<button class="chip" data-r="${k}" aria-pressed="${region===k}">${l}</button>`).join("")+'<span class="sep"></span>'+
-    M.map(([k,l])=>`<button class="chip" data-m="${k}" aria-pressed="${minImp===k&&!onlyCls}">${l}</button>`).join("")+'<span class="sep"></span>'+
-    [["all","All types"],...types.map(t=>[t,t])].map(([k,l])=>`<button class="chip" data-t="${esc(k)}" aria-pressed="${type===k}">${esc(l)}</button>`).join("")+'<span class="sep"></span>'+
-    `<button class="chip ai" data-ai="1" aria-pressed="${aiOnly}">AI-related</button>`+
-    `<span class="count" id="count"></span><a class="dl" href="data/incidents.csv" download="hack-ticker-incidents.csv">↓ All incidents (CSV)</a>`;
+    `<span><i class="ln" style="background:var(--line-news)"></i>Security news headlines about hacks, all regions (right axis)</span><span><i class="ln" style="background:var(--line-rw)"></i>Ransomware leak-site victims, all regions (right axis)</span>`;
+  $("#chartnote").textContent="Bars count incidents on this page that match your filters. Before the dashed line they come from a one-off review of monthly roundups, so they are a selection and do not show the real frequency. The two lines start with automatic tracking and do not follow the filters.";
 }
 function list(){
-  const L=inc.filter(i=>inPeriod(i)&&(region==="all"||i.region===region||(region==="EU"&&i.region==="NL"))&&(type==="all"||i.type===type)&&(onlyCls?i.impact===onlyCls:i.impact>=minImp)&&(!aiOnly||i.ai));
+  const L=inc.filter(i=>match(i));
   $("#count").textContent=`${L.length} shown`;
-  if(!L.length){$("#list").innerHTML=`<p class="empty">No incidents match these filters in this period. Try "All" at the top.</p>`;return}
+  if(!L.length){$("#list").innerHTML=`<p class="empty">No incidents match these filters. Try a longer period or press Reset.</p>`;return}
   let h="",m="";
   for(const i of L){const d=day(i.date),mk=d.getUTCFullYear()+"-"+d.getUTCMonth();
     if(mk!==m){m=mk;h+=`<div class="month">${MONL[d.getUTCMonth()]} ${d.getUTCFullYear()}</div>`}
-    const size=i.usd?`<span class="big">${fmtUsd(i.usd)}</span>`:i.people?`<span class="big">${fmtN(i.people)} ${i.type==="Data breach"?"records":"people"}${i.confirmed?"":" (claimed)"}</span>`:"";
+    const size=i.usd?`<span class="big">${fmtUsd(i.usd)}</span>`:i.people?`<span class="big">${fmtN(i.people)} records or accounts</span>`:"";
     const reg=i.region==="NL"?'<span class="tag nl">NL</span>':i.region==="EU"?`<span class="tag eu">${esc(i.country||"EU")}</span>`:(i.country?`<span class="tag">${esc(i.country)}</span>`:"");
-    h+=`<article class="inc" id="${esc(i.id)}"><div class="sev" style="--c:var(--s${i.impact})">${i.impact}<small>of 5</small></div><div>
-      <h3>${esc(i.title)}</h3>${i.summary?`<p>${esc(i.summary)}</p>`:""}
-      <div class="meta"><span>${fmtDate(i)}</span>${reg}<span class="tag">${esc(i.type)}</span><span class="tag">${esc(i.sector)}</span>${i.ai?'<span class="tag ai">AI</span>':""}${i.confirmed?"":'<span class="tag claim">Claimed</span>'}${size}
-      ${(i.sources||[]).slice(0,4).map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)} ↗</a>`).join("")}</div></div></article>`}
+    const ups=i.updates||[],fr=i.first_recorded;
+    const hist=ups.length?`<details class="hist"><summary>History (${ups.length} update${ups.length>1?"s":""})</summary><ol>${fr?`<li>${esc(fr.date)}: first recorded as impact ${fr.impact}, ${esc(fr.status)}</li>`:""}${ups.map(u=>`<li>${esc(u.date)}: ${esc(u.text)}</li>`).join("")}</ol></details>`:"";
+    h+=`<article class="inc ${esc(i.status)}" id="${esc(i.id)}"><div class="sev" style="--c:var(--s${i.impact})">${i.impact}<small>of 5</small></div><div>
+      <h3>${isNew(i)?'<span class="badge">New</span> ':isUpdated(i)?'<span class="badge">Updated</span> ':""}${esc(i.title)}</h3>${i.summary?`<p>${esc(i.summary)}</p>`:""}
+      <div class="judge"><span class="imp">Impact ${i.impact} · ${CLS[i.impact].n}</span>${i.impact_reason?`<span class="why">${esc(i.impact_reason)}</span>`:""}<span class="st ${esc(i.status)}">${esc(i.status)}</span>${i.restored?'<span class="st restored">Restored</span>':""}</div>
+      <div class="meta"><span>${fmtDate(i)}</span>${reg}<span class="tag">${esc(i.type)}</span><span class="tag">${esc(i.sector)}</span>${i.ai?'<span class="tag ai">AI</span>':""}${size}
+      ${(i.sources||[]).slice(0,4).map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)} ↗</a>`).join("")}</div>${hist}</div></article>`}
   $("#list").innerHTML=h;
 }
-function render(){document.querySelectorAll(".periods .chip").forEach(b=>b.setAttribute("aria-pressed",b.dataset.p===period));board();filters();list()}
-document.addEventListener("click",e=>{
-  const p=e.target.closest(".periods .chip");if(p){period=p.dataset.p;render();return}
-  const c=e.target.closest(".cls");if(c){const v=+c.dataset.c;onlyCls=onlyCls===v?null:v;render();return}
-  const r=e.target.closest("[data-r]");if(r){region=r.dataset.r;render();return}
-  const m=e.target.closest("[data-m]");if(m){minImp=+m.dataset.m;onlyCls=null;render();return}
-  const t=e.target.closest("[data-t]");if(t){type=t.dataset.t;render();return}
-  const a=e.target.closest("[data-ai]");if(a){aiOnly=!aiOnly;render();return}
-});
+function controls(){
+  document.querySelectorAll("#fperiod button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===F.p));
+  document.querySelectorAll("#fregion button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===F.r));
+  const opt=(id,all,vals,cur)=>{$(id).innerHTML=`<option value="all">${all}</option>`+vals.map(v=>`<option ${v===cur?"selected":""}>${esc(v)}</option>`).join("")};
+  opt("#fsector","All sectors",[...new Set(inc.map(i=>i.sector))].sort(),F.s);
+  opt("#ftype","All types",[...new Set(inc.map(i=>i.type))].sort(),F.t);
+  $("#fimp").value=F.i;$("#fstatus").value=F.st;$("#fai").setAttribute("aria-pressed",F.ai);
+  if(document.activeElement!==$("#fq"))$("#fq").value=F.q;
+}
+function moreSummary(){const n=["q","s","t","i","st","ai"].filter(k=>String(F[k])!==String(DEF[k])).length;$("#moresum").textContent="More filters"+(n?` · ${n} active`:"")}
+function render(){moreSummary();controls();syncHash();views();since();board();chart();list()}
+
+/* ---------- events ---------- */
+$("#fperiod").onclick=e=>{const b=e.target.closest("button");if(b){F.p=b.dataset.v;render()}};
+$("#fregion").onclick=e=>{const b=e.target.closest("button");if(b){F.r=b.dataset.v;render()}};
+$("#fsector").onchange=e=>{F.s=e.target.value;render()};
+$("#ftype").onchange=e=>{F.t=e.target.value;render()};
+$("#fimp").onchange=e=>{F.i=e.target.value;render()};
+$("#fstatus").onchange=e=>{F.st=e.target.value;render()};
+$("#fai").onclick=()=>{F.ai=!F.ai;render()};
+$("#freset").onclick=()=>{F=Object.assign({},DEF);render()};
+let qt=0;$("#fq").oninput=e=>{clearTimeout(qt);qt=setTimeout(()=>{F.q=e.target.value.trim();render()},200)};
+$("#board").onclick=e=>{const c=e.target.closest(".cls");if(c){F.i=F.i==="="+c.dataset.c?"0":"="+c.dataset.c;render()}};
+addEventListener("hashchange",()=>{const h=location.hash.slice(1);if(h&&!document.getElementById(h)){F=fromHash(h);render()}});
+let rz=0;addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(chart,200)});
+
 async function load(){
   try{
     const [a,w,s]=await Promise.all(["incidents","weekly","status"].map(n=>fetch(`data/${n}.json`,{cache:"no-cache"}).then(r=>r.json()).catch(()=>null)));
-    inc=(a||[]).filter(i=>i&&i.title&&i.impact>=1&&i.impact<=5).sort((x,y)=>y.date.localeCompare(x.date)||y.impact-x.impact);
-    if(w)weekly=Object.assign(weekly,w);
-    ticker();render();chart();
-    if(s&&s.last_run){const d=new Date(s.last_run);
-      $("#stamp").innerHTML=`Updated <b>${d.toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}</b><br>${s.feeds_ok} feeds read · every 4 hours`;
-      $("#status").textContent=s.ai?"":"The AI editor is not switched on yet, so new incidents come only from Have I Been Pwned and DeFiLlama for now; news is counted for the chart."}
-    else{$("#stamp").innerHTML=`<b>${inc.length}</b> incidents<br>updates every 4 hours`;$("#status").textContent=s&&s.note||""}
-  }catch(e){$("#list").innerHTML='<p class="empty">Could not load the incidents. Reload the page to try again.</p>'}
+    inc=(a||[]).filter(i=>i&&i.title&&i.impact>=1&&i.impact<=5).map(i=>Object.assign({status:i.confirmed===false?"claimed":"confirmed"},i))
+      .sort((x,y)=>y.date.localeCompare(x.date)||y.impact-x.impact);
+    if(w)weekly=Object.assign(weekly,w);status=s;
+    // remember this visit; compare against the previous one
+    prevVisit=store.get("ht.lastVisit");store.set("ht.lastVisit",today.toISOString().slice(0,10));
+    if(prevVisit===today.toISOString().slice(0,10))prevVisit=store.get("ht.prevVisit")||null;else store.set("ht.prevVisit",prevVisit);
+    const h=location.hash.slice(1);if(h&&h.includes("="))F=fromHash(h);
+    if(innerWidth>640)$("#more").open=true;
+    coverage();ticker();render();
+    if(h&&!h.includes("=")){const el=document.getElementById(h);if(el)el.scrollIntoView()}
+  }catch(e){console.error(e);$("#list").innerHTML='<p class="empty">Could not load the incidents. Reload the page to try again.</p>'}
 }
 load();
-let rz=0;addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(chart,200)});
 </script>
 </body>
 </html>

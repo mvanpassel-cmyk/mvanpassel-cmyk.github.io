@@ -11,7 +11,6 @@
   "impact": 5,
   "people": null,
   "usd": 6300000000,
-  "confirmed": true,
   "summary": "An attacker used an engineer's compromised laptop to move funds; about $3 billion was frozen. TRM links it to North Korea's TraderTraitor unit.",
   "sources": [
    {
@@ -32,7 +31,15 @@
    }
   ],
   "added": "2026-10-31",
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "$6.3B stolen, the largest crypto theft on record",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 5,
+   "status": "confirmed"
+  }
  },
  {
   "id": "llama-d500605067d65a39",
@@ -47,7 +54,6 @@
   "impact": 2,
   "people": null,
   "usd": 2700000,
-  "confirmed": true,
   "summary": "Frontend & Infrastructure, Supply Chain Attack",
   "sources": [
    {
@@ -55,7 +61,15 @@
     "url": "https://defillama.com/hacks"
    }
   ],
-  "via": "defillama"
+  "via": "defillama",
+  "status": "confirmed",
+  "impact_reason": "$3M stolen",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 2,
+   "status": "confirmed"
+  }
  },
  {
   "id": "llama-695499289003ce67",
@@ -70,7 +84,6 @@
   "impact": 2,
   "people": null,
   "usd": 1010000,
-  "confirmed": true,
   "summary": "Token & Share Accounting, Incorrect Share Accounting",
   "sources": [
    {
@@ -78,7 +91,15 @@
     "url": "https://defillama.com/hacks"
    }
   ],
-  "via": "defillama"
+  "via": "defillama",
+  "status": "confirmed",
+  "impact_reason": "$1M stolen",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 2,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-10-26-university-of-new-mexico",
@@ -93,7 +114,6 @@
   "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Clinics cancelled appointments until 28 October; the BYOD group claims data theft.",
   "sources": [
    {
@@ -101,7 +121,15 @@
     "url": "https://www.helpnetsecurity.com/2026/10/27/university-of-new-mexico-hospitals-cyberattack/"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Hospitals diverted ambulances and cancelled appointments for two days",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "llama-3b498490bd8e8b2b",
@@ -116,7 +144,6 @@
   "impact": 2,
   "people": null,
   "usd": 4750000,
-  "confirmed": true,
   "summary": "Governance, Flashloan Governance Attack",
   "sources": [
    {
@@ -124,7 +151,15 @@
     "url": "https://defillama.com/hacks"
    }
   ],
-  "via": "defillama"
+  "via": "defillama",
+  "status": "confirmed",
+  "impact_reason": "$5M stolen",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 2,
+   "status": "confirmed"
+  }
  },
  {
   "id": "llama-7d5e180663cb22b2",
@@ -139,7 +174,6 @@
   "impact": 2,
   "people": null,
   "usd": 2600000,
-  "confirmed": true,
   "summary": "Token & Share Accounting, Infinite Mint",
   "sources": [
    {
@@ -147,7 +181,15 @@
     "url": "https://defillama.com/hacks"
    }
   ],
-  "via": "defillama"
+  "via": "defillama",
+  "status": "confirmed",
+  "impact_reason": "$3M stolen",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 2,
+   "status": "confirmed"
+  }
  },
  {
   "id": "llama-59a5cf6483e38bc1",
@@ -162,7 +204,6 @@
   "impact": 3,
   "people": null,
   "usd": 16000000,
-  "confirmed": true,
   "summary": "Key Compromise, Hot Wallet Key Compromised",
   "sources": [
    {
@@ -170,7 +211,15 @@
     "url": "https://defillama.com/hacks"
    }
   ],
-  "via": "defillama"
+  "via": "defillama",
+  "status": "confirmed",
+  "impact_reason": "$16M stolen",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-php2shell-2026",
@@ -185,7 +234,6 @@
   "impact": 4,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Flaws allowing takeover of servers without a password; attacks began before the 21 October patch, CISA confirmed exploitation, and sites from Wikimedia to European government portals went offline to patch.",
   "sources": [
    {
@@ -205,7 +253,15 @@
     "url": "https://watchtowr.com/intelligence/php-cve-2026-109618-faq/"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Flaw in software behind about 70% of websites, exploited before and after the patch",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-10-19-so-net-sony",
@@ -220,7 +276,6 @@
   "impact": 3,
   "people": 2580000,
   "usd": null,
-  "confirmed": true,
   "summary": "Names, birth dates, contact details and 54,000 email passwords were exposed.",
   "sources": [
    {
@@ -228,7 +283,15 @@
     "url": "https://www.helpnetsecurity.com/2026/10/28/sony-network-communications-data-breach-so-net/"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "2.6 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "llama-4f68c42ef014c654",
@@ -243,7 +306,6 @@
   "impact": 2,
   "people": null,
   "usd": 1300000,
-  "confirmed": true,
   "summary": "Key Compromise, Weak Key Generation",
   "sources": [
    {
@@ -251,7 +313,15 @@
     "url": "https://defillama.com/hacks"
    }
   ],
-  "via": "defillama"
+  "via": "defillama",
+  "status": "confirmed",
+  "impact_reason": "$1M stolen",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 2,
+   "status": "confirmed"
+  }
  },
  {
   "id": "llama-10db11218c8bac65",
@@ -266,7 +336,6 @@
   "impact": 2,
   "people": null,
   "usd": 1053000,
-  "confirmed": true,
   "summary": "Token & Share Accounting, Unbacked Mint",
   "sources": [
    {
@@ -274,7 +343,15 @@
     "url": "https://defillama.com/hacks"
    }
   ],
-  "via": "defillama"
+  "via": "defillama",
+  "status": "confirmed",
+  "impact_reason": "$1M stolen",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 2,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-10-13-french-supermarkets",
@@ -289,7 +366,6 @@
   "impact": 4,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Refrigeration at Leclerc, Intermarché, Carrefour, Monoprix and U stores spoiled tonnes of food and started some fires.",
   "sources": [
    {
@@ -297,7 +373,15 @@
     "url": "https://www.aljazeera.com/economy/2026/10/13/french-fridge-fright-why-supermarkets-have-become-target-for-hackers"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Physical damage across 500+ stores of five national chains, with food spoiled and fires",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "llama-768934c1b9582cfc",
@@ -312,7 +396,6 @@
   "impact": 2,
   "people": null,
   "usd": 4208000,
-  "confirmed": true,
   "summary": "Frontend & Infrastructure, Key Leaked via Infrastructure",
   "sources": [
    {
@@ -320,7 +403,15 @@
     "url": "https://defillama.com/hacks"
    }
   ],
-  "via": "defillama"
+  "via": "defillama",
+  "status": "confirmed",
+  "impact_reason": "$4M stolen",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 2,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-deloitte-claim-2026",
@@ -331,10 +422,9 @@
   "region": "World",
   "sector": "Finance",
   "type": "Ransomware",
-  "impact": 2,
+  "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": false,
   "summary": "A claim posted by a fast-growing ransomware group; not confirmed by the company.",
   "sources": [
    {
@@ -343,7 +433,15 @@
    }
   ],
   "added": "2026-10-31",
-  "via": "seed"
+  "via": "seed",
+  "status": "claimed",
+  "impact_reason": "Would be a data theft at a global professional services firm; scope unknown",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "claimed"
+  }
  },
  {
   "id": "seed-albert-heijn-2026",
@@ -357,7 +455,6 @@
   "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Distribution centres, online orders and the app stopped; Etos and Gall & Gall were also hit. Deliveries were out for over a week.",
   "sources": [
    {
@@ -370,7 +467,15 @@
    }
   ],
   "added": "2026-10-31",
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "National supermarket chain with empty shelves and online orders down for over a week",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "llama-9208049e8ce00972",
@@ -385,7 +490,6 @@
   "impact": 2,
   "people": null,
   "usd": 1280000,
-  "confirmed": true,
   "summary": "Oracle Manipulation, Spot Price Manipulation",
   "sources": [
    {
@@ -393,7 +497,15 @@
     "url": "https://defillama.com/hacks"
    }
   ],
-  "via": "defillama"
+  "via": "defillama",
+  "status": "confirmed",
+  "impact_reason": "$1M stolen",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 2,
+   "status": "confirmed"
+  }
  },
  {
   "id": "llama-1727593750932b25",
@@ -408,7 +520,6 @@
   "impact": 3,
   "people": null,
   "usd": 93000000,
-  "confirmed": true,
   "summary": "Frontend & Infrastructure, Supply Chain Attack",
   "sources": [
    {
@@ -416,7 +527,15 @@
     "url": "https://defillama.com/hacks"
    }
   ],
-  "via": "defillama"
+  "via": "defillama",
+  "status": "confirmed",
+  "impact_reason": "$93M stolen",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-09-30-times-car-rental",
@@ -431,7 +550,6 @@
   "impact": 3,
   "people": 6600000,
   "usd": null,
-  "confirmed": true,
   "summary": "",
   "sources": [
    {
@@ -439,7 +557,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-september-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "6.6 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-09-30-us-defense-manpower-data",
@@ -454,7 +580,6 @@
   "impact": 3,
   "people": 3054000,
   "usd": null,
-  "confirmed": true,
   "summary": "2.76 million living and 294,000 deceased people were affected.",
   "sources": [
    {
@@ -462,7 +587,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-september-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "3.1 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-09-28-keio",
@@ -477,7 +610,6 @@
   "impact": 2,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Trains kept running.",
   "sources": [
    {
@@ -485,7 +617,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-september-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Business systems down; trains kept running",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 2,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-09-24-australian-government-we",
@@ -500,7 +640,6 @@
   "impact": 2,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Non-public aggregated statistics and internal files were reached; no personal records were found.",
   "sources": [
    {
@@ -509,7 +648,15 @@
    }
   ],
   "via": "seed",
-  "ai": true
+  "ai": true,
+  "status": "confirmed",
+  "impact_reason": "Internal government files reached; no personal records found",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 2,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-09-22-fbi",
@@ -524,7 +671,6 @@
   "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": false,
   "summary": "",
   "sources": [
    {
@@ -532,7 +678,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-september-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "claimed",
+  "impact_reason": "Applicant portals of a national law enforcement agency taken offline",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "claimed"
+  }
  },
  {
   "id": "seed-2026-09-21-lmu-munich",
@@ -547,7 +701,6 @@
   "impact": 2,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Enrolment systems were isolated.",
   "sources": [
    {
@@ -555,7 +708,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-september-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Student bank and insurance details possibly exposed at one university",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 2,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-09-18-gyazo",
@@ -570,7 +731,6 @@
   "impact": 4,
   "people": 23620000,
   "usd": null,
-  "confirmed": true,
   "summary": "",
   "sources": [
    {
@@ -578,7 +738,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-september-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "23.6 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-09-18-job-seekers-in-100-count",
@@ -593,7 +761,6 @@
   "impact": 3,
   "people": 30000,
   "usd": null,
-  "confirmed": true,
   "summary": "The WaterPlum campaign targeted IT professionals with malware disguised as interview tasks.",
   "sources": [
    {
@@ -601,7 +768,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-september-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "30,000 devices and 7,000 wallets compromised across 100+ countries",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-09-16-centerpoint-energy",
@@ -616,7 +791,6 @@
   "impact": 3,
   "people": 7490000,
   "usd": null,
-  "confirmed": true,
   "summary": "Energy supply was unaffected.",
   "sources": [
    {
@@ -624,7 +798,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-september-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "7.5 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-09-16-spain-s-data-protection",
@@ -639,7 +821,6 @@
   "impact": 2,
   "people": null,
   "usd": null,
-  "confirmed": false,
   "summary": "Financial documents were accessed and personal data possibly modified by an autonomous AI agent; the operator is unknown.",
   "sources": [
    {
@@ -648,7 +829,15 @@
    }
   ],
   "via": "seed",
-  "ai": true
+  "ai": true,
+  "status": "claimed",
+  "impact_reason": "Intrusion at a national regulator; extent unclear",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 2,
+   "status": "claimed"
+  }
  },
  {
   "id": "seed-2026-09-14-japan-digital-agency",
@@ -663,7 +852,6 @@
   "impact": 2,
   "people": 246000,
   "usd": null,
-  "confirmed": true,
   "summary": "",
   "sources": [
    {
@@ -671,7 +859,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-september-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "246,000 records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 2,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-09-10-idscan",
@@ -686,7 +882,6 @@
   "impact": 5,
   "people": 150000000,
   "usd": null,
-  "confirmed": true,
   "summary": "A search engine for stolen licence photos appeared online; the FBI is reportedly investigating.",
   "sources": [
    {
@@ -698,7 +893,15 @@
     "url": "https://techcrunch.com/2026/09/15/the-worst-hacks-and-breaches-of-2026-so-far/"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "150 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 5,
+   "status": "confirmed"
+  }
  },
  {
   "id": "hibp-AfD",
@@ -713,7 +916,6 @@
   "impact": 2,
   "people": 345439,
   "usd": null,
-  "confirmed": true,
   "summary": "In September 2026, the German political party Alternative für Deutschland (AfD) suffered a data breach which exposed 345k unique email addresses. The following month, hundreds of gigabytes of data containing hundreds of thousands of emails and attachments…",
   "sources": [
    {
@@ -721,7 +923,15 @@
     "url": "https://haveibeenpwned.com/Breach/AfD"
    }
   ],
-  "via": "hibp"
+  "via": "hibp",
+  "status": "confirmed",
+  "impact_reason": "345,439 records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 2,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-09-08-vietnam-passenger-databa",
@@ -736,7 +946,6 @@
   "impact": 5,
   "people": 220000000,
   "usd": null,
-  "confirmed": true,
   "summary": "A misconfigured cloud database of airline passenger and crew data was left open.",
   "sources": [
    {
@@ -744,7 +953,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-september-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "220 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 5,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-09-07-cond-nast",
@@ -756,10 +973,9 @@
   "region": "World",
   "sector": "Media",
   "type": "Data breach",
-  "impact": 3,
+  "impact": 4,
   "people": 32800000,
   "usd": null,
-  "confirmed": false,
   "summary": "No passwords or payment data; not confirmed by the publisher.",
   "sources": [
    {
@@ -767,7 +983,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-september-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "claimed",
+  "impact_reason": "32.8 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "claimed"
+  }
  },
  {
   "id": "seed-2026-09-05-berlin-state-government",
@@ -782,7 +1006,6 @@
   "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Two departments of the city-state were hit.",
   "sources": [
    {
@@ -790,7 +1013,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-september-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Data from two departments of a state government published",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-09-01-bitget",
@@ -805,7 +1036,6 @@
   "impact": 4,
   "people": null,
   "usd": 388000000,
-  "confirmed": true,
   "summary": "Hot and warm wallets were drained via third-party security products; cold wallets were safe.",
   "sources": [
    {
@@ -814,7 +1044,15 @@
    }
   ],
   "via": "seed",
-  "approx": "month"
+  "approx": "month",
+  "status": "confirmed",
+  "impact_reason": "$388M stolen",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-08-28-mckesson",
@@ -826,10 +1064,9 @@
   "region": "World",
   "sector": "Health",
   "type": "Data breach",
-  "impact": 3,
+  "impact": 5,
   "people": null,
   "usd": null,
-  "confirmed": false,
   "summary": "Taken through a third-party app; the size is unverified.",
   "sources": [
    {
@@ -837,7 +1074,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-august-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "claimed",
+  "impact_reason": "Would be over 100 million health-related records if the claim holds",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 5,
+   "status": "claimed"
+  }
  },
  {
   "id": "seed-2026-08-27-manchester-airports-grou",
@@ -852,7 +1097,6 @@
   "impact": 3,
   "people": 8700000,
   "usd": null,
-  "confirmed": true,
   "summary": "Manchester, Stansted and East Midlands kept flying.",
   "sources": [
    {
@@ -860,7 +1104,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-august-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "8.7 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-08-27-atf",
@@ -875,7 +1127,6 @@
   "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "The ATF declared a major incident; investigation files may be affected.",
   "sources": [
    {
@@ -887,7 +1138,15 @@
     "url": "https://techcrunch.com/2026/09/15/the-worst-hacks-and-breaches-of-2026-so-far/"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Major incident at a national law enforcement agency",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-08-26-carhartt",
@@ -902,7 +1161,6 @@
   "impact": 4,
   "people": 12933413,
   "usd": null,
-  "confirmed": true,
   "summary": "ShinyHunters demanded $3.3 million.",
   "sources": [
    {
@@ -910,7 +1168,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-august-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "12.9 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-08-26-baylor-genetics",
@@ -925,7 +1191,6 @@
   "impact": 3,
   "people": 2800000,
   "usd": null,
-  "confirmed": true,
   "summary": "Genetic testing records were exposed; veterans were among those hit.",
   "sources": [
    {
@@ -937,7 +1202,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-september-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "2.8 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-08-25-boston-scientific",
@@ -952,7 +1225,6 @@
   "impact": 4,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Manufacturing and shipping stopped worldwide, affecting patients; recovery ran into September.",
   "sources": [
    {
@@ -964,7 +1236,15 @@
     "url": "https://techcrunch.com/2026/09/15/the-worst-hacks-and-breaches-of-2026-so-far/"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Global manufacturing and shipping of medical devices stopped for weeks",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-08-23-uk-power-generator",
@@ -979,7 +1259,6 @@
   "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "",
   "sources": [
    {
@@ -987,7 +1266,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-august-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Power generation stopped for four days by a state-linked actor",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-08-19-carecloud",
@@ -1002,7 +1289,6 @@
   "impact": 3,
   "people": 3750000,
   "usd": null,
-  "confirmed": true,
   "summary": "",
   "sources": [
    {
@@ -1014,7 +1300,15 @@
     "url": "https://techcrunch.com/2026/09/15/the-worst-hacks-and-breaches-of-2026-so-far/"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "3.8 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-08-19-latvian-road-traffic-saf",
@@ -1029,7 +1323,6 @@
   "impact": 3,
   "people": 1200000,
   "usd": null,
-  "confirmed": true,
   "summary": "Historical payment data from the driving authority was taken.",
   "sources": [
    {
@@ -1037,7 +1330,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-august-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "1.2 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-08-14-ringcentral",
@@ -1052,7 +1353,6 @@
   "impact": 3,
   "people": 1600000,
   "usd": null,
-  "confirmed": true,
   "summary": "Attributed to ShinyHunters.",
   "sources": [
    {
@@ -1060,7 +1360,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-august-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "1.6 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-08-13-mydr",
@@ -1075,7 +1383,6 @@
   "impact": 4,
   "people": 19000000,
   "usd": null,
-  "confirmed": true,
   "summary": "More than 2 TB of health data was taken.",
   "sources": [
    {
@@ -1083,7 +1390,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-august-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "19 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-08-11-ceva-logistics",
@@ -1098,7 +1413,6 @@
   "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Deliveries for Bol, De Bijenkorf, Ace & Tate, Ajax and Steam were delayed.",
   "sources": [
    {
@@ -1106,7 +1420,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-august-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Eight European warehouses disrupted, delaying deliveries for several retailers",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-08-10-polish-heat-and-power-pl",
@@ -1121,7 +1443,6 @@
   "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "A brief outage with no impact on residents; attributed to Electrum.",
   "sources": [
    {
@@ -1129,7 +1450,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-august-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "State-linked sabotage of plant controls; brief outage only",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-08-03-hungarian-state-treasury",
@@ -1144,7 +1473,6 @@
   "impact": 2,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "",
   "sources": [
    {
@@ -1152,7 +1480,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-august-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Online services of a national treasury disrupted",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 2,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-07-29-splitvpn",
@@ -1167,7 +1503,6 @@
   "impact": 4,
   "people": 58000000,
   "usd": null,
-  "confirmed": true,
   "summary": "Logs from a service that promised privacy were exposed.",
   "sources": [
    {
@@ -1175,7 +1510,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-july-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "58 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-07-29-minnesota-water-utilitie",
@@ -1190,7 +1533,6 @@
   "impact": 4,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Automated controls were briefly disrupted; drinking water was reported safe. Suspected CyberAv3ngers, tied to the IRGC.",
   "sources": [
    {
@@ -1202,7 +1544,15 @@
     "url": "https://techcrunch.com/2026/09/15/the-worst-hacks-and-breaches-of-2026-so-far/"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Drinking water controls tampered with at 30+ utilities by a state-linked group",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-07-29-uk-department-for-educat",
@@ -1217,7 +1567,6 @@
   "impact": 2,
   "people": 740000,
   "usd": null,
-  "confirmed": true,
   "summary": "ExfilSquad stole records and demanded payment.",
   "sources": [
    {
@@ -1225,7 +1574,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-july-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "740,000 records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 2,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-07-27-bank-of-baroda",
@@ -1240,7 +1597,6 @@
   "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": false,
   "summary": "Data was allegedly taken through a compromised employee email; core banking was reportedly unaffected.",
   "sources": [
    {
@@ -1248,7 +1604,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-july-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "claimed",
+  "impact_reason": "Would be a large theft from a major Indian bank; core banking unaffected",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "claimed"
+  }
  },
  {
   "id": "seed-2026-07-23-south-korea-s-foreign-mi",
@@ -1263,7 +1627,6 @@
   "impact": 3,
   "people": 10000,
   "usd": null,
-  "confirmed": true,
   "summary": "Data on current and former diplomats and officials was taken.",
   "sources": [
    {
@@ -1271,7 +1634,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-july-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Long-running intrusion at a foreign ministry, hitting 10,000 diplomats",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-07-22-paidwork",
@@ -1286,7 +1657,6 @@
   "impact": 4,
   "people": 23000000,
   "usd": null,
-  "confirmed": true,
   "summary": "Personal data of users of the micro-task platform was exposed.",
   "sources": [
    {
@@ -1294,7 +1664,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-july-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "23 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-07-22-stadler-rail",
@@ -1309,7 +1687,6 @@
   "impact": 3,
   "people": null,
   "usd": 123000000,
-  "confirmed": true,
   "summary": "The Anubis group stole data from the Swiss train maker.",
   "sources": [
    {
@@ -1317,7 +1694,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-july-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Data stolen from a major train maker; $123M ransom demanded and refused",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-07-20-hugging-face",
@@ -1332,7 +1717,6 @@
   "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "The integrity of hosted AI models was put at risk in one of the first known intrusions carried out by an AI agent.",
   "sources": [
    {
@@ -1341,7 +1725,15 @@
    }
   ],
   "via": "seed",
-  "ai": true
+  "ai": true,
+  "status": "confirmed",
+  "impact_reason": "Integrity of a central AI model repository put at risk",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-07-16-fairlife-coca-cola",
@@ -1356,7 +1748,6 @@
   "impact": 2,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Production was suspended at the milk brand.",
   "sources": [
    {
@@ -1364,7 +1755,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-july-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Production stopped at one food manufacturer",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 2,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-07-10-odido",
@@ -1379,7 +1778,6 @@
   "impact": 4,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Services were disrupted and customer data compromised; a Dutch accomplice was arrested.",
   "sources": [
    {
@@ -1387,7 +1785,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-july-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Telecom services of a national provider disrupted, with customer data taken",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-07-08-kddi",
@@ -1402,7 +1808,6 @@
   "impact": 4,
   "people": 12000000,
   "usd": null,
-  "confirmed": true,
   "summary": "One of Japan's largest telecom providers lost customer data.",
   "sources": [
    {
@@ -1410,7 +1815,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-july-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "12 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-07-06-masimo",
@@ -1425,7 +1838,6 @@
   "impact": 3,
   "people": 4000000,
   "usd": null,
-  "confirmed": true,
   "summary": "Personal data held by the medical device company was exposed.",
   "sources": [
    {
@@ -1433,7 +1845,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-july-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "4 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-07-01-indra-group",
@@ -1448,7 +1868,6 @@
   "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": false,
   "summary": "Data was allegedly leaked online.",
   "sources": [
    {
@@ -1456,7 +1875,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-july-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "claimed",
+  "impact_reason": "Would be data theft at a major defence contractor",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "claimed"
+  }
  },
  {
   "id": "seed-2026-07-01-us-homeland-security-hsi",
@@ -1471,7 +1898,6 @@
   "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Sensitive information shared between agencies was exposed.",
   "sources": [
    {
@@ -1479,7 +1905,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-july-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Sensitive intelligence shared between US agencies exposed",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-06-23-iranian-banks",
@@ -1494,7 +1928,6 @@
   "impact": 4,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Attacks on 14, 23 and 25 June hit payment systems at several lenders.",
   "sources": [
    {
@@ -1502,7 +1935,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/june-2026-biggest-cyber-attacks-data-breaches-ransomware-attacks"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "National card payments disrupted at several banks by a state-linked group",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-06-22-belgian-state-security-s",
@@ -1517,7 +1958,6 @@
   "impact": 4,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Communications and personal data were reached through an Ivanti flaw.",
   "sources": [
    {
@@ -1525,7 +1965,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/june-2026-biggest-cyber-attacks-data-breaches-ransomware-attacks"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "State espionage against a national intelligence service",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-06-22-brazil-civil-defence-ale",
@@ -1540,7 +1988,6 @@
   "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Thousands of phones received false alerts before the system was taken offline.",
   "sources": [
    {
@@ -1548,7 +1995,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/june-2026-biggest-cyber-attacks-data-breaches-ransomware-attacks"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "False emergency alerts sent to thousands of phones",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-06-18-klue",
@@ -1563,7 +2018,6 @@
   "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "An old pilot credential gave the Icarus gang access to clients including LastPass and HackerOne.",
   "sources": [
    {
@@ -1575,7 +2029,15 @@
     "url": "https://techcrunch.com/2026/09/15/the-worst-hacks-and-breaches-of-2026-so-far/"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "One breach opened data at about 200 client companies",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-06-18-texas-parks-and-wildlife",
@@ -1590,7 +2052,6 @@
   "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Records held by the state's parks and wildlife department were breached.",
   "sources": [
    {
@@ -1598,7 +2059,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/june-2026-biggest-cyber-attacks-data-breaches-ransomware-attacks"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Millions of licence and passport numbers exposed",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-06-17-online-services-worldwid",
@@ -1613,7 +2082,6 @@
   "impact": 4,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "A huge compilation of usernames and passwords, much of it recycled from older breaches.",
   "sources": [
    {
@@ -1621,7 +2089,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/june-2026-biggest-cyber-attacks-data-breaches-ransomware-attacks"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "24 billion credentials, much of it recycled from older breaches",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-06-15-redcap-research-servers",
@@ -1636,7 +2112,6 @@
   "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Research institutions using the platform were targeted.",
   "sources": [
    {
@@ -1644,7 +2119,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/june-2026-biggest-cyber-attacks-data-breaches-ransomware-attacks"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "State espionage against medical research institutions",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-06-11-oracle-peoplesoft",
@@ -1659,7 +2142,6 @@
   "impact": 4,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Oracle later said more than 100 customers were affected.",
   "sources": [
    {
@@ -1667,7 +2149,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/june-2026-biggest-cyber-attacks-data-breaches-ransomware-attacks"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Zero-day used against more than 100 organisations",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-06-11-novo-nordisk",
@@ -1682,7 +2172,6 @@
   "impact": 3,
   "people": null,
   "usd": 25000000,
-  "confirmed": true,
   "summary": "Hunters International claimed the attack and demanded about $25 million.",
   "sources": [
    {
@@ -1690,7 +2179,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/june-2026-biggest-cyber-attacks-data-breaches-ransomware-attacks"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Clinical trial data copied and systems shut; $25M demanded",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-06-11-tchap",
@@ -1702,10 +2199,9 @@
   "region": "EU",
   "sector": "Government",
   "type": "Data breach",
-  "impact": 3,
+  "impact": 4,
   "people": null,
   "usd": null,
-  "confirmed": false,
   "summary": "Hundreds of thousands of Tchap messages were allegedly stolen.",
   "sources": [
    {
@@ -1713,7 +2209,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/june-2026-biggest-cyber-attacks-data-breaches-ransomware-attacks"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "claimed",
+  "impact_reason": "Would expose communications of the French government",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "claimed"
+  }
  },
  {
   "id": "seed-2026-06-08-meta-ai-support",
@@ -1728,7 +2232,6 @@
   "impact": 2,
   "people": 20000,
   "usd": null,
-  "confirmed": true,
   "summary": "Data from users who contacted Meta's AI support was exposed; earlier, attackers used the AI chatbot to take over accounts.",
   "sources": [
    {
@@ -1741,7 +2244,15 @@
    }
   ],
   "via": "seed",
-  "ai": true
+  "ai": true,
+  "status": "confirmed",
+  "impact_reason": "20,000 records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 2,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-06-04-world-food-programme",
@@ -1756,7 +2267,6 @@
   "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Records of aid recipients in Gaza were accessed.",
   "sources": [
    {
@@ -1764,7 +2274,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/june-2026-biggest-cyber-attacks-data-breaches-ransomware-attacks"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Data on aid recipients in a war zone exposed",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-adapthealth-2026",
@@ -1779,7 +2297,6 @@
   "impact": 3,
   "people": 4115802,
   "usd": null,
-  "confirmed": true,
   "summary": "Social engineering against a third-party contractor opened access to patient data.",
   "sources": [
    {
@@ -1788,7 +2305,15 @@
    }
   ],
   "added": "2026-10-31",
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "4.1 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-05-26-charter-communications",
@@ -1803,7 +2328,6 @@
   "impact": 3,
   "people": 5000000,
   "usd": null,
-  "confirmed": true,
   "summary": "ShinyHunters took some 40 million records covering nearly 5 million customers.",
   "sources": [
    {
@@ -1815,7 +2339,15 @@
     "url": "https://techcrunch.com/2026/09/15/the-worst-hacks-and-breaches-of-2026-so-far/"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "5 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-05-18-nyc-health-hospitals",
@@ -1830,7 +2362,6 @@
   "impact": 3,
   "people": 1800000,
   "usd": null,
-  "confirmed": true,
   "summary": "Data was taken through a compromised third-party vendor.",
   "sources": [
    {
@@ -1838,7 +2369,15 @@
     "url": "https://cm-alliance.com/cybersecurity-blog/biggest-cyber-attacks-data-breaches-ransomware-attacks-of-may-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "1.8 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "hibp-GitesDeFrance",
@@ -1853,7 +2392,6 @@
   "impact": 2,
   "people": 117574,
   "usd": null,
-  "confirmed": true,
   "summary": "In May 2026, the French holiday rental network Gîtes de France suffered a data breach affecting some of its departmental branches. The incident exposed hundreds of thousands of customer records, including 118k unique email addresses alongside names, phone…",
   "sources": [
    {
@@ -1861,7 +2399,15 @@
     "url": "https://haveibeenpwned.com/Breach/GitesDeFrance"
    }
   ],
-  "via": "hibp"
+  "via": "hibp",
+  "status": "confirmed",
+  "impact_reason": "117,574 records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 2,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-05-15-west-pharmaceutical-serv",
@@ -1876,7 +2422,6 @@
   "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Parts of the global network shut down, disrupting production and shipping.",
   "sources": [
    {
@@ -1884,7 +2429,15 @@
     "url": "https://cm-alliance.com/cybersecurity-blog/biggest-cyber-attacks-data-breaches-ransomware-attacks-of-may-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Global manufacturing disrupted at a key drug packaging supplier",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-05-05-taiwan-high-speed-rail",
@@ -1899,7 +2452,6 @@
   "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Trains stood still for 48 minutes; a 23-year-old student was arrested.",
   "sources": [
    {
@@ -1907,7 +2459,15 @@
     "url": "https://cm-alliance.com/cybersecurity-blog/biggest-cyber-attacks-data-breaches-ransomware-attacks-of-may-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Emergency brakes triggered on four high-speed trains",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-instructure-2026",
@@ -1921,7 +2481,6 @@
   "impact": 4,
   "people": 30000000,
   "usd": null,
-  "confirmed": true,
   "summary": "Login pages were defaced during finals; Instructure paid a ransom. The group claimed 275 million users.",
   "sources": [
    {
@@ -1934,7 +2493,15 @@
    }
   ],
   "added": "2026-10-31",
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "30 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-dentaquest-2026",
@@ -1949,7 +2516,6 @@
   "impact": 4,
   "people": 15000000,
   "usd": null,
-  "confirmed": true,
   "summary": "A network intrusion at the US dental benefits firm; state filings put the count as high as 27 million.",
   "sources": [
    {
@@ -1958,7 +2524,15 @@
    }
   ],
   "added": "2026-10-31",
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "15 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-aesto-2026",
@@ -1973,7 +2547,6 @@
   "impact": 3,
   "people": 9540000,
   "usd": null,
-  "confirmed": true,
   "summary": "Attackers had access from December 2025; the company confirmed it in May.",
   "sources": [
    {
@@ -1982,7 +2555,15 @@
    }
   ],
   "added": "2026-10-31",
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "9.5 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-05-01-canonical-ubuntu",
@@ -1997,7 +2578,6 @@
   "impact": 2,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Claimed by a group calling itself the Islamic Cyber Resistance in Iraq.",
   "sources": [
    {
@@ -2005,7 +2585,15 @@
     "url": "https://cm-alliance.com/cybersecurity-blog/biggest-cyber-attacks-data-breaches-ransomware-attacks-of-may-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Temporary outage of updates and developer tools",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 2,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-04-30-movistar-per",
@@ -2020,7 +2608,6 @@
   "impact": 3,
   "people": 4000000,
   "usd": null,
-  "confirmed": true,
   "summary": "Personal data including national ID numbers and phone numbers leaked.",
   "sources": [
    {
@@ -2028,7 +2615,15 @@
     "url": "https://cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-april-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "4 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-04-30-moldova-s-national-healt",
@@ -2043,7 +2638,6 @@
   "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Health insurance records of a large share of the population were exposed.",
   "sources": [
    {
@@ -2051,7 +2645,15 @@
     "url": "https://cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-april-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "About a third of a national health insurance database exposed",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-04-29-amtrak",
@@ -2066,7 +2668,6 @@
   "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": false,
   "summary": "Customer data was stolen according to the group.",
   "sources": [
    {
@@ -2074,7 +2675,15 @@
     "url": "https://cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-april-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "claimed",
+  "impact_reason": "Would be millions of customer records from a national rail operator",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "claimed"
+  }
  },
  {
   "id": "seed-2026-04-24-coupang",
@@ -2089,7 +2698,6 @@
   "impact": 4,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "One of Korea's largest online retailers lost customer data.",
   "sources": [
    {
@@ -2097,7 +2705,15 @@
     "url": "https://cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-april-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Tens of millions of users of a major online retailer",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-04-24-uk-biobank",
@@ -2112,7 +2728,6 @@
   "impact": 3,
   "people": 500000,
   "usd": null,
-  "confirmed": true,
   "summary": "Data from the research cohort was reportedly listed for sale.",
   "sources": [
    {
@@ -2120,7 +2735,15 @@
     "url": "https://cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-april-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Genetic and health data of 500,000 research volunteers",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-04-22-france-titres-ants",
@@ -2132,10 +2755,9 @@
   "region": "EU",
   "sector": "Government",
   "type": "Data breach",
-  "impact": 3,
+  "impact": 4,
   "people": 19000000,
   "usd": null,
-  "confirmed": false,
   "summary": "The agency issues passports, ID cards and driving licences; the size is claimed.",
   "sources": [
    {
@@ -2143,7 +2765,15 @@
     "url": "https://cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-april-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "claimed",
+  "impact_reason": "19 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "claimed"
+  }
  },
  {
   "id": "seed-2026-04-20-kelp-dao",
@@ -2158,7 +2788,6 @@
   "impact": 4,
   "people": null,
   "usd": 290000000,
-  "confirmed": true,
   "summary": "The theft is suspected to be the work of the Lazarus Group.",
   "sources": [
    {
@@ -2166,7 +2795,15 @@
     "url": "https://cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-april-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "$290M stolen",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-04-20-bol-com",
@@ -2181,7 +2818,6 @@
   "impact": 2,
   "people": 400000,
   "usd": null,
-  "confirmed": false,
   "summary": "The company disputes that it was breached.",
   "sources": [
    {
@@ -2189,7 +2825,15 @@
     "url": "https://cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-april-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "disputed",
+  "impact_reason": "400,000 records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 2,
+   "status": "disputed"
+  }
  },
  {
   "id": "seed-2026-04-13-basic-fit",
@@ -2204,7 +2848,6 @@
   "impact": 3,
   "people": 1000000,
   "usd": null,
-  "confirmed": true,
   "summary": "Personal and financial data of members in several European countries were taken.",
   "sources": [
    {
@@ -2212,7 +2855,15 @@
     "url": "https://cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-april-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "1 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-04-08-winona-county",
@@ -2227,7 +2878,6 @@
   "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Critical county services went offline.",
   "sources": [
    {
@@ -2235,7 +2885,15 @@
     "url": "https://cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-april-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "County services offline; National Guard deployed",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-04-07-chipsoft",
@@ -2250,7 +2908,6 @@
   "impact": 4,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "ChipSoft supplies patient records software to about 80% of Dutch hospitals; eleven took it offline as a precaution.",
   "sources": [
    {
@@ -2266,7 +2923,15 @@
     "url": "https://cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-april-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Supplier of patient record software to about 80% of Dutch hospitals",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-04-07-anna-jaques-hospital",
@@ -2281,7 +2946,6 @@
   "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Health record systems at the Beth Israel Lahey hospital went down.",
   "sources": [
    {
@@ -2289,7 +2953,15 @@
     "url": "https://cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-april-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Hospital record systems down; ambulances diverted",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-04-07-education-authority-nort",
@@ -2304,7 +2976,6 @@
   "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Hundreds of thousands of students and teachers lost access to the C2K system.",
   "sources": [
    {
@@ -2312,7 +2983,15 @@
     "url": "https://cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-april-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "School network down for hundreds of thousands of pupils",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-04-03-european-commission-and",
@@ -2327,7 +3006,6 @@
   "impact": 4,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Data was taken from a cloud hosting environment; attributed to the TeamPCP supply chain gang.",
   "sources": [
    {
@@ -2339,7 +3017,15 @@
     "url": "https://techcrunch.com/2026/09/15/the-worst-hacks-and-breaches-of-2026-so-far/"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Data taken from more than 30 EU institutions",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-04-01-fbi",
@@ -2354,7 +3040,6 @@
   "impact": 4,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Phone numbers of surveillance targets were exposed in what the FBI called a major cyber incident.",
   "sources": [
    {
@@ -2363,7 +3048,15 @@
    }
   ],
   "via": "seed",
-  "approx": "month"
+  "approx": "month",
+  "status": "confirmed",
+  "impact_reason": "State espionage against a national law enforcement agency",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-carnival-2026",
@@ -2378,7 +3071,6 @@
   "impact": 3,
   "people": 6000000,
   "usd": null,
-  "confirmed": true,
   "summary": "Attackers talked their way in to reach customer data at the cruise company.",
   "sources": [
    {
@@ -2387,7 +3079,15 @@
    }
   ],
   "added": "2026-10-31",
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "6 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-medtronic-2026",
@@ -2402,7 +3102,6 @@
   "impact": 3,
   "people": 3834294,
   "usd": null,
-  "confirmed": true,
   "summary": "Unauthorised access to IT systems at the medical device maker.",
   "sources": [
    {
@@ -2411,7 +3110,15 @@
    }
   ],
   "added": "2026-10-31",
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "3.8 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-03-25-ajax",
@@ -2426,7 +3133,6 @@
   "impact": 2,
   "people": 300000,
   "usd": null,
-  "confirmed": true,
   "summary": "Attackers reached fan accounts and personal data of the Amsterdam football club.",
   "sources": [
    {
@@ -2434,7 +3140,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/biggest-cyber-attacks-data-breaches-ransomware-attacks-of-march-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "300,000 records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 2,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-03-24-dutch-ministry-of-financ",
@@ -2449,7 +3163,6 @@
   "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Ministry systems were breached; the scale was not made public.",
   "sources": [
    {
@@ -2457,7 +3170,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/biggest-cyber-attacks-data-breaches-ransomware-attacks-of-march-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Breach of a national ministry disrupting staff work",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-03-24-lockheed-martin",
@@ -2469,10 +3190,9 @@
   "region": "World",
   "sector": "Defence",
   "type": "Data breach",
-  "impact": 3,
+  "impact": 4,
   "people": null,
   "usd": null,
-  "confirmed": false,
   "summary": "The group demanded over $400 million; the claim is unconfirmed.",
   "sources": [
    {
@@ -2480,7 +3200,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/biggest-cyber-attacks-data-breaches-ransomware-attacks-of-march-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "claimed",
+  "impact_reason": "Would be a very large data theft at a major defence contractor",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "claimed"
+  }
  },
  {
   "id": "seed-2026-03-19-navia-benefit-solutions",
@@ -2495,7 +3223,6 @@
   "impact": 3,
   "people": 2700000,
   "usd": null,
-  "confirmed": true,
   "summary": "Health-related benefit records were reachable through an unprotected interface.",
   "sources": [
    {
@@ -2503,7 +3230,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/biggest-cyber-attacks-data-breaches-ransomware-attacks-of-march-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "2.7 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-03-12-telus-digital",
@@ -2515,10 +3250,9 @@
   "region": "World",
   "sector": "Tech",
   "type": "Data breach",
-  "impact": 3,
+  "impact": 4,
   "people": null,
   "usd": null,
-  "confirmed": false,
   "summary": "An outsourcing data breach at the Canadian firm; the size claim is unverified.",
   "sources": [
    {
@@ -2526,7 +3260,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/biggest-cyber-attacks-data-breaches-ransomware-attacks-of-march-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "claimed",
+  "impact_reason": "Would be a petabyte-scale theft at a large outsourcing firm",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "claimed"
+  }
  },
  {
   "id": "seed-2026-03-11-stryker",
@@ -2541,7 +3283,6 @@
   "impact": 4,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "A wiper attack disrupted the medical technology maker's global network and order processing; claimed by Handala.",
   "sources": [
    {
@@ -2553,7 +3294,15 @@
     "url": "https://techcrunch.com/2026/09/15/the-worst-hacks-and-breaches-of-2026-so-far/"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Tens of thousands of devices wiped at a global medical technology maker",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-03-06-cognizant-trizetto",
@@ -2568,7 +3317,6 @@
   "impact": 3,
   "people": 3400000,
   "usd": null,
-  "confirmed": true,
   "summary": "A breach at Cognizant's healthcare unit exposed patient records.",
   "sources": [
    {
@@ -2576,7 +3324,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/biggest-cyber-attacks-data-breaches-ransomware-attacks-of-march-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "3.4 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-03-04-university-of-hawai-i-ca",
@@ -2591,7 +3347,6 @@
   "impact": 3,
   "people": 1200000,
   "usd": null,
-  "confirmed": true,
   "summary": "Personal data was stolen in a ransomware attack.",
   "sources": [
    {
@@ -2599,7 +3354,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/biggest-cyber-attacks-data-breaches-ransomware-attacks-of-march-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "1.2 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-03-01-trivy-bitwarden-cli-chec",
@@ -2614,7 +3377,6 @@
   "impact": 4,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Poisoned security and developer tools stole tokens and keys, leading to later thefts at OpenAI, Vercel and EU bodies. Two people were arrested in Australia in August.",
   "sources": [
    {
@@ -2623,7 +3385,15 @@
    }
   ],
   "via": "seed",
-  "approx": "month"
+  "approx": "month",
+  "status": "confirmed",
+  "impact_reason": "Poisoned developer tools led to thefts at OpenAI, Vercel and EU bodies",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-assuranceamerica-2026",
@@ -2638,7 +3408,6 @@
   "impact": 3,
   "people": 6998886,
   "usd": null,
-  "confirmed": true,
   "summary": "The insurer found suspicious access to files in March.",
   "sources": [
    {
@@ -2647,7 +3416,15 @@
    }
   ],
   "added": "2026-10-31",
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "7 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-02-24-cargurus",
@@ -2662,7 +3439,6 @@
   "impact": 4,
   "people": 12400000,
   "usd": null,
-  "confirmed": true,
   "summary": "ShinyHunters stole account records; passwords were reset.",
   "sources": [
    {
@@ -2670,7 +3446,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/february-2026-recent-cyber-attacks-data-breaches-ransomware-attacks"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "12.4 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-02-20-university-of-mississipp",
@@ -2685,7 +3469,6 @@
   "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Surgeries and appointments were cancelled statewide while health records were down.",
   "sources": [
    {
@@ -2693,7 +3476,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/february-2026-recent-cyber-attacks-data-breaches-ransomware-attacks"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Statewide clinic closures and cancelled surgeries",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-02-19-ficoba-bank-account-regi",
@@ -2708,7 +3499,6 @@
   "impact": 3,
   "people": 1200000,
   "usd": null,
-  "confirmed": true,
   "summary": "Records linked to about 1.2 million bank accounts were exposed.",
   "sources": [
    {
@@ -2716,7 +3506,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/february-2026-recent-cyber-attacks-data-breaches-ransomware-attacks"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "1.2 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-02-18-figure",
@@ -2731,7 +3529,6 @@
   "impact": 2,
   "people": 1000000,
   "usd": null,
-  "confirmed": true,
   "summary": "Files with contact details and birth dates were stolen by ShinyHunters.",
   "sources": [
    {
@@ -2743,7 +3540,15 @@
     "url": "https://techcrunch.com/2026/09/15/the-worst-hacks-and-breaches-of-2026-so-far/"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Nearly 1 million customers' contact details and birth dates",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 2,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-02-09-singtel-starhub-m1-and-s",
@@ -2758,7 +3563,6 @@
   "impact": 4,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "UNC3886 gained limited access to all major carriers; no service disruption or customer data loss was reported.",
   "sources": [
    {
@@ -2766,7 +3570,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/february-2026-recent-cyber-attacks-data-breaches-ransomware-attacks"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "State espionage inside all major telecom networks of a country",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-02-09-dutch-and-eu-government",
@@ -2781,7 +3593,6 @@
   "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Attackers exploited unpatched Ivanti flaws to reach government networks in the Netherlands and EU institutions.",
   "sources": [
    {
@@ -2789,7 +3600,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/february-2026-recent-cyber-attacks-data-breaches-ransomware-attacks"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Intrusion into Dutch and EU government networks",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-odido-2026",
@@ -2803,7 +3622,6 @@
   "impact": 4,
   "people": 6200000,
   "usd": null,
-  "confirmed": true,
   "summary": "Names, addresses, bank account numbers and ID document details were taken from a customer contact system, about a third of the Dutch population.",
   "sources": [
    {
@@ -2816,7 +3634,15 @@
    }
   ],
   "added": "2026-10-31",
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "6.2 million customers with bank and ID numbers, about a third of the Dutch population",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-02-07-bridgepay",
@@ -2831,7 +3657,6 @@
   "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "A nationwide payment processing outage hit businesses across the US.",
   "sources": [
    {
@@ -2839,7 +3664,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/february-2026-recent-cyber-attacks-data-breaches-ransomware-attacks"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Nationwide card payment outage for businesses",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-02-05-sapienza-university-of-r",
@@ -2854,7 +3687,6 @@
   "impact": 2,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Online services and communications of one of Europe's largest universities went down.",
   "sources": [
    {
@@ -2862,7 +3694,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/february-2026-recent-cyber-attacks-data-breaches-ransomware-attacks"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "University services down for days",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 2,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-02-03-step-finance",
@@ -2877,7 +3717,6 @@
   "impact": 3,
   "people": null,
   "usd": 40000000,
-  "confirmed": true,
   "summary": "Attackers drained treasury wallets through compromised executive devices.",
   "sources": [
    {
@@ -2885,7 +3724,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/february-2026-recent-cyber-attacks-data-breaches-ransomware-attacks"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "$40M stolen",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-02-01-panera-bread",
@@ -2900,7 +3747,6 @@
   "impact": 3,
   "people": 5100000,
   "usd": null,
-  "confirmed": true,
   "summary": "Contact information was taken in an attack claimed by ShinyHunters.",
   "sources": [
    {
@@ -2908,7 +3754,15 @@
     "url": "https://www.cm-alliance.com/cybersecurity-blog/february-2026-recent-cyber-attacks-data-breaches-ransomware-attacks"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "5.1 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-01-27-soundcloud",
@@ -2923,7 +3777,6 @@
   "impact": 4,
   "people": 29800000,
   "usd": null,
-  "confirmed": true,
   "summary": "ShinyHunters stole personal and contact data and tried to extort the company.",
   "sources": [
    {
@@ -2931,7 +3784,15 @@
     "url": "https://cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-january-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "29.8 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-01-22-under-armour",
@@ -2946,7 +3807,6 @@
   "impact": 4,
   "people": 72000000,
   "usd": null,
-  "confirmed": true,
   "summary": "Email addresses and personal details of customers were taken.",
   "sources": [
    {
@@ -2954,7 +3814,15 @@
     "url": "https://cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-january-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "72 million records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-01-13-az-monica-hospital",
@@ -2969,7 +3837,6 @@
   "impact": 3,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "At least 70 operations were cancelled and seven patients, some critical, were moved to other hospitals.",
   "sources": [
    {
@@ -2981,7 +3848,15 @@
     "url": "https://cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-january-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "Surgeries cancelled and critical patients transferred",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 3,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-01-02-covenant-health",
@@ -2996,7 +3871,6 @@
   "impact": 2,
   "people": 478188,
   "usd": null,
-  "confirmed": true,
   "summary": "Hospital operations were disrupted; the Qilin group claimed the attack.",
   "sources": [
    {
@@ -3004,7 +3878,15 @@
     "url": "https://cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-january-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "478,188 records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 2,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2026-01-02-trust-wallet",
@@ -3019,7 +3901,6 @@
   "impact": 2,
   "people": null,
   "usd": 8500000,
-  "confirmed": true,
   "summary": "A poisoned extension update emptied more than 2,500 wallets, linked to the Shai-Hulud npm campaign.",
   "sources": [
    {
@@ -3027,7 +3908,15 @@
     "url": "https://cm-alliance.com/cybersecurity-blog/major-cyber-attacks-data-breaches-ransomware-attacks-in-january-2026"
    }
   ],
-  "via": "seed"
+  "via": "seed",
+  "status": "confirmed",
+  "impact_reason": "$8M stolen",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 2,
+   "status": "confirmed"
+  }
  },
  {
   "id": "seed-2025-12-01-polish-energy-grid",
@@ -3042,7 +3931,6 @@
   "impact": 4,
   "people": null,
   "usd": null,
-  "confirmed": true,
   "summary": "Operational technology was disrupted and equipment damaged, without wide outages; linked with medium confidence to the Russian-linked group Electrum. Reported in January 2026.",
   "sources": [
    {
@@ -3051,7 +3939,15 @@
    }
   ],
   "via": "seed",
-  "approx": "month"
+  "approx": "month",
+  "status": "confirmed",
+  "impact_reason": "Equipment damaged at about 30 energy sites by a state-linked group",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 4,
+   "status": "confirmed"
+  }
  },
  {
   "id": "hibp-AssuranceRetraite",
@@ -3066,7 +3962,6 @@
   "impact": 2,
   "people": 70372,
   "usd": null,
-  "confirmed": true,
   "summary": "In September 2024, the French national pension fund Assurance Retraite suffered a data breach affecting approximately 370k assistance beneficiaries . The data included 70k unique email addresses along with names, dates of birth, physical addresses, phone…",
   "sources": [
    {
@@ -3074,6 +3969,14 @@
     "url": "https://haveibeenpwned.com/Breach/AssuranceRetraite"
    }
   ],
-  "via": "hibp"
+  "via": "hibp",
+  "status": "confirmed",
+  "impact_reason": "70,372 records or accounts reported",
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-10-31",
+   "impact": 2,
+   "status": "confirmed"
+  }
  }
 ]

@@ -164,8 +164,9 @@ def from_hibp(now, incidents, status):
             "id": iid, "date": when, "added": now.strftime("%Y-%m-%d"),
             "title": f"{b.get('Title') or b['Name']}: {n:,} accounts in a confirmed data breach" if n else f"{b.get('Title') or b['Name']} data breach",
             "victim": b.get("Title") or b["Name"], "country": cc, "region": region_of(cc), "sector": "Other",
-            "type": "Data breach", "impact": impact_people(n) or 2, "people": n, "usd": None, "confirmed": True,
-            "summary": clean(b.get("Description"), 260),
+            "type": "Data breach", "impact": impact_people(n) or 2, "people": n, "usd": None, "status": "confirmed",
+            "impact_reason": f"{n:,} accounts reported to Have I Been Pwned" if n else "Confirmed data breach",
+            "summary": clean(b.get("Description"), 260), "updates": [],
             "sources": [{"name": "Have I Been Pwned", "url": f"https://haveibeenpwned.com/Breach/{b['Name']}"}],
             "via": "hibp"})
         added += 1
@@ -198,6 +199,7 @@ def from_llama(now, incidents, status):
         if dup:  # already on the timeline (e.g. from the news): add DeFiLlama as a source and the amount if missing
             if not any(s["name"] == "DeFiLlama" for s in dup["sources"]):
                 dup["sources"].append({"name": "DeFiLlama", "url": "https://defillama.com/hacks"})
+                log(dup, now, "source", "DeFiLlama added as a source")
             dup["usd"] = dup.get("usd") or int(amt)
             continue
         tech = ", ".join(x for x in [h.get("classification"), h.get("technique")] if x)
@@ -205,7 +207,7 @@ def from_llama(now, incidents, status):
             "id": iid, "date": d.strftime("%Y-%m-%d"), "added": now.strftime("%Y-%m-%d"),
             "title": f"{name}: ${amt/1e6:,.1f}M in crypto stolen", "victim": name, "country": "", "region": "World",
             "sector": "Crypto", "type": "Crypto theft", "impact": impact_usd(amt), "people": None, "usd": int(amt),
-            "confirmed": True, "summary": clean(tech, 200),
+            "status": "confirmed", "impact_reason": f"${amt/1e6:,.1f}M stolen", "summary": clean(tech, 200), "updates": [],
             "sources": [{"name": "DeFiLlama", "url": "https://defillama.com/hacks"}] +
                        ([{"name": "Report", "url": h["source"]}] if str(h.get("source", "")).startswith("http") else []),
             "via": "defillama"})
@@ -236,6 +238,16 @@ def ransomware_counts(now, weekly, status, rw_seen):
     return n
 
 
+def log(inc, now, kind, text):
+    """Append to an incident's history; the original entry stays as it was first recorded."""
+    inc.setdefault("updates", []).append({"date": now.strftime("%Y-%m-%d"), "kind": kind, "text": text})
+
+
+def first_recorded(inc):
+    inc.setdefault("first_recorded", {"date": inc.get("added"), "impact": inc["impact"], "status": inc.get("status", "confirmed")})
+    return inc
+
+
 def tokens(s):
     return {t for t in re.findall(r"[a-z0-9]+", (s or "").lower()) if len(t) >= 4 and t not in {"finance", "protocol", "exchange", "network", "crypto"}}
 
@@ -250,7 +262,6 @@ def similar(incidents, name, d, days=4):
         if abs((di - d).days) <= days and n & (tokens(i.get("victim")) | tokens(i.get("title"))):
             return i
     return None
-    return False
 
 
 # ---------- AI editor ----------
@@ -261,7 +272,8 @@ RUBRIC = (
     "4 major (10-100 million people, national critical services such as hospitals, energy, telecom or government disrupted, "
     "$100M-1B, or state espionage against governments); "
     "5 severe (over 100 million people, disruption across several countries, over $1B, or risk to life). "
-    "Unconfirmed claims by criminal groups get at most class 3 until confirmed.")
+    "Score impact as if the reported facts are true; certainty is recorded separately in status "
+    "(confirmed by the victim or authorities, claimed by attackers or researchers, or disputed by the victim).")
 
 
 def ask_claude(cands, recent):
@@ -273,15 +285,18 @@ def ask_claude(cands, recent):
               "organisation, country or service. Also include software flaws confirmed to be exploited at scale (type Mass exploitation). "
               "Ignore advice, product news, vulnerability write-ups without confirmed exploitation, "
               "arrests, opinion and trend reports. Merge headlines about the same incident. " + RUBRIC)
-    user = ("Incidents already on the timeline (use same_as to add a new source to one of these instead of repeating it):\n"
+    user = ("Incidents already on the timeline. For news about one of these, use same_as; then fill only the fields "
+            "that changed: status, impact (revised), restored (true when services are back), and a short note:\n"
             + "\n".join(known[:120]) + "\n\nNew headlines:\n" + "\n".join(lines) +
             "\n\nReturn JSON only: {\"incidents\":[{\"i\":[headline indexes],\"same_as\":\"existing id or null\","
             "\"date\":\"YYYY-MM-DD the incident happened or was disclosed\",\"title\":\"neutral headline in your own words, max 12 words\","
             "\"victim\":\"organisation or service\",\"country\":\"ISO 3166 alpha-2 of the victim, or empty\","
             f"\"sector\":\"one of {', '.join(SECTORS)}\",\"type\":\"one of {', '.join(TYPES)}\","
             "\"impact\":1-5,\"people\":number of people or accounts affected or null,\"usd\":money stolen or demanded in USD or null,"
-            "\"confirmed\":true if the victim or authorities confirmed it,\"ai\":true if AI systems carried out the attack or were the target,"
-            "\"summary\":\"one sentence in your own words, max 30 words\"}]}")
+            "\"status\":\"confirmed|claimed|disputed\",\"impact_reason\":\"why this class, max 14 words\","
+            "\"ai\":true if AI systems carried out the attack or were the target,"
+            "\"summary\":\"one sentence in your own words, max 30 words\","
+            "\"note\":\"for same_as only: what is new, max 16 words\",\"restored\":true or null}]}")
     body = json.dumps({"model": MODEL, "max_tokens": 4000, "system": system,
                        "messages": [{"role": "user", "content": user}]}).encode()
     req = urllib.request.Request("https://api.anthropic.com/v1/messages", data=body, headers={
@@ -313,7 +328,14 @@ def parse_incidents(text, cands, known_ids, now):
         srcs = [{"name": cands[i]["source"], "url": cands[i]["url"]} for i in idx]
         same = x.get("same_as")
         if same and same in known_ids:
-            out.append({"same_as": same, "sources": srcs})
+            upd = {"same_as": same, "sources": srcs, "note": clean(x.get("note", ""), 140)}
+            if x.get("status") in ("confirmed", "claimed", "disputed"):
+                upd["status"] = x["status"]
+            if isinstance(x.get("impact"), int) and 1 <= x["impact"] <= 5:
+                upd["impact"] = x["impact"]
+            if x.get("restored") is True:
+                upd["restored"] = True
+            out.append(upd)
             continue
         try:
             imp = max(1, min(5, int(x.get("impact", 1))))
@@ -327,22 +349,22 @@ def parse_incidents(text, cands, known_ids, now):
             date = (cands[idx[0]]["date"] or now).strftime("%Y-%m-%d")
         cc = str(x.get("country") or "").upper()[:2]
         num = lambda v: int(v) if isinstance(v, (int, float)) and v > 0 else None
-        confirmed = bool(x.get("confirmed"))
-        if not confirmed:
-            imp = min(imp, 3)
+        st = x.get("status") if x.get("status") in ("confirmed", "claimed", "disputed") else "claimed"
         out.append({
             "id": "n-" + key(srcs[0]["url"]), "date": date, "added": now.strftime("%Y-%m-%d"), "title": title,
             "victim": clean(x.get("victim", ""), 80), "country": cc, "region": region_of(cc),
             "sector": x.get("sector") if x.get("sector") in SECTORS else "Other",
             "type": x.get("type") if x.get("type") in TYPES else "Other", "impact": imp,
-            "people": num(x.get("people")), "usd": num(x.get("usd")), "confirmed": confirmed,
-            "summary": clean(x.get("summary", ""), 240), "sources": srcs, "via": "news", "ai": bool(x.get("ai"))})
+            "people": num(x.get("people")), "usd": num(x.get("usd")), "status": st,
+            "impact_reason": clean(x.get("impact_reason", ""), 120), "summary": clean(x.get("summary", ""), 240),
+            "sources": srcs, "via": "news", "ai": bool(x.get("ai")), "updates": []})
     return out
 
 
 # ---------- CSV record ----------
 CSV_COLUMNS = ["id", "date", "date_precision", "added", "impact", "impact_label", "title", "victim", "country", "region",
-               "sector", "type", "people_affected", "usd", "confirmed", "ai_related", "summary", "sources", "found_via"]
+               "sector", "type", "records_or_accounts", "usd", "status", "impact_reason", "ai_related", "summary",
+               "first_recorded", "first_impact", "first_status", "updates", "sources", "found_via"]
 LABELS = {1: "Minor", 2: "Limited", 3: "Significant", 4: "Major", 5: "Severe"}
 
 
@@ -355,7 +377,10 @@ def write_csv(incidents):
         w.writerow([i["id"], i["date"], "month" if i.get("approx") == "month" else "day", i.get("added", ""),
                     i["impact"], LABELS.get(i["impact"], ""), i["title"], i.get("victim", ""), i.get("country", ""),
                     i.get("region", ""), i.get("sector", ""), i.get("type", ""), i.get("people") or "", i.get("usd") or "",
-                    "yes" if i.get("confirmed") else "claimed", "yes" if i.get("ai") else "no", i.get("summary", ""),
+                    i.get("status", ""), i.get("impact_reason", ""), "yes" if i.get("ai") else "no", i.get("summary", ""),
+                    (i.get("first_recorded") or {}).get("date", ""), (i.get("first_recorded") or {}).get("impact", ""),
+                    (i.get("first_recorded") or {}).get("status", ""),
+                    " | ".join(f"{u['date']} {u['kind']}: {u['text']}" for u in i.get("updates", [])),
                     " | ".join(f"{s['name']}: {s['url']}" for s in i.get("sources", [])), i.get("via", "")])
     path = os.path.join(DATA, "incidents.csv")
     with open(path + ".tmp", "w", encoding="utf-8-sig", newline="") as f:  # BOM so Excel reads accents correctly
@@ -401,6 +426,7 @@ def main():
                 cands.append(it)
 
     # 2) structured sources
+    n_before = len(incidents)
     status["incidents_added"] += from_hibp(now, incidents, status)
     status["incidents_added"] += from_llama(now, incidents, status)
     status["ransomware_new"] = ransomware_counts(now, weekly, status, rw_seen)
@@ -415,10 +441,24 @@ def main():
             byid = {i["id"]: i for i in incidents}
             for x in found:
                 if "same_as" in x:
-                    tgt = byid[x["same_as"]]
+                    tgt = first_recorded(byid[x["same_as"]])
                     urls = {s["url"] for s in tgt["sources"]}
-                    tgt["sources"] += [s for s in x["sources"] if s["url"] not in urls][:6]
+                    new = [s for s in x["sources"] if s["url"] not in urls][:6]
+                    tgt["sources"] += new
+                    if x.get("status") and x["status"] != tgt.get("status"):
+                        log(tgt, now, "status", f"Status changed from {tgt.get('status')} to {x['status']}" + (f": {x['note']}" if x["note"] else ""))
+                        tgt["status"] = x["status"]
+                    if x.get("impact") and x["impact"] != tgt["impact"]:
+                        log(tgt, now, "impact", f"Impact revised from {tgt['impact']} to {x['impact']}" + (f": {x['note']}" if x["note"] else ""))
+                        tgt["impact"] = x["impact"]
+                    if x.get("restored") and not tgt.get("restored"):
+                        tgt["restored"] = now.strftime("%Y-%m-%d")
+                        log(tgt, now, "restored", x["note"] or "Services restored")
+                    if new and not any(u["date"] == now.strftime("%Y-%m-%d") and u["kind"] != "source" for u in tgt["updates"]):
+                        log(tgt, now, "source", x["note"] or ("New source: " + ", ".join(s["name"] for s in new)))
+                    status["incidents_updated"] = status.get("incidents_updated", 0) + 1
                 elif x["id"] not in byid:
+                    first_recorded(x)
                     incidents.append(x)
                     byid[x["id"]] = x
                     status["incidents_added"] += 1
@@ -428,6 +468,15 @@ def main():
             status["note"] = str(e)
     elif not ai:
         status["note"] = "No ANTHROPIC_API_KEY secret: news is counted but not turned into incidents."
+    for i in incidents[n_before:]:
+        first_recorded(i)
+    status["coverage"] = {
+        "News feeds": f"{status['feeds_ok']}/{len(feeds)}",
+        "AI editor": ("on" if ai and "note" not in status else "error" if ai else "off"),
+        "Have I Been Pwned": "failed" if "Have I Been Pwned" in status["sources_failed"] else "ok",
+        "DeFiLlama": "failed" if "DeFiLlama" in status["sources_failed"] else "ok",
+        "ransomware.live": "failed" if "ransomware.live" in status["sources_failed"] else "ok"}
+    status["tracking_since"] = load("status.json", {}).get("tracking_since") or "2026-10-31"
 
     keep = (now - timedelta(days=KEEP_SEEN_DAYS)).strftime("%Y-%m-%d")
     for d in (counted, reviewed, rw_seen):

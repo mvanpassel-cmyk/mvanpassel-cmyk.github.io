@@ -32,12 +32,14 @@ class T(unittest.TestCase):
                  {"source": "S2", "url": "https://ex.org/c", "date": now, "title": "t2", "summary": ""}]
         txt = ('{"incidents":[{"i":[0],"same_as":null,"date":"2026-10-30","title":"Hospital hit","victim":"H",'
                '"country":"nl","sector":"Health","type":"Ransomware","impact":5,"people":null,"usd":null,'
-               '"confirmed":false,"summary":"s"},{"i":[1],"same_as":"x1"},{"i":[9]}]}')
+               '"status":"claimed","summary":"s"},{"i":[1],"same_as":"x1","status":"confirmed","note":"Victim confirms"},{"i":[9]}]}')
         out = update.parse_incidents(txt, cands, {"x1"}, now)
         self.assertEqual(len(out), 2)
-        self.assertEqual(out[0]["impact"], 3)  # unconfirmed claims are capped
+        self.assertEqual(out[0]["impact"], 5)  # impact is scored as if true
+        self.assertEqual(out[0]["status"], "claimed")  # certainty is kept separately
         self.assertEqual(out[0]["region"], "NL")
         self.assertEqual(out[1]["same_as"], "x1")
+        self.assertEqual(out[1]["status"], "confirmed")
 
     def test_similar(self):
         inc = [{"id": "a", "date": "2026-10-29", "victim": "Binance", "title": "Binance drained", "sources": []}]
@@ -51,7 +53,8 @@ class T(unittest.TestCase):
         old, update.DATA = update.DATA, d
         try:
             update.write_csv([{"id": "a", "date": "2026-10-29", "impact": 5, "title": "T, with comma", "victim": "V",
-                               "confirmed": True, "sources": [{"name": "S", "url": "https://x"}]}])
+                               "status": "confirmed", "sources": [{"name": "S", "url": "https://x"}],
+                               "updates": [{"date": "2026-10-30", "kind": "restored", "text": "Back online"}]}])
             rows = list(csv.reader(open(os.path.join(d, "incidents.csv"), encoding="utf-8-sig")))
         finally:
             update.DATA = old

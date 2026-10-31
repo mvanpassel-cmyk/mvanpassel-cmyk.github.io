@@ -8,5 +8,13 @@
  "ai": false,
  "model": "claude-sonnet-5-5",
  "ransomware_new": 0,
- "note": "No ANTHROPIC_API_KEY secret: news is counted but not turned into incidents."
+ "note": "No ANTHROPIC_API_KEY secret: news is counted but not turned into incidents.",
+ "coverage": {
+  "News feeds": "13/13",
+  "AI editor": "off",
+  "Have I Been Pwned": "ok",
+  "DeFiLlama": "ok",
+  "ransomware.live": "ok"
+ },
+ "tracking_since": "2026-10-31"
 }
