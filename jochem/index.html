@@ -66,7 +66,7 @@ footer{margin-top:40px;color:var(--muted);font-size:.8rem}
     <h1>Jochem</h1>
     <a class="home" href="/">← Tools &amp; experiments</a>
   </div>
-  <p class="sub">Elke keer iets anders, zoals een goede collega bij de koffieautomaat: een website, een film, een nieuwtje, een wist-je-dat, een anekdote of een handig hebbeding.</p>
+  <p class="sub">Elke keer iets anders, zoals een goede collega bij de koffieautomaat: een website, een film, een nieuwtje, een wist-je-dat, een anekdote, iets uit een bepaald jaar of ergens op de wereld, of een handig hebbeding.</p>
 
   <div class="chips" id="chips" role="group" aria-label="Categorie"></div>
 
@@ -97,7 +97,7 @@ footer{margin-top:40px;color:var(--muted);font-size:.8rem}
 </div>
 <script>
 const COLORS = { website:'#00a3e0', film:'#e6007e', nieuws:'#1f3a5f', wistjedat:'#d4a800', anekdote:'#ff7a00',
-  gadget:'#6b4fbb', 'boek-muziek':'#c2185b', natuur:'#2e7d32', globalhealth:'#00897b' };
+  gadget:'#6b4fbb', 'boek-muziek':'#c2185b', natuur:'#2e7d32', globalhealth:'#00897b', injaar:'#8d6e63', land:'#0277bd' };
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const store = {
