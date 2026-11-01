@@ -568,7 +568,8 @@
     10,
     12
    ],
-   "summary": "First assessment of Belgium's planning under Article 8 of Regulation (EU) 2022/2371."
+   "summary": "First assessment of Belgium's planning under Article 8 of Regulation (EU) 2022/2371.",
+   "checked": "2026-11-01"
   },
   {
    "id": "ee",
@@ -585,7 +586,8 @@
     10,
     12
    ],
-   "summary": "Post-COVID laboratory investments (incl. WGS) strengthen preparedness; budget cuts and workforce shortage are risks."
+   "summary": "Post-COVID laboratory investments (incl. WGS) strengthen preparedness; budget cuts and workforce shortage are risks.",
+   "checked": "2026-11-01"
   },
   {
    "id": "fi",
@@ -773,6 +775,25 @@
     12
    ],
    "summary": "Assessment of Czechia's planning under Article 8 of Regulation (EU) 2022/2371; fifth in-depth capacity: zoonotic diseases and threats of environmental origin. Only the five in-depth capacities and capacity 1 were read for this tool."
+  },
+  {
+   "id": "no",
+   "name": "Norway",
+   "year": "2025",
+   "visit": "3–7 Feb 2025",
+   "published": "28 Oct 2026",
+   "pdf": "https://www.ecdc.europa.eu/sites/default/files/documents/Norway_202502_PHEPA-report.pdf",
+   "url": "https://www.ecdc.europa.eu/en/publications-data/country-report-ecdc-public-health-emergency-preparedness-assessment-norway-2025",
+   "caps": [
+    1,
+    3,
+    4,
+    6,
+    7,
+    12
+   ],
+   "summary": "First ECDC assessment of Norway: desk review plus five-day visit; laboratory, surveillance, emergency management, AMR/HAI and health service provision (Norway's choice) in depth. Items were summarised from a machine-read text of the PDF; page numbers from p.17 on may be one page off.",
+   "checked": "2026-11-01"
   }
  ],
  "eu": [
@@ -4909,6 +4930,286 @@
    "k": "R",
    "x": "Clarify the legal mandate and position of the National IHR Focal Point",
    "p": 17
+  },
+  {
+   "c": "no",
+   "t": "lnet",
+   "k": "S",
+   "x": "NIPH hosts most of the 53 national reference functions, closely tied to epidemiologists, bioinformaticians and modellers",
+   "p": 7
+  },
+  {
+   "c": "no",
+   "t": "lqa",
+   "k": "S",
+   "x": "Clinical labs accredited to ISO 15189; NIPH, veterinary and defence research labs to ISO 17025",
+   "p": 7
+  },
+  {
+   "c": "no",
+   "t": "lscale",
+   "k": "S",
+   "x": "New NAATs can be running within two weeks of a new pathogen; COVID-19 testing reached about 5% of the population per week",
+   "p": 7
+  },
+  {
+   "c": "no",
+   "t": "lbio",
+   "k": "S",
+   "x": "Two high-containment labs offer 24/7 diagnostics, and every regional health authority plus NIPH has BSL-3 capacity",
+   "p": 8
+  },
+  {
+   "c": "no",
+   "t": "lscale",
+   "k": "R",
+   "x": "Build a clear lab scale-up strategy into preparedness plans and align it across national, regional and local levels",
+   "p": 8
+  },
+  {
+   "c": "no",
+   "t": "lbio",
+   "k": "R",
+   "x": "Finish the biosecurity legal framework and put guidelines into practice",
+   "p": 8
+  },
+  {
+   "c": "no",
+   "t": "ldata",
+   "k": "R",
+   "x": "Link reference lab data with epidemiological and registry data; give a shared national sequence database lasting funding",
+   "p": 8
+  },
+  {
+   "c": "no",
+   "t": "sews",
+   "k": "S",
+   "x": "A 24/7 NIPH duty officer screens national (VESUV) and international (EpiPulse) sources, with automated signal algorithms",
+   "p": 9
+  },
+  {
+   "c": "no",
+   "t": "sresp",
+   "k": "S",
+   "x": "Fully automated syndromic surveillance (NorSySS) from claims of all GPs and out-of-hours clinics, plus ~360 sentinel GPs testing for respiratory viruses",
+   "p": 9
+  },
+  {
+   "c": "no",
+   "t": "sww",
+   "k": "S",
+   "x": "Wastewater pilot for respiratory viruses since 2022 gave promising early signals; Norway takes part in EU-WISH",
+   "p": 9
+  },
+  {
+   "c": "no",
+   "t": "sews",
+   "k": "R",
+   "x": "Keep developing a dedicated epidemic intelligence and early warning platform",
+   "p": 10
+  },
+  {
+   "c": "no",
+   "t": "sdig",
+   "k": "R",
+   "x": "Automate national data processing, widen local data access and link data sources for integrated outbreak detection",
+   "p": 10
+  },
+  {
+   "c": "no",
+   "t": "scap",
+   "k": "R",
+   "x": "Automate collection of selected hospital capacity indicators",
+   "p": 10
+  },
+  {
+   "c": "no",
+   "t": "sresp",
+   "k": "R",
+   "x": "Publish weekly respiratory surveillance as an interactive, filterable report, possibly with regional data",
+   "p": 10
+  },
+  {
+   "c": "no",
+   "t": "plan",
+   "k": "S",
+   "x": "Legally based plans at every level under the 2018 National Health Preparedness Plan, guided by four preparedness principles",
+   "p": 10
+  },
+  {
+   "c": "no",
+   "t": "ex",
+   "k": "S",
+   "x": "Strong habit of testing plans through simulation exercises and after-action reviews",
+   "p": 10
+  },
+  {
+   "c": "no",
+   "t": "risk",
+   "k": "S",
+   "x": "Risk profiling done routinely at all administrative levels, with a recurring health-sector risk assessment from the ministry",
+   "p": 11
+  },
+  {
+   "c": "no",
+   "t": "plan",
+   "k": "R",
+   "x": "Cascade the new preparedness planning package to regional, county and municipal level; keep clarifying DoH and NIPH crisis roles",
+   "p": 11
+  },
+  {
+   "c": "no",
+   "t": "phsm",
+   "k": "R",
+   "x": "Review how information on public health and social measures is gathered and build near-real-time monitoring",
+   "p": 11
+  },
+  {
+   "c": "no",
+   "t": "mcmid",
+   "k": "S",
+   "x": "Critical countermeasures list of about 600 items is set in law and reviewed twice a year for specialist care",
+   "p": 11
+  },
+  {
+   "c": "no",
+   "t": "stock",
+   "k": "S",
+   "x": "Wholesalers must hold three- or six-month stocks; national PPE reserve of six months plus vaccine and antiviral stockpiles",
+   "p": 12
+  },
+  {
+   "c": "no",
+   "t": "mcmid",
+   "k": "R",
+   "x": "Create a specific method to list medical devices for the strategic stockpile",
+   "p": 12
+  },
+  {
+   "c": "no",
+   "t": "mcmon",
+   "k": "R",
+   "x": "Further develop supply-monitoring and demand-estimation tools and run more municipal and national gap analyses",
+   "p": 12
+  },
+  {
+   "c": "no",
+   "t": "sup",
+   "k": "R",
+   "x": "Draw up an all-hazards strategy for critical countermeasures covering stockpiles, manufacturing, supply chains and innovation",
+   "p": 12
+  },
+  {
+   "c": "no",
+   "t": "stock",
+   "k": "R",
+   "x": "Agree, with stakeholders, criteria for prioritising use of PPE and antiviral stockpiles",
+   "p": 13
+  },
+  {
+   "c": "no",
+   "t": "hai",
+   "k": "S",
+   "x": "Among the lowest AMR rates in the EU/EEA; national point prevalence surveys cover 60 hospitals and long-term care facilities",
+   "p": 13
+  },
+  {
+   "c": "no",
+   "t": "nap",
+   "k": "S",
+   "x": "One Health AMR strategy 2024–2033 with 34 actions under six goals, signed by six ministries",
+   "p": 13
+  },
+  {
+   "c": "no",
+   "t": "ipc",
+   "k": "S",
+   "x": "IPC built into standard health training; Norway seen as a leader in HAI and AMR prevention in long-term care",
+   "p": 14
+  },
+  {
+   "c": "no",
+   "t": "ams",
+   "k": "S",
+   "x": "Broad multisectoral stewardship work, and low antimicrobial use in food-producing animals tracked through VetReg",
+   "p": 14
+  },
+  {
+   "c": "no",
+   "t": "mdro",
+   "k": "R",
+   "x": "Monitor hospital screening in a standard way to inform national screening recommendations",
+   "p": 15
+  },
+  {
+   "c": "no",
+   "t": "nap",
+   "k": "R",
+   "x": "Name who follows up data in every One Health sector, including long-term care, and keep sector action plans updated",
+   "p": 15
+  },
+  {
+   "c": "no",
+   "t": "ipc",
+   "k": "R",
+   "x": "Take full part in European surveys of IPC structure and process indicators",
+   "p": 15
+  },
+  {
+   "c": "no",
+   "t": "hsp",
+   "k": "S",
+   "x": "Case management guidelines for priority events at all levels, and an essential services package with continuity monitoring",
+   "p": 16
+  },
+  {
+   "c": "no",
+   "t": "hsp",
+   "k": "S",
+   "x": "Hospitals must by law keep alert and response plans and report emergencies to county governors",
+   "p": 17
+  },
+  {
+   "c": "no",
+   "t": "hsp",
+   "k": "S",
+   "x": "COVID-19 real-time ICU occupancy tracking can be switched back on, and hospitals redistribute patients when full",
+   "p": 17
+  },
+  {
+   "c": "no",
+   "t": "hsp",
+   "k": "R",
+   "x": "Turn COVID-19 lessons into procedures and make in-action reviews, after-action reviews and exercises routine, with training for local health administrations",
+   "p": 18
+  },
+  {
+   "c": "no",
+   "t": "hsp",
+   "k": "R",
+   "x": "Set up the planned shared hospital resource database and make digital reporting systems interoperable",
+   "p": 18
+  },
+  {
+   "c": "no",
+   "t": "c1",
+   "k": "S",
+   "x": "Comprehensive legal framework; a national IHR regulation sets the focal point and notification rules, and EU Regulation 2022/2371 applies via the EEA",
+   "p": 19
+  },
+  {
+   "c": "no",
+   "t": "c1",
+   "k": "R",
+   "x": "Finish the legislative revision with coherent, cross-sectoral rules, and test and review the legal framework regularly",
+   "p": 19
+  },
+  {
+   "c": "no",
+   "t": "c1",
+   "k": "R",
+   "x": "Keep and strengthen the IHR Forum for cross-sector work on the SPAR and Article 7 self-assessments",
+   "p": 19
   }
  ]
 }

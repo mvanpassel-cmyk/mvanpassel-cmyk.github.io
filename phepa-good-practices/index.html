@@ -121,7 +121,7 @@ function vStart(){
   const it=D.items, cs=D.d.countries.length;
   view.innerHTML=`<p class="lead">The PHEPA is ECDC's assessment of how well each EU/EEA country has planned to prevent, prepare for and respond to serious cross-border health threats. Countries are assessed about every three years. The first cycle runs 2024–2026. ECDC then gives each country recommendations, and the reports also describe strengths. This tool collects those strengths and recommendations <strong>by topic</strong>, so you can see who already does something well and what ECDC advised others.</p>
   <div class="grid2">
-   <div class="card"><div class="stat">${cs}</div><div class="small muted">country reports read (10 of the 15 countries in ECDC's interim report, plus Cyprus, Czechia and Liechtenstein)</div></div>
+   <div class="card"><div class="stat">${cs}</div><div class="small muted">country reports read (11 of the 15 countries in ECDC's interim report, plus Cyprus, Czechia and Liechtenstein)</div></div>
    <div class="card"><div class="stat">${it.filter(i=>i.k==="S").length}</div><div class="small muted">strengths and good practices summarised</div></div>
    <div class="card"><div class="stat">${it.filter(i=>i.k==="R").length}</div><div class="small muted">recommendations summarised</div></div>
    <div class="card"><div class="stat">${D.d.topics.filter(t=>t.cap!==undefined).length}</div><div class="small muted">topics across the 16 capacities (four assessed in depth in every country, a fifth chosen by the country)</div></div>
@@ -172,7 +172,7 @@ function vTopics(open){
 
 function vCountries(id){
   const cs=D.d.countries.slice().sort((a,b)=>a.name.localeCompare(b.name));
-  let h=`<p class="lead">The ${cs.length} country reports read for this tool. ECDC's interim report covers 15 countries (${esc(D.d.meta.interim.countries)}); for Croatia, Malta, Norway, Portugal and Sweden I found no published country report on ECDC's page, so they appear only through examples in the interim report.</p>
+  let h=`<p class="lead">The ${cs.length} country reports read for this tool. ECDC's interim report covers 15 countries (${esc(D.d.meta.interim.countries)}); for Croatia, Malta, Portugal and Sweden I found no published country report on ECDC's page, so they appear only through examples in the interim report.</p>
   <div style="overflow-x:auto"><table class="cmp"><caption class="sr">PHEPA country reports</caption><thead><tr><th scope="col">Country</th><th scope="col">Country visit</th><th scope="col">Published</th><th scope="col">In-depth capacities</th><th scope="col">Items</th></tr></thead><tbody>${cs.map(c=>`<tr><th scope="row" style="text-align:left"><a href="#/countries/${c.id}">${esc(c.name)}</a></th><td>${esc(c.visit||"—")}</td><td>${esc(c.published)}</td><td class="small">${c.caps.map(k=>esc(D.cap[k].split(" (")[0].split(",")[0])).join(", ")}</td><td>${D.items.filter(i=>i.c===c.id).length}</td></tr>`).join("")}</tbody></table></div>`;
   if(id&&D.cty[id]){ const c=D.cty[id]; const its=D.items.filter(i=>i.c===id);
     h+=`<h2>${esc(c.name)}</h2><p>${esc(c.summary)}</p><p class="small"><a href="${esc(c.url)}" rel="noopener">ECDC page</a> · <a href="${esc(c.pdf)}" rel="noopener">Report (PDF)</a> · published ${esc(c.published)}${c.visit?` · country visit ${esc(c.visit)}`:""}</p>`;
@@ -215,7 +215,7 @@ function vAbout(){
   view.innerHTML=`<h2>What this tool does</h2><p>It turns the narrative of the published PHEPA country reports into a topic index of <strong>strengths (good practices)</strong> and <strong>recommendations</strong>, so that a country working on one topic can see how others handled it. It is the PHEPA counterpart of the <a href="../jee-good-practices/">JEE Good Practices</a> tool.</p>
   <h2>Method</h2>
   <ul>
-   <li><strong>Sources:</strong> ${D.d.countries.length} ECDC PHEPA country reports (Belgium, Cyprus, Czechia, Estonia, Finland, France, Iceland, Latvia, Liechtenstein, Lithuania, Luxembourg, the Netherlands, Spain), the ECDC <a href="${esc(m.interim.url)}" rel="noopener">interim report</a> (${esc(m.interim.date)}), the Commission/ECDC <a href="${esc(m.eu.url)}" rel="noopener">overview of recommendations</a> and the ECDC <a href="${esc(m.guide.url)}" rel="noopener">guide for countries</a>.</li>
+   <li><strong>Sources:</strong> ${D.d.countries.length} ECDC PHEPA country reports (Belgium, Cyprus, Czechia, Estonia, Finland, France, Iceland, Latvia, Liechtenstein, Lithuania, Luxembourg, the Netherlands, Norway, Spain), the ECDC <a href="${esc(m.interim.url)}" rel="noopener">interim report</a> (${esc(m.interim.date)}), the Commission/ECDC <a href="${esc(m.eu.url)}" rel="noopener">overview of recommendations</a> and the ECDC <a href="${esc(m.guide.url)}" rel="noopener">guide for countries</a>.</li>
    <li><strong>Items:</strong> each strength or recommendation is a short paraphrase of one finding, tagged with the report, a page number and a topic. Topics come from the structure of ECDC's interim report (planning, risk profiling, stockpiles, laboratory scale-up, and so on). Strengths in the reports are treated as good practices; ECDC does not label them “good practice” in a formal sense.</li>
    <li><strong>Reading:</strong> reports were read through an automated text extraction and summarised by an AI assistant (Claude). Summaries can contain errors or lose nuance. Always check the report before citing.</li>
    <li><strong>Related WHO material:</strong> each topic is linked by hand to the closest JEE v3 indicators; the tools listed come from the JEE portal's good practice list.</li>
@@ -224,7 +224,7 @@ function vAbout(){
   <ul>
    <li>PHEPA reports describe each country in prose. There are <strong>no scores</strong> and no published list of guiding questions, so no country can be compared or ranked on a capacity. “Good practice” here means “described as a strength in the report”.</li>
    <li>The Netherlands report is a combined WHO JEE and ECDC PHEPA mission report. Only its PHEPA recommendations and the AMR and zoonoses chapters were read in detail; its laboratory, surveillance and emergency-management strengths are missing.</li>
-   <li>Croatia, Malta, Norway, Portugal and Sweden are in ECDC's interim report but I found no published country report; they appear only through examples quoted in the interim report. Countries' own reports and actions plans may differ from the ECDC summary.</li>
+   <li>Croatia, Malta, Portugal and Sweden are in ECDC's interim report but I found no published country report; they appear only through examples quoted in the interim report. Countries' own reports and actions plans may differ from the ECDC summary.</li>
    <li>The interim report's section on zoonoses and environmental threats was cut off in the text I could read, so topics 'One Health' and 'Climate' have fewer ECDC-level opportunities listed.</li>
    <li>Page numbers are as printed in each report and approximate.</li>
    <li>PHEPA is run every three years and the first cycle is not finished; more reports will appear. Data retrieved ${esc(m.built)}.</li>
