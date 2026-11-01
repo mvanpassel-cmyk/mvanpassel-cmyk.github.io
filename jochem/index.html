@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jochem</title>
+<meta name="description" content="Elke keer iets anders: een website, een film, een nieuwtje, een wist-je-dat, een anekdote of een handig hebbeding.">
+<link rel="icon" type="image/svg+xml" href="/logos/jochem.svg">
+<link rel="apple-touch-icon" href="/logos/jochem.svg">
+<style>
+:root{
+  color-scheme:light;
+  --bg:#f6f4ef; --ink:#1c1f26; --muted:#667085; --card:#fff; --line:#e4e0d6;
+  --c:#00a3e0; --m:#e6007e; --y:#ffd400;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#14161b;--ink:#eceae4;--muted:#9aa1ae;--card:#1c1f26;--line:#2b303a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:
+  radial-gradient(36rem 28rem at 4% 0%,rgba(0,163,224,.12),transparent 70%),
+  radial-gradient(32rem 26rem at 100% 30%,rgba(230,0,126,.09),transparent 70%),
+  radial-gradient(38rem 28rem at 30% 105%,rgba(255,212,0,.13),transparent 70%)}
+.wrap{max-width:820px;margin:0 auto;padding:32px 16px 72px}
+.top{display:flex;align-items:center;gap:12px}
+.top img{width:44px;height:44px;border-radius:11px}
+h1{font:600 clamp(28px,5vw,38px)/1.1 ui-serif,Georgia,serif;margin:0}
+.home{margin-left:auto;color:var(--muted);font-size:.85rem;text-decoration:none}
+.sub{color:var(--muted);margin:8px 0 22px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.chip{border:1px solid var(--line);background:transparent;color:var(--ink);padding:6px 12px;border-radius:999px;font:inherit;font-size:.85rem;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px 24px 20px;box-shadow:0 10px 30px rgba(0,0,0,.05);position:relative;overflow:hidden}
+.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--accent,var(--c))}
+.kicker{display:flex;gap:10px;align-items:center;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.kicker b{color:var(--accent,var(--c))}
+.card h2{font:600 clamp(22px,4vw,30px)/1.2 ui-serif,Georgia,serif;margin:10px 0 10px}
+.card p{margin:0 0 14px;font-size:1.05rem}
+.meta{color:var(--muted);font-size:.85rem;margin-bottom:16px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:10px 16px;font:inherit;font-size:.95rem;cursor:pointer;text-decoration:none;display:inline-block}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink);font-weight:600}
+.btn.fav[aria-pressed="true"]{color:var(--m);border-color:var(--m)}
+.hint{color:var(--muted);font-size:.8rem;margin-top:10px}
+.fade{animation:f .35s ease}
+@keyframes f{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.fade{animation:none}}
+h3{font:600 1.15rem/1.2 ui-serif,Georgia,serif;margin:44px 0 12px}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.tools input,.tools select{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font:inherit;font-size:.9rem}
+.tools input{flex:1;min-width:180px}
+.list{display:grid;gap:8px}
+.item{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent,var(--c));border-radius:12px;padding:10px 14px}
+.item a{color:inherit;font-weight:600;text-decoration:none}
+.item a:hover{text-decoration:underline}
+.item .k{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.item p{margin:4px 0 0;color:var(--muted);font-size:.9rem}
+.empty{color:var(--muted);padding:12px 0}
+footer{margin-top:40px;color:var(--muted);font-size:.8rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <img src="/logos/jochem.svg" alt="">
+    <h1>Jochem</h1>
+    <a class="home" href="/">← Tools &amp; experiments</a>
+  </div>
+  <p class="sub">Elke keer iets anders, zoals een goede collega bij de koffieautomaat: een website, een film, een nieuwtje, een wist-je-dat, een anekdote of een handig hebbeding.</p>
+
+  <div class="chips" id="chips" role="group" aria-label="Categorie"></div>
+
+  <article class="card" id="card" aria-live="polite">
+    <div class="kicker"><b id="cat"></b><span id="when"></span></div>
+    <h2 id="title">Even nadenken…</h2>
+    <p id="text"></p>
+    <div class="meta" id="meta"></div>
+    <div class="row">
+      <button class="btn primary" id="next">Nog eentje</button>
+      <a class="btn" id="open" target="_blank" rel="noopener noreferrer">Bekijk ↗</a>
+      <button class="btn fav" id="fav" aria-pressed="false">♡ Bewaar</button>
+    </div>
+    <div class="hint" id="hint">Tip: spatiebalk voor de volgende.</div>
+  </article>
+
+  <h3>Alles wat Jochem ooit vertelde</h3>
+  <div class="tools">
+    <input id="q" type="search" placeholder="Zoek in alles…" aria-label="Zoek">
+    <select id="fcat" aria-label="Categorie"><option value="">Alle categorieën</option></select>
+    <select id="fshow" aria-label="Toon">
+      <option value="all">Alles</option><option value="fav">Alleen bewaard</option><option value="seen">Al gezien</option><option value="unseen">Nog niet gezien</option>
+    </select>
+  </div>
+  <div class="list" id="list"></div>
+
+  <footer id="foot"></footer>
+</div>
+<script>
+const COLORS = { website:'#00a3e0', film:'#e6007e', nieuws:'#1f3a5f', wistjedat:'#d4a800', anekdote:'#ff7a00',
+  gadget:'#6b4fbb', 'boek-muziek':'#c2185b', natuur:'#2e7d32', globalhealth:'#00897b' };
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const store = {
+  get(k, d) { try { return JSON.parse(localStorage.getItem('jochem-' + k)) ?? d; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem('jochem-' + k, JSON.stringify(v)); } catch (e) {} }
+};
+let DATA = { items: [], cats: {} }, cat = '', cur = null;
+let seen = new Set(store.get('seen', [])), favs = new Set(store.get('favs', []));
+const fmt = d => d ? new Date(d + 'T12:00').toLocaleDateString('nl-NL', { day: 'numeric', month: 'short', year: 'numeric' }) : '';
+
+function pick() {
+  const pool = DATA.items.filter(i => !cat || i.cat === cat);
+  if (!pool.length) return null;
+  let fresh = pool.filter(i => !seen.has(i.id) && i !== cur);
+  if (!fresh.length) {                       // alles gezien: begin opnieuw, maar niet dezelfde
+    pool.forEach(i => seen.delete(i.id)); fresh = pool.filter(i => i !== cur);
+    if (!fresh.length) fresh = pool;
+  }
+  // nieuwere items iets vaker
+  const now = Date.now(), w = fresh.map(i => 1 + Math.max(0, 30 - (now - new Date(i.added)) / 864e5) / 15);
+  let r = Math.random() * w.reduce((a, b) => a + b, 0);
+  for (let k = 0; k < fresh.length; k++) { r -= w[k]; if (r <= 0) return fresh[k]; }
+  return fresh[fresh.length - 1];
+}
+function show(item) {
+  cur = item; const card = $('#card');
+  if (!item) { $('#title').textContent = 'Nog niets in deze categorie.'; $('#text').textContent = ''; return; }
+  seen.add(item.id); store.set('seen', [...seen]);
+  card.style.setProperty('--accent', COLORS[item.cat] || 'var(--c)');
+  $('#cat').textContent = DATA.cats[item.cat] || item.cat;
+  $('#when').textContent = item.date ? '· ' + fmt(item.date) : (item.extra ? '· ' + item.extra : '');
+  $('#title').textContent = item.title; $('#text').textContent = item.text;
+  $('#meta').textContent = 'Bron: ' + item.source + (item.extra && item.date ? ' · ' + item.extra : '');
+  $('#open').href = item.url;
+  const f = favs.has(item.id); $('#fav').setAttribute('aria-pressed', f); $('#fav').textContent = f ? '♥ Bewaard' : '♡ Bewaar';
+  card.classList.remove('fade'); void card.offsetWidth; card.classList.add('fade');
+  renderList();
+}
+function renderChips() {
+  const cats = [['', 'Verras me'], ...Object.entries(DATA.cats)];
+  $('#chips').innerHTML = cats.map(([k, l]) => `<button class="chip" data-c="${k}" aria-pressed="${k === cat}">${esc(l)}</button>`).join('');
+  $('#fcat').innerHTML = '<option value="">Alle categorieën</option>' + Object.entries(DATA.cats).map(([k, l]) => `<option value="${k}">${esc(l)}</option>`).join('');
+}
+function renderList() {
+  const q = $('#q').value.trim().toLowerCase(), fc = $('#fcat').value, fs = $('#fshow').value;
+  const rows = DATA.items.filter(i =>
+    (!fc || i.cat === fc) &&
+    (fs === 'all' || (fs === 'fav' && favs.has(i.id)) || (fs === 'seen' && seen.has(i.id)) || (fs === 'unseen' && !seen.has(i.id))) &&
+    (!q || (i.title + ' ' + i.text + ' ' + i.source).toLowerCase().includes(q)))
+    .sort((a, b) => (b.added || '').localeCompare(a.added || '') || a.title.localeCompare(b.title));
+  $('#list').innerHTML = rows.length ? rows.map(i => `<div class="item" style="--accent:${COLORS[i.cat] || 'var(--c)'}">
+      <div class="k">${esc(DATA.cats[i.cat] || i.cat)} · toegevoegd ${fmt(i.added)}${favs.has(i.id) ? ' · ♥' : ''}</div>
+      <a href="${esc(i.url)}" target="_blank" rel="noopener noreferrer">${esc(i.title)}</a>
+      <p>${esc(i.text)}</p></div>`).join('') : '<div class="empty">Niets gevonden.</div>';
+  $('#foot').textContent = `${DATA.items.length} dingen in de verzameling · je hebt er ${DATA.items.filter(i => seen.has(i.id)).length} gezien · ${favs.size} bewaard · laatst aangevuld ${fmt(DATA.updated)}`;
+}
+$('#chips').onclick = e => { const b = e.target.closest('.chip'); if (!b) return; cat = b.dataset.c; renderChips(); show(pick()); };
+$('#next').onclick = () => show(pick());
+$('#fav').onclick = () => { if (!cur) return; favs.has(cur.id) ? favs.delete(cur.id) : favs.add(cur.id); store.set('favs', [...favs]); show(cur); };
+['q', 'fcat', 'fshow'].forEach(id => $('#' + id).addEventListener('input', renderList));
+document.addEventListener('keydown', e => { if (e.code === 'Space' && !/INPUT|SELECT|TEXTAREA|BUTTON|A/.test(document.activeElement.tagName)) { e.preventDefault(); show(pick()); } });
+
+fetch('items.json', { cache: 'no-cache' }).then(r => r.json()).then(d => { DATA = d; renderChips(); show(pick()); })
+  .catch(() => { $('#title').textContent = 'Jochem is even koffie halen. Probeer het zo nog eens.'; });
+</script>
+</body>
+</html>
