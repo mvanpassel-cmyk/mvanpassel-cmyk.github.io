@@ -89,7 +89,8 @@
    "country": "Global",
    "type": "data",
    "takeaway": "Country pages with results over the years and a download of the questionnaire.",
-   "note": "Questionnaire itself not opened for this page."
+   "note": "Questionnaire itself not opened for this page.",
+   "checked": "2026-11-01"
   },
   {
    "id": "who-2019-2020",
@@ -359,7 +360,8 @@
    "country": "India",
    "type": "peer-reviewed",
    "takeaway": "Treated effluent from a plant serving about 90 bulk drug manufacturers near Hyderabad held the highest drug levels ever reported in effluent, with ciprofloxacin up to 31 mg/L, over 1000 times the level toxic to some bacteria; a founding case for controls on manufacturing discharges (questions 6.3 to 6.5).",
-   "note": "Takeaway based on the abstract or publisher page; full text not read."
+   "note": "Takeaway based on the abstract or publisher page; full text not read.",
+   "checked": "2026-11-01"
   },
   {
    "id": "plant-ab-2024",
@@ -461,7 +463,8 @@
    "year": null,
    "country": "Global",
    "type": "data",
-   "takeaway": "WHO system for national reporting of resistance and use in humans; the reference for questions 3.2 and 3.5."
+   "takeaway": "WHO system for national reporting of resistance and use in humans; the reference for questions 3.2 and 3.5.",
+   "checked": "2026-11-01"
   },
   {
    "id": "animuse",
@@ -475,7 +478,8 @@
    "year": null,
    "country": "Global",
    "type": "data",
-   "takeaway": "Where countries report animal use data (questions 4.5.b and 4.6)."
+   "takeaway": "Where countries report animal use data (questions 4.5.b and 4.6).",
+   "checked": "2026-11-01"
   },
   {
    "id": "atlass",
@@ -593,6 +597,92 @@
    "country": "Global",
    "type": "guidance",
    "takeaway": "FAO's practical advice for crops: use antimicrobials only when needed, within integrated pest management and label rules, to limit resistance and residues."
+  },
+  {
+   "id": "fao-2026-zimbabwe-ffs",
+   "t": [
+    "5-aware"
+   ],
+   "title": "Safeguarding health, food and the environment: reflecting on FAO's 2025 initiatives to combat antimicrobial resistance in Zimbabwe",
+   "url": "https://www.fao.org/africa/news-stories/news-detail/safeguarding-health--food--and-the-environment--reflecting-on-fao-s-2025-initiatives-to-combat-antimicrobial-resistance-in-zimbabwe/en",
+   "authors": "FAO",
+   "journal": "",
+   "year": 2026,
+   "country": "Zimbabwe",
+   "type": "case-study",
+   "takeaway": "Farmer field schools for broiler producers in four districts, mostly women and youth, cut prophylactic antimicrobial use from about 73% to under 10%; a scalable model for AMR training in food production.",
+   "note": "FAO news story; not independently evaluated."
+  },
+  {
+   "id": "mallioris-2025-biosecurity",
+   "t": [
+    "4-prev"
+   ],
+   "title": "Improved animal husbandry, biosecurity and vaccination as a strategy to reduce antimicrobial use",
+   "url": "https://doi.org/10.20506/rst.44.3682",
+   "authors": "Mallioris P, Dhaka P, Makovska I, van Sabben N, Wagenaar JA, Stegeman A, Mughini-Gras L, Dewulf J",
+   "journal": "Revue scientifique et technique (WOAH)",
+   "year": 2025,
+   "country": "Global",
+   "type": "scoping-review",
+   "takeaway": "Review of pig, broiler and veal calf studies: better biosecurity goes with lower antimicrobial use and often pays for itself, while the effect of vaccination is less clear; useful evidence for a national biosecurity plan."
+  },
+  {
+   "id": "worldfish-2025-bangladesh-aquaculture",
+   "t": [
+    "4-prev"
+   ],
+   "title": "WorldFish promotes antimicrobial stewardship in aquaculture: a people-centric community-based approach",
+   "url": "https://www.worldfishcenter.org/blog/worldfish-promotes-antimicrobial-stewardship-aquaculture-people-centric-community-based",
+   "authors": "Rheman S, Hossain S, Abdullah-Al-Mahmud, Verner-Jeffreys D",
+   "journal": "",
+   "year": 2025,
+   "country": "Bangladesh",
+   "type": "case-study",
+   "takeaway": "Pilot that brought fish farmers, medicine sellers, vets and fisheries officers together for participatory sessions, a biosecurity board game and water-quality testing; an example of promoting aquaculture biosecurity locally (no outcome data yet).",
+   "note": "Project blog; no outcome data yet."
+  },
+  {
+   "id": "biginagwa-2026-tanzania-manure",
+   "t": [
+    "5-prev"
+   ],
+   "title": "Antimicrobial use and manure management practices among commercial chicken farmers in selected regions of Tanzania: gaps and strategies for mitigating antimicrobial resistance",
+   "url": "https://doi.org/10.3390/ijerph23020226",
+   "authors": "Biginagwa FJ, Mzula A, Westwood E, Ochai SO, Nonga HE, Dalsgaard A, Mdegela RH",
+   "journal": "International Journal of Environmental Research and Public Health",
+   "year": 2026,
+   "country": "Tanzania",
+   "type": "peer-reviewed",
+   "takeaway": "Survey of 351 poultry farmers found 93% use or sell manure untreated; recommends regulation, farmer training and composting to cut the release of resistant bacteria and residues from farms."
+  },
+  {
+   "id": "unep-2026-medicine-disposal",
+   "t": [
+    "6-use"
+   ],
+   "title": "Safe Disposal of Unused Medicines: A One Health Approach for National Systems",
+   "url": "https://doi.org/10.59117/20.500.11822/49324",
+   "authors": "UNEP",
+   "journal": "",
+   "year": 2026,
+   "country": "Global",
+   "type": "guidance",
+   "takeaway": "UNEP framework for national systems on unused medicines built on four pillars (waste prevention, take-back schemes, legal and policy frameworks, awareness), covering households, health care and agriculture."
+  },
+  {
+   "id": "kardas-2026-europe-disposal",
+   "t": [
+    "6-use"
+   ],
+   "title": "From medicine cabinets to ecosystems: a Europe-wide assessment of household pharmaceutical waste disposal practices",
+   "url": "https://doi.org/10.3389/fphar.2026.1788038",
+   "authors": "Kardas P, Agh T; Disposal Collaborators",
+   "journal": "Frontiers in Pharmacology",
+   "year": 2026,
+   "country": "Europe",
+   "type": "peer-reviewed",
+   "takeaway": "Comparison of household medicine disposal across 35 countries shows antibiotics among the most returned items and eight countries where unused medicines usually go in household waste; a benchmark for take-back schemes."
   }
  ]
 }
