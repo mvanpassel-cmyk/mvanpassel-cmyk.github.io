@@ -51,7 +51,8 @@
     "G14",
     "G16"
    ],
-   "note": "Publication year not stated; workshops were held in April and July 2017 with an earlier version of the guides."
+   "note": "Publication year not stated; workshops were held in April and July 2017 with an earlier version of the guides.",
+   "checked": "2026-11-01"
   },
   {
    "id": "legal-guidance",
@@ -182,7 +183,8 @@
    "t": [
     "X2"
    ],
-   "note": "Contents not read in full for this page; the line is based on the title and the IANPHI listing."
+   "note": "Contents not read in full for this page; the line is based on the title and the IANPHI listing.",
+   "checked": "2026-11-01"
   },
   {
    "id": "mentorship-bp",
@@ -199,7 +201,8 @@
     "G2",
     "G15"
    ],
-   "note": "Contents not read in full for this page; the line is based on the title and the IANPHI listing."
+   "note": "Contents not read in full for this page; the line is based on the title and the IANPHI listing.",
+   "checked": "2026-11-01"
   },
   {
    "id": "retention-bp",
@@ -214,7 +217,8 @@
    "t": [
     "G2"
    ],
-   "note": "Contents not read in full for this page; the line is based on the title and the IANPHI listing."
+   "note": "Contents not read in full for this page; the line is based on the title and the IANPHI listing.",
+   "checked": "2026-11-01"
   },
   {
    "id": "director-bp",
@@ -636,6 +640,113 @@
     "G1",
     "G20"
    ]
+  },
+  {
+   "id": "decroly-2026-biosafety",
+   "t": [
+    "G6"
+   ],
+   "title": "Measures to strengthen international biosafety and biosecurity practices",
+   "url": "https://doi.org/10.1371/journal.pbio.3003691",
+   "authors": "Decroly E, Berche P, et al.; Ewbank J",
+   "journal": "PLOS Biology",
+   "year": 2026,
+   "country": "Global",
+   "type": "peer-reviewed",
+   "takeaway": "Expert perspective proposing ISO 35001-style biorisk management, shared incident and near-miss reporting, and staff training as conditions for pathogen work; a checklist for an institute's own lab safety system."
+  },
+  {
+   "id": "bravo-2023-internal-comm",
+   "t": [
+    "G7"
+   ],
+   "title": "Comunicación interna en el Ministerio de Salud Pública (Internal communication at the Ministry of Public Health)",
+   "url": "https://revinfodir.sld.cu/index.php/infodir/article/view/1421",
+   "authors": "Bravo Tellez O, Almennares Rodríguez K, Arocha Mariño C, Badia Valdés AT, Romero González AG, González Pérez DI",
+   "journal": "INFODIR",
+   "year": 2023,
+   "country": "Cuba",
+   "type": "case-study",
+   "takeaway": "Staff survey at Cuba's health ministry found communication was almost all top-down and recognition messages rare, yet staff identified with the institution; a ready model for auditing internal communication flows and channels.",
+   "pr": true,
+   "note": "Set in a ministry of health, not a national public health institute."
+  },
+  {
+   "id": "scales-2024-burnout",
+   "t": [
+    "G5"
+   ],
+   "title": "Burnout among public health workers during the COVID-19 response: results from a follow-up survey",
+   "url": "https://doi.org/10.1371/journal.pmen.0000100",
+   "authors": "Scales SE, Kintziger KW, Stone KW, Jagger MA, Horney JA",
+   "journal": "PLOS Mental Health",
+   "year": 2024,
+   "country": "United States",
+   "type": "peer-reviewed",
+   "takeaway": "Follow-up survey of public health staff showed burnout rose over the response and was predicted by long weekly hours and poor sleep, pointing to workload limits as part of staff health and safety during emergencies."
+  },
+  {
+   "id": "spf-2021-mois-sans-tabac",
+   "t": [
+    "G10"
+   ],
+   "title": "Attempts to quit smoking during the 'Month without tobacco' campaign, 2016–2019: results from Santé publique France",
+   "url": "https://www.santepubliquefrance.fr/index.php/en/tabac/article/attempts-quit-smoking-during-month-without-tobacco-campaign-2016-2019-results-sante-publique-france",
+   "authors": "Santé publique France",
+   "journal": "Bulletin épidémiologique hebdomadaire",
+   "year": 2021,
+   "country": "France",
+   "type": "case-study",
+   "takeaway": "France's NPHI ran and evaluated its own national social-marketing quit campaign with yearly population surveys, attributing about 1.8 million quit attempts to it; shows how an institute can measure the reach of its campaigns.",
+   "pr": false,
+   "note": "The institute's evaluation of its own campaign."
+  },
+  {
+   "id": "manda-2026-zambia-ncd",
+   "t": [
+    "G19"
+   ],
+   "title": "Surveillance as a governance imperative: renewing Zambia's commitment to non-communicable disease risk factor monitoring",
+   "url": "https://thp.znphi.co.zm/index.php/thehealthpress/article/view/72",
+   "authors": "Manda C, Bwembya J, Dalal N, Sinyange N, Shempela DM, Chilengi R",
+   "journal": "The Health Press Zambia",
+   "year": 2026,
+   "country": "Zambia",
+   "type": "statement",
+   "takeaway": "Zambia's NPHI journal explains why the institute-backed second national STEPS survey (2026, all ten provinces) matters and argues its value depends on fast sharing of results with clinicians and policymakers.",
+   "pr": false
+  },
+  {
+   "id": "ianphi-2026-sierra-leone-sdt",
+   "t": [
+    "G1",
+    "G7"
+   ],
+   "title": "Sierra Leone NPHA Development Workshop",
+   "url": "https://www.ianphi.org/news/2026/sierra-leone-npha-development-workshop.html",
+   "authors": "IANPHI",
+   "journal": "",
+   "year": 2026,
+   "country": "Sierra Leone",
+   "type": "case-study",
+   "takeaway": "After a completed SDT assessment, Sierra Leone's agency leadership chose six priorities including internal communication and organisational culture, with owners, timelines and quick wins, tied to ISO 9001 certification.",
+   "pr": false,
+   "note": "News item; the SDT report itself is not public."
+  },
+  {
+   "id": "cdcf-2026-bulletin-hub",
+   "t": [
+    "G14",
+    "G8"
+   ],
+   "title": "The Public Health Bulletin Technical Resource Hub offers a one-stop shop for editorial teams",
+   "url": "https://www.ianphi.org/news/2026/the-public-health-bulletin-technical-resource-hub-offers-a-one-stop-shop-for-editorial-teams.html",
+   "authors": "IANPHI; CDC Foundation",
+   "journal": "",
+   "year": 2026,
+   "country": "Global",
+   "type": "guidance",
+   "takeaway": "Free hub with a writing course, a bulletin maturity model and a quality scorecard, plus NPHI examples from Côte d'Ivoire, Rwanda and Uganda, to help institutes publish and improve national public health bulletins."
   }
  ]
 }
