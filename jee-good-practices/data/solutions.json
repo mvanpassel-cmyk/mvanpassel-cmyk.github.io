@@ -2,8 +2,8 @@
  "meta": {
   "status": "Good practices were found by searching WHO, partner and peer-reviewed literature for each technical question (October 2026), starting from the tools that WHO lists in its benchmarks for each technical area. Relevance is judged from each source's title and summary, not from reading every document in full. A good practice can help answer a question or close the gap behind it; it is not a claim that it raises a JEE score. Questions without a good practice are shown as 'no good practice yet'. An independent review (18 October 2026) checked every literature item, about 65 other sources and all 1,039 question links; verified corrections were applied and 10 links that did not fit the question were removed. 43 WHO IRIS links and a few publisher pages could not be checked automatically.",
   "built": "2026-10-17",
-  "nSources": 337,
-  "nQuestionsCovered": 473,
+  "nSources": 347,
+  "nQuestionsCovered": 478,
   "nQuestions": 479,
   "sourceTypes": {
    "guideline": "Normative WHO or partner guidance. Says what to do; not itself evidence that it works.",
@@ -20,7 +20,7 @@
    "presentation": "Slide presentation."
   },
   "nSubQuestions": 391,
-  "nSubQuestionsCovered": 170
+  "nSubQuestionsCovered": 177
  },
  "solutions": [
   {
@@ -141,7 +141,8 @@
     "D3.3:q8",
     "D3.3:q9"
    ],
-   "why": "Programme and materials on assessing legal frameworks and building legal workforce capacity for emergencies."
+   "why": "Programme and materials on assessing legal frameworks and building legal workforce capacity for emergencies.",
+   "checked": "2026-11-01"
   },
   {
    "id": "woah-vet-legislation",
@@ -229,7 +230,8 @@
     "D2.3:q1",
     "R3.2:q2.b"
    ],
-   "why": "Free software to analyse and report health data disaggregated by sex, age, income, education and place."
+   "why": "Free software to analyse and report health data disaggregated by sex, age, income, education and place.",
+   "checked": "2026-11-01"
   },
   {
    "id": "who-intersectional-toolkit",
@@ -370,7 +372,8 @@
     "P2.1:q5",
     "P2.1:q6"
    ],
-   "why": "Costing approach that compares plan needs with allocated budgets."
+   "why": "Costing approach that compares plan needs with allocated budgets.",
+   "checked": "2026-11-01"
   },
   {
    "id": "gu-ihr-costing",
@@ -383,7 +386,8 @@
    "questions": [
     "P2.1:q6"
    ],
-   "why": "Estimates the cost of building and maintaining IHR capacities, for comparison with budgets."
+   "why": "Estimates the cost of building and maintaining IHR capacities, for comparison with budgets.",
+   "checked": "2026-11-01"
   },
   {
    "id": "pandemic-fund",
@@ -396,7 +400,8 @@
    "questions": [
     "P2.1:q14"
    ],
-   "why": "Explains the multilateral grant mechanism for prevention, preparedness and response investments and how countries apply."
+   "why": "Explains the multilateral grant mechanism for prevention, preparedness and response investments and how countries apply.",
+   "checked": "2026-11-01"
   },
   {
    "id": "who-cfe",
@@ -410,7 +415,8 @@
     "P2.2:q3",
     "P2.2:q4"
    ],
-   "why": "How WHO's emergency fund releases money within hours, and how countries request it."
+   "why": "How WHO's emergency fund releases money within hours, and how countries request it.",
+   "checked": "2026-11-01"
   },
   {
    "id": "who-funding-emergencies",
@@ -451,7 +457,8 @@
     "P3.2:q1",
     "P3.2:q2"
    ],
-   "why": "WHO guidance on NFP functions, staffing, 24/7 access, mandate and contact maintenance."
+   "why": "WHO guidance on NFP functions, staffing, 24/7 access, mandate and contact maintenance.",
+   "checked": "2026-11-01"
   },
   {
    "id": "paho-nfp-framework",
@@ -498,7 +505,8 @@
     "P3.1:q1.g",
     "P3.1:q2.h"
    ],
-   "why": "Workshop package to train NFP staff and test procedures."
+   "why": "Workshop package to train NFP staff and test procedures.",
+   "checked": "2026-11-01"
   },
   {
    "id": "tzg-mcm-ot",
@@ -530,7 +538,8 @@
     "P5.2:q1",
     "P5.2:q2"
    ],
-   "why": "Joint workshop that brings human and animal health services together to agree roles and a joint roadmap."
+   "why": "Joint workshop that brings human and animal health services together to agree roles and a joint roadmap.",
+   "checked": "2026-11-01"
   },
   {
    "id": "who-multisectoral-prep-framework",
@@ -5141,6 +5150,141 @@
     "R3.1:q6"
    ],
    "why": "Sets out what primary care facilities should do for case management in an epidemic (triage, referral, home-care follow-up) so that hospitals are not the only entry point."
+  },
+  {
+   "addedBy": "claude",
+   "id": "okeke-2022-cacovid-private-sector",
+   "title": "The Role of Contextual Factors in Private Sector Engagement: A Case Study of Private Sector Contribution to COVID-19 Mitigation in Nigeria",
+   "citation": "Okeke C, Eigbiremolen GO, Uzochukwu B, et al. Frontiers in Public Health. 2022.",
+   "url": "https://doi.org/10.3389/fpubh.2022.915330",
+   "year": 2022,
+   "type": "case-study",
+   "questions": [
+    "P2.1:q13"
+   ],
+   "why": "Traces how a business coalition formed with the national public health institute and WHO raised roughly USD 73 million and organised funding, technical and operational committees, showing one workable route for private money into health security capacities."
+  },
+  {
+   "addedBy": "claude",
+   "id": "who-2022-pfm-health-emergencies",
+   "title": "Public financial management for effective response to health emergencies: key lessons from COVID-19 for balancing flexibility and accountability",
+   "citation": "World Health Organization. Geneva: WHO; 2022.",
+   "url": "https://www.who.int/publications/i/item/9789240052574",
+   "year": 2022,
+   "type": "guideline",
+   "questions": [
+    "P2.2:q8"
+   ],
+   "why": "Reviews the budget rules countries bent during COVID-19 to pay non-state providers, with country examples of contracting private facilities, simplified accreditation of new private providers and front-loaded payments to private hospitals."
+  },
+  {
+   "addedBy": "claude",
+   "id": "yagupsky-2022-brucella-culture-free-diagnosis",
+   "title": "Preventing Laboratory-Acquired Brucellosis in the Era of MALDI-TOF Technology and Molecular Tests: A Narrative Review",
+   "citation": "Yagupsky P. Zoonotic Diseases. 2022.",
+   "url": "https://doi.org/10.3390/zoonoticdis2040016",
+   "year": 2022,
+   "type": "peer-reviewed",
+   "questions": [
+    "P7.1:q5"
+   ],
+   "why": "Explains why most laboratory-acquired brucellosis comes from handling live cultures and makes the biosafety case for culture-independent molecular detection, or identification only after inactivation, as the safer diagnostic route for a high-consequence agent."
+  },
+  {
+   "addedBy": "claude",
+   "id": "cdc-pulsenet-participating-laboratories",
+   "title": "PulseNet Participants",
+   "citation": "US Centers for Disease Control and Prevention. Atlanta: CDC; 2026.",
+   "url": "https://www.cdc.gov/pulsenet/php/program-participants/index.html",
+   "year": 2026,
+   "type": "tool",
+   "questions": [
+    "P6.1:q7"
+   ],
+   "why": "A maintained public directory of the state public health, agriculture and federal food-regulatory laboratories that subtype foodborne pathogens, with named contacts, as a model for the laboratory list a country needs at the start of a foodborne outbreak."
+  },
+  {
+   "addedBy": "claude",
+   "id": "mri-srilanka-neqas-microbiology",
+   "title": "National External Quality Assessment Scheme (NEQAS) in Clinical Microbiology",
+   "citation": "Medical Research Institute, Department of Bacteriology. Colombo: MRI; 2020.",
+   "url": "https://www.mri.gov.lk/units/departments-a-m/bacteriology/national-external-quality-assessment-scheme-neqas/",
+   "year": 2020,
+   "type": "tool",
+   "questions": [
+    "D1.2:q13.a",
+    "D1.2:q14.b"
+   ],
+   "why": "Describes a long-running national bacteriology proficiency scheme (Gram stain, identification, susceptibility testing) run quarterly by the reference institute, with state laboratories enrolled free and private laboratories joining voluntarily for a fee."
+  },
+  {
+   "addedBy": "claude",
+   "id": "taisuwan-2023-thailand-health-communication-investment",
+   "title": "Thailand's investment in health communications",
+   "citation": "Taisuwan PK. Department of Disease Control, Ministry of Public Health, Thailand; presented at Asian Development Bank event. 2023.",
+   "url": "https://events.development.asia/system/files/materials/2023/03/202303-increasing-investment-health-communications-thailand.pdf",
+   "year": 2023,
+   "type": "presentation",
+   "questions": [
+    "R5.1:q14"
+   ],
+   "why": "Sets out where money for health communication actually sits in a national budget, including the share of the COVID-19 central budget spent on risk communication and community engagement and a separately budgeted information intelligence centre.",
+   "note": "Slides carry no printed date; year taken from the event page path."
+  },
+  {
+   "addedBy": "claude",
+   "id": "znphi-2026-zambia-priority-chemicals-list",
+   "title": "Zambia agrees its first national priority chemicals list",
+   "citation": "Zambia National Public Health Institute; UK Health Security Agency IHR Strengthening Project. Global Health Programmes (tghn.org). 2026.",
+   "url": "https://gphihr.tghn.org/articles/zambia-agrees-its-first-national-priority-chemicals-list",
+   "year": 2026,
+   "type": "case-study",
+   "questions": [
+    "CE2:q1",
+    "CE2:q6.b"
+   ],
+   "why": "Documents a reproducible multi-criteria workshop method that took 65 candidate chemicals down to 15 national priorities, with mines, environment, defence medical and environmental management agencies at the table, as the first step of a national chemicals profile.",
+   "note": "News article without a named author; year from the March 2026 workshop it reports."
+  },
+  {
+   "addedBy": "claude",
+   "id": "astho-2026-michigan-cobalt-magnet-exercise",
+   "title": "Exercise Excellence: Michigan Reflects on a National Level Exercise",
+   "citation": "Evans A. Association of State and Territorial Health Officials. 2026.",
+   "url": "https://www.astho.org/communications/blog/2026/exercise-excellence-michigan-reflects-on-a-national-level-exercise/",
+   "year": 2026,
+   "type": "case-study",
+   "questions": [
+    "RE2:q4.i",
+    "RE2:q5.d"
+   ],
+   "why": "Account of a full-scale radiological exercise covering field sampling, decontamination and reception centres, showing how the health department, state police, environment agency, local health departments, hospitals and cross-border partners divided roles and what the after-action work changed."
+  },
+  {
+   "addedBy": "claude",
+   "id": "fofanah-2026-sierra-leone-naphs-evaluation",
+   "title": "Evaluating the implementation of Sierra Leone's first National Action Plan for Health Security, 2018-2024: lessons learnt and way forward",
+   "citation": "Fofanah BD, Sahr F, Musoke R, et al. Frontiers in Tropical Diseases. 2026.",
+   "url": "https://doi.org/10.3389/fitd.2025.1737087",
+   "year": 2026,
+   "type": "peer-reviewed",
+   "questions": [
+    "P3.3:q1.h"
+   ],
+   "why": "Mid-term and end-term review of a six-year national health security plan that quantifies what unfunded activities mean in practice: 65% implementation, a 55% funding gap, and the weakest progress in chemical, radiation and biosafety areas."
+  },
+  {
+   "addedBy": "claude",
+   "id": "sommariva-2021-social-listening-esa",
+   "title": "Social Listening in Eastern and Southern Africa, a UNICEF Risk Communication and Community Engagement Strategy to Address the COVID-19 Infodemic",
+   "citation": "Sommariva S, Mote J, Ballester Bon H, et al. Health Security. 2021.",
+   "url": "https://doi.org/10.1089/hs.2020.0226",
+   "year": 2021,
+   "type": "peer-reviewed",
+   "questions": [
+    "R5.3:q13.i"
+   ],
+   "why": "Describes a regional system that merged social media monitoring with hotlines, SMS and radio feedback to track over 2500 rumours and questions, and how country teams turned those insights into revised messages."
   }
  ]
 }
