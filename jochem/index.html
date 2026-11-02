@@ -163,5 +163,7 @@ document.addEventListener('keydown', e => { if (e.code === 'Space' && !/INPUT|SE
 fetch('items.json', { cache: 'no-cache' }).then(r => r.json()).then(d => { DATA = d; renderChips(); show(pick()); })
   .catch(() => { $('#title').textContent = 'Jochem is even koffie halen. Probeer het zo nog eens.'; });
 </script>
+<!-- bezoekersteller: GoatCounter, zonder cookies -->
+<script data-goatcounter="https://mvanpassel.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
