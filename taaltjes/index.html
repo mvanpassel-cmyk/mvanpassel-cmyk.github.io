@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Taaltjes">
+<meta name="theme-color" content="#fff7ec">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="icon" href="icon.png">
+<title>Taaltjes</title>
+<style>
+:root{--bg:#fff7ec;--ink:#3b2a20;--card:#fff;--brown:#c98b4f;--brown2:#e8b97f;--belly:#fbe6c8;--red:#e23b3b;--green:#2e9d5b;--blue:#2f6fd6;--muted:#8a7565}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.4 "Trebuchet MS",ui-rounded,system-ui,sans-serif}
+body{min-height:100vh;background:radial-gradient(40rem 30rem at 10% 0%,#ffe3c2,transparent 70%),radial-gradient(40rem 30rem at 100% 100%,#dcefff,transparent 70%),var(--bg)}
+.wrap{max-width:720px;margin:0 auto;padding:14px 14px 40px}
+header{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+h1{font-size:1.35rem;margin:0}
+.flag{display:inline-flex;height:14px;border-radius:3px;overflow:hidden;vertical-align:middle}
+.flag i{width:9px}.flag i:nth-child(1){background:#2f4fa3}.flag i:nth-child(2){background:#fff}.flag i:nth-child(3){background:#e23b3b}
+.stats{margin-left:auto;display:flex;gap:8px;font-weight:700}
+.pill{background:#fff;border:2px solid #f0d9bd;border-radius:999px;padding:4px 10px;font-size:.9rem}
+.stage{display:grid;grid-template-columns:190px 1fr;gap:12px;align-items:center;margin:14px 0 10px}
+@media (max-width:520px){.stage{grid-template-columns:130px 1fr}}
+#hamster{position:relative;width:100%}
+.ham img{width:100%;aspect-ratio:308/320;object-fit:contain;border-radius:22px;border:4px solid #fff;background:#fff;box-shadow:0 6px 0 #f0d9bd;display:block;padding:6px}
+.fx{position:absolute;font-size:1.8rem;opacity:0;pointer-events:none}
+.steam{left:8%;top:-6%}.steam.s2{left:auto;right:6%;top:2%}
+.heart{right:4%;top:-4%}.heart.h2{left:6%;right:auto;top:10%}
+.is-angry img{border-color:#ffd0d0}.is-happy img{border-color:#cfeedd}
+.opt small{display:inline-block;min-width:1.4em;color:#c9b29a;font-weight:700}
+#game.teasing{box-shadow:0 8px 0 #d9c2ff;outline:3px dashed #b48cff}
+.bubble{background:#fff;border:3px solid var(--ink);border-radius:18px;padding:12px 14px;position:relative;min-height:84px}
+.bubble::before{content:"";position:absolute;left:-14px;top:30px;border:10px solid transparent;border-right-color:var(--ink)}
+.bubble::after{content:"";position:absolute;left:-9px;top:32px;border:8px solid transparent;border-right-color:#fff}
+.say{font-weight:800;font-size:1.15rem}
+.sub{color:var(--muted);font-size:.9rem;margin-top:3px}
+.bubble.angry{border-color:var(--red);background:#fff1f1}.bubble.angry::before{border-right-color:var(--red)}.bubble.angry::after{border-right-color:#fff1f1}
+.bubble.happy{border-color:var(--green);background:#effaf3}.bubble.happy::before{border-right-color:var(--green)}.bubble.happy::after{border-right-color:#effaf3}
+.card{background:var(--card);border-radius:22px;padding:18px;box-shadow:0 8px 0 #f0d9bd}
+.q-label{color:var(--muted);font-size:.85rem;text-transform:uppercase;letter-spacing:.08em}
+.q{font-size:1.6rem;font-weight:800;margin:6px 0 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.speak{border:none;background:#ffe7c7;border-radius:999px;width:42px;height:42px;font-size:1.2rem;cursor:pointer}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:520px){.opts{grid-template-columns:1fr}}
+.opt{border:3px solid #f0d9bd;background:#fffdf9;border-radius:16px;padding:14px 12px;font:inherit;font-weight:700;color:var(--ink);cursor:pointer;text-align:left;min-height:58px}
+.opt:hover{border-color:var(--brown2)}
+.opt.good{border-color:var(--green);background:#e8f7ee}
+.opt.bad{border-color:var(--red);background:#ffecec}
+.typebox{display:flex;gap:8px}
+.typebox input{flex:1;font:inherit;font-size:1.15rem;padding:12px 14px;border:3px solid #f0d9bd;border-radius:14px;min-width:0}
+.btn{border:none;border-radius:14px;padding:12px 18px;font:inherit;font-weight:800;cursor:pointer;background:var(--brown);color:#fff;box-shadow:0 4px 0 #9c6532}
+.btn:active{transform:translateY(2px);box-shadow:0 2px 0 #9c6532}
+.btn.ghost{background:#fff;color:var(--ink);box-shadow:0 4px 0 #e6cfb2;border:2px solid #f0d9bd}
+.btn.blue{background:var(--blue);box-shadow:0 4px 0 #1f4c97}
+.accents{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.accents button{border:2px solid #f0d9bd;background:#fff;border-radius:10px;padding:6px 10px;font:inherit;cursor:pointer}
+.answer{margin-top:12px;font-size:1rem;min-height:1.4em}
+.answer b{color:var(--green)}
+.next{margin-top:12px;display:none}
+.menu{display:grid;gap:12px;min-width:0}
+.menu > *{min-width:0}
+html,body{overflow-x:hidden}
+#voice{flex:1 1 100%!important}
+.mode{display:flex;gap:12px;align-items:center;text-align:left;border:3px solid #f0d9bd;background:#fff;border-radius:18px;padding:14px;cursor:pointer;font:inherit;color:var(--ink)}
+.mode:hover{border-color:var(--brown2)}
+.mode .ico{font-size:2rem}
+.mode b{display:block;font-size:1.1rem}
+.mode span{color:var(--muted);font-size:.9rem}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.seg{display:inline-flex;flex-wrap:wrap;border:2px solid #f0d9bd;border-radius:12px;overflow:hidden;background:#fff;max-width:100%}
+.seg button{border:none;background:none;padding:8px 12px;white-space:nowrap;font:inherit;cursor:pointer;color:var(--ink)}
+.seg button.on{background:var(--brown);color:#fff;font-weight:700}
+.timer{height:10px;background:#f0d9bd;border-radius:999px;overflow:hidden;margin-bottom:12px}
+.timer i{display:block;height:100%;background:linear-gradient(90deg,var(--green),#f5b500,var(--red));width:100%}
+.end h2{margin:.2em 0}
+.list{margin:10px 0 0;padding:0;list-style:none}
+.list li{padding:6px 0;border-bottom:1px dashed #f0d9bd}
+.list li span{color:var(--muted)}
+.hidden{display:none!important}
+.small{font-size:.85rem;color:var(--muted)}
+/* hamster animations */
+.shake{animation:shake .5s}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px) rotate(-4deg)}40%{transform:translateX(8px) rotate(4deg)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+.hop{animation:hop .6s}
+@keyframes hop{0%,100%{transform:translateY(0)}40%{transform:translateY(-22px)}70%{transform:translateY(0) scale(1.05,.95)}}
+.is-angry .steam{opacity:1;animation:puff 1s infinite}
+@keyframes puff{0%{transform:translateY(4px);opacity:.2}50%{opacity:1}100%{transform:translateY(-10px);opacity:0}}
+.is-happy .heart{opacity:1;animation:float 1.2s ease-out}
+.heart{opacity:0}
+@keyframes float{0%{transform:translateY(6px);opacity:0}30%{opacity:1}100%{transform:translateY(-26px);opacity:0}}
+@media (prefers-reduced-motion:reduce){.shake,.hop,.is-angry .steam,.is-happy .heart{animation:none}}
+.tabs{display:flex;gap:8px;margin:8px 0 2px;flex-wrap:wrap}
+.tab{display:flex;align-items:center;gap:6px;border:3px solid #f0d9bd;background:#fff;border-radius:16px;padding:4px 12px 4px 4px;font:inherit;font-weight:800;color:var(--ink);cursor:pointer}
+.tab img{width:40px;height:40px;object-fit:contain}
+.tab .fl{font-size:1.3rem}
+.tab.on{border-color:var(--brown);background:#fff3e2;box-shadow:0 3px 0 #e6cfb2}
+.tab[disabled]{opacity:.45;cursor:default}
+.tab small{font-weight:600;color:var(--muted)}
+h1 .sub1{font-weight:600;color:var(--muted);font-size:.95rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Taaltjes <span class="sub1" id="h1sub"></span></h1>
+    <div class="stats"><span class="pill" title="Zaadjes">🌻 <span id="seeds">0</span></span><span class="pill" title="Reeks goed">🔥 <span id="streak">0</span></span></div>
+  </header>
+  <nav class="tabs" id="tabs" aria-label="Kies een taal"></nav>
+
+  <div class="stage">
+    <div id="hamster" class="ham">
+      <img id="himg" alt="">
+      <span class="fx steam">💨</span><span class="fx steam s2">💢</span><span class="fx heart">💖</span><span class="fx heart h2">✨</span>
+    </div>
+    <div class="bubble" id="bubble"><div class="say" id="say"></div><div class="sub" id="sub"></div></div>
+  </div>
+
+  <!-- MENU -->
+  <section class="card menu" id="menu">
+    <div class="row"><span class="small">Richting:</span>
+      <div class="seg" id="dir"></div>
+    </div>
+    <div class="row"><span class="small">Woorden:</span>
+      <div class="seg" id="set"></div>
+    </div>
+    <button class="mode" data-m="kies"><span class="ico" id="ico1">🐹</span><span><b>Kies het goede antwoord</b><span>Kies uit vier, maar ze lijken verdacht veel op elkaar. 15 vragen.</span></span></button>
+    <button class="mode" data-m="typ"><span class="ico">⌨️</span><span><b>Typ het zelf</b><span id="typhint"></span></span></button>
+    <button class="mode" data-m="race"><span class="ico">⏱️</span><span><b id="racenaam">Race</b><span>Zo veel mogelijk goed in 60 seconden. Haal je record!</span></span></button>
+    <div class="small" id="plaaguitleg"></div>
+    <div class="small" id="record"></div>
+  </section>
+
+  <!-- GAME -->
+  <section class="card hidden" id="game">
+    <div class="timer hidden" id="timer"><i id="bar"></i></div>
+    <div class="row" style="justify-content:space-between"><span class="q-label" id="qlabel"></span><span class="small" id="progress"></span></div>
+    <div class="q"><span id="qtext"></span></div>
+    <div class="opts" id="opts"></div>
+    <div class="hidden" id="typing">
+      <div class="typebox"><input id="inp" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Typ je antwoord…"><button class="btn" id="check">Check</button></div>
+      <div class="accents" id="accents"></div>
+    </div>
+    <div class="answer" id="answer"></div>
+    <div class="row next" id="nextrow"><button class="btn blue" id="next">Volgende →</button><button class="btn ghost" id="stop">Stoppen</button></div>
+  </section>
+
+  <!-- END -->
+  <section class="card end hidden" id="end">
+    <h2 id="endtitle"></h2>
+    <div id="endtext"></div>
+    <ul class="list" id="mistakes"></ul>
+    <div class="row" style="margin-top:14px"><button class="btn" id="again">Nog een keer</button><button class="btn ghost" id="practice">Oefen mijn fouten</button><button class="btn ghost" id="home">Menu</button></div>
+  </section>
+</div>
+
+<script>const LANGS={};</script>
+<script src="lang/nl-groepen.js"></script>
+<script src="lang/fr.js"></script>
+<script src="lang/de.js"></script>
+<script src="taaltjes.js"></script>
+<!-- bezoekersteller: GoatCounter, zonder cookies -->
+<script data-goatcounter="https://mvanpassel.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
