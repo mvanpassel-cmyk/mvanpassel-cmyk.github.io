@@ -1,6 +1,30 @@
 {
  "runs": [
   {
+   "run": "2026-11-03T12:59:17Z",
+   "sources": {
+    "who-don": {
+     "ok": true,
+     "new": 0
+    },
+    "ecdc-cdtr": {
+     "ok": true,
+     "new": 0
+    },
+    "gdacs": {
+     "ok": false
+    },
+    "imf-gfsr": {
+     "ok": true,
+     "new": 0
+    },
+    "enisa-etl": {
+     "ok": true,
+     "new": 0
+    }
+   }
+  },
+  {
    "run": "2026-11-01T12:00:25Z",
    "sources": {
     "who-don": {
