@@ -1,16 +1,18 @@
 {
- "last_run": "2026-11-04T12:19:44Z",
- "feeds_ok": 13,
- "feeds_failed": [],
+ "last_run": "2026-11-04T19:55:37Z",
+ "feeds_ok": 12,
+ "feeds_failed": [
+  "DataBreaches.net"
+ ],
  "sources_failed": [],
  "news_new": 15,
  "incidents_added": 0,
  "ai": false,
  "model": "claude-sonnet-5-5",
- "ransomware_new": 13,
+ "ransomware_new": 7,
  "note": "No ANTHROPIC_API_KEY secret: news is counted but not turned into incidents.",
  "coverage": {
-  "News feeds": "13/13",
+  "News feeds": "12/13",
   "AI editor": "off",
   "Have I Been Pwned": "ok",
   "DeFiLlama": "ok",
