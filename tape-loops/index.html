@@ -61,6 +61,7 @@ kbd{border:1px solid var(--line);border-radius:4px;padding:0 5px}
 </style>
 </head>
 <body>
+<audio id="keepalive" playsinline loop preload="auto" style="display:none"></audio>
 <main>
   <h1>Tape Loops</h1>
   <p class="sub">Five loops of different lengths drift against each other and never quite repeat.</p>
@@ -155,8 +156,20 @@ function audioMode(type) { try { if (navigator.audioSession) navigator.audioSess
 function initAudio() {
   if (ctx) return;
   audioMode('playback');
-  ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const AC = window.AudioContext || window.webkitAudioContext;
+  try { ctx = new AC({ latencyHint: 'playback' }); } catch (e) { ctx = new AC(); }
   ctx.suspend();
+  // Keep playing with the screen off: if the system pauses the audio while we're playing, resume it.
+  ctx.onstatechange = () => { if (playing && !micRec && ctx.state !== 'running') ctx.resume().catch(() => {}); };
+  // Audio-driven clock: keeps the scheduler going when timers are throttled or frozen in the background.
+  if (ctx.createScriptProcessor) {
+    const clk = ctx.createScriptProcessor(4096, 1, 1), z = ctx.createGain();
+    z.gain.value = 0;
+    clk.onaudioprocess = () => tick();
+    clk.connect(z); z.connect(ctx.destination);
+    if (ctx.createConstantSource) { const c = ctx.createConstantSource(); c.connect(clk); c.start(); }
+    window._tlClock = clk;                // keep a reference so it isn't garbage-collected
+  }
   bus = ctx.createGain();
   comp = ctx.createDynamicsCompressor();
   comp.threshold.value = -16; comp.ratio.value = 3; comp.attack.value = 0.01; comp.release.value = 0.25;
@@ -419,10 +432,10 @@ function refreshHeart() {
 }
 
 /* ---------- scheduler ---------- */
-const LOOKAHEAD = 1.5;
+const LOOKAHEAD = 1.5, LOOKAHEAD_HIDDEN = 12;   // schedule further ahead when the screen is off
 function tick() {
   if (!ctx || !playing) return;
-  const now = ctx.currentTime, horizon = now + LOOKAHEAD;
+  const now = ctx.currentTime, horizon = now + (document.hidden ? LOOKAHEAD_HIDDEN : LOOKAHEAD);
   for (const L of loops) {
     if (L.cursor < now - 0.5) L.cursor = now;
     const from = L.cursor;
@@ -701,13 +714,58 @@ async function togglePlay() {
       heart.start = now + 0.15; heart.cursor = heart.start;
     }
     playing = true;
+    keepAlive(true);                      // must start inside the tap (iOS)
     await ctx.resume();
+    tick();
   } else {
     playing = false;
+    keepAlive(false);
     await ctx.suspend();
   }
   $('#play').textContent = playing ? 'Pause' : 'Play';
+  updateSession();
 }
+
+/* ---------- background playback (screen off / locked) ---------- */
+// A silent <audio> element holds the media session, so iOS and browsers treat the page as
+// playing media and keep the Web Audio engine running when the screen sleeps.
+let silentURL = null;
+function makeSilentURL() {
+  const sr = 8000, n = sr, buf = new ArrayBuffer(44 + n * 2), v = new DataView(buf);
+  const w = (o, s) => { for (let i = 0; i < s.length; i++) v.setUint8(o + i, s.charCodeAt(i)); };
+  w(0, 'RIFF'); v.setUint32(4, 36 + n * 2, true); w(8, 'WAVE'); w(12, 'fmt ');
+  v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
+  v.setUint32(24, sr, true); v.setUint32(28, sr * 2, true); v.setUint16(32, 2, true); v.setUint16(34, 16, true);
+  w(36, 'data'); v.setUint32(40, n * 2, true);
+  return URL.createObjectURL(new Blob([buf], { type: 'audio/wav' }));
+}
+function keepAlive(on) {
+  const m = $('#keepalive');
+  if (!m) return;
+  if (on) {
+    if (!silentURL) silentURL = makeSilentURL();
+    if (m.src !== silentURL) m.src = silentURL;
+    m.loop = true;
+    m.play().catch(() => {});
+  } else m.pause();
+}
+function updateSession() {
+  if (!('mediaSession' in navigator)) return;
+  try {
+    navigator.mediaSession.metadata = new MediaMetadata({ title: 'Tape Loops', artist: 'Tape Loops' });
+    navigator.mediaSession.playbackState = playing ? 'playing' : 'paused';
+  } catch (e) {}
+}
+if ('mediaSession' in navigator) {
+  const h = (a, f) => { try { navigator.mediaSession.setActionHandler(a, f); } catch (e) {} };
+  h('play', () => { if (!playing) togglePlay(); });
+  h('pause', () => { if (playing) togglePlay(); });
+}
+document.addEventListener('visibilitychange', () => {
+  if (!ctx || !playing) return;
+  if (!document.hidden && ctx.state !== 'running' && !micRec) ctx.resume().catch(() => {});
+  tick();
+});
 let started = false;
 
 $('#play').addEventListener('click', togglePlay);
