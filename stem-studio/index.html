@@ -45,6 +45,12 @@ h1{font-size:22px;margin:0;letter-spacing:-.01em;font-weight:700}
 .btn.primary:hover{background:#fff}
 .btn:disabled{opacity:.45;cursor:not-allowed}
 .btn.sm{padding:5px 10px;font-size:12px}
+.modes{display:inline-flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:0 auto 18px;padding:4px;border:1px solid var(--line);border-radius:12px;background:var(--bg)}
+.mode{border:0;background:transparent;border-radius:8px;padding:8px 12px;font-size:13px;color:var(--dim);text-align:left;line-height:1.25}
+.mode b{display:block;color:var(--text);font-weight:600;font-size:13px}
+.mode.on{background:var(--panel2);box-shadow:inset 0 0 0 1px #3a3f46}
+.mode.on b{color:var(--y)}
+.modenote{color:var(--faint);font-size:12px;margin:-8px auto 16px;max-width:520px;font-family:var(--mono)}
 .section-h{display:flex;align-items:baseline;gap:10px;margin:34px 0 10px}
 .section-h h3{margin:0;font-size:15px}
 .section-h .note{color:var(--faint);font-size:12px;font-family:var(--mono)}
@@ -144,7 +150,7 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;bac
     </svg>
     <div>
       <h1>Stem Studio</h1>
-      <div class="sub">Split a song into stems on your own computer. Mix, mute, add effects, export.</div>
+      <div class="sub">Split a song into stems, on your own computer or fast in the cloud. Mix, mute, add effects, export.</div>
     </div>
     <div class="spacer"></div>
     <span class="pill" id="enginePill">checking engine…</span>
@@ -154,14 +160,20 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;bac
   <section id="viewLibrary">
     <div class="drop" id="drop">
       <h2>Drop a song here</h2>
-      <p>MP3, WAV, M4A or FLAC. It's split into vocals, drums, bass and other right here in your browser. Nothing is uploaded.</p>
+      <p>MP3, WAV, M4A or FLAC. Pick how it should be split:</p>
+      <div class="modes" id="modes">
+        <button class="mode" data-mode="local"><b>On-device</b>4 stems · free · private</button>
+        <button class="mode" data-mode="htdemucs_6s"><b>Fast · 6 stems</b>adds guitar &amp; piano · ~1–2¢</button>
+        <button class="mode" data-mode="htdemucs_ft"><b>Fast · High quality</b>4 stems, cleaner · ~4–6¢</button>
+      </div>
+      <div class="modenote" id="modeNote"></div>
       <button class="btn primary" id="pickBtn">Choose a file</button>
       <input type="file" id="fileInput" accept="audio/*,.mp3,.wav,.m4a,.flac,.ogg,.aac" hidden>
     </div>
     <div class="section-h"><h3>Your sessions</h3><span class="note" id="storageNote"></span></div>
     <div class="sessions" id="sessionList"></div>
     <div class="foot">
-      First split downloads the separation model once (about 172 MB), then it's kept in your browser.<br>
+      On-device: the first split downloads the model once (about 172 MB), then it's kept in your browser. Fast modes run on Replicate via your own relay and cost a few cents per song.<br>
       Sessions save automatically in this browser on this computer. Clearing site data removes them, so download anything you want to keep.<br>
       Model: HT-Demucs by Meta (MIT) via <a href="https://github.com/timcsy/demucs-web" target="_blank" rel="noopener">demucs-web</a>, run with ONNX Runtime Web.
     </div>
@@ -172,11 +184,11 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;bac
     <div class="proc">
       <div class="sub">Splitting</div>
       <h2 id="procName">—</h2>
-      <div class="step" id="stDecode"><span class="dot"></span>Reading the audio</div>
-      <div class="step" id="stModel"><span class="dot"></span><span>Loading the model</span></div>
+      <div class="step" id="stDecode"><span class="dot"></span><span>Reading the audio</span></div>
+      <div class="step" id="stModel"><span class="dot"></span><span id="lbModel">Loading the model</span></div>
       <div class="bar" id="modelBarWrap"><i id="modelBar"></i></div>
       <div class="stat" id="modelStat"></div>
-      <div class="step" id="stSplit"><span class="dot"></span>Separating stems</div>
+      <div class="step" id="stSplit"><span class="dot"></span><span id="lbSplit">Separating stems</span></div>
       <div class="bar"><i id="splitBar"></i></div>
       <div class="stat" id="splitStat"></div>
       <div class="step" id="stSave"><span class="dot"></span>Saving the session</div>
@@ -233,15 +245,19 @@ const ORT_BASE = `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ORT_VER}/dist/`
 const MODEL_URL = 'https://huggingface.co/timcsy/demucs-web-onnx/resolve/main/htdemucs_embedded.onnx';
 const MODEL_CACHE = 'stem-studio-models-v1';
 const SR = 44100;
+const RELAY = 'https://stem-studio-relay.mvanpassel.workers.dev';
 
 const TRACK_DEFS = [
   { id:'original', name:'Original', note:'reference', color:'#9aa0a6' },
   { id:'vocals',   name:'Vocals',   color:'#e6007e' },
   { id:'drums',    name:'Drums',    color:'#ffd400' },
   { id:'bass',     name:'Bass',     color:'#00a0e3' },
+  { id:'guitar',   name:'Guitar',   color:'#ff5a3c' },
+  { id:'piano',    name:'Piano',    note:'can be rough', color:'#3ccf8e' },
   { id:'other',    name:'Other',    note:'everything else',color:'#7d6bff' },
 ];
 const STEMS = ['vocals','drums','bass','other'];
+const ALL_STEMS = ['vocals','drums','bass','guitar','piano','other'];
 const defaultMix = id => ({ vol:80, pan:0, mute:id==='original', solo:false, lo:0, mid:0, hi:0, rev:0, del:0 });
 
 const $ = s => document.querySelector(s);
@@ -284,7 +300,7 @@ const DB = {
   putAudio(k, v) { return this.req('audio','readwrite', s => s.put(v, k)); },
   async deleteSession(id) {
     await this.req('sessions','readwrite', s => s.delete(id));
-    await this.req('audio','readwrite', s => { s.delete(`${id}:original`); STEMS.forEach(t => s.delete(`${id}:${t}`)); return null; });
+    await this.req('audio','readwrite', s => { s.delete(`${id}:original`); ALL_STEMS.forEach(t => s.delete(`${id}:${t}`)); return null; });
   },
 };
 const f32ToI16 = a => { const o=new Int16Array(a.length); for (let i=0;i<a.length;i++){ let s=a[i]; s=s<-1?-1:s>1?1:s; o[i]=s<0?s*32768:s*32767; } return o; };
@@ -693,47 +709,55 @@ async function handleFile(file) {
     const L = decoded.getChannelData(0), R = decoded.numberOfChannels > 1 ? decoded.getChannelData(1) : L;
     step('stDecode', 'done');
 
-    step('stModel', 'active');
-    let t0 = 0;
-    const proc = await getProcessor(
-      (got, total, cached) => {
-        $('#modelBar').style.width = (got/total*100).toFixed(1) + '%';
-        $('#modelStat').textContent = cached ? 'Ready (saved in your browser)' : `Downloading once: ${mb(got)} of ${mb(total)}`;
-      },
-      ({ currentSegment, totalSegments }) => {
-        const p = Math.min(currentSegment / totalSegments, 0.995);
-        $('#splitBar').style.width = (p*100).toFixed(1) + '%';
-        const el_ = (performance.now() - t0) / 1000, eta = currentSegment ? el_ / currentSegment * Math.max(0, totalSegments - currentSegment) : 0;
-        $('#splitStat').textContent = `${Math.round(p*100)}% · about ${fmt(eta)} left`;
-      }
-    );
-    $('#modelBar').style.width = '100%'; $('#modelStat').textContent = S.providers[0] === 'webgpu' ? 'Ready · running on GPU' : 'Ready · running on CPU (this can take a while)';
-    step('stModel', 'done');
+    const mode = getMode();
+    let stems;   // { name: { left, right } }
+    if (mode === 'local') {
+      $('#lbModel').textContent = 'Loading the model'; $('#lbSplit').textContent = 'Separating stems';
+      step('stModel', 'active');
+      let t0 = 0;
+      const proc = await getProcessor(
+        (got, total, cached) => {
+          $('#modelBar').style.width = (got/total*100).toFixed(1) + '%';
+          $('#modelStat').textContent = cached ? 'Ready (saved in your browser)' : `Downloading once: ${mb(got)} of ${mb(total)}`;
+        },
+        ({ currentSegment, totalSegments }) => {
+          const p = Math.min(currentSegment / totalSegments, 0.995);
+          $('#splitBar').style.width = (p*100).toFixed(1) + '%';
+          const el_ = (performance.now() - t0) / 1000, eta = currentSegment ? el_ / currentSegment * Math.max(0, totalSegments - currentSegment) : 0;
+          $('#splitStat').textContent = `${Math.round(p*100)}% · about ${fmt(eta)} left`;
+        }
+      );
+      $('#modelBar').style.width = '100%'; $('#modelStat').textContent = S.providers[0] === 'webgpu' ? 'Ready · running on GPU' : 'Ready · running on CPU (this can take a while)';
+      step('stModel', 'done');
 
-    step('stSplit', 'active');
-    $('#splitStat').textContent = 'Starting…';
-    await new Promise(r => setTimeout(r, 50));
-    t0 = performance.now();
-    const result = await proc.separate(new Float32Array(L), new Float32Array(R));
-    $('#splitBar').style.width = '100%';
-    $('#splitStat').textContent = `Done in ${fmt((performance.now() - t0) / 1000)}`;
-    step('stSplit', 'done');
+      step('stSplit', 'active');
+      $('#splitStat').textContent = 'Starting…';
+      await new Promise(r => setTimeout(r, 50));
+      t0 = performance.now();
+      const result = await proc.separate(new Float32Array(L), new Float32Array(R));
+      $('#splitBar').style.width = '100%';
+      $('#splitStat').textContent = `Done in ${fmt((performance.now() - t0) / 1000)}`;
+      step('stSplit', 'done');
+      stems = result;
+    } else {
+      stems = await fastSplit(file, bytes, mode);
+    }
 
     step('stSave', 'active');
     const id = 's' + Date.now().toString(36);
-    const session = { id, name: file.name.replace(/\.[^.]+$/, ''), created: Date.now(), updated: Date.now(), duration: decoded.duration, stems: STEMS.slice(), master: 80, mix: {}, loop: null };
+    const session = { id, name: file.name.replace(/\.[^.]+$/, ''), created: Date.now(), updated: Date.now(), duration: decoded.duration, stems: Object.keys(stems), mode, master: 80, mix: {}, loop: null };
     TRACK_DEFS.forEach(d => session.mix[d.id] = defaultMix(d.id));
     const buffers = { original: decoded };
-    for (const s of STEMS) {
-      const b = ctx.createBuffer(2, result[s].left.length, SR);
-      b.copyToChannel(result[s].left, 0); b.copyToChannel(result[s].right, 1);
+    for (const s of session.stems) {
+      const b = ctx.createBuffer(2, stems[s].left.length, SR);
+      b.copyToChannel(stems[s].left, 0); b.copyToChannel(stems[s].right, 1);
       buffers[s] = b;
     }
     let saved = true;
     try {
       if (navigator.storage?.persist) navigator.storage.persist().catch(()=>{});
       await DB.putAudio(`${id}:original`, new Blob([bytes], { type: file.type || 'audio/mpeg' }));
-      for (const s of STEMS) await DB.putAudio(`${id}:${s}`, { l: f32ToI16(result[s].left), r: f32ToI16(result[s].right) });
+      for (const s of session.stems) await DB.putAudio(`${id}:${s}`, { l: f32ToI16(stems[s].left), r: f32ToI16(stems[s].right) });
       await DB.putSession(session);
     } catch (e) { saved = false; console.error(e); }
     step('stSave', 'done');
@@ -746,6 +770,82 @@ async function handleFile(file) {
     box.textContent = 'Something went wrong: ' + (e?.message || e) + '\n\nTips: use Chrome or Edge on a computer, try a shorter song, or reload the page and try again.';
     $('#procBack').disabled = false;
   }
+}
+
+/* ------------------------------ fast mode (Replicate via relay) ------------------------------ */
+const MODE_NOTES = {
+  local: 'Runs on your own computer. Nothing leaves your device.',
+  htdemucs_6s: 'Your song is uploaded to Replicate for processing. Usually done in about a minute.',
+  htdemucs_ft: 'Your song is uploaded to Replicate. Takes about four times longer than 6 stems, slightly cleaner.',
+};
+function getMode() { try { return localStorage.getItem('stem-studio-mode') || 'local'; } catch(e) { return 'local'; } }
+function setMode(m) {
+  try { localStorage.setItem('stem-studio-mode', m); } catch(e) {}
+  document.querySelectorAll('.mode').forEach(b => b.classList.toggle('on', b.dataset.mode === m));
+  $('#modeNote').textContent = MODE_NOTES[m] || '';
+}
+document.querySelectorAll('.mode').forEach(b => b.onclick = () => setMode(b.dataset.mode));
+setMode(getMode());
+
+async function relayJSON(path, opts = {}) {
+  const r = await fetch(RELAY + path, opts);
+  let d = {}; try { d = await r.json(); } catch(e) {}
+  if (!r.ok || d.error) {
+    const det = d.detail?.detail || d.detail?.title || '';
+    throw new Error((d.error || `Relay error ${r.status}`) + (det ? ` (${det})` : ''));
+  }
+  return d;
+}
+async function fastSplit(file, bytes, model) {
+  const ctx = ensureCtx();
+  $('#lbModel').textContent = 'Uploading to Replicate';
+  $('#lbSplit').textContent = model === 'htdemucs_6s' ? 'Separating into 6 stems' : 'Separating (high quality)';
+  step('stModel', 'active');
+  $('#modelStat').textContent = `Sending ${mb(bytes.byteLength)}…`; $('#modelBar').style.width = '35%';
+  const start = await relayJSON('/split', {
+    method: 'POST',
+    headers: { 'X-Model': model, 'X-Filename': file.name.replace(/[^\w.\- ]+/g, '_'), 'Content-Type': file.type || 'application/octet-stream' },
+    body: new Blob([bytes], { type: file.type || 'application/octet-stream' }),
+  });
+  $('#modelBar').style.width = '100%'; $('#modelStat').textContent = 'Uploaded';
+  step('stModel', 'done');
+
+  step('stSplit', 'active');
+  const t0 = performance.now();
+  let st;
+  for (;;) {
+    await new Promise(r => setTimeout(r, 2500));
+    st = await relayJSON('/status?id=' + encodeURIComponent(start.id));
+    const pcts = [...(st.logs || '').matchAll(/(\d{1,3})%\|/g)].map(m => +m[1]);
+    const p = pcts.length ? pcts[pcts.length - 1] : 0;
+    const label = { starting: 'Starting up the server (can take a minute the first time)', processing: 'Separating' }[st.status] || st.status;
+    $('#splitBar').style.width = Math.max(4, Math.min(p, 98)) + '%';
+    $('#splitStat').textContent = `${label}${p ? ' · ' + p + '%' : ''} · ${fmt((performance.now() - t0) / 1000)} elapsed`;
+    if (st.status === 'succeeded') break;
+    if (st.status === 'failed' || st.status === 'canceled') throw new Error('Replicate: ' + (st.error || st.status));
+    if (performance.now() - t0 > 15 * 60 * 1000) throw new Error('Replicate took longer than 15 minutes. Try again later.');
+  }
+  let out = st.output;
+  if (Array.isArray(out)) { const o = {}; out.forEach(u => { const n = (u.split('/').pop() || '').replace(/\.\w+$/, '').toLowerCase(); o[n] = u; }); out = o; }
+  const names = Object.keys(out).map(k => k.toLowerCase()).filter(k => ALL_STEMS.includes(k));
+  if (!names.length) throw new Error('No stems came back from Replicate');
+  const stems = {};
+  let n = 0;
+  for (const name of ALL_STEMS.filter(s => names.includes(s))) {
+    n++;
+    $('#splitStat').textContent = `Downloading stems ${n} of ${names.length}…`;
+    const url = Object.entries(out).find(([k]) => k.toLowerCase() === name)[1];
+    const r = await fetch(RELAY + '/file?url=' + encodeURIComponent(url));
+    if (!r.ok) throw new Error(`Could not download the ${name} stem (${r.status})`);
+    const buf = await ctx.decodeAudioData(await r.arrayBuffer());
+    const left = new Float32Array(buf.getChannelData(0));
+    const right = buf.numberOfChannels > 1 ? new Float32Array(buf.getChannelData(1)) : new Float32Array(left);
+    stems[name] = { left, right };
+  }
+  $('#splitBar').style.width = '100%';
+  $('#splitStat').textContent = `Done in ${fmt((performance.now() - t0) / 1000)} · ${names.length} stems`;
+  step('stSplit', 'done');
+  return stems;
 }
 
 async function loadSession(id) {
