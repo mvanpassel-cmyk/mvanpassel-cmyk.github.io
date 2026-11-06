@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Climate &amp; Health Good Practices</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/logos/climate-health-good-practices-32.png">
+<link rel="icon" type="image/svg+xml" href="/logos/climate-health-good-practices.svg">
+<link rel="apple-touch-icon" href="/logos/climate-health-good-practices-180.png">
+<meta name="description" content="Good practices on climate-resilient and low-carbon health systems, organised by the ten components of the WHO Operational Framework, with links to JEE, SPAR and PHEPA and a country snapshot.">
+<style>
+:root{--bg:#f6f4ef;--ink:#1c1f26;--muted:#667085;--card:#fff;--line:#e4e0d6;--accent:#1f5f4a;--warn:#e0a526;--yes:#1f7a4d;--no:#98a2b3}
+@media (prefers-color-scheme:dark){:root{--bg:#14161b;--ink:#eceae4;--muted:#9aa1ae;--card:#1c1f26;--line:#2b303a;--accent:#7fd1ae;--yes:#7fd1ae;--no:#5d6573}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:28px 16px 72px}
+a{color:var(--accent)}
+h1{font:600 clamp(26px,5vw,38px)/1.1 ui-serif,Georgia,serif;margin:10px 0 8px;display:flex;gap:12px;align-items:center}
+h1 img{width:40px;height:40px;border-radius:9px;flex:none}
+h2{font:600 22px/1.2 ui-serif,Georgia,serif;margin:0}
+h3.sec{font:600 26px/1.2 ui-serif,Georgia,serif;margin:38px 0 6px;scroll-margin-top:12px}
+h4{margin:12px 0 4px;font-size:14px}
+.lead{color:var(--muted);max-width:75ch;margin:0 0 14px}
+.intro p{max-width:78ch;margin:0 0 10px}
+.intro p:last-child{margin-bottom:0}
+nav.jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+nav.jump a{font-size:14px;border:1px solid var(--line);border-radius:999px;padding:3px 12px;text-decoration:none;background:var(--card)}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px}
+input[type=search],select{font:inherit;font-size:14px;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);max-width:100%}
+input[type=search]{min-width:240px;flex:1 1 240px}
+label.ck{font-size:14px;display:inline-flex;gap:5px;align-items:center}
+a:focus-visible,summary:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.note{border-left:3px solid var(--warn);padding:2px 12px;color:var(--muted);font-size:13px;margin:14px 0}
+.muted{color:var(--muted)}.small{font-size:13px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:0 0 14px}
+details.box>summary{cursor:pointer}
+.procs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin:10px 0 0}
+.proc{border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14px}
+.proc .k{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.proc a{font-weight:600;display:block;margin:2px 0 4px}
+.areahead{margin:26px 0 8px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.fn{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+details.bm{background:var(--card);border:1px solid var(--line);border-radius:12px;margin:0 0 8px;scroll-margin-top:12px}
+details.bm>summary{cursor:pointer;padding:10px 14px;list-style:none;display:flex;gap:10px;align-items:baseline}
+details.bm>summary::-webkit-details-marker{display:none}
+details.bm>summary .id{font-weight:700;min-width:34px;font-variant-numeric:tabular-nums}
+details.bm>summary .cnt{margin-left:auto;white-space:nowrap;font-size:12px;color:var(--muted)}
+details.bm .body{padding:0 14px 14px;border-top:1px solid var(--line)}
+.what{margin:10px 0 4px;color:var(--muted);font-size:14px}
+.src{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0}
+.src.partner{border-left:3px solid var(--accent)}
+.src .t{font-weight:600}
+.badge{display:inline-block;border-radius:6px;padding:0 6px;font-size:11px;font-weight:600;letter-spacing:.03em;border:1px solid var(--line);color:var(--muted);margin-right:6px;white-space:nowrap}
+.badge.pr{color:var(--accent);border-color:var(--accent)}
+.tag{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:0 8px;font-size:12px;margin:0 4px 4px 0;text-decoration:none}
+.tag.gap{border-color:var(--accent);color:var(--accent)}
+ol.q{margin:4px 0 0 18px;padding:0;font-size:14px}
+ol.q li{margin:0 0 4px}
+.empty{color:var(--muted);font-style:italic;margin:10px 0 0}
+details.ctx{margin-top:12px;border-top:1px solid var(--line);padding-top:8px}
+details.ctx>summary{cursor:pointer;font-size:13px;color:var(--muted)}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:10px}
+.cc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.cc.home{border-color:var(--accent)}
+.cc h4{margin:0 0 6px;font-size:16px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.cc .pills{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px}
+.pill{font-size:12px;border-radius:999px;padding:1px 9px;border:1px solid var(--line)}
+.pill.y{border-color:var(--yes);color:var(--yes);font-weight:600}
+.pill.n{color:var(--no)}
+.cc ul{margin:0;padding:0;list-style:none;font-size:14px}
+.cc li{margin:0 0 6px}
+.cc li .tag{margin:0 6px 0 0;font-size:11px}
+footer{margin-top:40px;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1><img src="/logos/climate-health-good-practices.svg" alt="">Climate &amp; Health Good Practices</h1>
+<p class="lead">What countries, cities and health services are doing to make health systems climate-resilient and low-carbon, organised by the ten components of the WHO Operational Framework.</p>
+
+<div class="box intro" id="intro"></div>
+
+<nav class="jump" aria-label="Sections">
+  <a href="#practices">Good practices</a>
+  <a href="#countries">Country snapshot</a>
+  <a href="#processes">Global frameworks and evaluations</a>
+</nav>
+
+<h3 class="sec" id="practices">Good practices by component</h3>
+<div class="bar">
+  <input id="q" type="search" placeholder="Search topic, country, practice…" aria-label="Search">
+  <select id="fg" aria-label="Building block"><option value="">All building blocks</option></select>
+  <select id="fc" aria-label="Country"><option value="">All countries</option></select>
+  <select id="ft" aria-label="Type"><option value="">All types</option></select>
+  <label class="ck"><input id="fp" type="checkbox"> Peer-reviewed only</label>
+</div>
+<div id="stat" class="small muted"></div>
+<div id="view"><p class="muted">Loading…</p></div>
+
+<h3 class="sec" id="countries">Country snapshot</h3>
+<p class="lead small">The Netherlands and partner countries: commitments in the ATACH tracker and the plans and practices found for this page. Click a component tag to jump to it.</p>
+<div class="cgrid" id="cview"></div>
+<p class="small muted" id="cnote"></p>
+
+<h3 class="sec" id="processes">Global frameworks and evaluations</h3>
+<p class="lead small">There is no JEE for climate and health. These are the processes that together come closest: what they are and what they measure.</p>
+<div class="procs" id="procs"></div>
+
+<div class="note"><strong>How to read this.</strong> <span id="method"></span></div>
+<footer>Descriptions here are our own short paraphrases of the sources. Links go to the publisher or issuing organisation. Built with Claude for Mark van Passel. Check details before citing.</footer>
+</div>
+<script src="../shared/programmes.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let D,L,C,TYPES={},PARTNERS=[];
+const st={q:"",grp:"",country:"",type:"",pr:false};
+const isPR=s=>s.pr!==undefined?s.pr:s.type==="peer-reviewed";
+Promise.all([
+  fetch("data/data.json").then(r=>r.json()),
+  fetch("data/literature.json").then(r=>r.json()),
+  fetch("data/countries.json").then(r=>r.json()),
+  window.Programmes?Programmes.load("../shared/"):null
+]).then(([d,l,c])=>{D=d;L=l;C=c;TYPES=l.meta.types;PARTNERS=c.countries.map(x=>x.name);init();render();renderCountries();openHash()})
+.catch(e=>{$("#view").innerHTML='<p class="note">Could not load data: '+esc(e.message)+'</p>'});
+
+function init(){
+  $("#intro").innerHTML=D.meta.intro.map(p=>`<p>${esc(p)}</p>`).join("");
+  const groups=[...new Set(D.topics.map(t=>t.group))];
+  $("#fg").innerHTML+=groups.map(g=>`<option>${esc(g)}</option>`).join("");
+  const cs=[...new Set(L.sources.flatMap(s=>String(s.country).split(/,\s*| and /)).map(x=>x.trim()).filter(x=>x&&x!=="others"))].sort();
+  $("#fc").innerHTML+=cs.map(c=>`<option>${esc(c)}</option>`).join("");
+  $("#ft").innerHTML+=Object.entries(TYPES).map(([k,v])=>`<option value="${k}">${esc(v)}</option>`).join("");
+  $("#procs").innerHTML=D.meta.processes.map(p=>`<div class="proc" id="p-${esc(p.id)}"><span class="k">${esc(p.kind)}</span><a href="${esc(p.u)}" rel="noopener">${esc(p.t)}</a><span class="muted">${esc(p.d)}</span></div>`).join("");
+  $("#method").textContent=D.meta.note+" "+L.meta.note+" A practice can appear under several components. Case studies show what one place did; they are not proof that it works elsewhere.";
+  $("#cnote").textContent=C.meta.note+" Checked "+C.meta.checked+".";
+  $("#q").oninput=e=>{st.q=e.target.value.trim().toLowerCase();render()};
+  $("#fg").oninput=e=>{st.grp=e.target.value;render()};
+  $("#fc").oninput=e=>{st.country=e.target.value;render()};
+  $("#ft").oninput=e=>{st.type=e.target.value;render()};
+  $("#fp").onchange=e=>{st.pr=e.target.checked;render()};
+}
+const isPartner=s=>PARTNERS.some(p=>String(s.country).includes(p));
+function srcHTML(s){
+  return `<div class="src${isPartner(s)?" partner":""}"><div><span class="badge">${esc(TYPES[s.type]||s.type)}</span><span class="muted small">${esc(s.country)}${s.year?" · "+s.year:""}</span></div>
+  <div class="t"><a href="${esc(s.url)}" rel="noopener">${esc(s.title)}</a></div>
+  <div class="small muted">${esc([s.authors,s.journal].filter(Boolean).join(" · "))}</div>
+  <div>${esc(s.takeaway)}</div>${s.note?`<div class="small muted">Note: ${esc(s.note)}</div>`:""}</div>`;
+}
+function xwalk(t){
+  const j=t.jee.map(id=>`<a class="tag" href="../jee-good-practices/#/indicators/${esc(id)}">JEE ${esc(id)}</a>`).join("");
+  const sp=t.spar.map(c=>`<a class="tag" href="../spar-good-practices/#${encodeURIComponent(c)}">SPAR ${esc(c)}</a>`).join("");
+  const ph=t.phepa.map(c=>`<a class="tag" href="../phepa-good-practices/#/topics/cap-${encodeURIComponent(c)}">PHEPA ${esc(String(c))}</a>`).join("");
+  return (j+sp+ph)||'<span class="small muted">No close match in JEE, SPAR or PHEPA.</span>';
+}
+function render(){
+  const q=st.q;let shown=0,srcN=0,h="",lastG="";
+  D.topics.forEach(t=>{
+    if(st.grp&&t.group!==st.grp) return;
+    const ss=L.sources.filter(s=>s.t.includes(t.id)&&(!st.type||s.type===st.type)&&(!st.pr||isPR(s))&&(!st.country||String(s.country).includes(st.country)));
+    const filtering=st.type||st.pr||st.country;
+    if(filtering&&!ss.length) return;
+    if(q){
+      const hay=(t.id+" "+t.title+" "+t.what+" "+t.questions.join(" ")+" "+ss.map(s=>s.title+" "+s.country+" "+s.takeaway+" "+(s.authors||"")).join(" ")).toLowerCase();
+      if(!hay.includes(q)) return;
+    }
+    if(t.group!==lastG){h+=`<div class="areahead"><h2>${esc(t.group)}</h2><span class="fn">${esc(D.meta.groupsNote)}</span></div>`;lastG=t.group}
+    shown++;srcN+=ss.length;
+    const sorted=ss.slice().sort((a,b)=>(isPartner(b)-isPartner(a))||((b.year||0)-(a.year||0)));
+    h+=`<details class="bm" id="${esc(t.id)}" ${q||filtering?"open":""}><summary><span class="id">${esc(t.id)}</span><span>${esc(t.title)}</span><span class="cnt">${ss.length} practice${ss.length===1?"":"s"}</span></summary><div class="body">
+      <p class="what">${esc(t.what)}</p>
+      ${sorted.length?sorted.map(srcHTML).join(""):'<p class="empty">No good practice listed yet for this component. That does not mean none exists.</p>'}
+      <details class="ctx"><summary>Guiding questions, matching JEE/SPAR/PHEPA items and support</summary>
+        <h4>Guiding questions (our own wording)</h4><ol class="q">${t.questions.map(x=>`<li>${esc(x)}</li>`).join("")}</ol>
+        <h4>Global Action Plan action area</h4><a class="tag gap" href="#p-gap">${esc(t.gap)}</a>
+        <h4>Matching items in other frameworks (our crosswalk)</h4><div>${xwalk(t)}</div>
+        <p class="small muted">Official WHO indicators for this component: see the <a href="#p-indicators">2026 indicator brief</a>.</p>
+        ${window.Programmes?Programmes.html(t.jee,{includeAll:false}):""}
+      </details></div></details>`;
+  });
+  $("#view").innerHTML=h||'<p class="muted">Nothing matches.</p>';
+  $("#stat").textContent=`${shown} of ${D.topics.length} components, ${srcN} practice links shown. Practices from the Netherlands and partner countries have a coloured edge.`;
+}
+function pill(v,label){
+  if(v===true) return `<span class="pill y">${label}</span>`;
+  if(v===null) return `<span class="pill n">Not in ATACH table</span>`;
+  return `<span class="pill n">${label}: not shown</span>`;
+}
+function renderCountries(){
+  const title=Object.fromEntries(D.topics.map(t=>[t.id,t.title]));
+  $("#cview").innerHTML=C.countries.map(c=>{
+    const pills=c.resilient===null?pill(null):pill(c.resilient,"Resilient")+pill(c.lowcarbon,"Low-carbon")+(c.netzero?`<span class="pill y">Net zero ${esc(c.netzero)}</span>`:`<span class="pill n">No net zero year shown</span>`);
+    return `<div class="cc${c.home?" home":""}"><h4>${esc(c.name)}${c.home?'<span class="small muted">home</span>':""}</h4>
+      <div class="pills">${pills}</div>
+      <ul>${c.items.map(i=>`<li><a class="tag" href="#${esc(i.c)}" title="${esc(title[i.c]||"")}">${esc(i.c)}</a><a href="${esc(i.u)}" rel="noopener">${esc(i.t)}</a></li>`).join("")}</ul></div>`;
+  }).join("");
+  document.querySelectorAll('#cview a.tag').forEach(a=>a.addEventListener("click",()=>setTimeout(openHash,0)));
+}
+function openHash(){
+  const id=decodeURIComponent(location.hash.slice(1));
+  const el=id&&document.getElementById(id);
+  if(el&&el.tagName==="DETAILS"){el.open=true;el.scrollIntoView({behavior:"smooth",block:"start"})}
+}
+window.addEventListener("hashchange",openHash);
+</script>
+<!-- bezoekersteller: GoatCounter, zonder cookies -->
+<script data-goatcounter="https://mvanpassel.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

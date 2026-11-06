@@ -1,0 +1,106 @@
+{
+  "meta": {
+    "title": "Climate & Health Good Practices",
+    "built": "2026-11-06",
+    "intro": [
+      "Climate change is already one of the biggest threats to health: heat, floods, droughts, wildfires and shifting infectious diseases put people and health systems under pressure, while health care itself causes around 4.4% of global greenhouse gas emissions. Countries are expected to respond on both fronts: make their health systems climate-resilient and cut their own emissions.",
+      "Unlike health security, where the WHO Joint External Evaluation (JEE) gives every country a scored, peer-reviewed assessment, climate and health has no single global evaluation. What exists is a set of overlapping processes: the WHO Operational Framework for climate-resilient and low-carbon health systems with its ten components, a new WHO indicator set for those components (2026), the first WHO Global Action Plan on Climate Change and Health (2025-2028), country commitments tracked by ATACH, the health indicators of the UNFCCC Global Goal on Adaptation adopted at COP30, the WHO Health and Climate Change Survey, and independent tracking by the Lancet Countdown.",
+      "This page brings these together. Good practices are organised under the ten components of the WHO framework, each with guiding questions, links to the matching JEE, SPAR and PHEPA items, and published examples of what countries, cities and health services actually did. A country snapshot shows the commitments and plans of the Netherlands and partner countries."
+    ],
+    "processes": [
+      {"id":"framework","t":"WHO Operational Framework for building climate resilient and low carbon health systems (2023)","u":"https://who.int/publications/i/item/9789240081888","kind":"Framework","d":"Ten components, organised by health system building block, that define what a climate-resilient and low-carbon health system needs. The backbone of this page."},
+      {"id":"indicators","t":"WHO: Indicators of climate resilience and GHG emissions in health systems (2026)","u":"https://www.who.int/publications/m/item/indicators-of-climate-resilience-and-ghg-emissions-in-health-systems","kind":"Indicators","d":"Proposes indicators for each of the ten components, in tiers. Tier 1 is the smallest set: 10 resilience and 10 GHG emission indicators. The closest thing to a JEE question set, for self-assessment and monitoring."},
+      {"id":"gap","t":"WHO Global Action Plan on Climate Change and Health 2025-2028 (WHA78)","u":"https://australianwomenshealth.org/wp-content/uploads/2025/06/A78_4Add2-en.pdf","kind":"Global plan","d":"Adopted in May 2025. Three action areas: leadership, coordination and advocacy; evidence and monitoring; country-level action and capacity building. Progress reports go to WHA80 (2027) and WHA82 (2029)."},
+      {"id":"atach","t":"ATACH commitment tracker","u":"https://www.atachcommunity.com/our-impact/commitment-tracker/","kind":"Country tracking","d":"The WHO-hosted alliance that grew out of the COP26 Health Programme. Tracks which countries committed to climate-resilient and low-carbon health systems, net zero target years, and five baseline milestones (V&A assessment, HNAP, GHG assessment, low-carbon plan, climate finance)."},
+      {"id":"gga","t":"UNFCCC Global Goal on Adaptation: Belém adaptation indicators (COP30)","u":"https://www.globalhealthhub.de/en/news/detail/climate-and-health-at-cop30","kind":"UN indicators","d":"59 voluntary adaptation indicators adopted at COP30, of which around eight to ten concern health. Refined through the two-year Belém-Addis Vision; they feed the next Global Stocktake."},
+      {"id":"survey","t":"WHO Health and Climate Change Global Survey and country profiles","u":"https://www.who.int/publications/i/item/9789240038509","kind":"Self-assessment survey","d":"Sent to national health authorities every three years: governance, V&A assessments, preparedness, surveillance, adaptation, finance and mitigation. National results feed the WHO-UNFCCC country profiles. 95 countries took part in 2021."},
+      {"id":"lancet","t":"Lancet Countdown on health and climate change","u":"https://www.preventionweb.net/quick/101931","kind":"Independent tracking","d":"Annual academic tracking of indicators on impacts, adaptation, mitigation, finance and engagement, with regional reports (the 2026 Europe report tracks 43 indicators)."},
+      {"id":"bhap","t":"Belém Health Action Plan (COP30)","u":"https://www.gov.br/saude/pt-br/assuntos/cop30/publicacoes/plano-de-acao-em-saude-de-belem-ingles/@@download/file","kind":"Political initiative","d":"Brazil's adaptation plan for the health sector launched at COP30: surveillance and monitoring; evidence-based policy and capacity building; innovation, production and digital health. Aligned with the WHO Global Action Plan."},
+      {"id":"observatory","t":"European Climate and Health Observatory","u":"https://climate-adapt.eea.europa.eu/en/knowledge-1/european-climate-and-health-observatory","kind":"EU platform","d":"European Commission and EEA platform with indicators, country profiles of EEA members and a growing set of case studies."}
+    ],
+    "groupsNote": "Health system building block",
+    "note": "The ten components and their grouping follow the WHO Operational Framework. Descriptions and guiding questions are our own short wording, not WHO text; the official Tier 1 indicators are in the 2026 WHO indicator brief. The crosswalk to JEE, SPAR, PHEPA and the Global Action Plan is our own and is not official."
+  },
+  "topics": [
+    {
+      "id": "C1", "group": "Leadership and governance",
+      "title": "Climate-transformative leadership and governance",
+      "what": "Health authorities own the climate agenda: a mandate, a unit or focal point, a national climate and health plan, health included in national climate policy (NAP, NDC), and cross-government coordination.",
+      "questions": ["Is there a national climate and health strategy or Health National Adaptation Plan (HNAP), costed and with a timeline?", "Is health included in the country's National Adaptation Plan and NDC?", "Is there a legal or policy commitment to cut health-sector emissions, with a target year?", "Is there a designated climate and health unit or focal point in the ministry of health, with a cross-government coordination mechanism?"],
+      "gap": "Leadership, coordination and advocacy",
+      "jee": ["P3.2", "P3.3", "P1.1"], "spar": ["C1", "C2"], "phepa": [1]
+    },
+    {
+      "id": "C2", "group": "Health workforce",
+      "title": "Climate-smart health workforce",
+      "what": "Health workers know the health risks of climate change and how to act on them, through pre-service curricula, in-service training and enough staff to cope with climate-related surges.",
+      "questions": ["Is climate and health part of pre-service curricula for doctors, nurses and public health staff?", "Is there in-service training on heat, climate-sensitive diseases and sustainable practice?", "Do workforce plans account for surge needs during heatwaves, floods and outbreaks?"],
+      "gap": "Country-level action and capacity building",
+      "jee": ["D3.1", "D3.3", "D3.4"], "spar": ["C6"], "phepa": [5]
+    },
+    {
+      "id": "C3", "group": "Health information systems",
+      "title": "Assessments of climate and health risks and GHG emissions",
+      "what": "Countries know their risks and their footprint: a vulnerability and adaptation (V&A) assessment for health, and a baseline of the greenhouse gas emissions of the health system, including supply chains.",
+      "questions": ["Has a health V&A assessment been done since 2020, at national and sub-national level?", "Is there a baseline GHG assessment of the health system, including the supply chain?", "Are the results used to set priorities in the HNAP or decarbonisation plan?"],
+      "gap": "Evidence and monitoring",
+      "jee": ["R1.1"], "spar": ["C7"], "phepa": [10]
+    },
+    {
+      "id": "C4", "group": "Health information systems",
+      "title": "Integrated risk monitoring, early warning and GHG tracking",
+      "what": "Climate and weather data are joined with health surveillance to warn ahead of heatwaves and outbreaks, and emissions are tracked over time.",
+      "questions": ["Is there a heat-health warning system linked to the met office, with thresholds and actions?", "Are climate data used in surveillance or forecasting of climate-sensitive diseases (dengue, malaria, cholera)?", "Are health-sector emissions monitored and reported regularly?"],
+      "gap": "Evidence and monitoring",
+      "jee": ["D2.1", "D2.3"], "spar": ["C5"], "phepa": [4, 10]
+    },
+    {
+      "id": "C5", "group": "Health information systems",
+      "title": "Health and climate research",
+      "what": "A research agenda and funding that produce local evidence on climate risks and on which interventions work, and links that bring that evidence into policy.",
+      "questions": ["Is there a national research agenda on climate and health with dedicated funding?", "Are research results translated into policy (for instance through science-policy hubs)?", "Is there evaluation of adaptation measures such as heat plans?"],
+      "gap": "Evidence and monitoring",
+      "jee": ["R1.6"], "spar": [], "phepa": [14]
+    },
+    {
+      "id": "C6", "group": "Essential medical products and technologies",
+      "title": "Climate-resilient and low-carbon infrastructure, technologies and supply chain",
+      "what": "Health facilities that keep working during extreme weather, run on clean and reliable energy, and buy and use products with a lower footprint.",
+      "questions": ["Are health facilities assessed for climate safety and energy use, with a retrofit programme?", "Do facilities have reliable (preferably renewable) power, water and sanitation?", "Are procurement and supply chains being decarbonised and protected against disruption?"],
+      "gap": "Country-level action and capacity building",
+      "jee": ["R1.5", "R3.3", "R4.3"], "spar": ["C8"], "phepa": [7]
+    },
+    {
+      "id": "C7", "group": "Service delivery",
+      "title": "Management of environmental determinants of health",
+      "what": "Health has a say in the sectors that shape exposure to heat, air pollution, water and food: urban design, housing, WASH, air quality and nature-based solutions.",
+      "questions": ["Does health have a formal role in urban planning, housing and air quality policy?", "Are water, sanitation and food safety programmes adjusted to climate risks?", "Are health co-benefits of mitigation (cleaner air, active travel, greener cities) quantified and used?"],
+      "gap": "Country-level action and capacity building",
+      "jee": ["P6.1", "P5.1"], "spar": ["C13", "C12"], "phepa": [10]
+    },
+    {
+      "id": "C8", "group": "Service delivery",
+      "title": "Climate-informed health programmes",
+      "what": "Disease programmes (vector-borne, water-borne, nutrition, mental health, NCDs) plan for a changing climate: new areas at risk, new seasons, new vulnerable groups.",
+      "questions": ["Do vector-borne and water-borne disease programmes use climate projections in planning?", "Are programmes prepared for diseases moving into new areas (for example dengue in Europe)?", "Is mental health and climate anxiety addressed?"],
+      "gap": "Country-level action and capacity building",
+      "jee": ["P5.1", "R5.2"], "spar": ["C12", "C10"], "phepa": [10]
+    },
+    {
+      "id": "C9", "group": "Service delivery",
+      "title": "Climate-related emergency preparedness and management",
+      "what": "Plans, early action and services for heatwaves, floods, storms and droughts, so that people are warned and essential health services continue.",
+      "questions": ["Is there a national (and local) heat-health action plan, activated and evaluated?", "Do emergency plans cover floods, storms and drought, with community early warning?", "Are continuity plans in place for essential health services during climate shocks?"],
+      "gap": "Country-level action and capacity building",
+      "jee": ["R1.1", "R1.3", "R3.3"], "spar": ["C7", "C8"], "phepa": [6]
+    },
+    {
+      "id": "C10", "group": "Financing",
+      "title": "Sustainable climate and health financing",
+      "what": "Money for adaptation and decarbonisation of the health sector, from domestic budgets and from climate funds such as the Green Climate Fund and the Adaptation Fund.",
+      "questions": ["Is there a domestic budget line for climate and health?", "Has the health sector accessed international climate finance (GCF, Adaptation Fund, GEF)?", "Is the HNAP costed and linked to a financing plan?"],
+      "gap": "Country-level action and capacity building",
+      "jee": ["P2.1", "P2.2"], "spar": ["C3"], "phepa": [2]
+    }
+  ]
+}

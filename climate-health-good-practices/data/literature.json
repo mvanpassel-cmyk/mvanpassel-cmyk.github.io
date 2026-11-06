@@ -1,0 +1,607 @@
+{
+ "meta": {
+  "types": {
+   "peer-reviewed": "Peer-reviewed study",
+   "plan": "National plan or strategy",
+   "programme": "Programme",
+   "report": "Report",
+   "guidance": "Guidance",
+   "case-study": "Case study",
+   "finance": "Funded project"
+  },
+  "note": "Good practices were found by web search in November 2026. One-line takeaways are in our own words and based on the page that was read. Items marked as not read were listed from their title and overview page only."
+ },
+ "sources": [
+  {
+   "id": "nhs-greener",
+   "t": [
+    "C1",
+    "C3",
+    "C6"
+   ],
+   "title": "Five years of a Greener NHS (NHS England board paper)",
+   "url": "https://www.england.nhs.uk/wp-content/uploads/2025/09/item-9i-five-years-of-a-greener-nhs.pdf",
+   "authors": "NHS England",
+   "year": 2025,
+   "country": "United Kingdom (England)",
+   "type": "report",
+   "takeaway": "The Health and Care Act 2022 made England the first health system with net zero in law: net zero by 2040 for direct emissions and 2045 for the wider footprint. By 2024/25 the NHS footprint was about 68% below 1990 and 14% below 2020."
+  },
+  {
+   "id": "nl-greendeal",
+   "t": [
+    "C1",
+    "C6"
+   ],
+   "title": "Green Deal 3.0: Samen werken aan duurzame zorg (signing announcement)",
+   "url": "https://www.rijksoverheid.nl/ministeries/ministerie-van-volksgezondheid-welzijn-en-sport/nieuws/2022/11/04/handtekening-gezet-onder-nieuwe-afspraken-over-verduurzamen-van-de-zorg",
+   "authors": "Ministry of Health, Welfare and Sport (VWS)",
+   "year": 2022,
+   "country": "Netherlands",
+   "type": "plan",
+   "takeaway": "A voluntary deal between government, care providers, insurers and banks: 55% less direct CO2 by 2030 (versus 2018) and climate-neutral care by 2050, across five themes including medicines and circular working."
+  },
+  {
+   "id": "ke-kcchs",
+   "t": [
+    "C1"
+   ],
+   "title": "Kenya Climate Change and Health Strategy 2024-2029",
+   "url": "https://afidep.org/?p=36119",
+   "authors": "Ministry of Health Kenya, with AFIDEP and LSHTM",
+   "year": 2025,
+   "country": "Kenya",
+   "type": "plan",
+   "takeaway": "A national strategy with three aims: reduce climate-driven health risks, make health care resilient to climate shocks, and build governance and leadership for climate and health."
+  },
+  {
+   "id": "ug-hnap",
+   "t": [
+    "C1",
+    "C6",
+    "C10"
+   ],
+   "title": "Uganda unveils its climate and health National Adaptation Plan (H-NAP 2025-2030)",
+   "url": "https://sph.mak.ac.ug/news/uganda-becomes-second-country-after-nepal-unveil-climate-health-adaptation-plan",
+   "authors": "Makerere University School of Public Health",
+   "year": 2024,
+   "country": "Uganda",
+   "type": "plan",
+   "takeaway": "Built on the ten components of the WHO framework, with climate-proofed and solar-powered facilities and links to local development planning. Costed at about $63 million to 2030; coordinated through the Office of the Prime Minister."
+  },
+  {
+   "id": "id-ran",
+   "t": [
+    "C1",
+    "C4"
+   ],
+   "title": "National Action Plan for Climate Change Mitigation and Adaptation in the Health Sector 2025-2030",
+   "url": "https://kemkes.go.id/eng/rencana-aksi-nasional-mitigasi-dan-adaptasi-perubahan-iklim-sektor-kesehatan-2025-2030",
+   "authors": "Ministry of Health Indonesia (Kemenkes)",
+   "year": 2025,
+   "country": "Indonesia",
+   "type": "plan",
+   "takeaway": "Set by ministerial decree. Covers floods, heat-related illness and vector-borne and respiratory disease, with a focus on health system readiness, monitoring of extreme weather and disease, and joining climate and health data in planning."
+  },
+  {
+   "id": "cn-hnap",
+   "t": [
+    "C1",
+    "C3",
+    "C4"
+   ],
+   "title": "China National Climate Change Health Adaptation Action Plan (2024-2030)",
+   "url": "https://en.chinacdc.cn/health_topics/environment_health/202502/t20250221_304471.html",
+   "authors": "China CDC (summary); issued jointly by 13 departments in September 2024",
+   "year": 2024,
+   "country": "China",
+   "type": "plan",
+   "takeaway": "A multi-ministry plan: by 2025 a coordination mechanism and a first round of climate-health risk assessments; by 2030 a policy and standards system, stronger monitoring and early warning, and more resilient health systems."
+  },
+  {
+   "id": "et-va",
+   "t": [
+    "C3"
+   ],
+   "title": "Vulnerability and Adaptation Assessment of Health to Climate Change in Ethiopia",
+   "url": "https://www.who.int/publications/m/item/vulnerability-and-adaptation-assessment-of-health-to-climate-change-in-ethiopia",
+   "authors": "Federal Ministry of Health Ethiopia",
+   "year": 2015,
+   "country": "Ethiopia",
+   "type": "report",
+   "takeaway": "An early national V&A with a separate assessment per region, mapping hazards, exposure and adaptive capacity, used as the evidence base for Ethiopia's health adaptation planning."
+  },
+  {
+   "id": "et-hnap",
+   "t": [
+    "C1"
+   ],
+   "title": "Ethiopia: National Health Adaptation Plan to Climate Change 2018-2020",
+   "url": "https://www.who.int/publications/m/item/national-health-adaptation-plan-to-climate-change",
+   "authors": "Federal Ministry of Health Ethiopia",
+   "year": 2018,
+   "country": "Ethiopia",
+   "type": "plan",
+   "takeaway": "One of the first national health adaptation plans in Africa, following directly on the national V&A.",
+   "note": "Not read in full; listed from the WHO publication page."
+  },
+  {
+   "id": "co-va",
+   "t": [
+    "C3"
+   ],
+   "title": "Colombia Climate and Health Vulnerability Assessment (2024)",
+   "url": "https://openknowledge.worldbank.org/entities/publication/6342a1f6-4392-4413-afb5-0e08ceb81bb5/full",
+   "authors": "World Bank",
+   "year": 2024,
+   "country": "Colombia",
+   "type": "report",
+   "takeaway": "Sub-national analysis for all 32 departments with economic cost estimates, covering vector- and water-borne disease, heat, air quality, zoonoses and health system readiness."
+  },
+  {
+   "id": "hcwh-footprint",
+   "t": [
+    "C3",
+    "C6"
+   ],
+   "title": "Health care's climate footprint",
+   "url": "https://www.arup.com/insights/healthcares-climate-footprint/",
+   "authors": "Health Care Without Harm and Arup",
+   "year": 2019,
+   "country": "Global",
+   "type": "report",
+   "takeaway": "Health care causes about 4.4% of global net emissions; if it were a country it would be the fifth-largest emitter. The baseline many national GHG assessments start from."
+  },
+  {
+   "id": "cop26-eval",
+   "t": [
+    "C1",
+    "C3"
+   ],
+   "title": "Evaluating progress and accountability for achieving COP26 Health Programme international ambitions for sustainable, low-carbon, resilient health-care systems",
+   "url": "https://www.thelancet.com/journals/lanplh/article/PIIS2542-5196(24)00206-7/fulltext",
+   "authors": "",
+   "journal": "The Lancet Planetary Health",
+   "year": 2024,
+   "country": "Global",
+   "type": "peer-reviewed",
+   "takeaway": "Looks at how far countries have turned their COP26 health commitments into action and how accountability could be improved.",
+   "note": "Not read; listed from title."
+  },
+  {
+   "id": "lancet-eu-2026",
+   "t": [
+    "C5",
+    "C4"
+   ],
+   "title": "The 2026 Europe report of the Lancet Countdown on health and climate change",
+   "url": "https://www.preventionweb.net/quick/101931",
+   "authors": "Lancet Countdown in Europe",
+   "journal": "The Lancet Public Health",
+   "year": 2026,
+   "country": "Europe",
+   "type": "peer-reviewed",
+   "takeaway": "Tracks 43 indicators, seven of them new. Heat-related deaths rose in nearly all regions, while political, media and public engagement with climate and health declined."
+  },
+  {
+   "id": "wellcome-hubs",
+   "t": [
+    "C5"
+   ],
+   "title": "Science and policy experts unite in Africa to accelerate climate and health solutions",
+   "url": "https://wellcome.org/insights/articles/science-and-policy-experts-unite-africa-accelerate-climate-and-health-solutions",
+   "authors": "Wellcome",
+   "year": 2026,
+   "country": "South Africa, Zimbabwe, Malawi, Ghana, Senegal",
+   "type": "programme",
+   "takeaway": "£40 million for two regional hubs (led by Wits and KNUST) that bring researchers, policymakers and communities together to get local evidence into policy within five years; a third hub for Eastern Africa is planned."
+  },
+  {
+   "id": "gcche",
+   "t": [
+    "C2"
+   ],
+   "title": "Global Consortium on Climate and Health Education",
+   "url": "https://www.publichealth.columbia.edu/research/programs/global-consortium-climate-health-education/about/what-we-do",
+   "authors": "Columbia University Mailman School of Public Health",
+   "year": 2026,
+   "country": "Global",
+   "type": "programme",
+   "takeaway": "Free certificate courses and teaching resources for health professionals, with 400+ member schools and organisations in 60+ countries, and work on core competencies and accreditation."
+  },
+  {
+   "id": "ca-healthadapt",
+   "t": [
+    "C2",
+    "C1"
+   ],
+   "title": "Lessons from the HealthADAPT program (2018-2022)",
+   "url": "https://www.canada.ca/en/health-canada/services/environmental-workplace-health/reports-publications/climate-change-health/lessons-healthadapt-program-2018-2022-strengthening-capacity-health-impacts.html",
+   "authors": "Health Canada",
+   "year": 2023,
+   "country": "Canada",
+   "type": "report",
+   "takeaway": "Ten health authorities built adaptation capacity over four years. Lessons cover six elements: buy-in, foundational resources, data, staff, networks and health equity; senior management support mattered most."
+  },
+  {
+   "id": "ca-heatadapt",
+   "t": [
+    "C2",
+    "C4",
+    "C9"
+   ],
+   "title": "HealthADAPT and HeatADAPT (2026)",
+   "url": "https://www.canada.ca/en/health-canada/news/2026/06/healthadapt-and-heatadapt.html",
+   "authors": "Health Canada",
+   "year": 2026,
+   "country": "Canada",
+   "type": "programme",
+   "takeaway": "More than $17 million for 24 projects: six on climate-resilient, low-carbon health systems and 18 on extreme heat, including vulnerability assessments, workforce training, heat alerts and indoor heat protection."
+  },
+  {
+   "id": "ahmedabad",
+   "t": [
+    "C4",
+    "C9",
+    "C2"
+   ],
+   "title": "India's Heat Action Plan: Ahmedabad",
+   "url": "https://ndcpartnership.org/knowledge-portal/good-practice-database/indias-heat-action-plan",
+   "authors": "NDC Partnership / CDKN",
+   "country": "India",
+   "type": "case-study",
+   "takeaway": "South Asia's first city heat action plan: local leadership, research on heat deaths, training of health staff, prepared facilities, multi-channel heat alerts and an interagency response. Widely copied by other Indian cities and states."
+  },
+  {
+   "id": "in-npcchh",
+   "t": [
+    "C4",
+    "C9"
+   ],
+   "title": "Report of heat-related activities 2024, National Programme on Climate Change and Human Health",
+   "url": "https://ncdc.mohfw.gov.in/wp-content/uploads/2024/12/Report-of-Heat-Related-Activities-2024_NPCCHH.pdf",
+   "authors": "NCDC, Ministry of Health and Family Welfare India",
+   "year": 2024,
+   "country": "India",
+   "type": "report",
+   "takeaway": "Documents national and state heat-health work: early warning, public campaigns, intersectoral coordination, training and regional good practices.",
+   "note": "Summary page read; full report not read."
+  },
+  {
+   "id": "fr-hhws",
+   "t": [
+    "C4"
+   ],
+   "title": "France's heat health watch warning system",
+   "url": "https://www.santepubliquefrance.fr/docs/article/frances-heat-health-watch-warning-system",
+   "authors": "Pascal M, Laaidi K, Ledrans M et al.",
+   "year": 2006,
+   "country": "France",
+   "type": "peer-reviewed",
+   "takeaway": "Built after the 2003 heatwave from mortality and weather data in 14 cities: thresholds on combined minimum and maximum temperatures, run jointly by Météo-France, the public health agency and the ministry, and tied to a national action plan since June 2004."
+  },
+  {
+   "id": "nl-hitteplan",
+   "t": [
+    "C4",
+    "C9"
+   ],
+   "title": "Evaluation of the National Heat Plan: risk of dying from heat strongly reduced since 2010",
+   "url": "https://www.rivm.nl/nieuws/evaluatie-nationaal-hitteplan-kans-om-te-sterven-door-hitte-sterk-gedaald-sinds-2010",
+   "authors": "RIVM",
+   "year": 2025,
+   "country": "Netherlands",
+   "type": "report",
+   "takeaway": "Estimated heat-related deaths fell from about 7,000 (2000-2009) to 4,300 (2010-2019) after the National Heat Plan started, with the biggest drops among older people, women and lower-income neighbourhoods."
+  },
+  {
+   "id": "sh-hhws",
+   "t": [
+    "C4"
+   ],
+   "title": "Performance of heat-health warning systems in Shanghai evaluated by using local heat-related illness data",
+   "url": "https://ui.adsabs.harvard.edu/abs/2020ScTEn.715m6883W/abstract",
+   "authors": "",
+   "journal": "Science of the Total Environment",
+   "year": 2020,
+   "country": "China",
+   "type": "peer-reviewed",
+   "takeaway": "Tests how well Shanghai's heat warnings match actual heat-related illness, a model for checking warning thresholds against local health data.",
+   "note": "Not read; listed from title."
+  },
+  {
+   "id": "infodengue",
+   "t": [
+    "C4",
+    "C8"
+   ],
+   "title": "Infodengue: a platform for monitoring the transmission of climate-sensitive diseases",
+   "url": "https://www.recercat.cat/handle/2117/455229",
+   "authors": "Infodengue / Barcelona Supercomputing Center",
+   "year": 2022,
+   "country": "Brazil",
+   "type": "programme",
+   "takeaway": "Weekly arbovirus alerts for about 5,300 Brazilian municipalities, combining weather, social and case data into indicators of receptivity, transmission and outbreak for health authorities."
+  },
+  {
+   "id": "epidemia",
+   "t": [
+    "C4",
+    "C8"
+   ],
+   "title": "Integrating malaria surveillance with climate data for outbreak detection and forecasting: the EPIDEMIA system",
+   "url": "https://link.springer.com/content/pdf/10.1186/s12936-017-1735-x.pdf",
+   "authors": "",
+   "journal": "Malaria Journal",
+   "year": 2017,
+   "country": "Ethiopia",
+   "type": "peer-reviewed",
+   "takeaway": "Joins routine malaria surveillance with environmental data to detect and forecast malaria outbreaks.",
+   "note": "Not read; listed from title."
+  },
+  {
+   "id": "wolbachia",
+   "t": [
+    "C8"
+   ],
+   "title": "Wolbachia dramatically reduces dengue cases (AWED trial, Yogyakarta)",
+   "url": "https://www.monash.edu/news/articles/wolbachia-dramatically-reduces-dengue-cases",
+   "authors": "Monash University / World Mosquito Program",
+   "journal": "New England Journal of Medicine (trial publication)",
+   "year": 2021,
+   "country": "Indonesia",
+   "type": "peer-reviewed",
+   "takeaway": "A cluster-randomised trial in Yogyakarta: releasing Wolbachia mosquitoes cut dengue cases by 77% and dengue hospitalisations by 86%, across all four serotypes."
+  },
+  {
+   "id": "canary-ciguatera",
+   "t": [
+    "C8"
+   ],
+   "title": "Control of ciguatera poisoning in the Canary Islands (Observatory case study)",
+   "url": "https://climate-adapt.eea.europa.eu/en/observatory/news-archive-observatory/observatory-inspires-climate-action-to-protect-health-with-nine-new-case-studies",
+   "authors": "European Climate and Health Observatory",
+   "year": 2025,
+   "country": "Spain",
+   "type": "case-study",
+   "takeaway": "How the Canary Islands responded to a climate-sensitive marine toxin that is spreading into European waters.",
+   "note": "Not read; listed from the Observatory overview page."
+  },
+  {
+   "id": "bcn-mosquito",
+   "t": [
+    "C8"
+   ],
+   "title": "Barcelona tackles mosquito-borne disease risks (Observatory case study)",
+   "url": "https://climate-adapt.eea.europa.eu/en/knowledge-1/european-climate-and-health-observatory",
+   "authors": "European Climate and Health Observatory",
+   "year": 2026,
+   "country": "Spain",
+   "type": "case-study",
+   "takeaway": "A city programme against the rising risk of mosquito-borne diseases such as dengue in southern Europe.",
+   "note": "Not read; listed from the Observatory front page."
+  },
+  {
+   "id": "superblocks",
+   "t": [
+    "C7"
+   ],
+   "title": "Changing the urban design of cities for health: the superblock model",
+   "url": "https://repositori.upf.edu/items/63850877-c5d4-42dc-93a1-8bdbe86bebc4/full",
+   "authors": "Mueller N et al. (ISGlobal)",
+   "journal": "Environment International",
+   "year": 2020,
+   "country": "Spain",
+   "type": "peer-reviewed",
+   "takeaway": "A health impact assessment of Barcelona's superblocks: less traffic, cleaner air, less noise and heat and more green space could prevent several hundred premature deaths a year if the full plan were built.",
+   "note": "The repository page could not be opened during this build; the figure is given as an order of magnitude only."
+  },
+  {
+   "id": "hamburg-roofs",
+   "t": [
+    "C7"
+   ],
+   "title": "Four pillars to Hamburg's Green Roof Strategy: financial incentive, dialogue, regulation and science",
+   "url": "https://climate-adapt.eea.europa.eu/en/news-archive/climate-adapt-solutions-package-for-adaptation-practitioners-and-policy-makers-to-prevent-heat-in-different-built-environments",
+   "authors": "Climate-ADAPT",
+   "year": 2022,
+   "country": "Germany",
+   "type": "case-study",
+   "takeaway": "A city green-roof programme combining subsidies, regulation, dialogue and research to cool buildings and manage rainwater.",
+   "note": "Not read; listed from the Climate-ADAPT heat solutions page."
+  },
+  {
+   "id": "solana-nbs",
+   "t": [
+    "C7"
+   ],
+   "title": "Nature-based solutions in schools: Solana de los Barros, Extremadura",
+   "url": "https://climate-adapt.eea.europa.eu/en/observatory/news-archive-observatory/observatory-inspires-climate-action-to-protect-health-with-nine-new-case-studies",
+   "authors": "European Climate and Health Observatory",
+   "year": 2026,
+   "country": "Spain",
+   "type": "case-study",
+   "takeaway": "Greening a school with nature-based solutions to protect children against heat.",
+   "note": "Not read; listed from the Observatory overview page."
+  },
+  {
+   "id": "rhn-cases",
+   "t": [
+    "C1",
+    "C7"
+   ],
+   "title": "Action for climate change: examples from the WHO Regions for Health Network",
+   "url": "https://climate-adapt.eea.europa.eu/en/metadata/publications/action-for-climate-change-examples-from-the-who-regions-for-health-network",
+   "authors": "WHO Regional Office for Europe",
+   "year": 2026,
+   "country": "Spain, Italy, Belgium and others",
+   "type": "case-study",
+   "takeaway": "Regional case studies (Andalusia, Emilia-Romagna, Flanders and others). Lessons: build health into climate policy, strengthen early warning, invest in resilient low-carbon health systems and tackle inequity."
+  },
+  {
+   "id": "be-nehap",
+   "t": [
+    "C1"
+   ],
+   "title": "Using the Climate and Health Observatory to refine Belgium's National Environment and Health Action Plan",
+   "url": "https://climate-adapt.eea.europa.eu/en/knowledge/climate-adapt-use-cases/use-case-23.pdf/@@download/file",
+   "authors": "Climate-ADAPT use case",
+   "year": 2024,
+   "country": "Belgium",
+   "type": "case-study",
+   "takeaway": "Belgium's federal health service used other countries' country profiles, case studies and indicators from the Observatory to benchmark and shape its national plan."
+  },
+  {
+   "id": "at-heat",
+   "t": [
+    "C9",
+    "C1"
+   ],
+   "title": "Heat and health: experiences from Austria (IANPHI 2025)",
+   "url": "https://ianphi.org/_includes/documents/sections/tools-resources/annual-meetings/2025-annual-meeting1/habl-heat-and-health_experiences-from-austria.pdf",
+   "authors": "Austrian National Public Health Institute (GÖG)",
+   "year": 2025,
+   "country": "Austria",
+   "type": "case-study",
+   "takeaway": "Austria revised its national heat-health action plan in 2024 in a modular design based on WHO advice, with toolboxes and best practice examples for vulnerable groups and for health and care settings, and a national competence centre on climate and health."
+  },
+  {
+   "id": "smart-hospitals",
+   "t": [
+    "C6",
+    "C9"
+   ],
+   "title": "Smart Health Care Facilities in the Caribbean: final report",
+   "url": "https://www.paho.org/en/documents/smart-health-care-facilities-caribbean-final-report-uk-project",
+   "authors": "PAHO",
+   "year": 2023,
+   "country": "Caribbean",
+   "type": "programme",
+   "takeaway": "55 facilities retrofitted to be both disaster-safe and green (2015-2023); 28 reached the new A/70 resilience standard. Retrofitting also saved embodied carbon compared with building new."
+  },
+  {
+   "id": "zw-solar",
+   "t": [
+    "C6"
+   ],
+   "title": "Zimbabwe: 1,044 health facilities now solar-powered",
+   "url": "https://allafrica.com/stories/202410250069.html",
+   "authors": "UNDP Solar for Health, Global Fund",
+   "year": 2024,
+   "country": "Zimbabwe",
+   "type": "programme",
+   "takeaway": "11 MW of solar at 1,044 facilities keeps labs, medicine storage and patient care running during power cuts; surplus power goes to the grid."
+  },
+  {
+   "id": "id-facility",
+   "t": [
+    "C6"
+   ],
+   "title": "Guideline for assessing climate-resilient and environmentally sustainable health facilities",
+   "url": "https://kemkes.go.id/eng/climate-resilient-and-environmentally-sustainable-healthcare-facility",
+   "authors": "Ministry of Health Indonesia",
+   "year": 2025,
+   "country": "Indonesia",
+   "type": "guidance",
+   "takeaway": "A national tool for facilities to assess their climate vulnerability and footprint, prioritising high-risk facilities and those reporting medical waste."
+  },
+  {
+   "id": "bd-cpp",
+   "t": [
+    "C9"
+   ],
+   "title": "How Bangladesh is beating the odds on climate disaster deaths",
+   "url": "https://dialogue.earth/en/climate/how-bangladesh-is-beating-the-odds-on-climate-disaster-deaths/",
+   "authors": "Dialogue Earth",
+   "year": 2021,
+   "country": "Bangladesh",
+   "type": "case-study",
+   "takeaway": "Cyclone deaths fell from 300,000-500,000 in 1970 to about 3,500 for Sidr in 2007, thanks to the Cyclone Preparedness Programme's 76,000+ volunteers (half women) and growth from 44 to more than 14,000 shelters."
+  },
+  {
+   "id": "za-heat",
+   "t": [
+    "C9",
+    "C4"
+   ],
+   "title": "South Africa National Heat Health Action Guidelines",
+   "url": "https://heathealth.info/resources/south-africa-national-heat-health-action-guidelines/",
+   "authors": "National Department of Health South Africa",
+   "year": 2020,
+   "country": "South Africa",
+   "type": "guidance",
+   "takeaway": "Affordable steps for individuals and communities, the health sector's lead role in heat planning and coordination, and timely information for vulnerable groups."
+  },
+  {
+   "id": "gauteng-hap",
+   "t": [
+    "C9",
+    "C4"
+   ],
+   "title": "Temperature-related health impacts: a scoping review and benchmarking exercise to inform a heat action plan",
+   "url": "https://repository.up.ac.za/items/89f73a2c-6d71-4f83-b1f6-343969b83217",
+   "authors": "Wright CY, Bulani M, Kapwata T et al.",
+   "journal": "Annals of Global Health",
+   "year": 2026,
+   "country": "South Africa",
+   "type": "peer-reviewed",
+   "takeaway": "Benchmarks Victoria, Maharashtra and Khyber Pakhtunkhwa to design Gauteng's plan: local district thresholds keep activation simple; graded activation with clear department roles reduces confusion in long heatwaves."
+  },
+  {
+   "id": "gcf-laos",
+   "t": [
+    "C10"
+   ],
+   "title": "Strengthening climate resilience of the Lao PDR health system: the first Green Climate Fund project on climate and health",
+   "url": "https://resourcecentre.savethechildren.net/document/strengthening-climate-resilience-of-the-lao-peoples-democratic-republic-pdr-health-system-the-first-ever-green-climate-fund-project-on-climate-and-health",
+   "authors": "Save the Children",
+   "year": 2023,
+   "country": "Lao PDR",
+   "type": "finance",
+   "takeaway": "The first GCF-funded project dedicated to health, showing that health ministries can access large-scale climate finance."
+  },
+  {
+   "id": "gcf-indonesia",
+   "t": [
+    "C10",
+    "C6",
+    "C4"
+   ],
+   "title": "Indonesia partners with UNDP and WHO in a Green Climate Fund initiative for climate-resilient health care",
+   "url": "https://changemakr.asia/?p=282848",
+   "authors": "Changemakr Asia",
+   "year": 2024,
+   "country": "Indonesia",
+   "type": "finance",
+   "takeaway": "Launched by the Ministry of Health in May 2024 as part of a 17-country GCF programme: early warning for climate-sensitive diseases plus emission cuts in health facilities."
+  },
+  {
+   "id": "gcf-togo",
+   "t": [
+    "C10"
+   ],
+   "title": "Building the resilience of Togo's national health system and vulnerable communities to climate-sensitive health outcomes (FP305)",
+   "url": "https://www.greenclimate.fund/document/building-resilience-togos-national-health-system-and-vulnerable-communities-climate-sensitive-health-outcomes",
+   "authors": "Green Climate Fund / GIZ",
+   "year": 2026,
+   "country": "Togo",
+   "type": "finance",
+   "takeaway": "A recent GCF-approved health resilience project, with GIZ as the implementing organisation.",
+   "note": "Only the project page was read; amounts and components are in the funding proposal."
+  },
+  {
+   "id": "funders-coalition",
+   "t": [
+    "C10",
+    "C5"
+   ],
+   "title": "Global philanthropies commit $300 million to accelerate solutions on climate and health",
+   "url": "https://wellcome.org/insights/articles/global-philanthropies-commit-300-million-accelerate-solutions-climate-and-health",
+   "authors": "Climate and Health Funders Coalition",
+   "year": 2025,
+   "country": "Global",
+   "type": "finance",
+   "takeaway": "Wellcome, Gates, Bloomberg, Rockefeller and others pledged an initial $300 million for the Belém Health Action Plan, first for extreme heat, air pollution and climate-sensitive infections, and for joining climate and health data."
+  }
+ ]
+}

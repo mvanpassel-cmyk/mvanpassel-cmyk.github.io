@@ -64,6 +64,7 @@ LIT = [
     "ianphi-good-practices/data/literature.json",
     "tracss-good-practices/data/literature.json",
     "woah-pvs-good-practices/data/literature.json",
+    "climate-health-good-practices/data/literature.json",
 ]
 # SPAR labels types with the IHR benchmark type list
 ihr_types = (load(LIT[0]) or {}).get("meta", {}).get("types", {})
@@ -118,6 +119,7 @@ for rel in [
     "ianphi-good-practices/data/ianphi.json",
     "tracss-good-practices/data/tracss-2025.json",
     "woah-pvs-good-practices/data/data.json",
+    "climate-health-good-practices/data/data.json",
     "spar-good-practices/data/spar.json",
     "ihr-benchmarks-good-practices/data/benchmarks.json",
     "phepa-good-practices/data/phepa.json",
