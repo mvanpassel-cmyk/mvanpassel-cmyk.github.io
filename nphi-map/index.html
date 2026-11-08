@@ -33,7 +33,9 @@ svg#map{display:block;width:100%;height:auto;cursor:grab;touch-action:none}
 .land.partner{fill:var(--par);fill-opacity:.55}
 .land.actor{fill:var(--act);fill-opacity:.7}
 .land.sel{stroke:var(--ink);stroke-width:1.2}
-.arc{fill:none;stroke-width:1.2;stroke-opacity:.6;stroke-linecap:round}
+.arc{fill:none;stroke-linecap:round}
+.arc:hover{stroke-opacity:1!important}
+.more{display:block;margin:14px auto 0}
 .arc.ongoing{stroke:var(--act)}.arc.completed{stroke:var(--done);stroke-dasharray:4 3}.arc.planned{stroke:var(--plan);stroke-dasharray:1 4}.arc.unclear{stroke:var(--par)}
 .dot{fill:var(--act);stroke:var(--bg);stroke-width:1}
 .tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:12px;padding:4px 8px;border-radius:6px;opacity:0;transition:opacity .1s;max-width:220px}
@@ -83,10 +85,12 @@ footer{margin-top:36px;color:var(--muted);font-size:13px}
     <span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="var(--act)" stroke-width="2"/></svg> ongoing</span>
     <span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="var(--done)" stroke-width="2" stroke-dasharray="4 3"/></svg> completed</span>
     <span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="var(--par)" stroke-width="2"/></svg> status unclear</span>
+    <span><svg width="26" height="10"><line x1="0" y1="5" x2="12" y2="5" stroke="var(--muted)" stroke-width="1.5"/><line x1="15" y1="5" x2="26" y2="5" stroke="var(--muted)" stroke-width="5"/></svg> one line per country pair; thicker and darker = more projects</span>
   </div>
 
   <div class="countrow"><div class="count" id="count"></div><span class="dl"><button class="chip" id="csvAll">⤓ CSV (all)</button> <button class="chip" id="csvVis">⤓ CSV (filtered)</button></span></div>
   <div class="list" id="list"></div>
+  <button class="chip more" id="more" hidden></button>
 
   <p class="warn"><strong>Read with care.</strong> Entries come from public web sources (project databases, institute pages, press releases) and are summarised in my own words; always check the source link. Not finding a collaboration here does not mean it does not exist. “Unclear” means the source gives no end date or is undated. <span id="upd"></span></p>
   <footer>By <a href="https://github.com/mvanpassel-cmyk">Mark van Passel</a> · data in <a href="projects.json">projects.json</a>, refreshed weekly</footer>
@@ -109,7 +113,8 @@ const path=d3.geoPath(proj).pointRadius(3.2);
 const g=svg.append("g");
 const gl=g.append("g"),ga=g.append("g"),gd=g.append("g");
 const tip=document.getElementById("tip");
-let data=[],feats=[],cent={},sel=null;
+let data=[],feats=[],cent={},sel=null,shown=50,zoomK=1;
+const PAGE=50;
 const F={topic:new Set(),status:new Set(),kind:new Set(),actor:"",q:""};
 
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -139,18 +144,28 @@ const fDet=document.getElementById("filters");
 if(matchMedia("(min-width:701px)").matches)fDet.open=true;
 function fLabel(){const n=F.topic.size+F.status.size+F.kind.size+(F.actor?1:0);document.getElementById("fsum").textContent=n?`Filters (${n} active)`:"Filters"}
 function draw(){
-  fLabel();
+  fLabel();shown=PAGE;
   const vis=visible();
   const base=data.filter(p=>
     (!F.topic.size||p.topics.some(t=>F.topic.has(t)))&&(!F.status.size||F.status.has(p.status))&&(!F.kind.size||F.kind.has(p.kind))&&
     (!F.actor||p.actor===F.actor)&&(!F.q||(p.title+" "+p.summary+" "+p.actor+" "+p.institutes+" "+p.partners.join(" ")).toLowerCase().includes(F.q)));
   const A=new Set(base.map(p=>p.actorCountry)),Pn=new Set(base.flatMap(p=>p.partners));
   gl.selectAll("path").attr("class",d=>"land"+(A.has(d.properties.name)?" actor":Pn.has(d.properties.name)?" partner":"")+(sel===d.properties.name?" sel":""));
-  const arcs=[];
-  vis.forEach(p=>p.partners.forEach(c=>{if(cent[p.actorCountry]&&cent[c]&&c!==p.actorCountry)arcs.push({s:p.status,a:cent[p.actorCountry],b:cent[c]})}));
-  ga.selectAll("path").data(arcs).join("path").attr("class",d=>"arc "+d.s)
+  // One arc per country pair; thicker = more projects. Colour and dash follow the most
+  // active status in the pair (ongoing > planned > unclear > completed).
+  const RANK={ongoing:3,planned:2,unclear:1,completed:0},pairs=new Map();
+  vis.forEach(p=>p.partners.forEach(c=>{
+    if(!cent[p.actorCountry]||!cent[c]||c===p.actorCountry)return;
+    const key=[p.actorCountry,c].sort().join("|");
+    const o=pairs.get(key)||{key,a:cent[p.actorCountry],b:cent[c],names:[p.actorCountry,c],n:0,on:0,s:"completed"};
+    o.n++;if(p.status==="ongoing")o.on++;if(RANK[p.status]>RANK[o.s])o.s=p.status;pairs.set(key,o)}));
+  const arcs=[...pairs.values()].sort((x,y)=>x.n-y.n);   // thick arcs drawn last, on top
+  arcs.forEach(d=>d.w=Math.min(7,.6+1.1*Math.sqrt(d.n)));
+  ga.selectAll("path").data(arcs,d=>d.key).join(enter=>enter.append("path").call(e=>e.append("title")))
+    .attr("class",d=>"arc "+d.s).style("stroke-width",d=>d.w/zoomK).style("stroke-opacity",d=>Math.min(.85,.18+.12*d.n))
     .attr("d",d=>{const a=proj(d.a),b=proj(d.b),dx=b[0]-a[0],dy=b[1]-a[1],L=Math.hypot(dx,dy),k=Math.min(.25,40/Math.max(L,1)+.12);
-      return `M${a}Q${(a[0]+b[0])/2-dy*k},${(a[1]+b[1])/2+dx*k-Math.min(L*.15,30)} ${b}`});
+      return `M${a}Q${(a[0]+b[0])/2-dy*k},${(a[1]+b[1])/2+dx*k-Math.min(L*.15,30)} ${b}`})
+    .select("title").text(d=>`${d.names[0]} – ${d.names[1]}: ${d.n} project${d.n>1?"s":""}${d.on?` (${d.on} ongoing)`:""}`);
   gd.selectAll("circle").data([...new Set(vis.map(p=>p.actorCountry))].filter(c=>cent[c])).join("circle").attr("class","dot")
     .attr("r",3).attr("transform",c=>{const p=proj(cent[c]);return `translate(${p})`});
   list(vis);
@@ -160,7 +175,10 @@ function list(vis){
   const order={ongoing:0,planned:1,unclear:2,completed:3};
   vis=[...vis].sort((a,b)=>order[a.status]-order[b.status]||(b.start||0)-(a.start||0));
   document.getElementById("count").textContent=vis.length+" of "+data.length+" collaborations"+(sel?" · "+sel:"");
-  document.getElementById("list").innerHTML=vis.map(p=>`<article class="item">
+  const more=document.getElementById("more"),rest=vis.length-shown;
+  more.hidden=rest<=0;more.textContent=`Show ${Math.min(PAGE,rest)} more (${rest} left)`;
+  more.onclick=()=>{shown+=PAGE;list(vis)};
+  document.getElementById("list").innerHTML=vis.slice(0,shown).map(p=>`<article class="item">
     <h3>${esc(p.title)}</h3>
     <div class="route">${esc(p.actor)} (${esc(p.actorCountry)}) → ${esc(p.partners.length>6?p.partners.slice(0,6).join(", ")+" +"+(p.partners.length-6):p.partners.join(", "))}${p.institutes?" · with "+esc(p.institutes):""}</div>
     <p>${esc(p.summary)}</p>
@@ -199,7 +217,7 @@ Promise.all([d3.json(ATLAS),d3.json("projects.json")]).then(([topo,pj])=>{
   const s=document.getElementById("fActor");actors.forEach(a=>{const o=document.createElement("option");o.value=a;o.textContent=a;s.appendChild(o)});
   const missing=[...new Set(data.flatMap(p=>[p.actorCountry,...p.partners]))].filter(c=>!cent[c]);
   if(missing.length)console.warn("Unmatched country names:",missing);
-  svg.call(d3.zoom().scaleExtent([1,8]).translateExtent([[0,0],[W,H]]).on("zoom",e=>{g.attr("transform",e.transform);gd.selectAll("circle").attr("r",3/e.transform.k);ga.selectAll("path").attr("stroke-width",1.2/e.transform.k)}));
+  svg.call(d3.zoom().scaleExtent([1,8]).translateExtent([[0,0],[W,H]]).on("zoom",e=>{zoomK=e.transform.k;g.attr("transform",e.transform);gd.selectAll("circle").attr("r",3/zoomK);ga.selectAll("path").style("stroke-width",d=>d.w/zoomK)}));
   draw();
 }).catch(err=>{document.getElementById("list").innerHTML="<p>Could not load the map data: "+esc(err.message)+"</p>"});
 </script>
