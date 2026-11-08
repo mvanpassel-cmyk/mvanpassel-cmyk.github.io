@@ -55,6 +55,9 @@ table.cmp{border-collapse:collapse;width:100%;font-size:14px;background:var(--ca
 table.cmp th,table.cmp td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
 footer{margin-top:40px;color:var(--muted);font-size:13px}
 .sr{position:absolute;left:-9999px}
+
+/* Phones: chips and tags big enough to tap (about 32px) */
+@media (pointer:coarse){.chip,.tag{padding:8px 12px;margin:0 6px 6px 0;line-height:1.3}}
 </style>
 </head>
 <body>
@@ -72,7 +75,7 @@ footer{margin-top:40px;color:var(--muted);font-size:13px}
 const TABS=[["topics","Good practices by topic"],["find","Find solutions"],["countries","Country reports"],["eu","EU recommendations"],["start","Overview"],["about","About & method"]];
 const $=s=>document.querySelector(s); const view=$("#view");
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const D={}; const st={q:"",cap:"",kind:"",cty:"",sel:new Set(),from:"",open:{}};
+const D={}; const st={q:"",cap:"",kind:"",cty:"",sel:new Set(),from:"",open:{},all:false};
 const NAMES={NL:"Netherlands",NO:"Norway",SE:"Sweden",PT:"Portugal",MT:"Malta",BE:"Belgium",LU:"Luxembourg",EE:"Estonia",FI:"Finland"};
 const IN_DEPTH_FIRST=[6,3,4,12,10,8,7,13,1,2,5,9,11,14,15,16];
 async function load(){
@@ -154,19 +157,21 @@ function vTopics(open){
   <div class="bar"><input id="q" type="search" placeholder="Search topics and findings…" aria-label="Search" value="${esc(q)}" size="30">
    <select id="cap" aria-label="Capacity"><option value="">All capacities</option>${IN_DEPTH_FIRST.map(id=>`<option value="${id}" ${String(st.cap)===String(id)?"selected":""}>${id}. ${esc(D.cap[id].length>48?D.cap[id].slice(0,47)+"…":D.cap[id])}</option>`).join("")}</select>
    <select id="cty" aria-label="Country"><option value="">All countries</option>${D.d.countries.map(c=>`<option value="${c.id}" ${st.cty===c.id?"selected":""}>${esc(c.name)}</option>`).join("")}</select>
-   <span class="lbl">Show</span><button data-k="" aria-pressed="${st.kind===""}">Both</button><button data-k="S" aria-pressed="${st.kind==="S"}">Good practices</button><button data-k="R" aria-pressed="${st.kind==="R"}">Recommendations</button></div>`;
+   <span class="lbl">Show</span><button data-k="" aria-pressed="${st.kind===""}">Both</button><button data-k="S" aria-pressed="${st.kind==="S"}">Good practices</button><button data-k="R" aria-pressed="${st.kind==="R"}">Recommendations</button><button id="xall" aria-pressed="${st.all}">${st.all?"Collapse all":"Expand all"}</button></div>`;
   let shown=0;
   for(const cid of IN_DEPTH_FIRST){ if(st.cap&&String(st.cap)!==String(cid)) continue;
     const ts=D.d.topics.filter(t=>t.cap===cid); let body="";
     for(const t of ts){ const its=D.items.filter(i=>i.t===t.id&&matches(i)); if((q||st.cty)&&!its.length) continue; shown++;
       const s=its.filter(i=>i.k==="S").length, r=its.filter(i=>i.k==="R").length;
-      body+=`<details class="t" id="t-${t.id}" ${(s||open===t.id||q||st.cty)?"open":""}><summary><strong>${esc(t.title)}</strong><span class="badge g">${s} good practice${s===1?"":"s"}</span><span class="badge r">${r} recommendation${r===1?"":"s"}</span></summary><div class="body">${topicBody(t,{})}</div></details>`; }
+      body+=`<details class="t" id="t-${t.id}" ${(st.all||open===t.id||q||st.cty)?"open":""}><summary><strong>${esc(t.title)}</strong><span class="badge g">${s} good practice${s===1?"":"s"}</span><span class="badge r">${r} recommendation${r===1?"":"s"}</span></summary><div class="body">${topicBody(t,{})}</div></details>`; }
     if(body) h+=`<div class="caphead"><span class="fn">Capacity ${cid}</span><h2>${esc(D.cap[cid])}</h2></div>`+(window.Programmes?Programmes.html(ts.flatMap(t=>t.jee||[]),{includeAll:true}):"")+body; }
   if(!shown) h+=`<p class="muted">Nothing matches.</p>`;
   view.innerHTML=h+`<p class="note">Page numbers are as printed in the reports (approximate; check the PDF). Items marked “ECDC interim report” are country examples quoted in ECDC's cross-country report, mostly for countries whose own report I could not read in detail.</p>`;
   $("#q").oninput=e=>{st.q=e.target.value;const p=e.target.selectionStart;vTopics();const n=$("#q");n.focus();n.setSelectionRange(p,p)};
   $("#cap").onchange=e=>{st.cap=e.target.value;vTopics()}; $("#cty").onchange=e=>{st.cty=e.target.value;vTopics()};
   view.querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>{st.kind=b.dataset.k;vTopics()});
+  // Topics start collapsed; the badges show the counts. One click opens everything.
+  $("#xall").onclick=()=>{st.all=!st.all;vTopics()};
   if(open){const el=document.getElementById("t-"+open); if(el) el.scrollIntoView();}
 }
 

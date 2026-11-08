@@ -30,6 +30,7 @@ a:focus-visible,summary:focus-visible,select:focus-visible,input:focus-visible{o
 .muted{color:var(--muted)}.small{font-size:13px}
 .areahead{margin:26px 0 8px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
 .fn{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.xall{font:inherit;font-size:13px;background:none;border:0;padding:4px 0;color:var(--accent);text-decoration:underline;cursor:pointer}
 details.bm{background:var(--card);border:1px solid var(--line);border-radius:12px;margin:0 0 8px}
 details.bm>summary{cursor:pointer;padding:10px 14px;list-style:none;display:flex;gap:10px;align-items:baseline}
 details.bm>summary::-webkit-details-marker{display:none}
@@ -47,6 +48,9 @@ details.bm .body{padding:0 14px 14px;border-top:1px solid var(--line)}
 footer{margin-top:40px;color:var(--muted);font-size:13px}
 details.ctx{margin-top:12px;border-top:1px solid var(--line);padding-top:8px}
 details.ctx>summary{cursor:pointer;font-size:13px;color:var(--muted)}
+
+/* Phones: chips and tags big enough to tap (about 32px) */
+@media (pointer:coarse){.chip,.tag{padding:8px 12px;margin:0 6px 6px 0;line-height:1.3}}
 </style>
 </head>
 <body>
@@ -61,7 +65,7 @@ details.ctx>summary{cursor:pointer;font-size:13px;color:var(--muted)}
   <label class="ck"><input id="fp" type="checkbox"> Peer-reviewed only</label>
   <label class="ck"><input id="fs" type="checkbox"> Only with good practices</label>
 </div>
-<div id="stat" class="small muted"></div>
+<div class="small muted"><span id="stat"></span> <button id="xall" type="button" class="xall">Expand all</button></div>
 <div id="view"><p class="muted">Loading…</p></div>
 <div class="note"><strong>How to read this.</strong> <span id="method"></span></div>
 <footer>Benchmark titles © WHO. Literature links go to the publisher or index record. Built with Claude for Mark van Passel. Check source details before citing.</footer>
@@ -72,7 +76,7 @@ const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const LABELS={4:"Demonstrated capacity",5:"Sustainable capacity"};
 let B,L,A=null,byBm={};
-const st={q:"",area:"",type:"",pr:false,only:false,focus:""};
+const st={q:"",area:"",type:"",pr:false,only:false,focus:"",all:false};
 // Peer-reviewed = explicit pr flag on the source; without one, only research article and review types count.
 // Commentaries, case studies and after-action reviews are not assumed peer-reviewed.
 function isPR(s){return s.pr!==undefined?s.pr:["peer-reviewed","systematic-review","review"].includes(s.type)}
@@ -92,6 +96,8 @@ function init(){
   ["q","fa","ft"].forEach(id=>$("#"+id).addEventListener("input",e=>{st[{q:"q",fa:"area",ft:"type"}[id]]=e.target.value.trim().toLowerCase();render()}));
   $("#fp").onchange=e=>{st.pr=e.target.checked;render()};
   $("#fs").onchange=e=>{st.only=e.target.checked;render()};
+  // Collapsed by default: the counts show where the good practices are; one click opens everything.
+  $("#xall").onclick=()=>{st.all=!st.all;$("#xall").textContent=st.all?"Collapse all":"Expand all";render()};
   readHash();
   window.addEventListener("hashchange",()=>{readHash();render()});
 }
@@ -139,7 +145,7 @@ function render(){
     h+=window.Programmes?Programmes.html(B.benchmarks.filter(b=>b.area===a.id).flatMap(b=>b.jee),{includeAll:true}):"";
     items.forEach(({b,ss})=>{
       shown++;srcN+=ss.length;
-      h+=`<details class="bm" id="bm-${esc(b.id)}" ${ss.length||q||st.focus||items.length===1?"open":""}><summary><span class="id">${esc(b.id)}</span><span>${esc(b.title)}</span><span class="cnt">${ss.length?ss.length+" good practice"+(ss.length>1?"s":""):"no good practice yet"}</span></summary><div class="body">
+      h+=`<details class="bm" id="bm-${esc(b.id)}" ${st.all||q||st.focus||items.length===1?"open":""}><summary><span class="id">${esc(b.id)}</span><span>${esc(b.title)}</span><span class="cnt">${ss.length?ss.length+" good practice"+(ss.length>1?"s":""):"no good practice yet"}</span></summary><div class="body">
       <h4>Good practices and literature</h4>${ss.length?ss.map(srcHTML).join(""):'<p class="empty">No good practice found yet for this benchmark. That does not mean none exists.</p>'}
       <details class="ctx"><summary>Context: levels, matching indicators and peers</summary>${b.jee.length?`<h4>Matching JEE indicator and peer countries to learn from</h4>${topHTML(b.jee)}`:`<p class="small muted">No matching JEE indicator.</p>`}</details></div></details>`;
     });
