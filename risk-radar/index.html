@@ -203,7 +203,7 @@ function filtered(){
 }
 function allSignals(){
   const cur=(D.curated.items||[]).map(c=>Object.assign({},c,{when:c.date,kind:"curated"}));
-  const det=(D.signals.items||[]).filter(s=>!s.baseline).map(s=>Object.assign({},s,{when:s.detected,kind:"detected"}));
+  const det=(D.signals.items||[]).filter(s=>!s.baseline&&!s.backfill).map(s=>Object.assign({},s,{when:s.detected,kind:"detected"}));
   return cur.concat(det).sort((a,b)=>pdate(b.when)-pdate(a.when));
 }
 const isNew=s=>LASTVISIT&&pdate(s.when)>new Date(LASTVISIT);
@@ -262,7 +262,7 @@ function sigHTML(s,withRisks=true){
 function vOverview(){
   const m=$("#main"); m.innerHTML="";
   const intro=document.createElement("p"); intro.className="muted"; intro.style.margin="0 0 12px";
-  intro.innerHTML=`What institutions are warning about, who says it, how they know, and how the risks connect. Source findings are kept apart from Risk Radar's own analysis. <a href="#/method">How it works</a>`;
+  intro.innerHTML=`What institutions are warning about, who says it, how they know, and how the risks connect. Source findings are kept apart from Risk Radar's own analysis. <a href="#/method">How it works</a>`+(D.riskFile&&D.riskFile.generated?` <span class="small">· Risk register last reviewed ${fdate(D.riskFile.generated)}.</span>`:"");
   m.appendChild(intro);
   const sp=document.createElement("section"); sp.className="panel"; sp.style.marginBottom="14px";
   const sigs=allSignals().slice(0,6);

@@ -74,6 +74,17 @@ class Dedup(unittest.TestCase):
 
 
 class UpdateDetection(unittest.TestCase):
+    def test_old_publication_is_backfill_not_new(self):
+        src = {"id": "s"}; state = {"seen": ["x"]}; signals = []
+        items = [{"title": "Old report", "url": "https://example.org/old", "published": "2025-12-05T00:00:00Z", "summary": ""},
+                 {"title": "Fresh report", "url": "https://example.org/new", "published": "2026-11-01T00:00:00Z", "summary": ""}]
+        n = ingest.merge_items(src, items, state, signals, [], "2026-11-04T00:00:00Z", baseline=False)
+        self.assertEqual(n, 1)
+        by = {s["title"]: s for s in signals}
+        self.assertTrue(by["Old report"].get("backfill"))
+        self.assertNotIn("backfill", by["Fresh report"])
+        self.assertFalse(ingest.is_backfill(None, "2026-11-04T00:00:00Z"))
+
     def test_page_hash_ignores_cosmetic_changes(self):
         base = "https://www.imf.org/en/Publications/GFSR"
         pat = r"/Publications/GFSR/Issues/20\d\d/"

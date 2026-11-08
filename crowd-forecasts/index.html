@@ -225,8 +225,9 @@ function render(){
   const items = filtered();
   $("count").textContent = `${items.length} forecast${items.length === 1 ? "" : "s"}`;
 
-  // Markets already past their resolution date are left out of the movers.
-  const movers = items.filter(i => i.d7 != null && Math.abs(i.d7) >= 0.05 && !(i.resolves && new Date(i.resolves) < Date.now())).sort((a, b) => Math.abs(b.d7) - Math.abs(a.d7)).slice(0, 4);
+  // Movers leave out markets already past their resolution date and near-certain ones (above 97% or below 3%),
+  // which mostly jump because the outcome is known, not because expectations shifted.
+  const movers = items.filter(i => i.d7 != null && Math.abs(i.d7) >= 0.05 && !(i.resolves && new Date(i.resolves) < Date.now()) && i.prob > 0.03 && i.prob < 0.97).sort((a, b) => Math.abs(b.d7) - Math.abs(a.d7)).slice(0, 4);
   $("moversWrap").hidden = !movers.length;
   $("movers").innerHTML = movers.map(m => `<a class="mover" href="${esc(m.url)}" target="_blank" rel="noopener"><b>${pct(m.prob)}%</b> ${delta(m.d7)}<div>${esc(m.title)}</div></a>`).join("");
 

@@ -25,6 +25,9 @@ const THEMES = {
     /\bpandemic/i, /\boutbreak/i, /bird flu/i, /\bh5n1\b/i, /\bmeasles/i, /\bmpox/i, /\bebola/i,
     /\bmarburg/i, /\bcholera/i, /\bpolio/i, /\bcovid/i, /\bvaccin/i, /\bWHO\b/, /world health/i,
     /\bpheic\b/i, /public health emergency/i, /\bdengue/i, /\bdisease/i, /\bvirus\b/i,
+    /\bavian\b/i, /\bh5n\d/i, /\bnipah/i, /\bzika/i, /\bchikungunya/i, /\bsmallpox/i, /\bmalaria/i,
+    /\btuberculosis\b|\btb\b cases/i, /\bhiv\b/i, /\bgavi\b/i, /\bglobal fund\b/i, /antimicrobial|superbug/i,
+    /pandemic (agreement|treaty|accord)/i, /\bcdc\b/i, /\bfda\b.*\b(vaccine|approv)/i, /\bepidemic/i,
   ],
   conflict: [
     /\bwar\b/i, /ceasefire/i, /cease-fire/i, /invade/i, /invasion/i, /military/i, /\bstrikes?\b/i,
@@ -61,7 +64,7 @@ const EXCLUDE = [
   /\b(weather|temperature|hurricane|snow|rain|°)\b/i,
   /\b(elon|musk|openai|gpt|ai model|tesla|apple|google|microsoft)\b/i,
   /\b(approval rating|deport|ice raids?|epstein|doge)\b/i,
-  /\b(aliens?|ufo|uap|margin of victory|popular vote margin|turnout|how many|mention)\b/i,
+  /\b(aliens?|ufo|uap|margin of victory|popular vote margin|turnout|mention)\b/i,
   /\[(polymarket|kalshi|metaculus)\]/i, /^if /i,
 ];
 
@@ -83,7 +86,11 @@ function balanced(items, cap) {
   }
   return out;
 }
-const excluded = (text) => EXCLUDE.some((r) => r.test(String(text || "")));
+// "How many …" markets are noise for elections or wars, but case-count markets are the
+// typical form of a health question (e.g. "How many measles cases in 2026?"), so keep those.
+const HOW_MANY = /\bhow many\b/i;
+const isHealth = (t) => THEMES.health.some((r) => r.test(t));
+const excluded = (text) => { const t = String(text || ""); return EXCLUDE.some((r) => r.test(t)) || (HOW_MANY.test(t) && !isHealth(t)); };
 
 // ---------- helpers ----------
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -144,7 +151,7 @@ async function polymarket() {
   const seen = new Map();
   const add = (evs) => { for (const e of evs || []) if (e && e.id && !seen.has(e.id)) seen.set(e.id, e); };
   const base = "https://gamma-api.polymarket.com/events?closed=false&active=true&archived=false&order=volume&ascending=false";
-  for (const tag of ["geopolitics", "world", "elections", "politics", "global-elections", "trade", "health", "ukraine", "middle-east"]) {
+  for (const tag of ["geopolitics", "world", "elections", "politics", "global-elections", "trade", "health", "pandemic", "bird-flu", "measles", "science", "ukraine", "middle-east"]) {
     try { add(await getJSON(`${base}&limit=100&tag_slug=${tag}`)); } catch (e) { console.warn("polymarket tag", tag, e.message); }
     await sleep(250);
   }
@@ -237,7 +244,9 @@ async function kalshi() {
 // ---------- Manifold ----------
 async function manifold() {
   const terms = ["ukraine", "russia", "ceasefire", "israel", "iran", "taiwan", "china", "nato", "war", "election",
-    "prime minister", "president", "tariff", "sanctions", "pandemic", "H5N1", "WHO", "nuclear", "gaza", "coup", "venezuela", "india pakistan"];
+    "prime minister", "president", "tariff", "sanctions", "pandemic", "H5N1", "WHO", "nuclear", "gaza", "coup", "venezuela", "india pakistan",
+    // health: the theme with the thinnest supply, so it gets the most search terms
+    "measles", "mpox", "bird flu", "outbreak", "vaccine", "polio", "ebola", "cholera", "dengue", "malaria", "pandemic agreement", "PHEIC"];
   const seen = new Map();
   for (const t of terms) {
     try {
@@ -286,7 +295,8 @@ async function metaculus() {
     try { add(await get(`${base}&categories=${cat}`)); } catch (e) { if (/auth/.test(e.message)) throw e; console.warn("metaculus cat", cat, e.message); }
     await sleep(600);
   }
-  for (const term of ["Ukraine", "Russia", "Taiwan", "China", "Iran", "Israel", "NATO", "ceasefire", "election", "tariff", "pandemic", "H5N1", "WHO", "nuclear war"]) {
+  for (const term of ["Ukraine", "Russia", "Taiwan", "China", "Iran", "Israel", "NATO", "ceasefire", "election", "tariff", "pandemic", "H5N1", "WHO", "nuclear war",
+                      "measles", "mpox", "bird flu", "outbreak", "vaccine", "PHEIC"]) {
     try { add(await get(`${base}&search=${encodeURIComponent(term)}`)); } catch (e) { if (/auth/.test(e.message)) throw e; console.warn("metaculus term", term, e.message); }
     await sleep(600);
   }
@@ -493,8 +503,8 @@ async function main() {
     if (!history[id].length || (!live.has(id) && history[id][history[id].length - 1][0] < keepFrom)) delete history[id];
   }
 
-  // Drop markets whose deadline passed more than a week ago (resolved but not yet closed)
-  const stale = new Date(NOW - 7 * 864e5).toISOString();
+  // Drop markets whose deadline passed more than two days ago (resolved but not yet closed)
+  const stale = new Date(NOW - 2 * 864e5).toISOString();
   items = items.filter((i) => !i.resolves || i.resolves >= stale);
   items.sort((a, b) => (a.resolves || "9999").localeCompare(b.resolves || "9999"));
   if (!items.length) throw new Error("No items from any source — keeping previous file");

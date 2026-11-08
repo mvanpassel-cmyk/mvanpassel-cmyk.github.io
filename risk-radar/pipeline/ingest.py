@@ -249,6 +249,25 @@ def run_connector(src):
     raise ValueError(f"unknown connector type {c['type']}")
 
 
+BACKFILL_DAYS = 60   # an item first seen this long after its publication date is old news, not a new report
+
+
+def is_backfill(published, detected, days=BACKFILL_DAYS):
+    """True when a source surfaces an old publication (e.g. a page re-listing a report from last year)."""
+    if not published or not detected:
+        return False
+    try:
+        p = dt.datetime.fromisoformat(str(published).replace("Z", "+00:00"))
+        d = dt.datetime.fromisoformat(str(detected).replace("Z", "+00:00"))
+        if p.tzinfo is None:
+            p = p.replace(tzinfo=dt.timezone.utc)
+        if d.tzinfo is None:
+            d = d.replace(tzinfo=dt.timezone.utc)
+    except ValueError:
+        return False
+    return (d - p).days > days
+
+
 def merge_items(src, items, prev_state, signals, matchers, detected, baseline):
     """Add unseen items to signals. Returns the number of new (announced) items."""
     known = set(prev_state.get("seen", []))
@@ -259,14 +278,16 @@ def merge_items(src, items, prev_state, signals, matchers, detected, baseline):
         if iid in known or iid in existing:
             continue
         rids = match_risks(it["title"] + " " + it["summary"], matchers)
+        old = not baseline and is_backfill(it.get("published"), detected)
         signals.append({
             "id": iid, "source": src["id"], "title": it["title"], "url": it["url"],
             "published": it.get("published"), "detected": detected,
             "label": "New report", "riskIds": rids, "match": "keywords (unreviewed)" if rids else None,
             "baseline": baseline,
+            **({"backfill": True} if old else {}),
         })
         known.add(iid)
-        if not baseline:
+        if not baseline and not old:
             new += 1
     prev_state["seen"] = sorted(known)[-2000:]
     return new
@@ -341,7 +362,7 @@ def main():
     save("changelog.json", changelog)
 
     curated = load("curated-signals.json", {"items": []})["items"]
-    entries = [dict(s, summaryText=names.get(s["source"], s["source"])) for s in signals if not s.get("baseline")][:60]
+    entries = [dict(s, summaryText=names.get(s["source"], s["source"])) for s in signals if not s.get("baseline") and not s.get("backfill")][:60]
     entries += [dict(c, detected=(c["date"] + "-01-01")[:10] + "T00:00:00Z" if len(c["date"]) < 10 else c["date"] + "T00:00:00Z", summaryText=c.get("text", "")) for c in curated]
     entries.sort(key=lambda e: e["detected"], reverse=True)
     with open(os.path.join(DATA, "feed.xml"), "w", encoding="utf-8") as f:
