@@ -141,7 +141,7 @@ details p{margin:8px 0}
     <p>Every note is composed live on your phone and played on recorded instruments, so the music never repeats. It is written as underscore, not songs: slow, open harmony, a quiet piano or string figure, and a short motif that only now and then comes to the surface. Fifteen moods, from Dreamy to Noir; swipe the row for more. They cross-fade slowly, like a cue changing in a film. <b>Shuffle</b> picks a new one every few minutes. Keep presence low: the idea is that you barely notice it, until you do.</p>
     <p><b>Screen off:</b> live mode keeps playing in most cases. If iOS stops it when the screen locks, turn on <b>Lock-screen loop</b>: it composes a 2½-minute seamless loop of the current mood and plays it through the phone's media player, which never stops. Use the lock-screen skip buttons to change mood.</p>
     <p><b>Recording</b> saves what you heard (live mode) as an audio file, so a trip keeps its own score.</p>
-    <p>Works offline once loaded (about 15 MB of instruments, downloaded once). Tip: Share → Add to Home Screen.</p>
+    <p>Works offline once loaded (about 33 MB of instruments, downloaded once; the mood you pick comes first). Tip: Share → Add to Home Screen.</p>
     <p>Instruments: real orchestral recordings from <b>VSCO 2 Community Edition</b> by Versilian Studios (CC0), and the <b>Salamander Grand Piano</b> by Alexander Holm (<a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>). Dreamy and Noir are composed phrase by phrase, with a motif that is remembered and transformed.</p>
   </details>
 </main>
@@ -523,7 +523,9 @@ addEventListener("beforeunload", (e) => { if (recorder) { e.preventDefault(); e.
 if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
 
 // Download every instrument up front, so the whole score works offline on the road.
-bank.prefetch((p) => { if (!loaded) setStatus(p < 1 ? `Loading instruments… ${Math.round(p * 100)}%` : ""); })
+let moodReady = false;
+bank.prefetch((p) => { if (!loaded && !moodReady) setStatus(p < 1 ? `Loading instruments… ${Math.round(p * 100)}%` : ""); },
+  (MOODS[state.mood] || {}).uses || [], () => { moodReady = true; if (!loaded && /Loading/.test($("status").textContent)) setStatus("Ready to play. Other moods keep loading in the background."); })
   .then(() => { loaded = true; if (/Loading/.test($("status").textContent)) setStatus(""); })
   .catch(() => setStatus("Couldn’t load all instruments. Check your connection and reload."));
 })();

@@ -1070,14 +1070,18 @@ function toWav(L, R, rate) {
   return new Blob([buf], { type: 'audio/wav' });
 }
 
-function loadLame() {
-  if (window.lamejs) return Promise.resolve();
+// MP3 encoder: our own copy first (works offline, npm lamejs 1.2.1), cdnjs as fallback.
+function loadScript(src) {
   return new Promise((res, rej) => {
     const s = document.createElement('script');
-    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/lamejs/1.2.1/lame.min.js';
-    s.onload = res; s.onerror = () => rej(new Error('encoder'));
+    s.src = src; s.onload = res; s.onerror = () => rej(new Error('encoder'));
     document.head.appendChild(s);
   });
+}
+function loadLame() {
+  if (window.lamejs) return Promise.resolve();
+  return loadScript('vendor/lame.min.js')
+    .catch(() => loadScript('https://cdnjs.cloudflare.com/ajax/libs/lamejs/1.2.1/lame.min.js'));
 }
 
 async function toMp3(L, R, rate, onProg) {

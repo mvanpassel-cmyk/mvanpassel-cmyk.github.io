@@ -32,14 +32,17 @@
       if (!this.map) this.map = JSON.parse(new TextDecoder().decode(await this.loader("samples.json")));
       return this.map;
     }
-    async prefetch(onProgress) {
+    // Downloads every instrument; the ones in `first` (the current mood) come first,
+    // so playing can start before the other moods have arrived.
+    async prefetch(onProgress, first = [], onFirst) {
       await this.init();
       const names = Object.keys(this.map);
+      const head = names.filter((n) => first.includes(n)), tail = names.filter((n) => !first.includes(n));
       let done = 0;
-      await Promise.all(names.map(async (n) => {
-        await this.bytes(n);
-        onProgress && onProgress(++done / names.length);
-      }));
+      const one = async (n) => { await this.bytes(n); onProgress && onProgress(++done / names.length); };
+      await Promise.all(head.map(one));
+      onFirst && onFirst();
+      await Promise.all(tail.map(one));
     }
     async ensure(ctx, names) {
       await this.init();

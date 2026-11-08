@@ -1,5 +1,5 @@
 // Trip Score — offline support. Network first (so updates arrive), cache as fallback.
-const CACHE = "trip-score-v7";
+const CACHE = "trip-score-v8";
 const SAMPLES = "trip-score-samples-v4";   // instruments: cache-first, kept across app updates
 const FILES = ["./", "index.html", "engine.js", "score.js", "manifest.webmanifest", "icon.svg", "icon-180.png", "icon-512.png"];
 self.addEventListener("install", (e) => { e.waitUntil(caches.open(CACHE).then((c) => c.addAll(FILES))); self.skipWaiting(); });

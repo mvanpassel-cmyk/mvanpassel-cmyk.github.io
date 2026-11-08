@@ -84,6 +84,7 @@ header.top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:10px 
 .rec .meta{font-size:10px;color:var(--dim);display:flex;justify-content:space-between;gap:4px}
 .rec .meta b{color:var(--am);font-weight:600}
 .rec .ld{display:flex;gap:5px;margin-top:6px}
+.rec .forget{position:absolute;top:4px;right:4px;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);background:rgba(0,0,0,.55);color:var(--ink,#fff);font-size:16px;line-height:1;cursor:pointer}
 .rec .ld .btn{flex:1;min-height:28px;padding:4px 0;font-size:11px}
 .rec .ld .a:hover{border-color:var(--cy);color:var(--cy)}
 .rec .ld .b:hover{border-color:var(--mg);color:var(--mg)}
@@ -241,6 +242,29 @@ footer{text-align:center;color:var(--dim);font-size:11px;margin-top:16px}
   .steps{gap:2px}
   .pad .pn{font-size:10px}
 }
+/* Phones: the notice on the power-on screen, and the smallest labels one step larger */
+.phone-note{display:none}
+@media (max-width:700px),(pointer:coarse) and (max-width:900px){
+  .phone-note{display:block;margin:12px 0 0;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:12px;line-height:1.5;opacity:.85}
+}
+@media (max-width:700px){
+  .brand span{font-size:11px}
+  .bpm small{font-size:11px}
+  .rec .meta{font-size:11px}
+  .dbpm small{font-size:11px}
+  .empty-note{font-size:11px}
+  .pitch small{font-size:11px}
+  .drow .lab{font-size:11px}
+  .kn span{font-size:11px}
+  .midcol span{font-size:11px}
+  .xf .lab{font-size:11px}
+  .fxu .kn span{font-size:10px}
+  .fxu kbd{font-size:11px}
+  .pad .pk{font-size:11px}
+  .pad .pm{font-size:11px}
+  .lane select{font-size:11px}
+  .pad .pn{font-size:11px}
+}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -254,6 +278,7 @@ footer{text-align:center;color:var(--dim);font-size:11px;margin-top:16px}
     <p>Two turntables, a crate of original loops, a mixer, FX, sample pads and a step sequencer. Drag records onto the decks, sync them up, scratch, loop and remix. You can also drop in your own loops: they stay in your browser.</p>
     <button id="power" type="button">⏻ POWER ON</button>
     <p class="hint" style="margin:14px 0 0">Sound starts after you press the button. Headphones or decent speakers recommended.</p>
+    <p class="phone-note">Made for a laptop or tablet. It runs on a phone, but the decks and knobs are small there: turn the phone sideways, or open it on a bigger screen.</p>
   </div>
 </div>
 
@@ -457,6 +482,7 @@ function ensureAudio() {
     decks.forEach(d => d.attach());
     startScheduler();
     if (AC.state === 'suspended') await AC.resume();
+    restoreUserLoops();
   })();
   return ready;
 }
@@ -822,6 +848,37 @@ function shotBuffer(id) { if (shotBuf[id]) return Promise.resolve(shotBuf[id]); 
 
 /* user files: decoded in the browser only, never uploaded */
 const userRecs = [];
+/* Own loops are kept in IndexedDB (the original file bytes plus name and tempo), so they
+   are still in the crate on the next visit. Nothing is uploaded. */
+const LOOPDB = {
+  open() { return this.p ||= new Promise((ok, no) => { try { const r = indexedDB.open('vektor-nox', 1);
+    r.onupgradeneeded = () => r.result.createObjectStore('loops', { keyPath: 'id' });
+    r.onsuccess = () => ok(r.result); r.onerror = () => no(r.error); } catch (e) { no(e); } }); },
+  async tx(mode, fn) { const db = await this.open(); return new Promise((ok, no) => { const t = db.transaction('loops', mode); const req = fn(t.objectStore('loops')); t.oncomplete = () => ok(req && req.result); t.onerror = () => no(t.error); }); },
+  put(rec, bytes) { return this.tx('readwrite', st => st.put({ id: rec.id, name: rec.name, bpm: rec.bpm, beats: rec.beats, bars: rec.bars, added: Date.now(), bytes })).catch(() => {}); },
+  all() { return this.tx('readonly', st => st.getAll()).catch(() => []); },
+  del(id) { return this.tx('readwrite', st => st.delete(id)).catch(() => {}); },
+};
+let loopsRestored = false;
+async function restoreUserLoops() {
+  if (loopsRestored) return; loopsRestored = true;
+  const saved = (await LOOPDB.all()) || [];
+  saved.sort((a, b) => b.added - a.added);
+  let n = 0;
+  for (const it of saved) {
+    if (userRecs.some(r => r.id === it.id)) continue;
+    try {
+      const buf = await new Promise((ok, no) => AC.decodeAudioData(it.bytes.slice(0), ok, no));
+      userRecs.push({ id: it.id, name: it.name, style: 'Your file', type: 'user', bpm: it.bpm, key: '?', bars: it.bars, beats: it.beats, buf, user: true });
+      n++;
+    } catch (e) { /* unreadable: leave it stored, skip it here */ }
+  }
+  if (n) { renderCrate(); toast(`${n} of your own loop${n > 1 ? 's' : ''} back in the crate`); }
+}
+async function forgetUserLoop(id) {
+  const i = userRecs.findIndex(r => r.id === id); if (i < 0) return;
+  const [rec] = userRecs.splice(i, 1); await LOOPDB.del(id); renderCrate(); toast(`Removed “${rec.name}” from your crate`);
+}
 function estimateBpm(buf) {
   const sr = buf.sampleRate, d0 = buf.getChannelData(0), n = Math.min(d0.length, sr * 30), hop = 512, frames = Math.floor(n / hop);
   const e = new Float32Array(frames); let prev = 0;
@@ -840,10 +897,11 @@ async function addUserFile(file) {
   toast('Decoding ' + file.name + ' in your browser…');
   try {
     const ab = await file.arrayBuffer();
+    const bytes = ab.slice(0);   // decodeAudioData detaches its buffer; keep a copy to store
     const buf = await new Promise((ok, no) => AC.decodeAudioData(ab, ok, no));
     const bpm = estimateBpm(buf), beats = Math.max(1, Math.round(buf.duration * bpm / 60));
     const rec = { id: 'u' + (userRecs.length + 1) + '-' + Date.now().toString(36), name: file.name.replace(/\.[^.]+$/, '').slice(0, 40) || 'My loop', style: 'Your file', type: 'user', bpm, key: '?', bars: Math.max(1, Math.round(beats / 4)), beats, buf, user: true };
-    userRecs.unshift(rec); renderCrate(); drawCover(rec);
+    userRecs.unshift(rec); renderCrate(); drawCover(rec); LOOPDB.put(rec, bytes);
     toast(`Loaded “${rec.name}” · about ${bpm} BPM (adjust on the deck)`);
     return rec;
   } catch (e) { toast('Could not decode that file in this browser.'); return null; }
@@ -906,11 +964,12 @@ function renderCrate() {
       <h3>${esc(r.name)}</h3>
       <div class="meta"><span><b>${(+r.bpm).toFixed(r.user ? 1 : 0)}</b> BPM</span><span>${esc(r.key)} · ${r.bars} bar${r.bars > 1 ? 's' : ''}</span></div>
       <div class="meta"><span>${esc(r.style)}</span></div>
-      <div class="ld"><button class="btn a" data-load="A" aria-label="Load ${esc(r.name)} on deck A">▸ A</button><button class="btn b" data-load="B" aria-label="Load ${esc(r.name)} on deck B">▸ B</button></div></div>`).join('');
+      <div class="ld"><button class="btn a" data-load="A" aria-label="Load ${esc(r.name)} on deck A">▸ A</button><button class="btn b" data-load="B" aria-label="Load ${esc(r.name)} on deck B">▸ B</button></div>${r.user ? `<button class="forget" data-forget="${r.id}" aria-label="Remove ${esc(r.name)} from your crate" title="Remove from your crate">×</button>` : ''}</div>`).join('');
   list.forEach(r => { if (r.cover) $$(`canvas[data-cover="${r.id}"]`).forEach(c => c.getContext('2d').drawImage(r.cover, 0, 0, c.width, c.height)); else drawCover(r); });
 }
 $('#records').addEventListener('click', e => {
   if (e.target.closest('#addOwn')) { pickFile(rec => rec); return; }
+  const f = e.target.closest('[data-forget]'); if (f) { forgetUserLoop(f.dataset.forget); return; }
   const b = e.target.closest('[data-load]'); if (!b) return;
   const rec = getRecord(b.closest('.rec').dataset.id); (b.dataset.load === 'A' ? decks[0] : decks[1]).load(rec);
 });
