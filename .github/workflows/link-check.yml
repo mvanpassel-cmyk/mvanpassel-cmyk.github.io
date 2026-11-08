@@ -1,0 +1,41 @@
+name: Portal link check
+
+# Monthly, on the morning of the 1st, so the evening portal update can repair what it finds.
+# Writes .github/link-report/report.json and report.md; never edits portal data.
+on:
+  schedule:
+    - cron: "17 4 1 * *"   # 05:17 Amsterdam (winter) / 06:17 (summer)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: link-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check links
+        run: python3 .github/scripts/check-links.py
+      - name: Commit the report
+        run: |
+          git config user.name  "link-check-bot"
+          git config user.email "actions@github.com"
+          git add .github/link-report
+          if git diff --staged --quiet; then
+            echo "No changes."
+          else
+            git commit -m "Link check: $(date -u '+%Y-%m-%d')"
+            git pull --rebase origin main
+            git push
+          fi
