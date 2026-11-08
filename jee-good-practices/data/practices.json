@@ -1,6 +1,6 @@
 {
  "meta": {
-  "status": "seed set, drafted 2026-10-16 from the implementation brief. Source landing pages were checked for title, year and scope; the full documents were not re-read. Indicator links are candidate mappings against the exact JEE v3 wording, not claims that a practice raises a score.",
+  "status": "First 6 summaries drafted 2026-10-16 from the implementation brief; 13 more added 2026-11-08 so that every JEE technical area has one, drawn from sources already curated in solutions.json and link-checked that day. Source landing pages were checked for title, year and scope; the full documents were not re-read. Indicator links are candidate mappings against the exact JEE v3 wording, not claims that a practice raises a score.",
   "sourceTypes": {
    "guideline": "Normative WHO/partner guidance. Recommends what to do; it is not itself an effectiveness study.",
    "systematic-review": "Peer-reviewed or WHO-commissioned review of published studies.",
@@ -274,6 +274,666 @@
      "url": "https://www.who.int/publications/i/item/9789240051164",
      "year": 2022,
      "type": "report"
+    }
+   ]
+  },
+  {
+   "id": "legal-mapping-ihr",
+   "title": "Legal mapping against IHR obligations",
+   "summary": "A structured review maps national laws against IHR obligations, records gaps and gives emergency functions such as declarations and the operations centre an explicit legal basis.",
+   "mechanism": "Emergency powers that are written down, tested and known to officials can be used quickly; gaps found in peacetime can be closed before a crisis forces improvised decisions.",
+   "implementation": [
+    "Map existing laws and regulations against IHR obligations with a standard checklist",
+    "Agree which gaps need new law, regulation or administrative orders",
+    "Give the emergency operations centre and incident decisions a legal basis",
+    "Train legal staff and check the framework in exercises and after real events"
+   ],
+   "indicators": [
+    "P1.1"
+   ],
+   "tags": [
+    "legal",
+    "governance",
+    "IHR"
+   ],
+   "evidenceType": "tool",
+   "strength": "Practical tools and normative guidance. They describe what a sound legal framework covers; none measures the effect of legal reform on response outcomes.",
+   "context": "Used in all regions; the WHO toolkit dates from 2009, the IFRC guidance and the RTSL checklist reflect COVID-19 experience.",
+   "limitations": "Legal systems differ, so templates need national adaptation. A law on paper says little about whether officials know and use it.",
+   "sources": [
+    {
+     "citation": "World Health Organization. International Health Regulations (2005) toolkit for implementation in national legislation. 2009.",
+     "url": "https://www.who.int/publications/m/item/international-health-regulations-(2005)-toolkit-for-implementation-in-national-legislation",
+     "year": 2009,
+     "type": "tool"
+    },
+    {
+     "citation": "International Federation of Red Cross and Red Crescent Societies. Guidance on law and public health emergency preparedness and response. 2021.",
+     "url": "https://disasterlaw.ifrc.org/sites/default/files/media/disaster_law/2021-09/20210926_Law_PHE.pdf",
+     "year": 2021,
+     "type": "guideline"
+    },
+    {
+     "citation": "Resolve to Save Lives. Checklist and template for IHR legal analysis. 2025.",
+     "url": "https://resolvetosavelives.org/wp-content/uploads/2025/12/RTSL_Checklist-and-Template-for-IHR-Legal-Analysis_English_Final.pdf",
+     "year": 2025,
+     "type": "tool"
+    },
+    {
+     "citation": "WHO Regional Office for Africa. PHEOC legal framework guide. 2021.",
+     "url": "https://www.afro.who.int/publications/public-health-emergency-operations-center-pheoc-legal-framework-guide-guide/",
+     "year": 2021,
+     "type": "tool"
+    }
+   ]
+  },
+  {
+   "id": "health-security-financing",
+   "title": "Costed plans and fast emergency funds",
+   "summary": "Preparedness actions are costed and placed in regular budgets, and a contingency mechanism can release response money within days of an alert.",
+   "mechanism": "Costing turns a plan into budget lines that ministries of finance can fund; a pre-agreed release mechanism removes the delay between an alert and the first spending.",
+   "implementation": [
+    "Cost the national action plan for health security activity by activity",
+    "Compare needs with allocated budgets and track disbursement, not only allocation",
+    "Set up a contingency fund or budget line with clear release rules",
+    "Know how to request external emergency funds such as WHO's Contingency Fund"
+   ],
+   "indicators": [
+    "P2.1",
+    "P2.2"
+   ],
+   "tags": [
+    "financing",
+    "planning",
+    "NAPHS"
+   ],
+   "evidenceType": "tool",
+   "strength": "Assessment and costing tools plus strategy documents. They describe financing arrangements; outcome evidence on response speed is mostly descriptive.",
+   "context": "Developed by WHO, the World Bank and Resolve to Save Lives for low- and middle-income countries, but the logic applies everywhere.",
+   "limitations": "Budget processes and fiscal space vary widely. A costed plan does not guarantee money, and emergency funds can be slow if release rules are unclear.",
+   "sources": [
+    {
+     "citation": "World Bank. Health Security Financing Assessment Tool (HSFAT). 2018.",
+     "url": "https://thedocs.worldbank.org/en/doc/284281528446571304-0070022018/original/HSFATLeaflet.pdf",
+     "year": 2018,
+     "type": "tool"
+    },
+    {
+     "citation": "World Health Organization. Delivering global health security through sustainable financing. 2018.",
+     "url": "https://www.who.int/publications/i/item/WHO-WHE-CPI-2018.38",
+     "year": 2018,
+     "type": "strategy"
+    },
+    {
+     "citation": "Resolve to Save Lives. Action-based costing for national action plans for health security.",
+     "url": "https://resolvetosavelives.org/resources/action-based-costing-for-national-action-plans-for-health-security/",
+     "type": "tool"
+    },
+    {
+     "citation": "World Health Organization. NAPHS for all: a country implementation guide for national action plans for health security. 2019.",
+     "url": "https://www.who.int/publications/i/item/naphs-for-all---a-country-implementation-guide-for-naphs",
+     "year": 2019,
+     "type": "guideline"
+    }
+   ]
+  },
+  {
+   "id": "ihr-nfp-functioning",
+   "title": "A National IHR Focal Point that works around the clock",
+   "summary": "The National IHR Focal Point has a clear mandate, staff reachable 24/7, standard procedures for assessing and notifying events, and links to every sector that may detect one.",
+   "mechanism": "A reachable, mandated focal point with tested procedures shortens the time from detection to notification and to coordinated action across sectors.",
+   "implementation": [
+    "Formal mandate and placement of the focal point, with named staff and back-up",
+    "24/7 contact that is tested regularly",
+    "Standard operating procedures using the IHR Annex 2 decision instrument",
+    "Contacts in animal health, food safety, chemical, radiation and points of entry, checked in exercises"
+   ],
+   "indicators": [
+    "P3.1",
+    "P3.3"
+   ],
+   "tags": [
+    "IHR",
+    "coordination",
+    "notification"
+   ],
+   "evidenceType": "guideline",
+   "strength": "Normative WHO and PAHO guidance plus training material. Describes good arrangements; evidence of impact comes mainly from after-action reviews.",
+   "context": "Applies to all States Parties; PAHO's operational framework and workshop toolkit come from the Americas.",
+   "limitations": "Focal point placement and powers differ by country. Regular staff turnover means procedures and contacts need constant upkeep.",
+   "sources": [
+    {
+     "citation": "World Health Organization. National IHR Focal Points, including the National IHR Focal Point Guide.",
+     "url": "https://www.who.int/teams/ihr/national-focal-points",
+     "type": "guideline"
+    },
+    {
+     "citation": "Pan American Health Organization. Overview of IHR National Focal Point functions: operational framework. 2023.",
+     "url": "https://www.paho.org/sites/default/files/2023-09/overview-ihr-nfp-functions-operational-framework.pdf",
+     "year": 2023,
+     "type": "tool"
+    },
+    {
+     "citation": "World Health Organization. WHO guidance for the use of Annex 2 of the International Health Regulations (2005). 2010.",
+     "url": "https://www.who.int/publications/m/item/who-guidance-for-the-use-of-annex-2-of-the-international-health-regulations-(2005)",
+     "year": 2010,
+     "type": "guideline"
+    },
+    {
+     "citation": "World Health Organization. WHO simulation exercise manual. 2017.",
+     "url": "https://apps.who.int/iris/handle/10665/254741",
+     "year": 2017,
+     "type": "guideline"
+    }
+   ]
+  },
+  {
+   "id": "food-safety-emergency-response",
+   "title": "Foodborne event detection and a food safety emergency plan",
+   "summary": "Indicator- and event-based surveillance picks up foodborne events, a national plan sets thresholds, roles and recall procedures, and INFOSAN contacts share information across borders.",
+   "mechanism": "Linking surveillance, food control and international notification means a contaminated product can be traced and withdrawn before more people are exposed.",
+   "implementation": [
+    "Event- and indicator-based surveillance for priority foodborne diseases",
+    "National food safety emergency response plan with thresholds and named roles",
+    "INFOSAN emergency contact point and a national information-sharing protocol",
+    "Trained outbreak investigation teams and risk communication procedures"
+   ],
+   "indicators": [
+    "P6.1",
+    "P6.2"
+   ],
+   "tags": [
+    "food safety",
+    "surveillance",
+    "INFOSAN"
+   ],
+   "evidenceType": "guideline",
+   "strength": "FAO/WHO frameworks and templates, plus one Codex country case study. Guidance-based; outcome data are limited to case descriptions.",
+   "context": "Global FAO/WHO guidance; the Honduras case shows a 2021 Salmonella outbreak handled with Codex standards.",
+   "limitations": "Food control is often split across ministries, which the plan must reconcile. Guidance from 2008–2010 predates whole-genome sequencing in outbreak work.",
+   "sources": [
+    {
+     "citation": "FAO and WHO. FAO/WHO framework for developing national food safety emergency response plans. 2010.",
+     "url": "https://www.who.int/publications/i/item/9789241500357",
+     "year": 2010,
+     "type": "guideline"
+    },
+    {
+     "citation": "World Health Organization. Using indicator- and event-based surveillance to detect foodborne events (stage one booklet). 2017.",
+     "url": "https://www.who.int/publications/i/item/strengthening-surveillance-of-and-response-to-foodborne-diseases",
+     "year": 2017,
+     "type": "guideline"
+    },
+    {
+     "citation": "WHO and FAO. INFOSAN members guide, web annex: template national protocol for information sharing during food safety events. 2020.",
+     "url": "https://www.who.int/publications/i/item/9789240012288",
+     "year": 2020,
+     "type": "protocol"
+    },
+    {
+     "citation": "Codex Alimentarius Commission (FAO/WHO). Codex case study: Honduras, 2021 Salmonella Braenderup outbreak linked to melons.",
+     "url": "https://policycommons.net/artifacts/12517164/how-honduras-handled-the-unexpected/13415519",
+     "type": "case-study"
+    }
+   ]
+  },
+  {
+   "id": "biosafety-biosecurity-oversight",
+   "title": "National biosafety and biosecurity oversight",
+   "summary": "A national inventory shows which facilities hold dangerous pathogens, a risk-based regulatory framework licenses and inspects them, and staff are trained in biosafety and biosecurity.",
+   "mechanism": "Knowing where dangerous agents are, and holding facilities to risk-based rules, reduces the chance of accidental release or misuse and lets collections be consolidated.",
+   "implementation": [
+    "National inventory of facilities holding dangerous pathogens, kept up to date",
+    "Risk-based regulation with licensing, inspection and incident reporting",
+    "Biosecurity audits with a standard checklist or self-assessment tool",
+    "Training and competence requirements aligned with the WHO manual or ISO 35001"
+   ],
+   "indicators": [
+    "P7.1",
+    "P7.2"
+   ],
+   "tags": [
+    "biosafety",
+    "biosecurity",
+    "laboratory"
+   ],
+   "evidenceType": "guideline",
+   "strength": "WHO normative guidance plus peer-reviewed methods and tools (inventory method, biosecurity checklist, vulnerability scan) and a Kenyan baseline survey. Methods are tested in practice; impact on incident rates is not measured.",
+   "context": "The inventory method and checklists were developed with the Dutch Biosecurity Office; the Kenyan survey shows a baseline before legislation.",
+   "limitations": "Regulation needs inspection capacity to mean anything. Biosecurity information is sensitive, which limits what can be published or shared.",
+   "sources": [
+    {
+     "citation": "World Health Organization. Laboratory biosafety manual, 4th edition. 2020.",
+     "url": "https://www.who.int/publications/i/item/9789240011311",
+     "year": 2020,
+     "type": "guideline"
+    },
+    {
+     "citation": "World Health Organization. Laboratory biosecurity guidance. 2024.",
+     "url": "https://www.who.int/publications/i/item/9789240095113",
+     "year": 2024,
+     "type": "guideline"
+    },
+    {
+     "citation": "Vennis IM, Bleijs DA, Brizee S, et al. Systematic approach towards establishing a National Inventory of Dangerous Pathogens. Glob Health Action. 2021;14(1):1971866.",
+     "url": "https://www.tandfonline.com/doi/full/10.1080/16549716.2021.1971866",
+     "year": 2021,
+     "type": "peer-reviewed"
+    },
+    {
+     "citation": "Ndhine EO, Slotved HC, Osoro EM, et al. A biosecurity survey in Kenya, November 2014 to February 2015. Health Secur. 2016;14(4):205-213.",
+     "url": "https://journals.sagepub.com/doi/10.1089/hs.2016.0009",
+     "year": 2016,
+     "type": "case-study"
+    }
+   ]
+  },
+  {
+   "id": "immunization-coverage-outbreak-readiness",
+   "title": "Reaching under-vaccinated groups and readiness for mass campaigns",
+   "summary": "Programmes find out who is missed and why, verify coverage data, keep the cold chain in shape, and have a plan for outbreak vaccination with safety monitoring.",
+   "mechanism": "Targeting the reasons behind low uptake closes immunity gaps that fuel outbreaks; a managed supply chain and AEFI surveillance make rapid campaigns possible and keep trust.",
+   "implementation": [
+    "Behavioural and social drivers surveys to find why groups are missed",
+    "Tailored interventions for those groups (TIP approach)",
+    "Data quality review and Effective Vaccine Management assessment",
+    "Outbreak vaccination plan with AEFI surveillance and investigation"
+   ],
+   "indicators": [
+    "P8.1",
+    "P8.2",
+    "P8.3"
+   ],
+   "tags": [
+    "immunization",
+    "measles",
+    "vaccine uptake"
+   ],
+   "evidenceType": "tool",
+   "strength": "WHO tools and strategy, widely used in national programmes. The TIP and BeSD approaches are evaluated in several countries, but outcome evidence varies by setting.",
+   "context": "Global tools; TIP comes from the WHO European Region and is used in high- and middle-income countries.",
+   "limitations": "Hesitancy and access barriers are local and change over time. Coverage data can look good while pockets of low coverage remain.",
+   "sources": [
+    {
+     "citation": "WHO Regional Office for Europe. TIP: tailoring immunization programmes. 2019.",
+     "url": "https://www.who.int/europe/publications/i/item/9789289054492",
+     "year": 2019,
+     "type": "tool"
+    },
+    {
+     "citation": "World Health Organization. Behavioural and social drivers of vaccination: tools and practical guidance for achieving high uptake. 2022.",
+     "url": "https://www.who.int/publications/i/item/9789240049680",
+     "year": 2022,
+     "type": "tool"
+    },
+    {
+     "citation": "World Health Organization. Global manual on surveillance of adverse events following immunization. 2016.",
+     "url": "https://www.who.int/publications/i/item/9789241507769",
+     "year": 2016,
+     "type": "guideline"
+    },
+    {
+     "citation": "World Health Organization. Immunization Agenda 2030: a global strategy to leave no one behind. 2020.",
+     "url": "https://www.who.int/teams/immunization-vaccines-and-biologicals/strategies/ia2030",
+     "year": 2020,
+     "type": "strategy"
+    }
+   ]
+  },
+  {
+   "id": "early-warning-7-1-7",
+   "title": "Early warning with a timeliness target (7-1-7)",
+   "summary": "Indicator- and event-based surveillance feed one alert system, every signal is verified, and each event is timed against 7 days to detect, 1 to notify and 7 to respond, with bottlenecks reviewed.",
+   "mechanism": "A simple timeliness target makes delays visible after every event and turns them into specific fixes, rather than general calls to strengthen surveillance.",
+   "implementation": [
+    "Event-based surveillance alongside routine indicator-based reporting",
+    "Alert logbook with verification and rapid risk assessment",
+    "7-1-7 timing recorded for every event, with bottlenecks and fixes",
+    "Regular analysis and sharing of surveillance data across levels and sectors"
+   ],
+   "indicators": [
+    "D2.1",
+    "D2.2",
+    "D2.3"
+   ],
+   "tags": [
+    "surveillance",
+    "early warning",
+    "7-1-7"
+   ],
+   "evidenceType": "guideline",
+   "strength": "WHO operational guides plus a Lancet Global Health commentary on 7-1-7. Early country reports show bottlenecks being found and fixed; controlled outcome studies are lacking.",
+   "context": "IDSR is the African standard; 7-1-7 is used by a growing group of countries with Resolve to Save Lives and WHO.",
+   "limitations": "Timeliness says nothing about events that are never detected. Measuring 7-1-7 needs reliable dates for onset, detection and response.",
+   "sources": [
+    {
+     "citation": "World Health Organization. Early warning, alert and response (EWAR) in emergencies: an operational guide. 2023.",
+     "url": "https://www.who.int/publications/i/item/9789240063587",
+     "year": 2023,
+     "type": "guideline"
+    },
+    {
+     "citation": "WHO Regional Office for Africa. Technical guidelines for integrated disease surveillance and response in the African Region, 3rd edition. 2019.",
+     "url": "https://www.afro.who.int/publications/technical-guidelines-integrated-disease-surveillance-and-response-african-region-third",
+     "year": 2019,
+     "type": "guideline"
+    },
+    {
+     "citation": "Resolve to Save Lives. Implementation of the 7-1-7 target for detection, notification and response.",
+     "url": "https://resolvetosavelives.org/resources/implementation-of-the-7-1-7-target-for-detection-notification-and-response/",
+     "type": "tool"
+    },
+    {
+     "citation": "Mayigane LN, Vedrasco L, Chungong S. 7-1-7: the promise of tangible results through agility and accountability. Lancet Glob Health. 2023.",
+     "url": "https://doi.org/10.1016/S2214-109X(23)00167-5",
+     "year": 2023,
+     "type": "commentary"
+    }
+   ]
+  },
+  {
+   "id": "emergency-workforce-surge",
+   "title": "Workforce strategy, field epidemiology and surge",
+   "summary": "A workforce strategy based on public health competencies, accredited field epidemiology training, and a roster that can surge staff into a response.",
+   "mechanism": "Competency frameworks and accredited training produce people who can investigate and lead; a pre-agreed surge roster means they can be deployed without improvisation.",
+   "implementation": [
+    "Workforce strategy based on the essential public health functions competency framework",
+    "Field epidemiology training at frontline, intermediate and advanced levels, with accreditation",
+    "Surge roster and deployment procedures linked to the Global Health Emergency Corps",
+    "Workforce data (national accounts) and staff self-assessment of emergency competencies"
+   ],
+   "indicators": [
+    "D3.1",
+    "D3.2",
+    "D3.3",
+    "D3.4"
+   ],
+   "tags": [
+    "workforce",
+    "FETP",
+    "surge"
+   ],
+   "evidenceType": "guideline",
+   "strength": "WHO frameworks, TEPHINET accreditation standards and a peer-reviewed self-assessment tool from the European Union. Good practice is well described; workforce outcome data are thin.",
+   "context": "Global frameworks; the self-assessment tool was developed for European public health institutes.",
+   "limitations": "Trained staff leave when career paths are weak. Surge arrangements need funding and legal cover to work across institutions.",
+   "sources": [
+    {
+     "citation": "World Health Organization. Global competency and outcomes framework for the essential public health functions. 2024.",
+     "url": "https://www.who.int/publications/i/item/9789240091214",
+     "year": 2024,
+     "type": "guideline"
+    },
+    {
+     "citation": "World Health Organization. Global health emergency corps framework. 2024.",
+     "url": "https://www.who.int/publications/i/item/9789240109445",
+     "year": 2024,
+     "type": "strategy"
+    },
+    {
+     "citation": "TEPHINET. FETP accreditation and quality improvement.",
+     "url": "https://www.tephinet.org/what-we-do/fetp-accreditation-and-quality-improvement",
+     "type": "tool"
+    },
+    {
+     "citation": "Hayes JS, Barreto M, Kalin-Manttari L, et al. Development of a workforce self-assessment tool for public health emergency preparedness. Eur J Public Health. 2024.",
+     "url": "https://doi.org/10.1093/eurpub/ckae030",
+     "year": 2024,
+     "type": "peer-reviewed"
+    }
+   ]
+  },
+  {
+   "id": "joint-health-security-investigations",
+   "title": "Joint public health and security investigations",
+   "summary": "Public health, law enforcement, customs and the military agree in advance how they share information, investigate together and support each other in a suspected deliberate or major biological event.",
+   "mechanism": "Prior agreements and joint training let both sides act on the same event without blocking each other: evidence is preserved while the outbreak response goes ahead.",
+   "implementation": [
+    "Memorandum of understanding between health and security authorities",
+    "Joint investigation procedures and information-sharing rules",
+    "Joint training and exercises, for example with INTERPOL or national police academies",
+    "Civil-military collaboration framework for logistics and surge support"
+   ],
+   "indicators": [
+    "R2.1"
+   ],
+   "tags": [
+    "security",
+    "law enforcement",
+    "biological events"
+   ],
+   "evidenceType": "guideline",
+   "strength": "Handbooks and frameworks from the FBI, INTERPOL and WHO. Based on experience and exercises; there is little published outcome evidence.",
+   "context": "The joint investigations handbook was written with international partners; WHO's civil-military framework covers all hazards.",
+   "limitations": "Security information is often classified, which limits sharing. Arrangements must respect human rights and the separate mandates of each sector.",
+   "sources": [
+    {
+     "citation": "FBI and partners. Joint criminal and epidemiological investigations handbook, international edition. 2016.",
+     "url": "https://www.fbi.gov/file-repository/joint-criminal-and-epidemiological-investigations-handbook-2016-international-edition/view",
+     "year": 2016,
+     "type": "guideline"
+    },
+    {
+     "citation": "World Health Organization. National civil-military collaboration framework for strengthening health emergency preparedness. 2021.",
+     "url": "https://apps.who.int/iris/handle/10665/343571",
+     "year": 2021,
+     "type": "guideline"
+    },
+    {
+     "citation": "INTERPOL. Bioterrorism capacity building and training.",
+     "url": "https://www.interpol.int/Crimes/Terrorism/Bioterrorism/Bioterrorism-Capacity-building-and-training",
+     "type": "tool"
+    },
+    {
+     "citation": "World Health Organization. Multisectoral preparedness coordination framework: best practices, case studies and key elements. 2020.",
+     "url": "https://www.who.int/publications/i/item/9789240006232",
+     "year": 2020,
+     "type": "guideline"
+    }
+   ]
+  },
+  {
+   "id": "essential-services-continuity",
+   "title": "Continuity of essential health services in emergencies",
+   "summary": "Countries define which services must continue, facilities have tested continuity plans, and rapid surveys track disruptions so services can be restored quickly.",
+   "mechanism": "Planning which services to protect, and monitoring disruptions as they happen, prevents the indirect deaths that follow when routine care stops during an emergency.",
+   "implementation": [
+    "National list of essential services to maintain in emergencies",
+    "Facility continuity plans, tested and reviewed",
+    "Rapid surveys of service disruption and recovery",
+    "Hospital emergency response checklist for surge and referral"
+   ],
+   "indicators": [
+    "R3.1",
+    "R3.2",
+    "R3.3"
+   ],
+   "tags": [
+    "health services",
+    "continuity",
+    "hospital readiness"
+   ],
+   "evidenceType": "guideline",
+   "strength": "WHO operational guidance shaped by COVID-19, plus a peer-reviewed analysis of rapid key-informant surveys. Monitoring methods are tested; the effect of continuity plans is less well measured.",
+   "context": "Developed during COVID-19 but written for all hazards; the surveys covered many WHO Member States.",
+   "limitations": "Continuity depends on staff and supplies that emergencies strain. Survey data rely on key informants and may miss local disruption.",
+   "sources": [
+    {
+     "citation": "World Health Organization. Health service continuity planning for public health emergencies: a handbook for health facilities. 2021.",
+     "url": "https://www.who.int/publications/i/item/9789240033337",
+     "year": 2021,
+     "type": "guideline"
+    },
+    {
+     "citation": "World Health Organization. Maintaining essential health services: operational guidance for the COVID-19 context. 2020.",
+     "url": "https://www.who.int/publications/i/item/WHO-2019-nCoV-essential_health_services-2020.2",
+     "year": 2020,
+     "type": "guideline"
+    },
+    {
+     "citation": "Rivas-Morello B, Horemans D, Viswanathan K, et al. Assessing capacities and resilience of health services during the COVID-19 pandemic: lessons from rapid key informant surveys. Front Public Health. 2023.",
+     "url": "https://doi.org/10.3389/fpubh.2023.1102507",
+     "year": 2023,
+     "type": "peer-reviewed"
+    },
+    {
+     "citation": "WHO Regional Office for Europe. Hospital emergency response checklist. 2011.",
+     "url": "https://www.who.int/publications/i/item/hospital-emergency-response-checklist",
+     "year": 2011,
+     "type": "tool"
+    }
+   ]
+  },
+  {
+   "id": "points-of-entry-contingency",
+   "title": "Points of entry linked to national surveillance and contingency plans",
+   "summary": "Designated airports, ports and ground crossings meet routine core capacities, have tested contingency plans, feed national surveillance and agree cross-border arrangements with neighbours.",
+   "mechanism": "Plans and procedures agreed in advance let a point of entry handle an ill traveller or conveyance quickly and proportionately, without improvised border measures.",
+   "implementation": [
+    "Assessment of routine core capacities at designated points of entry",
+    "Public health emergency contingency plan per point of entry, tested in exercises",
+    "Reporting from points of entry into national surveillance",
+    "Cross-border agreements at ground crossings and a risk-based approach to travel measures"
+   ],
+   "indicators": [
+    "PoE1",
+    "PoE2",
+    "PoE3"
+   ],
+   "tags": [
+    "points of entry",
+    "border health",
+    "travel"
+   ],
+   "evidenceType": "guideline",
+   "strength": "WHO assessment tools, handbooks and technical considerations. Normative; evaluations of travel measures during COVID-19 were mixed.",
+   "context": "Global WHO guidance; the ground crossings handbook focuses on land borders and neighbouring countries.",
+   "limitations": "Many points of entry are informal and outside these systems. Travel measures can be costly and of limited effect if not risk-based.",
+   "sources": [
+    {
+     "citation": "World Health Organization. IHR (2005): a guide for public health emergency contingency planning at designated points of entry. 2012.",
+     "url": "https://www.who.int/publications/i/item/9789290615668",
+     "year": 2012,
+     "type": "guideline"
+    },
+    {
+     "citation": "World Health Organization. IHR (2005): assessment tool for core capacity requirements at designated airports, ports and ground crossings. 2009.",
+     "url": "https://apps.who.int/iris/handle/10665/70839",
+     "year": 2009,
+     "type": "tool"
+    },
+    {
+     "citation": "World Health Organization. Handbook for public health capacity-building at ground crossings and cross-border collaboration. 2020.",
+     "url": "https://www.who.int/publications/i/item/handbook-for-public-health-capacity-building-at-ground-crossings-and-cross-border-collaboration",
+     "year": 2020,
+     "type": "guideline"
+    },
+    {
+     "citation": "World Health Organization. Coordinated public health surveillance between points of entry and national health surveillance systems. 2014.",
+     "url": "https://apps.who.int/iris/handle/10665/144805",
+     "year": 2014,
+     "type": "guideline"
+    }
+   ]
+  },
+  {
+   "id": "chemical-incident-preparedness",
+   "title": "Chemical incident preparedness with poison centres and site plans",
+   "summary": "Health authorities, poison centres and industry share surveillance and planning: hazardous sites are registered and have off-site plans, and chemical events are assessed and notified under the IHR.",
+   "mechanism": "Knowing where hazardous chemicals are and who does what lets responders act within hours; poison centres provide expertise and early signals of exposure.",
+   "implementation": [
+    "Register of hazardous installations with safety reports and off-site emergency plans",
+    "Poison centre linked to surveillance and IHR notification",
+    "Investigation procedures for illnesses of possible chemical origin",
+    "Local preparedness that brings operators, authorities and residents together (APELL)"
+   ],
+   "indicators": [
+    "CE1",
+    "CE2"
+   ],
+   "tags": [
+    "chemical events",
+    "poison centre",
+    "industrial accidents"
+   ],
+   "evidenceType": "guideline",
+   "strength": "WHO manuals, OECD guiding principles and the EU Seveso regime as a legal model. Long experience in industrial safety; health outcome evidence is mostly from case reviews.",
+   "context": "Seveso III shows how one region regulates major-accident hazards; the WHO and OECD texts are global.",
+   "limitations": "Responsibility is split between environment, labour, industry and health ministries. Small and illegal sites often fall outside registers.",
+   "sources": [
+    {
+     "citation": "World Health Organization. WHO manual for the public health management of chemical incidents. 2009.",
+     "url": "https://www.who.int/publications/i/item/9789241598149",
+     "year": 2009,
+     "type": "guideline"
+    },
+    {
+     "citation": "World Health Organization. Guidelines for establishing a poison centre. 2020.",
+     "url": "https://apps.who.int/iris/handle/10665/338657",
+     "year": 2020,
+     "type": "guideline"
+    },
+    {
+     "citation": "OECD. OECD Guiding Principles for Chemical Accident Prevention, Preparedness and Response, third edition. 2023.",
+     "url": "https://www.oecd.org/en/publications/oecd-guiding-principles-for-chemical-accident-prevention-preparedness-and-response-third-edition_162756bf-en.html",
+     "year": 2023,
+     "type": "guideline"
+    },
+    {
+     "citation": "European Environment Agency. Seveso III Directive (2012/18/EU): Seveso establishments, industrial reporting portal.",
+     "url": "https://industry.eea.europa.eu/seveso",
+     "year": 2012,
+     "type": "strategy"
+    }
+   ]
+  },
+  {
+   "id": "radiation-emergency-medical-response",
+   "title": "Radiation emergency arrangements and medical response",
+   "summary": "Arrangements follow IAEA requirements, hospitals have ready procedures for triage, decontamination and follow-up of exposed people, stockpiles are managed, and international networks can be called on.",
+   "mechanism": "A pre-agreed protection strategy and medical procedures allow a response sized to the event, avoiding both under-reaction and harmful over-reaction such as unnecessary evacuation.",
+   "implementation": [
+    "National arrangements meeting IAEA GSR Part 7, with a protection strategy",
+    "Hospital and first-responder procedures for triage, decontamination and registration",
+    "Stockpile policy for radiological and nuclear emergencies",
+    "Access to REMPAN, BioDoseNet and the IAEA Incident and Emergency Centre"
+   ],
+   "indicators": [
+    "RE1",
+    "RE2"
+   ],
+   "tags": [
+    "radiation",
+    "nuclear",
+    "medical response"
+   ],
+   "evidenceType": "guideline",
+   "strength": "IAEA safety requirements and WHO policy advice, built on experience from past accidents. Strong consensus; outcome evidence comes from case reviews of real events.",
+   "context": "Applies to all countries, whether or not they have nuclear facilities; many hazards come from radioactive sources in medicine and industry.",
+   "limitations": "Rare events make it hard to keep skills current without exercises. Responsibilities are shared with radiation regulators outside health.",
+   "sources": [
+    {
+     "citation": "IAEA and co-sponsors. Preparedness and response for a nuclear or radiological emergency (IAEA GSR Part 7). 2015.",
+     "url": "https://www.iaea.org/publications/10905/preparedness-and-response-for-a-nuclear-or-radiological-emergency",
+     "year": 2015,
+     "type": "guideline"
+    },
+    {
+     "citation": "International Atomic Energy Agency. Generic procedures for medical response during a nuclear or radiological emergency (EPR-Medical 2024). 2024.",
+     "url": "https://www.iaea.org/publications/13605/generic-procedures-for-medical-response-during-a-nuclear-or-radiological-emergency",
+     "year": 2024,
+     "type": "protocol"
+    },
+    {
+     "citation": "World Health Organization. National stockpiles for radiological and nuclear emergencies: policy advice. 2023.",
+     "url": "https://www.who.int/publications/i/item/9789240067875",
+     "year": 2023,
+     "type": "guideline"
+    },
+    {
+     "citation": "World Health Organization. Radiation Emergency Medical Preparedness and Assistance Network (REMPAN).",
+     "url": "https://www.who.int/groups/rempan",
+     "type": "tool"
     }
    ]
   }
