@@ -225,7 +225,8 @@ function render(){
   const items = filtered();
   $("count").textContent = `${items.length} forecast${items.length === 1 ? "" : "s"}`;
 
-  const movers = items.filter(i => i.d7 != null && Math.abs(i.d7) >= 0.05).sort((a, b) => Math.abs(b.d7) - Math.abs(a.d7)).slice(0, 4);
+  // Markets already past their resolution date are left out of the movers.
+  const movers = items.filter(i => i.d7 != null && Math.abs(i.d7) >= 0.05 && !(i.resolves && new Date(i.resolves) < Date.now())).sort((a, b) => Math.abs(b.d7) - Math.abs(a.d7)).slice(0, 4);
   $("moversWrap").hidden = !movers.length;
   $("movers").innerHTML = movers.map(m => `<a class="mover" href="${esc(m.url)}" target="_blank" rel="noopener"><b>${pct(m.prob)}%</b> ${delta(m.d7)}<div>${esc(m.title)}</div></a>`).join("");
 

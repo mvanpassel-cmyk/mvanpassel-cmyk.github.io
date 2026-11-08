@@ -78,7 +78,7 @@ const TOOLS = [
     icon:{ img: "soundscape.png" } },
 
   { repo:"slowreverb", title:"SlowReverb Studio", cat:"Sound",
-    desc:"Slow down any track and drench it in reverb — a slowed + reverb audio editor.", lang:"NL",
+    desc:"Slow down any track and drench it in reverb — a slowed + reverb audio editor.", lang:"EN",
     icon:{ from:"#6d3fc0", to:"#2a1a5e",
       glyph:'<g fill="none" stroke="#fff" stroke-linecap="round" stroke-width="4"><path d="M10 28v8M18 22v20M26 16v32M34 20v24M42 26v12"/><path stroke-opacity=".45" d="M50 30v4"/></g>' } },
 
@@ -165,18 +165,16 @@ const grid = document.getElementById("grid");
 const filters = document.getElementById("filters");
 let active = "All";
 
-function iconHTML(t, i){
+// Every tool's icon is its CMYK logo in logos/<repo>.svg (the icon fields above are no longer used).
+function iconHTML(t){
   return `<div class="icon"><img src="logos/${t.repo}.svg" alt="" loading="lazy"></div>`;
-  if (t.icon.img) return `<div class="icon"><img src="${t.icon.img}" alt="" loading="lazy"></div>`;
-  const id = "g"+i;
-  return `<div class="icon"><svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${t.icon.from}"/><stop offset="1" stop-color="${t.icon.to}"/></linearGradient></defs><rect width="64" height="64" fill="url(#${id})"/>${t.icon.glyph}</svg></div>`;
 }
 function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
 
 function render(){
   grid.innerHTML = TOOLS.filter(t=>active==="All"||t.cat===active).map((t,i)=>`
     <a class="card" href="${t.url || BASE+t.repo+'/'}">
-      ${iconHTML(t,i)}
+      ${iconHTML(t)}
       <div class="body">
         <h2>${esc(t.title)}${t.lang?`<span class="lang">${t.lang}</span>`:""}</h2>
         <p>${esc(t.desc)}</p>
