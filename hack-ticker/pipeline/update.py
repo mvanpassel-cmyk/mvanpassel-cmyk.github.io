@@ -10,7 +10,7 @@ Sources, read every few hours:
 
 Standard library only. Writes data/incidents.json, data/weekly.json, data/status.json.
 """
-import csv, hashlib, html, json, io, os, re, sys, time, urllib.request
+import csv, hashlib, html, json, io, os, re, sys, time, urllib.error, urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
@@ -276,6 +276,38 @@ RUBRIC = (
     "(confirmed by the victim or authorities, claimed by attackers or researchers, or disputed by the victim).")
 
 
+def claude_request(body, timeout):
+    """POST to the Messages API and return the reply text.
+
+    Raises RuntimeError with a readable reason. Errors that a retry cannot fix
+    (bad key, no credit, unknown model) fail at once, so the status line on the
+    page says what to change; overload, rate limits and network errors are
+    retried three times.
+    """
+    req = urllib.request.Request("https://api.anthropic.com/v1/messages", data=body, headers={
+        "x-api-key": os.environ["ANTHROPIC_API_KEY"], "anthropic-version": "2023-06-01",
+        "content-type": "application/json"})
+    last = ""
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                res = json.load(r)
+            return "".join(b.get("text", "") for b in res.get("content", []) if b.get("type") == "text")
+        except urllib.error.HTTPError as e:
+            try:
+                msg = json.loads(e.read().decode("utf-8", "replace")).get("error", {}).get("message", "")
+            except Exception:  # noqa: BLE001
+                msg = ""
+            last = f"HTTP {e.code}" + (f": {msg[:160].rstrip('.')}" if msg else "")
+            if e.code in (400, 401, 403, 404):
+                raise RuntimeError(f"Claude API refused the request ({last}). Check the ANTHROPIC_API_KEY secret and the account's credit.")
+        except Exception as e:  # network or timeout
+            last = type(e).__name__
+        print(f"Claude call failed ({last}); attempt {attempt + 1}/3", file=sys.stderr)
+        time.sleep(8 * (attempt + 1))
+    raise RuntimeError(f"Claude API unavailable ({last}); will retry next run.")
+
+
 def ask_claude(cands, recent):
     lines = [f"[{i}] {c['source']} | {c['date'].strftime('%Y-%m-%d') if c['date'] else '?'} | {c['title']} | {c['summary'][:240]}"
              for i, c in enumerate(cands)]
@@ -299,17 +331,7 @@ def ask_claude(cands, recent):
             "\"note\":\"for same_as only: what is new, max 16 words\",\"restored\":true or null}]}")
     body = json.dumps({"model": MODEL, "max_tokens": 4000, "system": system,
                        "messages": [{"role": "user", "content": user}]}).encode()
-    req = urllib.request.Request("https://api.anthropic.com/v1/messages", data=body, headers={
-        "x-api-key": os.environ["ANTHROPIC_API_KEY"], "anthropic-version": "2023-06-01", "content-type": "application/json"})
-    for attempt in range(3):
-        try:
-            with urllib.request.urlopen(req, timeout=180) as r:
-                res = json.load(r)
-            return "".join(b.get("text", "") for b in res.get("content", []) if b.get("type") == "text")
-        except Exception as e:
-            print(f"Claude call failed ({e}), attempt {attempt + 1}", file=sys.stderr)
-            time.sleep(10 * (attempt + 1))
-    raise RuntimeError("Claude API unavailable")
+    return claude_request(body, 180)
 
 
 def parse_incidents(text, cands, known_ids, now):

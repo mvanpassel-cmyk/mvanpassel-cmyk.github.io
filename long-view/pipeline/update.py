@@ -10,7 +10,7 @@
 Standard library only. Needs ANTHROPIC_API_KEY (GitHub secret); without it the
 script fetches and reports, but adds nothing.
 """
-import hashlib, html, json, os, re, sys, time, urllib.request
+import hashlib, html, json, os, re, sys, time, urllib.error, urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
@@ -123,6 +123,38 @@ def fetch(url, timeout=25):
         return r.read()
 
 
+def claude_request(body, timeout):
+    """POST to the Messages API and return the reply text.
+
+    Raises RuntimeError with a readable reason. Errors that a retry cannot fix
+    (bad key, no credit, unknown model) fail at once, so the status line on the
+    page says what to change; overload, rate limits and network errors are
+    retried three times.
+    """
+    req = urllib.request.Request("https://api.anthropic.com/v1/messages", data=body, headers={
+        "x-api-key": os.environ["ANTHROPIC_API_KEY"], "anthropic-version": "2023-06-01",
+        "content-type": "application/json"})
+    last = ""
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                res = json.load(r)
+            return "".join(b.get("text", "") for b in res.get("content", []) if b.get("type") == "text")
+        except urllib.error.HTTPError as e:
+            try:
+                msg = json.loads(e.read().decode("utf-8", "replace")).get("error", {}).get("message", "")
+            except Exception:  # noqa: BLE001
+                msg = ""
+            last = f"HTTP {e.code}" + (f": {msg[:160].rstrip('.')}" if msg else "")
+            if e.code in (400, 401, 403, 404):
+                raise RuntimeError(f"Claude API refused the request ({last}). Check the ANTHROPIC_API_KEY secret and the account's credit.")
+        except Exception as e:  # network or timeout
+            last = type(e).__name__
+        print(f"Claude call failed ({last}); attempt {attempt + 1}/3", file=sys.stderr)
+        time.sleep(8 * (attempt + 1))
+    raise RuntimeError(f"Claude API unavailable ({last}); will retry next run.")
+
+
 def ask_claude(candidates, recent_headlines):
     lines = []
     for i, c in enumerate(candidates):
@@ -151,19 +183,7 @@ def ask_claude(candidates, recent_headlines):
     )
     body = json.dumps({"model": MODEL, "max_tokens": 2000, "system": system,
                        "messages": [{"role": "user", "content": user}]}).encode()
-    req = urllib.request.Request("https://api.anthropic.com/v1/messages", data=body, headers={
-        "x-api-key": os.environ["ANTHROPIC_API_KEY"], "anthropic-version": "2023-06-01",
-        "content-type": "application/json"})
-    for attempt in range(3):
-        try:
-            with urllib.request.urlopen(req, timeout=120) as r:
-                res = json.load(r)
-            text = "".join(b.get("text", "") for b in res.get("content", []) if b.get("type") == "text")
-            return parse_picks(text, len(candidates))
-        except Exception as e:  # network or overload: retry briefly
-            print(f"Claude call failed ({e}); attempt {attempt + 1}/3", file=sys.stderr)
-            time.sleep(8 * (attempt + 1))
-    raise RuntimeError("Claude API unavailable")
+    return parse_picks(claude_request(body, 120), len(candidates))
 
 
 def parse_picks(text, n):
@@ -233,12 +253,18 @@ def main():
     status["candidates"] = len(cands)
 
     picks = []
+    reviewed = False
     if not status["ai"]:
         status["note"] = "No ANTHROPIC_API_KEY secret set: candidates fetched, nothing selected."
         print(status["note"])
     elif cands:
         recent = [s["headline"] for s in stories[:60]]
-        picks = ask_claude(cands, recent)
+        try:
+            picks = ask_claude(cands, recent)
+            reviewed = True
+        except RuntimeError as e:   # keep the run green and say why on the page
+            status["note"] = str(e)
+            print(status["note"], file=sys.stderr)
         for p in picks:
             c = cands[p["i"]]
             stories.insert(0, {"id": c["id"], "date": (c["date"] or now).strftime("%Y-%m-%d"),
@@ -248,7 +274,7 @@ def main():
         status["picked"] = len(picks)
 
     # only remember candidates as seen when an editor actually looked at them
-    if status["ai"]:
+    if reviewed:
         for k in fresh_keys:
             seen[k] = now.strftime("%Y-%m-%d")
     keep_after = (now - timedelta(days=SEEN_KEEP_DAYS)).strftime("%Y-%m-%d")
