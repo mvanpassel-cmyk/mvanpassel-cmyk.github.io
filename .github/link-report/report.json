@@ -1,18 +1,34 @@
 {
- "checked": "2026-11-08T21:26:51+00:00",
- "total": 2099,
+ "checked": "2026-11-08T22:03:56+00:00",
+ "total": 2131,
  "counts": {
-  "blocked": 213,
-  "broken": 48,
-  "server_error": 123,
-  "unreachable": 71,
-  "ok": 1644
+  "ok": 1683,
+  "unreachable": 68,
+  "blocked": 223,
+  "broken": 35,
+  "server_error": 122
  },
  "problems": [
+  {
+   "url": "https://allafrica.com/stories/202410250069.html",
+   "status": "blocked",
+   "code": 403,
+   "tools": [
+    "climate-health-good-practices"
+   ]
+  },
   {
    "url": "https://ndcpartnership.org/knowledge-portal/good-practice-database/indias-heat-action-plan",
    "status": "blocked",
    "code": 403,
+   "tools": [
+    "climate-health-good-practices"
+   ]
+  },
+  {
+   "url": "https://ui.adsabs.harvard.edu/abs/2020ScTEn.715m6883W/abstract",
+   "status": "blocked",
+   "code": 405,
    "tools": [
     "climate-health-good-practices"
    ]
@@ -39,6 +55,30 @@
    "code": 403,
    "tools": [
     "climate-health-good-practices"
+   ]
+  },
+  {
+   "url": "https://doi.org/10.1089/hs.2019.0093",
+   "status": "blocked",
+   "code": 403,
+   "tools": [
+    "ianphi-good-practices"
+   ]
+  },
+  {
+   "url": "https://doi.org/10.1093/heapol/czac102",
+   "status": "blocked",
+   "code": 403,
+   "tools": [
+    "ianphi-good-practices"
+   ]
+  },
+  {
+   "url": "https://doi.org/10.1136/bmjph-2025-003392",
+   "status": "blocked",
+   "code": 403,
+   "tools": [
+    "ianphi-good-practices"
    ]
   },
   {
@@ -493,6 +533,14 @@
    ]
   },
   {
+   "url": "https://www.cdc.gov/phlp/php/about/emergency-law-competency-model.html",
+   "status": "blocked",
+   "code": 403,
+   "tools": [
+    "jee-good-practices"
+   ]
+  },
+  {
    "url": "https://www.cdc.gov/phlp/php/trainingandeducationalresources/index.html",
    "status": "blocked",
    "code": 403,
@@ -597,6 +645,14 @@
    ]
   },
   {
+   "url": "https://www.sckcen.be/en/tmthandbook",
+   "status": "blocked",
+   "code": 409,
+   "tools": [
+    "jee-good-practices"
+   ]
+  },
+  {
    "url": "https://www.technet-21.org/en/resources/guidance/assessing-and-improving-the-accuracy-of-target-population-estimates-for-immunization-coverage",
    "status": "blocked",
    "code": 403,
@@ -655,7 +711,7 @@
    ]
   },
   {
-   "url": "https://allafrica.com/stories/202505230037.html",
+   "url": "https://allafrica.com/stories/202410100128.html",
    "status": "blocked",
    "code": 403,
    "tools": [
@@ -1407,6 +1463,14 @@
    ]
   },
   {
+   "url": "https://www.phgfoundation.org/blog/pathogen-genomics-initiative-to-boost-disease-control-in-Africa",
+   "status": "blocked",
+   "code": 403,
+   "tools": [
+    "nphi-map"
+   ]
+  },
+  {
    "url": "https://www.pphsn.net/?p=4132",
    "status": "blocked",
    "code": 403,
@@ -1426,6 +1490,14 @@
    "url": "https://www.southcom.mil/Media/News/Article/3275871/namru-6-celebrates-40-years-of-medical-research/",
    "status": "blocked",
    "code": 403,
+   "tools": [
+    "nphi-map"
+   ]
+  },
+  {
+   "url": "https://www.the-microbiologist.com/news/saudi-public-health-authority-and-bgi-genomics-sign-mou-to-advance-public-health/1919.article",
+   "status": "blocked",
+   "code": 405,
    "tools": [
     "nphi-map"
    ]
@@ -1463,6 +1535,14 @@
    ]
   },
   {
+   "url": "https://doi.org/10.1080/10410236.2017.1405488",
+   "status": "blocked",
+   "code": 403,
+   "tools": [
+    "spar-good-practices"
+   ]
+  },
+  {
    "url": "https://doi.org/10.1093/eurpub/ckag159",
    "status": "blocked",
    "code": 403,
@@ -1471,7 +1551,31 @@
    ]
   },
   {
+   "url": "https://doi.org/10.1136/bmjgh-2020-004537",
+   "status": "blocked",
+   "code": 403,
+   "tools": [
+    "spar-good-practices"
+   ]
+  },
+  {
+   "url": "https://doi.org/10.15585/mmwr.su6503a9",
+   "status": "blocked",
+   "code": 403,
+   "tools": [
+    "spar-good-practices"
+   ]
+  },
+  {
    "url": "https://doi.org/10.1787/899eabea-en",
+   "status": "blocked",
+   "code": 403,
+   "tools": [
+    "spar-good-practices"
+   ]
+  },
+  {
+   "url": "https://doi.org/10.2105/AJPH.2009.180414",
    "status": "blocked",
    "code": 403,
    "tools": [
@@ -1703,95 +1807,7 @@
    ]
   },
   {
-   "url": "https://climate-adapt.eea.europa.eu/en/knowledge-1/european-climate-and-health-observatory",
-   "status": "broken",
-   "code": 404,
-   "tools": [
-    "climate-health-good-practices"
-   ]
-  },
-  {
-   "url": "https://ncdc.mohfw.gov.in/wp-content/uploads/2024/12/Report-of-Heat-Related-Activities-2024_NPCCHH.pdf",
-   "status": "broken",
-   "code": 404,
-   "tools": [
-    "climate-health-good-practices"
-   ]
-  },
-  {
-   "url": "https://ui.adsabs.harvard.edu/abs/2020ScTEn.715m6883W/abstract",
-   "status": "blocked",
-   "code": 405,
-   "tools": [
-    "climate-health-good-practices"
-   ]
-  },
-  {
-   "url": "http://www.aslm.org/stay-informed/press-room/news-articles/integrating-tiered-lab-networks-public-health-institutes-ephi-experience/",
-   "status": "broken",
-   "code": 404,
-   "tools": [
-    "ianphi-good-practices"
-   ]
-  },
-  {
-   "url": "https://doi.org/10.9745/GHSP-D-16-00226",
-   "status": "broken",
-   "code": 404,
-   "tools": [
-    "ihr-benchmarks-good-practices"
-   ]
-  },
-  {
-   "url": "https://disarmament.unoda.org/publications/more/cbm-guide",
-   "status": "broken",
-   "code": 404,
-   "tools": [
-    "jee-good-practices"
-   ]
-  },
-  {
-   "url": "https://events.development.asia/system/files/materials/2023/03/202303-increasing-investment-health-communications-thailand.pdf",
-   "status": "broken",
-   "code": 404,
-   "tools": [
-    "jee-good-practices"
-   ]
-  },
-  {
    "url": "https://www.BFR.bund.de/cm/343/lessons-learned-from-past-crises.pdf",
-   "status": "broken",
-   "code": 404,
-   "tools": [
-    "jee-good-practices"
-   ]
-  },
-  {
-   "url": "https://www.naccho.org/blog/articles/public-health-emergency-law-minimum-competencies",
-   "status": "broken",
-   "code": 404,
-   "tools": [
-    "jee-good-practices"
-   ]
-  },
-  {
-   "url": "https://www.sckcen.be/en/tmthandbook",
-   "status": "blocked",
-   "code": 409,
-   "tools": [
-    "jee-good-practices"
-   ]
-  },
-  {
-   "url": "https://www.who.int/publications/i/item/9789241512299",
-   "status": "broken",
-   "code": 404,
-   "tools": [
-    "jee-good-practices"
-   ]
-  },
-  {
-   "url": "https://www.who.int/publications/i/item/WHO-2019-nCoV-Contact_tracing-Community_engagement-2021.1-eng",
    "status": "broken",
    "code": 404,
    "tools": [
@@ -1999,14 +2015,6 @@
    ]
   },
   {
-   "url": "https://www.the-microbiologist.com/news/saudi-public-health-authority-and-bgi-genomics-sign-mou-to-advance-public-health/1919.article",
-   "status": "blocked",
-   "code": 405,
-   "tools": [
-    "nphi-map"
-   ]
-  },
-  {
    "url": "https://www.wahooas.org/web-ooas/en/actualites/launch-regional-project-support-regional-centre-surveillance-and-disease-control-ecowas",
    "status": "broken",
    "code": 404,
@@ -2039,14 +2047,6 @@
    ]
   },
   {
-   "url": "https://cbrn-risk-mitigation.network.europa.eu/eu-cbrn-centres-excellence_pl",
-   "status": "broken",
-   "code": 404,
-   "tools": [
-    "shared"
-   ]
-  },
-  {
    "url": "https://drive.google.com/file/d/1O2CtNTBbi8pV77evVY6hfNNHnhY1Hrcl/view?usp=sharing",
    "status": "broken",
    "code": 404,
@@ -2063,15 +2063,7 @@
    ]
   },
   {
-   "url": "https://www.hse.ie/eng/about/who/cspd/medicines-management/prescribing-tips-and-tools/preferred-antibiotics-community.pdf",
-   "status": "broken",
-   "code": 404,
-   "tools": [
-    "tracss-good-practices"
-   ]
-  },
-  {
-   "url": "https://www.hse.ie/eng/services/list/2/gp/antibiotic-prescribing/hospital-related-guidelines/hse-amric-reserve-antimicrobial-policy-december-2024.pdf",
+   "url": "https://www.environment.gov.mv/v2/wp-content/files/publications/20230302-pub-maldives-waste-management-policy-and_formulation-of-a-national-waste-management-strategy.pdf",
    "status": "broken",
    "code": 404,
    "tools": [
@@ -2092,30 +2084,6 @@
    "code": 404,
    "tools": [
     "tracss-good-practices"
-   ]
-  },
-  {
-   "url": "https://www.star.admin.ch/en/actionsplan-star",
-   "status": "broken",
-   "code": 404,
-   "tools": [
-    "tracss-good-practices"
-   ]
-  },
-  {
-   "url": "https://www.who.int/publications/m/item/algeria-national-strategic-plan-against-antimicrobial-resistance-2024-2028-(french",
-   "status": "broken",
-   "code": 404,
-   "tools": [
-    "tracss-good-practices"
-   ]
-  },
-  {
-   "url": "https://doi.org/10.20683/jniph.67.1_84",
-   "status": "server_error",
-   "code": 502,
-   "tools": [
-    "ihr-benchmarks-good-practices"
    ]
   },
   {
@@ -3095,14 +3063,6 @@
    ]
   },
   {
-   "url": "https://allafrica.com/stories/202410250069.html",
-   "status": "unreachable",
-   "code": "ERR URLError",
-   "tools": [
-    "climate-health-good-practices"
-   ]
-  },
-  {
    "url": "https://sph.mak.ac.ug/news/uganda-becomes-second-country-after-nepal-unveil-climate-health-adaptation-plan",
    "status": "unreachable",
    "code": "ERR URLError",
@@ -3176,15 +3136,7 @@
    ]
   },
   {
-   "url": "https://allafrica.com/stories/202408070093.html",
-   "status": "unreachable",
-   "code": "ERR URLError",
-   "tools": [
-    "nphi-map"
-   ]
-  },
-  {
-   "url": "https://allafrica.com/stories/202410100128.html",
+   "url": "https://allafrica.com/stories/202505230037.html",
    "status": "unreachable",
    "code": "ERR URLError",
    "tools": [
@@ -3225,6 +3177,22 @@
   },
   {
    "url": "https://fr.allafrica.com/stories/202506230508.html",
+   "status": "unreachable",
+   "code": "ERR URLError",
+   "tools": [
+    "nphi-map"
+   ]
+  },
+  {
+   "url": "https://fr.allafrica.com/stories/202606040526.html",
+   "status": "unreachable",
+   "code": "ERR URLError",
+   "tools": [
+    "nphi-map"
+   ]
+  },
+  {
+   "url": "https://fr.allafrica.com/stories/202610090300.html",
    "status": "unreachable",
    "code": "ERR URLError",
    "tools": [
@@ -3354,7 +3322,7 @@
   {
    "url": "https://tma.uz/en/?p=29199",
    "status": "unreachable",
-   "code": "ERR RemoteDisconnected",
+   "code": "ERR URLError",
    "tools": [
     "nphi-map"
    ]
@@ -3480,14 +3448,6 @@
    ]
   },
   {
-   "url": "https://www.far.fiocruz.br/2026/10/farmanguinhos-fiocruz-e-ihmt-nova-fortalecem-cooperacao-em-formacao-e-inovacao-para-a-saude-global/",
-   "status": "unreachable",
-   "code": "ERR TimeoutError",
-   "tools": [
-    "nphi-map"
-   ]
-  },
-  {
    "url": "https://www.foreignminister.gov.au/minister/penny-wong/media-release/strengthening-preparedness-across-our-region",
    "status": "unreachable",
    "code": "ERR TimeoutError",
@@ -3568,23 +3528,15 @@
    ]
   },
   {
-   "url": "https://net.jogtar.hu/jogszabaly?docid=a0400089.fvm",
-   "status": "unreachable",
-   "code": "ERR URLError",
-   "tools": [
-    "tracss-good-practices"
-   ]
-  },
-  {
-   "url": "https://net.jogtar.hu/jogszabaly?docid=a0900128.fvm",
-   "status": "unreachable",
-   "code": "ERR URLError",
-   "tools": [
-    "tracss-good-practices"
-   ]
-  },
-  {
    "url": "https://pnf.doh.gov.ph/",
+   "status": "unreachable",
+   "code": "ERR URLError",
+   "tools": [
+    "tracss-good-practices"
+   ]
+  },
+  {
+   "url": "https://rbc.gov.rw/fileadmin/user_upload/strategy/2nd_NATIONAL_ACTION_PLAN_ON_AMR__NAP_2025-2029_.pdf",
    "status": "unreachable",
    "code": "ERR URLError",
    "tools": [
@@ -3625,14 +3577,6 @@
   },
   {
    "url": "https://www.dda.gov.np/content/essential-drug-list",
-   "status": "unreachable",
-   "code": "ERR URLError",
-   "tools": [
-    "tracss-good-practices"
-   ]
-  },
-  {
-   "url": "https://www.environment.gov.mv/v2/wp-content/files/publications/20230302-pub-maldives-waste-management-policy-and_formulation-of-a-national-waste-management-strategy.pdf",
    "status": "unreachable",
    "code": "ERR URLError",
    "tools": [

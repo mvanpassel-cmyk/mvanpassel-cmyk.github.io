@@ -1,41 +1,32 @@
 # Portal link check, 2026-11-08
 
-2099 links checked: 1644 ok, 51 broken, 71 unreachable, 123 server_error, 210 blocked.
+2131 links checked: 1683 ok, 35 broken, 68 unreachable, 122 server_error, 223 blocked.
 
 Broken links need a new URL; unreachable and server errors are often temporary; blocked sites refuse bots but usually work in a browser.
 
-## broken (51)
+## broken (35)
 
-- 404 · ianphi-good-practices · http://www.aslm.org/stay-informed/press-room/news-articles/integrating-tiered-lab-networks-public-health-institutes-ephi-experience/
-- 404 · shared · https://cbrn-risk-mitigation.network.europa.eu/eu-cbrn-centres-excellence_pl
 - 404 · nphi-map · https://chairsearches.utmb.edu/newsroom/article10912.aspx
-- 404 · climate-health-good-practices · https://climate-adapt.eea.europa.eu/en/knowledge-1/european-climate-and-health-observatory
-- 404 · jee-good-practices · https://disarmament.unoda.org/publications/more/cbm-guide
-- 404 · ihr-benchmarks-good-practices · https://doi.org/10.9745/GHSP-D-16-00226
 - 404 · tracss-good-practices · https://drive.google.com/file/d/1O2CtNTBbi8pV77evVY6hfNNHnhY1Hrcl/view?usp=sharing
 - 404 · nphi-map · https://en.ssi.dk/-/media/arkiv/uk/about-us/mission-vision-and-strategy/ssi-fact-sheets-version-3.pdf
-- 404 · jee-good-practices · https://events.development.asia/system/files/materials/2023/03/202303-increasing-investment-health-communications-thailand.pdf
 - 404 · nphi-map · https://fhi.no/en/ic/global-health-security/our-partner-countries/global-partners
 - 404 · nphi-map · https://fhi.no/en/ic/global-health/bis-in-malawi
 - 404 · tracss-good-practices · https://hpa.gov.mv/wp-content/uploads/2025/02/National-Health-Care-Waste-Management-Guideline.pdf
 - 404 · nphi-map · https://imr.moh.gov.my/en/corporate-info/background
 - 404 · nphi-map · https://my.southsouth-galaxy.org/en/solutions/detail/prepare
 - 404 · nphi-map · https://ncdc.mohfw.gov.in/wp-content/uploads/2024/03/43045836281675942642.pdf
-- 404 · climate-health-good-practices · https://ncdc.mohfw.gov.in/wp-content/uploads/2024/12/Report-of-Heat-Related-Activities-2024_NPCCHH.pdf
 - 404 · nphi-map · https://phw.nhs.wales/news/public-health-wales-shares-pandemic-best-practice-as-funding-extended-for-further-year/sharp-joint-action/
 - 404 · nphi-map · https://phw.nhs.wales/use-of-site/contact-us/freedom-of-information/disclosure-log/foi-2024-053-memorandum-of-understanding-phw-who
 - 404 · nphi-map · https://portal.fiocruz.br/sites/portal.fiocruz.br/files/documentos/71._30-08-2021_-_relatorio_de_convenios_internacionais_vigentes.xlsx_-_planilha1_0.pdf
 - 404 · nphi-map · https://rensp.ensp.fiocruz.br/sites/default/files/apresentacao_mocambique.2019.pdf
 - 404 · nphi-map · https://rki.de/EN/Content/Institute/International/ZIG/news/2023-12-13_ZIG1_Conference_Public_Health_Africa.html
 - 404 · nphi-map · https://rki.de/EN/Content/Institute/International/ZIG/news/2024-04-12_ZIG_WHO_Hub_Office_Steering_Committee.html
-- 405 · climate-health-good-practices · https://ui.adsabs.harvard.edu/abs/2020ScTEn.715m6883W/abstract
 - 404 · jee-good-practices · https://www.BFR.bund.de/cm/343/lessons-learned-from-past-crises.pdf
 - 404 · nphi-map · https://www.edctp.org//web/app/uploads/2021/03/CSA2020E-outcome.pdf
+- 404 · tracss-good-practices · https://www.environment.gov.mv/v2/wp-content/files/publications/20230302-pub-maldives-waste-management-policy-and_formulation-of-a-national-waste-management-strategy.pdf
 - 404 · nphi-map · https://www.fhi.no/en/ab/conferences/safeguarding-africas-health-h.e.-dg-kaseyas-visit-and-signing-of-mou-between-norway-and-africa-cdc
 - 404 · nphi-map · https://www.fondation-merieux.org/?p=24860
 - 404 · nphi-map · https://www.hse.ie/eng/about/who/board-members/board-meetings/december-2022/annexe-1-hse-global-health-programme-board-report.pdf
-- 404 · tracss-good-practices · https://www.hse.ie/eng/about/who/cspd/medicines-management/prescribing-tips-and-tools/preferred-antibiotics-community.pdf
-- 404 · tracss-good-practices · https://www.hse.ie/eng/services/list/2/gp/antibiotic-prescribing/hospital-related-guidelines/hse-amric-reserve-antimicrobial-policy-december-2024.pdf
 - 404 · nphi-map · https://www.jica.go.jp/indonesia/english/office/others/press200831.html
 - 404 · nphi-map · https://www.jica.go.jp/myanmar/english/office/topics/press200225.html
 - 404 · nphi-map · https://www.jica.go.jp/nigeria/english/office/topics/press201221.html
@@ -43,27 +34,18 @@ Broken links need a new URL; unreachable and server errors are often temporary; 
 - 404 · nphi-map · https://www.jica.go.jp/project/english/vietnam/049/outline/index.html
 - 404 · tracss-good-practices · https://www.moepp.gov.mk/node/1202
 - 404 · tracss-good-practices · https://www.moepp.gov.mk/wp-content/uploads/2021/10/%D0%9F%D0%BB%D0%B0%D0%BD-%D0%B7%D0%B0-%D0%A3%D0%BF%D1%80%D0%B0%D0%B2%D1%83%D0%B2%D0%B0%D1%9A%D0%B5-%D1%81%D0%BE-%D0%BE%D1%82%D0%BF%D0%B0%D0%B4-%D0%BD%D0%B0-%D0%A0%D0%A1%D0%9C-2021-%D0%B4%D0%BE-2031-%D0%B3%D0%BE%D0%B4%D0%B8%D0%BD%D0%B0.pdf
-- 404 · jee-good-practices · https://www.naccho.org/blog/articles/public-health-emergency-law-minimum-competencies
 - 404 · nphi-map · https://www.nacosti.go.ke/2025/04/06/kemri-signs-landmark-gbp-91-million-partnership-with-wellcome-and-university-of-oxford-to-bolster-health-research-in-kenya/
 - 404 · nphi-map · https://www.rki.de/EN/Institute/International-activities/GHPP/projects/2025_GOARN-Berlin-fellows.html
-- 409 · jee-good-practices · https://www.sckcen.be/en/tmthandbook
-- 404 · tracss-good-practices · https://www.star.admin.ch/en/actionsplan-star
 - 404 · nphi-map · https://www.suedafrika.org/en/news-archive/newsarchive-details/datum/2020/05/19/historical-meeting-between-rki-mrc-and-nicd.html
-- 405 · nphi-map · https://www.the-microbiologist.com/news/saudi-public-health-authority-and-bgi-genomics-sign-mou-to-advance-public-health/1919.article
 - 404 · nphi-map · https://www.wahooas.org/web-ooas/en/actualites/launch-regional-project-support-regional-centre-surveillance-and-disease-control-ecowas
-- 404 · jee-good-practices · https://www.who.int/publications/i/item/9789241512299
-- 404 · jee-good-practices · https://www.who.int/publications/i/item/WHO-2019-nCoV-Contact_tracing-Community_engagement-2021.1-eng
-- 404 · tracss-good-practices · https://www.who.int/publications/m/item/algeria-national-strategic-plan-against-antimicrobial-resistance-2024-2028-(french
 - 404 · nphi-map · https://www.worldbank.org/en/news/press-release/2019/12/10/the-africa-centers-for-disease-control-and-prevention-receives-support-to-strengthen-continental-and-regional-infectious-disease-detection-and-response-systems
 - 404 · nphi-map · https://www1.ru/en/news/2026/06/21/laboratoriia-na-baze-kamaza-v-afrike-perebrosena-k-granice-kongo-dlia-borby-s-lixoradkoi-ebola.amp.html
 - 404 · nphi-map · https://yourbotswana.com/?p=18446
 
-## unreachable (71)
+## unreachable (68)
 
 - ERR URLError · tracss-good-practices · http://www.mscbs.es/ciudadanos/saludAmbLaboral/prodQuimicos/sustPreparatorias/docs_biocidas/registros.htm
-- ERR URLError · nphi-map · https://allafrica.com/stories/202408070093.html
-- ERR URLError · nphi-map · https://allafrica.com/stories/202410100128.html
-- ERR URLError · climate-health-good-practices · https://allafrica.com/stories/202410250069.html
+- ERR URLError · nphi-map · https://allafrica.com/stories/202505230037.html
 - ERR URLError · nphi-map · https://allafrica.com/stories/202509040308.html
 - ERR URLError · nphi-map · https://campusvirtual.fiocruz.br/portal/sites/default/files/editais/PROJETO-COOPBRASS-Fiocruz_mar22.pdf
 - ERR URLError · nphi-map · https://devflow.northeurope.cloudapp.azure.com/files/documents/7C---MoU---WHO-AFRO-&-Public-Health-England-(Final)-20191025071059.pdf
@@ -71,6 +53,8 @@ Broken links need a new URL; unreachable and server errors are often temporary; 
 - ERR URLError · tracss-good-practices · https://ehcon.gov.ng/wp-content/uploads/2023/07/Envrionmental-Health-Officer-Reg-Amend-Act-2022-publication-3.pdf
 - ERR URLError · nphi-map · https://esr2.cwp.govt.nz/assets/ESR-in-the-Pacific-Sep-2020-issue-5_web.pdf
 - ERR URLError · nphi-map · https://fr.allafrica.com/stories/202506230508.html
+- ERR URLError · nphi-map · https://fr.allafrica.com/stories/202606040526.html
+- ERR URLError · nphi-map · https://fr.allafrica.com/stories/202610090300.html
 - ERR URLError · tracss-good-practices · https://fwd.gov.np/wp-content/uploads/2023/12/Final-HCWM-SOP_30-Sept.pdf
 - ERR URLError · nphi-map · https://health.eac.int/media-center/events/meeting-to-revitalize-eaidsnet-30-oct-1-nov-2023-kigali-rwanda
 - ERR URLError · nphi-map · https://iedcr.gov.bd/pages/static-pages/6922dc71933eb65569e1069d
@@ -84,17 +68,16 @@ Broken links need a new URL; unreachable and server errors are often temporary; 
 - ERR URLError · nphi-map · https://magazines.rivm.nl/en/node/644
 - ERR URLError · nphi-map · https://magazines.rivm.nl/en/node/651
 - ERR URLError · nphi-map · https://med.mahidol.ac.th/international/news/event/03272017-1703
-- ERR URLError · tracss-good-practices · https://net.jogtar.hu/jogszabaly?docid=a0400089.fvm
-- ERR URLError · tracss-good-practices · https://net.jogtar.hu/jogszabaly?docid=a0900128.fvm
 - ERR URLError · jee-good-practices · https://partnersplatform.who.int/en/
 - ERR URLError · tracss-good-practices · https://pnf.doh.gov.ph/
 - ERR RemoteDisconnected · nphi-map · https://ppr-antibioresistance.inserm.fr/wp-content/uploads/2024/02/EUjamrai2_PressRelease_KickOfMeeting_Paris_ENGLISH_FINAL.pdf
 - ERR URLError · nphi-map · https://promociondeeventos.sld.cu/dengue2026ing/
+- ERR URLError · tracss-good-practices · https://rbc.gov.rw/fileadmin/user_upload/strategy/2nd_NATIONAL_ACTION_PLAN_ON_AMR__NAP_2025-2029_.pdf
 - ERR URLError · nphi-map · https://repository.costech.or.tz/items/5a9ba6de-615e-4b89-9e03-8420a85dd334/full
 - ERR URLError · ianphi-good-practices · https://revinfodir.sld.cu/index.php/infodir/article/view/1421
 - ERR RemoteDisconnected · tracss-good-practices · https://sante.gouv.fr/IMG/pdf/interministerial_roadmap_2024_2034_amr.pdf
 - ERR URLError · climate-health-good-practices · https://sph.mak.ac.ug/news/uganda-becomes-second-country-after-nepal-unveil-climate-health-adaptation-plan
-- ERR RemoteDisconnected · nphi-map · https://tma.uz/en/?p=29199
+- ERR URLError · nphi-map · https://tma.uz/en/?p=29199
 - ERR URLError · nphi-map · https://today.caricom.org/?p=48852
 - ERR URLError · nphi-map · https://webarchive.library.unt.edu/eot2008/20090813003437/http:/cdc.gov/news/2009/04/ieip/
 - ERR URLError · nphi-map · https://webarchive.library.unt.edu/web/20201218062517/https://www.cdc.gov/globalhealth/healthprotection/gdd/gdd-accomplishments.html
@@ -118,8 +101,6 @@ Broken links need a new URL; unreachable and server errors are often temporary; 
 - ERR URLError · nphi-map · https://www.cphl.go.ug/web/index.php/node/263
 - ERR URLError · tracss-good-practices · https://www.dda.gov.np/content/essential-drug-list
 - ERR TimeoutError · jee-good-practices · https://www.dfat.gov.au/publications/minisite/theaustraliagroupnet/site/en/human_animal_pathogens.html
-- ERR URLError · tracss-good-practices · https://www.environment.gov.mv/v2/wp-content/files/publications/20230302-pub-maldives-waste-management-policy-and_formulation-of-a-national-waste-management-strategy.pdf
-- ERR TimeoutError · nphi-map · https://www.far.fiocruz.br/2026/10/farmanguinhos-fiocruz-e-ihmt-nova-fortalecem-cooperacao-em-formacao-e-inovacao-para-a-saude-global/
 - ERR TimeoutError · nphi-map · https://www.foreignminister.gov.au/minister/penny-wong/media-release/strengthening-preparedness-across-our-region
 - ERR URLError · tracss-good-practices · https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=9751
 - ERR UnicodeEncodeError · nphi-map · https://www.ins.gov.co/Noticias/Paginas/Se-fortalece-alianza-técnica-de-ONS-Colombia-con-INS-Perú.aspx
@@ -132,9 +113,8 @@ Broken links need a new URL; unreachable and server errors are often temporary; 
 - ERR URLError · nphi-map · https://www.tuseb.gov.tr/en/news/a-memorandum-of-understanding-signed-between-tuseb-and-the-salidat-kairbekova-national-research-center-for-health-development-of-kazakhstan-20250731
 - ERR UnicodeEncodeError · nphi-map · https://www.webmanagercenter.com/2015/02/17/160538/un-programme-tuniso-allemand-en-matiere-de-sûrete-biologique/
 
-## server_error (123)
+## server_error (122)
 
-- 502 · ihr-benchmarks-good-practices · https://doi.org/10.20683/jniph.67.1_84
 - 500 · shared · https://extranet.who.int/sph/
 - 500 · jee-good-practices · https://extranet.who.int/sph/documenting-progress-following-joint-external-evaluation-jee-and-implementation-national-action
 - 500 · jee-good-practices · https://extranet.who.int/sph/documenting-progress-following-joint-external-evaluation-jee-and-implementation-national-plan
@@ -258,12 +238,13 @@ Broken links need a new URL; unreachable and server errors are often temporary; 
 - 500 · jee-good-practices · https://extranet.who.int/sph/uzbekistan-jee-mission-report-16-20-may-2022
 - 503 · nphi-map · https://menzies.edu.au/page/News_and_Events/Latest_News/Strengthening_health_systems_in_Timor-Leste
 
-## blocked (210)
+## blocked (223)
 
 - 403 · tracss-good-practices · http://www.paclii.org/cgi-bin/sinodisp/vu/legis/consol_sub/somr254/somr254.html?stem=&synonyms=&query=Sale%20of%20medicine
 - 403 · nphi-map · https://11.be/vacatures/post-doctoral-scientist-public-health-capacity-sharing
 - 403 · tracss-good-practices · https://academic.oup.com/jac/article/65/12/2674/753414
-- 403 · nphi-map · https://allafrica.com/stories/202505230037.html
+- 403 · nphi-map · https://allafrica.com/stories/202410100128.html
+- 403 · climate-health-good-practices · https://allafrica.com/stories/202410250069.html
 - 403 · tracss-good-practices · https://antibiotics.gov.mt/wp-content/uploads/2024/04/AMR-Strategy-Final-Jul-2020-2028.pdf
 - 403 · nphi-map · https://anu.edu.au/news/all-news/anu-welcomes-new-agreement-to-train-asean-health-fellows
 - 403 · ihr-benchmarks-good-practices · https://bmjopen.bmj.com/content/11/3/e045343
@@ -291,23 +272,30 @@ Broken links need a new URL; unreachable and server errors are often temporary; 
 - 403 · tracss-good-practices · https://doi.org/10.1002/14651858.CD003543.pub4
 - 403 · ihr-benchmarks-good-practices · https://doi.org/10.1002/14651858.CD008145.pub4
 - 403 · ihr-benchmarks-good-practices · https://doi.org/10.1002/14651858.CD013717
+- 403 · spar-good-practices · https://doi.org/10.1080/10410236.2017.1405488
 - 403 · ihr-benchmarks-good-practices · https://doi.org/10.1080/13552074.2019.1615288
 - 403 · jee-good-practices · https://doi.org/10.1089/hs.2018.0112
+- 403 · ianphi-good-practices · https://doi.org/10.1089/hs.2019.0093
 - 403 · jee-good-practices · https://doi.org/10.1089/hs.2020.0226
 - 403 · jee-good-practices · https://doi.org/10.1089/hs.2022.0030
 - 403 · ihr-benchmarks-good-practices, jee-good-practices, tracss-good-practices · https://doi.org/10.1093/cid/cir025
 - 403 · jee-good-practices · https://doi.org/10.1093/eurpub/ckac129.645
 - 403 · jee-good-practices · https://doi.org/10.1093/eurpub/ckae030
 - 403 · spar-good-practices · https://doi.org/10.1093/eurpub/ckag159
+- 403 · ianphi-good-practices · https://doi.org/10.1093/heapol/czac102
 - 403 · ihr-benchmarks-good-practices · https://doi.org/10.1093/intqhc/mzi103
 - 403 · jee-good-practices · https://doi.org/10.1093/jacamr/dlad064
 - 403 · tracss-good-practices · https://doi.org/10.1094/PHYTO-10-23-0357-IA
 - 403 · ihr-benchmarks-good-practices · https://doi.org/10.1108/F-12-2018-0149
 - 403 · tracss-good-practices · https://doi.org/10.1111/zph.12167
 - 403 · tracss-good-practices · https://doi.org/10.1136/bmj.e3005
+- 403 · spar-good-practices · https://doi.org/10.1136/bmjgh-2020-004537
 - 403 · ihr-benchmarks-good-practices · https://doi.org/10.1136/bmjgh-2023-013392
+- 403 · ianphi-good-practices · https://doi.org/10.1136/bmjph-2025-003392
 - 403 · jee-good-practices · https://doi.org/10.1177/1535676019838077
+- 403 · spar-good-practices · https://doi.org/10.15585/mmwr.su6503a9
 - 403 · spar-good-practices · https://doi.org/10.1787/899eabea-en
+- 403 · spar-good-practices · https://doi.org/10.2105/AJPH.2009.180414
 - 403 · tracss-good-practices · https://doi.org/10.3390/antibiotics10040364
 - 403 · ihr-benchmarks-good-practices · https://doi.org/10.3390/antibiotics11050690
 - 403 · jee-good-practices · https://doi.org/10.3390/diagnostics11010022
@@ -357,6 +345,7 @@ Broken links need a new URL; unreachable and server errors are often temporary; 
 - 403 · jee-good-practices · https://thepandemicfund.org/what-we-do/frequently-asked-questions
 - 403 · nphi-map · https://thl.fi/en/about-us/cooperation/international-consulting-for-health-and-social-sector-development/development-and-expert-cooperation/completed-projects
 - 403 · nphi-map · https://thl.fi/en/research-and-development/research-and-projects/support-in-implementation-of-health-impact-assessment-practice-in-georgia
+- 405 · climate-health-good-practices · https://ui.adsabs.harvard.edu/abs/2020ScTEn.715m6883W/abstract
 - 401 · tracss-good-practices · https://vladars.rs/sr-SP-Cyrl/Vlada/Ministarstva/mps/Documents/
 - 403 · ihr-benchmarks-good-practices, spar-good-practices · https://www-pub.iaea.org/MTCD/publications/PubDetAR.asp?pubId=3684
 - 403 · ihr-benchmarks-good-practices · https://www.cdc.gov/Mmwr/preview/mmwrhtml/mm6339a5.htm
@@ -418,6 +407,7 @@ Broken links need a new URL; unreachable and server errors are often temporary; 
 - 403 · nphi-map · https://www.cdc.gov/mmwr/volumes/72/wr/mm7249a5.htm
 - 403 · nphi-map · https://www.cdc.gov/mmwr/volumes/73/wr/mm7319a3.htm
 - 403 · jee-good-practices · https://www.cdc.gov/onehealth/what-we-do/zoonotic-disease-prioritization/index.html
+- 403 · jee-good-practices · https://www.cdc.gov/phlp/php/about/emergency-law-competency-model.html
 - 403 · jee-good-practices · https://www.cdc.gov/phlp/php/trainingandeducationalresources/index.html
 - 403 · nphi-map · https://www.cdc.gov/pulsenet/php/program-participants/canada.html
 - 403 · nphi-map · https://www.cdc.gov/pulsenet/php/program-participants/eastern-europe-central-asia.html
@@ -453,12 +443,14 @@ Broken links need a new URL; unreachable and server errors are often temporary; 
 - 403 · climate-health-good-practices · https://www.monash.edu/news/articles/wolbachia-dramatically-reduces-dengue-cases
 - 403 · nphi-map · https://www.navy.mil/Press-Office/News-Stories/display-news/Article/2263409/nhrc-hosts-public-health-scientists-from-mexico-for-joint-training
 - 403 · jee-good-practices · https://www.oecd.org/en/publications/oecd-guiding-principles-for-chemical-accident-prevention-preparedness-and-response-third-edition_162756bf-en.html
+- 403 · nphi-map · https://www.phgfoundation.org/blog/pathogen-genomics-initiative-to-boost-disease-control-in-Africa
 - 403 · nphi-map · https://www.pphsn.net/?p=4132
 - 403 · jee-good-practices, shared · https://www.rcce-collective.net/
 - 403 · climate-health-good-practices · https://www.recercat.cat/handle/2117/455229
 - 403 · nphi-map · https://www.redalyc.org/pdf/630/63051952019.pdf
 - 403 · tracss-good-practices · https://www.regjeringen.no/contentassets/7ae8eacec9cc4af085b5c113a98a0eb0/national-one-health-strategy-against-antimicrobial-resistance.pdf
 - 403 · jee-good-practices · https://www.sbcguidance.org/
+- 409 · jee-good-practices · https://www.sckcen.be/en/tmthandbook
 - 403 · nphi-map · https://www.southcom.mil/Media/News/Article/3275871/namru-6-celebrates-40-years-of-medical-research/
 - 403 · ihr-benchmarks-good-practices, jee-good-practices · https://www.tandfonline.com/doi/full/10.1080/16549716.2021.1971866
 - 403 · jee-good-practices · https://www.technet-21.org/en/resources/guidance/assessing-and-improving-the-accuracy-of-target-population-estimates-for-immunization-coverage
@@ -466,6 +458,7 @@ Broken links need a new URL; unreachable and server errors are often temporary; 
 - 403 · ihr-benchmarks-good-practices · https://www.technet-21.org/en/resources/journal-article/system-redesign-of-the-immunization-supply-chain-experiences-from-benin-and-mozambique
 - 403 · jee-good-practices · https://www.technet-21.org/en/resources/repository/data-quality-review-dqr-toolkit
 - 403 · jee-good-practices · https://www.technet-21.org/en/resources/tool/effective-vaccine-management-evm-assessment-tool
+- 405 · nphi-map · https://www.the-microbiologist.com/news/saudi-public-health-authority-and-bgi-genomics-sign-mou-to-advance-public-health/1919.article
 - 403 · climate-health-good-practices · https://www.thelancet.com/journals/lanplh/article/PIIS2542-5196(24)00206-7/fulltext
 - 403 · shared · https://www.thepandemicfund.org/
 - 403 · nphi-map · https://www.vidrl.org.au/?p=3942
