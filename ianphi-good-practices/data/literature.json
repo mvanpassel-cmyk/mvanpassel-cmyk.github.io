@@ -10,7 +10,7 @@
    "report": "Report",
    "statement": "Statement or declaration"
   },
-  "note": "Sources collected from the IANPHI tools page, the US CDC SDT page and a literature search. One-line takeaways are in our own words, based on the page or abstract that was read, not full texts. Items marked as not read were listed from titles only."
+  "note": "Sources collected from the IANPHI tools page, the US CDC SDT page and a literature search. One-line takeaways are in our own words, based on the page or abstract that was read, not full texts. Items marked as not read were listed from titles only. In November 2026, 13 peer-reviewed sources were added for thinly covered topics (surveillance software, infodemic management, workforce training, establishing an institute, mortality surveillance); for these, only the abstract was read."
  },
  "sources": [
   {
@@ -747,6 +747,247 @@
    "country": "Global",
    "type": "guidance",
    "takeaway": "Free hub with a writing course, a bulletin maturity model and a quality scorecard, plus NPHI examples from Côte d'Ivoire, Rwanda and Uganda, to help institutes publish and improve national public health bulletins."
+  },
+  {
+   "id": "fahnrich-2015-sormas",
+   "t": [
+    "G12",
+    "G4",
+    "G13"
+   ],
+   "title": "Surveillance and Outbreak Response Management System (SORMAS) to support the control of the Ebola virus disease outbreak in West Africa",
+   "authors": "Fähnrich C, Denecke K, Adeoye OO, Benzler J, Claus H, Kirchner G, et al.",
+   "journal": "Eurosurveillance 20(12)",
+   "year": 2015,
+   "country": "Nigeria, Germany",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.2807/1560-7917.es2015.20.12.21071",
+   "takeaway": "Built with field workers and Nigeria's Ebola emergency operations centre using design thinking: a mobile and web system for two-way, real-time exchange between the field and the EOC, supervised contact follow-up and automated status reports, meant to grow into routine surveillance for any infectious disease.",
+   "pr": true,
+   "note": "Abstract read via Europe PMC; DOI verified; full text not read.",
+   "checked": "2026-11-08"
+  },
+  {
+   "id": "tom-aba-2020-sormas-maturity",
+   "t": [
+    "G4",
+    "G12"
+   ],
+   "title": "The Surveillance Outbreak Response Management and Analysis System (SORMAS): digital health global goods maturity assessment",
+   "authors": "Tom-Aba D, Silenou BC, Doerrbecker J, Fourie C, Leitner C, Wahnschaffe M, et al.",
+   "journal": "JMIR Public Health and Surveillance 6(2)",
+   "year": 2020,
+   "country": "Nigeria, Germany, Ghana",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.2196/15860",
+   "takeaway": "Scoring the open-source SORMAS against Digital Square's global goods maturity model each year (33% in 2017, 70% in 2018, 100% in 2019) gave the team a roadmap for global utility, community support and software maturity, a useful yardstick for any institute choosing or building surveillance software.",
+   "pr": true,
+   "note": "Abstract read via Europe PMC; DOI verified; full text not read.",
+   "checked": "2026-11-08"
+  },
+  {
+   "id": "boender-2023-rki-infodemic",
+   "t": [
+    "G10",
+    "G8",
+    "G14"
+   ],
+   "title": "Establishing infodemic management in Germany: a framework for social listening and integrated analysis to report infodemic insights at the national public health institute",
+   "authors": "Boender TS, Schneider PH, Houareau C, Wehrli S, Purnat TD, Ishizumi A, et al.",
+   "journal": "JMIR Infodemiology 3",
+   "year": 2023,
+   "country": "Germany",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.2196/43646",
+   "takeaway": "The Robert Koch Institute assessed 42 data sources (including for data protection risk), kept 16 in three groups (social and web listening, its own data, infodemic insights), set a mostly weekly reporting rhythm with risk-rated narratives, and defined when to activate the function in an emergency; written as a roadmap for other institutes.",
+   "pr": true,
+   "note": "Abstract read via Europe PMC; DOI verified; full text not read.",
+   "checked": "2026-11-08"
+  },
+  {
+   "id": "al-nsour-2024-fetp-review",
+   "t": [
+    "G15"
+   ],
+   "title": "Evaluation of field epidemiology training programs: a scoping review",
+   "authors": "Al Nsour M, Khasawneh G, Khader Y, Bashier H",
+   "journal": "Frontiers in Epidemiology 4",
+   "year": 2024,
+   "country": "Global",
+   "type": "scoping-review",
+   "url": "https://doi.org/10.3389/fepid.2024.1376071",
+   "takeaway": "Twelve evaluations across all three FETP tiers consistently report gains in skills and in surveillance, outbreak response and data management, but they use different methods; the authors call for robust tools and standard metrics so programmes can be compared across countries.",
+   "pr": true,
+   "note": "Abstract read via Europe PMC; DOI verified; full text not read.",
+   "checked": "2026-11-08"
+  },
+  {
+   "id": "collins-2022-guinea-fetp",
+   "t": [
+    "G15",
+    "G12",
+    "G18"
+   ],
+   "title": "Evaluation of the first two Frontline cohorts of the field epidemiology training program in Guinea, West Africa",
+   "authors": "Collins D, Diallo BI, Bah MB, Bah M, Standley CJ, Corvil S, et al.",
+   "journal": "Human Resources for Health 20",
+   "year": 2022,
+   "country": "Guinea",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.1186/s12960-022-00729-w",
+   "takeaway": "Interviews with graduates, supervisors and nearby facility heads plus checks of reports found better case and summary reporting and information sharing at district level after the 3-month course; transport and staff shortages held graduates back, and refresher training, gender balance and more junior trainees were the main asks.",
+   "pr": true,
+   "note": "Abstract read via Europe PMC; DOI verified; full text not read.",
+   "checked": "2026-11-08"
+  },
+  {
+   "id": "kebebew-2023-ethiopia-fetp",
+   "t": [
+    "G15",
+    "G18"
+   ],
+   "title": "Evaluation of Ethiopia's field epidemiology training program – frontline: perspectives of implementing partners",
+   "authors": "Kebebew T, Woldetsadik MA, Barker J, Cui A, Abedi AA, Sugerman DE, et al.",
+   "journal": "BMC Health Services Research 23",
+   "year": 2023,
+   "country": "Ethiopia",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.1186/s12913-023-09384-w",
+   "takeaway": "In 41 interviews, regional, zonal and district partners saw clear performance differences between trained and untrained district surveillance officers, but named transport, field-project budgets, thin mentorship, staff turnover and missing refresher training as the limits on lasting impact.",
+   "pr": true,
+   "note": "Abstract read via Europe PMC; DOI verified; full text not read.",
+   "checked": "2026-11-08"
+  },
+  {
+   "id": "carnevale-2023-consolidation",
+   "t": [
+    "X1",
+    "G17"
+   ],
+   "title": "Benefits and challenges of consolidating public health functions into a National Public Health Institute: a policy analysis",
+   "authors": "Carnevale CR, Woldetsadik MA, Shiver A, Gutierrez M, Chhea C, Ilori E, et al.",
+   "journal": "Health Policy and Planning 38(3)",
+   "year": 2023,
+   "country": "Cambodia, Colombia, Liberia, Mozambique, Nigeria, Rwanda, Zambia",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.1093/heapol/czac102",
+   "takeaway": "Interviews with 96 stakeholders in seven countries found that bringing surveillance, preparedness, research, workforce and laboratory functions into one institute, as far as is politically feasible, improves efficiency, flexibility and coordination; role clarity, resources, influence and political viability decide which functions to bring in.",
+   "pr": true,
+   "note": "Abstract read via Europe PMC; DOI verified; full text not read.",
+   "checked": "2026-11-08"
+  },
+  {
+   "id": "rosenfeld-2020-legal-framework",
+   "t": [
+    "X1"
+   ],
+   "title": "National Public Health Institute legal framework: a tool to build public health capacity",
+   "authors": "Rosenfeld EL, Binder S, Brush CA, Whitney EAS, Jarvis D, et al.",
+   "journal": "Health Security 18(S1)",
+   "year": 2020,
+   "country": "Africa (5 countries)",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.1089/hs.2019.0093",
+   "takeaway": "Applies Africa CDC's 'Menu of Considerations for an NPHI Legal Framework' to the laws of five countries, showing how legal mapping reveals which authorities an institute already has, how much approaches vary, and where law could be used to strengthen it.",
+   "pr": true,
+   "note": "Abstract read via Europe PMC; DOI verified; full text not read.",
+   "checked": "2026-11-08"
+  },
+  {
+   "id": "clemente-2020-jee-nphi",
+   "t": [
+    "X1",
+    "G13",
+    "G17"
+   ],
+   "title": "Reading between the lines: a qualitative case study of national public health institute functions and attributes in Joint External Evaluations in Africa",
+   "authors": "Clemente J, Rhee S, Miller B, Bronner E, Whitney E, Bratton S, et al.",
+   "journal": "Journal of Public Health in Africa 11(1)",
+   "year": 2020,
+   "country": "11 African countries",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.4081/jphia.2020.1329",
+   "takeaway": "A document analysis of JEE reports from 11 countries in WHO's African region finds institutes supporting IHR capacities through core public health functions, governance, and coordination and communication, often without being named; useful for showing how an institute's role maps onto JEE scores.",
+   "pr": true,
+   "note": "Abstract read via Europe PMC; DOI verified; full text not read.",
+   "checked": "2026-11-08"
+  },
+  {
+   "id": "angendu-2024-drc-nphi",
+   "t": [
+    "X1",
+    "G13",
+    "G16"
+   ],
+   "title": "Lessons learned during the establishment of a functional National Public Health Institute in the Democratic Republic of Congo",
+   "authors": "Angendu K, Komakech A, Nyamusore J, Thiam S, Howard A, et al.",
+   "journal": "Pan African Medical Journal 49:80",
+   "year": 2024,
+   "country": "Democratic Republic of Congo",
+   "type": "case-study",
+   "url": "https://doi.org/10.11604/pamj.2024.49.80.45515",
+   "takeaway": "Created in law in 2022 after the 10th Ebola outbreak, the institute delivered an incident management system and EOC, a coordinated research agenda and better mortality surveillance within its first year; political will and partners helped, while resistance to change and slow funding were the main early obstacles.",
+   "pr": true,
+   "note": "Abstract read via Europe PMC; DOI verified; full text not read.",
+   "checked": "2026-11-08"
+  },
+  {
+   "id": "ahmed-2026-somalia-nih",
+   "t": [
+    "X1",
+    "G12",
+    "G15"
+   ],
+   "title": "Lessons from establishing a national public health institute in Somalia",
+   "authors": "Ahmed AD, Jama MA, Nur F, Mamanur M, Ahrne M, Tegnell A, et al.",
+   "journal": "Eastern Mediterranean Health Journal 32(9)",
+   "year": 2026,
+   "country": "Somalia",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.26719/2026.32.9.596",
+   "takeaway": "Over four phases from 2013 to 2023, Somalia's institute nationalised IDSR, trained 123 epidemiologists and built a distributed PCR laboratory network despite contested federalism and very low domestic funding; crisis leadership, international peers and technical platforms helped bridge regional mistrust in a fragile setting.",
+   "pr": true,
+   "note": "Abstract read via Europe PMC; DOI verified; full text not read.",
+   "checked": "2026-11-08"
+  },
+  {
+   "id": "sasie-2026-preparedness-governance",
+   "t": [
+    "G13",
+    "G3",
+    "G18",
+    "X1"
+   ],
+   "title": "Building systems for preparedness: global scoping studies on institutional governance and National Public Health Agencies",
+   "authors": "Sasie SD, Aragaw FM, Gebeyehu TA, Shikur SA, Fekadu L, et al.",
+   "journal": "PLOS Global Public Health 6(2)",
+   "year": 2026,
+   "country": "Global",
+   "type": "scoping-review",
+   "url": "https://doi.org/10.1371/journal.pgph.0005427",
+   "takeaway": "Sixty studies show institutes widely established but often with unclear mandates and little subnational reach, and with surveillance, laboratories, risk communication and EOCs unevenly institutionalised; statutory authority, predictable domestic funding, workforce sustainability and interoperable data systems are what turn capacity into performance.",
+   "pr": true,
+   "note": "Abstract read via Europe PMC; DOI verified; full text not read.",
+   "checked": "2026-11-08"
+  },
+  {
+   "id": "nichols-2026-mortality-surveillance",
+   "t": [
+    "G9",
+    "G12",
+    "G17"
+   ],
+   "title": "Integrating mortality surveillance as a routine component of national essential public health functions: a blueprint",
+   "authors": "Nichols E, Arhin-Wiredu K, Bratton S, Cercone E, et al.",
+   "journal": "BMJ Public Health 4(2)",
+   "year": 2026,
+   "country": "Global",
+   "type": "peer-reviewed",
+   "url": "https://doi.org/10.1136/bmjph-2025-003392",
+   "takeaway": "With about 40% of deaths unregistered, the paper sets out a theory of change for making mortality surveillance a routine public health function linked to civil registration and vital statistics, with enablers in law and agreements, infrastructure, governance and funding, and culture, illustrated by Africa CDC's mortality surveillance programme.",
+   "pr": true,
+   "note": "Abstract read via Europe PMC; DOI verified; full text not read.",
+   "checked": "2026-11-08"
   }
  ]
 }

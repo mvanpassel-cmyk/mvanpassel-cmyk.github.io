@@ -1,6 +1,6 @@
 {
  "meta": {
-  "note": "Good practices added for this page. Good practices from the IHR Benchmarks Good Practices page are reused through the crosswalk and shown with the benchmark they come from. Takeaways are one-line summaries in our own words, based on the abstract or page, not the full text."
+  "note": "Good practices added for this page. Good practices from the IHR Benchmarks Good Practices page are reused through the crosswalk and shown with the benchmark they come from. Takeaways are one-line summaries in our own words, based on the abstract or page, not the full text. Ten sources were added on 2026-11-08 for indicators that had none of their own (abstracts read via Europe PMC)."
  },
  "sources": [
   {
@@ -306,6 +306,168 @@
     "C11.1"
    ],
    "note": "No working DOI; links to the journal's article page."
+  },
+  {
+   "id": "kandel-2020",
+   "title": "Health security capacities in the context of COVID-19 outbreak: an analysis of International Health Regulations annual report data from 182 countries",
+   "authors": "Kandel N, Chungong S, Omaar A, Xing J",
+   "journal": "Lancet 395(10229)",
+   "year": 2020,
+   "country": "Global",
+   "type": "peer-reviewed",
+   "pr": true,
+   "url": "https://doi.org/10.1016/S0140-6736(20)30553-5",
+   "general": true,
+   "takeaway": "Built prevent, detect, respond, enabling and readiness indices from 18 SPAR indicators (2018 data): 76% of countries scored highest on detection, and 32 had low operational readiness on the eve of COVID-19.",
+   "checked": "2026-11-08"
+  },
+  {
+   "id": "bochner-2023",
+   "title": "Implementation of the 7-1-7 target for detection, notification, and response to public health threats in five countries: a retrospective, observational study",
+   "authors": "Bochner AF, Makumbi I, Aderinola O, et al.",
+   "journal": "Lancet Global Health 11(6)",
+   "year": 2023,
+   "country": "Brazil, Ethiopia, Liberia, Nigeria, Uganda",
+   "type": "peer-reviewed",
+   "pr": true,
+   "url": "https://doi.org/10.1016/S2214-109X(23)00133-X",
+   "ind": [
+    "C5.1",
+    "C5.2"
+   ],
+   "takeaway": "Of 41 events, 54% met 7 days to detect, 71% 1 day to notify and 27% the full 7-1-7; most detection bottlenecks were at health facilities and notification and response delays at intermediate levels.",
+   "checked": "2026-11-08"
+  },
+  {
+   "id": "arsenault-2022",
+   "title": "COVID-19 and resilience of healthcare systems in ten countries",
+   "authors": "Arsenault C, Gage A, Kim MK, et al.",
+   "journal": "Nature Medicine 28",
+   "year": 2022,
+   "country": "10 countries",
+   "type": "peer-reviewed",
+   "pr": true,
+   "url": "https://doi.org/10.1038/s41591-022-01750-1",
+   "ind": [
+    "C8.3",
+    "C8.2"
+   ],
+   "takeaway": "Interrupted time series of 31 services: every country saw disruptions, unrelated to income or pandemic intensity, and half still had substantial gaps at the end of 2020, a measure of what continuity plans must prevent.",
+   "checked": "2026-11-08"
+  },
+  {
+   "id": "grepin-2021",
+   "title": "Evidence of the effectiveness of travel-related measures during the early phase of the COVID-19 pandemic: a rapid systematic review",
+   "authors": "Grépin KA, Ho TL, Liu Z, et al.",
+   "journal": "BMJ Global Health 6(3)",
+   "year": 2021,
+   "country": "Global",
+   "type": "systematic-review",
+   "pr": true,
+   "url": "https://doi.org/10.1136/bmjgh-2020-004537",
+   "ind": [
+    "C11.3"
+   ],
+   "takeaway": "29 studies, 26 of them models: early travel measures changed the first phase of the pandemic (Wuhan measures cut exported cases by 70–80%), but evidence outside China was scarce and timing mattered most.",
+   "checked": "2026-11-08"
+  },
+  {
+   "id": "tomczyk-2022",
+   "title": "The first WHO global survey on infection prevention and control in health-care facilities",
+   "authors": "Tomczyk S, Twyman A, de Kraker MEA, et al.",
+   "journal": "Lancet Infectious Diseases 22(6)",
+   "year": 2022,
+   "country": "Global (81 countries)",
+   "type": "peer-reviewed",
+   "pr": true,
+   "url": "https://doi.org/10.1016/S1473-3099(21)00809-4",
+   "ind": [
+    "C9.1",
+    "C9.3"
+   ],
+   "takeaway": "IPCAF responses from 4,440 facilities: only 15% met all minimum requirements (none in low-income countries); staffing and training scored lowest, a checklist for where national IPC programmes need to invest.",
+   "checked": "2026-11-08"
+  },
+  {
+   "id": "suetens-2018",
+   "title": "Prevalence of healthcare-associated infections, estimated incidence and composite antimicrobial resistance index in acute care hospitals and long-term care facilities: results from two European point prevalence surveys, 2016 to 2017",
+   "authors": "Suetens C, Latour K, Kärki T, et al.",
+   "journal": "Eurosurveillance 23(46)",
+   "year": 2018,
+   "country": "EU/EEA",
+   "type": "peer-reviewed",
+   "pr": true,
+   "url": "https://doi.org/10.2807/1560-7917.ES.2018.23.46.1800516",
+   "ind": [
+    "C9.2"
+   ],
+   "takeaway": "Coordinated point prevalence surveys in 1,209 hospitals and 2,221 long-term care facilities found 6.5% and 3.9% of patients with an HAI: a model for national HCAI surveillance with validation.",
+   "checked": "2026-11-08"
+  },
+  {
+   "id": "toppenberg-pejcic-2019",
+   "title": "Emergency risk communication: lessons learned from a rapid review of recent gray literature on Ebola, Zika, and yellow fever",
+   "authors": "Toppenberg-Pejcic D, Noyes J, Allen T, et al.",
+   "journal": "Health Communication 34(4)",
+   "year": 2019,
+   "country": "Global",
+   "type": "review",
+   "pr": true,
+   "url": "https://doi.org/10.1080/10410236.2017.1405488",
+   "ind": [
+    "C10.1",
+    "C10.2"
+   ],
+   "takeaway": "Rapid review of 83 documents for WHO's risk communication guideline: lessons on community engagement, building trust and using social media during outbreaks.",
+   "checked": "2026-11-08"
+  },
+  {
+   "id": "cohen-2016",
+   "title": "Travel and border health measures to prevent the international spread of Ebola",
+   "authors": "Cohen NJ, Brown CM, Alvarado-Ramy F, et al.",
+   "journal": "MMWR Supplements 65(3)",
+   "year": 2016,
+   "country": "West Africa, United States",
+   "type": "case-study",
+   "pr": false,
+   "url": "https://doi.org/10.15585/mmwr.su6503a9",
+   "ind": [
+    "C11.2"
+   ],
+   "takeaway": "How exit screening in affected countries, enhanced entry risk assessment at US ports and traveller guidance were run during the 2014–2016 Ebola epidemic, and the partnerships that made it work.",
+   "checked": "2026-11-08"
+  },
+  {
+   "id": "skryabina-2018",
+   "title": "A scoping review of evaluation methods for health emergency preparedness exercises",
+   "authors": "Skryabina E, Riley P, Reedy G, Amlôt R",
+   "journal": "American Journal of Disaster Medicine 13(2)",
+   "year": 2018,
+   "country": "Global",
+   "type": "review",
+   "pr": true,
+   "url": "https://doi.org/10.5055/ajdm.2018.0292",
+   "ind": [
+    "C7.1"
+   ],
+   "takeaway": "Across 64 studies, exercise evaluation methods were chosen without a guiding method; the authors advise matching methods to purpose and pairing participant feedback with objective performance data.",
+   "checked": "2026-11-08"
+  },
+  {
+   "id": "katz-2010",
+   "title": "Comparative analysis of national legislation in support of the revised International Health Regulations: potential models for implementation in the United States",
+   "authors": "Katz R, Kornblet S",
+   "journal": "American Journal of Public Health 100(12)",
+   "year": 2010,
+   "country": "Australia, Canada, Germany, India",
+   "type": "peer-reviewed",
+   "pr": true,
+   "url": "https://doi.org/10.2105/AJPH.2009.180414",
+   "ind": [
+    "C1.1"
+   ],
+   "takeaway": "Compares how four federal states put IHR obligations into national law when most public health powers sit at subnational level, offering models for countries with a similar structure.",
+   "checked": "2026-11-08"
   }
  ]
 }
