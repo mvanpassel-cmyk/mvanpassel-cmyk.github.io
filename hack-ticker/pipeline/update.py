@@ -336,13 +336,20 @@ def ask_claude(cands, recent):
 
 
 def parse_incidents(text, cands, known_ids, now):
-    m = re.search(r"\{.*\}", text, re.S)
-    if not m:
-        return []
-    try:
-        obj = json.loads(m.group(0))
-    except json.JSONDecodeError:
-        return []
+    obj = None
+    dec = json.JSONDecoder()
+    body = re.sub(r"```(?:json)?", "", text)
+    for m in re.finditer(r"\{", body):
+        try:
+            cand, _ = dec.raw_decode(body, m.start())
+        except json.JSONDecodeError:
+            continue
+        if isinstance(cand, dict) and "incidents" in cand:
+            obj = cand
+            break
+    if obj is None:   # keep the headlines queued and say why, instead of reading this as "no incidents"
+        print("Unparsed reply, start:", text[:600].replace("\n", " "), "... end:", text[-400:].replace("\n", " "), file=sys.stderr)
+        raise RuntimeError("Claude's reply was not valid JSON; the headlines stay queued for the next run.")
     out = []
     for x in obj.get("incidents", []):
         idx = [i for i in x.get("i", []) if isinstance(i, int) and 0 <= i < len(cands)]

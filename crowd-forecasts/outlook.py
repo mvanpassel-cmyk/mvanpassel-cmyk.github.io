@@ -232,6 +232,8 @@ def claude(system, user, max_searches, timeout=300):
                     if c.get("url"):
                         urls[c["url"]] = c.get("title") or c["url"]
         if res.get("stop_reason") != "pause_turn":
+            print(f"Claude: stop_reason={res.get('stop_reason')}, searches={searches}, usage={res.get('usage')}, "
+                  f"blocks={[b.get('type') for b in res.get('content', [])]}", file=sys.stderr)
             return text, urls, searches
         msgs = [msgs[0], {"role": "assistant", "content": res["content"]}]
     return text, urls, searches
@@ -261,14 +263,20 @@ def post(body, timeout):
 
 
 def parse(text):
-    """The outermost JSON object in Claude's reply, or None."""
-    a, b = text.find("{"), text.rfind("}")
-    if a < 0 or b <= a:
-        return None
-    try:
-        return json.loads(text[a:b + 1])
-    except json.JSONDecodeError:
-        return None
+    """The JSON object in Claude's reply, or None. Claude may write a line before or after it,
+    or wrap it in a code fence; prefer the object that holds the outlook."""
+    text = re.sub(r"```(?:json)?", "", text)
+    dec = json.JSONDecoder()
+    found = None
+    for m in re.finditer(r"\{", text):
+        try:
+            obj, _ = dec.raw_decode(text, m.start())
+        except json.JSONDecodeError:
+            continue
+        if isinstance(obj, dict) and ("events" in obj or "brief" in obj):
+            return obj
+        found = found or (obj if isinstance(obj, dict) else None)
+    return found
 
 
 def prob(x):
@@ -366,6 +374,7 @@ def main():
                                           build_prompt(events, mk, todo, now), MAX_SEARCHES)
             reply = parse(text)
             if not reply:
+                print("Unparsed reply, start:", text[:700].replace("\n", " "), "\n... end:", text[-500:].replace("\n", " "), file=sys.stderr)
                 raise RuntimeError("Claude's reply was not valid JSON; the outlook waits for tomorrow.")
             new = apply(reply, events, mk, calls, urls, now)
             status = {"settled_today": status["settled_today"], "searches": searches, "events": len(new["events"]),
