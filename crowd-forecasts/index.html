@@ -7,7 +7,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/logos/crowd-forecasts-32.png">
 <link rel="icon" type="image/svg+xml" href="/logos/crowd-forecasts.svg">
 <link rel="apple-touch-icon" href="/logos/crowd-forecasts-180.png">
-<meta name="description" content="What prediction markets expect on wars, elections, trade and health, ordered by when the answer will be known.">
+<meta name="description" content="What the crowd and Claude expect from the coming weeks: the world calendar with prediction-market odds and Claude's own calls, scored as they resolve.">
 <style>
 :root{
   --bg:#f6f4ef; --ink:#1c1f26; --muted:#667085; --card:#ffffff; --line:#e4e0d6; --accent:#1f3a5f; --soft:#eef0f4;
@@ -31,6 +31,8 @@ header p{color:var(--muted);margin:0;max-width:60ch}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .row + .row{margin-top:8px}
 #fbody{margin-top:8px}
+#allh{margin-bottom:0}
+.controls{margin-top:0}
 .chip.ftoggle{display:none}
 .chip{border:1px solid var(--line);background:transparent;color:var(--ink);padding:5px 12px;border-radius:999px;font:inherit;font-size:13px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
 .chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
@@ -77,6 +79,43 @@ h2.group small{font-weight:500;letter-spacing:0;text-transform:none}
 .delta.up{color:var(--up)} .delta.down{color:var(--down)}
 .spark{width:64px;height:18px;vertical-align:middle}
 .empty{padding:40px 0;text-align:center;color:var(--muted)}
+/* weeks ahead */
+.ahead .by{font-size:12.5px;color:var(--muted);margin:-4px 0 12px}
+.brief{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:12px;padding:14px 16px;margin:0 0 16px;font-size:15px;line-height:1.55}
+.brief .who,.expect .who{font-weight:600;color:var(--accent)}
+.ev{display:grid;grid-template-columns:54px 1fr;gap:12px;margin-bottom:10px}
+.evc{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--c,var(--line));border-radius:12px;padding:13px 16px}
+.evh{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+.evh h3{margin:0;font-size:15.5px;line-height:1.35}
+.evh .place{font-size:12.5px;color:var(--muted)}
+.tag{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--c,var(--muted))}
+.expect{margin:7px 0 0;font-size:14.5px}
+.calls{list-style:none;margin:9px 0 0;padding:0;display:grid;gap:5px}
+.calls li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:baseline;font-size:13.5px;padding:6px 10px;background:var(--soft);border-radius:8px}
+.calls b{font:600 16px/1 ui-serif,Georgia,serif;font-variant-numeric:tabular-nums}
+.calls small{color:var(--muted);font-size:12px;margin-left:4px}
+.vs{display:grid;gap:4px;margin-top:9px}
+.vs a{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:10px;align-items:baseline;font-size:13px;color:inherit;text-decoration:none;padding:3px 0;border-top:1px dashed var(--line)}
+.vs a:hover .l{text-decoration:underline}
+.vs .l{overflow:hidden;text-overflow:ellipsis}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--muted)}
+.num b{color:var(--ink)}
+.diff{font-size:11.5px;font-weight:600;border-radius:5px;padding:1px 6px;background:var(--soft);white-space:nowrap}
+.diff.big{background:var(--accent);color:var(--bg)}
+.watch{margin:8px 0 0;font-size:12.5px;color:var(--muted)}
+.srcs{margin-top:5px;font-size:12px;color:var(--muted);overflow-wrap:anywhere}
+.srcs a{color:inherit}
+.also{font-size:13.5px;color:var(--muted);margin:14px 0 0;padding:0;list-style:none;columns:2 260px;column-gap:24px}
+.also li{break-inside:avoid;margin-bottom:4px}
+.also b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums;margin-right:6px}
+.score{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--muted)}
+.tile b{display:block;font:600 24px/1.1 ui-serif,Georgia,serif;color:var(--ink);font-variant-numeric:tabular-nums;margin-bottom:3px}
+.res{list-style:none;padding:0;margin:12px 0 0;font-size:13px;display:grid;gap:4px}
+.res li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;padding:5px 0;border-top:1px dashed var(--line)}
+.ok{color:var(--up);font-weight:600} .ko{color:var(--down);font-weight:600}
+.cl{display:block;font-size:12px;color:var(--muted);margin-top:4px;white-space:nowrap}
+.cl b{font:600 13px/1 ui-sans-serif,system-ui,sans-serif;color:var(--accent)}
 .note{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
 .note p{margin:0 0 8px;max-width:72ch}
 .note a{color:inherit}
@@ -91,6 +130,10 @@ h2.group small{font-weight:500;letter-spacing:0;text-transform:none}
   .card{padding:12px 13px}
   .prob b{font-size:24px}
   .opt{grid-template-columns:minmax(0,1fr) 60px 36px}
+  .ev{grid-template-columns:42px 1fr;gap:8px}
+  .evc{padding:12px 13px}
+  .vs a{grid-template-columns:minmax(0,1fr) auto}
+  .vs a .diff{grid-column:2}
 }
 </style>
 </head>
@@ -98,10 +141,13 @@ h2.group small{font-weight:500;letter-spacing:0;text-transform:none}
 <div class="wrap">
   <header>
     <h1>Wisdom of the crows</h1>
-    <p>What prediction markets expect on wars, elections, trade and health, ordered by when we will know the answer. Prices from Polymarket, Kalshi, Manifold, PredictIt and Smarkets, and community forecasts from Metaculus, refreshed every morning.</p>
+    <p>What the crowd expects from the coming weeks, and what Claude expects. The world calendar's next six weeks with the prediction markets that bear on each event and Claude's own calls, written weekly after a few web searches and scored once they resolve. Below that, every market on wars, elections, trade and health, refreshed every morning.</p>
     <div class="status" id="status">Loading…</div>
   </header>
 
+  <section id="ahead" class="ahead" hidden></section>
+
+  <h2 class="group" id="allh">All markets</h2>
   <div class="controls">
     <div class="row">
       <input id="q" class="search" type="search" placeholder="Search: Ukraine, Taiwan, tariffs…" aria-label="Search">
@@ -131,6 +177,7 @@ h2.group small{font-weight:500;letter-spacing:0;text-transform:none}
   <div class="note">
     <p><strong>How to read this.</strong> A price of 30¢ on a “Yes” share roughly means the crowd puts the chance at 30%. The date is the market's deadline: the latest moment the answer will be known, sometimes earlier. For multi-option markets the leading option is shown; for “by date” markets, the nearest deadline is shown with later ones below.</p>
     <p><strong>Caveats.</strong> Polymarket and Kalshi trade real money (volume in dollars or contracts); Manifold uses play money (shown as number of traders). Metaculus is not a market: it aggregates individual forecasts, weighted towards recent ones, and is often better calibrated on long-range questions. Thin markets can be moved by a single trader, Kalshi and PredictIt lean towards US questions, and market wording and resolution rules matter: open the market before quoting a number.</p>
+    <p><strong>Claude's outlook.</strong> Once a week Claude (Sonnet, with up to five web searches) reads the calendar and the market prices and writes what it expects, with a probability for each call. Every call is stored and scored when it resolves: market questions from the final market price, Claude's own calls by Claude with a source. The Brier score is the average squared gap between the forecast and what happened; lower is better, and 0.25 is what always saying 50% earns. It is a second opinion, not inside information: check the sources before relying on a call.</p>
     <p>Data: <a href="https://polymarket.com">Polymarket</a>, <a href="https://kalshi.com">Kalshi</a>, <a href="https://manifold.markets">Manifold</a> and <a href="https://www.metaculus.com">Metaculus</a>, <a href="https://www.predictit.org">PredictIt</a> and <a href="https://smarkets.com">Smarkets</a>. Selection is automatic, by trading volume and topic keywords.</p>
   </div>
 </div>
@@ -144,7 +191,8 @@ const THEMES = {
 };
 const SOURCES = {polymarket:"Polymarket", kalshi:"Kalshi", manifold:"Manifold", metaculus:"Metaculus", predictit:"PredictIt", smarkets:"Smarkets"};
 const state = { theme:"all", sources:new Set(Object.keys(SOURCES)), horizon:365, q:"" };
-let DATA = { items:[] };
+let DATA = { items:[] }, OUT = null;
+const ODDS = () => (OUT && OUT.odds) || {};
 
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -188,7 +236,7 @@ function card(it){
   const themes = it.themes.map(k => THEMES[k] ? `<span class="theme" style="--tc:${THEMES[k].c}"><i></i>${THEMES[k].label}</span>` : "").join("");
   return `<a class="card" href="${esc(it.url)}" target="_blank" rel="noopener" style="--c:${t.c}">
     <div class="title">${esc(it.title)}</div>
-    <div class="prob"><b>${pct(it.prob)}</b><span>%</span></div>
+    <div class="prob"><b>${pct(it.prob)}</b><span>%</span>${ODDS()[it.id] ? `<span class="cl" title="${esc(ODDS()[it.id].why)}">Claude <b>${pct(ODDS()[it.id].p)}%</b></span>` : ""}</div>
     ${lead}
     ${it.kind === "binary" ? `<div class="bar"><i style="width:${it.prob*100}%"></i></div>` : opts}
     <div class="meta"><span class="src">${SOURCES[it.source] || it.source}</span>${themes}<span>${fmtVol(it.volume, it.volumeUnit)}</span>${delta(it.d7)}${spark(it.spark)}${fcLink(it)}</div>
@@ -207,7 +255,8 @@ function filtered(){
   const now = Date.now(), q = state.q.trim().toLowerCase();
   return DATA.items.filter(it => {
     if (!state.sources.has(it.source)) return false;
-    if (state.theme !== "all" && !it.themes.includes(state.theme)) return false;
+    if (state.theme === "claude") { const o = ODDS()[it.id]; if (!o || Math.abs(o.p - it.prob) < 0.10) return false; }
+    else if (state.theme !== "all" && !it.themes.includes(state.theme)) return false;
     if (state.horizon && it.resolves && new Date(it.resolves) - now > state.horizon * 864e5) return false;
     if (state.horizon && !it.resolves) return false;
     if (q && !(it.title + " " + (it.lead || "") + " " + it.options.map(o => o.label).join(" ")).toLowerCase().includes(q)) return false;
@@ -247,7 +296,8 @@ function render(){
 }
 
 function renderControls(){
-  $("themes").innerHTML = [["all", "All themes", null], ...Object.entries(THEMES).map(([k, t]) => [k, t.label, t.c])]
+  const differs = (DATA.items || []).some(i => ODDS()[i.id] && Math.abs(ODDS()[i.id].p - i.prob) >= 0.10);
+  $("themes").innerHTML = [["all", "All themes", null], ...Object.entries(THEMES).map(([k, t]) => [k, t.label, t.c]), ...(differs ? [["claude", "Where Claude differs", "var(--accent)"]] : [])]
     .map(([k, l, c]) => `<button class="chip" data-theme="${k}" aria-pressed="${state.theme === k}">${c ? `<span class="sw" style="background:${c}"></span>` : ""}${l}</button>`).join("");
   const present = new Set((DATA.items || []).map(i => i.source));
   $("sources").innerHTML = Object.entries(SOURCES).filter(([k]) => !present.size || present.has(k))
@@ -270,11 +320,57 @@ $("sources").addEventListener("click", e => {
 $("horizon").addEventListener("change", e => { state.horizon = +e.target.value; render(); });
 $("q").addEventListener("input", e => { state.q = e.target.value; render(); });
 
+const CAT = { health:["Health","var(--health)"], amr:["AMR","var(--health)"], gha:["Global health architecture","var(--health)"],
+  election:["Election","var(--elections)"], summit:["Summit","var(--trade)"], eu:["EU","var(--trade)"], partners:["Partner country","var(--trade)"] };
+const dayLabel = (s) => { const d = new Date(s + "T12:00:00Z"); return `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]}`; };
+function diffTag(p, crowd){
+  const d = Math.round((p - crowd) * 100);
+  if (Math.abs(d) < 3) return `<span class="diff">agrees</span>`;
+  return `<span class="diff${Math.abs(d) >= 10 ? " big" : ""}" title="Claude minus crowd">${d > 0 ? "+" : "−"}${Math.abs(d)} pt</span>`;
+}
+function renderAhead(){
+  const box = $("ahead");
+  if (!OUT || !OUT.events || !OUT.events.length) { box.hidden = true; return; }
+  const byId = new Map((DATA.items || []).map(i => [i.id, i]));
+  const gen = new Date(OUT.generated);
+  const ev = OUT.events.map(e => {
+    const [lab, c] = CAT[e.cat] || [e.cat || "", "var(--accent)"];
+    const d = new Date(e.start + "T12:00:00Z");
+    const calls = e.calls.length ? `<ul class="calls">${e.calls.map(x => `<li><span>${esc(x.q)}<small>by ${dayLabel(x.by)}</small></span><b>${pct(x.p)}%</b></li>`).join("")}</ul>` : "";
+    const ms = e.markets.map(id => byId.get(id)).filter(Boolean).map(m => {
+      const o = ODDS()[m.id];
+      return `<a href="${esc(m.url)}" target="_blank" rel="noopener"><span class="l">${esc(m.title)}${m.kind !== "binary" && m.lead ? ` · <i>${esc(m.lead)}</i>` : ""}</span><span class="num">Crowd <b>${pct(m.prob)}%</b>${o ? ` · Claude <b>${pct(o.p)}%</b>` : ""}</span>${o ? diffTag(o.p, m.prob) : `<span></span>`}</a>`;
+    }).join("");
+    const src = e.sources.length ? `<div class="srcs">Sources: ${e.sources.map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a>`).join(" · ")}</div>` : "";
+    return `<article class="ev" id="ev-${esc(e.id)}"><div class="date"><b>${d.getUTCDate()}</b>${MONTHS[d.getUTCMonth()]}</div>
+      <div class="evc" style="--c:${c}"><div class="evh"><span class="tag">${esc(lab)}</span><h3>${esc(e.title)}</h3><span class="place">${esc(e.place || "")}${e.end ? ` · until ${dayLabel(e.end)}` : ""}</span></div>
+      ${e.expect ? `<p class="expect"><span class="who">Claude expects:</span> ${esc(e.expect)}</p>` : ""}${calls}${ms ? `<div class="vs">${ms}</div>` : ""}
+      ${e.watch ? `<p class="watch">Would change the view: ${esc(e.watch)}</p>` : ""}${src}</div></article>`;
+  }).join("");
+  const also = (OUT.also || []).length ? `<h2 class="group">Also on the calendar <small>${OUT.also.length}</small></h2><ul class="also">${OUT.also.map(a => `<li><b>${dayLabel(a.start)}</b>${esc(a.title)}${a.place ? `, ${esc(a.place)}` : ""}</li>`).join("")}</ul>` : "";
+  const s = OUT.score || {}, m = s.market || {}, o = s.own || {};
+  const f3 = (x) => x == null ? "–" : x.toFixed(2);
+  const tiles = s.resolved ? `<div class="score">
+      <div class="tile"><b>${f3(m.claude)} vs ${f3(m.crowd)}</b>Brier, Claude vs crowd, on ${m.n} market forecast${m.n === 1 ? "" : "s"} (lower is better)</div>
+      <div class="tile"><b>${m.claude_closer || 0} of ${m.n || 0}</b>market questions where Claude was closer than the crowd</div>
+      <div class="tile"><b>${o.right || 0} of ${o.n || 0}</b>of Claude's own calls on the right side of 50% (Brier ${f3(o.claude)})</div></div>
+      <ul class="res">${(OUT.resolved || []).map(c => `<li><span>${esc(c.q)} <span class="num">· Claude ${pct(c.p)}%${c.crowd != null ? `, crowd ${pct(c.crowd)}%` : ""}</span></span><span class="${c.status === "yes" ? "ok" : "ko"}">${c.status === "yes" ? "Yes" : "No"}</span></li>`).join("")}</ul>`
+    : `<p class="by">Nothing has resolved yet: ${s.open || 0} calls are open${s.next_due ? `, the first due ${dayLabel(s.next_due)}` : ""}. Scores appear here as they resolve.</p>`;
+  box.innerHTML = `<h2 class="group">The weeks ahead <small>${OUT.events.length} events</small></h2>
+    <p class="by">Claude's outlook of ${gen.toLocaleDateString("en-GB", { weekday:"long", day:"numeric", month:"long" })}${OUT.status && OUT.status.searches ? `, after ${OUT.status.searches} web search${OUT.status.searches === 1 ? "" : "es"}` : ""}. Market prices are today's.</p>
+    ${OUT.brief ? `<div class="brief"><span class="who">In short:</span> ${esc(OUT.brief)}</div>` : ""}${ev}${also}
+    <h2 class="group">Claude vs the crowd</h2>${tiles}`;
+  box.hidden = false;
+}
+
 renderControls();
+fetch("data/outlook.json?v=" + new Date().toISOString().slice(0, 13), { cache: "no-cache" })
+  .then(r => r.ok ? r.json() : null).catch(() => null)
+  .then(o => { OUT = o; if (DATA.items.length) { renderControls(); renderAhead(); render(); } });
 fetch("data/forecasts.json?v=" + new Date().toISOString().slice(0, 13), { cache: "no-cache" })
   .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
   .then(j => {
-    DATA = j; renderControls();
+    DATA = j; renderControls(); renderAhead();
     const gen = new Date(j.generated);
     const parts = [`Updated ${gen.toLocaleString("en-GB", { day:"numeric", month:"short", hour:"2-digit", minute:"2-digit" })}`];
     for (const [k, s] of Object.entries(j.sources || {})) parts.push(`<span class="${s.ok ? "" : "bad"}" title="${esc(s.error || "")}"><span class="dot"></span>${SOURCES[k]} ${s.count}${s.ok ? "" : " (stale)"}</span>`);

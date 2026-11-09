@@ -4,10 +4,16 @@ on:
   schedule:
     - cron: "17 5 * * *"   # daily, 07:17 Amsterdam (summer) / 06:17 (winter)
   workflow_dispatch:
+    inputs:
+      outlook:
+        description: "Write Claude's outlook now, even if it is not due"
+        type: boolean
+        default: false
   push:
     branches: [main]
     paths:
       - "crowd-forecasts/fetch.mjs"
+      - "crowd-forecasts/outlook.py"
       - ".github/workflows/crowd-forecasts.yml"
 
 permissions:
@@ -32,6 +38,16 @@ jobs:
         env:
           METACULUS_TOKEN: ${{ secrets.METACULUS_TOKEN }}
         run: node crowd-forecasts/fetch.mjs
+
+      - name: Outlook tests
+        run: python3 -m unittest discover -s crowd-forecasts/tests
+
+      # Settles calls from market prices daily (free); Claude writes the outlook once a week.
+      - name: Claude's outlook and scoring
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          FORCE_OUTLOOK: ${{ github.event.inputs.outlook }}
+        run: python3 crowd-forecasts/outlook.py
 
       - name: Commit if changed
         run: |
