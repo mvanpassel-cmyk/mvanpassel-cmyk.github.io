@@ -202,7 +202,8 @@ def build_prompt(events, mk, due, now):
         '"odds":[{"m":"<[B] market id>","p":0.0,"why":"max 20 words"}],'
         '"settled":[{"c":"<call id>","outcome":"yes|no|unclear","source":"url"}]}\n'
         "Rules: cover the 10 to 14 most consequential events, soonest first; give each 1 to 3 calls that resolve by the "
-        "event's end or shortly after, on what will actually be decided or said. In odds, give your probability for 12 to 20 "
+        "event's end or shortly after, on what will actually be decided or said. List a market under an event only when "
+        "its question is directly about that event or what it decides; leave markets empty otherwise. In odds, give your probability for 12 to 20 "
         "[B] markets most relevant to these events or to his interests, and include every [B] market where you differ from "
         "the crowd by 10 points or more; p is the probability that the market resolves Yes. Settle every earlier call: yes "
         "or no only when you know, otherwise unclear. Only cite URLs that appeared in your search results."
