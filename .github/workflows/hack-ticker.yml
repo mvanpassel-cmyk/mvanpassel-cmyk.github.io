@@ -2,7 +2,7 @@ name: Hack Ticker update
 
 on:
   schedule:
-    - cron: "23 */4 * * *"   # counts every four hours; the AI editor runs every 48 h (see pipeline)
+    - cron: "23 5 * * *"   # daily, 06:23 Amsterdam (winter); the AI editor runs every 48 h (see pipeline)
   workflow_dispatch:
     inputs:
       editor:
