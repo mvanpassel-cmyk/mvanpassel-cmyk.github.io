@@ -293,6 +293,8 @@ def claude_request(body, timeout):
         try:
             with urllib.request.urlopen(req, timeout=timeout) as r:
                 res = json.load(r)
+            if res.get("stop_reason") == "max_tokens":
+                raise RuntimeError("Claude's reply was cut off at the token limit; the headlines stay queued.")
             return "".join(b.get("text", "") for b in res.get("content", []) if b.get("type") == "text")
         except urllib.error.HTTPError as e:
             try:
@@ -302,6 +304,8 @@ def claude_request(body, timeout):
             last = f"HTTP {e.code}" + (f": {msg[:160].rstrip('.')}" if msg else "")
             if e.code in (400, 401, 403, 404):
                 raise RuntimeError(f"Claude API refused the request ({last}). Check the ANTHROPIC_API_KEY secret and the account's credit.")
+        except RuntimeError:
+            raise                   # a cut-off reply: retrying would only cost the same again
         except Exception as e:  # network or timeout
             last = type(e).__name__
         print(f"Claude call failed ({last}); attempt {attempt + 1}/3", file=sys.stderr)
@@ -330,7 +334,7 @@ def ask_claude(cands, recent):
             "\"ai\":true if AI systems carried out the attack or were the target,"
             "\"summary\":\"one sentence in your own words, max 30 words\","
             "\"note\":\"for same_as only: what is new, max 16 words\",\"restored\":true or null}]}")
-    body = json.dumps({"model": MODEL, "max_tokens": 4000, "system": system,
+    body = json.dumps({"model": MODEL, "max_tokens": 16000, "system": system,
                        "messages": [{"role": "user", "content": user}]}).encode()
     return claude_request(body, 180)
 

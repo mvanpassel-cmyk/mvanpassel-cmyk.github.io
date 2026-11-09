@@ -215,7 +215,7 @@ def claude(system, user, max_searches, timeout=300):
     tools = [{"type": "web_search_20250305", "name": "web_search", "max_uses": max_searches}] if max_searches else []
     text, urls, searches = "", {}, 0
     for _ in range(4):
-        body = {"model": MODEL, "max_tokens": 9000, "system": system, "messages": msgs}
+        body = {"model": MODEL, "max_tokens": 32000, "system": system, "messages": msgs}
         if tools:
             body["tools"] = tools
         res = post(body, timeout)
@@ -231,6 +231,8 @@ def claude(system, user, max_searches, timeout=300):
                 for c in b.get("citations") or []:
                     if c.get("url"):
                         urls[c["url"]] = c.get("title") or c["url"]
+        if res.get("stop_reason") == "max_tokens":
+            raise RuntimeError("Claude's reply was cut off at the token limit; the outlook waits for tomorrow.")
         if res.get("stop_reason") != "pause_turn":
             print(f"Claude: stop_reason={res.get('stop_reason')}, searches={searches}, usage={res.get('usage')}, "
                   f"blocks={[b.get('type') for b in res.get('content', [])]}", file=sys.stderr)
@@ -273,9 +275,8 @@ def parse(text):
             obj, _ = dec.raw_decode(text, m.start())
         except json.JSONDecodeError:
             continue
-        if isinstance(obj, dict) and ("events" in obj or "brief" in obj):
+        if isinstance(obj, dict) and "events" in obj:
             return obj
-        found = found or (obj if isinstance(obj, dict) else None)
     return found
 
 
@@ -342,7 +343,7 @@ def apply(reply, events, mk, calls, urls, now):
 
 
 def due(outlook, now, force=False):
-    if force or not outlook.get("generated"):
+    if force or not outlook.get("generated") or not outlook.get("events"):
         return True
     last = datetime.fromisoformat(outlook["generated"].replace("Z", "+00:00"))
     return now - last >= timedelta(days=EVERY_DAYS) - timedelta(hours=4)
@@ -377,6 +378,8 @@ def main():
                 print("Unparsed reply, start:", text[:700].replace("\n", " "), "\n... end:", text[-500:].replace("\n", " "), file=sys.stderr)
                 raise RuntimeError("Claude's reply was not valid JSON; the outlook waits for tomorrow.")
             new = apply(reply, events, mk, calls, urls, now)
+            if not new["events"]:
+                raise RuntimeError("Claude's reply held no usable events; the outlook waits for tomorrow.")
             status = {"settled_today": status["settled_today"], "searches": searches, "events": len(new["events"]),
                       "odds": len(new["odds"])}
             outlook = new

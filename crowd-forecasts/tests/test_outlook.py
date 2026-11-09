@@ -20,7 +20,9 @@ class T(unittest.TestCase):
         self.assertIsNone(o.prob("x"))
 
     def test_parse(self):
-        self.assertEqual(o.parse('Here: {"a": 1} done')["a"], 1)
+        self.assertEqual(o.parse('Here: ```json\n{"brief": "b", "events": []}\n``` done')["brief"], "b")
+        self.assertIsNone(o.parse('{"events": [{"e": "cut off'))       # truncated reply
+        self.assertIsNone(o.parse('{"other": 1}'))
         self.assertIsNone(o.parse("no json"))
 
     def test_settle_from_market_price(self):
@@ -61,8 +63,9 @@ class T(unittest.TestCase):
 
     def test_due(self):
         self.assertTrue(o.due({}, NOW))
-        self.assertFalse(o.due({"generated": "2026-11-05T05:30:00Z"}, NOW))
-        self.assertTrue(o.due({"generated": "2026-11-02T05:40:00Z"}, NOW))
+        self.assertFalse(o.due({"generated": "2026-11-05T05:30:00Z", "events": [1]}, NOW))
+        self.assertTrue(o.due({"generated": "2026-11-05T05:30:00Z", "events": []}, NOW))   # an empty outlook is retried
+        self.assertTrue(o.due({"generated": "2026-11-02T05:40:00Z", "events": [1]}, NOW))
 
 
 if __name__ == "__main__":
