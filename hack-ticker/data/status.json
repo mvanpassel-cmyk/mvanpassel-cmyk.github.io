@@ -1,21 +1,22 @@
 {
- "last_run": "2026-11-09T07:18:29Z",
+ "last_run": "2026-11-09T07:33:54Z",
  "feeds_ok": 13,
  "feeds_failed": [],
  "sources_failed": [],
  "news_new": 0,
  "incidents_added": 0,
- "ai": false,
+ "ai": true,
  "model": "claude-sonnet-5-5",
  "ransomware_new": 0,
- "note": "No ANTHROPIC_API_KEY secret: news is counted but not turned into incidents.",
+ "editor_last": "2026-11-09T07:33:54Z",
+ "editor_read": 48,
  "coverage": {
   "News feeds": "13/13",
-  "AI editor": "off",
+  "AI editor": "on",
   "Have I Been Pwned": "ok",
   "DeFiLlama": "ok",
   "ransomware.live": "ok"
  },
  "tracking_since": "2026-10-31",
- "queued": 48
+ "queued": 0
 }
