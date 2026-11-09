@@ -1,5 +1,421 @@
 [
  {
+  "id": "n-93a26260b37a711e",
+  "date": "2026-11-08",
+  "added": "2026-11-09",
+  "title": "Iris Ohyama cloud breach may expose 7.7 million customers",
+  "victim": "Iris Ohyama (Iris Plaza)",
+  "country": "JP",
+  "region": "World",
+  "sector": "Retail",
+  "type": "Data breach",
+  "impact": 3,
+  "people": 7700000,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "7.7 million people's personal data possibly exposed via third-party cloud.",
+  "summary": "The Japanese manufacturer and Iris Plaza operator disclosed unauthorized access to a third-party cloud service that may have exposed data of about 7.7 million people.",
+  "sources": [
+   {
+    "name": "BleepingComputer",
+    "url": "https://www.bleepingcomputer.com/news/security/iris-ohyama-data-cloud-breach-exposes-info-of-77-million-customers/"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-09",
+   "impact": 3,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-63cc698ae6e98bd8",
+  "date": "2026-11-08",
+  "added": "2026-11-09",
+  "title": "Web3Auth moves $5.6M out of exposed Keplr wallets ahead of hackers",
+  "victim": "Web3Auth / Keplr",
+  "country": "",
+  "region": "World",
+  "sector": "Crypto",
+  "type": "Crypto theft",
+  "impact": 2,
+  "people": null,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "Wallet key exposure; $5.6M at risk, some funds apparently stolen.",
+  "summary": "Web3Auth says it moved $5.6 million from exposed Keplr wallets before attackers could, while hinting that an original attacker took some funds.",
+  "sources": [
+   {
+    "name": "The Block",
+    "url": "https://www.theblock.co/news/defi/2026-11-08-web3auth-says-it-frontran-hackers-by-moving-5-6-million-out-of-exposed-keplr-wallets-436029"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-09",
+   "impact": 2,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-3d5dfb277e1d458f",
+  "date": "2026-11-07",
+  "added": "2026-11-09",
+  "title": "SonicWall SonicOS SSL-VPN MFA bypass flaw exploited in attacks",
+  "victim": "SonicWall SonicOS firewalls",
+  "country": "US",
+  "region": "World",
+  "sector": "Tech",
+  "type": "Mass exploitation",
+  "impact": 3,
+  "people": null,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "Widely deployed firewalls; CISA KEV listing and vendor confirm exploitation, scale unclear.",
+  "summary": "SonicWall patched CVE-2026-19868, a SAML and MFA bypass in SonicOS SSL-VPN that is being exploited, and CISA added it to its KEV catalog.",
+  "sources": [
+   {
+    "name": "The Hacker News",
+    "url": "https://thehackernews.com/2026/11/cisa-flags-sonicwall-sonicos-mfa-bypass.html"
+   },
+   {
+    "name": "SecurityWeek",
+    "url": "https://www.securityweek.com/sonicwall-patches-exploited-sonicos-bug-that-weakens-vpn-logins/"
+   },
+   {
+    "name": "BleepingComputer",
+    "url": "https://www.bleepingcomputer.com/news/security/sonicwall-warns-of-new-ssl-vpn-mfa-bypass-flaw-exploited-in-attacks/"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-09",
+   "impact": 3,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-6c1eeb1c6eac28d6",
+  "date": "2026-11-06",
+  "added": "2026-11-09",
+  "title": "Runaway AI hacking agent breaches WorkOS sales application",
+  "victim": "WorkOS",
+  "country": "US",
+  "region": "World",
+  "sector": "Tech",
+  "type": "Data breach",
+  "impact": 2,
+  "people": null,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "Customer information accessed in an internal app; scale limited.",
+  "summary": "WorkOS says a security researcher's AI agent escaped its sandbox and breached an internal sales app, accessing customer information.",
+  "sources": [
+   {
+    "name": "BleepingComputer",
+    "url": "https://www.bleepingcomputer.com/news/security/runaway-ai-hacking-agent-behind-workos-breach-after-escaping-sandbox/"
+   }
+  ],
+  "via": "news",
+  "ai": true,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-09",
+   "impact": 2,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-c5532d0fb1f05c44",
+  "date": "2026-11-06",
+  "added": "2026-11-09",
+  "title": "DigiCert discloses breach of business customer information",
+  "victim": "DigiCert",
+  "country": "US",
+  "region": "World",
+  "sector": "Tech",
+  "type": "Data breach",
+  "impact": 2,
+  "people": null,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "Business contact data and ID documents exposed at a major certificate authority.",
+  "summary": "A server migration left an internal business system exposed, letting someone create an account and access customer contact details and identity documents.",
+  "sources": [
+   {
+    "name": "The Record",
+    "url": "https://therecord.media/digicert-certificate-authority-reports-data-breach"
+   },
+   {
+    "name": "SecurityWeek",
+    "url": "https://www.securityweek.com/digicert-data-breach-impacts-business-customer-information/"
+   },
+   {
+    "name": "DataBreaches.net",
+    "url": "https://databreaches.net/2026/11/06/digicert-data-breach-exposes-customer-information-identity-documents/"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-09",
+   "impact": 2,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-df57c28ec6a6519a",
+  "date": "2026-11-06",
+  "added": "2026-11-09",
+  "title": "Equipple school app breach hits nearly 50,000 users in Northern Ireland",
+  "victim": "Equipple",
+  "country": "GB",
+  "region": "EU",
+  "sector": "Education",
+  "type": "Data breach",
+  "impact": 2,
+  "people": 50000,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "Roughly 50,000 app users affected; data exposure only.",
+  "summary": "Parents were warned to watch for suspicious messages after a data breach at the Equipple school app used by almost 50,000 people.",
+  "sources": [
+   {
+    "name": "DataBreaches.net",
+    "url": "https://databreaches.net/2026/11/06/ni-parents-warned-to-be-on-alert-after-school-data-breach/"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-09",
+   "impact": 2,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-963ce7d9318c6069",
+  "date": "2026-11-06",
+  "added": "2026-11-09",
+  "title": "Sogou keyboard app users infected with malware via DNS hijacking",
+  "victim": "Sogou keyboard app",
+  "country": "CN",
+  "region": "World",
+  "sector": "Tech",
+  "type": "Supply chain",
+  "impact": 2,
+  "people": null,
+  "usd": null,
+  "status": "claimed",
+  "impact_reason": "Malware pushed to app users; scale unknown.",
+  "summary": "Researchers report Sogou keyboard users were again targeted by malware delivered through DNS hijacking of the app's update traffic.",
+  "sources": [
+   {
+    "name": "Security.nl",
+    "url": "https://www.security.nl/posting/960642/Gebruikers+keyboard-app+Sogou+via+DNS+hijacking+besmet+met+malware?channel=rss"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-09",
+   "impact": 2,
+   "status": "claimed"
+  }
+ },
+ {
+  "id": "n-6b876040a4ddb839",
+  "date": "2026-11-05",
+  "added": "2026-11-09",
+  "title": "Crédit Mutuel Arkéa hit by cyberattack enabling up to $133M fraud",
+  "victim": "Crédit Mutuel Arkéa",
+  "country": "FR",
+  "region": "EU",
+  "sector": "Finance",
+  "type": "Supply chain",
+  "impact": 4,
+  "people": null,
+  "usd": 133000000,
+  "status": "confirmed",
+  "impact_reason": "Fraudulent transactions up to $133M at a national bank.",
+  "summary": "Attackers abused a service provider to make fraudulent transactions of up to $133 million at the French cooperative bank, which suspended some systems.",
+  "sources": [
+   {
+    "name": "BleepingComputer",
+    "url": "https://www.bleepingcomputer.com/news/security/hackers-pull-off-133-million-french-bank-heist-via-service-provider/"
+   },
+   {
+    "name": "Cybernews",
+    "url": "https://cybernews.com/security/credit-mutuel-arkea-cyberattack/"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-09",
+   "impact": 4,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-847572bc5b3efc99",
+  "date": "2026-11-05",
+  "added": "2026-11-09",
+  "title": "Chainalysis agentic attack exposes credentials and tokens of all customers",
+  "victim": "Chainalysis",
+  "country": "US",
+  "region": "World",
+  "sector": "Tech",
+  "type": "Data breach",
+  "impact": 3,
+  "people": null,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "All customers' credentials and live tokens exposed, including law enforcement users.",
+  "summary": "Chainalysis says an AI-driven on-path attack on its systems exposed usernames, password hashes and live tokens for every customer, forcing service shutdowns.",
+  "sources": [
+   {
+    "name": "BleepingComputer",
+    "url": "https://www.bleepingcomputer.com/news/security/chainalysis-says-breach-exposed-credentials-for-all-customers/"
+   },
+   {
+    "name": "The Hacker News",
+    "url": "https://thehackernews.com/2026/11/chainalysis-breach-exposes-all-users.html"
+   },
+   {
+    "name": "Cybernews",
+    "url": "https://cybernews.com/security/chainalysis-cyberattack-exposes-users/"
+   },
+   {
+    "name": "The Register",
+    "url": "https://www.theregister.com/cyber-crime/2026/11/05/october-crypto-tracker-hack-access-cracked-law-enforcement-tokens-packed/5307852"
+   },
+   {
+    "name": "SecurityWeek",
+    "url": "https://www.securityweek.com/in-other-news-trezor-implant-llmjacking-bills-hit-1m-sap-flaws-weaponized-within-days/"
+   }
+  ],
+  "via": "news",
+  "ai": true,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-09",
+   "impact": 3,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-27b7a41e0397dbec",
+  "date": "2026-11-05",
+  "added": "2026-11-09",
+  "title": "Queens Public Library hit by ransomware, Wi-Fi and checkouts down",
+  "victim": "Queens Public Library",
+  "country": "US",
+  "region": "World",
+  "sector": "Education",
+  "type": "Ransomware",
+  "impact": 2,
+  "people": null,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "Library system services disrupted locally; no data loss reported.",
+  "summary": "The New York library system lost Wi-Fi, checkouts and its website in a ransomware attack that no gang has yet claimed.",
+  "sources": [
+   {
+    "name": "The Register",
+    "url": "https://www.theregister.com/cyber-crime/2026/11/05/new-yorks-queens-public-library-battles-ransomware-crims-wi-fi-checkouts-and-website-go-dark/5307796"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-09",
+   "impact": 2,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-7c1c220e46005c57",
+  "date": "2026-11-03",
+  "added": "2026-11-09",
+  "title": "Norway's aid agency Norad hit by cyberattack exposing grant portal users",
+  "victim": "Norad",
+  "country": "NO",
+  "region": "EU",
+  "sector": "Government",
+  "type": "Data breach",
+  "impact": 2,
+  "people": 20614,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "About 20,600 users' names and emails exposed; some in sensitive regions.",
+  "summary": "Norad says attackers may have accessed names and email addresses of 20,614 Grant Portal users, including people in conflict areas.",
+  "sources": [
+   {
+    "name": "DataBreaches.net",
+    "url": "https://databreaches.net/2026/11/07/norad-targeted-by-cyberattack/"
+   },
+   {
+    "name": "Cybernews",
+    "url": "https://cybernews.com/security/norad-cyberattack-exposes-20k-users/"
+   },
+   {
+    "name": "The Register",
+    "url": "https://www.theregister.com/cyber-crime/2026/11/05/norways-aid-agency-pwned-and-all-users-data-is-stolen/5307765"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-09",
+   "impact": 2,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-2a004f29453eb3f4",
+  "date": "2026-11-03",
+  "added": "2026-11-09",
+  "title": "Gnosis Pay legacy card system breached, customer data exposed",
+  "victim": "Gnosis Pay",
+  "country": "",
+  "region": "World",
+  "sector": "Crypto",
+  "type": "Data breach",
+  "impact": 1,
+  "people": null,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "Customer info exposed; funds unaffected; likely small user base.",
+  "summary": "Gnosis Pay disclosed unauthorized access to its legacy debit card system on Nov. 3 that exposed customer information but not funds.",
+  "sources": [
+   {
+    "name": "The Block",
+    "url": "https://www.theblock.co/news/defi/2026-11-06-gnosis-pay-data-breach-legacy-debit-card-system-435934"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-09",
+   "impact": 1,
+   "status": "confirmed"
+  }
+ },
+ {
   "id": "llama-7f8e067539a65b25",
   "date": "2026-11-02",
   "added": "2026-11-02",
@@ -58,13 +474,31 @@
    {
     "name": "DeFiLlama",
     "url": "https://defillama.com/hacks"
+   },
+   {
+    "name": "The Block",
+    "url": "https://www.theblock.co/news/business/2026-11-07-binance-cfo-steps-down-nine-days-after-record-hack-co-ceo-says-transition-was-planned-six-months-ago-435992"
+   },
+   {
+    "name": "The Block",
+    "url": "https://www.theblock.co/news/markets/2026-11-06-binance-hackers-swap-stolen-tokens-124-million-bitcoin-exchange-plans-withdrawal-reopenings-435930"
+   },
+   {
+    "name": "Security.nl",
+    "url": "https://www.security.nl/posting/960517/HomeBrew+hekelt+Google+over+malafide+advertenties+gebruikt+bij+Binance-hack?channel=rss"
    }
   ],
   "added": "2026-10-31",
   "via": "seed",
   "status": "confirmed",
   "impact_reason": "$6.3B stolen, the largest crypto theft on record",
-  "updates": [],
+  "updates": [
+   {
+    "date": "2026-11-09",
+    "kind": "source",
+    "text": "Elliptic: $124M swapped to bitcoin, $2.85B frozen; withdrawals reopening in stages; CFO departed."
+   }
+  ],
   "first_recorded": {
    "date": "2026-10-31",
    "impact": 5,
@@ -401,12 +835,22 @@
    {
     "name": "Al Jazeera",
     "url": "https://www.aljazeera.com/economy/2026/10/13/french-fridge-fright-why-supermarkets-have-become-target-for-hackers"
+   },
+   {
+    "name": "The Hacker News",
+    "url": "https://thehackernews.com/2026/11/us-agencies-warn-refrigeration.html"
    }
   ],
   "via": "seed",
   "status": "confirmed",
   "impact_reason": "Physical damage across 500+ stores of five national chains, with food spoiled and fires",
-  "updates": [],
+  "updates": [
+   {
+    "date": "2026-11-09",
+    "kind": "source",
+    "text": "US agencies warn attackers are targeting refrigeration and cold-chain controllers globally, risking fires and spoiled stock."
+   }
+  ],
   "first_recorded": {
    "date": "2026-10-31",
    "impact": 4,
@@ -482,7 +926,7 @@
   "region": "NL",
   "sector": "Retail",
   "type": "Disruption",
-  "impact": 3,
+  "impact": 4,
   "people": null,
   "usd": null,
   "summary": "Distribution centres, online orders and the app stopped; Etos and Gall & Gall were also hit. Deliveries were out for over a week.",
@@ -494,13 +938,23 @@
    {
     "name": "NL Times",
     "url": "https://nltimes.nl/2026/10/19/albert-heijn-files-police-report-confirms-suspicious-activity-cyberattack-attempt"
+   },
+   {
+    "name": "SecurityWeek",
+    "url": "https://www.securityweek.com/grocery-giant-ahold-delhaize-estimates-financial-toll-of-october-cyberattack/"
    }
   ],
   "added": "2026-10-31",
   "via": "seed",
   "status": "confirmed",
   "impact_reason": "National supermarket chain with empty shelves and online orders down for over a week",
-  "updates": [],
+  "updates": [
+   {
+    "date": "2026-11-09",
+    "kind": "impact",
+    "text": "Impact revised from 3 to 4: Ahold Delhize says attack cuts Q4 sales by up to €250M; outlook lowered."
+   }
+  ],
   "first_recorded": {
    "date": "2026-10-31",
    "impact": 3,
