@@ -36,6 +36,23 @@ class T(unittest.TestCase):
     def test_bad_json(self):
         self.assertEqual(update.parse_picks("no json here", 3), [])
 
+    def test_editor_weekly(self):
+        from datetime import datetime, timedelta, timezone
+        now = datetime(2026, 11, 15, 4, 29, tzinfo=timezone.utc)
+        self.assertTrue(update.editor_due({}, now))
+        self.assertFalse(update.editor_due({"editor_last": "2026-11-09T04:31:00Z"}, now - timedelta(days=1)))
+        self.assertTrue(update.editor_due({"editor_last": "2026-11-08T04:35:00Z"}, now))   # cron a few minutes late
+        self.assertTrue(update.editor_due({"editor_last": "2026-11-14T04:29:00Z"}, now, force=True))
+
+    def test_select_spreads_over_feeds_and_days(self):
+        q = [{"id": f"{s}{i}", "source": s, "date": f"2026-11-{1 + i % 7:02d}T10:00:00Z", "queued": "x"}
+             for s, n in (("busy", 200), ("small", 5)) for i in range(n)]
+        out = update.select(q, budget=40, per_source=30)
+        by = {s: sum(1 for o in out if o["source"] == s) for s in ("busy", "small")}
+        self.assertEqual(by, {"busy": 30, "small": 5})   # per-feed cap holds even with budget left
+        self.assertEqual(len({o["date"][:10] for o in out if o["source"] == "busy"}), 7)   # every day of the week
+        self.assertEqual(out, sorted(out, key=lambda o: o["date"], reverse=True))
+
 
 if __name__ == "__main__":
     unittest.main()

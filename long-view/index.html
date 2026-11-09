@@ -7,7 +7,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/logos/long-view-32.png">
 <link rel="icon" type="image/svg+xml" href="/logos/long-view.svg">
 <link rel="apple-touch-icon" href="/logos/long-view-180.png">
-<meta name="description" content="News that will still matter in a hundred years. A daily selection of stories with lasting significance, each with its time horizon.">
+<meta name="description" content="News that will still matter in a hundred years. A weekly selection of stories with lasting significance, each with its time horizon.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
@@ -203,7 +203,10 @@ async function load(){
     stories=st.filter(s=>s&&s.headline&&s.url&&HZ.includes(s.horizon)).sort((a,b)=>(!!a.archive-!!b.archive)||b.date.localeCompare(a.date)||(b.score||0)-(a.score||0));
     render();
     if(ss&&ss.last_run){const d=new Date(ss.last_run);
-      $("#status").textContent=`Last checked ${d.toLocaleDateString("en-GB",{day:"numeric",month:"long"})}: ${ss.candidates} new items read from ${ss.feeds_ok} feeds, ${ss.picked} kept.`+(ss.ai?"":" (AI editor not yet switched on.)")}
+      const f=x=>new Date(x).toLocaleDateString("en-GB",{day:"numeric",month:"long"});
+      $("#status").textContent=`Feeds checked ${f(ss.last_run)} (${ss.feeds_ok} feeds, ${ss.queued||0} headlines waiting). `+
+        (ss.editor_last?`The editor reads them once a week; last on ${f(ss.editor_last)}: ${ss.editor_read} read, ${ss.editor_picked} kept.`:(ss.ai?"The editor reads them once a week.":"AI editor not yet switched on."))+
+        (ss.note&&ss.ai?` ${ss.note}`:"")}
     else $("#status").textContent=ss&&ss.note?ss.note:"";
   }catch(e){$("#list").innerHTML=`<p class="empty">Couldn't load the stories. Reload the page to try again.</p>`;$("#status").textContent=""}
 }

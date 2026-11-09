@@ -21,9 +21,12 @@ UA = "Mozilla/5.0 (compatible; LongViewBot/1.0; +https://mvanpassel-cmyk.github.
 MODEL = os.environ.get("LONG_VIEW_MODEL", "claude-sonnet-5-5")
 MAX_PICKS = int(os.environ.get("LONG_VIEW_MAX_PICKS", "4"))
 MIN_SCORE = int(os.environ.get("LONG_VIEW_MIN_SCORE", "80"))
-WINDOW_DAYS = 4
+WINDOW_DAYS = 9            # headlines wait in the queue this long, so a weekly editor sees the whole week
 SEEN_KEEP_DAYS = 90
-MAX_CANDIDATES = 220
+BATCH = 220                # headlines per Claude call
+WEEK_BUDGET = int(os.environ.get("LONG_VIEW_WEEK_BUDGET", "660"))   # headlines the editor reads per week
+PER_SOURCE_WEEK = 30       # so one busy feed cannot crowd out the rest
+EDITOR_EVERY_DAYS = int(os.environ.get("LONG_VIEW_EDITOR_DAYS", "7"))
 HORIZONS = ["years", "decades", "centuries", "millennia"]
 THEMES = ["Climate", "Nature", "Health", "Science", "Technology", "Space", "Energy", "Society", "Governance"]
 
@@ -166,12 +169,12 @@ def ask_claude(candidates, recent_headlines):
         "product launches, and incremental studies. Look for turning points and long arcs: firsts in science and exploration, "
         "irreversible shifts in climate, ecosystems or demography, durable treaties and institutions, changes in how humans live, "
         "die, work or think, technologies that alter what is possible, and the end of something old. "
-        "Most days only zero to two stories qualify; returning none is a correct answer. "
+        "Only a handful of stories a week qualify; returning none is a correct answer. "
         "Never pick two items about the same development, and skip anything already covered in the recent list."
     )
     user = (
         f"Recent picks (do not repeat these developments):\n- " + "\n- ".join(recent_headlines[:60]) +
-        f"\n\nToday's candidates:\n" + "\n".join(lines) +
+        f"\n\nThis week's candidates:\n" + "\n".join(lines) +
         f"\n\nReturn JSON only, no prose: {{\"picks\":[{{\"i\":<index>,\"score\":<0-100 lasting significance>,"
         f"\"horizon\":\"years|decades|centuries|millennia\",\"theme\":\"one of {', '.join(THEMES)}\","
         f"\"headline\":\"neutral headline in your own words, max 12 words\","
@@ -213,17 +216,66 @@ def parse_picks(text, n):
     return picks[:MAX_PICKS]
 
 
+def editor_due(prev, now, force=False):
+    """The paid editor runs once every EDITOR_EVERY_DAYS; the free feed check runs daily."""
+    if force or not prev.get("editor_last"):
+        return True
+    last = datetime.fromisoformat(prev["editor_last"].replace("Z", "+00:00"))
+    return now - last >= timedelta(days=EDITOR_EVERY_DAYS) - timedelta(hours=4)
+
+
+def spread(items, n):
+    """Pick n items evenly across a date-sorted list, so every day of the week is represented."""
+    if len(items) <= n:
+        return list(items)
+    return [items[int(i * len(items) / n)] for i in range(n)]
+
+
+def select(queue, budget=None, per_source=PER_SOURCE_WEEK):
+    """Choose the headlines the editor reads: at most per_source per feed, spread over the
+    week, then round-robin across feeds up to the weekly budget. Returns newest first."""
+    budget = WEEK_BUDGET if budget is None else budget
+    by = {}
+    for q in sorted(queue, key=lambda q: q["date"] or q["queued"]):
+        by.setdefault(q["source"], []).append(q)
+    lanes = [spread(v, per_source) for _, v in sorted(by.items())]
+    out = []
+    while len(out) < budget and any(lanes):
+        for lane in lanes:
+            if lane and len(out) < budget:
+                out.append(lane.pop(0))
+    return sorted(out, key=lambda q: q["date"] or q["queued"], reverse=True)
+
+
+def to_queue(it, source, k, now):
+    return {"id": k, "title": it["title"], "url": it["url"], "summary": it["summary"][:400], "source": source,
+            "date": it["date"].strftime("%Y-%m-%dT%H:%M:%SZ") if it["date"] else None,
+            "queued": now.strftime("%Y-%m-%dT%H:%M:%SZ")}
+
+
+def from_queue(q):
+    c = dict(q)
+    c["date"] = datetime.fromisoformat(q["date"].replace("Z", "+00:00")) if q.get("date") else None
+    return c
+
+
 def main():
     now = datetime.now(timezone.utc)
     feeds = load("feeds.json", [])
     stories = load("stories.json", [])
     seen = load("seen.json", {})
+    queue = load("queue.json", [])
+    prev = load("status.json", {})
     have = {s["id"] for s in stories}
+    queued = {q["id"] for q in queue}
     status = {"last_run": now.strftime("%Y-%m-%dT%H:%M:%SZ"), "feeds_ok": 0, "feeds_failed": [],
-              "candidates": 0, "picked": 0, "ai": bool(os.environ.get("ANTHROPIC_API_KEY")), "model": MODEL}
+              "new_items": 0, "ai": bool(os.environ.get("ANTHROPIC_API_KEY")), "model": MODEL}
+    for k in ("editor_last", "editor_read", "editor_picked"):
+        if k in prev:
+            status[k] = prev[k]
 
+    # 1) free, daily: add new headlines to the queue
     cutoff = now - timedelta(days=WINDOW_DAYS)
-    cands, fresh_keys = [], []
     for f in feeds:
         try:
             items = parse_feed(fetch(f["url"]))
@@ -234,55 +286,58 @@ def main():
             continue
         for it in items[:40]:
             k = key(it["url"])
-            if k in seen or k in have:
+            if k in seen or k in have or k in queued:
                 continue
             if it["date"] and it["date"] < cutoff:
                 continue
-            it.update(source=f["name"], id=k)
-            cands.append(it)
-            fresh_keys.append(k)
+            queue.append(to_queue(it, f["name"], k, now))
+            queued.add(k)
+            status["new_items"] += 1
+    limit = cutoff.strftime("%Y-%m-%dT%H:%M:%SZ")
+    queue = [q for q in queue if (q["date"] or q["queued"]) >= limit]
 
-    # spread the budget over sources so one busy feed cannot crowd out the rest
-    per = {}
-    trimmed = []
-    for c in sorted(cands, key=lambda c: c["date"] or now, reverse=True):
-        per[c["source"]] = per.get(c["source"], 0) + 1
-        if per[c["source"]] <= 18:
-            trimmed.append(c)
-    cands = trimmed[:MAX_CANDIDATES]
-    status["candidates"] = len(cands)
-
-    picks = []
-    reviewed = False
+    # 2) paid, weekly: the editor reads a spread of the queue in batches
     if not status["ai"]:
-        status["note"] = "No ANTHROPIC_API_KEY secret set: candidates fetched, nothing selected."
+        status["note"] = "No ANTHROPIC_API_KEY secret set: headlines are collected, nothing selected."
         print(status["note"])
-    elif cands:
+    elif queue and editor_due(prev, now, os.environ.get("FORCE_EDITOR") == "true"):
+        chosen = [from_queue(q) for q in select(queue)]
         recent = [s["headline"] for s in stories[:60]]
-        try:
-            picks = ask_claude(cands, recent)
-            reviewed = True
-        except RuntimeError as e:   # keep the run green and say why on the page
-            status["note"] = str(e)
-            print(status["note"], file=sys.stderr)
-        for p in picks:
-            c = cands[p["i"]]
-            stories.insert(0, {"id": c["id"], "date": (c["date"] or now).strftime("%Y-%m-%d"),
-                               "added": now.strftime("%Y-%m-%d"), "headline": p["headline"], "title": c["title"],
-                               "url": c["url"], "source": c["source"], "horizon": p["horizon"], "theme": p["theme"],
-                               "score": p["score"], "why": p["why"]})
-        status["picked"] = len(picks)
-
-    # only remember candidates as seen when an editor actually looked at them
-    if reviewed:
-        for k in fresh_keys:
-            seen[k] = now.strftime("%Y-%m-%d")
+        done, picked, failed = set(), 0, False
+        for b in range(0, len(chosen), BATCH):
+            batch = chosen[b:b + BATCH]
+            try:
+                picks = ask_claude(batch, recent)
+            except RuntimeError as e:   # keep the run green and say why on the page
+                status["note"] = str(e)
+                print(status["note"], file=sys.stderr)
+                failed = True
+                break
+            for p in picks:
+                c = batch[p["i"]]
+                stories.insert(0, {"id": c["id"], "date": (c["date"] or now).strftime("%Y-%m-%d"),
+                                   "added": now.strftime("%Y-%m-%d"), "headline": p["headline"], "title": c["title"],
+                                   "url": c["url"], "source": c["source"], "horizon": p["horizon"], "theme": p["theme"],
+                                   "score": p["score"], "why": p["why"]})
+                recent.insert(0, p["headline"])
+            picked += len(picks)
+            done |= {c["id"] for c in batch}
+        if done:
+            # a finished week clears the whole queue, including headlines outside the budget;
+            # after a failure only the batches the editor read are cleared
+            clear = {q["id"] for q in queue} if not failed else done
+            for k in clear:
+                seen[k] = now.strftime("%Y-%m-%d")
+            queue = [q for q in queue if q["id"] not in clear]
+            status.update(editor_last=now.strftime("%Y-%m-%dT%H:%M:%SZ"), editor_read=len(done), editor_picked=picked)
+    status["queued"] = len(queue)
     keep_after = (now - timedelta(days=SEEN_KEEP_DAYS)).strftime("%Y-%m-%d")
     seen = {k: d for k, d in seen.items() if d >= keep_after}
 
     stories.sort(key=lambda s: (s["date"], s.get("score", 0)), reverse=True)
     save("stories.json", stories[:3000])
     save("seen.json", seen)
+    save("queue.json", queue)
     save("status.json", status)
     print(json.dumps(status, indent=1))
 

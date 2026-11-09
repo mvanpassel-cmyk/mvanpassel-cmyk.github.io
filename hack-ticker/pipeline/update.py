@@ -19,7 +19,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
 UA = "HackTicker/1.0 (+https://mvanpassel-cmyk.github.io/hack-ticker/)"
 MODEL = os.environ.get("HACK_TICKER_MODEL", "claude-sonnet-5-5")
-WINDOW_DAYS = 3
+WINDOW_DAYS = 4            # headlines wait in the queue this long for the editor
+EDITOR_EVERY_HOURS = int(os.environ.get("HACK_TICKER_EDITOR_HOURS", "48"))   # paid AI editor; counts stay every 4 h
 KEEP_SEEN_DAYS = 60
 TYPES = ["Ransomware", "Data breach", "Crypto theft", "Disruption", "Espionage", "Supply chain", "Sabotage", "Mass exploitation", "Other"]
 SECTORS = ["Health", "Government", "Finance", "Crypto", "Telecom", "Energy", "Transport", "Retail", "Tech",
@@ -411,6 +412,14 @@ def write_csv(incidents):
 
 
 # ---------- main ----------
+def editor_due(prev, now, force=False):
+    """Feeds are counted on every run; the paid editor runs once every EDITOR_EVERY_HOURS."""
+    if force or not prev.get("editor_last"):
+        return True
+    last = datetime.fromisoformat(prev["editor_last"].replace("Z", "+00:00"))
+    return now - last >= timedelta(hours=EDITOR_EVERY_HOURS - 2)
+
+
 def main():
     now = datetime.now(timezone.utc)
     feeds = load("feeds.json", [])
@@ -421,8 +430,13 @@ def main():
     seen = load("seen.json", {})
     counted, reviewed, rw_seen = seen.setdefault("counted", {}), seen.setdefault("reviewed", {}), seen.setdefault("ransomware", {})
     ai = bool(os.environ.get("ANTHROPIC_API_KEY"))
+    prev = load("status.json", {})
+    queue = load("queue.json", {})          # headline key -> headline, waiting for the editor
     status = {"last_run": now.strftime("%Y-%m-%dT%H:%M:%SZ"), "feeds_ok": 0, "feeds_failed": [], "sources_failed": [],
               "news_new": 0, "incidents_added": 0, "ai": ai, "model": MODEL}
+    for k in ("editor_last", "editor_read"):
+        if k in prev:
+            status[k] = prev[k]
 
     # 1) news: count every new hack-related headline per week, collect recent ones for the editor
     cands = []
@@ -443,9 +457,16 @@ def main():
                     w = week(it["date"] or now)
                     weekly["news"][w] = weekly["news"].get(w, 0) + 1
                     status["news_new"] += 1
-            if relevant and k not in reviewed and (not it["date"] or it["date"] >= now - timedelta(days=WINDOW_DAYS)):
-                it.update(source=f["name"], key=k)
-                cands.append(it)
+            if relevant and k not in reviewed and k not in queue and (not it["date"] or it["date"] >= now - timedelta(days=WINDOW_DAYS)):
+                queue[k] = {"title": it["title"], "url": it["url"], "summary": it["summary"][:400], "source": f["name"],
+                            "date": it["date"].strftime("%Y-%m-%dT%H:%M:%SZ") if it["date"] else None,
+                            "queued": now.strftime("%Y-%m-%dT%H:%M:%SZ")}
+    limit = (now - timedelta(days=WINDOW_DAYS)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    queue = {k: q for k, q in queue.items() if (q["date"] or q["queued"]) >= limit}
+    for k, q in queue.items():
+        c = dict(q, key=k)
+        c["date"] = datetime.fromisoformat(q["date"].replace("Z", "+00:00")) if q["date"] else None
+        cands.append(c)
 
     # 2) structured sources
     n_before = len(incidents)
@@ -453,8 +474,8 @@ def main():
     status["incidents_added"] += from_llama(now, incidents, status)
     status["ransomware_new"] = ransomware_counts(now, weekly, status, rw_seen)
 
-    # 3) AI editor turns headlines into incidents
-    if ai and cands:
+    # 3) AI editor turns headlines into incidents, every EDITOR_EVERY_HOURS
+    if ai and cands and editor_due(prev, now, os.environ.get("FORCE_EDITOR") == "true"):
         cands = sorted(cands, key=lambda c: c["date"] or now, reverse=True)[:180]
         cutoff = (now - timedelta(days=45)).strftime("%Y-%m-%d")
         recent = [i for i in incidents if i["date"] >= cutoff]
@@ -486,6 +507,9 @@ def main():
                     status["incidents_added"] += 1
             for c in cands:
                 reviewed[c["key"]] = now.strftime("%Y-%m-%d")
+                queue.pop(c["key"], None)
+            status["editor_last"] = now.strftime("%Y-%m-%dT%H:%M:%SZ")
+            status["editor_read"] = len(cands)
         except RuntimeError as e:
             status["note"] = str(e)
     elif not ai:
@@ -509,6 +533,8 @@ def main():
     write_csv(incidents)
     save("weekly.json", weekly)
     save("seen.json", seen)
+    save("queue.json", queue)
+    status["queued"] = len(queue)
     save("status.json", status)
     print(json.dumps(status, indent=1))
 
