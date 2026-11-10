@@ -108,12 +108,14 @@ body.idle{cursor:none}
 .list h4{grid-column:1/-1;font:700 14px var(--display);color:var(--y);margin:12px 0 2px}
 .keys{color:var(--muted);font-size:13px;margin:14px 0 0}
 .about p{color:var(--muted);max-width:62ch}
-@media (max-width:720px){
-  #where{max-width:calc(100vw - 36px);bottom:calc(max(20px,env(safe-area-inset-bottom)) + 112px)}
+@media (max-width:1180px){
+  #where{max-width:calc(100vw - 36px);bottom:calc(max(20px,env(safe-area-inset-bottom)) + 124px)}
   #dock{left:18px;right:18px;align-items:stretch}
   .row{justify-content:flex-start}
   #filter{text-align:left}
   #mini,#mini canvas{width:76px;height:76px}
+}
+@media (max-width:720px){
   .hide-s{display:none}
 }
 @media (prefers-reduced-motion:reduce){ #iris{transition:none} .ring{animation:none} }
