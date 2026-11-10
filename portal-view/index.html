@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Portal View</title>
+<meta name="description" content="Open a window onto a public live camera somewhere in the world: a harbour, a waterhole, a station, a volcano. Go lucky, or pick a country or theme.">
+<meta name="theme-color" content="#0E0B1F">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" type="image/png" sizes="32x32" href="/logos/portal-view-32.png">
+<link rel="icon" type="image/svg+xml" href="/logos/portal-view.svg">
+<link rel="apple-touch-icon" href="/logos/portal-view-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Syne:wght@600;700;800&display=swap">
+<style>
+@property --r { syntax: "<length-percentage>"; inherits: false; initial-value: 0vmax; }
+:root{
+  --night:#0E0B1F; --ink:#F3F0FF; --muted:#A9A4C7; --glass:rgba(14,11,31,.66); --edge:rgba(243,240,255,.16);
+  --c:#00B7EB; --m:#FF2D9A; --y:#FFE600;
+  --display:"Syne",ui-sans-serif,system-ui,sans-serif; --body:"Instrument Sans",ui-sans-serif,system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--night);color:var(--ink);font:15px/1.45 var(--body);overflow:hidden;overscroll-behavior:none}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--y);outline-offset:3px;border-radius:6px}
+[hidden]{display:none!important}
+
+/* the view */
+#stage{position:fixed;inset:0;background:#000;overflow:hidden}
+#stage iframe,#player{position:absolute;left:50%;top:50%;width:max(100vw,177.78vh);height:max(100vh,56.25vw);transform:translate(-50%,-50%);border:0;pointer-events:none}
+#shade{position:fixed;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(8,6,20,.82) 0,rgba(8,6,20,.28) 26%,transparent 46%),linear-gradient(to bottom,rgba(8,6,20,.5) 0,transparent 18%);transition:opacity .6s}
+
+/* the iris: night everywhere except a growing circle */
+#iris{position:fixed;inset:0;background:var(--night);pointer-events:none;--r:0vmax;
+  -webkit-mask:radial-gradient(circle at 50% 50%,transparent var(--r),#000 calc(var(--r) + 1.5px));
+          mask:radial-gradient(circle at 50% 50%,transparent var(--r),#000 calc(var(--r) + 1.5px));
+  transition:--r .9s cubic-bezier(.7,0,.2,1)}
+#iris.open{--r:150vmax}
+.ring{position:fixed;left:50%;top:calc(50% - 48px);width:var(--d);height:var(--d);margin:calc(var(--d) / -2) 0 0 calc(var(--d) / -2);border-radius:50%;border:3px solid;mix-blend-mode:screen;pointer-events:none;opacity:0;transition:opacity .4s}
+.travelling .ring{opacity:.95}
+.ring.c{border-color:var(--c);--d:min(66vmin,530px);animation:wob 3.1s linear infinite}
+.ring.m{border-color:var(--m);--d:min(66vmin,530px);animation:wob 2.3s linear infinite reverse}
+.ring.y{border-color:var(--y);--d:min(66vmin,530px);animation:wob 4.2s linear infinite}
+@keyframes wob{from{transform:rotate(0) translateX(7px) rotate(0)}to{transform:rotate(360deg) translateX(7px) rotate(-360deg)}}
+
+/* travel layer */
+#travel{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;pointer-events:none;opacity:0;transition:opacity .35s}
+.travelling #travel,.start #travel{opacity:1}
+#globe{width:min(62vmin,500px);height:min(62vmin,500px);border-radius:50%;flex:none}
+#route{text-align:center;font-family:var(--display);padding:0 16px;min-height:74px}
+#route b{display:block;font-size:clamp(22px,4.4vw,40px);font-weight:800;letter-spacing:-.02em;line-height:1.1}
+#route span{color:var(--muted);font:500 15px var(--body);font-variant-numeric:tabular-nums}
+
+/* start screen */
+#start{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:space-between;padding:max(28px,env(safe-area-inset-top)) 20px max(30px,env(safe-area-inset-bottom));text-align:center}
+.start #start{display:flex}
+#start h1{font:800 clamp(46px,11vw,112px)/.9 var(--display);letter-spacing:-.045em;margin:0}
+#start h1 i{font-style:normal;display:block;background:linear-gradient(90deg,var(--c),var(--m) 55%,var(--y));-webkit-background-clip:text;background-clip:text;color:transparent}
+#start p{color:var(--muted);max-width:44ch;margin:14px auto 0}
+.go{font:700 19px var(--display);padding:16px 30px;border-radius:999px;border:0;background:var(--ink);color:var(--night);box-shadow:-5px 0 0 var(--c),5px 0 0 var(--m),0 5px 0 var(--y);transition:transform .12s}
+.go:hover{transform:translateY(-2px)}
+.go:active{transform:translateY(1px)}
+#start .sub{margin-top:14px;color:var(--muted);font-size:13.5px}
+
+/* heads-up display */
+#hud{position:fixed;inset:0;pointer-events:none;transition:opacity .5s}
+#hud>*{pointer-events:auto}
+body.idle #hud,body.idle #shade{opacity:0}
+body.idle{cursor:none}
+.start #hud,.travelling #hud{opacity:0;pointer-events:none}
+.start #hud>*,.travelling #hud>*{pointer-events:none}
+#where{position:absolute;left:max(18px,env(safe-area-inset-left));bottom:max(20px,env(safe-area-inset-bottom));max-width:min(60vw,720px)}
+#where .label{color:var(--y);font-weight:600}
+#where h2{font:800 clamp(30px,6.2vw,76px)/.95 var(--display);letter-spacing:-.035em;margin:2px 0 6px;text-wrap:balance;text-shadow:0 2px 24px rgba(0,0,0,.45)}
+#where .country{font:600 17px var(--display)}
+.facts{display:flex;flex-wrap:wrap;gap:6px 8px;margin:12px 0 0;padding:0;list-style:none}
+.facts li{background:var(--glass);border:1px solid var(--edge);border-radius:999px;padding:5px 12px;font-size:13.5px;font-variant-numeric:tabular-nums;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.credit{margin:10px 0 0;font-size:12.5px;color:var(--muted)}
+#brand{position:absolute;left:max(18px,env(safe-area-inset-left));top:max(14px,env(safe-area-inset-top));font:800 17px var(--display);letter-spacing:-.02em;background:none;border:0;padding:4px 0}
+#mini{position:absolute;right:max(16px,env(safe-area-inset-right));top:max(14px,env(safe-area-inset-top));width:104px;height:104px;border-radius:50%;border:0;padding:0;background:none}
+#mini canvas{width:104px;height:104px;border-radius:50%;box-shadow:-2px 0 0 var(--c),2px 0 0 var(--m),0 2px 0 var(--y)}
+#dock{position:absolute;right:max(16px,env(safe-area-inset-right));bottom:max(20px,env(safe-area-inset-bottom));display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.row{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.pill{background:var(--glass);border:1px solid var(--edge);border-radius:999px;padding:9px 15px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-weight:500;white-space:nowrap}
+.pill:hover{border-color:var(--ink)}
+.pill[aria-pressed="true"]{background:var(--ink);color:var(--night);border-color:var(--ink)}
+#filter{font-size:13px;color:var(--muted);text-align:right}
+#filter button{background:none;border:0;text-decoration:underline;padding:0 0 0 6px;color:var(--ink)}
+#toast{position:fixed;left:50%;top:max(18px,env(safe-area-inset-top));transform:translateX(-50%);background:var(--ink);color:var(--night);padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;opacity:0;transition:opacity .3s;pointer-events:none;max-width:88vw;text-align:center}
+#toast.on{opacity:1}
+
+/* sheets */
+.sheet{position:fixed;inset:0;display:grid;place-items:end center;background:rgba(8,6,20,.5);z-index:5}
+.sheet>div{width:min(760px,100%);max-height:min(84vh,760px);overflow:auto;background:var(--night);border:1px solid var(--edge);border-bottom:0;border-radius:22px 22px 0 0;padding:20px 20px max(22px,env(safe-area-inset-bottom));box-shadow:0 -3px 0 var(--c),0 -6px 0 var(--m),0 -9px 0 var(--y)}
+.sheet header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+.sheet h3{font:800 26px var(--display);letter-spacing:-.02em;margin:0}
+.x{background:none;border:1px solid var(--edge);border-radius:999px;padding:6px 14px}
+.themes{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:8px}
+.themes button{text-align:left;background:rgba(243,240,255,.05);border:1px solid var(--edge);border-radius:14px;padding:12px 14px}
+.themes button:hover,.list button:hover{border-color:var(--ink)}
+.themes b{display:block;font:700 17px var(--display)}
+.themes span,.list span{color:var(--muted);font-size:13px}
+.search{width:100%;font:inherit;color:inherit;background:rgba(243,240,255,.06);border:1px solid var(--edge);border-radius:12px;padding:11px 14px;margin-bottom:12px}
+.list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:6px}
+.list button{width:100%;text-align:left;background:none;border:1px solid transparent;border-radius:10px;padding:8px 10px;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.list h4{grid-column:1/-1;font:700 14px var(--display);color:var(--y);margin:12px 0 2px}
+.keys{color:var(--muted);font-size:13px;margin:14px 0 0}
+.about p{color:var(--muted);max-width:62ch}
+@media (max-width:720px){
+  #where{max-width:calc(100vw - 36px);bottom:calc(max(20px,env(safe-area-inset-bottom)) + 112px)}
+  #dock{left:18px;right:18px;align-items:stretch}
+  .row{justify-content:flex-start}
+  #filter{text-align:left}
+  #mini,#mini canvas{width:76px;height:76px}
+  .hide-s{display:none}
+}
+@media (prefers-reduced-motion:reduce){ #iris{transition:none} .ring{animation:none} }
+</style>
+</head>
+<body class="start">
+<div id="stage"><div id="player"></div></div>
+<div id="shade"></div>
+<div id="iris"></div>
+<div class="ring c"></div><div class="ring m"></div><div class="ring y"></div>
+
+<div id="travel" aria-hidden="true">
+  <canvas id="globe" width="1060" height="1060"></canvas>
+  <div id="route"><b id="routeTo"></b><span id="routeKm"></span></div>
+</div>
+
+<div id="start">
+  <div>
+    <h1>Portal <i>View</i></h1>
+    <p>A window onto a public live camera somewhere in the world. A harbour, a waterhole, a station, a volcano. It is live, so nothing much may happen, and that is the point.</p>
+  </div>
+  <div>
+    <button class="go" id="startGo" type="button">Open a portal</button>
+    <div class="sub" id="startSub">Loading the cameras</div>
+  </div>
+</div>
+
+<div id="hud">
+  <button id="brand" type="button" title="About Portal View">Portal View</button>
+  <button id="mini" type="button" title="Browse places" aria-label="Browse places"><canvas width="208" height="208"></canvas></button>
+  <div id="where" aria-live="polite">
+    <div class="label" id="wLabel"></div>
+    <h2 id="wPlace"></h2>
+    <div class="country" id="wCountry"></div>
+    <ul class="facts">
+      <li id="fTime"></li><li id="fSun"></li><li id="fWeather" hidden></li><li id="fHop"></li>
+    </ul>
+    <p class="credit">Live stream by <a id="wBy" target="_blank" rel="noopener"></a></p>
+  </div>
+  <div id="dock">
+    <div id="filter" hidden></div>
+    <div class="row">
+      <button class="pill" id="bThemes" type="button">Themes</button>
+      <button class="pill" id="bPlaces" type="button">Places</button>
+      <button class="pill" id="bDay" type="button" aria-pressed="false" title="Only places where it is day (D)">Daylight</button>
+      <button class="pill" id="bDrift" type="button" aria-pressed="false" title="Move on by itself every three minutes">Drift</button>
+    </div>
+    <div class="row">
+      <button class="pill hide-s" id="bBack" type="button" title="Previous portal (left arrow)">Back</button>
+      <button class="pill" id="bFav" type="button" aria-pressed="false" title="Keep this place (S)">Keep</button>
+      <button class="pill" id="bSound" type="button" aria-pressed="false" title="Sound (M)">Sound</button>
+      <button class="pill hide-s" id="bShare" type="button">Copy link</button>
+      <button class="pill hide-s" id="bFull" type="button" title="Full screen (F)">Full screen</button>
+      <button class="go" id="bGo" type="button" title="Somewhere else (space)">Go lucky</button>
+    </div>
+  </div>
+</div>
+<div id="toast" role="status"></div>
+
+<div class="sheet" id="sThemes" hidden><div role="dialog" aria-labelledby="hThemes">
+  <header><h3 id="hThemes">Pick a theme</h3><button class="x" type="button" data-close>Close</button></header>
+  <div class="themes" id="themeGrid"></div>
+</div></div>
+<div class="sheet" id="sPlaces" hidden><div role="dialog" aria-labelledby="hPlaces">
+  <header><h3 id="hPlaces">Places</h3><button class="x" type="button" data-close>Close</button></header>
+  <input class="search" id="q" type="search" placeholder="Search a place, country or theme" aria-label="Search places">
+  <ul class="list" id="placeList"></ul>
+</div></div>
+<div class="sheet" id="sAbout" hidden><div role="dialog" aria-labelledby="hAbout" class="about">
+  <header><h3 id="hAbout">About Portal View</h3><button class="x" type="button" data-close>Close</button></header>
+  <p>Every portal is a public live stream that its owner publishes on YouTube to be watched: tourist offices, ports, nature reserves, railway enthusiasts, observatories. No security cameras, no private spaces. The stream and its sound belong to the channel named under each place.</p>
+  <p id="aboutCount"></p>
+  <p>Cameras go offline, lose daylight or get covered in snow. If a portal will not open, the page moves on by itself, and a weekly check retires streams that have stopped.</p>
+  <p class="keys">Keys: space or right arrow for somewhere else, left arrow to go back, D daylight, M sound, S keep, F full screen.</p>
+</div></div>
+
+<script src="../nphi-map/lib/d3.min.js"></script>
+<script src="../nphi-map/lib/topojson-client.min.js"></script>
+<script>
+(() => {
+"use strict";
+const $ = s => document.querySelector(s);
+const THEMES = {
+  city: ["City", "Streets, squares and skylines"], beach: ["Beach", "Surf, sand and coastlines"], harbour: ["Harbour", "Ships, ferries and ports"],
+  wild: ["Wildlife", "Waterholes, pandas, otters"], birds: ["Birds", "Nests and feeders"], water: ["Water", "Lakes, rivers and falls"],
+  rail: ["Rails", "Stations and passing trains"], air: ["Runways", "Planes coming and going"], mountain: ["Mountains", "Peaks, passes and ski slopes"],
+  sky: ["Night sky", "Aurora and stars"], fire: ["Volcanoes", "Craters under watch"], sea: ["Underwater", "Reefs and tanks"], space: ["Orbit", "Earth from the space station"],
+};
+const NIGHT_THEMES = new Set(["sky"]), ANYTIME = new Set(["space", "sea"]);
+const store = {
+  get(k, d) { try { const v = localStorage.getItem("pv." + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem("pv." + k, JSON.stringify(v)); } catch (e) { /* private window: preferences just do not stick */ } },
+};
+const S = { cams: [], cur: null, hist: [], pos: -1, theme: null, country: null, day: store.get("day", false), favs: new Set(store.get("favs", [])),
+  km: 0, closed: new Set(), fails: 0, drift: null, land: null, token: 0, sound: false };
+let player = null, playerReady = null, lastState = -1;
+
+/* ---------- sun and distance ---------- */
+const rad = Math.PI / 180;
+function subsolar(d = new Date()) {
+  const n = d / 864e5 - 10957.5, L = (280.46 + .9856474 * n) % 360, g = (357.528 + .9856003 * n) * rad;
+  const lam = (L + 1.915 * Math.sin(g) + .02 * Math.sin(2 * g)) * rad, eps = 23.439 * rad;
+  const dec = Math.asin(Math.sin(eps) * Math.sin(lam)), ra = Math.atan2(Math.cos(eps) * Math.sin(lam), Math.cos(lam));
+  const gmst = (18.697374558 + 24.06570982441908 * n) % 24;
+  let lon = ra / rad - gmst * 15; lon = ((lon + 540) % 360) - 180;
+  return [lon, dec / rad];
+}
+function sunAlt(c, d) {
+  if (c.lat == null) return 90;
+  const [slon, slat] = subsolar(d);
+  return 90 - d3.geoDistance([c.lon, c.lat], [slon, slat]) / rad;
+}
+const sunWord = a => a > 6 ? "Daylight" : a > -6 ? "Twilight" : "Night";
+const km = (a, b) => (a && b && a.lat != null && b.lat != null) ? d3.geoDistance([a.lon, a.lat], [b.lon, b.lat]) * 6371 : 0;
+const fmtKm = v => Math.round(v).toLocaleString("en-GB") + " km";
+
+/* ---------- globe drawing (travel globe and mini globe share it) ---------- */
+function drawGlobe(canvas, centre, opts = {}) {
+  const ctx = canvas.getContext("2d"), w = canvas.width, r = w / 2 - 6;
+  const proj = d3.geoOrthographic().translate([w / 2, w / 2]).scale(r).rotate([-centre[0], -centre[1]]).clipAngle(90);
+  const path = d3.geoPath(proj, ctx);
+  ctx.clearRect(0, 0, w, w);
+  ctx.beginPath(); path({ type: "Sphere" }); ctx.fillStyle = "#171334"; ctx.fill();
+  ctx.beginPath(); path(d3.geoGraticule10()); ctx.strokeStyle = "rgba(243,240,255,.07)"; ctx.lineWidth = 1; ctx.stroke();
+  if (S.land) { ctx.beginPath(); path(S.land); ctx.fillStyle = "#5B52B0"; ctx.fill(); ctx.strokeStyle = "#171334"; ctx.lineWidth = .6; ctx.stroke(); }
+  const [slon, slat] = subsolar();
+  ctx.beginPath(); path(d3.geoCircle().center([slon + 180, -slat]).radius(90)()); ctx.fillStyle = "rgba(6,4,18,.6)"; ctx.fill();
+  if (opts.arc) { ctx.beginPath(); path({ type: "LineString", coordinates: opts.arc }); ctx.strokeStyle = "#FFE600"; ctx.lineWidth = opts.thin ? 2 : 4; ctx.setLineDash([2, 9]); ctx.lineCap = "round"; ctx.stroke(); ctx.setLineDash([]); }
+  for (const [ll, col, size] of opts.dots || []) {
+    const vis = d3.geoDistance(ll, centre) < Math.PI / 2, p = proj(ll);
+    if (!vis || !p) continue;
+    ctx.beginPath(); ctx.arc(p[0], p[1], size, 0, 7); ctx.fillStyle = col; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = "#0E0B1F"; ctx.stroke();
+  }
+  ctx.beginPath(); path({ type: "Sphere" }); ctx.strokeStyle = "rgba(243,240,255,.25)"; ctx.lineWidth = 1.5; ctx.stroke();
+}
+const ll = c => (c && c.lat != null) ? [c.lon, c.lat] : null;
+function drawMini() {
+  const c = ll(S.cur) || subsolar();
+  drawGlobe($("#mini canvas"), c, { dots: ll(S.cur) ? [[c, "#FF2D9A", 8]] : [] });
+}
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+function animateGlobe(from, to, total, ms) {
+  const cv = $("#globe"), a = from || [to[0] - 60, Math.max(-50, Math.min(50, to[1] + 25))], ip = d3.geoInterpolate(a, to);
+  return new Promise(done => {
+    const t0 = performance.now();
+    (function frame(now) {
+      const t = reduced ? 1 : Math.min(1, (now - t0) / ms), e = t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2, here = ip(e);
+      drawGlobe(cv, here, { arc: from ? d3.range(0, e + .001, .02).map(ip) : null, dots: [[to, "#FF2D9A", 12]].concat(from ? [[from, "#00B7EB", 9]] : []) });
+      $("#routeKm").textContent = from ? fmtKm(total * e) : "First portal";
+      t < 1 ? requestAnimationFrame(frame) : done();
+    })(t0);
+  });
+}
+let spin = null;
+function idleSpin() {              // slow turn behind the start screen
+  let lon = 5; cancelAnimationFrame(spin);
+  (function f() { if (!document.body.classList.contains("start")) return; lon += .12; drawGlobe($("#globe"), [lon, 18]); spin = requestAnimationFrame(f); })();
+}
+
+/* ---------- choosing ---------- */
+const alive = c => !c.off && !S.closed.has(c.id);
+function inSelection(c) {
+  if (S.theme && c.theme !== S.theme) return false;
+  if (S.country && c.country !== S.country) return false;
+  return true;
+}
+function lightOk(c, now) {
+  if (ANYTIME.has(c.theme)) return true;
+  const alt = sunAlt(c, now);
+  if (NIGHT_THEMES.has(c.theme)) return S.theme === c.theme ? alt < -6 : !S.day && alt < -6;
+  return !S.day || alt > 2;
+}
+function pick() {
+  const now = new Date(), base = S.cams.filter(c => alive(c) && inSelection(c));
+  if (!base.length) return null;
+  const recent = new Set(S.hist.slice(-Math.min(15, Math.max(0, base.length - 1))).map(c => c.id));
+  let pool = base.filter(c => lightOk(c, now) && !recent.has(c.id)), note = "";
+  if (!pool.length) pool = base.filter(c => lightOk(c, now) && c !== S.cur);
+  if (!pool.length) { pool = base.filter(c => c !== S.cur); note = S.theme && NIGHT_THEMES.has(S.theme) ? "It is not dark at any of these right now. Showing one anyway." : "No daylight in this selection right now. Showing one anyway."; }
+  if (!pool.length) pool = base;
+  if (note) toast(note);
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+
+/* ---------- player ---------- */
+function loadPlayer(firstVideo) {
+  if (playerReady) return playerReady;
+  playerReady = new Promise((ok, fail) => {
+    const s = document.createElement("script"); s.src = "https://www.youtube.com/iframe_api"; s.onerror = () => fail(new Error("blocked"));
+    window.onYouTubeIframeAPIReady = () => {
+      player = new YT.Player("player", { width: "100%", height: "100%", videoId: firstVideo,
+        playerVars: { autoplay: 1, mute: 1, controls: 0, playsinline: 1, rel: 0, iv_load_policy: 3, disablekb: 1, fs: 0 },
+        events: { onReady: () => ok(player), onStateChange: e => { lastState = e.data; if (S.onState) S.onState(e.data); }, onError: e => { if (S.onError) S.onError(e.data); } } });
+    };
+    document.head.append(s);
+    setTimeout(() => fail(new Error("timeout")), 15000);
+  });
+  return playerReady;
+}
+function waitForPicture(cam) {      // resolves "playing" | "closed" | "stuck" | "blocked"
+  return new Promise(done => {
+    let settled = false; const end = v => { if (!settled) { settled = true; S.onState = S.onError = null; clearTimeout(t1); clearTimeout(t2); done(v); } };
+    S.onError = () => end("closed");
+    S.onState = st => { if (st === 1) { let live; try { live = player.getVideoData().isLive; } catch (e) { live = undefined; } end(live === false ? "closed" : "playing"); } if (st === 0) end("closed"); };
+    const t1 = setTimeout(() => { if (lastState === -1 || lastState === 5) end("stuck"); }, 10000);
+    const t2 = setTimeout(() => end(lastState === 3 ? "playing" : "stuck"), 17000);
+    lastState = -1;
+    const boot = playerReady ? playerReady.then(p => p.loadVideoById({ videoId: cam.yt })) : loadPlayer(cam.yt);
+    boot.then(() => { S.sound ? player.unMute() : player.mute(); }).catch(() => end("blocked"));
+  });
+}
+
+/* ---------- travelling ---------- */
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+async function go(cam, viaHistory) {
+  cam = cam || pick();
+  if (!cam) { toast("Nothing matches that selection."); return; }
+  const token = ++S.token, from = S.cur, dist = km(from, cam);
+  document.body.classList.remove("start", "idle"); document.body.classList.add("travelling");
+  $("#iris").classList.remove("open");
+  $("#routeTo").textContent = cam.place; $("#routeKm").textContent = "";
+  const picture = waitForPicture(cam);
+  await Promise.all([animateGlobe(ll(from), ll(cam) || subsolar(), dist, 1700), sleep(reduced ? 300 : 1700)]);
+  const result = await picture;
+  if (token !== S.token) return;
+  if (result !== "playing") {
+    if (result === "blocked") return stop("The video player could not load. A blocker or the network is in the way. Reload to try again.");
+    S.closed.add(cam.id);
+    if (++S.fails >= 4) return stop("Four portals in a row would not open. Check the connection, then try again.");
+    toast(`${cam.place} is closed right now. Trying somewhere else.`);
+    return go(null);
+  }
+  S.fails = 0;
+  if (!viaHistory) { S.hist = S.hist.slice(0, S.pos + 1); S.hist.push(cam); S.pos = S.hist.length - 1; if (from) S.km += dist; }
+  S.cur = cam; S.hop = from ? dist : 0;
+  render();
+  document.body.classList.remove("travelling");
+  $("#iris").classList.add("open");
+  history.replaceState(null, "", "?cam=" + cam.id);
+  poke();
+}
+function stop(msg) {
+  document.body.classList.remove("travelling"); document.body.classList.add("start");
+  $("#startSub").textContent = msg; S.fails = 0; idleSpin();
+}
+
+/* ---------- heads-up display ---------- */
+const WMO = { 0: "clear", 1: "mostly clear", 2: "partly cloudy", 3: "overcast", 45: "fog", 48: "fog", 51: "drizzle", 53: "drizzle", 55: "drizzle", 61: "rain", 63: "rain", 65: "heavy rain", 71: "snow", 73: "snow", 75: "heavy snow", 77: "snow", 80: "showers", 81: "showers", 82: "heavy showers", 85: "snow showers", 86: "snow showers", 95: "thunderstorm", 96: "thunderstorm", 99: "thunderstorm" };
+function clock() {
+  const c = S.cur; if (!c) return;
+  const now = new Date();
+  $("#fTime").textContent = c.lat == null ? "About 400 km above the ground"
+    : new Intl.DateTimeFormat("en-GB", { timeZone: c.tz, weekday: "short", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).format(now) + " local time";
+  $("#fSun").textContent = c.lat == null ? "A sunrise every 90 minutes" : sunWord(sunAlt(c, now));
+}
+function render() {
+  const c = S.cur;
+  $("#wLabel").textContent = c.label; $("#wPlace").textContent = c.place; $("#wCountry").textContent = c.country === "Space" ? "Low Earth orbit" : c.country;
+  const by = $("#wBy"); by.textContent = c.by; by.href = "https://www.youtube.com/watch?v=" + c.yt;
+  $("#fHop").textContent = S.hop ? `${fmtKm(S.hop)} from the last portal` + (S.km > S.hop ? `, ${fmtKm(S.km)} travelled` : "") : "First portal";
+  $("#bFav").setAttribute("aria-pressed", S.favs.has(c.id)); $("#bFav").textContent = S.favs.has(c.id) ? "Kept" : "Keep";
+  document.title = `${c.place} | Portal View`;
+  clock(); drawMini();
+  const w = $("#fWeather"); w.hidden = true;
+  if (c.lat != null) fetch(`https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&current=temperature_2m,weather_code`).then(r => r.json()).then(j => {
+    if (S.cur !== c || !j.current) return; w.textContent = `${Math.round(j.current.temperature_2m)} °C, ${WMO[j.current.weather_code] || "mixed"}`; w.hidden = false; }).catch(() => {});
+  const f = $("#filter"), parts = [S.theme && THEMES[S.theme][0], S.country].filter(Boolean);
+  f.hidden = !parts.length; f.replaceChildren();
+  if (parts.length) { f.append("Only " + parts.join(", ")); const b = document.createElement("button"); b.type = "button"; b.textContent = "Show everything"; b.onclick = () => { S.theme = S.country = null; render(); }; f.append(b); }
+}
+let toastT; function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("on"); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("on"), 3600); }
+let idleT; function poke() { document.body.classList.remove("idle"); clearTimeout(idleT); idleT = setTimeout(() => { if (S.cur && !document.querySelector(".sheet:not([hidden])") && !document.body.classList.contains("travelling")) document.body.classList.add("idle"); }, 7000); }
+
+/* ---------- sheets ---------- */
+function openSheet(id) { document.querySelectorAll(".sheet").forEach(s => s.hidden = s.id !== id); const s = $("#" + id); (s.querySelector("input") || s.querySelector("[data-close]")).focus(); }
+function closeSheets() { document.querySelectorAll(".sheet").forEach(s => s.hidden = true); if (document.activeElement) document.activeElement.blur(); poke(); }
+function el(tag, props, ...kids) { const e = Object.assign(document.createElement(tag), props || {}); e.append(...kids); return e; }
+function buildThemes() {
+  const now = new Date(), g = $("#themeGrid"); g.replaceChildren();
+  g.append(el("button", { type: "button", onclick: () => { S.theme = null; closeSheets(); go(); } }, el("b", { textContent: "Everything" }), el("span", { textContent: `${S.cams.filter(alive).length} portals` })));
+  for (const [k, [name, desc]] of Object.entries(THEMES)) {
+    const n = S.cams.filter(c => alive(c) && c.theme === k).length; if (!n) continue;
+    g.append(el("button", { type: "button", onclick: () => { S.theme = k; S.country = null; closeSheets(); go(); } }, el("b", { textContent: name }), el("span", { textContent: `${desc}, ${n}` })));
+  }
+  if (S.favs.size) g.append(el("button", { type: "button", onclick: () => { $("#q").value = "kept"; openSheet("sPlaces"); buildPlaces(); } }, el("b", { textContent: "Kept places" }), el("span", { textContent: `${S.favs.size} saved in this browser` })));
+}
+function buildPlaces() {
+  const q = $("#q").value.trim().toLowerCase(), list = $("#placeList"), now = new Date(); list.replaceChildren();
+  const match = c => !q || (q === "kept" ? S.favs.has(c.id) : [c.place, c.country, c.label, THEMES[c.theme][0]].join(" ").toLowerCase().includes(q));
+  const byCountry = d3.group(S.cams.filter(c => alive(c) && match(c)).sort((a, b) => a.place.localeCompare(b.place)), c => c.country);
+  for (const country of [...byCountry.keys()].sort()) {
+    const cams = byCountry.get(country), h = el("h4", {});
+    h.append(el("button", { type: "button", textContent: `${country} (${cams.length})`, style: "display:inline;width:auto;padding:0;color:inherit;font:inherit;text-decoration:underline", onclick: () => { S.country = country; S.theme = null; closeSheets(); go(); } }));
+    list.append(h);
+    for (const c of cams) list.append(el("li", {}, el("button", { type: "button", onclick: () => { closeSheets(); go(c); } }, el("b", { textContent: c.place, style: "font-weight:600" }), el("span", { textContent: `${c.label}${c.lat == null ? "" : ", " + sunWord(sunAlt(c, now)).toLowerCase()}` }))));
+  }
+  if (!byCountry.size) list.append(el("li", { textContent: q === "kept" ? "Nothing kept yet. Press Keep on a place you like." : "No place matches that search.", style: "color:var(--muted);grid-column:1/-1" }));
+}
+
+/* ---------- controls ---------- */
+function setDay(v) { S.day = v; store.set("day", v); $("#bDay").setAttribute("aria-pressed", v); }
+function toggleSound() { if (!player) return; S.sound = !S.sound; S.sound ? (player.unMute(), player.setVolume(60)) : player.mute(); $("#bSound").setAttribute("aria-pressed", S.sound); }
+function toggleFav() { const c = S.cur; if (!c) return; S.favs.has(c.id) ? S.favs.delete(c.id) : S.favs.add(c.id); store.set("favs", [...S.favs]); render(); }
+function back() { if (S.pos > 0) { S.pos--; go(S.hist[S.pos], true); } else toast("This is the first portal."); }
+function toggleDrift() { const on = !S.drift; clearInterval(S.drift); S.drift = on ? setInterval(() => { if (!document.hidden && !document.querySelector(".sheet:not([hidden])")) go(); }, 180000) : null; $("#bDrift").setAttribute("aria-pressed", on); if (on) toast("Drifting: a new portal every three minutes."); }
+function full() { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen && document.documentElement.requestFullscreen().catch(() => {}); }
+
+$("#startGo").onclick = $("#bGo").onclick = () => go();
+$("#bThemes").onclick = () => { buildThemes(); openSheet("sThemes"); };
+$("#bPlaces").onclick = $("#mini").onclick = () => { $("#q").value = ""; buildPlaces(); openSheet("sPlaces"); };
+$("#brand").onclick = () => openSheet("sAbout");
+$("#q").oninput = buildPlaces;
+$("#bDay").onclick = () => { setDay(!S.day); if (S.day && S.cur && !lightOk(S.cur, new Date())) go(); };
+$("#bDrift").onclick = toggleDrift; $("#bBack").onclick = back; $("#bFav").onclick = toggleFav; $("#bSound").onclick = toggleSound; $("#bFull").onclick = full;
+$("#bShare").onclick = () => navigator.clipboard.writeText(location.href).then(() => toast("Link to this portal copied."), () => toast("Copy the address from the address bar."));
+document.querySelectorAll(".sheet").forEach(s => s.addEventListener("click", e => { if (e.target === s || e.target.hasAttribute("data-close")) closeSheets(); }));
+["mousemove", "pointerdown", "keydown", "touchstart"].forEach(ev => addEventListener(ev, poke, { passive: true }));
+addEventListener("keydown", e => {
+  if (e.target.tagName === "INPUT") { if (e.key === "Escape") closeSheets(); return; }
+  if (e.key === "Escape") return closeSheets();
+  if (document.querySelector(".sheet:not([hidden])") || e.metaKey || e.ctrlKey || e.altKey) return;
+  const k = e.key.toLowerCase();
+  if (k === " " || k === "arrowright") { if (e.target.tagName === "BUTTON" && k === " ") return; e.preventDefault(); go(); }
+  else if (k === "arrowleft") back(); else if (k === "d") $("#bDay").click(); else if (k === "m") toggleSound(); else if (k === "s") toggleFav(); else if (k === "f") full();
+});
+setInterval(() => { clock(); if (S.cur && !document.hidden) drawMini(); }, 30000);
+
+/* ---------- start ---------- */
+setDay(S.day);
+Promise.all([fetch("cams.json", { cache: "no-cache" }).then(r => r.json()), fetch("../nphi-map/lib/countries-110m.json").then(r => r.json()).catch(() => null)]).then(([data, world]) => {
+  S.cams = data.cams;
+  if (world) S.land = topojson.feature(world, world.objects.countries);
+  const live = S.cams.filter(alive), countries = new Set(live.map(c => c.country)); countries.delete("Space");
+  $("#startSub").textContent = `${live.length} live cameras in ${countries.size} countries, and one in orbit`;
+  $("#aboutCount").textContent = `Right now there are ${live.length} portals in ${countries.size} countries. The list was last checked on ${data.checked}.`;
+  idleSpin();
+  const want = new URLSearchParams(location.search).get("cam"), cam = want && S.cams.find(c => c.id === want && !c.off);
+  if (cam) go(cam);
+}).catch(() => { $("#startSub").textContent = "The camera list could not be loaded. Reload to try again."; $("#startGo").disabled = true; });
+})();
+</script>
+<script data-goatcounter="https://mvanpassel.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

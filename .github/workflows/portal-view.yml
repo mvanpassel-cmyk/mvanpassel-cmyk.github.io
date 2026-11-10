@@ -1,0 +1,47 @@
+name: Portal View weekly camera check
+
+on:
+  schedule:
+    # Weekly, Sunday night UTC. GitHub often starts scheduled runs hours late; that does not matter here.
+    - cron: "13 2 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: portal-view
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Unit tests
+        run: python -m unittest discover -s portal-view/tests -v
+
+      - name: Check every camera, repair or retire the ones that stopped
+        run: python portal-view/pipeline/check.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "portal-view bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add portal-view/cams.json
+          if git diff --cached --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+          git commit -m "Portal View: weekly camera check $(date -u +%F)"
+          for i in 1 2 3; do
+            git pull --rebase origin "${GITHUB_REF_NAME}" && git push && exit 0
+            sleep 5
+          done
+          exit 1
