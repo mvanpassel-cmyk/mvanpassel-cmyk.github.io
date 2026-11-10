@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" sizes="32x32" href="/logos/country-desk-32.png">
+<link rel="icon" type="image/svg+xml" href="/logos/country-desk.svg">
+<link rel="apple-touch-icon" href="/logos/country-desk-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Public+Sans:wght@400;600;700&display=swap">
+<title>Country Desk</title>
+<meta name="description" content="One briefing page per partner country: health news highlights, what the government is doing on health, projects, calendar, outbreak notices and key figures.">
+<link rel="stylesheet" href="desk.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="mast">
+    <div>
+      <h1>Country Desk</h1>
+      <p>Nine partner countries, one briefing page each: the news that matters, what the government is doing on health, projects, calendar and outbreak notices. Pick a country on the map or in the list.</p>
+    </div>
+    <div class="homeclock num" id="homeclock"></div>
+  </header>
+  <div class="map" id="map"></div>
+  <ul class="desks" id="desks"></ul>
+  <footer><p id="updated"></p></footer>
+</div>
+<script src="../nphi-map/lib/d3.min.js"></script>
+<script src="../nphi-map/lib/topojson-client.min.js"></script>
+<script src="desk.js"></script>
+<script data-goatcounter="https://mvanpassel.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

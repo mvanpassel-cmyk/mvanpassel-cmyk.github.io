@@ -1,0 +1,327 @@
+{
+ "_doc": "Country Desk configuration. One entry per country page. 'names' are matched as whole words in headlines (first is the display name). 'queries' are Google News searches; 'hl'/'gl' pick the news edition. 'ink' is the country's spot colour on the map and its page. 'terms' are extra words that mark a headline as being about this country (ministers, agencies, schemes). Headlines from 'skip_sources' are dropped. Google News sometimes gives an old article a fresh date; sources where that happens often are in 'skip_sources' too.",
+ "home": {
+  "name": "Netherlands",
+  "iso3": "NLD",
+  "num": "528",
+  "city": "The Hague",
+  "lat": 52.08,
+  "lon": 4.31,
+  "tz": "Europe/Amsterdam"
+ },
+ "countries": [
+  {
+   "slug": "indonesia",
+   "iso2": "ID",
+   "iso3": "IDN",
+   "num": "360",
+   "name": "Indonesia",
+   "names": [
+    "Indonesia",
+    "Indonesian",
+    "Jakarta"
+   ],
+   "capital": "Jakarta",
+   "lat": -6.2,
+   "lon": 106.82,
+   "tz": "Asia/Jakarta",
+   "ink": "#D6336C",
+   "who": "WHO Western Pacific Region",
+   "hl": "en-ID",
+   "gl": "ID",
+   "queries": [
+    "Indonesia \"health minister\" OR \"health ministry\" OR Kemenkes",
+    "Indonesia outbreak OR vaccine OR hospital OR tuberculosis OR \"public health\"",
+    "Indonesia BPJS Kesehatan OR Bio Farma OR BPOM health"
+   ],
+   "terms": [
+    "Kemenkes",
+    "BPJS",
+    "Prabowo",
+    "Budi Gunadi",
+    "Bio Farma",
+    "BPOM",
+    "Indonesias"
+   ]
+  },
+  {
+   "slug": "india",
+   "iso2": "IN",
+   "iso3": "IND",
+   "num": "356",
+   "name": "India",
+   "names": [
+    "India",
+    "Indian",
+    "New Delhi"
+   ],
+   "capital": "New Delhi",
+   "lat": 28.61,
+   "lon": 77.21,
+   "tz": "Asia/Kolkata",
+   "ink": "#E8890C",
+   "who": "WHO South-East Asia Region",
+   "hl": "en-IN",
+   "gl": "IN",
+   "queries": [
+    "India \"Union Health Ministry\" OR \"health minister\" Nadda",
+    "India ICMR OR NCDC OR \"Ayushman Bharat\" OR CDSCO health",
+    "India outbreak OR vaccine OR \"antimicrobial resistance\" OR tuberculosis health ministry"
+   ],
+   "terms": [
+    "Nadda",
+    "Ayushman",
+    "ICMR",
+    "Union Health",
+    "AIIMS",
+    "CDSCO",
+    "NCDC",
+    "Kerala",
+    "Keralam"
+   ]
+  },
+  {
+   "slug": "china",
+   "iso2": "CN",
+   "iso3": "CHN",
+   "num": "156",
+   "name": "China",
+   "names": [
+    "China",
+    "Chinese",
+    "Beijing"
+   ],
+   "capital": "Beijing",
+   "lat": 39.9,
+   "lon": 116.4,
+   "tz": "Asia/Shanghai",
+   "ink": "#C92A2A",
+   "who": "WHO Western Pacific Region",
+   "hl": "en-US",
+   "gl": "US",
+   "queries": [
+    "China \"National Health Commission\"",
+    "China \"China CDC\" OR NMPA OR \"Healthy China\" OR \"health reform\"",
+    "China outbreak OR vaccine OR \"public health\" OR hospital policy health"
+   ],
+   "terms": [
+    "National Health Commission",
+    "NHC",
+    "China CDC",
+    "NMPA",
+    "Healthy China"
+   ]
+  },
+  {
+   "slug": "kenya",
+   "iso2": "KE",
+   "iso3": "KEN",
+   "num": "404",
+   "name": "Kenya",
+   "names": [
+    "Kenya",
+    "Kenyan",
+    "Nairobi"
+   ],
+   "capital": "Nairobi",
+   "lat": -1.29,
+   "lon": 36.82,
+   "tz": "Africa/Nairobi",
+   "ink": "#2B8A3E",
+   "who": "WHO African Region",
+   "hl": "en-KE",
+   "gl": "KE",
+   "queries": [
+    "Kenya \"Health CS\" OR \"Health Cabinet Secretary\" OR \"Ministry of Health\"",
+    "Kenya \"Social Health Authority\" OR SHA OR \"Taifa Care\" health",
+    "Kenya outbreak OR Ebola OR vaccine OR KEMRI OR \"public health\""
+   ],
+   "terms": [
+    "Duale",
+    "Health CS",
+    "SHA",
+    "KEMRI",
+    "Taifa Care",
+    "KEMSA",
+    "Ruto"
+   ]
+  },
+  {
+   "slug": "uganda",
+   "iso2": "UG",
+   "iso3": "UGA",
+   "num": "800",
+   "name": "Uganda",
+   "names": [
+    "Uganda",
+    "Ugandan",
+    "Kampala"
+   ],
+   "capital": "Kampala",
+   "lat": 0.35,
+   "lon": 32.58,
+   "tz": "Africa/Kampala",
+   "ink": "#B5850B",
+   "who": "WHO African Region",
+   "hl": "en-UG",
+   "gl": "UG",
+   "queries": [
+    "Uganda \"Ministry of Health\" OR \"health minister\"",
+    "Uganda outbreak OR Ebola OR vaccine OR UVRI OR \"public health\"",
+    "Uganda hospital OR \"health insurance\" OR \"health budget\" OR medicines"
+   ],
+   "terms": [
+    "Baryomunsi",
+    "Atwine",
+    "UVRI",
+    "Museveni",
+    "Mulago",
+    "NDA"
+   ]
+  },
+  {
+   "slug": "ethiopia",
+   "iso2": "ET",
+   "iso3": "ETH",
+   "num": "231",
+   "name": "Ethiopia",
+   "names": [
+    "Ethiopia",
+    "Ethiopian",
+    "Addis Ababa"
+   ],
+   "capital": "Addis Ababa",
+   "lat": 9.03,
+   "lon": 38.74,
+   "tz": "Africa/Addis_Ababa",
+   "ink": "#0C8599",
+   "who": "WHO African Region",
+   "hl": "en-ET",
+   "gl": "ET",
+   "queries": [
+    "Ethiopia \"Ministry of Health\" OR \"health minister\" OR \"Mekdes Daba\"",
+    "Ethiopia outbreak OR cholera OR malaria OR vaccine OR EPHI OR \"public health\"",
+    "Ethiopia \"Africa CDC\" OR hospital OR \"health insurance\" OR pharmaceutical health"
+   ],
+   "terms": [
+    "Mekdes",
+    "EPHI",
+    "Addis",
+    "Abiy",
+    "Tigray",
+    "Amhara"
+   ]
+  },
+  {
+   "slug": "south-africa",
+   "iso2": "ZA",
+   "iso3": "ZAF",
+   "num": "710",
+   "name": "South Africa",
+   "names": [
+    "South Africa",
+    "South African",
+    "Pretoria"
+   ],
+   "capital": "Pretoria",
+   "lat": -25.75,
+   "lon": 28.19,
+   "tz": "Africa/Johannesburg",
+   "ink": "#7048E8",
+   "who": "WHO African Region",
+   "hl": "en-ZA",
+   "gl": "ZA",
+   "queries": [
+    "South Africa \"health minister\" OR Motsoaledi OR \"Department of Health\"",
+    "South Africa NHI OR \"National Health Insurance\" OR NICD OR SAHPRA",
+    "South Africa outbreak OR HIV OR tuberculosis OR vaccine OR \"medicine shortages\""
+   ],
+   "terms": [
+    "Motsoaledi",
+    "NHI",
+    "NICD",
+    "SAHPRA",
+    "Gauteng",
+    "Ramaphosa",
+    "SA "
+   ]
+  },
+  {
+   "slug": "colombia",
+   "iso2": "CO",
+   "iso3": "COL",
+   "num": "170",
+   "name": "Colombia",
+   "names": [
+    "Colombia",
+    "Colombian",
+    "Bogotá",
+    "Bogota",
+    "colombiano",
+    "colombiana"
+   ],
+   "capital": "Bogotá",
+   "lat": 4.71,
+   "lon": -74.07,
+   "tz": "America/Bogota",
+   "ink": "#1971C2",
+   "who": "WHO Region of the Americas (PAHO)",
+   "hl": "es-419",
+   "gl": "CO",
+   "queries": [
+    "Colombia MinSalud OR \"Ministerio de Salud\" OR \"ministra de Salud\"",
+    "Colombia EPS OR \"sistema de salud\" OR \"reforma a la salud\" OR Supersalud",
+    "Colombia brote OR vacuna OR \"Instituto Nacional de Salud\" OR Invima OR \"salud pública\""
+   ],
+   "terms": [
+    "MinSalud",
+    "Minsalud",
+    "EPS",
+    "Supersalud",
+    "Invima",
+    "Vesga",
+    "Adres",
+    "ADRES"
+   ]
+  },
+  {
+   "slug": "canada",
+   "iso2": "CA",
+   "iso3": "CAN",
+   "num": "124",
+   "name": "Canada",
+   "names": [
+    "Canada",
+    "Canadian",
+    "Ottawa"
+   ],
+   "capital": "Ottawa",
+   "lat": 45.42,
+   "lon": -75.7,
+   "tz": "America/Toronto",
+   "ink": "#8D5524",
+   "who": "WHO Region of the Americas (PAHO)",
+   "hl": "en-CA",
+   "gl": "CA",
+   "queries": [
+    "Canada federal \"Health Minister\" OR \"Minister of Health\" OR \"Health Canada\"",
+    "Canada \"Public Health Agency\" OR PHAC OR pharmacare OR \"Canada Health Transfer\"",
+    "Canada outbreak OR measles OR vaccine OR \"global health\" federal"
+   ],
+   "terms": [
+    "Health Canada",
+    "PHAC",
+    "pharmacare",
+    "Marjorie Michel",
+    "Carney",
+    "MAID"
+   ]
+  }
+ ],
+ "skip_sources": [
+  "Bioengineer.org",
+  "Facebook",
+  "NewVision.co.ug",
+  "DD News"
+ ]
+}

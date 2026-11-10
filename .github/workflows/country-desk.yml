@@ -1,0 +1,65 @@
+name: Country Desk daily update
+
+on:
+  schedule:
+    - cron: "23 5 * * *"   # daily, 06:23 Amsterdam (winter). Claude writes the digest on Tuesdays and Fridays (see pipeline)
+  workflow_dispatch:
+    inputs:
+      digest:
+        description: "Write the Claude digest now, even if it is not Tuesday or Friday"
+        type: boolean
+        default: false
+      slow:
+        description: "Refresh WHO indicators, World Bank projects and holidays now"
+        type: boolean
+        default: false
+  push:
+    branches: [main]
+    paths:
+      - "country-desk/pipeline/**"
+      - "country-desk/data/countries.json"
+      - ".github/workflows/country-desk.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: country-desk
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Unit tests
+        run: python -m unittest discover -s country-desk/tests -v
+
+      - name: Update the nine country pages
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          FORCE_DIGEST: ${{ github.event.inputs.digest }}
+          FORCE_SLOW: ${{ github.event.inputs.slow }}
+        run: python country-desk/pipeline/update.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "country-desk bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add country-desk/data
+          if git diff --cached --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+          git commit -m "Country Desk: daily update $(date -u +%F)"
+          for i in 1 2 3; do
+            git pull --rebase origin "${GITHUB_REF_NAME}" && git push && exit 0
+            sleep 5
+          done
+          exit 1
