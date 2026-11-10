@@ -2,7 +2,8 @@ name: Risk Radar daily update
 
 on:
   schedule:
-    - cron: "41 5 * * *"   # daily, 06:41 Amsterdam (winter) / 07:41 (summer)
+    # GitHub often starts scheduled runs hours late (7-8 h measured on 9-10 Nov 2026), so this is set for just after midnight UTC to land before the Dutch working day.
+    - cron: "49 0 * * *"
   workflow_dispatch:
   push:
     branches: [main]

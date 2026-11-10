@@ -4,7 +4,8 @@ name: Portal link check
 # Writes .github/link-report/report.json and report.md; never edits portal data.
 on:
   schedule:
-    - cron: "17 4 1 * *"   # 05:17 Amsterdam (winter) / 06:17 (summer)
+    # Set early because GitHub often starts scheduled runs hours late; it must finish before the evening portal update.
+    - cron: "17 1 1 * *"
   workflow_dispatch:
 
 permissions:

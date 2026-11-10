@@ -2,7 +2,8 @@ name: The Long View daily update
 
 on:
   schedule:
-    - cron: "29 4 * * *"   # feeds daily, 05:29 Amsterdam (winter); the AI editor runs weekly (see pipeline)
+    # GitHub often starts scheduled runs hours late (7-8 h measured on 9-10 Nov 2026), so this is set for just after midnight UTC to land before the Dutch working day. Feeds daily; the AI editor runs weekly (see pipeline).
+    - cron: "7 1 * * *"
   workflow_dispatch:
     inputs:
       editor:
