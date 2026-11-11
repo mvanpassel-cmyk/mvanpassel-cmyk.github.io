@@ -71,7 +71,7 @@ Angle = primary theme. Distance from the centre = the earliest time horizon a so
 
 ## 8. Automated updates
 
-`.github/workflows/risk-radar.yml` runs twice a week (Monday and Thursday) and on changes to the pipeline or core data:
+`.github/workflows/risk-radar.yml` runs weekly (Monday) and on changes to the pipeline or core data:
 
 1. unit tests (`tests/test_pipeline.py`);
 2. validation and derived analysis (`pipeline/analysis.py` → `derived.json`);

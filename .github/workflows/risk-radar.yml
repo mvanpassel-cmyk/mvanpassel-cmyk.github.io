@@ -1,10 +1,10 @@
-name: Risk Radar update (twice a week)
+name: Risk Radar weekly update
 
 on:
   schedule:
-    # Twice a week (Monday and Thursday). Not weekly: some feeds (GDACS alerts, ECDC) only list recent items, so a longer gap could miss some.
+    # Weekly (Monday). Some feeds (GDACS alerts, some ECDC lists) only show recent items, so an item can occasionally drop off between checks; accepted.
     # GitHub often starts scheduled runs hours late, so this is set for just after midnight UTC to land before the Dutch working day.
-    - cron: "49 0 * * 1,4"
+    - cron: "49 0 * * 1"
   workflow_dispatch:
   push:
     branches: [main]

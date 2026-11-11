@@ -29,7 +29,7 @@ risk-radar/
   tests/test_pipeline.py  unit tests (python -m unittest)
 ```
 
-The workflow is `.github/workflows/risk-radar.yml` (Monday and Thursday at about 00:49 UTC, on manual dispatch, and on pushes that change the pipeline or core data). Standard library only; no secrets needed.
+The workflow is `.github/workflows/risk-radar.yml` (weekly, Monday at about 00:49 UTC, on manual dispatch, and on pushes that change the pipeline or core data). Standard library only; no secrets needed.
 
 ## Maintenance
 
