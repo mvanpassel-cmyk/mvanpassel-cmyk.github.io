@@ -1,14 +1,25 @@
 {
   "_comment": "Bronnen voor het dagelijkse script. type 'academictransfer' leest de sitemap en filtert op titelwoorden; type 'rss' leest een RSS- of Atom-feed. Zet 'enabled' op false om een bron uit te zetten. Nieuwe feed toevoegen: kopieer het rss-voorbeeld hieronder.",
-  "include_slug": "lerarenopleid|pabo|onderwijsadvi|onderwijskund|onderwijswetenschap|onderwijsontwikkel|onderwijsinnovat|onderwijsbeleid|beleidsmedewerker-onderwijs|beleidsadviseur-onderwijs|opleidingsadvi|curriculum|kennisinstituut-onderwijs|educational-(advis|develop|scien|research|consult)|education(al)?-(advis|develop|research|scien|policy)|teacher-educ|didactiek|vakdidact|onderwijsmanager|opleidingsmanager|onderwijsonderzoek",
+  "include_slug": "lerarenopleid|pabo|onderwijsadvi|onderwijskund|onderwijswetenschap|onderwijsontwikkel|onderwijsinnovat|onderwijsbeleid|beleidsmedewerker-onderwijs|beleidsadviseur-onderwijs|opleidingsadvi|curriculum|kennisinstituut-onderwijs|educational-(advis|develop|scien|research|consult)|education(al)?-(advis|develop|research|scien|policy)|teacher-educ|didactiek|vakdidact|onderwijsmanager|opleidingsmanager|onderwijsonderzoek|onderwijskundig|onderwijsadviseur|onderwijsconsulent|onderwijsconsultant|onderwijsdirecteur|opleidingsdirecteur|programmadirecteur-onderwijs|programmamanager-onderwijs|projectleider-onderwijs|onderzoeker-onderwijs|onderwijsonderzoeker|onderwijsprogramma|onderwijskwaliteit|kwaliteitszorg-onderwijs|toetsing-(expert|advis|specialist)|toetsbeleid|assessment-(expert|specialist|advis)|studieadvi|studiesucces|pedagog|leerwetenschap|leren-en-onderwijs|learning-(designer|scientist|analytics|technolog)|educational-technolog|teaching-and-learning|teaching-learning|centre-for-teaching|education-(scientist|specialist|expert|manager|director|officer|coordinator)|onderwijs-?(coordinator|innovator|specialist|expert)|schoolleider|schooladvi|professionalisering|hoogleraar-onderwijs|professor-(of-)?education|assistant-professor-education|lecturer-education|onderwijsorganisatie|onderwijsinspectie|inspectie-van-het-onderwijs",
   "classroom_title": "\\b(leraar|leerkracht|groepsleerkracht|docent)\\b",
   "classroom_keep": "universitair docent|lerarenopleid|opleider|onderzoek|advis|ontwikkel|beleid|onderwijskund|onderwijswetenschap|coordinator|manager",
   "higher_ed_employer": "hogeschool|universiteit|university|academie|ipabo|fontys|windesheim|saxion|inholland|avans|zuyd|stenden|hanzehogeschool|hogeschool van|marnix|^han\\b",
   "exclude_title": "administrati|roostering|secretar|assistent|facilities|kinderopvang|stagiair",
   "sources": [
-    {"name": "AcademicTransfer", "type": "academictransfer", "enabled": true,
-     "sitemap": "https://www.academictransfer.com/sitemap-vacancies.xml", "crawl_delay": 10, "max_new_pages": 25},
-    {"name": "Voorbeeld RSS-bron", "type": "rss", "enabled": false,
-     "url": "https://example.org/vacatures.rss", "title_filter": "pabo|lerarenopleid|onderwijsadvi|onderwijswetenschap"}
+    {
+      "name": "AcademicTransfer",
+      "type": "academictransfer",
+      "enabled": true,
+      "sitemap": "https://www.academictransfer.com/sitemap-vacancies.xml",
+      "crawl_delay": 10,
+      "max_new_pages": 25
+    },
+    {
+      "name": "Voorbeeld RSS-bron",
+      "type": "rss",
+      "enabled": false,
+      "url": "https://example.org/vacatures.rss",
+      "title_filter": "pabo|lerarenopleid|onderwijsadvi|onderwijswetenschap"
+    }
   ]
 }
