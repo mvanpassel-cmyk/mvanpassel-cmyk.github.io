@@ -256,7 +256,7 @@ footer ul { margin: 0; padding-left: 18px; }
   var TODAY = new Date().toLocaleDateString('sv-SE', { timeZone: TZ });
   var state = { q: '', topic: null, status: 'open', source: 'all', hours: 'all', city: null, sort: 'new' };
   var DATA = { meta: {}, items: [] }, EMP = {};
-  var map = null, layer = null, townMarkers = {};
+  var map = null, layer = null, townMarkers = {}, labelled = [];
   var $ = function (id) { return document.getElementById(id); };
 
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
@@ -371,6 +371,7 @@ footer ul { margin: 0; padding-left: 18px; }
     el.textContent = noXY ? noXY + ' vacature' + (noXY === 1 ? '' : 's') + ' zonder bekende standplaats staan niet op de kaart.' : '';
     if (!map) return;
     layer.clearLayers();
+    labelled = [];
     var groups = {};
     withXY.forEach(function (j) { (groups[j.city] = groups[j.city] || { lat: j.lat, lon: j.lon, jobs: [] }).jobs.push(j); });
     Object.keys(townMarkers).forEach(function (k) {
@@ -401,8 +402,43 @@ footer ul { margin: 0; padding-left: 18px; }
       btn.addEventListener('click', function () { state.city = picked ? null : city; map.closePopup(); render(); });
       box.appendChild(btn);
       m.bindPopup(box);
-      m.bindTooltip(city + ' (' + g.jobs.length + ')', { permanent: true, direction: 'right', offset: [6, 0], className: 'maplabel' });
       m.addTo(layer);
+      labelled.push({ m: m, text: city + ' (' + g.jobs.length + ')', r: 8 + Math.min(10, g.jobs.length * 2), ll: [g.lat, g.lon] });
+    });
+    placeLabels();
+  }
+
+  // Zet elk label op de eerste kant (rechts, links, boven, onder) waar het geen ander label of stip raakt.
+  function placeLabels() {
+    if (!map) return;
+    var rects = [], dots = [];
+    function hit(a, b) { return a.x1 - 3 < b.x2 && a.x2 + 3 > b.x1 && a.y1 - 3 < b.y2 && a.y2 + 3 > b.y1; }
+    labelled.forEach(function (l) { var c = map.latLngToContainerPoint(l.ll); l.c = c; dots.push({ x1: c.x - l.r, x2: c.x + l.r, y1: c.y - l.r, y2: c.y + l.r }); });
+    if (map.getSize().x >= 600) {
+      Object.keys(townMarkers).forEach(function (k) {
+        var t = townMarkers[k]; if (!map.hasLayer(t)) return;
+        var c = map.latLngToContainerPoint(t.getLatLng()), w = k.length * 6.2 + 6;
+        rects.push({ x1: c.x - 3 - w, x2: c.x + 3, y1: c.y - 8, y2: c.y + 8 });
+      });
+    }
+    labelled.slice().sort(function (a, b) { return b.r - a.r; }).forEach(function (l) {
+      var w = l.text.length * 6.6 + 8, h = 16, c = l.c, g = 4;
+      var opts = [];
+      [0, -16, 16, -32, 32].forEach(function (dy) {
+        opts.push(['right', [l.r + g, dy], { x1: c.x + l.r + g, x2: c.x + l.r + g + w, y1: c.y + dy - h / 2, y2: c.y + dy + h / 2 }]);
+        opts.push(['left', [-(l.r + g), dy], { x1: c.x - l.r - g - w, x2: c.x - l.r - g, y1: c.y + dy - h / 2, y2: c.y + dy + h / 2 }]);
+      });
+      opts.push(['top', [0, -(l.r + g)], { x1: c.x - w / 2, x2: c.x + w / 2, y1: c.y - l.r - g - h, y2: c.y - l.r - g }]);
+      opts.push(['bottom', [0, l.r + g], { x1: c.x - w / 2, x2: c.x + w / 2, y1: c.y + l.r + g, y2: c.y + l.r + g + h }]);
+      var pick = null;
+      for (var i = 0; i < opts.length && !pick; i++) {
+        var r = opts[i][2];
+        if (!dots.some(function (d) { return hit(r, d); }) && !rects.some(function (d) { return hit(r, d); })) pick = opts[i];
+      }
+      pick = pick || opts[0];
+      rects.push(pick[2]);
+      l.m.unbindTooltip();
+      l.m.bindTooltip(l.text, { permanent: true, direction: pick[0], offset: pick[1], className: 'maplabel' });
     });
   }
 
@@ -493,6 +529,7 @@ footer ul { margin: 0; padding-left: 18px; }
       townMarkers[t[0].toLowerCase()] = L.circleMarker([t[1], t[2]], { radius: 2.5, color: cs.getPropertyValue('--ink').trim(), weight: 0, fillColor: cs.getPropertyValue('--ink').trim(), fillOpacity: .7, interactive: false }).bindTooltip(t[0], { permanent: true, direction: 'left', offset: [-3, 0], className: 'maplabel town' }).addTo(map);
     });
     layer = L.layerGroup().addTo(map);
+    map.on('zoomend', placeLabels);
   }
 
   document.addEventListener('click', function (e) {
