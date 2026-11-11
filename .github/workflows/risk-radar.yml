@@ -1,9 +1,10 @@
-name: Risk Radar daily update
+name: Risk Radar update (twice a week)
 
 on:
   schedule:
-    # GitHub often starts scheduled runs hours late (7-8 h measured on 9-10 Nov 2026), so this is set for just after midnight UTC to land before the Dutch working day.
-    - cron: "49 0 * * *"
+    # Twice a week (Monday and Thursday). Not weekly: some feeds (GDACS alerts, ECDC) only list recent items, so a longer gap could miss some.
+    # GitHub often starts scheduled runs hours late, so this is set for just after midnight UTC to land before the Dutch working day.
+    - cron: "49 0 * * 1,4"
   workflow_dispatch:
   push:
     branches: [main]
@@ -51,7 +52,7 @@ jobs:
             echo "No changes"
             exit 0
           fi
-          git commit -m "Risk Radar: daily update $(date -u +%F)"
+          git commit -m "Risk Radar: update $(date -u +%F)"
           for i in 1 2 3; do
             git pull --rebase origin "${GITHUB_REF_NAME}" && git push && exit 0
             sleep 5

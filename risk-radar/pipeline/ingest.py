@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Risk Radar ingestion pipeline (standard library only).
 
-Runs daily in GitHub Actions. For every source in data/sources.json that has a
+Runs twice a week in GitHub Actions. For every source in data/sources.json that has a
 `connector`, it fetches the feed or publication page, detects items that are new
 since the previous run, matches them to canonical risks by keyword, and writes:
 
