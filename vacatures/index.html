@@ -22,6 +22,7 @@
   --accent: #0B6B5F;
   --accent-ink: #FFFFFF;
   --accent-soft: #D7ECE7;
+  --sea: #C9E3EF; --pl: 84%; --pc: 38%; --river: #8EC1DA;
   --warn: #A8400F;
   --warn-soft: #F9E3D3;
   --gone: #7C8A85;
@@ -34,6 +35,7 @@
     --bg: #0F1816; --surface: #15211E; --ink: #E5EEEB; --muted: #94A7A1; --line: #26362F;
     --accent: #4FC3B1; --accent-ink: #08201C; --accent-soft: #173A35;
     --warn: #F2A06B; --warn-soft: #3B2517; --gone: #7D8F89;
+    --sea: #14303D; --pl: 26%; --pc: 30%; --river: #2F6783;
     color-scheme: dark;
   }
 }
@@ -41,6 +43,7 @@
   --bg: #0F1816; --surface: #15211E; --ink: #E5EEEB; --muted: #94A7A1; --line: #26362F;
   --accent: #4FC3B1; --accent-ink: #08201C; --accent-soft: #173A35;
   --warn: #F2A06B; --warn-soft: #3B2517; --gone: #7D8F89;
+  --sea: #14303D; --pl: 26%; --pc: 30%; --river: #2F6783;
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -95,11 +98,13 @@ input[type="search"]::placeholder { color: var(--muted); }
 .excluded { border-top: 1px solid var(--line); padding-top: 14px; font-size: 13px; color: var(--muted); }
 .excluded code { font-family: var(--font-mono); font-size: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px; }
 
-#map { height: 400px; border: 1px solid var(--line); border-radius: 8px; background: var(--accent-soft); position: relative; z-index: 0; }
-@media (max-width: 560px) { #map { height: 260px; } }
+#map { height: 640px; border: 1px solid var(--line); border-radius: 8px; background: var(--sea); position: relative; z-index: 0; }
+@media (max-width: 560px) { #map { height: 380px; } }
 .mapnote { font-size: 12.5px; color: var(--muted); padding-top: 6px; }
 .maplabel { background: transparent; border: 0; box-shadow: none; font: 600 11.5px var(--font-body); color: var(--ink); padding: 0; }
 .maplabel::before { display: none; }
+.prov { font: 600 10.5px var(--font-body); letter-spacing: .14em; text-transform: uppercase; color: var(--ink); opacity: .45; white-space: nowrap; transform: translate(-50%, -50%); pointer-events: none; text-align: center; }
+.town { font: 500 10.5px var(--font-body); color: var(--ink); opacity: .75; white-space: nowrap; pointer-events: none; }
 .mapfail { padding: 24px; color: var(--muted); }
 .leaflet-popup-content { font: 13px/1.45 var(--font-body); margin: 10px 12px; }
 .leaflet-popup-content strong { font-family: var(--font-display); font-size: 14px; }
@@ -251,7 +256,7 @@ footer ul { margin: 0; padding-left: 18px; }
   var TODAY = new Date().toLocaleDateString('sv-SE', { timeZone: TZ });
   var state = { q: '', topic: null, status: 'open', source: 'all', hours: 'all', city: null, sort: 'new' };
   var DATA = { meta: {}, items: [] }, EMP = {};
-  var map = null, layer = null;
+  var map = null, layer = null, townMarkers = {};
   var $ = function (id) { return document.getElementById(id); };
 
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
@@ -368,6 +373,10 @@ footer ul { margin: 0; padding-left: 18px; }
     layer.clearLayers();
     var groups = {};
     withXY.forEach(function (j) { (groups[j.city] = groups[j.city] || { lat: j.lat, lon: j.lon, jobs: [] }).jobs.push(j); });
+    Object.keys(townMarkers).forEach(function (k) {
+      var has = Object.keys(groups).some(function (c) { return c.toLowerCase() === k; });
+      if (has) map.removeLayer(townMarkers[k]); else townMarkers[k].addTo(map);
+    });
     Object.keys(groups).forEach(function (city) {
       var g = groups[city];
       var open = g.jobs.filter(function (j) { return !isGone(j); }).length;
@@ -460,13 +469,29 @@ footer ul { margin: 0; padding-left: 18px; }
   function initMap() {
     var el = $('map');
     if (typeof L === 'undefined') { el.innerHTML = '<div class="mapfail">De kaart kon niet laden. De lijst hieronder werkt gewoon.</div>'; return; }
-    map = L.map(el, { scrollWheelZoom: false, zoomControl: true, minZoom: 6, maxZoom: 9, zoomSnap: 0.5 }).fitBounds([[50.7, 3.3], [53.6, 7.3]]);
+    map = L.map(el, { scrollWheelZoom: false, zoomControl: true, minZoom: 6, maxZoom: 10, zoomSnap: 0.25 }).fitBounds([[50.7, 3.3], [53.6, 7.3]]);
     map.attributionControl.setPrefix(false);
-    map.attributionControl.addAttribution('Provinciegrenzen: CBS/PDOK, via cartomap');
+    map.attributionControl.addAttribution('Provinciegrenzen: CBS/PDOK; rivieren: Natural Earth');
+    var cs = getComputedStyle(document.documentElement);
+    var LBL = { 'Groningen': [53.33, 6.95], 'Friesland': [53.1, 5.85], 'Drenthe': [52.85, 6.6], 'Overijssel': [52.45, 6.45], 'Flevoland': [52.5, 5.6], 'Gelderland': [52.05, 5.95], 'Utrecht': [52.08, 5.25], 'Noord-Holland': [52.6, 4.85], 'Zuid-Holland': [51.98, 4.5], 'Zeeland': [51.42, 3.8], 'Noord-Brabant': [51.55, 5.2], 'Limburg': [51.2, 5.95] };
+    var HUE = { 'Groningen': 95, 'Friesland': 50, 'Drenthe': 30, 'Overijssel': 140, 'Flevoland': 55, 'Gelderland': 25, 'Utrecht': 85, 'Noord-Holland': 125, 'Zuid-Holland': 18, 'Zeeland': 48, 'Noord-Brabant': 40, 'Limburg': 100 };
+    var TOWNS = [['Amsterdam', 52.3676, 4.9041], ['Rotterdam', 51.9244, 4.4777], ['Den Haag', 52.0705, 4.3007], ['Utrecht', 52.0907, 5.1214], ['Eindhoven', 51.4416, 5.4697], ['Groningen', 53.2194, 6.5665], ['Maastricht', 50.8514, 5.691], ['Nijmegen', 51.8126, 5.8372], ['Enschede', 52.2215, 6.8937], ['Tilburg', 51.5555, 5.0913], ['Breda', 51.5719, 4.7683], ['Arnhem', 51.9851, 5.8987], ['Zwolle', 52.5168, 6.083], ['Leeuwarden', 53.2012, 5.7999], ['Haarlem', 52.3874, 4.6462], ['Apeldoorn', 52.2112, 5.9699], ['Alkmaar', 52.6324, 4.7534], ['Middelburg', 51.4988, 3.611], ['Den Bosch', 51.6978, 5.3037], ['Assen', 52.9925, 6.5642], ['Lelystad', 52.5185, 5.4714], ['Venlo', 51.3704, 6.1724], ['Leiden', 52.1601, 4.497]];
     fetch('data/nl-provincies.geojson').then(function (r) { return r.json(); }).then(function (g) {
-      var cs = getComputedStyle(document.documentElement);
-      L.geoJSON(g, { interactive: false, style: { color: cs.getPropertyValue('--line').trim() || '#ccc', weight: 1, fillColor: cs.getPropertyValue('--surface').trim() || '#fff', fillOpacity: 1 } }).addTo(map).bringToBack();
+      L.geoJSON(g, { interactive: false, style: function (f) {
+        var h = HUE[f.properties.statnaam] || 100;
+        return { color: cs.getPropertyValue('--bg').trim() || '#fff', weight: 1.5, fillColor: 'hsl(' + h + ', 38%, ' + cs.getPropertyValue('--pl').trim() + ')', fillOpacity: 1 };
+      } }).addTo(map).bringToBack();
+      Object.keys(LBL).forEach(function (n) {
+        L.marker(LBL[n], { interactive: false, keyboard: false, icon: L.divIcon({ className: '', html: '<div class="prov">' + n.replace('-', '-<br>') + '</div>', iconSize: [0, 0] }) }).addTo(map);
+      });
     }).catch(function () {});
+    fetch('data/nl-rivieren.json').then(function (r) { return r.json(); }).then(function (rv) {
+      rv.forEach(function (o) { L.polyline(o.c.map(function (p) { return [p[1], p[0]]; }), { color: cs.getPropertyValue('--river').trim() || '#8EC1DA', weight: 2.5, opacity: .95, interactive: false, lineCap: 'round' }).addTo(map); });
+    }).catch(function () {});
+    townMarkers = {};
+    TOWNS.forEach(function (t) {
+      townMarkers[t[0].toLowerCase()] = L.circleMarker([t[1], t[2]], { radius: 2.5, color: cs.getPropertyValue('--ink').trim(), weight: 0, fillColor: cs.getPropertyValue('--ink').trim(), fillOpacity: .7, interactive: false }).bindTooltip(t[0], { permanent: true, direction: 'left', offset: [-3, 0], className: 'maplabel town' }).addTo(map);
+    });
     layer = L.layerGroup().addTo(map);
   }
 
