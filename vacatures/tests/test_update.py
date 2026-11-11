@@ -280,5 +280,58 @@ class TextArchiveTests(unittest.TestCase):
             self.assertEqual(items[0]["text_saved"], "2026-11-11")
 
 
+class WerkenBijHogescholenTests(unittest.TestCase):
+    LIST = ('<span>Vacatures</span><span>3</span>'
+            '<a href="/vacatures/favorieten">fav</a>'
+            '<a class="c" href="/vacatures/opleidingsdocent-rekenen-han-pabo"><p>HAN University of Applied Sciences</p>'
+            '<h3>Opleidingsdocent rekenen HAN Pabo</h3><span>Nijmegen</span><span>40 uur</span><span>Tijdelijk</span></a>'
+            '<a href="/vacatures/docent-bouwkunde"><p>Hogeschool X</p><h3>Docent Bouwkunde</h3><span>Utrecht</span></a>'
+            '<a href="/vacatures/medewerker-finance"><p>Hogeschool Y</p><h3>Medewerker Finance</h3><span>Leiden</span></a>')
+    DETAIL = ("<p>Terug naar vacatures</p><p>HAN Opleidingsdocent rekenen HAN Pabo</p>"
+              "<p>Nijmegen 32 - 36 uur Werk- en denkniveau : Master Tijdelijk</p><p>Geplaatst: 9 november 2026</p>"
+              "<p>Sluitingsdatum: 3 maart 2027</p><p>salaris van minimaal € 4.632,17 en maximaal € 6.677,44</p>"
+              "<p>" + "Inhoud. " * 60 + "</p><p>Deel vacature Opleidingsdocent</p><p>Zestor</p>")
+
+    def test_listing(self):
+        cards, total = u.parse_wbh_listing(self.LIST)
+        self.assertEqual(total, 3)
+        self.assertEqual([c["slug"] for c in cards], ["opleidingsdocent-rekenen-han-pabo", "docent-bouwkunde", "medewerker-finance"])
+        self.assertEqual(cards[0]["employer"], "HAN University of Applied Sciences")
+        self.assertEqual(cards[0]["city"], "Nijmegen")
+
+    def test_detail(self):
+        card = {"title": "Opleidingsdocent rekenen HAN Pabo", "employer": "HAN", "city": "Nijmegen"}
+        r = u.parse_wbh_detail(self.DETAIL, "https://x", card)
+        self.assertEqual((r["published"], r["deadline"]), ("2026-11-09", "2027-03-03"))
+        self.assertEqual(r["hours"], [32.0, 36.0])
+        self.assertEqual(r["contract"], "Tijdelijk")
+        self.assertEqual(r["salary"], "€ 4.632 – € 6.677 per maand (voltijd)")
+        body = u.extract_body(u.to_text(self.DETAIL))
+        self.assertTrue(body.startswith("HAN Opleidingsdocent"))
+        self.assertNotIn("Zestor", body)
+
+    def test_crawl_filters_and_stops(self):
+        rules = u.compile_rules(json.loads((u.DATA / "sources.json").read_text(encoding="utf-8")))
+        pages = {1: self.LIST, 2: self.LIST}
+        def fake(url):
+            if "?page=" in url:
+                return pages.get(int(url.rsplit("=", 1)[1]), "")
+            return self.DETAIL
+        rejected = {}
+        cfg = {"name": "Werken bij hogescholen", "extra_include": "onderwijs|opleidingsdocent"}
+        new, seen, n, complete = u.crawl_wbh(cfg, rules, {}, rejected, dt.date(2026, 11, 11), fetch=fake, sleep=lambda s: None)
+        self.assertTrue(complete)
+        self.assertEqual(len(seen), 3)
+        self.assertEqual([r["id"] for r in new], ["wbh-opleidingsdocent-rekenen-han-pabo"])
+        self.assertEqual(new[0]["source"], "Werken bij hogescholen")
+
+    def test_classroom_variants(self):
+        rules = u.compile_rules(json.loads((u.DATA / "sources.json").read_text(encoding="utf-8")))
+        self.assertFalse(u.accept_title("Hogeschooldocent Pedagogiek", rules, "Hogeschool KPZ"))
+        self.assertFalse(u.accept_title("Onderwijsgevend Mondhygiënist", rules, "Hogeschool Inholland"))
+        self.assertTrue(u.accept_title("Lerarenopleider cluster Talen", rules, "Hogeschool Rotterdam"))
+        self.assertTrue(u.accept_title("Teacher Educator English", rules, "Hogeschool"))
+
+
 if __name__ == "__main__":
     unittest.main()

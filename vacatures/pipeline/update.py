@@ -31,7 +31,7 @@ MAX_ARCHIVE_PER_RUN = 10
 MAX_REJECTED = 800
 
 MONTHS = {"jan": 1, "feb": 2, "mrt": 3, "mar": 3, "apr": 4, "mei": 5, "may": 5,
-          "jun": 6, "jul": 7, "aug": 8, "sep": 9, "okt": 10, "oct": 10,
+          "maa": 3, "jun": 6, "jul": 7, "aug": 8, "sep": 9, "okt": 10, "oct": 10,
           "nov": 11, "dec": 12}
 
 # Plaats (kleine letters) -> (breedtegraad, lengtegraad)
@@ -271,6 +271,102 @@ def crawl_academictransfer(cfg, rules, existing, rejected, today, fetch=fetch_te
     return new, seen, len(best)
 
 
+# ------------------------------------------------------------------ Werken bij hogescholen
+WBH_BASE = "https://www.werkenbijhogescholen.nl"
+_WBH_SKIP = re.compile(r"^((layout|not-found|page)-[0-9a-f]{16}|favorieten)$")
+
+
+def parse_wbh_listing(markup):
+    """Vacaturekaarten op een overzichtspagina: [(slug, werkgever, titel, plaats)] en het totaal."""
+    cards = []
+    for m in re.finditer(r'<a[^>]+href="/vacatures/([a-z0-9-]{4,})"[^>]*>(.*?)</a>', markup, re.S):
+        slug = m.group(1)
+        if _WBH_SKIP.match(slug):
+            continue
+        parts = [htmllib.unescape(p).strip() for p in re.split(r"<[^>]+>", m.group(2))]
+        parts = [p for p in parts if p and p != ":"]
+        if len(parts) < 2:
+            continue
+        cards.append({"slug": slug, "employer": parts[0], "title": parts[1],
+                      "city": parts[2] if len(parts) > 2 and not re.search(r"\d+\s*uur", parts[2]) else None})
+    plain = re.sub(r"<[^>]+>", " ", markup)
+    total = re.search(r"\bVacatures\s+(\d+)\b", plain)
+    return cards, int(total.group(1)) if total else None
+
+
+def parse_wbh_detail(markup, url, card):
+    lines = to_text(markup).splitlines()
+    text = "\n".join(lines)
+    rec = {"url": url, "title": card["title"], "employer": card["employer"], "city": card.get("city")}
+    d = re.search(r"Geplaatst:\s*(\d{1,2})\s+([a-z]+)\s+(\d{4})", text, re.I)
+    rec["published"] = (parse_nl_date(*d.groups()) or None) if d else None
+    d = re.search(r"Sluitingsdatum:\s*(\d{1,2})\s+([a-z]+)\s+(\d{4})", text, re.I)
+    rec["deadline"] = (parse_nl_date(*d.groups()) or None) if d else None
+    for k in ("published", "deadline"):
+        rec[k] = rec[k].isoformat() if rec[k] else None
+    meta = next((ln for ln in lines if re.search(r"\d+(?:[,.]\d+)?\s*uur\b", ln) and len(ln) < 160), "")
+    h = re.search(r"(\d+(?:[,.]\d+)?)\s*(?:[-–]\s*(\d+(?:[,.]\d+)?))?\s*uur", meta)
+    rec["hours"] = [to_float(h.group(1)), to_float(h.group(2) or h.group(1))] if h else None
+    c = re.search(r"(Tijdelijk(?: met uitzicht op vast)?|Vast|Onbepaalde tijd|Bepaalde tijd)", meta)
+    rec["contract"] = c.group(1) if c else None
+    sal = re.search(r"€\s?([\d.]+(?:,\d+)?)\s*(?:en|tot|-|–)\s*(?:maximaal\s*)?€\s?([\d.]+(?:,\d+)?)", text)
+    if sal:
+        lo, hi = (float(x.replace(".", "").replace(",", ".")) for x in sal.groups())
+        rec["salary"] = f"{fmt_eur(lo)} – {fmt_eur(hi)} per maand (voltijd)"
+    else:
+        rec["salary"] = None
+    return rec
+
+
+def crawl_wbh(cfg, rules, existing, rejected, today, fetch=fetch_text, sleep=time.sleep):
+    """Loopt de overzichtspagina's af en haalt alleen nieuwe, passende vacatures op.
+    Geeft (nieuw, gezien, aantal kandidaten, compleet) terug; 'compleet' is False als een pagina mislukte."""
+    include = re.compile(cfg.get("extra_include", "$^") + "|" + rules["include"].pattern, re.I)
+    delay = cfg.get("crawl_delay", 3)
+    seen, cards, complete, total = set(), [], True, None
+    for page in range(1, cfg.get("max_pages", 30) + 1):
+        if page > 1:
+            sleep(delay)
+        try:
+            found, total = parse_wbh_listing(fetch(f"{WBH_BASE}/vacatures?page={page}"))
+        except (urllib.error.URLError, TimeoutError, OSError) as exc:
+            print(f"  ! overzicht pagina {page} mislukt ({exc})")
+            complete = False
+            break
+        fresh = [c for c in found if f"wbh-{c['slug']}" not in seen]
+        if not fresh:
+            break
+        for c in fresh:
+            seen.add(f"wbh-{c['slug']}")
+        cards += fresh
+        if total and len(seen) >= total:
+            break
+    if total and len(seen) < total:
+        complete = False
+    candidates = [c for c in cards if include.search(c["slug"]) or include.search(c["title"])]
+    new, fetched = [], 0
+    for c in candidates:
+        rid = f"wbh-{c['slug']}"
+        if rid in existing or rid in rejected or fetched >= cfg.get("max_new_pages", 25):
+            continue
+        if not accept_title(c["title"], rules, c["employer"]):
+            rejected[rid] = "buiten bereik: " + c["title"][:60]
+            continue
+        sleep(delay)
+        fetched += 1
+        url = f"{WBH_BASE}/vacatures/{c['slug']}"
+        try:
+            rec = parse_wbh_detail(fetch(url), url, c)
+        except (urllib.error.URLError, TimeoutError, OSError) as exc:
+            print(f"  ! {rid}: ophalen mislukt ({exc})")
+            continue
+        r = make_record(rid, cfg["name"], rec, today)
+        r["contract"] = rec.get("contract")
+        r["in_sitemap"] = True
+        new.append(r)
+    return new, seen, len(candidates), complete
+
+
 # ------------------------------------------------------------------ RSS
 def _child_text(el, name):
     for c in el:
@@ -435,7 +531,8 @@ def save(doc):
 
 
 # ------------------------------------------------------------------ versleuteld tekstarchief
-_NOISE = re.compile(r"(?i)^(solliciteer nu.*|apply now.*|opslaan|vacature opslaan|save( job)?|bekijk op google maps|view on google maps)$")
+_NOISE = re.compile(r"(?i)^(solliciteer nu.*|solliciteer direct.*|apply now.*|opslaan|vacature opslaan|toevoegen aan favorieten|"
+                    r"save( job)?|bekijk op google maps|view on google maps)$")
 
 
 def extract_body(text, title=None):
@@ -445,8 +542,10 @@ def extract_body(text, title=None):
     start = next((i for i, ln in enumerate(lines) if re.match(r"(?i)^deadline\b", ln)), None)
     if start is not None and start > 0:
         start -= 1  # de titelregel staat direct boven 'Deadline'
+    if start is None:  # Werken bij hogescholen
+        start = next((i + 1 for i, ln in enumerate(lines) if ln == "Terug naar vacatures"), None)
     end = next((i for i, ln in enumerate(lines)
-                if re.match(r"(?i)^(over deze werkgever|about this employer)$", ln)), None)
+                if re.match(r"(?i)^(over deze werkgever|about this employer|deel vacature\b.*)$", ln)), None)
     if start is None or end is None or end <= start:
         return text
     return "\n".join(ln for ln in lines[start:end] if not _NOISE.match(ln))
@@ -536,6 +635,12 @@ def main(argv=None):
                 if src["type"] == "academictransfer":
                     new, seen, found = crawl_academictransfer(src, rules, existing, rejected, today)
                     apply_closed_state(doc["items"], seen, today, source=src["name"])
+                elif src["type"] == "werkenbijhogescholen":
+                    new, seen, found, complete = crawl_wbh(src, rules, existing, rejected, today)
+                    if complete:
+                        apply_closed_state(doc["items"], seen, today, source=src["name"])
+                    else:
+                        print(f"  ! {src['name']}: overzicht onvolledig, sluitstatus niet bijgewerkt")
                 elif src["type"] == "rss":
                     new, _seen, found = crawl_rss(src, rules, existing, rejected, today)
                 else:
