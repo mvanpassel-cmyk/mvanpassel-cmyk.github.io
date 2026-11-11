@@ -1,5 +1,862 @@
 [
  {
+  "id": "n-4e052b2211850af1",
+  "date": "2026-11-10",
+  "added": "2026-11-11",
+  "title": "Nitori says attacker may have stolen 37.6 million customer records",
+  "victim": "Nitori",
+  "country": "JP",
+  "region": "World",
+  "sector": "Retail",
+  "type": "Data breach",
+  "impact": 4,
+  "people": 37620000,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "Records of 37.6 million customers at a national retail chain.",
+  "summary": "Japanese furniture retailer Nitori found an attacker accessed a network system and may have copied 37.62 million customer records.",
+  "sources": [
+   {
+    "name": "BleepingComputer",
+    "url": "https://www.bleepingcomputer.com/news/security/japanese-furniture-giant-nitori-says-hackers-stole-376m-customer-records/"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 4,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-633b52d3362d1494",
+  "date": "2026-11-10",
+  "added": "2026-11-11",
+  "title": "Turla uses Cereal malware to intercept government Exchange email",
+  "victim": "Government email servers in Romania and Kazakhstan",
+  "country": "RO",
+  "region": "EU",
+  "sector": "Government",
+  "type": "Espionage",
+  "impact": 4,
+  "people": null,
+  "usd": null,
+  "status": "claimed",
+  "impact_reason": "State espionage against governments, including NATO and EU correspondence.",
+  "summary": "Researchers say Russian group Turla compromised government Exchange servers with new Cereal malware to read mail exchanged with NATO and EU officials.",
+  "sources": [
+   {
+    "name": "The Record",
+    "url": "https://therecord.media/russia-hackers-espionage-romania-kazakhstan"
+   },
+   {
+    "name": "The Hacker News",
+    "url": "https://thehackernews.com/2026/11/russian-turla-hackers-use-new-cereal.html"
+   },
+   {
+    "name": "BleepingComputer",
+    "url": "https://www.bleepingcomputer.com/news/security/turla-hackers-use-new-ceral-malware-to-spy-on-govt-exchange-servers/"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 4,
+   "status": "claimed"
+  }
+ },
+ {
+  "id": "n-4039999d52bdcccd",
+  "date": "2026-11-10",
+  "added": "2026-11-11",
+  "title": "OpenAI system linked to Medicare data breach in Australia",
+  "victim": "Medicare (Australia)",
+  "country": "AU",
+  "region": "World",
+  "sector": "Government",
+  "type": "Data breach",
+  "impact": 3,
+  "people": null,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "National health insurance data breach caused by AI; scale not reported.",
+  "summary": "Australia's prime minister flagged new laws after an OpenAI-related breach of Medicare data; OpenAI will face no criminal penalties.",
+  "sources": [
+   {
+    "name": "DataBreaches.net",
+    "url": "https://databreaches.net/2026/11/10/australia-to-introduce-mandatory-reporting-after-openai-hack-to-combat-artificial-intelligence-going-rogue/"
+   }
+  ],
+  "via": "news",
+  "ai": true,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 3,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "llama-1f0693966b1ac09e",
+  "date": "2026-11-10",
+  "added": "2026-11-11",
+  "title": "Arcus Perps: $2.2M in crypto stolen",
+  "victim": "Arcus Perps",
+  "country": "",
+  "region": "World",
+  "sector": "Crypto",
+  "type": "Crypto theft",
+  "impact": 2,
+  "people": null,
+  "usd": 2234391,
+  "status": "confirmed",
+  "impact_reason": "$2.2M stolen",
+  "summary": "Protocol Logic, Withdrawal Logic Flaw",
+  "updates": [],
+  "sources": [
+   {
+    "name": "DeFiLlama",
+    "url": "https://defillama.com/hacks"
+   }
+  ],
+  "via": "defillama",
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 2,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-6a2c8842f9aef667",
+  "date": "2026-11-10",
+  "added": "2026-11-11",
+  "title": "Railway breach leads to $740,000 in fraudulent AI usage",
+  "victim": "Railway",
+  "country": "US",
+  "region": "World",
+  "sector": "Tech",
+  "type": "Data breach",
+  "impact": 2,
+  "people": 100000,
+  "usd": 740000,
+  "status": "confirmed",
+  "impact_reason": "Customer secrets stolen, about $740K fraud, up to 100,000 users' credentials exposed.",
+  "summary": "Hackers exploited infrastructure flaws at cloud host Railway to steal customer authentication secrets and run about $740,000 of fraudulent AI usage.",
+  "sources": [
+   {
+    "name": "BleepingComputer",
+    "url": "https://www.bleepingcomputer.com/news/apple/railway-breach-leads-to-740-000-in-fraudulent-ai-charges/"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 2,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-9398616ade4dc7e1",
+  "date": "2026-11-10",
+  "added": "2026-11-11",
+  "title": "Xen Orchestra authentication bypass exploited to gain admin access",
+  "victim": "Xen Orchestra (Vates)",
+  "country": "FR",
+  "region": "EU",
+  "sector": "Tech",
+  "type": "Mass exploitation",
+  "impact": 2,
+  "people": null,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "Actively exploited admin takeover of virtualization hosts; scale unknown.",
+  "summary": "Vates warned that a critical Xen Orchestra authentication bypass is being exploited in the wild to gain administrator rights and take over XCP-ng hosts.",
+  "sources": [
+   {
+    "name": "The Hacker News",
+    "url": "https://thehackernews.com/2026/11/hackers-exploit-critical-xen-orchestra.html"
+   },
+   {
+    "name": "BleepingComputer",
+    "url": "https://www.bleepingcomputer.com/news/security/critical-xen-orchestra-auth-bypass-flaw-exploited-to-hijack-vm-servers/"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 2,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-9da93084fd2090ca",
+  "date": "2026-11-10",
+  "added": "2026-11-11",
+  "title": "Barracuda Email Security Gateway flaws exploited for root access",
+  "victim": "Barracuda Email Security Gateway users",
+  "country": "US",
+  "region": "World",
+  "sector": "Tech",
+  "type": "Mass exploitation",
+  "impact": 2,
+  "people": null,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "Vendor confirms exploitation of two patched flaws; scale unknown.",
+  "summary": "Barracuda warned that attackers are exploiting two recently patched Email Security Gateway vulnerabilities to run commands as root.",
+  "sources": [
+   {
+    "name": "BleepingComputer",
+    "url": "https://www.bleepingcomputer.com/news/security/hackers-exploit-barracuda-email-security-gateway-flaws-to-get-root-access/"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 2,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-26f8fec5af447c7b",
+  "date": "2026-11-10",
+  "added": "2026-11-11",
+  "title": "SPH Media hit by concerted cyberattacks on five systems",
+  "victim": "SPH Media",
+  "country": "SG",
+  "region": "World",
+  "sector": "Media",
+  "type": "Disruption",
+  "impact": 2,
+  "people": null,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "Five systems attacked at a major media group; no customer financial data exposed.",
+  "summary": "SPH Media says five of its systems were attacked in a concerted effort, with no customer financial information or account access compromised.",
+  "sources": [
+   {
+    "name": "DataBreaches.net",
+    "url": "https://databreaches.net/2026/11/10/sg-sph-media-hit-by-cyberattacks-says-no-customer-financial-data-or-access-exposed/"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 2,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-2d2fb8365a419a82",
+  "date": "2026-11-10",
+  "added": "2026-11-11",
+  "title": "Ten Philippine government agencies report data breaches to privacy regulator",
+  "victim": "Philippine government agencies (incl. BIR, DICT)",
+  "country": "PH",
+  "region": "World",
+  "sector": "Government",
+  "type": "Data breach",
+  "impact": 2,
+  "people": null,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "Ten agencies notified breaches; scale not stated.",
+  "summary": "The National Privacy Commission received breach notifications from ten government agencies, including the Bureau of Internal Revenue and the Department of Information and Communications Technology.",
+  "sources": [
+   {
+    "name": "DataBreaches.net",
+    "url": "https://databreaches.net/2026/11/10/ph-npc-receives-data-breach-reports-from-10-agencies/"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 2,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-9a36281cf4711a24",
+  "date": "2026-11-10",
+  "added": "2026-11-11",
+  "title": "Korea's Financial Security Institute reports data leak after hack",
+  "victim": "Financial Security Institute",
+  "country": "KR",
+  "region": "World",
+  "sector": "Finance",
+  "type": "Data breach",
+  "impact": 2,
+  "people": null,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "Leak from a security assessment system at a state institute; scale unknown.",
+  "summary": "South Korea's Financial Security Institute reported a data leak after a hack of its security assessment system.",
+  "sources": [
+   {
+    "name": "DataBreaches.net",
+    "url": "https://databreaches.net/2026/11/10/kr-financial-security-institute-reports-data-leak-following-hacking-incident/"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 2,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-1fc1247fcb6ded5b",
+  "date": "2026-11-10",
+  "added": "2026-11-11",
+  "title": "Amadeus breach compromises 116,000 Finnair bookings",
+  "victim": "Finnair (via Amadeus)",
+  "country": "FI",
+  "region": "EU",
+  "sector": "Transport",
+  "type": "Supply chain",
+  "impact": 2,
+  "people": 116000,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "116,000 bookings exposed; no payment cards or passwords.",
+  "summary": "A breach at booking provider Amadeus exposed 116,000 Finnair bookings; the airline says payment card data and passwords were not accessed.",
+  "sources": [
+   {
+    "name": "Cybernews",
+    "url": "https://cybernews.com/security/finnair-customer-data-amadeus-breach/"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 2,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-21c7fbea9ffa654a",
+  "date": "2026-11-10",
+  "added": "2026-11-11",
+  "title": "Children's Foundation affected by breach at IT provider Highland Shores",
+  "victim": "The Children's Foundation",
+  "country": "CA",
+  "region": "World",
+  "sector": "Other",
+  "type": "Data breach",
+  "impact": 1,
+  "people": null,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "Small charity affected via its IT provider.",
+  "summary": "An unauthorised party accessed the IT network of Highland Shores Children's Aid Society on July 6, exposing data of The Children's Foundation.",
+  "sources": [
+   {
+    "name": "DataBreaches.net",
+    "url": "https://databreaches.net/2026/11/10/ca-data-breach-at-the-childrens-foundation/"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 1,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-4d7ae648048c68ed",
+  "date": "2026-11-09",
+  "added": "2026-11-11",
+  "title": "Stolen credentials lead to breach of 13.3 million US patients",
+  "victim": "Undisclosed US healthcare organisation",
+  "country": "US",
+  "region": "World",
+  "sector": "Health",
+  "type": "Data breach",
+  "impact": 4,
+  "people": 13300000,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "13.3 million patients' personal and medical data exposed.",
+  "summary": "A US data breach using stolen login credentials exposed personal and medical information of 13.3 million patients.",
+  "sources": [
+   {
+    "name": "Security.nl",
+    "url": "https://www.security.nl/posting/960859/Datalek+13%2C3+miljoen+Amerikaanse+pati%C3%ABnten+door+gestolen+inloggegevens?channel=rss"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 4,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-87da3ee935b8abc5",
+  "date": "2026-11-09",
+  "added": "2026-11-11",
+  "title": "SSHole OpenSSH flaw exploited to breach Linux systems",
+  "victim": "OpenSSH users",
+  "country": "",
+  "region": "World",
+  "sector": "Tech",
+  "type": "Mass exploitation",
+  "impact": 3,
+  "people": null,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "Widely deployed software exploited for command execution, credential theft and persistence.",
+  "summary": "Attackers are actively exploiting the SSHole OpenSSH vulnerability to run commands, steal credentials and keep persistent access on Linux systems.",
+  "sources": [
+   {
+    "name": "BleepingComputer",
+    "url": "https://www.bleepingcomputer.com/news/security/hackers-exploit-sshole-openssh-flaw-to-breach-linux-systems/"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 3,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-d00462f13ee43a40",
+  "date": "2026-11-09",
+  "added": "2026-11-11",
+  "title": "Beget rebuilds cloud infrastructure from scratch after wiper attack",
+  "victim": "Beget",
+  "country": "RU",
+  "region": "World",
+  "sector": "Tech",
+  "type": "Disruption",
+  "impact": 3,
+  "people": null,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "Cloud provider must rebuild infrastructure; many customers disrupted.",
+  "summary": "Russian cloud provider Beget says data-wiping malware destroyed its infrastructure, forcing a full rebuild.",
+  "sources": [
+   {
+    "name": "BleepingComputer",
+    "url": "https://www.bleepingcomputer.com/news/security/russian-cloud-firm-beget-rebuilds-from-scratch-after-data-wiper-attack/"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 3,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-32447d0d48b2c63a",
+  "date": "2026-11-09",
+  "added": "2026-11-11",
+  "title": "Revolve says September cyberattack affected 1.5 million people",
+  "victim": "Revolve",
+  "country": "US",
+  "region": "World",
+  "sector": "Retail",
+  "type": "Data breach",
+  "impact": 3,
+  "people": 1500000,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "More than 1.5 million individuals at a national online retailer.",
+  "summary": "Online fashion retailer Revolve told regulators the September cyberattack affected over 1.5 million individuals.",
+  "sources": [
+   {
+    "name": "SecurityWeek",
+    "url": "https://www.securityweek.com/revolve-puts-data-breach-victim-count-at-1-5-million/"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 3,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-adc02191d594a6d1",
+  "date": "2026-11-09",
+  "added": "2026-11-11",
+  "title": "Qubole's AWS credentials abused to breach over a dozen customers",
+  "victim": "Qubole",
+  "country": "US",
+  "region": "World",
+  "sector": "Tech",
+  "type": "Supply chain",
+  "impact": 2,
+  "people": null,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "Over a dozen organisations lost secrets and files; victim count of people unknown.",
+  "summary": "An attacker used compromised Qubole IAM credentials to enter customers' AWS accounts between October 14 and 26, stealing files, secrets, keys and credentials.",
+  "sources": [
+   {
+    "name": "BleepingComputer",
+    "url": "https://www.bleepingcomputer.com/news/security/hackers-exploit-trusted-aws-access-to-breach-multiple-cloud-environments/"
+   },
+   {
+    "name": "SecurityWeek",
+    "url": "https://www.securityweek.com/over-a-dozen-organizations-hit-in-qubole-supply-chain-attack/"
+   },
+   {
+    "name": "The Hacker News",
+    "url": "https://thehackernews.com/2026/11/hackers-exploit-quboles-trusted-aws.html"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 2,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-7646e96e2e7b5496",
+  "date": "2026-11-09",
+  "added": "2026-11-11",
+  "title": "Fireworks AI discloses second breach via third-party cloud provider",
+  "victim": "Fireworks AI",
+  "country": "US",
+  "region": "World",
+  "sector": "Tech",
+  "type": "Data breach",
+  "impact": 2,
+  "people": null,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "Customer datasets, secrets and billing data exposed at one AI infrastructure firm.",
+  "summary": "Fireworks AI says attackers who breached a cloud provider reached development machines, exposing account and billing data, secrets, datasets and incomplete model weights.",
+  "sources": [
+   {
+    "name": "The Hacker News",
+    "url": "https://thehackernews.com/2026/11/fireworks-ai-breach-widens-to-expose.html"
+   },
+   {
+    "name": "The Register",
+    "url": "https://www.theregister.com/cyber-crime/2026/11/10/fireworks-ai-gets-burned-twice-as-customer-data-exposure-widens/5308722"
+   },
+   {
+    "name": "BleepingComputer",
+    "url": "https://www.bleepingcomputer.com/news/security/fireworks-ai-discloses-new-breach-after-cloud-provider-hack/"
+   }
+  ],
+  "via": "news",
+  "ai": true,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 2,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-aa69a14638b1c9fc",
+  "date": "2026-11-09",
+  "added": "2026-11-11",
+  "title": "Vanderbilt University hit by BYOD ransomware, campus devices shut down",
+  "victim": "Vanderbilt University",
+  "country": "US",
+  "region": "World",
+  "sector": "Education",
+  "type": "Ransomware",
+  "impact": 2,
+  "people": null,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "Campus systems and Wi-Fi disrupted at one university; classes continue.",
+  "summary": "Vanderbilt told staff and students to disconnect devices as ransomware spread; the BYOD gang claims it encrypted databases and stole student, employee and research data.",
+  "sources": [
+   {
+    "name": "The Register",
+    "url": "https://www.theregister.com/cyber-crime/2026/11/10/ransomware-threat-blares-from-vanderbilt-university-computers-during-cyberattack/5308687"
+   },
+   {
+    "name": "DataBreaches.net",
+    "url": "https://databreaches.net/2026/11/10/ransomware-attack-puts-vanderbilt-university-on-lockdown/"
+   },
+   {
+    "name": "Cybernews",
+    "url": "https://cybernews.com/security/vanderbilt-university-cyberattack-byod-gang/"
+   },
+   {
+    "name": "BleepingComputer",
+    "url": "https://www.bleepingcomputer.com/news/security/vanderbilt-university-hit-in-byod-ransomware-attack-data-theft-claimed/"
+   },
+   {
+    "name": "The Record",
+    "url": "https://therecord.media/vanderbilt-cyberattack-ransomware-alert"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 2,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-78b3de55342ad6e7",
+  "date": "2026-11-09",
+  "added": "2026-11-11",
+  "title": "Plex2Shell exploit chain used against QNAP NAS devices",
+  "victim": "QNAP NAS users",
+  "country": "TW",
+  "region": "World",
+  "sector": "Tech",
+  "type": "Mass exploitation",
+  "impact": 2,
+  "people": null,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "Active exploitation of a four-flaw chain on NAS devices; scale unknown.",
+  "summary": "Threat actors are exploiting a four-flaw chain in Plex Media Server to compromise QNAP NAS devices.",
+  "sources": [
+   {
+    "name": "SecurityWeek",
+    "url": "https://www.securityweek.com/plex2shell-exploited-against-qnap-nas-users/"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 2,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-7cd796fba406d97a",
+  "date": "2026-11-09",
+  "added": "2026-11-11",
+  "title": "Ethersphere bee-js and Swarm Desktop releases trojanised with wallet stealer",
+  "victim": "Ethersphere (Swarm)",
+  "country": "",
+  "region": "World",
+  "sector": "Crypto",
+  "type": "Supply chain",
+  "impact": 2,
+  "people": null,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "Malicious releases of two developer tools; scale and losses unknown.",
+  "summary": "Attackers abused Ethersphere's release automation to publish bee-js 13.3.0 and Swarm Desktop 0.56.2, which run wallet-stealing malware.",
+  "sources": [
+   {
+    "name": "The Hacker News",
+    "url": "https://thehackernews.com/2026/11/hackers-compromise-etherspheres-bee-js.html"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 2,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-293170938bf37e11",
+  "date": "2026-11-09",
+  "added": "2026-11-11",
+  "title": "SEGA newsletter provider breach exposes 2.2 million email addresses",
+  "victim": "SEGA (via ARARA)",
+  "country": "JP",
+  "region": "World",
+  "sector": "Media",
+  "type": "Data breach",
+  "impact": 2,
+  "people": 2200000,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "2.2 million email addresses exposed, limited data type.",
+  "summary": "A breach at third-party newsletter provider ARARA exposed 2.2 million SEGA subscriber email addresses.",
+  "sources": [
+   {
+    "name": "BleepingComputer",
+    "url": "https://www.bleepingcomputer.com/news/security/sega-newsletter-data-breach-exposes-22-million-email-addresses/"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 2,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-a392e819b8435103",
+  "date": "2026-11-09",
+  "added": "2026-11-11",
+  "title": "York University breach exposes personal data dating to 2007",
+  "victim": "York University",
+  "country": "CA",
+  "region": "World",
+  "sector": "Education",
+  "type": "Data breach",
+  "impact": 2,
+  "people": null,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "Online form data going back to 2007 stolen; count not given.",
+  "summary": "A threat actor stole personal information people had submitted through York University's online forms since 2007.",
+  "sources": [
+   {
+    "name": "BleepingComputer",
+    "url": "https://www.bleepingcomputer.com/news/security/york-university-breach-exposed-personal-information-dating-to-2007/"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 2,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-cd41a3a65bdc0124",
+  "date": "2026-11-09",
+  "added": "2026-11-11",
+  "title": "Amplifon US notifies customers of breach including medical information",
+  "victim": "Amplifon US",
+  "country": "US",
+  "region": "World",
+  "sector": "Health",
+  "type": "Data breach",
+  "impact": 2,
+  "people": null,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "Thousands of customers affected, including medical data.",
+  "summary": "The US arm of hearing aid company Amplifon is notifying thousands of customers of an early-2026 breach that included medical information.",
+  "sources": [
+   {
+    "name": "The Record",
+    "url": "https://therecord.media/amplifon-hearing-aid-company-data-breach"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 2,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-897306dd5cb8a0a1",
+  "date": "2026-11-09",
+  "added": "2026-11-11",
+  "title": "NEAR AI breached through SGLang remote code execution flaw",
+  "victim": "NEAR AI",
+  "country": "US",
+  "region": "World",
+  "sector": "Tech",
+  "type": "Data breach",
+  "impact": 1,
+  "people": 100,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "About 100 users and 18 AI agents affected.",
+  "summary": "An attacker exploited an SGLang flaw to run code on a NEAR AI inference server, exposing account details of about 100 users and data from 18 agents.",
+  "sources": [
+   {
+    "name": "DataBreaches.net",
+    "url": "https://databreaches.net/2026/11/10/near-ai-breach-exposes-user-details-and-data-from-18-ai-agents/"
+   },
+   {
+    "name": "The Hacker News",
+    "url": "https://thehackernews.com/2026/11/sglang-rce-exploit-breaches-near-ai.html"
+   },
+   {
+    "name": "The Block",
+    "url": "https://www.theblock.co/news/defi/2026-11-10-near-ai-security-breach-437002"
+   }
+  ],
+  "via": "news",
+  "ai": true,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 1,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-6a353d1ef3833c1a",
+  "date": "2026-11-09",
+  "added": "2026-11-11",
+  "title": "Topgeschenken reports theft of customer data",
+  "victim": "Topgeschenken",
+  "country": "NL",
+  "region": "NL",
+  "sector": "Retail",
+  "type": "Data breach",
+  "impact": 1,
+  "people": null,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "Small Dutch web shop group; size of breach unknown.",
+  "summary": "The company behind Toptaarten.nl, Topbloemen.nl and Topgeschenken.nl reported stolen customer data; the scale is not yet known.",
+  "sources": [
+   {
+    "name": "Security.nl",
+    "url": "https://www.security.nl/posting/960898/Topgeschenken+meldt+diefstal+klantgegevens%2C+omvang+datalek+nog+onbekend?channel=rss"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 1,
+   "status": "confirmed"
+  }
+ },
+ {
   "id": "n-93a26260b37a711e",
   "date": "2026-11-08",
   "added": "2026-11-09",
@@ -19,11 +876,25 @@
    {
     "name": "BleepingComputer",
     "url": "https://www.bleepingcomputer.com/news/security/iris-ohyama-data-cloud-breach-exposes-info-of-77-million-customers/"
+   },
+   {
+    "name": "The Register",
+    "url": "https://www.theregister.com/cyber-crime/2026/11/09/japanese-homeware-giant-pulls-online-store-after-cloud-breach-puts-77m-records-at-risk/5308377"
+   },
+   {
+    "name": "SecurityWeek",
+    "url": "https://www.securityweek.com/iris-plaza-breach-may-have-exposed-data-of-7-7-million-customers/"
    }
   ],
   "via": "news",
   "ai": false,
-  "updates": [],
+  "updates": [
+   {
+    "date": "2026-11-11",
+    "kind": "source",
+    "text": "Online store pulled with no reopening date; orders delayed, some customers told to refuse deliveries."
+   }
+  ],
   "first_recorded": {
    "date": "2026-11-09",
    "impact": 3,
@@ -50,11 +921,21 @@
    {
     "name": "The Block",
     "url": "https://www.theblock.co/news/defi/2026-11-08-web3auth-says-it-frontran-hackers-by-moving-5-6-million-out-of-exposed-keplr-wallets-436029"
+   },
+   {
+    "name": "The Hacker News",
+    "url": "https://thehackernews.com/2026/11/web3auth-flaw-exploited-to-steal-keplr.html"
    }
   ],
   "via": "news",
   "ai": false,
-  "updates": [],
+  "updates": [
+   {
+    "date": "2026-11-11",
+    "kind": "source",
+    "text": "Web3Auth flaw confirmed as the cause; provider emptied other wallets as a precaution."
+   }
+  ],
   "first_recorded": {
    "date": "2026-11-09",
    "impact": 2,
@@ -97,6 +978,37 @@
   "first_recorded": {
    "date": "2026-11-09",
    "impact": 3,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "n-4d064db8c37d8c95",
+  "date": "2026-11-07",
+  "added": "2026-11-11",
+  "title": "Italian foreign minister's personal data leaked on dark web",
+  "victim": "Antonio Tajani (Italian Foreign Ministry)",
+  "country": "IT",
+  "region": "EU",
+  "sector": "Government",
+  "type": "Data breach",
+  "impact": 2,
+  "people": 1,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "Personal data of a senior minister leaked; Meloni blames pro-Russian hackers.",
+  "summary": "Foreign Minister Tajani said his personal data was spread on the dark web; Prime Minister Meloni blamed pro-Russian hackers.",
+  "sources": [
+   {
+    "name": "SecurityWeek",
+    "url": "https://www.securityweek.com/italys-meloni-blames-pro-russian-hackers-for-leak-of-foreign-ministers-data-on-the-dark-web/"
+   }
+  ],
+  "via": "news",
+  "ai": false,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 2,
    "status": "confirmed"
   }
  },
@@ -385,6 +1297,37 @@
   }
  },
  {
+  "id": "n-e8082cc54dfbdb4b",
+  "date": "2026-11-03",
+  "added": "2026-11-11",
+  "title": "AI agents used to steal Taipei emergency dispatch records",
+  "victim": "Taipei emergency dispatch",
+  "country": "TW",
+  "region": "World",
+  "sector": "Government",
+  "type": "Data breach",
+  "impact": 2,
+  "people": null,
+  "usd": null,
+  "status": "claimed",
+  "impact_reason": "Dispatch records from seven districts and exposed patient data; count unknown.",
+  "summary": "Acronis researchers say one attacker used BOSSAI agents to pull emergency dispatch records for seven Taipei districts and found patient data on a fire department platform.",
+  "sources": [
+   {
+    "name": "The Hacker News",
+    "url": "https://thehackernews.com/2026/11/taiwan-based-hacker-used-bossai-ai.html"
+   }
+  ],
+  "via": "news",
+  "ai": true,
+  "updates": [],
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 2,
+   "status": "claimed"
+  }
+ },
+ {
   "id": "n-2a004f29453eb3f4",
   "date": "2026-11-03",
   "added": "2026-11-09",
@@ -486,6 +1429,14 @@
    {
     "name": "Security.nl",
     "url": "https://www.security.nl/posting/960517/HomeBrew+hekelt+Google+over+malafide+advertenties+gebruikt+bij+Binance-hack?channel=rss"
+   },
+   {
+    "name": "Cybernews",
+    "url": "https://cybernews.com/crypto/north-korea-binance-heist-musk-meme-coins/"
+   },
+   {
+    "name": "The Block",
+    "url": "https://www.theblock.co/news/ecosystems/2026-11-09-binance-hack-launderers-mint-homemade-elon-musk-animal-memecoins-move-stolen-funds-elliptic-436440"
    }
   ],
   "added": "2026-10-31",
@@ -497,6 +1448,11 @@
     "date": "2026-11-09",
     "kind": "source",
     "text": "Elliptic: $124M swapped to bitcoin, $2.85B frozen; withdrawals reopening in stages; CFO departed."
+   },
+   {
+    "date": "2026-11-11",
+    "kind": "source",
+    "text": "Launderers are moving stolen funds through homemade memecoins, but they remain traceable onchain."
    }
   ],
   "first_recorded": {
@@ -839,6 +1795,18 @@
    {
     "name": "The Hacker News",
     "url": "https://thehackernews.com/2026/11/us-agencies-warn-refrigeration.html"
+   },
+   {
+    "name": "The Hacker News",
+    "url": "https://thehackernews.com/2026/11/france-blames-iran-for-sabotage-attack.html"
+   },
+   {
+    "name": "SecurityWeek",
+    "url": "https://www.securityweek.com/france-blames-iran-for-a-cyberattack-that-heated-supermarket-refrigerators/"
+   },
+   {
+    "name": "The Register",
+    "url": "https://www.theregister.com/security/2026/11/09/france-blames-iran-for-supermarket-hack-meltdowns/5308591"
    }
   ],
   "via": "seed",
@@ -849,6 +1817,11 @@
     "date": "2026-11-09",
     "kind": "source",
     "text": "US agencies warn attackers are targeting refrigeration and cold-chain controllers globally, risking fires and spoiled stock."
+   },
+   {
+    "date": "2026-11-11",
+    "kind": "source",
+    "text": "France blames Iran's IRGC for sabotage at about 700 sites; ambassador summoned, EU sanctions sought."
    }
   ],
   "first_recorded": {
@@ -4490,6 +5463,66 @@
   "first_recorded": {
    "date": "2026-10-31",
    "impact": 2,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "hibp-SberSpasibo",
+  "date": "2023-03-09",
+  "added": "2026-11-11",
+  "title": "СберСпасибо (SberSpasibo): 3,288,711 accounts in a confirmed data breach",
+  "victim": "СберСпасибо (SberSpasibo)",
+  "country": "RU",
+  "region": "World",
+  "sector": "Other",
+  "type": "Data breach",
+  "impact": 3,
+  "people": 3288711,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "3,288,711 accounts reported to Have I Been Pwned",
+  "summary": "In March 2023, data allegedly taken from СберСпасибо (SberSpasibo), the loyalty program of Russian bank Сбербанк (Sberbank), was published online . The data contained records relating to 48M users, including 3.3M unique email addresses alongside phone…",
+  "updates": [],
+  "sources": [
+   {
+    "name": "Have I Been Pwned",
+    "url": "https://haveibeenpwned.com/Breach/SberSpasibo"
+   }
+  ],
+  "via": "hibp",
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 3,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "hibp-YouHack",
+  "date": "2013-05-29",
+  "added": "2026-11-11",
+  "title": "YouHack: 7,160,849 accounts in a confirmed data breach",
+  "victim": "YouHack",
+  "country": "RU",
+  "region": "World",
+  "sector": "Other",
+  "type": "Data breach",
+  "impact": 3,
+  "people": 7160849,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "7,160,849 accounts reported to Have I Been Pwned",
+  "summary": "In May 2013, the Russian-language hacking forum YouHack suffered a data breach that was later redistributed as part of a larger corpus of data . The breach exposed 107k forum members' email addresses, usernames, IP addresses and MD5 password hashes, most of…",
+  "updates": [],
+  "sources": [
+   {
+    "name": "Have I Been Pwned",
+    "url": "https://haveibeenpwned.com/Breach/YouHack"
+   }
+  ],
+  "via": "hibp",
+  "first_recorded": {
+   "date": "2026-11-11",
+   "impact": 3,
    "status": "confirmed"
   }
  }
