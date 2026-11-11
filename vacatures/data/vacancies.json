@@ -1,20 +1,52 @@
 {
   "meta": {
-    "updated": "2026-11-11T09:45:00+01:00",
+    "updated": "2026-11-11T09:35:26+01:00",
     "sources": {
       "AcademicTransfer": {
         "ok": true,
-        "note": "Startset handmatig gecontroleerd op 11 november 2026; het dagelijkse script neemt het over."
+        "found": 10,
+        "new": 5,
+        "error": null,
+        "checked": "2026-11-11T09:35:26+01:00"
       },
       "Erasmus Universiteit": {
         "ok": true,
         "note": "Eén vacature handmatig toegevoegd; geen automatische feed gevonden."
       }
     },
-    "rejected": {},
-    "employers_missing": []
+    "rejected": {
+      "at-365276": "buiten bereik: Managementassistent Pedagogische - en Onderwijswetenschappen"
+    },
+    "employers_missing": [
+      "Delft University of Technology (TU Delft)",
+      "Universiteit van Amsterdam (UvA)"
+    ]
   },
   "items": [
+    {
+      "id": "at-365330",
+      "source": "AcademicTransfer",
+      "url": "https://www.academictransfer.com/en/jobs/365330/education-development-officer-city-as-a-laboratory-project/",
+      "title": "Education Development Officer City As a Laboratory Project",
+      "employer": "Delft University of Technology (TU Delft)",
+      "city": null,
+      "hours": null,
+      "salary": null,
+      "contract": null,
+      "published": null,
+      "deadline": "2026-12-07",
+      "topics": [
+        "overig"
+      ],
+      "summary": null,
+      "first_seen": "2026-11-11",
+      "last_seen": "2026-11-11",
+      "in_sitemap": true,
+      "closed_early": false,
+      "archive_url": null,
+      "archive_requested": null,
+      "employer_key": null
+    },
     {
       "id": "at-365216",
       "source": "AcademicTransfer",
@@ -37,13 +69,42 @@
       "summary": "Leidt een team van ongeveer tien programmamedewerkers die onderzoek over primair en voortgezet onderwijs vertalen naar praktische kennisproducten voor scholen.",
       "first_seen": "2026-11-11",
       "last_seen": "2026-11-11",
-      "in_sitemap": null,
+      "in_sitemap": true,
       "closed_early": false,
       "archive_url": null,
       "archive_requested": null,
       "lat": 52.0705,
       "lon": 4.3007,
       "employer_key": "nwo-nko"
+    },
+    {
+      "id": "at-365433",
+      "source": "AcademicTransfer",
+      "url": "https://www.academictransfer.com/nl/jobs/365433/beleidsmedewerker-onderwijs/",
+      "title": "Beleidsmedewerker Onderwijs",
+      "employer": "Universiteit van Amsterdam (UvA)",
+      "city": "Amsterdam",
+      "hours": [
+        32.0,
+        38.0
+      ],
+      "salary": "€ 3.706 – € 5.760 per maand",
+      "contract": null,
+      "published": "2026-11-09",
+      "deadline": "2026-11-25",
+      "topics": [
+        "onderwijsadvies"
+      ],
+      "summary": null,
+      "first_seen": "2026-11-11",
+      "last_seen": "2026-11-11",
+      "in_sitemap": true,
+      "closed_early": false,
+      "archive_url": null,
+      "archive_requested": null,
+      "lat": 52.3676,
+      "lon": 4.9041,
+      "employer_key": null
     },
     {
       "id": "at-365423",
@@ -67,7 +128,7 @@
       "summary": "Bouwt bij het landelijk expertisecentrum voor het curriculum kennis op over curriculum, toetsing en examinering en adviseert collega's, directie en ketenpartners daarover.",
       "first_seen": "2026-11-11",
       "last_seen": "2026-11-11",
-      "in_sitemap": null,
+      "in_sitemap": true,
       "closed_early": false,
       "archive_url": null,
       "archive_requested": null,
@@ -97,7 +158,7 @@
       "summary": "Adviseert en traint docent- en opleidingsteams van de VU bij het ontwerpen van ontwikkelingsgericht en programmatisch toetsen, in het eerste jaar vooral voor de Faculteit der Geneeskunde.",
       "first_seen": "2026-11-11",
       "last_seen": "2026-11-11",
-      "in_sitemap": null,
+      "in_sitemap": true,
       "closed_early": false,
       "archive_url": null,
       "archive_requested": null,
@@ -135,6 +196,35 @@
       "employer_key": "eur"
     },
     {
+      "id": "at-365087",
+      "source": "AcademicTransfer",
+      "url": "https://www.academictransfer.com/nl/jobs/365087/senior-beleidsmedewerker-onderwijs/",
+      "title": "(Senior) Beleidsmedewerker onderwijs",
+      "employer": "Universiteit van Amsterdam (UvA)",
+      "city": "Amsterdam",
+      "hours": [
+        32.0,
+        38.0
+      ],
+      "salary": "€ 4.925 – € 7.573 per maand",
+      "contract": null,
+      "published": "2026-10-28",
+      "deadline": "2026-11-15",
+      "topics": [
+        "onderwijsadvies"
+      ],
+      "summary": null,
+      "first_seen": "2026-11-11",
+      "last_seen": "2026-11-11",
+      "in_sitemap": true,
+      "closed_early": false,
+      "archive_url": null,
+      "archive_requested": null,
+      "lat": 52.3676,
+      "lon": 4.9041,
+      "employer_key": null
+    },
+    {
       "id": "at-365025",
       "source": "AcademicTransfer",
       "url": "https://www.academictransfer.com/nl/jobs/365025/programmamedewerker-data-bij-het-nationaal-kennisinstituut-onderwijs/",
@@ -155,13 +245,42 @@
       "summary": "Organiseert subsidies en aanbestedingen voor onderzoek naar leerprestaties en schoolloopbanen en helpt de landelijke data-infrastructuur voor het onderwijs verder te ontwikkelen.",
       "first_seen": "2026-11-11",
       "last_seen": "2026-11-11",
-      "in_sitemap": null,
+      "in_sitemap": true,
       "closed_early": false,
       "archive_url": null,
       "archive_requested": null,
       "lat": 52.0705,
       "lon": 4.3007,
       "employer_key": "nwo-nko"
+    },
+    {
+      "id": "at-364995",
+      "source": "AcademicTransfer",
+      "url": "https://www.academictransfer.com/nl/jobs/364995/beleidsmedewerker-onderwijs-08-10-fte/",
+      "title": "Beleidsmedewerker Onderwijs (0,8 - 1,0 fte)",
+      "employer": "Erasmus Universiteit Rotterdam (EUR)",
+      "city": "Rotterdam",
+      "hours": [
+        30.4,
+        38.0
+      ],
+      "salary": "€ 4.925 – € 6.682 per maand",
+      "contract": null,
+      "published": "2026-10-23",
+      "deadline": "2026-11-15",
+      "topics": [
+        "onderwijsadvies"
+      ],
+      "summary": null,
+      "first_seen": "2026-11-11",
+      "last_seen": "2026-11-11",
+      "in_sitemap": true,
+      "closed_early": false,
+      "archive_url": null,
+      "archive_requested": null,
+      "lat": 51.9244,
+      "lon": 4.4777,
+      "employer_key": "eur"
     },
     {
       "id": "at-364678",
@@ -185,7 +304,7 @@
       "summary": "Driejarig onderzoek bij de lerarenopleiding van de RUG naar de professionele idealen van aanstaande en beginnende leraren in het voortgezet onderwijs en naar gelijke kansen in Noord-Nederland.",
       "first_seen": "2026-11-11",
       "last_seen": "2026-11-11",
-      "in_sitemap": null,
+      "in_sitemap": false,
       "closed_early": false,
       "archive_url": null,
       "archive_requested": null,
@@ -214,7 +333,7 @@
       "summary": "Zelfstandig onderzoek naar onderwijs en sociale ongelijkheid, gecombineerd met onderwijs in de opleidingen Pedagogische Wetenschappen en Onderwijswetenschappen.",
       "first_seen": "2026-11-11",
       "last_seen": "2026-11-11",
-      "in_sitemap": null,
+      "in_sitemap": false,
       "closed_early": false,
       "archive_url": null,
       "archive_requested": null,
@@ -244,7 +363,7 @@
       "summary": "Adviseert over het ontwerpen van medische opleidingen, leidt curriculumvernieuwing en blended learning en borgt dat kwaliteitszorg het onderwijs in de praktijk verbetert.",
       "first_seen": "2026-11-11",
       "last_seen": "2026-11-11",
-      "in_sitemap": null,
+      "in_sitemap": false,
       "closed_early": false,
       "archive_url": null,
       "archive_requested": null,
@@ -273,7 +392,7 @@
       "summary": "Adviseert en coacht docenten van de Open Universiteit over online onderwijs, met nadruk op toetsing en AI. Minstens twee dagen per week op de campus.",
       "first_seen": "2026-11-11",
       "last_seen": "2026-11-11",
-      "in_sitemap": null,
+      "in_sitemap": false,
       "closed_early": false,
       "archive_url": null,
       "archive_requested": null,
@@ -303,10 +422,10 @@
       "summary": "Ontwikkelt en geeft vakdidactische cursussen voor de nieuwe online pabo-bachelor en doet onderzoek dat dat onderwijs onderbouwt.",
       "first_seen": "2026-11-11",
       "last_seen": "2026-11-11",
-      "in_sitemap": null,
+      "in_sitemap": false,
       "closed_early": false,
-      "archive_url": null,
-      "archive_requested": null,
+      "archive_url": "https://web.archive.org/web/https://www.academictransfer.com/en/jobs/357615/universitair-docent-didactiek-van-wereldorientatie-en-kunstcultuur",
+      "archive_requested": "2026-11-11",
       "lat": 50.8882,
       "lon": 5.9795,
       "employer_key": "ou"
@@ -334,13 +453,42 @@
       "summary": "Versterkt onderwijs en onderzoek van de vakgroep Leren en Instructie, vooral voor de nieuwe online toegankelijke pabo-bachelor.",
       "first_seen": "2026-11-11",
       "last_seen": "2026-11-11",
-      "in_sitemap": null,
+      "in_sitemap": false,
       "closed_early": false,
       "archive_url": null,
       "archive_requested": null,
       "lat": 50.8882,
       "lon": 5.9795,
       "employer_key": "ou"
+    },
+    {
+      "id": "at-365088",
+      "source": "AcademicTransfer",
+      "url": "https://www.academictransfer.com/nl/jobs/365088/senior-beleidsmedewerker-onderwijs/",
+      "title": "(Senior) Beleidsmedewerker onderwijs",
+      "employer": "Universiteit van Amsterdam (UvA)",
+      "city": "Amsterdam",
+      "hours": [
+        32.0,
+        38.0
+      ],
+      "salary": "€ 4.925 – € 7.573 per maand",
+      "contract": null,
+      "published": "2026-10-28",
+      "deadline": null,
+      "topics": [
+        "onderwijsadvies"
+      ],
+      "summary": null,
+      "first_seen": "2026-11-11",
+      "last_seen": "2026-11-11",
+      "in_sitemap": true,
+      "closed_early": false,
+      "archive_url": null,
+      "archive_requested": null,
+      "lat": 52.3676,
+      "lon": 4.9041,
+      "employer_key": null
     }
   ]
 }
