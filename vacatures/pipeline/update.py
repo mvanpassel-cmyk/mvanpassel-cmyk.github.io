@@ -328,8 +328,36 @@ def make_record(rid, source, rec, today):
     return out
 
 
+# Hoofdvestiging als de vacature zelf geen adres noemt (alleen gebruikt bij ontbrekende plaats).
+EMPLOYER_CITY = [
+    ("delft university|tu delft|technische universiteit delft", "Delft"),
+    ("eindhoven university|tu eindhoven|technische universiteit eindhoven", "Eindhoven"),
+    ("universiteit utrecht|utrecht university|hogeschool utrecht", "Utrecht"),
+    ("universiteit leiden|leiden university", "Leiden"),
+    ("wageningen", "Wageningen"),
+    ("universiteit van amsterdam|uva\\b|hogeschool van amsterdam|vrije universiteit", "Amsterdam"),
+    ("tilburg", "Tilburg"),
+    ("maastricht", "Maastricht"),
+    ("universiteit twente|university of twente", "Enschede"),
+    ("rijksuniversiteit groningen|hanzehogeschool", "Groningen"),
+    ("radboud", "Nijmegen"),
+    ("erasmus", "Rotterdam"),
+    ("open universiteit", "Heerlen"),
+]
+
+
+def city_from_employer(name):
+    low = (name or "").lower()
+    for pat, city in EMPLOYER_CITY:
+        if re.search(pat, low):
+            return city
+    return None
+
+
 def enrich(item):
     """Vul coördinaten aan op basis van de plaats."""
+    if not item.get("city"):
+        item["city"] = city_from_employer(item.get("employer"))
     xy = coords_for(item.get("city"))
     if xy:
         item["lat"], item["lon"] = xy

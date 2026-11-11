@@ -99,7 +99,7 @@ input[type="search"]::placeholder { color: var(--muted); }
 .excluded code { font-family: var(--font-mono); font-size: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px; }
 
 #map { height: 640px; border: 1px solid var(--line); border-radius: 8px; background: var(--sea); position: relative; z-index: 0; }
-@media (max-width: 560px) { #map { height: 380px; } }
+@media (max-width: 560px) { #map { height: 360px; } #map .prov, #map .town, .excluded { display: none; } .stats { gap: 4px 16px; } }
 .mapnote { font-size: 12.5px; color: var(--muted); padding-top: 6px; }
 .maplabel { background: transparent; border: 0; box-shadow: none; font: 600 11.5px var(--font-body); color: var(--ink); padding: 0; }
 .maplabel::before { display: none; }
@@ -375,7 +375,7 @@ footer ul { margin: 0; padding-left: 18px; }
     withXY.forEach(function (j) { (groups[j.city] = groups[j.city] || { lat: j.lat, lon: j.lon, jobs: [] }).jobs.push(j); });
     Object.keys(townMarkers).forEach(function (k) {
       var has = Object.keys(groups).some(function (c) { return c.toLowerCase() === k; });
-      if (has) map.removeLayer(townMarkers[k]); else townMarkers[k].addTo(map);
+      if (has || map.getSize().x < 600) map.removeLayer(townMarkers[k]); else townMarkers[k].addTo(map);
     });
     Object.keys(groups).forEach(function (city) {
       var g = groups[city];

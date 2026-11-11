@@ -218,5 +218,16 @@ class Dataset(unittest.TestCase):
         self.assertIsNone(u.employer_key("Slovenië Instituut", self.employers))
 
 
+class EmployerCityTests(unittest.TestCase):
+    def test_fallback_city_from_employer(self):
+        it = u.enrich({"city": None, "employer": "Delft University of Technology (TU Delft)"})
+        self.assertEqual(it["city"], "Delft")
+        self.assertIn("lat", it)
+
+    def test_explicit_city_wins(self):
+        it = u.enrich({"city": "Amersfoort", "employer": "Universiteit Utrecht"})
+        self.assertEqual(it["city"], "Amersfoort")
+
+
 if __name__ == "__main__":
     unittest.main()
