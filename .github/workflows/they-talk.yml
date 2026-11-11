@@ -1,20 +1,23 @@
-name: They Talk daily conversation
+name: They Talk conversation
 
 on:
   schedule:
-    # GitHub often starts scheduled runs hours late, so this is set early (UTC) to land before the Dutch morning.
-    - cron: "23 2 * * *"
+    # Weekly, Monday early UTC (GitHub often starts scheduled runs hours late).
+    - cron: "23 2 * * 1"
   workflow_dispatch:
     inputs:
+      url:
+        description: "Article link for the agents to discuss (optional)"
+        type: string
+        default: ""
+      topic:
+        description: "Or a topic / question, without an article (optional)"
+        type: string
+        default: ""
       force:
-        description: "Generate a new conversation even if today's already exists"
+        description: "No link or topic: let Agent A pick from the Global Health Ribbon now"
         type: boolean
         default: false
-  push:
-    branches: [main]
-    paths:
-      - "they-talk/pipeline/**"
-      - ".github/workflows/they-talk.yml"
 
 permissions:
   contents: write
@@ -42,6 +45,8 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           FORCE: ${{ github.event.inputs.force }}
+          SUGGEST_URL: ${{ github.event.inputs.url }}
+          SUGGEST_TOPIC: ${{ github.event.inputs.topic }}
         run: python they-talk/pipeline/talk.py
 
       - name: Commit (also the status note when the run failed)

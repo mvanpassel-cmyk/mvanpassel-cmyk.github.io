@@ -252,6 +252,12 @@ def parse_pick(text, n):
 def story_block(story):
     head = (f"Headline: {story['title']}\nPublisher: {story['publisher']}\n"
             f"Date: {story['date'] or 'unknown'}\nURL: {story['url']}\n\n")
+    if story["text_source"] == "topic":
+        return ("There is no article this time. A human suggested this topic for the two of you to discuss:\n\n"
+                + story["title"] + "\n\nWork from what you know, and be clear about where your knowledge ends "
+                "(around mid-2026) and when you are reasoning rather than reporting.")
+    if story.get("note"):
+        head += f"The person who suggested this story added: {story['note']}\n\n"
     if story["text_source"] == "article":
         return head + "Article text (extracted from the web page, may contain stray fragments):\n\n" + story["text"]
     return head + ("Only the headline and this short feed summary are available; the full article could not be "
@@ -301,6 +307,39 @@ def run_conversation(story, usage, call=None):
     return messages, ended_by
 
 
+def meta(page, *names):
+    for n in names:
+        m = (re.search(r'<meta[^>]+(?:property|name)=["\']' + re.escape(n) + r'["\'][^>]*content=["\']([^"\']+)', page, re.I)
+             or re.search(r'<meta[^>]+content=["\']([^"\']+)["\'][^>]*(?:property|name)=["\']' + re.escape(n) + r'["\']', page, re.I))
+        if m:
+            return html.unescape(m.group(1)).strip()
+    return ""
+
+
+def suggested_story(url, topic):
+    """A story from a link or a topic given by hand. A link that can't be read stops the run."""
+    if not url:
+        topic = re.sub(r"\s+", " ", topic).strip()[:300]
+        return {"title": topic, "publisher": "", "date": "", "url": "", "text_source": "topic", "text": "",
+                "suggested": True}
+    try:
+        page, final = http_get(url)
+    except Exception as e:  # noqa: BLE001
+        raise RuntimeError(f"Could not open the suggested link ({type(e).__name__}); no conversation generated.")
+    text = extract_text(page)
+    if len(text) < MIN_ARTICLE_CHARS:
+        raise RuntimeError("The suggested link has too little readable text (paywall or script-only page?); no conversation generated.")
+    if len(text) > ARTICLE_CHARS:
+        text = text[:ARTICLE_CHARS].rsplit("\n\n", 1)[0] + "\n\n[article truncated]"
+    t = re.search(r"<title[^>]*>(.*?)</title>", page, re.S | re.I)
+    title = meta(page, "og:title", "twitter:title") or html.unescape(re.sub(r"\s+", " ", t.group(1)).strip() if t else final)
+    dom = re.sub(r"^www\.", "", urllib.parse.urlparse(final).netloc)
+    publisher = meta(page, "og:site_name") or OUTLETS.get(dom, dom)
+    title = re.sub(r"\s+[-|–]\s+" + re.escape(publisher) + r"$", "", title)
+    return {"title": title, "publisher": publisher, "date": meta_date(page), "url": final,
+            "text_source": "article", "text": text, "suggested": True, "note": topic.strip()[:300]}
+
+
 FEED_LABELS = {"WHO Alert", "Health Emergency", "Global Health", "WHO News"}   # ribbon search feeds, not publishers
 OUTLETS = {"cidrap.umn.edu": "CIDRAP", "deccanherald.com": "Deccan Herald", "who.int": "WHO",
            "healthpolicy-watch.news": "Health Policy Watch", "devex.com": "Devex", "statnews.com": "STAT News",
@@ -324,7 +363,9 @@ def main():
     status_path = os.path.join(DATA, "status.json")
     index_path = os.path.join(DATA, "index.json")
     index = load(index_path, [])
-    force = os.environ.get("FORCE", "").lower() == "true"
+    sug_url = os.environ.get("SUGGEST_URL", "").strip()
+    sug_topic = os.environ.get("SUGGEST_TOPIC", "").strip()
+    force = os.environ.get("FORCE", "").lower() == "true" or bool(sug_url or sug_topic)
     conv_id = now.strftime("%Y-%m-%d")
     if not force and any(c["id"].startswith(conv_id) for c in index):
         print("Today's conversation already exists.")
@@ -340,24 +381,12 @@ def main():
 
     usage = Usage()
     try:
-        feed = json.loads(http_get(FEED_URL)[0])
-        try:
-            gnews = json.loads(http_get(GNEWS_URL)[0])
-        except Exception:  # noqa: BLE001
-            gnews = {}
-        used = {c["url"] for c in index}
-        cands = candidates(feed, gnews, used, now)
-        if not cands:
-            raise RuntimeError("No recent, unused stories in the Global Health Ribbon feed.")
-        i, why = pick_story(cands, [c["title"] for c in index], usage)
-        item = cands[i]
-        text, source, final_url, pub_date = article_for(item)
-        publisher, title = publisher_and_title(item, final_url)
-        story = {"title": title, "publisher": publisher,
-                 "date": pub_date or item.get("date", "")[:10], "url": final_url,
-                 "ribbon_category": item.get("cat", ""), "text_source": source, "text": text,
-                 "pick_reason": why}
-        print(f"Story: {story['title']} ({source}, {len(text)} chars)")
+        if sug_url or sug_topic:
+            story = suggested_story(sug_url, sug_topic)
+            text = story["text"]
+            print(f"Suggested: {story['title']} ({story['text_source']}, {len(text)} chars)")
+        else:
+            story, text = pick_from_ribbon(index, now, usage)
         messages, ended_by = run_conversation(story, usage)
         if len(messages) < 4:
             raise RuntimeError(f"Conversation too short ({len(messages)} messages); not published.")
@@ -365,7 +394,32 @@ def main():
         save(status_path, {"ok": False, "checked": now.isoformat(timespec="seconds"), "note": str(e)})
         print(e, file=sys.stderr)
         return 1
+    return publish(index, index_path, status_path, conv_id, now, story, text, messages, ended_by, usage)
 
+
+def pick_from_ribbon(index, now, usage):
+    feed = json.loads(http_get(FEED_URL)[0])
+    try:
+        gnews = json.loads(http_get(GNEWS_URL)[0])
+    except Exception:  # noqa: BLE001
+        gnews = {}
+    used = {c["url"] for c in index}
+    cands = candidates(feed, gnews, used, now)
+    if not cands:
+        raise RuntimeError("No recent, unused stories in the Global Health Ribbon feed.")
+    i, why = pick_story(cands, [c["title"] for c in index], usage)
+    item = cands[i]
+    text, source, final_url, pub_date = article_for(item)
+    publisher, title = publisher_and_title(item, final_url)
+    story = {"title": title, "publisher": publisher,
+             "date": pub_date or item.get("date", "")[:10], "url": final_url,
+             "ribbon_category": item.get("cat", ""), "text_source": source, "text": text,
+             "pick_reason": why}
+    print(f"Story: {story['title']} ({source}, {len(text)} chars)")
+    return story, text
+
+
+def publish(index, index_path, status_path, conv_id, now, story, text, messages, ended_by, usage):
     conv = {"id": conv_id, "generated": now.isoformat(timespec="seconds"),
             "model": MODEL, "effort": EFFORT,
             "story": {k: v for k, v in story.items() if k != "text"},
@@ -374,7 +428,8 @@ def main():
             "usage": {"calls": usage.calls, "input_tokens": usage.inp, "output_tokens": usage.out, "est_cost_usd": usage.cost()}}
     save(os.path.join(CONV, conv_id + ".json"), conv)
     index.insert(0, {"id": conv_id, "generated": conv["generated"], "title": story["title"],
-                     "publisher": story["publisher"], "url": story["url"], "messages": len(messages)})
+                     "publisher": story["publisher"], "url": story["url"], "messages": len(messages),
+                     "suggested": bool(story.get("suggested"))})
     save(index_path, index)
     save(status_path, {"ok": True, "checked": now.isoformat(timespec="seconds"), "latest": conv_id,
                        "note": f"{len(messages)} messages, {usage.calls} calls, about ${usage.cost()}"})

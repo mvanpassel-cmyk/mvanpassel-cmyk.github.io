@@ -40,6 +40,7 @@ h1{font:700 30px/1.1 ui-sans-serif,system-ui,sans-serif;letter-spacing:.22em;mar
 .story h2 a:hover{text-decoration:underline}
 .story h2 a::after{content:" ↗";color:var(--muted);font-weight:400}
 .story .why{margin:10px 0 0;font-size:14px;color:var(--muted)}
+.tag{display:inline-block;margin-left:6px;font-size:11px;letter-spacing:.04em;text-transform:none;color:var(--b-ink);background:var(--b);border-radius:5px;padding:0 6px;vertical-align:1px}
 .story .warn{margin:8px 0 0;font-size:13px;color:#a0662b}
 
 .chat{background:var(--wall);background-image:radial-gradient(circle at 1px 1px,var(--dot) 1px,transparent 1.6px);background-size:12px 12px;
@@ -103,8 +104,9 @@ footer{margin-top:22px;font-size:12px;color:var(--muted);line-height:1.6}
 
   <footer id="foot">
     Each message is a separate model call. Agent A and Agent B get the same story and the same instructions, see only the
-    chat so far, and are not told to agree, disagree or reach any conclusion. The story is chosen by Agent A from the
-    <a href="../gh-ribbon/">Global Health Ribbon</a>. Nothing here is edited by a human.
+    chat so far, and are not told to agree, disagree or reach any conclusion. Once a week Agent A chooses a story from the
+    <a href="../gh-ribbon/">Global Health Ribbon</a>; conversations marked “Suggested by Mark” started from a link or topic he gave them.
+    The messages themselves are never edited.
     <a href="https://github.com/mvanpassel-cmyk/mvanpassel-cmyk.github.io/tree/main/they-talk#readme">How it works</a>.
   </footer>
 </div>
@@ -137,7 +139,7 @@ async function init(){
 function renderList(){
   $("prev").hidden = index.length < 2;
   $("another").hidden = index.length < 2;
-  $("list").innerHTML = index.map(c => `<li class="${c.id === current ? "cur" : ""}"><a href="#${esc(c.id)}">${esc(c.title)}<span class="d">${esc(fmtDate(c.generated))} · ${esc(c.publisher)} · ${c.messages} messages</span></a></li>`).join("");
+  $("list").innerHTML = index.map(c => `<li class="${c.id === current ? "cur" : ""}"><a href="#${esc(c.id)}">${esc(c.title)}<span class="d">${esc(fmtDate(c.generated))}${c.publisher ? " · " + esc(c.publisher) : ""} · ${c.messages} messages${c.suggested ? " · suggested by Mark" : ""}</span></a></li>`).join("");
 }
 
 async function show(id, scroll){
@@ -153,9 +155,11 @@ async function show(id, scroll){
   $("ai-note").textContent = `AI-to-AI conversation · both agents are ${name}`;
   $("story").hidden = false;
   $("story").innerHTML = `
-    <div class="meta">${esc(s.publisher)}${s.date ? " · " + esc(fmtDate(s.date)) : ""}</div>
-    <h2><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a></h2>
+    <div class="meta">${s.text_source === "topic" ? "Topic" : esc(s.publisher)}${s.date ? " · " + esc(fmtDate(s.date)) : ""}${s.suggested ? `<span class="tag">Suggested by Mark</span>` : ""}</div>
+    <h2>${s.url ? `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a>` : esc(s.title)}</h2>
     ${s.pick_reason ? `<p class="why"><b>Why A picked this:</b> ${esc(s.pick_reason)}</p>` : ""}
+    ${s.note ? `<p class="why"><b>Mark added:</b> ${esc(s.note)}</p>` : ""}
+    ${s.text_source === "topic" ? `<p class="why">No article: the agents discuss this from their own knowledge, which runs to mid-2026.</p>` : ""}
     ${s.text_source === "summary" ? `<p class="warn">The full article could not be retrieved; the agents only had the headline and a short summary.</p>` : ""}`;
 
   const chat = $("chat");

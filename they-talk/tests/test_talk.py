@@ -71,5 +71,36 @@ class TestPublisher(unittest.TestCase):
         self.assertEqual(talk.publisher_and_title(it, "https://devex.com/x"), ("Devex Global Health", "A - B test"))
 
 
+class TestSuggestions(unittest.TestCase):
+    def test_topic(self):
+        st = talk.suggested_story("", "  Should   WHO charge member states for emergency response? ")
+        self.assertEqual(st["title"], "Should WHO charge member states for emergency response?")
+        self.assertEqual(st["text_source"], "topic")
+        self.assertIn("no article", talk.story_block(st).lower())
+
+    def test_url(self):
+        page = ('<html><head><title>X | Site</title><meta property="og:title" content="Big AMR deal - Example News">'
+                '<meta property="og:site_name" content="Example News">'
+                '<meta property="article:published_time" content="2026-11-09T10:00:00Z"></head><body>'
+                + "<p>" + "Countries agreed on a new antibiotic pull incentive today. " * 20 + "</p></body></html>")
+        orig = talk.http_get
+        talk.http_get = lambda u, timeout=25: (page, "https://www.example.com/a")
+        try:
+            st = talk.suggested_story("https://example.com/a", "")
+        finally:
+            talk.http_get = orig
+        self.assertEqual((st["title"], st["publisher"], st["date"]), ("Big AMR deal", "Example News", "2026-11-09"))
+        self.assertTrue(st["suggested"])
+
+    def test_unreadable_url_stops(self):
+        orig = talk.http_get
+        talk.http_get = lambda u, timeout=25: ("<html><p>Paywall</p></html>", u)
+        try:
+            with self.assertRaises(RuntimeError):
+                talk.suggested_story("https://x/y", "")
+        finally:
+            talk.http_get = orig
+
+
 if __name__ == "__main__":
     unittest.main()
