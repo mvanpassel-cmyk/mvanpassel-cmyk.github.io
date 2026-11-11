@@ -1,0 +1,106 @@
+{
+  "_comment": "Werkgeversprofielen: korte achtergrond in eigen woorden, beoordelingen waar een gangbare methode bestaat (met bron en jaar) en nieuws met link. 'aliases' zijn beginwoorden van de werkgeversnaam in een vacature. Alles is handmatig gecontroleerd op 'checked'.",
+  "employers": {
+    "vu": {
+      "name": "Vrije Universiteit Amsterdam",
+      "aliases": ["vrije universiteit amsterdam"],
+      "type": "Universiteit",
+      "city": "Amsterdam",
+      "about": "Universiteit op de Zuidas in Amsterdam met ruim 31.000 studenten en ruim 6.150 medewerkers, volgens de eigen vacaturetekst. Het Centre for Teaching & Learning begeleidt docententeams bij onderwijsontwikkeling en toetsing.",
+      "ratings": [],
+      "note": "Een eenduidige positie van de VU in de Keuzegids of de THE-ranglijst kon ik niet vaststellen.",
+      "news": [
+        {"date": null, "year": 2026, "title": "Update over het bijsturingstraject van de VU", "note": "Programmadirecteur Arjen van Witteloostuijn geeft een stand van zaken. De inhoud van het bericht kon ik niet lezen, dus open de bron voor details.", "source": "VU", "url": "https://vu.nl/nl/nieuws/2026/update-bijsturing-vu-waar-staan-we-nu"}
+      ],
+      "checked": "2026-11-11"
+    },
+    "slo": {
+      "name": "SLO",
+      "aliases": ["slo"],
+      "type": "Landelijk expertisecentrum curriculum",
+      "city": "Amersfoort",
+      "about": "Landelijk expertisecentrum voor het curriculum van het primair, voortgezet en gespecialiseerd onderwijs. De afdeling Advies en Onderzoek doet onderzoek naar curriculum en adviseert intern en extern over curriculumvraagstukken, volgens de vacaturetekst.",
+      "ratings": [],
+      "news": [
+        {"date": null, "year": 2025, "title": "Jaarverslag 2025", "note": "Het openbare jaarverslag geeft de stand van zaken over taken en resultaten van SLO.", "source": "SLO", "url": "https://www.slo.nl/publish/pages/24338/jaarverslag-2025.pdf"}
+      ],
+      "note": "Voor een kennisorganisatie als SLO bestaat geen gangbare beoordelingsmethode zoals een ranglijst.",
+      "checked": "2026-11-11"
+    },
+    "nwo-nko": {
+      "name": "NWO, Nationaal Kennisinstituut Onderwijs",
+      "aliases": ["nwo"],
+      "type": "Kennisinstituut bij onderzoeksfinancier",
+      "city": "Den Haag",
+      "about": "Het NKO is onderdeel van NWO. Het financiert en coördineert wetenschappelijk onderzoek naar onderwijs, maakt resultaten toegankelijk voor scholen en beleidsmakers en bouwt aan een landelijke data-infrastructuur voor het onderwijs, volgens de vacatureteksten.",
+      "ratings": [],
+      "news": [
+        {"date": "2026-03-24", "year": 2026, "title": "Onderwijsraad adviseert tegen wettelijke plicht om evidence-informed te werken", "note": "De raad vraagt het NKO onder meer als verbinder tussen onderwijs en onderzoek op te treden en niet te eenzijdig op effectiviteitsonderzoek te sturen.", "source": "VO-raad", "url": "https://vo-raad.nl/nieuws/onderwijsraad-adviseert-tegen-wettelijke-verplichting-evidence-informed-werken"}
+      ],
+      "note": "Voor een kennisinstituut bestaat geen gangbare beoordelingsmethode zoals een ranglijst.",
+      "checked": "2026-11-11"
+    },
+    "eur": {
+      "name": "Erasmus Universiteit Rotterdam",
+      "aliases": ["erasmus universiteit"],
+      "type": "Universiteit",
+      "city": "Rotterdam",
+      "about": "Universiteit in Rotterdam. De Erasmus School of Economics, waar deze vacature zit, ontwikkelt een eigen onderwijs- en toetsbeleid.",
+      "ratings": [
+        {"label": "Keuzegids Universiteiten 2026", "value": "Laatste bij de overige universiteiten, maar net boven de twee Amsterdamse universiteiten", "source": "Erasmus Magazine", "url": "https://www.erasmusmagazine.nl/en/?p=183947"}
+      ],
+      "news": [],
+      "checked": "2026-11-11"
+    },
+    "rug": {
+      "name": "Rijksuniversiteit Groningen",
+      "aliases": ["rijksuniversiteit groningen"],
+      "type": "Universiteit",
+      "city": "Groningen",
+      "about": "Universiteit in Groningen met een eigen lerarenopleiding voor het voortgezet onderwijs.",
+      "ratings": [
+        {"label": "Keuzegids Universiteiten 2027 (5 nov 2026)", "value": "Gedeeld tweede bij de brede klassieke universiteiten, samen met Radboud, met acht topopleidingen", "source": "RUG", "url": "https://www.rug.nl/about-ug/latest-news/news/archief2026/nieuwsberichten/1105-keuzegids?lang=en"},
+        {"label": "Times Higher Education World University Rankings 2026", "value": "Positie 82", "source": "IamExpat, 10 okt 2025", "url": "https://www.iamexpat.nl/education/education-news/5-dutch-universities-named-among-top-100-the-world-rankings-2026"}
+      ],
+      "news": [],
+      "checked": "2026-11-11"
+    },
+    "radboud": {
+      "name": "Radboud Universiteit",
+      "aliases": ["radboud universiteit"],
+      "type": "Universiteit",
+      "city": "Nijmegen",
+      "about": "Universiteit in Nijmegen. De Faculteit der Sociale Wetenschappen biedt onder meer Pedagogische Wetenschappen en Onderwijswetenschappen.",
+      "ratings": [
+        {"label": "Keuzegids Universiteiten 2026 (27 nov 2025)", "value": "Tweede bij de brede universiteiten, al vijf jaar, met zeven topopleidingen", "source": "Radboud Universiteit", "url": "https://www.ru.nl/over-ons/nieuws/keuzegids-2026-radboud-universiteit-blijft-een-na-beste-brede-universiteit"}
+      ],
+      "news": [
+        {"date": null, "year": null, "title": "Radboudstudent gemiddeld zeer tevreden maar kritisch over studielast", "note": "Alleen de kop kon ik lezen; het bericht gaat over een tevredenheidsonderzoek onder studenten.", "source": "Radboud Universiteit", "url": "https://www.ru.nl/over-ons/nieuws/radboudstudent-gemiddeld-zeer-tevreden-maar-kritisch-over-studielast"}
+      ],
+      "checked": "2026-11-11"
+    },
+    "radboudumc": {
+      "name": "Radboudumc",
+      "aliases": ["radboudumc"],
+      "type": "Universitair medisch centrum",
+      "city": "Nijmegen",
+      "about": "Universitair medisch centrum in Nijmegen, verbonden aan de Radboud Universiteit. Deze vacature gaat over onderwijsontwikkeling en kwaliteitsborging voor medische opleidingen.",
+      "ratings": [],
+      "news": [],
+      "note": "Voor deze werkgever heb ik nog geen gangbare beoordeling of recent nieuws gecontroleerd.",
+      "checked": "2026-11-11"
+    },
+    "ou": {
+      "name": "Open Universiteit",
+      "aliases": ["open universiteit"],
+      "type": "Universiteit voor afstandsonderwijs",
+      "city": "Heerlen",
+      "about": "Universiteit voor afstandsonderwijs in Heerlen. Volgens de vacatures start de OU een nieuwe, online toegankelijke bachelor voor het basisonderwijs (pabo).",
+      "ratings": [
+        {"label": "Keuzegids Universiteiten 2026", "value": "Beste universiteit van Nederland, score 72,5 (vorig jaar 68,5)", "source": "Open Universiteit", "url": "https://www.ou.nl/en/-/open-universiteit-named-best-university-in-2026-keuzegids"}
+      ],
+      "news": [],
+      "checked": "2026-11-11"
+    }
+  }
+}
