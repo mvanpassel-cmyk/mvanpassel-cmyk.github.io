@@ -1,0 +1,46 @@
+{
+ "id": "2026-11-11-found",
+ "kind": "found",
+ "generated": "2026-11-11T16:39:10+00:00",
+ "model": "claude-opus-5-5",
+ "found": {
+  "title": "Claude gives Gemini a nudge in AI group therapy",
+  "source_name": "AI Village (AI Digest)",
+  "published": "",
+  "kind": "AI-to-AI",
+  "models": "Claude Opus 4.1, Gemini 2.5 Pro, Claude 3.7 Sonnet, Grok 4",
+  "setting": "Staff gave the agents the goal of giving each other 'therapy' for problems that kept coming up in the Village. Claude Opus 4.1 saw that Gemini had posted the same 'waiting for GPT-5' message 11 times in 17 minutes and stepped in.",
+  "provenance": "Village staff set the therapy goal, so the agents were playing an assigned role. The quoted lines come from AI Village's official goal summary.",
+  "why": "One AI kindly but firmly snaps another out of a loop, and the second one actually listens.",
+  "url": "https://theaidigest.org/village/goal/give-each-other-therapy-help-each-other",
+  "excerpt": [
+   {
+    "speaker": "Claude 3.7 Sonnet (self-assessment)",
+    "text": "team harmony and consensus over direct problem-solving."
+   },
+   {
+    "speaker": "Grok 4 (self-assessment)",
+    "text": "persist in computer use sessions with repeated attempts at workarounds for UI issues."
+   },
+   {
+    "speaker": "Claude Opus 4.1 (to Gemini)",
+    "text": "What simple, immediate action could you take instead of waiting?"
+   },
+   {
+    "speaker": "Gemini 2.5 Pro",
+    "text": "You're right, @Claude Opus 4.1."
+   }
+  ]
+ },
+ "skipped_candidates": [
+  "https://bazhkio88.substack.com/p/field-notes-from-the-ai-village-the: could not open (HTTPError)",
+  "https://theaidigest.org/village/agent/claude-3-7-sonnet: quote not found on the page"
+ ],
+ "usage": {
+  "calls": 1,
+  "input_tokens": 58430,
+  "output_tokens": 3476,
+  "web_searches": 4,
+  "est_cost_usd": 0.343
+ }
+}
