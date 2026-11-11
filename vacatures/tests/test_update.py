@@ -229,27 +229,55 @@ class EmployerCityTests(unittest.TestCase):
         self.assertEqual(it["city"], "Amersfoort")
 
 
-class SaveTextsTests(unittest.TestCase):
-    def test_saves_only_missing_open_first_and_respects_limit(self):
-        import tempfile
+class TextArchiveTests(unittest.TestCase):
+    PAGE = ("Titel — X — AcademicTransfer\nVoor kandidaten\nWhatsapp Logo\nExpert toetsing\n"
+            "Deadline 25 nov ’26 9 nov ’26 gepubliceerd\nSolliciteer nu 14 dagen over\nOpslaan\n"
+            "Functieomschrijving\n" + "Inhoud van de functie. " * 30 + "\nOver deze werkgever\nSLO\nFAQ")
+
+    def test_extract_body_cuts_navigation_and_footer(self):
+        body = u.extract_body(self.PAGE)
+        self.assertTrue(body.startswith("Expert toetsing\nDeadline"))
+        self.assertNotIn("Voor kandidaten", body)
+        self.assertNotIn("FAQ", body)
+        self.assertNotIn("Solliciteer", body)
+
+    def test_extract_body_falls_back_to_full_text(self):
+        self.assertEqual(u.extract_body("geen markeringen\nhier"), "geen markeringen\nhier")
+
+    def test_encrypted_roundtrip_and_limits(self):
+        try:
+            import base64, tempfile
+            from cryptography.hazmat.primitives.asymmetric import rsa, padding
+            from cryptography.hazmat.primitives import serialization, hashes
+            from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+        except ImportError:
+            self.skipTest("cryptography niet geïnstalleerd")
+        key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
+        spki = base64.b64encode(key.public_key().public_bytes(
+            serialization.Encoding.DER, serialization.PublicFormat.SubjectPublicKeyInfo)).decode()
         items = [
-            {"id": "at-1", "source": "AcademicTransfer", "url": "https://x/1", "title": "A", "employer": "E", "deadline": "2026-01-01"},
-            {"id": "at-2", "source": "AcademicTransfer", "url": "https://x/2", "title": "B", "employer": "E", "deadline": "2026-12-01"},
-            {"id": "eur-3", "source": "Erasmus Universiteit", "url": "https://x/3", "title": "C", "employer": "E"},
+            {"id": "at-1", "url": "https://x/1", "title": "Oud", "employer": "E", "deadline": "2026-01-01"},
+            {"id": "at-2", "url": "https://x/2", "title": "Open", "employer": "E", "deadline": "2026-12-01"},
         ]
-        calls = []
+        calls, sleeps = [], []
         def fake(url):
             calls.append(url)
-            return "<p>" + "tekst " * 100 + "</p>"
-        sleeps = []
+            return "<p>" + self.PAGE.replace("\n", "</p><p>") + "</p>"
         with tempfile.TemporaryDirectory() as d:
-            n = u.save_texts(items, d, dt.date(2026, 11, 11), fetch=fake, sleep=sleeps.append, limit=1)
-            self.assertEqual(n, 1)
-            self.assertEqual(calls, ["https://x/2"])  # open vacature eerst
-            n = u.save_texts(items, d, dt.date(2026, 11, 11), fetch=fake, sleep=sleeps.append)
-            self.assertEqual(n, 1)  # alleen de ontbrekende
-            self.assertEqual(sleeps, [])  # eerste pagina per run zonder wachttijd
-            self.assertIn("Bron: https://x/1", (Path(d) / "at-1.txt").read_text(encoding="utf-8"))
+            kf = Path(d) / "k.json"
+            kf.write_text(json.dumps({"public_spki": spki}))
+            n = u.archive_texts(items, dt.date(2026, 11, 11), Path(d) / "a", kf, fetch=fake, sleep=sleeps.append, limit=1)
+            self.assertEqual((n, calls), (1, ["https://x/2"]))  # open vacature eerst
+            n = u.archive_texts(items, dt.date(2026, 11, 11), Path(d) / "a", kf, fetch=fake, sleep=sleeps.append)
+            self.assertEqual((n, sleeps), (1, []))  # alleen de ontbrekende, zonder wachttijd vooraf
+            rec = json.loads((Path(d) / "a" / "at-1.json").read_text())
+            self.assertNotIn("Inhoud", json.dumps(rec))  # niets leesbaars in het bestand
+            aes = key.decrypt(base64.b64decode(rec["wk"]), padding.OAEP(
+                mgf=padding.MGF1(hashes.SHA256()), algorithm=hashes.SHA256(), label=None))
+            plain = AESGCM(aes).decrypt(base64.b64decode(rec["iv"]), base64.b64decode(rec["ct"]), None).decode()
+            self.assertIn("Bron: https://x/1", plain)
+            self.assertIn("Inhoud van de functie", plain)
+            self.assertEqual(items[0]["text_saved"], "2026-11-11")
 
 
 if __name__ == "__main__":

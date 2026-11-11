@@ -150,6 +150,15 @@ details.emp .type { font-family: var(--font-mono); font-size: 12px; color: var(-
 .empbody ul { margin: 0; padding-left: 16px; display: grid; gap: 6px; }
 .empbody .none { color: var(--muted); }
 .empbody .full { grid-column: 1 / -1; color: var(--muted); font-size: 12.5px; }
+.txtbtn { font: 12px var(--font-mono); background: none; border: 0; padding: 0; color: var(--accent); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; text-align: inherit; }
+.textpanel { grid-column: 1 / -1; margin-top: 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; font-size: 13.5px; min-width: 0; }
+.textpanel .bar { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; justify-content: space-between; }
+.textpanel .bar .when { flex: 1 1 auto; }
+.textpanel form { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; }
+.textpanel input[type="password"] { font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 7px 10px; min-width: 0; flex: 1 1 200px; }
+.textpanel label.rem { display: flex; gap: 6px; align-items: center; color: var(--muted); font-size: 13px; }
+.textpanel .err { color: var(--warn); font-size: 13px; }
+.vtext { white-space: pre-wrap; font: 13.5px/1.55 var(--font-body); margin: 0; max-height: 520px; overflow: auto; overflow-wrap: anywhere; }
 .empty { padding: 36px 0; color: var(--muted); }
 .empty strong { color: var(--ink); display: block; font-family: var(--font-display); font-size: 17px; margin-bottom: 4px; }
 
@@ -233,7 +242,8 @@ footer ul { margin: 0; padding-left: 18px; }
     <section>
       <h2>Wat er wordt bewaard</h2>
       <p>Per vacature bewaar ik de kenmerken die de bron zelf toont (functie, werkgever, plaats, uren, salaris, data), een link naar het origineel en een korte samenvatting in eigen woorden.</p>
-      <p>De volledige vacaturetekst blijft bij de bron. Bij elke update vraagt het script een kopie aan bij het Internet Archive, zodat de tekst ook na het verlopen terug te lezen is via de link "Bewaarde kopie".</p>
+      <p>De volledige vacaturetekst wordt opgehaald zolang de vacature online staat en versleuteld bewaard. Alleen de eigenaar van deze pagina kan die tekst met een wachtwoordzin openen ("Bewaarde tekst" of "Oorspronkelijke tekst"); voor anderen is het onleesbare data.</p>
+      <p>Daarnaast vraagt het script een openbare kopie aan bij het Internet Archive ("Bewaarde kopie").</p>
     </section>
     <section>
       <h2>Over de werkgeversgegevens</h2>
@@ -347,7 +357,9 @@ footer ul { margin: 0; padding-left: 18px; }
       '</div>' +
       '<div class="side">' + statusBlock(j) +
         '<a class="src" href="' + esc(j.url) + '" target="_blank" rel="noopener">Bron: ' + esc(j.source) + ' ↗</a>' + arch +
+        (j.text_saved ? '<button type="button" class="txtbtn" data-id="' + esc(j.id) + '" aria-expanded="false">' + (gone ? 'Oorspronkelijke tekst' : 'Bewaarde tekst') + ' 🔒</button>' : '') +
       '</div>' + empBlock(j) +
+      (j.text_saved ? '<div class="textpanel" id="tp-' + esc(j.id) + '" hidden></div>' : '') +
     '</article>';
   }
 
@@ -528,7 +540,81 @@ footer ul { margin: 0; padding-left: 18px; }
     map.on('zoomend', placeLabels);
   }
 
+  // ---- Versleuteld tekstarchief: alleen te lezen met de wachtwoordzin van de eigenaar.
+  var KEYDOC = null, PRIV = null, PWKEY = 'vacatures-archief-wachtwoord';
+  function b64(s) { var b = atob(s), a = new Uint8Array(b.length); for (var i = 0; i < b.length; i++) a[i] = b.charCodeAt(i); return a; }
+  function store(get, val) { try { if (get) return localStorage.getItem(PWKEY); if (val === null) localStorage.removeItem(PWKEY); else localStorage.setItem(PWKEY, val); } catch (e) { return null; } }
+  function keyDoc() { return KEYDOC ? Promise.resolve(KEYDOC) : fetch('data/archive-key.json').then(function (r) { return r.json(); }).then(function (k) { KEYDOC = k; return k; }); }
+  function unlock(pw) {
+    return keyDoc().then(function (k) {
+      var p = k.private_pkcs8, sub = crypto.subtle;
+      return sub.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveKey'])
+        .then(function (base) { return sub.deriveKey({ name: 'PBKDF2', salt: b64(p.salt), iterations: p.iterations, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']); })
+        .then(function (aes) { return sub.decrypt({ name: 'AES-GCM', iv: b64(p.iv) }, aes, b64(p.ct)); })
+        .then(function (der) { return sub.importKey('pkcs8', der, { name: 'RSA-OAEP', hash: 'SHA-256' }, false, ['decrypt']); })
+        .then(function (key) { PRIV = key; return key; });
+    });
+  }
+  function readText(id) {
+    var sub = crypto.subtle, rec;
+    return fetch('archief/' + encodeURIComponent(id) + '.json', { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error('missing'); return r.json(); })
+      .then(function (x) { rec = x; return sub.decrypt({ name: 'RSA-OAEP' }, PRIV, b64(rec.wk)); })
+      .then(function (raw) { return sub.importKey('raw', raw, 'AES-GCM', false, ['decrypt']); })
+      .then(function (k) { return sub.decrypt({ name: 'AES-GCM', iv: b64(rec.iv) }, k, b64(rec.ct)); })
+      .then(function (b) { return { text: new TextDecoder().decode(b), saved: rec.saved }; });
+  }
+  function showLocked(panel, msg) {
+    panel.innerHTML = '<form class="unlock"><input type="password" name="pw" autocomplete="current-password" placeholder="Wachtwoordzin" aria-label="Wachtwoordzin voor het tekstarchief" required>' +
+      '<label class="rem"><input type="checkbox" name="rem" checked> Onthoud op dit apparaat</label><button type="submit" class="btn">Ontgrendel</button></form>' +
+      '<span class="when">De tekst staat versleuteld bewaard. Alleen met de wachtwoordzin is hij te lezen.</span>' + (msg ? '<span class="err">' + esc(msg) + '</span>' : '');
+    var inp = panel.querySelector('input[type="password"]'); if (inp) inp.focus();
+  }
+  function showText(panel) {
+    var id = panel.id.slice(3);
+    panel.innerHTML = '<span class="when">Tekst ontsleutelen…</span>';
+    readText(id).then(function (r) {
+      panel.innerHTML = '<div class="bar"><span class="when">Tekst zoals opgehaald op ' + esc(fmtDate(r.saved)) + '</span>' +
+        '<button type="button" class="btn txtdl">Download .txt</button><button type="button" class="btn txtclose">Sluiten</button></div><pre class="vtext"></pre>';
+      panel.querySelector('.vtext').textContent = r.text;
+      panel._text = r.text;
+    }).catch(function () { panel.innerHTML = '<span class="err">Deze tekst kon niet worden geopend.</span>'; });
+  }
+  function openPanel(panel) {
+    if (PRIV) return showText(panel);
+    var pw = store(true);
+    if (!pw) return showLocked(panel);
+    panel.innerHTML = '<span class="when">Ontgrendelen…</span>';
+    unlock(pw).then(function () { showText(panel); }).catch(function () { store(false, null); showLocked(panel, 'De bewaarde wachtwoordzin klopt niet meer.'); });
+  }
+  document.addEventListener('submit', function (e) {
+    var f = e.target.closest('form.unlock'); if (!f) return;
+    e.preventDefault();
+    var panel = f.closest('.textpanel'), pw = f.pw.value.trim(), rem = f.rem.checked;
+    panel.insertAdjacentHTML('beforeend', '<span class="when">Ontgrendelen…</span>');
+    unlock(pw).then(function () { if (rem) store(false, pw); showText(panel); })
+      .catch(function () { showLocked(panel, 'Die wachtwoordzin klopt niet.'); });
+  });
+
   document.addEventListener('click', function (e) {
+    var tb = e.target.closest('.txtbtn');
+    if (tb) {
+      var panel = $('tp-' + tb.dataset.id); if (!panel) return;
+      var open = panel.hidden;
+      panel.hidden = !open; tb.setAttribute('aria-expanded', String(open));
+      if (open) openPanel(panel);
+      return;
+    }
+    var cl = e.target.closest('.txtclose');
+    if (cl) { var p1 = cl.closest('.textpanel'); p1.hidden = true; var b1 = document.querySelector('.txtbtn[data-id="' + p1.id.slice(3) + '"]'); if (b1) b1.setAttribute('aria-expanded', 'false'); return; }
+    var dl = e.target.closest('.txtdl');
+    if (dl) {
+      var p2 = dl.closest('.textpanel');
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([p2._text || ''], { type: 'text/plain;charset=utf-8' }));
+      a.download = 'vacature-' + p2.id.slice(3) + '.txt';
+      document.body.appendChild(a); a.click(); a.remove();
+      return;
+    }
     var s = e.target.closest('#status button'); if (s) { state.status = s.dataset.s; render(); return; }
     var c = e.target.closest('#topic-chips .chip'); if (c) { state.topic = c.dataset.t || null; render(); return; }
     if (e.target.closest('#cityclear')) { state.city = null; render(); }

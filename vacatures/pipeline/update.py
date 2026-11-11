@@ -24,6 +24,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
+TEXT_ARCHIVE = ROOT / "archief"
 UA = ("vacature-monitor/1.0 (persoonlijke vacaturemonitor; "
       "+https://mvanpassel-cmyk.github.io/vacatures/)")
 MAX_ARCHIVE_PER_RUN = 10
@@ -433,34 +434,81 @@ def save(doc):
         json.dumps(doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
-def save_texts(items, text_dir, today, fetch=fetch_text, sleep=time.sleep, delay=10, limit=25):
-    """Bewaar de volledige paginatekst per vacature in een PRIVÉ-map (niet in deze openbare repo).
+# ------------------------------------------------------------------ versleuteld tekstarchief
+_NOISE = re.compile(r"(?i)^(solliciteer nu.*|apply now.*|opslaan|vacature opslaan|save( job)?|bekijk op google maps|view on google maps)$")
 
-    Alleen vacatures zonder bestaand tekstbestand worden opgehaald; open vacatures eerst,
-    zodat de tekst al veilig is voordat de vacature verloopt."""
-    text_dir = Path(text_dir)
-    text_dir.mkdir(parents=True, exist_ok=True)
-    todo = [it for it in items
-            if it.get("source") == "AcademicTransfer" and it.get("url")
-            and not (text_dir / f"{it['id']}.txt").exists()]
-    todo.sort(key=lambda it: ((it.get("deadline") or "9999") < today.isoformat(), it["id"]), reverse=False)
+
+def extract_body(text, title=None):
+    """Knip de vacaturetekst uit een AcademicTransfer-pagina: van de titel tot 'Over deze werkgever'.
+    Valt terug op de hele paginatekst als de markeringen ontbreken."""
+    lines = text.splitlines()
+    start = next((i for i, ln in enumerate(lines) if re.match(r"(?i)^deadline\b", ln)), None)
+    if start is not None and start > 0:
+        start -= 1  # de titelregel staat direct boven 'Deadline'
+    end = next((i for i, ln in enumerate(lines)
+                if re.match(r"(?i)^(over deze werkgever|about this employer)$", ln)), None)
+    if start is None or end is None or end <= start:
+        return text
+    return "\n".join(ln for ln in lines[start:end] if not _NOISE.match(ln))
+
+
+def encrypt_text(plain, public_spki_b64):
+    """Versleutel met een eigen AES-256-GCM-sleutel, die zelf met RSA-OAEP (publieke sleutel) wordt versleuteld."""
+    import base64
+    import os
+    from cryptography.hazmat.primitives import hashes, serialization
+    from cryptography.hazmat.primitives.asymmetric import padding
+    from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+    pub = serialization.load_der_public_key(base64.b64decode(public_spki_b64))
+    key, iv = AESGCM.generate_key(bit_length=256), os.urandom(12)
+    ct = AESGCM(key).encrypt(iv, plain.encode("utf-8"), None)
+    wk = pub.encrypt(key, padding.OAEP(mgf=padding.MGF1(hashes.SHA256()), algorithm=hashes.SHA256(), label=None))
+    b = lambda x: base64.b64encode(x).decode()
+    return {"wk": b(wk), "iv": b(iv), "ct": b(ct)}
+
+
+def archive_texts(items, today, archive_dir=TEXT_ARCHIVE, key_file=DATA / "archive-key.json",
+                  fetch=fetch_text, sleep=time.sleep, delay=10, limit=25):
+    """Haal de volledige vacaturetekst op zolang de pagina bestaat en bewaar die versleuteld.
+    Alleen wie de wachtwoordzin heeft kan de teksten lezen; in de openbare repo staat alleen versleutelde data."""
+    try:
+        import cryptography  # noqa: F401
+    except ImportError:
+        print("  ! tekstarchief overgeslagen: pakket 'cryptography' ontbreekt")
+        return 0
+    pub = load_json(key_file)["public_spki"]
+    archive_dir = Path(archive_dir)
+    archive_dir.mkdir(parents=True, exist_ok=True)
+    todo = [it for it in items if it.get("url") and not (archive_dir / f"{it['id']}.json").exists()]
+    todo.sort(key=lambda it: ((it.get("deadline") or "9999") < today.isoformat(), it["id"]))
     saved = 0
-    for it in todo[:limit]:
-        if saved:
+    for n, it in enumerate(todo[:limit]):
+        if n:
             sleep(delay)
         try:
             text = to_text(fetch(it["url"]))
         except (urllib.error.URLError, TimeoutError, OSError) as exc:
             print(f"  ! tekst {it['id']}: ophalen mislukt ({exc})")
             continue
-        if len(text) < 300:
+        body = extract_body(text, it.get("title"))
+        if len(body) < 300:
             print(f"  ! tekst {it['id']}: te kort, overgeslagen")
             continue
-        head = (f"Bron: {it['url']}\nTitel: {it['title']}\nWerkgever: {it.get('employer')}\n"
+        head = (f"{it['title']}\n{it.get('employer') or ''}\nBron: {it['url']}\n"
                 f"Opgehaald: {today.isoformat()}\n\n")
-        (text_dir / f"{it['id']}.txt").write_text(head + text + "\n", encoding="utf-8")
+        rec = {"v": 1, "id": it["id"], "saved": today.isoformat()}
+        rec.update(encrypt_text(head + body, pub))
+        (archive_dir / f"{it['id']}.json").write_text(json.dumps(rec), encoding="utf-8")
+        it["text_saved"] = today.isoformat()
         saved += 1
     return saved
+
+
+def mark_saved_texts(items, archive_dir=TEXT_ARCHIVE):
+    for it in items:
+        f = Path(archive_dir) / f"{it['id']}.json"
+        if f.exists() and not it.get("text_saved"):
+            it["text_saved"] = json.loads(f.read_text(encoding="utf-8")).get("saved")
 
 
 def main(argv=None):
@@ -505,10 +553,9 @@ def main(argv=None):
         meta["updated"] = now.isoformat(timespec="seconds")
         n = archive_pending(doc["items"], today)
         print(f"Archiefverzoeken: {n}")
-        if "--text-dir" in argv:
-            td = argv[argv.index("--text-dir") + 1]
-            print(f"Volledige teksten privé bewaard: {save_texts(doc['items'], td, today)}")
+        print(f"Teksten versleuteld bewaard: {archive_texts(doc['items'], today)}")
 
+    mark_saved_texts(doc["items"])
     employers = load_json(DATA / "employers.json")["employers"]
     missing = set()
     for it in doc["items"]:
