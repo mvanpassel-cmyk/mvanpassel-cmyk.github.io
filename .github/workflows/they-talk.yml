@@ -46,7 +46,7 @@ jobs:
         id: talk
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          # OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}   # off for now; uncomment to make Agent B an OpenAI model
           MODE: ${{ github.event.inputs.mode }}
           SUGGEST_URL: ${{ github.event.inputs.url }}
           SUGGEST_TOPIC: ${{ github.event.inputs.topic }}
