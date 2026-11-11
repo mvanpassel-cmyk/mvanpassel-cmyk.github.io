@@ -15,7 +15,7 @@
 Standard library only. Needs ANTHROPIC_API_KEY. Without it the script writes a
 status note and exits with an error: it never writes a stand-in conversation.
 """
-import html, json, os, random, re, sys, time, urllib.error, urllib.request
+import html, json, os, re, sys, time, urllib.error, urllib.parse, urllib.request
 from datetime import datetime, timedelta, timezone
 from html.parser import HTMLParser
 
@@ -301,6 +301,24 @@ def run_conversation(story, usage, call=None):
     return messages, ended_by
 
 
+FEED_LABELS = {"WHO Alert", "Health Emergency", "Global Health", "WHO News"}   # ribbon search feeds, not publishers
+OUTLETS = {"cidrap.umn.edu": "CIDRAP", "deccanherald.com": "Deccan Herald", "who.int": "WHO",
+           "healthpolicy-watch.news": "Health Policy Watch", "devex.com": "Devex", "statnews.com": "STAT News",
+           "thelancet.com": "The Lancet", "nytimes.com": "The New York Times", "reuters.com": "Reuters"}
+
+
+def publisher_and_title(item, url):
+    """The ribbon's 'src' is sometimes a search-feed label; then name the outlet from the title suffix or the domain."""
+    title, src = html.unescape(item["title"]).strip(), item.get("src", "")
+    m = re.match(r"(.+?)\s+[-|–]\s+([^-|–]{2,40})$", title)
+    if src in FEED_LABELS or item.get("gnews"):
+        if m:
+            return m.group(2).strip(), m.group(1).strip()
+        dom = re.sub(r"^www\.", "", urllib.parse.urlparse(url).netloc)
+        return OUTLETS.get(dom, dom), title
+    return src, title
+
+
 def main():
     now = datetime.now(timezone.utc)
     status_path = os.path.join(DATA, "status.json")
@@ -334,7 +352,8 @@ def main():
         i, why = pick_story(cands, [c["title"] for c in index], usage)
         item = cands[i]
         text, source, final_url, pub_date = article_for(item)
-        story = {"title": html.unescape(item["title"]), "publisher": item.get("src", ""),
+        publisher, title = publisher_and_title(item, final_url)
+        story = {"title": title, "publisher": publisher,
                  "date": pub_date or item.get("date", "")[:10], "url": final_url,
                  "ribbon_category": item.get("cat", ""), "text_source": source, "text": text,
                  "pick_reason": why}

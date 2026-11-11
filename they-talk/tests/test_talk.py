@@ -61,5 +61,15 @@ class TestTalk(unittest.TestCase):
         self.assertEqual(ended, "B")
 
 
+class TestPublisher(unittest.TestCase):
+    def test_feed_label_replaced(self):
+        it = {"title": "US poised to lose measles status - CIDRAP", "src": "Global Health"}
+        self.assertEqual(talk.publisher_and_title(it, "https://www.cidrap.umn.edu/x"), ("CIDRAP", "US poised to lose measles status"))
+        it = {"title": "Wider use of Ervebo urged", "src": "WHO Alert"}
+        self.assertEqual(talk.publisher_and_title(it, "https://www.cidrap.umn.edu/x")[0], "CIDRAP")
+        it = {"title": "A - B test", "src": "Devex Global Health"}
+        self.assertEqual(talk.publisher_and_title(it, "https://devex.com/x"), ("Devex Global Health", "A - B test"))
+
+
 if __name__ == "__main__":
     unittest.main()
