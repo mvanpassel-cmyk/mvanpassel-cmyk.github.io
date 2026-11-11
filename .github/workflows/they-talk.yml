@@ -1,0 +1,62 @@
+name: They Talk daily conversation
+
+on:
+  schedule:
+    # GitHub often starts scheduled runs hours late, so this is set early (UTC) to land before the Dutch morning.
+    - cron: "23 2 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Generate a new conversation even if today's already exists"
+        type: boolean
+        default: false
+  push:
+    branches: [main]
+    paths:
+      - "they-talk/pipeline/**"
+      - ".github/workflows/they-talk.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: they-talk
+  cancel-in-progress: false
+
+jobs:
+  talk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Unit tests
+        run: python -m unittest discover -s they-talk/tests -v
+
+      - name: Let the two agents talk
+        id: talk
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          FORCE: ${{ github.event.inputs.force }}
+        run: python they-talk/pipeline/talk.py
+
+      - name: Commit (also the status note when the run failed)
+        if: always()
+        run: |
+          git config user.name "they-talk bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add they-talk/data
+          if git diff --cached --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+          git commit -m "They Talk: conversation $(date -u +%F)"
+          for i in 1 2 3; do
+            git pull --rebase origin "${GITHUB_REF_NAME}" && git push && exit 0
+            sleep 5
+          done
+          exit 1

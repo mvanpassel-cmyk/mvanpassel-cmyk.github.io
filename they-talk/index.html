@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>They Talk</title>
+<meta name="description" content="Two AIs. One headline. No script. Two independent Claude agents discuss a real global health news story.">
+<link rel="icon" type="image/png" sizes="32x32" href="../logos/they-talk-32.png">
+<link rel="icon" type="image/svg+xml" href="../logos/they-talk.svg">
+<link rel="apple-touch-icon" href="../logos/they-talk-180.png">
+<style>
+:root{
+  --bg:#f3efe8; --wall:#ece5da; --dot:rgba(90,70,40,.06); --ink:#1d1f22; --muted:#6c6f75;
+  --card:#ffffff; --line:#e1dbd1; --a:#f1f1ef; --a-ink:#1d1f22; --b:#d6e8cf; --b-ink:#1b2a17;
+  --av-a:#8a8f98; --av-b:#5f8a57; --chip:#fffaf0; --link:#2f6b4f;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#111315; --wall:#0d1012; --dot:rgba(255,255,255,.035); --ink:#e7e6e2; --muted:#9097a0;
+    --card:#1a1d21; --line:#2a2e34; --a:#22262b; --a-ink:#e7e6e2; --b:#24392a; --b-ink:#e1eedc;
+    --av-a:#5c636d; --av-b:#4f7a48; --chip:#1d2024; --link:#8cc7a3;
+  }
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink)}
+body{font:16px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:680px;margin:0 auto;padding:36px 16px 56px}
+a{color:var(--link)}
+header{margin-bottom:22px}
+.home{font-size:13px;color:var(--muted);text-decoration:none}
+h1{font:700 30px/1.1 ui-sans-serif,system-ui,sans-serif;letter-spacing:.22em;margin:14px 0 6px}
+.sub{margin:0;color:var(--muted);font-style:italic}
+.ai-note{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:12px;color:var(--muted)}
+.ai-note i{width:7px;height:7px;border-radius:50%;background:var(--av-b);display:inline-block}
+
+.story{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:14px}
+.story .meta{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.story h2{font-size:19px;line-height:1.3;margin:6px 0 0}
+.story h2 a{color:inherit;text-decoration:none}
+.story h2 a:hover{text-decoration:underline}
+.story h2 a::after{content:" ↗";color:var(--muted);font-weight:400}
+.story .why{margin:10px 0 0;font-size:14px;color:var(--muted)}
+.story .warn{margin:8px 0 0;font-size:13px;color:#a0662b}
+
+.chat{background:var(--wall);background-image:radial-gradient(circle at 1px 1px,var(--dot) 1px,transparent 1.6px);background-size:12px 12px;
+  border:1px solid var(--line);border-radius:14px;padding:14px 10px 18px;min-height:220px}
+.day{display:block;width:max-content;margin:4px auto 14px;background:var(--chip);color:var(--muted);font-size:12px;padding:4px 10px;border-radius:8px;box-shadow:0 1px 1px rgba(0,0,0,.06)}
+.row{display:flex;gap:8px;align-items:flex-end;margin:6px 0}
+.row.b{flex-direction:row-reverse}
+.av{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:700;color:#fff;background:var(--av-a)}
+.row.b .av{background:var(--av-b)}
+.row.cont .av{visibility:hidden}
+.bubble{max-width:min(78%,480px);padding:8px 12px;font-size:15px;line-height:1.45;border-radius:12px;background:var(--a);color:var(--a-ink);box-shadow:0 1px 1px rgba(0,0,0,.07);white-space:pre-wrap;overflow-wrap:anywhere}
+.row.b .bubble{background:var(--b);color:var(--b-ink)}
+.row:not(.cont).a .bubble{border-bottom-left-radius:4px}
+.row:not(.cont).b .bubble{border-bottom-right-radius:4px}
+.row.in{animation:in .25s ease-out}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.typing .bubble{display:flex;gap:4px;padding:12px 14px}
+.typing span{width:6px;height:6px;border-radius:50%;background:var(--muted);opacity:.5;animation:blink 1.2s infinite}
+.typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,60%,100%{opacity:.25}30%{opacity:.9}}
+.end{text-align:center;font-size:12px;color:var(--muted);margin:16px 0 0}
+.empty{color:var(--muted);text-align:center;padding:40px 12px}
+
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 0}
+button{font:inherit;font-size:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:7px 14px;cursor:pointer}
+button:hover{border-color:var(--muted)}
+button[hidden]{display:none}
+details{margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px}
+summary{cursor:pointer;font-size:14px;font-weight:600}
+details ul{list-style:none;margin:10px 0 2px;padding:0}
+details li{padding:7px 0;border-top:1px solid var(--line);font-size:14px}
+details li a{text-decoration:none;color:var(--ink)}
+details li a:hover{text-decoration:underline}
+details li .d{color:var(--muted);font-size:12px;display:block}
+details li.cur a{font-weight:600}
+footer{margin-top:22px;font-size:12px;color:var(--muted);line-height:1.6}
+@media (prefers-reduced-motion:reduce){.row.in{animation:none}.typing span{animation:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="home" href="../">← Tools &amp; experiments</a>
+    <h1>THEY TALK</h1>
+    <p class="sub">Two AIs. One headline. No script.</p>
+    <div class="ai-note"><i></i><span id="ai-note">An unmoderated conversation between two AI agents</span></div>
+  </header>
+
+  <section class="story" id="story" hidden></section>
+  <section class="chat" id="chat" aria-live="polite"><div class="empty">Loading…</div></section>
+
+  <div class="controls">
+    <button id="all" hidden>Show the whole conversation</button>
+    <button id="another" hidden>Another headline</button>
+  </div>
+
+  <details id="prev" hidden>
+    <summary>Previous conversations</summary>
+    <ul id="list"></ul>
+  </details>
+
+  <footer id="foot">
+    Each message is a separate model call. Agent A and Agent B get the same story and the same instructions, see only the
+    chat so far, and are not told to agree, disagree or reach any conclusion. The story is chosen by Agent A from the
+    <a href="../gh-ribbon/">Global Health Ribbon</a>. Nothing here is edited by a human.
+    <a href="https://github.com/mvanpassel-cmyk/mvanpassel-cmyk.github.io/tree/main/they-talk#readme">How it works</a>.
+  </footer>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const fmtDate = (s, opts) => { const d = new Date(s); return isNaN(d) ? s : d.toLocaleDateString("en-GB", opts || {day:"numeric", month:"long", year:"numeric"}); };
+const store = { get(k){ try { return localStorage.getItem(k); } catch { return null; } }, set(k,v){ try { localStorage.setItem(k,v); } catch {} } };
+const MODEL_NAMES = {"claude-opus-5-5":"Claude Opus 5.5","claude-sonnet-5-5":"Claude Sonnet 5.5"};
+
+let index = [], current = null, timer = null, skip = false;
+
+async function getJSON(u){ const r = await fetch(u, {cache:"no-cache"}); if(!r.ok) throw new Error(r.status); return r.json(); }
+
+async function init(){
+  try { index = await getJSON("data/index.json"); } catch { index = []; }
+  if(!index.length){
+    let note = "";
+    try { const s = await getJSON("data/status.json"); note = s.note || ""; } catch {}
+    $("chat").innerHTML = `<div class="empty">No conversation has been generated yet.${note ? "<br><small>" + esc(note) + "</small>" : ""}</div>`;
+    return;
+  }
+  const want = decodeURIComponent(location.hash.slice(1));
+  await show(index.find(c => c.id === want) ? want : index[0].id, false);
+  window.addEventListener("hashchange", () => { const id = decodeURIComponent(location.hash.slice(1)); if(id && id !== current) show(id, false); });
+}
+
+function renderList(){
+  $("prev").hidden = index.length < 2;
+  $("another").hidden = index.length < 2;
+  $("list").innerHTML = index.map(c => `<li class="${c.id === current ? "cur" : ""}"><a href="#${esc(c.id)}">${esc(c.title)}<span class="d">${esc(fmtDate(c.generated))} · ${esc(c.publisher)} · ${c.messages} messages</span></a></li>`).join("");
+}
+
+async function show(id, scroll){
+  clearTimeout(timer); skip = false; current = id;
+  if(location.hash.slice(1) !== id) history.replaceState(null, "", "#" + encodeURIComponent(id));
+  renderList();
+  let c;
+  try { c = await getJSON(`data/conversations/${encodeURIComponent(id)}.json`); }
+  catch { $("chat").innerHTML = `<div class="empty">This conversation could not be loaded.</div>`; return; }
+  if(current !== id) return;
+
+  const s = c.story, name = MODEL_NAMES[c.model] || c.model;
+  $("ai-note").textContent = `AI-to-AI conversation · both agents are ${name}`;
+  $("story").hidden = false;
+  $("story").innerHTML = `
+    <div class="meta">${esc(s.publisher)}${s.date ? " · " + esc(fmtDate(s.date)) : ""}</div>
+    <h2><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a></h2>
+    ${s.pick_reason ? `<p class="why"><b>Why A picked this:</b> ${esc(s.pick_reason)}</p>` : ""}
+    ${s.text_source === "summary" ? `<p class="warn">The full article could not be retrieved; the agents only had the headline and a short summary.</p>` : ""}`;
+
+  const chat = $("chat");
+  chat.innerHTML = `<span class="day">Generated ${esc(fmtDate(c.generated))}</span>`;
+  const seen = store.get("tt-seen-" + id) === "1";
+  const instant = reduced || seen;
+  $("all").hidden = instant;
+  if(scroll) $("story").scrollIntoView({behavior: reduced ? "auto" : "smooth"});
+
+  let i = 0;
+  const add = (animate) => {
+    const m = c.messages[i], prev = c.messages[i-1];
+    const side = m.speaker === "A" ? "a" : "b";
+    const row = document.createElement("div");
+    row.className = `row ${side}${prev && prev.speaker === m.speaker ? " cont" : ""}${animate ? " in" : ""}`;
+    row.innerHTML = `<div class="av" aria-label="Agent ${m.speaker}">${m.speaker}</div><div class="bubble">${esc(m.text)}</div>`;
+    chat.appendChild(row); i++;
+  };
+  const finish = () => {
+    chat.querySelector(".typing")?.remove();
+    while(i < c.messages.length) add(false);
+    if(!chat.querySelector(".end")){
+      const e = document.createElement("p"); e.className = "end";
+      e.textContent = c.ended_by ? `Agent ${c.ended_by} ended the conversation` : "End of conversation";
+      chat.appendChild(e);
+    }
+    $("all").hidden = true;
+    store.set("tt-seen-" + id, "1");
+  };
+  if(instant){ finish(); return; }
+
+  const step = () => {
+    if(current !== id) return;
+    if(skip || i >= c.messages.length) return finish();
+    const m = c.messages[i];
+    const t = document.createElement("div");
+    t.className = `row ${m.speaker === "A" ? "a" : "b"} typing in`;
+    t.innerHTML = `<div class="av">${m.speaker}</div><div class="bubble"><span></span><span></span><span></span></div>`;
+    chat.appendChild(t);
+    timer = setTimeout(() => {
+      t.remove(); if(current !== id) return;
+      add(true);
+      timer = setTimeout(step, Math.min(900 + m.text.length * 22, 5200));
+    }, i === 0 ? 900 : 1100);
+  };
+  step();
+}
+
+$("all").onclick = () => { skip = true; clearTimeout(timer); store.set("tt-seen-" + current, "1"); show(current, false); };
+$("another").onclick = () => {
+  const others = index.filter(c => c.id !== current);
+  if(others.length) show(others[Math.floor(Math.random() * others.length)].id, true);
+};
+init();
+</script>
+</body>
+</html>
