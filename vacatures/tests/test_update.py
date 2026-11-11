@@ -229,5 +229,28 @@ class EmployerCityTests(unittest.TestCase):
         self.assertEqual(it["city"], "Amersfoort")
 
 
+class SaveTextsTests(unittest.TestCase):
+    def test_saves_only_missing_open_first_and_respects_limit(self):
+        import tempfile
+        items = [
+            {"id": "at-1", "source": "AcademicTransfer", "url": "https://x/1", "title": "A", "employer": "E", "deadline": "2026-01-01"},
+            {"id": "at-2", "source": "AcademicTransfer", "url": "https://x/2", "title": "B", "employer": "E", "deadline": "2026-12-01"},
+            {"id": "eur-3", "source": "Erasmus Universiteit", "url": "https://x/3", "title": "C", "employer": "E"},
+        ]
+        calls = []
+        def fake(url):
+            calls.append(url)
+            return "<p>" + "tekst " * 100 + "</p>"
+        sleeps = []
+        with tempfile.TemporaryDirectory() as d:
+            n = u.save_texts(items, d, dt.date(2026, 11, 11), fetch=fake, sleep=sleeps.append, limit=1)
+            self.assertEqual(n, 1)
+            self.assertEqual(calls, ["https://x/2"])  # open vacature eerst
+            n = u.save_texts(items, d, dt.date(2026, 11, 11), fetch=fake, sleep=sleeps.append)
+            self.assertEqual(n, 1)  # alleen de ontbrekende
+            self.assertEqual(sleeps, [])  # eerste pagina per run zonder wachttijd
+            self.assertIn("Bron: https://x/1", (Path(d) / "at-1.txt").read_text(encoding="utf-8"))
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -433,6 +433,36 @@ def save(doc):
         json.dumps(doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
+def save_texts(items, text_dir, today, fetch=fetch_text, sleep=time.sleep, delay=10, limit=25):
+    """Bewaar de volledige paginatekst per vacature in een PRIVÉ-map (niet in deze openbare repo).
+
+    Alleen vacatures zonder bestaand tekstbestand worden opgehaald; open vacatures eerst,
+    zodat de tekst al veilig is voordat de vacature verloopt."""
+    text_dir = Path(text_dir)
+    text_dir.mkdir(parents=True, exist_ok=True)
+    todo = [it for it in items
+            if it.get("source") == "AcademicTransfer" and it.get("url")
+            and not (text_dir / f"{it['id']}.txt").exists()]
+    todo.sort(key=lambda it: ((it.get("deadline") or "9999") < today.isoformat(), it["id"]), reverse=False)
+    saved = 0
+    for it in todo[:limit]:
+        if saved:
+            sleep(delay)
+        try:
+            text = to_text(fetch(it["url"]))
+        except (urllib.error.URLError, TimeoutError, OSError) as exc:
+            print(f"  ! tekst {it['id']}: ophalen mislukt ({exc})")
+            continue
+        if len(text) < 300:
+            print(f"  ! tekst {it['id']}: te kort, overgeslagen")
+            continue
+        head = (f"Bron: {it['url']}\nTitel: {it['title']}\nWerkgever: {it.get('employer')}\n"
+                f"Opgehaald: {today.isoformat()}\n\n")
+        (text_dir / f"{it['id']}.txt").write_text(head + text + "\n", encoding="utf-8")
+        saved += 1
+    return saved
+
+
 def main(argv=None):
     argv = sys.argv[1:] if argv is None else argv
     offline = "--offline" in argv
@@ -475,6 +505,9 @@ def main(argv=None):
         meta["updated"] = now.isoformat(timespec="seconds")
         n = archive_pending(doc["items"], today)
         print(f"Archiefverzoeken: {n}")
+        if "--text-dir" in argv:
+            td = argv[argv.index("--text-dir") + 1]
+            print(f"Volledige teksten privé bewaard: {save_texts(doc['items'], td, today)}")
 
     employers = load_json(DATA / "employers.json")["employers"]
     missing = set()

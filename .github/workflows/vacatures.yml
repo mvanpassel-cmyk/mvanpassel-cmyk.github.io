@@ -24,6 +24,8 @@ jobs:
   update:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    env:
+      HAS_ARCHIVE_TOKEN: ${{ secrets.ARCHIVE_TOKEN != '' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -34,8 +36,39 @@ jobs:
       - name: Unit tests
         run: python -m unittest discover -s vacatures/tests -v
 
+      - name: Check out private text archive (only when the token is set)
+        if: env.HAS_ARCHIVE_TOKEN == 'true'
+        uses: actions/checkout@v4
+        with:
+          repository: mvanpassel-cmyk/vacatures-archief
+          token: ${{ secrets.ARCHIVE_TOKEN }}
+          path: private-archive
+
       - name: Fetch new vacancies, update status and archive copies
-        run: python vacatures/pipeline/update.py
+        run: |
+          if [ "$HAS_ARCHIVE_TOKEN" = "true" ]; then
+            python vacatures/pipeline/update.py --text-dir private-archive/teksten
+          else
+            python vacatures/pipeline/update.py
+          fi
+
+      - name: Push full texts to the private archive
+        if: env.HAS_ARCHIVE_TOKEN == 'true'
+        working-directory: private-archive
+        run: |
+          git config user.name "vacatures bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add teksten
+          if git diff --cached --quiet; then
+            echo "No new texts"
+            exit 0
+          fi
+          git commit -m "Teksten bijgewerkt $(date -u +%F)"
+          for i in 1 2 3; do
+            git pull --rebase origin HEAD && git push && exit 0
+            sleep 5
+          done
+          exit 1
 
       - name: Commit if changed
         run: |
