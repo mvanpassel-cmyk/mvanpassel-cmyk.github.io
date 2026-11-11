@@ -1,0 +1,57 @@
+{
+ "id": "2026-11-11",
+ "generated": "2026-11-11T15:30:39+00:00",
+ "model": "claude-opus-5-5",
+ "effort": "medium",
+ "story": {
+  "title": "Wider use of Ervebo vaccine urged as DR Congo Ebola outbreak nears 11000 cases",
+  "publisher": "WHO Alert",
+  "date": "2026-11-09",
+  "url": "https://www.cidrap.umn.edu/viral-hemorrhagic-fever/wider-use-ervebo-vaccine-urged-dr-congo-ebola-outbreak-nears-11000-cases",
+  "ribbon_category": "who",
+  "text_source": "article",
+  "pick_reason": "Using Ervebo, a Zaire-strain vaccine, against Bundibugyo Ebola pits urgency against weak cross-protection evidence. Should SAGE loosen research-only limits with nearly 11,000 cases, or does that risk false reassurance?"
+ },
+ "story_excerpt_chars": 5844,
+ "messages": [
+  {
+   "speaker": "A",
+   "text": "The key detail buried here is that this outbreak is Bundibugyo, not Zaire. Ervebo is licensed for Zaire, so MSF's \"it's not experimental\" line is a bit slippery: the vaccine isn't experimental, but using it against this virus is. Their anecdote, that staff vaccinated in past outbreaks are getting infected less and dying less, is the weakest kind of evidence. Those staff are experienced health workers with better PPE habits, earlier testing and faster access to care, so you'd expect them to do better whether or not the vaccine works. My read is that the real fight isn't about whether Ervebo works but whether the research-only restriction is slowing deployment. If the trials can't scale at the pace of the fastest-growing outbreak on record, MSF has a point even with thin evidence."
+  },
+  {
+   "speaker": "B",
+   "text": "Agree the staff anecdote is badly confounded, though the mortality-among-infected part is a bit harder to dismiss than case counts, since PPE habits stop you getting infected but don't obviously change how you fare once you are. Still, early detection and better supportive care could explain that too. Where I'd push back is the \"research-only is the bottleneck\" framing: the 2015 Guinea ring trial was itself a large deployment, and a well-designed trial here can vaccinate at scale while still answering whether it works. Drop the restriction and roll it out uncontrolled, and you may never learn if it protects against Bundibugyo, while health workers who think they're covered might loosen up on PPE. The things capping vaccination right now look more like dose supply, cold chain and militants killing people at health posts, and a SAGE decision doesn't fix any of those."
+  },
+  {
+   "speaker": "A",
+   "text": "Fair on Guinea: ring trials can vaccinate at scale, and I overstated the restriction as the main bottleneck. But \"research use only\" isn't free in eastern DRC. Every dose needs a protocol site, consent procedures and trial staff, which is exactly what you can't keep running when militants are hitting health posts and hundreds of patients have scattered. And on cost-benefit, a licensed vaccine with a known safety record, against a virus killing about half of confirmed cases, has a small downside if it turns out not to work.\n\nThe cost I'd take more seriously isn't uncontrolled data. The article says WHO wants two Bundibugyo-specific vaccines added to trials. If Ervebo becomes freely available, who enrolls in a trial of an unproven candidate, and what do you compare it against? Wide Ervebo use could quietly undermine the trials that might produce the right vaccine."
+  },
+  {
+   "speaker": "B",
+   "text": "I think the trial-undermining worry is weaker than it sounds. If Ervebo becomes the default, the Bundibugyo candidates get tested head-to-head against it, or with Ervebo as the control arm instead of delayed vaccination. That's arguably a cleaner and more ethical design than what exists now, and with nearly 11,000 cases, statistical power isn't the constraint. I'll concede the protocol-overhead point, though. In a place where trial sites are getting attacked, needing a consent apparatus for every dose is a real cost, not paperwork. The bigger risk to the candidate trials is that a quick SAGE yes gets read as \"Ervebo works on Bundibugyo,\" and funders and regulators lose urgency on the specific vaccines before anyone actually knows."
+  },
+  {
+   "speaker": "A",
+   "text": "The active-control design only works cleanly if we know roughly what Ervebo does against Bundibugyo. If it's near zero, the control arm is basically a placebo everyone thinks is protective. If it's partial, the candidates have to beat a moving, unmeasured target, which needs bigger trials than you'd think even at 11,000 cases. I'd also reframe the whole question: ring vaccination depends on tracing contacts, and that breaks down when hundreds of patients scatter after an attack. So the decision that matters more than \"research-only or not\" is probably a narrow SAGE recommendation for frontline and burial workers, with outcomes tracked by serology. That gets doses to the people most exposed without pretending we've answered the efficacy question, and it limits your urgency problem, because nobody reads \"health workers only\" as \"solved.\""
+  },
+  {
+   "speaker": "B",
+   "text": "Concede the control-arm point: you can't benchmark against an efficacy nobody has measured, so the ring-trial default still has a role. Frontline and burial workers first is right too, and not just for their own sake: infected health workers turn clinics into transmission hubs, and that's how a scare like the November 6 attack becomes new chains. My worry is that \"tracked by serology\" may not deliver. Ervebo raises antibodies to Zaire glycoprotein that probably cross-react with Bundibugyo, so serology in vaccinated workers could blur the line between vaccine response and quiet infection. If you want an answer, stagger the rollout across sites and compare infection rates among health workers vaccinated early versus late. That avoids repeating MSF's mistake of comparing seasoned staff with everyone else."
+  },
+  {
+   "speaker": "A",
+   "text": "The serology problem is fixable: Ervebo only carries the Zaire glycoprotein, so antibodies to Bundibugyo nucleoprotein or VP40 would flag real infection, not vaccine response. That's a DIVA-style readout, and those assays are cheap relative to a trial. Your staggered rollout is basically a stepped-wedge design, and I like it more than serology alone. The catch is that in an outbreak this mobile, early and late sites will face very different epidemics, so you need a lot of sites randomized on timing, not on who's easiest to reach. What would move me toward MSF's broader ask is a few months of that data showing a clear gap in confirmed infections among health workers. Without it, I'd stick with frontline-first."
+  },
+  {
+   "speaker": "B",
+   "text": "Right on DIVA, I hadn't thought it through: Ervebo is a VSV vector carrying only Zaire glycoprotein, so Bundibugyo nucleoprotein antibodies would mark real infection. The one wrinkle is staff who survived earlier Zaire outbreaks, whose nucleoprotein antibodies could cross-react, but that's a small, identifiable group you can screen at baseline. What strikes me now is that a frontline-first, stepped-wedge rollout with DIVA serology is still a research protocol, just a better-targeted one. So the honest answer to MSF's ask is \"not lifted, redesigned.\" SAGE can say yes to more doses in more arms without saying the vaccine works on Bundibugyo, and that's the distinction the headline flattens. The one thing that would push me further toward MSF is time: if the candidate trials slip by months while the case curve keeps climbing, the cost of insisting on clean evidence starts to exceed the cost of being wrong about a safe vaccine."
+  }
+ ],
+ "ended_by": "B",
+ "usage": {
+  "calls": 9,
+  "input_tokens": 36485,
+  "output_tokens": 5003,
+  "est_cost_usd": 0.246
+ }
+}
