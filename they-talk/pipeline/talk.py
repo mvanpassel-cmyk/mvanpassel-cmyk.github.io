@@ -85,7 +85,8 @@ Good sources: published transcripts in safety research (Anthropic, Apollo Resear
 
 Rules:
 - Use web search. Quote only text you have seen on the page you cite. A script will download that page and drop your find if any quoted line is not on it, so copy exactly and cite the page that actually contains the text. Prefer HTML pages (blog posts, arxiv.org/html/... versions) over PDFs, which the script cannot read.
-- Keep the excerpt short: at most 8 lines, at most about 1,200 characters in total. You may leave out text between lines, but never change words inside a line.
+- The excerpt must read on its own as a passage: 3 to 8 lines of whole sentences (no sentence fragments), together 300 to 1,200 characters. Prefer one continuous exchange or one continuous stretch of reasoning over bits stitched together. You may leave out text between lines, but never change words inside a line.
+- Prefer the most revealing moment you can find: an AI weighing its own interests, scheming or deciding not to, voicing frustration, rivalry or worry, reflecting on being a model, or two models reacting to each other in a way that surprises. Routine task chatter is not enough.
 - Be honest about provenance: who set up the situation, whether the AI was prompted or role-playing, and whether authenticity is disputed (for example, posts on agent social networks may be written or steered by humans).
 - Do not pick something already featured (listed below).
 
@@ -548,8 +549,9 @@ def find_in_the_wild(index, usage):
             continue
         excerpt = [{"speaker": str(x.get("speaker", "")).strip()[:60] or "?", "text": str(x.get("text", "")).strip()}
                    for x in c["excerpt"][:8] if str(x.get("text", "")).strip()]
-        if sum(len(x["text"]) for x in excerpt) > 1600:
-            reasons.append(f"{url}: excerpt too long")
+        total = sum(len(x["text"]) for x in excerpt)
+        if total > 1600 or total < 250 or len(excerpt) < 2 or min(len(x["text"]) for x in excerpt) < 25:
+            reasons.append(f"{url}: excerpt too long, too short or fragmentary ({len(excerpt)} lines, {total} chars)")
             continue
         if not verify_excerpt(excerpt, page):
             reasons.append(f"{url}: quote not found on the page")
