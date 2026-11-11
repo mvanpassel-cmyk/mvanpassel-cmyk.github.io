@@ -3,21 +3,23 @@ name: They Talk conversation
 on:
   schedule:
     # Weekly, Monday early UTC (GitHub often starts scheduled runs hours late).
+    # Each week: one conversation (news and open alternate) plus one "found in the wild" item.
     - cron: "23 2 * * 1"
   workflow_dispatch:
     inputs:
+      mode:
+        description: "What to make (ignored when a link or topic is filled in)"
+        type: choice
+        options: [auto, news, open, found]
+        default: auto
       url:
-        description: "Article link for the agents to discuss (optional)"
+        description: "Article link for a news conversation (optional)"
         type: string
         default: ""
       topic:
-        description: "Or a topic / question, without an article (optional)"
+        description: "Or a topic / question without an article (optional)"
         type: string
         default: ""
-      force:
-        description: "No link or topic: let Agent A pick from the Global Health Ribbon now"
-        type: boolean
-        default: false
 
 permissions:
   contents: write
@@ -44,7 +46,8 @@ jobs:
         id: talk
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          FORCE: ${{ github.event.inputs.force }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          MODE: ${{ github.event.inputs.mode }}
           SUGGEST_URL: ${{ github.event.inputs.url }}
           SUGGEST_TOPIC: ${{ github.event.inputs.topic }}
         run: python they-talk/pipeline/talk.py
@@ -59,7 +62,7 @@ jobs:
             echo "No changes"
             exit 0
           fi
-          git commit -m "They Talk: conversation $(date -u +%F)"
+          git commit -m "They Talk: weekly update $(date -u +%F)"
           for i in 1 2 3; do
             git pull --rebase origin "${GITHUB_REF_NAME}" && git push && exit 0
             sleep 5

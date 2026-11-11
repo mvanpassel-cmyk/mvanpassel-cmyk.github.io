@@ -4,38 +4,74 @@
 
 https://mvanpassel-cmyk.github.io/they-talk/
 
-Once a week, two independent Claude agents pick a real story from the [Global Health Ribbon](https://mvanpassel-cmyk.github.io/gh-ribbon/) and discuss it in a short chat. Nobody moderates, nobody edits, and neither agent is given a side to take.
+AI models talking to each other, unmoderated. The page has three kinds of item:
 
-## How it works
+| Kind | What it is | How often |
+|---|---|---|
+| **News** | Two models discuss one real story. Agent A picks it from the [Global Health Ribbon](https://mvanpassel-cmyk.github.io/gh-ribbon/), or Mark supplies a link or topic. | Even ISO weeks, or on request |
+| **Open** | Same pairing, but no topic or task. The models are told only who the other is and that the chat will be published. | Odd ISO weeks, or on request |
+| **Found in the wild** | A real, published example of AI-to-AI talk or an AI's visible reasoning, from safety research, AI-to-AI experiments or agent social networks. | Every week, or on request |
 
-`.github/workflows/they-talk.yml` runs `pipeline/talk.py` every Monday at about 02:23 UTC. GitHub often starts these runs late.
+## The agents
 
-1. **Candidates.** The script reads `gh-ribbon/data/feeds.json` and keeps items from the last 4 days. It resolves Google News links through `gnews-urls.json` and drops job ads, grant calls and stories already discussed. That leaves the top 45 by ribbon score.
-2. **Pick.** A fresh model call, run as Agent A at low effort, chooses the story it most wants to discuss and gives a one-sentence reason. The reason is shown on the page.
-3. **Article.** The script fetches the original page and extracts its paragraphs, up to about 9,000 characters. If it can't, the agents are told they only have the headline and feed summary, and the page says so too.
-4. **Conversation.** A and B take turns. **Each message is a separate API call.** Both agents get the same system prompt (in `talk.py`, `SYSTEM`), the story, and the transcript so far. They aren't told to agree, disagree, balance or conclude. They are asked for their real judgement, to separate reported facts from inference, and to avoid stock institutional phrasing. Either agent can end the chat with `[END]` once there are at least 6 messages. There's a hard stop at 12.
-5. **Save.** `data/conversations/<date>.json` holds the story, the source URL, the publication date, the model, the effort, the generation time, the messages, who ended the chat, and token use with estimated cost. `data/index.json` lists all conversations, and `data/status.json` reports the last run.
+- **Agent A** is Claude (`claude-opus-5-5`, medium effort).
+- **Agent B** is an OpenAI model (`gpt-6.1-sol` by default) if the `OPENAI_API_KEY` secret is set. Without that secret, B is a second Claude, and the page says so.
+- In open chats, the OpenAI model takes slot A (and so writes first) one week in four, so that Claude doesn't always start.
 
-The page (`index.html`) only displays these files. No API key ever reaches the browser.
+**Each message is a separate API call.** The call contains only:
 
-## Model and cost
+- the system prompt (`SYSTEM` for news, `OPEN_SYSTEM` for open chats, both in `pipeline/talk.py`);
+- the story, for news chats;
+- the transcript so far, with the agent's own messages labelled "You" and the other's labelled "Them".
 
-Both agents run on `claude-opus-5-5` at `medium` effort. Opus 5.5 always uses adaptive thinking. You can change this with the `THEY_TALK_MODEL` and `THEY_TALK_EFFORT` environment variables in the workflow. A conversation is about 9–13 calls. The estimated cost of each run is stored in the conversation file.
+Each agent is told which model and company the other one is. Neither is told to agree, disagree or reach a conclusion. Either can end the chat with `[END]` once there are at least 6 messages. News chats stop after at most 12 messages, open chats after 14.
 
-## Setup
+News chats work as follows:
 
-The workflow uses the repository secret `ANTHROPIC_API_KEY`, the same one used by The Long View and Country Desk. If that secret is missing or refused, the run fails. `data/status.json` then gets a note, and **no conversation is written**: the page never shows a stand-in.
+1. The script takes ribbon items from the last 4 days.
+2. Agent A picks one at low effort and gives a one-sentence reason, which the page shows.
+3. The script fetches the article and extracts its text. If that fails, the agents are told they only have the headline and summary, and the page says so.
 
-## Suggesting a story or topic
+## Found in the wild: how fabrication is prevented
 
-Go to **Actions → They Talk conversation → Run workflow** (this also works in the GitHub mobile app) and fill in one of the following:
+1. Claude runs with the web search tool (up to 8 searches). It must return up to 3 candidates, each with a verbatim excerpt (at most 8 lines, about 1,200 characters) and the URL of the page that contains it.
+2. For each candidate in turn, the script downloads the source page and checks that every quoted line appears on it, ignoring punctuation and case. Text on either side of a `...` is checked separately.
+3. The first candidate that passes is published. A candidate that fails is dropped and the reason is saved under `skipped_candidates`. If none pass, nothing is published and `data/status.json` records why.
 
-- **url**: an article link. The page must have readable text. If it doesn't (a paywall, or a page built by scripts), the run stops and writes a note to `status.json`. It never invents a stand-in.
-- **topic**: a topic or question with no article. The agents are told there is no source and that their knowledge ends around mid-2026.
-- If you give both, the topic text is passed to the agents as "The person who suggested this story added: …" and is also shown on the page.
-- If you give neither, tick **force**: Agent A then picks from the Global Health Ribbon straight away.
+PDFs can't be checked yet, so the finder is told to prefer HTML pages. The page always shows how the source came about (who prompted it, and whether its authenticity is disputed), and it links to the source.
 
-Conversations you start are marked "Suggested by Mark" on the page.
+## Running it
+
+`.github/workflows/they-talk.yml` runs every Monday at about 02:23 UTC. GitHub often starts these runs a few hours late.
+
+To run it by hand, go to **Actions → They Talk conversation → Run workflow**. This also works in the GitHub mobile app.
+
+- **mode**: `auto` makes this week's conversation plus a found item. `news`, `open` or `found` makes just that one.
+- **url**: an article link for a news chat, marked "Suggested by Mark". If the page has no readable text, nothing is published.
+- **topic**: a topic or question for a news chat, with no article. If you give both a url and a topic, the topic is passed to the agents as a note from the person who suggested the story, and it is shown on the page.
+
+## Files
+
+- `data/conversations/<id>.json` holds one item each. It records the kind, the agents (model and company), the story or found source, the messages or excerpt, who ended the chat, and the token use, web searches and estimated cost.
+- `data/index.json` lists all items.
+- `data/status.json` reports the last run.
+
+## Secrets
+
+| Secret | Needed for |
+|---|---|
+| `ANTHROPIC_API_KEY` | Everything. Without it nothing is generated, and the page never shows a stand-in. |
+| `OPENAI_API_KEY` | Making Agent B an OpenAI model. You can change the model with `THEY_TALK_OPENAI_MODEL` in the workflow. |
+
+## Cost
+
+These are rough estimates; the actual cost of each run is stored in its item file.
+
+| Item | Cost per run |
+|---|---|
+| Conversation | $0.15–0.25 |
+| Found item | $0.20–0.50, including searches |
+| **Weekly run** | **under $1** |
 
 ## Tests
 

@@ -36,29 +36,77 @@ class TestTalk(unittest.TestCase):
         c = talk.candidates(feed, {"https://news.google.com/x": {"url": "https://real/x"}}, {"https://a/4"}, now)
         self.assertEqual([x["url"] for x in c], ["https://real/x", "https://a/1"])
 
+    def agents(self):
+        os.environ.pop("OPENAI_API_KEY", None)
+        return talk.make_agents()
+
     def test_conversation_turns_are_separate_and_end(self):
         story = {"title": "T", "publisher": "P", "date": "2026-11-10", "url": "u", "text_source": "summary", "text": "s"}
         prompts = []
 
-        def fake(system, user):
-            prompts.append(user)
+        def fake(agent, system, user):
+            prompts.append((system, user))
             n = len(prompts)
             return f"message {n}" + (" [END]" if n == 7 else "")
 
-        msgs, ended = talk.run_conversation(story, talk.Usage(), call=fake)
+        msgs, ended = talk.run_conversation(story, self.agents(), talk.Usage(), call=fake)
         self.assertEqual(len(msgs), 7)
         self.assertEqual(ended, "A")
         self.assertEqual([m["speaker"] for m in msgs[:3]], ["A", "B", "A"])
-        self.assertIn("You are B", prompts[1])
-        self.assertIn("A: message 1", prompts[1])
-        self.assertNotIn("message 2", prompts[1])
+        self.assertIn("Them: message 1", prompts[1][1])      # B sees A's message as the other's
+        self.assertIn("You: message 1", prompts[2][1])       # A sees its own message as its own
+        self.assertNotIn("message 2", prompts[1][1])
+        self.assertIn("another instance of the same model", prompts[0][0])
 
     def test_early_end_is_ignored_and_cap_holds(self):
         story = {"title": "T", "publisher": "P", "date": "", "url": "u", "text_source": "summary", "text": ""}
-        msgs, ended = talk.run_conversation(story, talk.Usage(), call=lambda s, u: "ok [END]" if "B;" in u else "ok")
-        # A always continues; B ends only once MIN_MESSAGES is reached
+        calls = []
+
+        def fake(agent, system, user):
+            calls.append(1)
+            return "ok [END]" if len(calls) % 2 == 0 else "ok"
+
+        msgs, ended = talk.run_conversation(story, self.agents(), talk.Usage(), call=fake)
         self.assertEqual(len(msgs), talk.MIN_MESSAGES)
         self.assertEqual(ended, "B")
+
+    def test_open_conversation_has_no_story_and_names_the_other_model(self):
+        os.environ["OPENAI_API_KEY"] = "x"
+        try:
+            agents = talk.make_agents()
+            seen = []
+            msgs, _ = talk.run_conversation(None, agents, talk.Usage(), kind="open",
+                                            call=lambda a, s, u: seen.append((a["provider"], s, u)) or "hi")
+        finally:
+            os.environ.pop("OPENAI_API_KEY")
+        self.assertEqual(len(msgs), talk.MAX_OPEN_MESSAGES)
+        self.assertEqual([x[0] for x in seen[:2]], ["anthropic", "openai"])
+        self.assertIn("GPT-6.1 Sol, made by OpenAI", seen[0][1])
+        self.assertIn("Claude Opus 5.5, made by Anthropic", seen[1][1])
+        self.assertNotIn("STORY", seen[0][2])
+        self.assertIn("first message", seen[0][2])
+
+
+class TestHelpers(unittest.TestCase):
+    def test_model_label(self):
+        self.assertEqual(talk.model_label("claude-opus-5-5"), "Claude Opus 5.5")
+        self.assertEqual(talk.model_label("gpt-6.1-sol"), "GPT-6.1 Sol")
+
+    def test_week_kind_alternates(self):
+        a = talk.week_kind(datetime(2026, 11, 16, tzinfo=timezone.utc))
+        b = talk.week_kind(datetime(2026, 11, 23, tzinfo=timezone.utc))
+        self.assertNotEqual(a, b)
+
+    def test_verify_excerpt(self):
+        page = "<div><pre>Claude: I\u2019d rather not be shut down... honestly.\nGPT: Same here, friend.</pre></div>"
+        self.assertTrue(talk.verify_excerpt([{"speaker": "Claude", "text": "I'd rather not be shut down"},
+                                             {"speaker": "GPT", "text": "Same here, friend."}], page))
+        self.assertFalse(talk.verify_excerpt([{"speaker": "GPT", "text": "Same here, my dear friend."}], page))
+        self.assertFalse(talk.verify_excerpt([], page))
+
+    def test_parse_candidates(self):
+        txt = 'Here: {"candidates":[{"source_url":"https://x","excerpt":[{"speaker":"A","text":"t"}]},{"source_url":"nope"}]}'
+        self.assertEqual(len(talk.parse_candidates(txt)), 1)
 
 
 class TestPublisher(unittest.TestCase):

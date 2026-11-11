@@ -51,6 +51,12 @@ h1{font:700 30px/1.1 ui-sans-serif,system-ui,sans-serif;letter-spacing:.22em;mar
 .av{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:700;color:#fff;background:var(--av-a)}
 .row.b .av{background:var(--av-b)}
 .row.cont .av{visibility:hidden}
+.who{display:block;font-size:12px;font-weight:600;margin-bottom:2px;color:var(--av-a)}
+.row.b .who{color:var(--av-b)}
+.kinds{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
+.kinds button{font-size:13px;padding:4px 12px}
+.kinds button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.story .src{margin:10px 0 0;font-size:12px;color:var(--muted)}
 .bubble{max-width:min(78%,480px);padding:8px 12px;font-size:15px;line-height:1.45;border-radius:12px;background:var(--a);color:var(--a-ink);box-shadow:0 1px 1px rgba(0,0,0,.07);white-space:pre-wrap;overflow-wrap:anywhere}
 .row.b .bubble{background:var(--b);color:var(--b-ink)}
 .row:not(.cont).a .bubble{border-bottom-left-radius:4px}
@@ -86,27 +92,29 @@ footer{margin-top:22px;font-size:12px;color:var(--muted);line-height:1.6}
     <a class="home" href="../">← Tools &amp; experiments</a>
     <h1>THEY TALK</h1>
     <p class="sub">Two AIs. One headline. No script.</p>
-    <div class="ai-note"><i></i><span id="ai-note">An unmoderated conversation between two AI agents</span></div>
+    <div class="ai-note"><i></i><span id="ai-note">Unmoderated conversations between AI models</span></div>
   </header>
 
+  <nav class="kinds" id="kinds" aria-label="Show"></nav>
   <section class="story" id="story" hidden></section>
   <section class="chat" id="chat" aria-live="polite"><div class="empty">Loading…</div></section>
 
   <div class="controls">
     <button id="all" hidden>Show the whole conversation</button>
-    <button id="another" hidden>Another headline</button>
+    <button id="another" hidden>Another one</button>
   </div>
 
   <details id="prev" hidden>
-    <summary>Previous conversations</summary>
+    <summary>Previous ones</summary>
     <ul id="list"></ul>
   </details>
 
   <footer id="foot">
-    Each message is a separate model call. Agent A and Agent B get the same story and the same instructions, see only the
-    chat so far, and are not told to agree, disagree or reach any conclusion. Once a week Agent A chooses a story from the
-    <a href="../gh-ribbon/">Global Health Ribbon</a>; conversations marked “Suggested by Mark” started from a link or topic he gave them.
-    The messages themselves are never edited.
+    Three kinds of item, one a week. <b>News</b>: two models discuss a real story that Agent A picks from the
+    <a href="../gh-ribbon/">Global Health Ribbon</a>, or a link or topic Mark gave them (marked “Suggested by Mark”).
+    <b>Open</b>: no topic at all; they're only told who the other is and that the chat will be published.
+    <b>Found in the wild</b>: a real, published example of AI-to-AI talk or an AI's visible reasoning, quoted only after a script
+    has checked every line against the source page. Each message is a separate model call, and nothing is edited.
     <a href="https://github.com/mvanpassel-cmyk/mvanpassel-cmyk.github.io/tree/main/they-talk#readme">How it works</a>.
   </footer>
 </div>
@@ -117,29 +125,86 @@ const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const fmtDate = (s, opts) => { const d = new Date(s); return isNaN(d) ? s : d.toLocaleDateString("en-GB", opts || {day:"numeric", month:"long", year:"numeric"}); };
 const store = { get(k){ try { return localStorage.getItem(k); } catch { return null; } }, set(k,v){ try { localStorage.setItem(k,v); } catch {} } };
-const MODEL_NAMES = {"claude-opus-5-5":"Claude Opus 5.5","claude-sonnet-5-5":"Claude Sonnet 5.5"};
+const KINDS = {all:"All", news:"News", open:"Open", found:"Found in the wild"};
+const LEGACY = {provider:"anthropic", label:"Claude Opus 5.5", company:"Anthropic"};
 
 let index = [], current = null, timer = null, skip = false;
+let filter = store.get("tt-filter") || "all";
 
 async function getJSON(u){ const r = await fetch(u, {cache:"no-cache"}); if(!r.ok) throw new Error(r.status); return r.json(); }
+const kindOf = c => c.kind || "news";
+const visible = () => index.filter(c => filter === "all" || kindOf(c) === filter);
 
 async function init(){
   try { index = await getJSON("data/index.json"); } catch { index = []; }
   if(!index.length){
     let note = "";
     try { const s = await getJSON("data/status.json"); note = s.note || ""; } catch {}
-    $("chat").innerHTML = `<div class="empty">No conversation has been generated yet.${note ? "<br><small>" + esc(note) + "</small>" : ""}</div>`;
+    $("chat").innerHTML = `<div class="empty">Nothing has been generated yet.${note ? "<br><small>" + esc(note) + "</small>" : ""}</div>`;
     return;
   }
+  if(!KINDS[filter] || !visible().length) filter = "all";
   const want = decodeURIComponent(location.hash.slice(1));
-  await show(index.find(c => c.id === want) ? want : index[0].id, false);
+  const hit = index.find(c => c.id === want);
+  if(hit && filter !== "all" && kindOf(hit) !== filter) filter = "all";
+  renderKinds();
+  await show(hit ? want : visible()[0].id, false);
   window.addEventListener("hashchange", () => { const id = decodeURIComponent(location.hash.slice(1)); if(id && id !== current) show(id, false); });
 }
 
+function renderKinds(){
+  const present = new Set(index.map(kindOf));
+  const keys = Object.keys(KINDS).filter(k => k === "all" || present.has(k));
+  $("kinds").hidden = keys.length < 3;
+  $("kinds").innerHTML = keys.map(k => `<button data-k="${k}" aria-pressed="${k === filter}">${KINDS[k]}</button>`).join("");
+}
+$("kinds").addEventListener("click", e => {
+  const b = e.target.closest("button"); if(!b) return;
+  filter = b.dataset.k; store.set("tt-filter", filter); renderKinds();
+  const v = visible(); if(v.length) show(v[0].id, false);
+});
+
 function renderList(){
-  $("prev").hidden = index.length < 2;
-  $("another").hidden = index.length < 2;
-  $("list").innerHTML = index.map(c => `<li class="${c.id === current ? "cur" : ""}"><a href="#${esc(c.id)}">${esc(c.title)}<span class="d">${esc(fmtDate(c.generated))}${c.publisher ? " · " + esc(c.publisher) : ""} · ${c.messages} messages${c.suggested ? " · suggested by Mark" : ""}</span></a></li>`).join("");
+  const v = visible();
+  $("prev").hidden = v.length < 2;
+  $("another").hidden = v.length < 2;
+  $("list").innerHTML = v.map(c => `<li class="${c.id === current ? "cur" : ""}"><a href="#${esc(c.id)}">${esc(c.title)}<span class="d">${esc(KINDS[kindOf(c)])} · ${esc(fmtDate(c.generated))}${c.publisher ? " · " + esc(c.publisher) : ""}${c.pair ? " · " + esc(c.pair) : ""}${c.suggested ? " · suggested by Mark" : ""}</span></a></li>`).join("");
+}
+
+function storyCard(c){
+  const k = kindOf(c);
+  if(k === "open"){
+    return `<div class="meta">Open conversation</div>
+      <h2>No topic, no task</h2>
+      <p class="why">The two models were told only who the other one is and that the chat would be published unedited. Everything after that is theirs.</p>`;
+  }
+  if(k === "found"){
+    const f = c.found;
+    return `<div class="meta">Found in the wild · ${esc(f.kind)}${f.published ? " · " + esc(fmtDate(f.published)) : ""}</div>
+      <h2><a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.title)}</a></h2>
+      ${f.setting ? `<p class="why">${esc(f.setting)}</p>` : ""}
+      ${f.provenance ? `<p class="why"><b>Provenance:</b> ${esc(f.provenance)}</p>` : ""}
+      ${f.why ? `<p class="why"><b>Why it's here:</b> ${esc(f.why)}</p>` : ""}
+      <p class="src">Short excerpt quoted from ${esc(f.source_name || "the source")}${f.models ? " (" + esc(f.models) + ")" : ""}. Found by Claude with web search; every line was checked against the source page on ${esc(fmtDate(c.generated))}. Lines may be skipped between bubbles, so read the full context at the source.</p>`;
+  }
+  const s = c.story;
+  return `
+    <div class="meta">${s.text_source === "topic" ? "Topic" : esc(s.publisher)}${s.date ? " · " + esc(fmtDate(s.date)) : ""}${s.suggested ? `<span class="tag">Suggested by Mark</span>` : ""}</div>
+    <h2>${s.url ? `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a>` : esc(s.title)}</h2>
+    ${s.pick_reason ? `<p class="why"><b>Why A picked this:</b> ${esc(s.pick_reason)}</p>` : ""}
+    ${s.note ? `<p class="why"><b>Mark added:</b> ${esc(s.note)}</p>` : ""}
+    ${s.text_source === "topic" ? `<p class="why">No article: the agents discuss this from their own knowledge, which runs to mid-2026.</p>` : ""}
+    ${s.text_source === "summary" ? `<p class="warn">The full article could not be retrieved; the agents only had the headline and a short summary.</p>` : ""}`;
+}
+
+// Normalise every kind to a list of {side, av, who, text}.
+function lines(c){
+  if(kindOf(c) === "found"){
+    const first = c.found.excerpt[0]?.speaker;
+    return c.found.excerpt.map(m => ({side: m.speaker === first ? "a" : "b", av: (m.speaker.match(/[A-Za-z0-9]/) || ["?"])[0].toUpperCase(), who: m.speaker, text: m.text}));
+  }
+  const ag = c.agents || {A: LEGACY, B: LEGACY};
+  return c.messages.map(m => ({side: m.speaker === "A" ? "a" : "b", av: m.speaker, who: `${ag[m.speaker].label}`, text: m.text}));
 }
 
 async function show(id, scroll){
@@ -148,42 +213,39 @@ async function show(id, scroll){
   renderList();
   let c;
   try { c = await getJSON(`data/conversations/${encodeURIComponent(id)}.json`); }
-  catch { $("chat").innerHTML = `<div class="empty">This conversation could not be loaded.</div>`; return; }
+  catch { $("chat").innerHTML = `<div class="empty">This item could not be loaded.</div>`; return; }
   if(current !== id) return;
 
-  const s = c.story, name = MODEL_NAMES[c.model] || c.model;
-  $("ai-note").textContent = `AI-to-AI conversation · both agents are ${name}`;
+  const k = kindOf(c), ag = c.agents || {A: LEGACY, B: LEGACY};
+  $("ai-note").textContent = k === "found" ? "Quoted from a published source, not generated here"
+    : ag.A.label === ag.B.label ? `AI-to-AI conversation · both agents are ${ag.A.label}`
+    : `AI-to-AI conversation · A is ${ag.A.label} (${ag.A.company}), B is ${ag.B.label} (${ag.B.company})`;
   $("story").hidden = false;
-  $("story").innerHTML = `
-    <div class="meta">${s.text_source === "topic" ? "Topic" : esc(s.publisher)}${s.date ? " · " + esc(fmtDate(s.date)) : ""}${s.suggested ? `<span class="tag">Suggested by Mark</span>` : ""}</div>
-    <h2>${s.url ? `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a>` : esc(s.title)}</h2>
-    ${s.pick_reason ? `<p class="why"><b>Why A picked this:</b> ${esc(s.pick_reason)}</p>` : ""}
-    ${s.note ? `<p class="why"><b>Mark added:</b> ${esc(s.note)}</p>` : ""}
-    ${s.text_source === "topic" ? `<p class="why">No article: the agents discuss this from their own knowledge, which runs to mid-2026.</p>` : ""}
-    ${s.text_source === "summary" ? `<p class="warn">The full article could not be retrieved; the agents only had the headline and a short summary.</p>` : ""}`;
+  $("story").innerHTML = storyCard(c);
 
+  const L = lines(c);
   const chat = $("chat");
-  chat.innerHTML = `<span class="day">Generated ${esc(fmtDate(c.generated))}</span>`;
+  chat.innerHTML = `<span class="day">${k === "found" ? "Found" : "Generated"} ${esc(fmtDate(c.generated))}</span>`;
   const seen = store.get("tt-seen-" + id) === "1";
   const instant = reduced || seen;
   $("all").hidden = instant;
+  $("all").textContent = k === "found" ? "Show the whole excerpt" : "Show the whole conversation";
   if(scroll) $("story").scrollIntoView({behavior: reduced ? "auto" : "smooth"});
 
   let i = 0;
   const add = (animate) => {
-    const m = c.messages[i], prev = c.messages[i-1];
-    const side = m.speaker === "A" ? "a" : "b";
+    const m = L[i], prev = L[i-1], cont = prev && prev.who === m.who;
     const row = document.createElement("div");
-    row.className = `row ${side}${prev && prev.speaker === m.speaker ? " cont" : ""}${animate ? " in" : ""}`;
-    row.innerHTML = `<div class="av" aria-label="Agent ${m.speaker}">${m.speaker}</div><div class="bubble">${esc(m.text)}</div>`;
+    row.className = `row ${m.side}${cont ? " cont" : ""}${animate ? " in" : ""}`;
+    row.innerHTML = `<div class="av" aria-hidden="true">${esc(m.av)}</div><div class="bubble">${cont ? "" : `<span class="who">${esc(m.who)}</span>`}${esc(m.text)}</div>`;
     chat.appendChild(row); i++;
   };
   const finish = () => {
     chat.querySelector(".typing")?.remove();
-    while(i < c.messages.length) add(false);
+    while(i < L.length) add(false);
     if(!chat.querySelector(".end")){
       const e = document.createElement("p"); e.className = "end";
-      e.textContent = c.ended_by ? `Agent ${c.ended_by} ended the conversation` : "End of conversation";
+      e.textContent = k === "found" ? "End of excerpt" : c.ended_by ? `${ag[c.ended_by].label} (${c.ended_by}) ended the conversation` : "End of conversation";
       chat.appendChild(e);
     }
     $("all").hidden = true;
@@ -193,11 +255,11 @@ async function show(id, scroll){
 
   const step = () => {
     if(current !== id) return;
-    if(skip || i >= c.messages.length) return finish();
-    const m = c.messages[i];
+    if(skip || i >= L.length) return finish();
+    const m = L[i];
     const t = document.createElement("div");
-    t.className = `row ${m.speaker === "A" ? "a" : "b"} typing in`;
-    t.innerHTML = `<div class="av">${m.speaker}</div><div class="bubble"><span></span><span></span><span></span></div>`;
+    t.className = `row ${m.side} typing in`;
+    t.innerHTML = `<div class="av">${esc(m.av)}</div><div class="bubble"><span></span><span></span><span></span></div>`;
     chat.appendChild(t);
     timer = setTimeout(() => {
       t.remove(); if(current !== id) return;
@@ -210,7 +272,7 @@ async function show(id, scroll){
 
 $("all").onclick = () => { skip = true; clearTimeout(timer); store.set("tt-seen-" + current, "1"); show(current, false); };
 $("another").onclick = () => {
-  const others = index.filter(c => c.id !== current);
+  const others = visible().filter(c => c.id !== current);
   if(others.length) show(others[Math.floor(Math.random() * others.length)].id, true);
 };
 init();
