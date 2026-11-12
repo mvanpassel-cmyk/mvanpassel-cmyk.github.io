@@ -66,12 +66,12 @@ class T(unittest.TestCase):
         self.assertTrue(update.HACK_WORDS.search("Groot datalek bij provider"))
         self.assertFalse(update.HACK_WORDS.search("New phone review"))
 
-    def test_editor_every_two_days(self):
+    def test_editor_monthly(self):
         from datetime import timedelta
         now = datetime(2026, 11, 11, 4, 23, tzinfo=timezone.utc)
         self.assertTrue(update.editor_due({}, now))
-        self.assertFalse(update.editor_due({"editor_last": "2026-11-10T04:23:00Z"}, now))
-        self.assertTrue(update.editor_due({"editor_last": "2026-11-09T04:25:00Z"}, now))
+        self.assertFalse(update.editor_due({"editor_last": "2026-11-01T04:23:00Z"}, now))
+        self.assertTrue(update.editor_due({"editor_last": "2026-10-12T04:25:00Z"}, now))
         self.assertTrue(update.editor_due({"editor_last": now.strftime("%Y-%m-%dT%H:%M:%SZ")}, now + timedelta(hours=1), force=True))
 
 

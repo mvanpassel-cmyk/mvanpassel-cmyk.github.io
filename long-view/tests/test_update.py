@@ -36,12 +36,12 @@ class T(unittest.TestCase):
     def test_bad_json(self):
         self.assertEqual(update.parse_picks("no json here", 3), [])
 
-    def test_editor_weekly(self):
+    def test_editor_monthly(self):
         from datetime import datetime, timedelta, timezone
         now = datetime(2026, 11, 15, 4, 29, tzinfo=timezone.utc)
         self.assertTrue(update.editor_due({}, now))
-        self.assertFalse(update.editor_due({"editor_last": "2026-11-09T04:31:00Z"}, now - timedelta(days=1)))
-        self.assertTrue(update.editor_due({"editor_last": "2026-11-08T04:35:00Z"}, now))   # cron a few minutes late
+        self.assertFalse(update.editor_due({"editor_last": "2026-11-01T04:31:00Z"}, now))
+        self.assertTrue(update.editor_due({"editor_last": "2026-10-16T04:35:00Z"}, now))   # cron a few minutes late
         self.assertTrue(update.editor_due({"editor_last": "2026-11-14T04:29:00Z"}, now, force=True))
 
     def test_select_spreads_over_feeds_and_days(self):
