@@ -251,6 +251,45 @@
    ]
   },
   {
+   "slug": "dr-congo",
+   "iso2": "CD",
+   "iso3": "COD",
+   "num": "180",
+   "name": "DR Congo",
+   "alt_names": [
+    "Dem. Rep. Congo",
+    "Democratic Republic Of The Congo"
+   ],
+   "names": [
+    "DR Congo",
+    "Congolese",
+    "Democratic Republic of the Congo",
+    "DRC"
+   ],
+   "capital": "Kinshasa",
+   "lat": -4.32,
+   "lon": 15.31,
+   "tz": "Africa/Kinshasa",
+   "ink": "#D9480F",
+   "who": "WHO African Region",
+   "hl": "en-US",
+   "gl": "US",
+   "queries": [
+    "DR Congo OR Congo \"health minister\" OR Kamba OR \"Ministry of Health\" Ebola OR health",
+    "DR Congo Ebola OR Bundibugyo OR mpox OR cholera OR measles outbreak response",
+    "DR Congo OR DRC health funding OR vaccine OR \"health system\" OR INRB OR \"Africa CDC\""
+   ],
+   "terms": [
+    "Kamba",
+    "INRB",
+    "Tshisekedi",
+    "Ituri",
+    "North Kivu",
+    "Kisangani",
+    "Muyembe"
+   ]
+  },
+  {
    "slug": "ethiopia",
    "iso2": "ET",
    "iso3": "ETH",
@@ -356,6 +395,40 @@
    ]
   },
   {
+   "slug": "brazil",
+   "iso2": "BR",
+   "iso3": "BRA",
+   "num": "076",
+   "name": "Brazil",
+   "names": [
+    "Brazil",
+    "Brazilian",
+    "Brasil",
+    "Brasília"
+   ],
+   "capital": "Brasília",
+   "lat": -15.79,
+   "lon": -47.88,
+   "tz": "America/Sao_Paulo",
+   "ink": "#099268",
+   "who": "WHO Region of the Americas (PAHO)",
+   "hl": "en-US",
+   "gl": "US",
+   "queries": [
+    "Brazil \"health minister\" OR Padilha OR \"Ministry of Health\" OR SUS",
+    "Brazil Fiocruz OR Anvisa OR Butantan OR vaccine OR \"pandemic agreement\" health",
+    "Brazil outbreak OR dengue OR measles OR \"public health\" OR \"global health\""
+   ],
+   "terms": [
+    "Padilha",
+    "Fiocruz",
+    "Anvisa",
+    "SUS",
+    "Lula",
+    "Butantan"
+   ]
+  },
+  {
    "slug": "canada",
    "iso2": "CA",
    "iso3": "CAN",
@@ -386,6 +459,115 @@
     "Marjorie Michel",
     "Carney",
     "MAID"
+   ]
+  },
+  {
+   "slug": "united-states",
+   "iso2": "US",
+   "iso3": "USA",
+   "num": "840",
+   "name": "United States",
+   "alt_names": [
+    "United States of America"
+   ],
+   "names": [
+    "United States",
+    "Americans",
+    "U.S."
+   ],
+   "capital": "Washington, D.C.",
+   "lat": 38.9,
+   "lon": -77.04,
+   "tz": "America/New_York",
+   "ink": "#364FC7",
+   "who": "Left WHO on 22 January 2026",
+   "hl": "en-US",
+   "gl": "US",
+   "queries": [
+    "\"global health\" United States State Department OR PEPFAR OR \"America First Global Health Strategy\"",
+    "HHS OR \"Kennedy\" OR CDC OR NIH OR FDA public health policy United States",
+    "United States WHO withdrawal OR outbreak OR measles OR vaccine OR \"foreign aid\" health"
+   ],
+   "terms": [
+    "HHS",
+    "Kennedy",
+    "CDC",
+    "NIH",
+    "FDA",
+    "PEPFAR",
+    "Rubio",
+    "State Department",
+    "Medicaid",
+    "Erica Schwartz"
+   ]
+  },
+  {
+   "slug": "germany",
+   "iso2": "DE",
+   "iso3": "DEU",
+   "num": "276",
+   "name": "Germany",
+   "names": [
+    "Germany",
+    "German",
+    "Germans"
+   ],
+   "capital": "Berlin",
+   "lat": 52.52,
+   "lon": 13.4,
+   "tz": "Europe/Berlin",
+   "ink": "#E67700",
+   "who": "WHO European Region",
+   "hl": "en-US",
+   "gl": "US",
+   "queries": [
+    "Germany \"health minister\" OR Linnemann OR \"Federal Ministry of Health\" OR \"Robert Koch\"",
+    "Germany \"global health\" OR WHO OR \"Global Fund\" OR Gavi OR \"World Health Summit\" funding",
+    "Germany outbreak OR measles OR vaccine OR hospital reform OR \"public health\""
+   ],
+   "terms": [
+    "Linnemann",
+    "Robert Koch",
+    "RKI",
+    "Bundestag",
+    "BMZ",
+    "Merz",
+    "Charité"
+   ]
+  },
+  {
+   "slug": "united-kingdom",
+   "iso2": "GB",
+   "iso3": "GBR",
+   "num": "826",
+   "name": "United Kingdom",
+   "names": [
+    "United Kingdom",
+    "British",
+    "UK",
+    "Britain"
+   ],
+   "capital": "London",
+   "lat": 51.51,
+   "lon": -0.13,
+   "tz": "Europe/London",
+   "ink": "#C2255C",
+   "who": "WHO European Region",
+   "hl": "en-GB",
+   "gl": "GB",
+   "queries": [
+    "UK \"Health Secretary\" OR \"Yvette Cooper\" OR \"Department of Health and Social Care\" OR UKHSA",
+    "UK aid OR FCDO OR Gavi OR \"Global Fund\" OR \"global health\" funding",
+    "UK NHS OR outbreak OR measles OR vaccine OR \"public health\" policy"
+   ],
+   "terms": [
+    "NHS",
+    "UKHSA",
+    "Yvette Cooper",
+    "Burnham",
+    "FCDO",
+    "Wellcome",
+    "Fleming Fund"
    ]
   }
  ],

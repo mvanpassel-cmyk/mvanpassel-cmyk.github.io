@@ -77,7 +77,7 @@ async function renderMap() {
     const world = await getJSON("../nphi-map/lib/countries-110m.json", null);
     if (!world || !window.d3 || !window.topojson) throw new Error("map library missing");
     const W = 1100, H = 560, svg = d3.select("#map").append("svg").attr("viewBox", `0 0 ${W} ${H}`).attr("role", "img")
-      .attr("aria-label", "World map with the ten countries highlighted; each one links to its country page");
+      .attr("aria-label", "World map with the countries highlighted; each one links to its country page");
     const feats = topojson.feature(world, world.objects.countries).features.filter(f => f.id !== "010");
     const proj = d3.geoNaturalEarth1().rotate([-20, 0]).fitExtent([[8, 8], [W - 8, H - 8]], { type: "FeatureCollection", features: feats });
     const path = d3.geoPath(proj);
@@ -98,7 +98,7 @@ async function renderMap() {
       const a = g.append("a").attr("href", c.slug + "/"), p = proj([c.lon, c.lat]);
       if (noShape) a.attr("aria-label", c.name); else a.attr("tabindex", -1).attr("aria-hidden", "true");
       a.append("circle").attr("class", "pin").attr("fill", c.ink).attr("cx", p[0]).attr("cy", p[1]).attr("r", noShape ? 6 : 4.5);
-      const left = ["CO", "CA", "UG", "IN", "SG"].includes(c.iso2), up = ["ET", "CN"].includes(c.iso2);
+      const left = ["CO", "CA", "UG", "IN", "SG", "GB"].includes(c.iso2), up = ["ET", "CN"].includes(c.iso2);
       a.append("text").attr("x", p[0] + (left ? -9 : 9)).attr("y", p[1] + (up ? -8 : 4)).attr("text-anchor", left ? "end" : "start").text(c.name);
     }
     g.append("circle").attr("cx", hp[0]).attr("cy", hp[1]).attr("r", 4).attr("fill", "var(--ink)");

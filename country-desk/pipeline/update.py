@@ -383,10 +383,10 @@ def wb_projects(iso2, today):
 
 # ---------- slices of sibling tools ----------
 def nphi_slice(c, projects, home="Netherlands"):
-    name = c["name"]
+    names = [c["name"], *c.get("alt_names", [])]
     rows = []
     for p in projects:
-        if name not in p.get("partners", []) and p.get("actorCountry") != name:
+        if not any(n in p.get("partners", []) for n in names) and p.get("actorCountry") not in names:
             continue
         rows.append({"title": p.get("title"), "actor": p.get("actor"), "actorCountry": p.get("actorCountry"),
                      "with": p.get("institutes", ""), "type": p.get("type"), "topics": p.get("topics", []),
@@ -398,7 +398,7 @@ def nphi_slice(c, projects, home="Netherlands"):
 
 
 def jee_slice(c, assessments):
-    evs = [e for e in assessments.get("evaluations", []) if e.get("country") == c["name"]]
+    evs = [e for e in assessments.get("evaluations", []) if e.get("country") in [c["name"], *c.get("alt_names", [])]]
     if not evs:
         return None
     e = max(evs, key=lambda x: x.get("year", 0))

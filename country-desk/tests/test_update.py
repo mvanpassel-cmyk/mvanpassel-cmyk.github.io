@@ -72,6 +72,14 @@ class Slices(unittest.TestCase):
         self.assertEqual(j["areas"], {"D": 4.0, "P": 2.0, "PoE": 2.0})
         self.assertEqual(j["lowest"], ["P1.1", "PoE3"])
 
+    def test_alt_names_match_in_nphi_and_jee(self):
+        c = {"name": "DR Congo", "alt_names": ["Dem. Rep. Congo"]}
+        rows = u.nphi_slice(c, [{"title": "t", "partners": ["Dem. Rep. Congo"], "actorCountry": "Netherlands", "start": 2024}])
+        self.assertEqual(len(rows), 1)
+        self.assertTrue(rows[0]["nl"])
+        a = {"evaluations": [{"country": "Dem. Rep. Congo", "year": 2023, "edition": 2, "libraryUrl": "x", "scores": {"P1.1": [2, 3]}}]}
+        self.assertIsNotNone(u.jee_slice(c, a))
+
 
 if __name__ == "__main__":
     unittest.main()
