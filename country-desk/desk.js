@@ -93,10 +93,12 @@ async function renderMap() {
     const links = feats.filter(f => byNum[f.id]).map(f => ({ f, c: byNum[f.id] }));
     for (const { f, c } of links)
       g.append("a").attr("href", c.slug + "/").attr("aria-label", c.name).append("path").attr("class", "desk").attr("fill", c.ink).attr("d", path(f));
-    for (const { c } of links) {          // pins and names go on top of every country shape
-      const a = g.append("a").attr("href", c.slug + "/").attr("tabindex", -1).attr("aria-hidden", "true"), p = proj([c.lon, c.lat]);
-      a.append("circle").attr("class", "pin").attr("fill", c.ink).attr("cx", p[0]).attr("cy", p[1]).attr("r", 4.5);
-      const left = ["CO", "CA", "UG", "IN"].includes(c.iso2), up = ["ET", "CN"].includes(c.iso2);
+    for (const c of cfg.countries) {      // pins and names go on top of every country shape
+      const noShape = !links.some(l => l.c === c);      // city-states are too small for the 110m map: pin only
+      const a = g.append("a").attr("href", c.slug + "/"), p = proj([c.lon, c.lat]);
+      if (noShape) a.attr("aria-label", c.name); else a.attr("tabindex", -1).attr("aria-hidden", "true");
+      a.append("circle").attr("class", "pin").attr("fill", c.ink).attr("cx", p[0]).attr("cy", p[1]).attr("r", noShape ? 6 : 4.5);
+      const left = ["CO", "CA", "UG", "IN", "SG"].includes(c.iso2), up = ["ET", "CN"].includes(c.iso2);
       a.append("text").attr("x", p[0] + (left ? -9 : 9)).attr("y", p[1] + (up ? -8 : 4)).attr("text-anchor", left ? "end" : "start").text(c.name);
     }
     g.append("circle").attr("cx", hp[0]).attr("cy", hp[1]).attr("r", 4).attr("fill", "var(--ink)");
