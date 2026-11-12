@@ -1,4 +1,4 @@
-/* Country Desk. One script for the map page and the nine country pages.
+/* Country Desk. One script for the map page and the country pages.
    A country page is <body data-slug="kenya">; the map page has no data-slug. */
 (() => {
 "use strict";
@@ -77,7 +77,7 @@ async function renderMap() {
     const world = await getJSON("../nphi-map/lib/countries-110m.json", null);
     if (!world || !window.d3 || !window.topojson) throw new Error("map library missing");
     const W = 1100, H = 560, svg = d3.select("#map").append("svg").attr("viewBox", `0 0 ${W} ${H}`).attr("role", "img")
-      .attr("aria-label", "World map with the nine partner countries highlighted; each one links to its country page");
+      .attr("aria-label", "World map with the ten countries highlighted; each one links to its country page");
     const feats = topojson.feature(world, world.objects.countries).features.filter(f => f.id !== "010");
     const proj = d3.geoNaturalEarth1().rotate([-20, 0]).fitExtent([[8, 8], [W - 8, H - 8]], { type: "FeatureCollection", features: feats });
     const path = d3.geoPath(proj);
@@ -143,7 +143,7 @@ async function renderCountry() {
 
   const nav = [["highlights", "Highlights"], ["agenda", "Government agenda"], ["projects", "Projects"], ["calendar", "Calendar"], ["alerts", "Outbreaks and risk"], ["numbers", "Numbers"], ["headlines", "Headlines"]];
   root.append(
-    h("a", { class: "back", href: "../" }, "All nine countries"),
+    h("a", { class: "back", href: "../" }, "All countries"),
     h("header", { class: "head" }, h("div", null, h("h1", { text: c.name }), h("p", { class: "sub", text: profile.snapshot || c.who })), clock),
     h("ul", { class: "who" }, (profile.leadership || []).map(p => h("li", null, h("div", { class: "role", text: p.role }),
       h("div", { class: "nm" }, link(p.name, p.src)), p.note ? h("div", { class: "small muted", text: p.note }) : null))),
