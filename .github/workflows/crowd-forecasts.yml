@@ -1,9 +1,9 @@
-name: Crowd Forecasts daily update
+name: Crowd Forecasts weekly update
 
 on:
   schedule:
     # GitHub often starts scheduled runs hours late (7-8 h measured on 9-10 Nov 2026), so this is set for just after midnight UTC to land before the Dutch working day.
-    - cron: "37 0 * * *"
+    - cron: "37 0 * * 1"
   workflow_dispatch:
     inputs:
       outlook:
@@ -43,7 +43,7 @@ jobs:
       - name: Outlook tests
         run: python3 -m unittest discover -s crowd-forecasts/tests
 
-      # Settles calls from market prices daily (free); Claude writes the outlook once a week.
+      # Runs once a week (Monday): settles calls from market prices and Claude writes the outlook.
       - name: Claude's outlook and scoring
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -59,7 +59,7 @@ jobs:
             echo "No changes"
             exit 0
           fi
-          git commit -m "Crowd Forecasts: daily update $(date -u +%F)"
+          git commit -m "Crowd Forecasts: weekly update $(date -u +%F)"
           for i in 1 2 3; do
             git pull --rebase origin "${GITHUB_REF_NAME}" && git push && exit 0
             sleep 5

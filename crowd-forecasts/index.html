@@ -378,7 +378,7 @@ fetch("data/forecasts.json?v=" + new Date().toISOString().slice(0, 13), { cache:
     render();
   })
   .catch(() => {
-    $("status").textContent = "No data yet: the first daily update has not run.";
+    $("status").textContent = "No data yet: the first weekly update has not run.";
     $("list").innerHTML = `<div class="empty">Forecasts appear here after the first update.</div>`;
   });
 </script>
