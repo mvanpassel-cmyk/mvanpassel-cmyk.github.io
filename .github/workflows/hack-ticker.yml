@@ -2,7 +2,7 @@ name: Hack Ticker update
 
 on:
   schedule:
-    # GitHub often starts scheduled runs hours late (7-8 h measured on 9-10 Nov 2026), so this is set for just after midnight UTC to land before the Dutch working day. The AI editor runs every 48 h (see pipeline).
+    # GitHub often starts scheduled runs hours late (7-8 h measured on 9-10 Nov 2026), so this is set for just after midnight UTC to land before the Dutch working day. The AI editor runs once a month (see pipeline).
     - cron: "19 1 * * *"
   workflow_dispatch:
     inputs:

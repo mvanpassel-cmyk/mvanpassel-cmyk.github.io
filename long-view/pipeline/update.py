@@ -21,12 +21,12 @@ UA = "Mozilla/5.0 (compatible; LongViewBot/1.0; +https://mvanpassel-cmyk.github.
 MODEL = os.environ.get("LONG_VIEW_MODEL", "claude-sonnet-5-5")
 MAX_PICKS = int(os.environ.get("LONG_VIEW_MAX_PICKS", "4"))
 MIN_SCORE = int(os.environ.get("LONG_VIEW_MIN_SCORE", "80"))
-WINDOW_DAYS = 9            # headlines wait in the queue this long, so a weekly editor sees the whole week
+WINDOW_DAYS = 32           # headlines wait in the queue this long, so a monthly editor sees the whole month
 SEEN_KEEP_DAYS = 90
 BATCH = 220                # headlines per Claude call
-WEEK_BUDGET = int(os.environ.get("LONG_VIEW_WEEK_BUDGET", "660"))   # headlines the editor reads per week
+WEEK_BUDGET = int(os.environ.get("LONG_VIEW_WEEK_BUDGET", "660"))   # headlines the editor reads per run (monthly)
 PER_SOURCE_WEEK = 30       # so one busy feed cannot crowd out the rest
-EDITOR_EVERY_DAYS = int(os.environ.get("LONG_VIEW_EDITOR_DAYS", "7"))
+EDITOR_EVERY_DAYS = int(os.environ.get("LONG_VIEW_EDITOR_DAYS", "30"))
 HORIZONS = ["years", "decades", "centuries", "millennia"]
 THEMES = ["Climate", "Nature", "Health", "Science", "Technology", "Space", "Energy", "Society", "Governance"]
 
