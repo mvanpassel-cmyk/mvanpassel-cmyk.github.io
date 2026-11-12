@@ -1,13 +1,13 @@
-name: Country Desk daily update
+name: Country Desk update
 
 on:
   schedule:
-    # GitHub often starts scheduled runs hours late (7-8 h measured on 9-10 Nov 2026), so this is set for just after midnight UTC to land before the Dutch working day. Runs last because it reads the other tools' data. Claude writes the digest on Tuesdays and Fridays (see pipeline).
-    - cron: "43 1 * * *"
+    # GitHub often starts scheduled runs hours late (7-8 h measured on 9-10 Nov 2026), so this is set for just after midnight UTC to land before the Dutch working day. Runs last because it reads the other tools' data. Runs every other day (odd days of the month); Claude writes the digest on each run (see pipeline).
+    - cron: "43 1 1-31/2 * *"
   workflow_dispatch:
     inputs:
       digest:
-        description: "Write the Claude digest now, even if it is not Tuesday or Friday"
+        description: "Write the Claude digest now, even if it is not due"
         type: boolean
         default: false
       slow:

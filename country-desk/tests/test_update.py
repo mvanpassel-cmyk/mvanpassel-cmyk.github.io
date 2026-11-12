@@ -29,13 +29,13 @@ class Dates(unittest.TestCase):
         self.assertEqual(u.wb_date("2027-03-31T00:00:00Z"), "2027-03-31")
         self.assertEqual(u.wb_date(None), "")
 
-    def test_digest_runs_tuesday_and_friday_once(self):
-        tue = datetime(2026, 11, 10, 6, tzinfo=timezone.utc)
-        wed = datetime(2026, 11, 11, 6, tzinfo=timezone.utc)
-        self.assertTrue(u.digest_due({}, tue))
-        self.assertFalse(u.digest_due({"digest_date": "2026-11-10"}, tue))
-        self.assertFalse(u.digest_due({}, wed))
-        self.assertTrue(u.digest_due({}, wed, force=True))
+    def test_digest_runs_every_other_day(self):
+        d = datetime(2026, 11, 13, 6, tzinfo=timezone.utc)
+        self.assertTrue(u.digest_due({}, d))
+        self.assertFalse(u.digest_due({"digest_date": "2026-11-13"}, d))
+        self.assertFalse(u.digest_due({"digest_date": "2026-11-12"}, d))
+        self.assertTrue(u.digest_due({"digest_date": "2026-11-11"}, d))
+        self.assertTrue(u.digest_due({"digest_date": "2026-11-12"}, d, force=True))
 
 
 class Digest(unittest.TestCase):

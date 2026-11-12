@@ -239,7 +239,7 @@ async function renderCountry() {
 
   root.append(h("div", { class: "cols" }, h("div", null, highlights, agenda, projects), h("div", null, calendar, alerts, numbers)), headlines,
     h("footer", null,
-      h("p", { text: `Page data updated ${live.generated ? shortDate(live.generated.slice(0, 10)) : "not yet"}. Headlines, outbreak notices and calendar refresh daily; highlights and latest moves are written by Claude on Tuesdays and Fridays from the linked headlines only; indicators and projects refresh weekly.` }),
+      h("p", { text: `Page data updated ${live.generated ? shortDate(live.generated.slice(0, 10)) : "not yet"}. Headlines, outbreak notices and calendar refresh every other day; highlights and latest moves are written by Claude every other day from the linked headlines only; indicators and projects refresh weekly.` }),
       h("p", null, "Sources: Google News and the Global Health Ribbon (headlines), WHO Disease Outbreak News, WHO Global Health Observatory, World Bank projects, WHO JEE reports. Leadership, priorities, Dutch links and calendar are compiled by hand from the linked sources", profile.checked ? ` and were last checked on ${shortDate(profile.checked)}.` : "."),
       h("p", { text: "An automated digest can miss or misread things. Follow the links before relying on a point." }),
       (status.digest_errors || []).length ? h("p", { text: "Last digest had a problem: " + status.digest_errors[0] }) : null));
