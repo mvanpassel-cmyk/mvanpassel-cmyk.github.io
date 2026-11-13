@@ -8,7 +8,7 @@ Daily (free, no AI):
   3. Slices of sibling tools in this repo: NPHI collaboration map, JEE scores,
      Risk Radar signals, prediction markets; and the Ribbon's World Calendar.
 Weekly: WHO Global Health Observatory indicators and active World Bank health projects.
-Every other day (needs ANTHROPIC_API_KEY): Claude reads the new
+Weekly (needs ANTHROPIC_API_KEY): Claude reads the new
 headlines per country and writes the highlights and the government's latest
 health moves. Without a key everything else still updates.
 
@@ -24,7 +24,7 @@ REPO = os.path.dirname(DESK)
 DATA = os.path.join(DESK, "data")
 UA = "Mozilla/5.0 (compatible; CountryDeskBot/1.0; +https://mvanpassel-cmyk.github.io/country-desk/)"
 MODEL = os.environ.get("COUNTRY_DESK_MODEL", "claude-sonnet-5-5")
-DIGEST_EVERY_DAYS = 2             # the workflow runs on odd days of the month; the digest runs on every run
+DIGEST_EVERY_DAYS = 6             # the workflow runs weekly (Monday); the digest runs on every run
 NEWS_KEEP_DAYS = 21
 SEARCH_DAYS = int(os.environ.get("COUNTRY_DESK_SEARCH_DAYS", "7"))   # how far back each news search looks
 NEWS_MAX = 60
