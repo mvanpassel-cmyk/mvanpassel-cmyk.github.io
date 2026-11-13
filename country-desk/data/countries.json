@@ -563,6 +563,74 @@
    ]
   },
   {
+   "slug": "japan",
+   "iso2": "JP",
+   "iso3": "JPN",
+   "num": "392",
+   "name": "Japan",
+   "names": [
+    "Japan",
+    "Japanese"
+   ],
+   "capital": "Tokyo",
+   "lat": 35.68,
+   "lon": 139.69,
+   "tz": "Asia/Tokyo",
+   "ink": "#D6336C",
+   "who": "WHO Western Pacific Region",
+   "hl": "en-US",
+   "gl": "US",
+   "queries": [
+    "Japan health ministry OR vaccine OR hospital OR \"global health\"",
+    "Japan \"universal health coverage\" OR WHO OR \"Global Fund\" OR JICA OR Gavi",
+    "Japan outbreak OR \"public health\" OR JIHS OR \"health insurance\" OR Takaichi health"
+   ],
+   "terms": [
+    "Takaichi",
+    "MHLW",
+    "JIHS",
+    "JICA",
+    "Ueno"
+   ]
+  },
+  {
+   "slug": "south-korea",
+   "iso2": "KR",
+   "iso3": "KOR",
+   "num": "410",
+   "name": "South Korea",
+   "alt_names": [
+    "Republic Of Korea",
+    "Republic of Korea"
+   ],
+   "names": [
+    "South Korea",
+    "South Korean",
+    "Korea",
+    "Korean"
+   ],
+   "capital": "Seoul",
+   "lat": 37.57,
+   "lon": 126.98,
+   "tz": "Asia/Seoul",
+   "ink": "#0CA678",
+   "who": "WHO Western Pacific Region",
+   "hl": "en-US",
+   "gl": "US",
+   "queries": [
+    "South Korea health minister OR vaccine OR hospital OR \"medical reform\"",
+    "South Korea \"global health\" OR WHO OR ODA OR KDCA OR \"Global Fund\"",
+    "South Korea outbreak OR \"public health\" OR \"Ministry of Health and Welfare\" OR Jeong Eun-kyung"
+   ],
+   "terms": [
+    "Jeong Eun-kyung",
+    "KDCA",
+    "Lee Jae-myung",
+    "Ministry of Health and Welfare",
+    "KOICA"
+   ]
+  },
+  {
    "slug": "canada",
    "iso2": "CA",
    "iso3": "CAN",
@@ -655,9 +723,9 @@
    "hl": "en-US",
    "gl": "US",
    "queries": [
-    "Germany \"health minister\" OR Linnemann OR \"Federal Ministry of Health\" OR \"Robert Koch\"",
-    "Germany \"global health\" OR WHO OR \"Global Fund\" OR Gavi OR \"World Health Summit\" funding",
-    "Germany outbreak OR measles OR vaccine OR hospital reform OR \"public health\""
+    "Germany health minister OR vaccine OR hospital OR \"Robert Koch\"",
+    "Germany \"global health\" OR WHO OR Gavi OR \"Global Fund\" OR \"World Health Summit\"",
+    "Germany outbreak OR measles OR \"public health\" OR \"health reform\" OR Linnemann"
    ],
    "terms": [
     "Linnemann",
@@ -667,6 +735,69 @@
     "BMZ",
     "Merz",
     "Charité"
+   ]
+  },
+  {
+   "slug": "france",
+   "iso2": "FR",
+   "iso3": "FRA",
+   "num": "250",
+   "name": "France",
+   "names": [
+    "France",
+    "French"
+   ],
+   "capital": "Paris",
+   "lat": 48.86,
+   "lon": 2.35,
+   "tz": "Europe/Paris",
+   "ink": "#2F9E44",
+   "who": "WHO European Region",
+   "hl": "en-US",
+   "gl": "US",
+   "queries": [
+    "France health minister OR vaccine OR hospital OR \"Santé publique France\"",
+    "France \"global health\" OR WHO OR Gavi OR \"Global Fund\" OR Unitaid OR \"aid cut\"",
+    "France outbreak OR \"public health\" OR \"health reform\" OR \"Stéphanie Rist\""
+   ],
+   "terms": [
+    "Rist",
+    "Macron",
+    "Lecornu",
+    "Santé publique France",
+    "Unitaid",
+    "Sécurité sociale"
+   ]
+  },
+  {
+   "slug": "spain",
+   "iso2": "ES",
+   "iso3": "ESP",
+   "num": "724",
+   "name": "Spain",
+   "names": [
+    "Spain",
+    "Spanish"
+   ],
+   "capital": "Madrid",
+   "lat": 40.42,
+   "lon": -3.7,
+   "tz": "Europe/Madrid",
+   "ink": "#E8590C",
+   "who": "WHO European Region",
+   "hl": "en-US",
+   "gl": "US",
+   "queries": [
+    "Spain health minister OR vaccine OR hospital OR \"Ministry of Health\"",
+    "Spain \"global health\" OR WHO OR cooperation OR AECID health OR \"primary care\"",
+    "Spain outbreak OR \"public health\" OR \"Mónica García\" OR Sánchez health"
+   ],
+   "terms": [
+    "Mónica García",
+    "Sánchez",
+    "AECID",
+    "Ministerio de Sanidad",
+    "Hondius"
    ]
   },
   {
