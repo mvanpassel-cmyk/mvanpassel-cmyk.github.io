@@ -98,7 +98,7 @@ async function renderMap() {
       const a = g.append("a").attr("href", c.slug + "/"), p = proj([c.lon, c.lat]);
       if (noShape) a.attr("aria-label", c.name); else a.attr("tabindex", -1).attr("aria-hidden", "true");
       a.append("circle").attr("class", "pin").attr("fill", c.ink).attr("cx", p[0]).attr("cy", p[1]).attr("r", noShape ? 6 : 4.5);
-      const left = ["CO", "CA", "UG", "IN", "SG", "GB"].includes(c.iso2), up = ["ET", "CN"].includes(c.iso2);
+      const left = ["CO", "CA", "UG", "IN", "SG", "GB", "MY"].includes(c.iso2), up = ["ET", "CN", "MY"].includes(c.iso2);
       a.append("text").attr("x", p[0] + (left ? -9 : 9)).attr("y", p[1] + (up ? -8 : 4)).attr("text-anchor", left ? "end" : "start").text(c.name);
     }
     g.append("circle").attr("cx", hp[0]).attr("cy", hp[1]).attr("r", 4).attr("fill", "var(--ink)");

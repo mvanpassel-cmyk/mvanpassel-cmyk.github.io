@@ -319,15 +319,17 @@ def gho_values(iso3s):
     """Latest value per WHO GHO indicator for a set of countries: {iso3: {code: (value, year)}}.
     One request per indicator. Sex-specific rows are skipped in favour of 'both sexes'."""
     out = {i: {} for i in iso3s}
-    flt = urllib.parse.quote("(" + " or ".join(f"SpatialDim eq '{i}'" for i in iso3s) + ")")
+    chunks = [list(iso3s)[k:k + 6] for k in range(0, len(iso3s), 6)]   # long $filter URLs are refused, so ask in small groups
     for code, _label, _unit in INDICATORS:
         rows = []
-        for attempt in range(3):
-            try:
-                rows = fetch_json(f"https://ghoapi.azureedge.net/api/{code}?$filter={flt}", 40).get("value", [])
-                break
-            except Exception:  # noqa: BLE001
-                time.sleep(2 + 3 * attempt)
+        for chunk in chunks:
+            flt = urllib.parse.quote("(" + " or ".join(f"SpatialDim eq '{i}'" for i in chunk) + ")")
+            for attempt in range(3):
+                try:
+                    rows += fetch_json(f"https://ghoapi.azureedge.net/api/{code}?$filter={flt}", 40).get("value", [])
+                    break
+                except Exception:  # noqa: BLE001
+                    time.sleep(2 + 3 * attempt)
         for r in rows:
             v, c, y = r.get("NumericValue"), r.get("SpatialDim"), r.get("TimeDim")
             if v is None or c not in out or y is None or r.get("Dim1") not in (None, "", "SEX_BTSX"):
