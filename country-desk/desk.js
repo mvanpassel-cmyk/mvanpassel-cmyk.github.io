@@ -71,7 +71,7 @@ async function renderMap() {
       h("span", { class: "counts" }, `${i.news || 0} headlines, ${i.projects || 0} projects` + (i.outbreaks ? `, ${i.outbreaks} outbreak notice${i.outbreaks > 1 ? "s" : ""}` : "")))));
   }
   tick(); setInterval(tick, 20000);
-  if (status.generated) $("#updated").textContent = `Data updated ${shortDate(status.generated.slice(0, 10))}. Highlights are written by Claude twice a week from the headlines linked on each page.`;
+  if (status.generated) $("#updated").textContent = `Data updated ${shortDate(status.generated.slice(0, 10))}. Everything is updated weekly, and highlights are written by Claude from the headlines linked on each page.`;
 
   try {
     const world = await getJSON("../nphi-map/lib/countries-110m.json", null);
@@ -156,7 +156,7 @@ async function renderCountry() {
   const hlBody = (dg.highlights || []).length
     ? [h("ol", { class: "hl" }, dg.highlights.map(x => h("li", null, h("h3", { text: x.headline }), x.why ? h("p", { text: x.why }) : null, sourceLinks(x.sources)))),
        dg.watch ? h("p", { class: "watch" }, h("b", { text: "Watch next: " }), dg.watch) : null]
-    : [h("p", { class: "empty", text: "No highlights yet. They appear after the next twice-weekly digest; the headlines below are already current." })];
+    : [h("p", { class: "empty", text: "No highlights yet. They appear after the next weekly digest; the headlines below are already current." })];
   const highlights = section("highlights", "Highlights", dg.date ? `What mattered in the past days, digest of ${shortDate(dg.date)}. Each point links to the reporting it rests on.` : "", ...hlBody);
 
   /* government agenda */

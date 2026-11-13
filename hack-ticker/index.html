@@ -251,7 +251,7 @@ footer li b{color:var(--ink)}
     </div>
     <div>
       <h4>Where it comes from</h4>
-      <p>Once a day: about a dozen security news feeds are counted, with confirmed breaches from <a href="https://haveibeenpwned.com">Have I Been Pwned</a> (CC BY 4.0); crypto hacks from <a href="https://defillama.com/hacks">DeFiLlama</a>; and victims posted on ransomware leak sites, from <a href="https://www.ransomware.live">ransomware.live</a>. Every two days an AI editor reads the new headlines, merges them into incidents and updates earlier ones. Incidents before 31 October 2026 come from a one-off review of monthly roundups and are a selection, not a full count.</p>
+      <p>Once a day: about a dozen security news feeds are counted, with confirmed breaches from <a href="https://haveibeenpwned.com">Have I Been Pwned</a> (CC BY 4.0); crypto hacks from <a href="https://defillama.com/hacks">DeFiLlama</a>; and victims posted on ransomware leak sites, from <a href="https://www.ransomware.live">ransomware.live</a>. Once a month an AI editor reads the new headlines, merges them into incidents and updates earlier ones. Incidents before 31 October 2026 come from a one-off review of monthly roundups and are a selection, not a full count.</p>
       <p>The full record, including each incident's history, is in <a href="data/incidents.csv">CSV</a> and <a href="data/incidents.json">JSON</a>.</p>
     </div>
   </footer>
@@ -323,8 +323,8 @@ function coverage(){
   if(!status){$("#coverage").textContent="";return}
   const c=status.coverage||{},d=status.last_run?new Date(status.last_run):null;
   const item=(n,v)=>{const cls=v==="ok"||v==="on"||/^(\d+)\/\1$/.test(v)?"ok":v==="off"?"off":/^\d+\/\d+$/.test(v)?"bad":"bad";return `<span class="src ${cls}"><i></i>${esc(n)} ${esc(v)}</span>`};
-  let h=d?`<span>Checked <b>${d.toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}</b> · daily</span>`:"";
-  if(status.editor_last){const e=new Date(status.editor_last);h+=`<span>AI editor <b>${e.toLocaleString("en-GB",{day:"numeric",month:"short"})}</b> · every 2 days${status.queued?` · ${status.queued} headlines waiting`:""}</span>`}
+  let h=d?`<span>Checked <b>${d.toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}</b> · counts daily</span>`:"";
+  if(status.editor_last){const e=new Date(status.editor_last);h+=`<span>AI editor <b>${e.toLocaleString("en-GB",{day:"numeric",month:"short"})}</b> · monthly${status.queued?` · ${status.queued} headlines waiting`:""}</span>`}
   h+=Object.entries(c).map(([n,v])=>item(n,v)).join("");
   if(c["AI editor"]&&c["AI editor"]!=="on")h+=`<span class="warn">AI editor ${c["AI editor"]==="off"?"off":"failing"}: only Have I Been Pwned breaches and DeFiLlama crypto hacks are added automatically. Attacks reported only in the news are not.</span>`;
   $("#coverage").innerHTML=h;
