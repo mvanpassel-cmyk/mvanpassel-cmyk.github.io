@@ -135,13 +135,13 @@ async function renderCountry(c) {
   const w = world.countries.find(x => x.iso3 === c.iso3) || {};
 
   const stamp = [live.refreshed ? `figures ${shortDate(live.refreshed)}` : "figures not yet loaded", sk.checked ? `sketch ${shortDate(sk.checked)}` : "no sketch yet"].join(", ");
-  root.append(
+  root.append(...[
     h("a", { class: "back", href: "#" }, "All countries"),
     h("header", { class: "head" }, h("div", null, h("h1", { text: c.name }),
       h("p", { class: "sub", text: [w.capital ? `Capital ${w.capital}` : "", c.region && c.region !== "Not a WHO region" ? `WHO ${c.region} Region` : c.region].filter(Boolean).join(", ") })),
       h("div", { class: "shadownote" }, h("b", { text: "Shadow page" }), h("span", { text: `Refreshed by hand: ${stamp}.` }))),
     sk.minister ? h("ul", { class: "who" }, h("li", null, h("div", { class: "role", text: sk.minister.role + (sk.minister.since ? `, since ${sk.minister.since}` : "") }),
-      h("div", { class: "nm" }, link(sk.minister.name, sk.minister.src)))) : null);
+      h("div", { class: "nm" }, link(sk.minister.name, sk.minister.src)))) : null].filter(Boolean));
 
   /* sketch */
   const pr = sk.priorities || [];
