@@ -1,0 +1,3312 @@
+{
+ "_doc": "Countries covered by the All countries desk. Built by pipeline/build_world.py; edit names by hand if needed.",
+ "countries": [
+  {
+   "iso3": "AFG",
+   "iso2": "AF",
+   "num": "004",
+   "name": "Afghanistan",
+   "names": [
+    "Afghanistan",
+    "Islamic Republic of Afghanistan",
+    "Afġānistān"
+   ],
+   "slug": "afghanistan",
+   "capital": "Kabul",
+   "lat": 33,
+   "lon": 65,
+   "region": "Eastern Mediterranean"
+  },
+  {
+   "iso3": "ALB",
+   "iso2": "AL",
+   "num": "008",
+   "name": "Albania",
+   "names": [
+    "Albania",
+    "Republic of Albania",
+    "Shqipëri",
+    "Shqipëria",
+    "Shqipnia"
+   ],
+   "slug": "albania",
+   "capital": "Tirana",
+   "lat": 41,
+   "lon": 20,
+   "region": "Europe"
+  },
+  {
+   "iso3": "DZA",
+   "iso2": "DZ",
+   "num": "012",
+   "name": "Algeria",
+   "names": [
+    "Algeria",
+    "People's Democratic Republic of Algeria",
+    "Dzayer",
+    "Algérie"
+   ],
+   "slug": "algeria",
+   "capital": "Algiers",
+   "lat": 28,
+   "lon": 3,
+   "region": "Africa"
+  },
+  {
+   "iso3": "AND",
+   "iso2": "AD",
+   "num": "020",
+   "name": "Andorra",
+   "names": [
+    "Andorra",
+    "Principality of Andorra",
+    "Principat d'Andorra"
+   ],
+   "slug": "andorra",
+   "capital": "Andorra la Vella",
+   "lat": 42.5,
+   "lon": 1.5,
+   "region": "Europe"
+  },
+  {
+   "iso3": "AGO",
+   "iso2": "AO",
+   "num": "024",
+   "name": "Angola",
+   "names": [
+    "Angola",
+    "Republic of Angola",
+    "República de Angola",
+    "ʁɛpublika de an'ɡɔla"
+   ],
+   "slug": "angola",
+   "capital": "Luanda",
+   "lat": -12.5,
+   "lon": 18.5,
+   "region": "Africa"
+  },
+  {
+   "iso3": "ATG",
+   "iso2": "AG",
+   "num": "028",
+   "name": "Antigua and Barbuda",
+   "names": [
+    "Antigua and Barbuda"
+   ],
+   "slug": "antigua-and-barbuda",
+   "capital": "Saint John's",
+   "lat": 17.05,
+   "lon": -61.8,
+   "region": "Americas"
+  },
+  {
+   "iso3": "ARG",
+   "iso2": "AR",
+   "num": "032",
+   "name": "Argentina",
+   "names": [
+    "Argentina",
+    "Argentine Republic",
+    "República Argentina"
+   ],
+   "slug": "argentina",
+   "capital": "Buenos Aires",
+   "lat": -34,
+   "lon": -64,
+   "region": "Americas"
+  },
+  {
+   "iso3": "ARM",
+   "iso2": "AM",
+   "num": "051",
+   "name": "Armenia",
+   "names": [
+    "Armenia",
+    "Republic of Armenia",
+    "Hayastan",
+    "Հայաստանի Հանրապետություն"
+   ],
+   "slug": "armenia",
+   "capital": "Yerevan",
+   "lat": 40,
+   "lon": 45,
+   "region": "Europe"
+  },
+  {
+   "iso3": "AUS",
+   "iso2": "AU",
+   "num": "036",
+   "name": "Australia",
+   "names": [
+    "Australia",
+    "Commonwealth of Australia"
+   ],
+   "slug": "australia",
+   "capital": "Canberra",
+   "lat": -27,
+   "lon": 133,
+   "region": "Western Pacific",
+   "desk": "australia"
+  },
+  {
+   "iso3": "AUT",
+   "iso2": "AT",
+   "num": "040",
+   "name": "Austria",
+   "names": [
+    "Austria",
+    "Republic of Austria",
+    "Osterreich",
+    "Oesterreich"
+   ],
+   "slug": "austria",
+   "capital": "Vienna",
+   "lat": 47.33,
+   "lon": 13.33,
+   "region": "Europe"
+  },
+  {
+   "iso3": "AZE",
+   "iso2": "AZ",
+   "num": "031",
+   "name": "Azerbaijan",
+   "names": [
+    "Azerbaijan",
+    "Republic of Azerbaijan",
+    "Azərbaycan Respublikası"
+   ],
+   "slug": "azerbaijan",
+   "capital": "Baku",
+   "lat": 40.5,
+   "lon": 47.5,
+   "region": "Europe"
+  },
+  {
+   "iso3": "BHS",
+   "iso2": "BS",
+   "num": "044",
+   "name": "Bahamas",
+   "names": [
+    "Bahamas",
+    "Commonwealth of the Bahamas"
+   ],
+   "slug": "bahamas",
+   "capital": "Nassau",
+   "lat": 24.25,
+   "lon": -76,
+   "region": "Americas"
+  },
+  {
+   "iso3": "BHR",
+   "iso2": "BH",
+   "num": "048",
+   "name": "Bahrain",
+   "names": [
+    "Bahrain",
+    "Kingdom of Bahrain",
+    "Mamlakat al-Baḥrayn"
+   ],
+   "slug": "bahrain",
+   "capital": "Manama",
+   "lat": 26,
+   "lon": 50.55,
+   "region": "Eastern Mediterranean"
+  },
+  {
+   "iso3": "BGD",
+   "iso2": "BD",
+   "num": "050",
+   "name": "Bangladesh",
+   "names": [
+    "Bangladesh",
+    "People's Republic of Bangladesh",
+    "Gônôprôjatôntri Bangladesh"
+   ],
+   "slug": "bangladesh",
+   "capital": "Dhaka",
+   "lat": 24,
+   "lon": 90,
+   "region": "South-East Asia"
+  },
+  {
+   "iso3": "BRB",
+   "iso2": "BB",
+   "num": "052",
+   "name": "Barbados",
+   "names": [
+    "Barbados"
+   ],
+   "slug": "barbados",
+   "capital": "Bridgetown",
+   "lat": 13.17,
+   "lon": -59.53,
+   "region": "Americas"
+  },
+  {
+   "iso3": "BLR",
+   "iso2": "BY",
+   "num": "112",
+   "name": "Belarus",
+   "names": [
+    "Belarus",
+    "Republic of Belarus",
+    "Bielaruś",
+    "Белоруссия",
+    "Республика Белоруссия"
+   ],
+   "slug": "belarus",
+   "capital": "Minsk",
+   "lat": 53,
+   "lon": 28,
+   "region": "Europe"
+  },
+  {
+   "iso3": "BEL",
+   "iso2": "BE",
+   "num": "056",
+   "name": "Belgium",
+   "names": [
+    "Belgium",
+    "Kingdom of Belgium",
+    "België",
+    "Belgie",
+    "Belgien",
+    "Belgique",
+    "Koninkrijk België",
+    "Royaume de Belgique",
+    "Königreich Belgien"
+   ],
+   "slug": "belgium",
+   "capital": "Brussels",
+   "lat": 50.83,
+   "lon": 4,
+   "region": "Europe"
+  },
+  {
+   "iso3": "BLZ",
+   "iso2": "BZ",
+   "num": "084",
+   "name": "Belize",
+   "names": [
+    "Belize"
+   ],
+   "slug": "belize",
+   "capital": "Belmopan",
+   "lat": 17.25,
+   "lon": -88.75,
+   "region": "Americas"
+  },
+  {
+   "iso3": "BEN",
+   "iso2": "BJ",
+   "num": "204",
+   "name": "Benin",
+   "names": [
+    "Benin",
+    "Republic of Benin",
+    "République du Bénin"
+   ],
+   "slug": "benin",
+   "capital": "Porto-Novo",
+   "lat": 9.5,
+   "lon": 2.25,
+   "region": "Africa"
+  },
+  {
+   "iso3": "BTN",
+   "iso2": "BT",
+   "num": "064",
+   "name": "Bhutan",
+   "names": [
+    "Bhutan",
+    "Kingdom of Bhutan"
+   ],
+   "slug": "bhutan",
+   "capital": "Thimphu",
+   "lat": 27.5,
+   "lon": 90.5,
+   "region": "South-East Asia"
+  },
+  {
+   "iso3": "BOL",
+   "iso2": "BO",
+   "num": "068",
+   "name": "Bolivia",
+   "names": [
+    "Bolivia",
+    "Plurinational State of Bolivia",
+    "Bolivia (Plurinational State of)",
+    "Buliwya",
+    "Wuliwya",
+    "Bolivia, Plurinational State of",
+    "Estado Plurinacional de Bolivia",
+    "Buliwya Mamallaqta",
+    "Wuliwya Suyu",
+    "Tetã Volívia"
+   ],
+   "slug": "bolivia",
+   "capital": "Sucre",
+   "lat": -17,
+   "lon": -65,
+   "region": "Americas"
+  },
+  {
+   "iso3": "BIH",
+   "iso2": "BA",
+   "num": "070",
+   "name": "Bosnia and Herzegovina",
+   "names": [
+    "Bosnia and Herzegovina",
+    "Bosnia and Herz.",
+    "Bosnia-Herzegovina",
+    "Босна и Херцеговина"
+   ],
+   "slug": "bosnia-and-herzegovina",
+   "capital": "Sarajevo",
+   "lat": 44,
+   "lon": 18,
+   "region": "Europe"
+  },
+  {
+   "iso3": "BWA",
+   "iso2": "BW",
+   "num": "072",
+   "name": "Botswana",
+   "names": [
+    "Botswana",
+    "Republic of Botswana",
+    "Lefatshe la Botswana"
+   ],
+   "slug": "botswana",
+   "capital": "Gaborone",
+   "lat": -22,
+   "lon": 24,
+   "region": "Africa"
+  },
+  {
+   "iso3": "BRA",
+   "iso2": "BR",
+   "num": "076",
+   "name": "Brazil",
+   "names": [
+    "Brazil",
+    "Federative Republic of Brazil",
+    "Brasil",
+    "República Federativa do Brasil"
+   ],
+   "slug": "brazil",
+   "capital": "Brasília",
+   "lat": -10,
+   "lon": -55,
+   "region": "Americas",
+   "desk": "brazil"
+  },
+  {
+   "iso3": "BRN",
+   "iso2": "BN",
+   "num": "096",
+   "name": "Brunei",
+   "names": [
+    "Brunei",
+    "Nation of Brunei, Abode of Peace",
+    "Brunei Darussalam",
+    "Nation of Brunei",
+    "the Abode of Peace"
+   ],
+   "slug": "brunei",
+   "capital": "Bandar Seri Begawan",
+   "lat": 4.5,
+   "lon": 114.67,
+   "region": "Western Pacific"
+  },
+  {
+   "iso3": "BGR",
+   "iso2": "BG",
+   "num": "100",
+   "name": "Bulgaria",
+   "names": [
+    "Bulgaria",
+    "Republic of Bulgaria",
+    "Република България"
+   ],
+   "slug": "bulgaria",
+   "capital": "Sofia",
+   "lat": 43,
+   "lon": 25,
+   "region": "Europe"
+  },
+  {
+   "iso3": "BFA",
+   "iso2": "BF",
+   "num": "854",
+   "name": "Burkina Faso",
+   "names": [
+    "Burkina Faso"
+   ],
+   "slug": "burkina-faso",
+   "capital": "Ouagadougou",
+   "lat": 13,
+   "lon": -2,
+   "region": "Africa"
+  },
+  {
+   "iso3": "BDI",
+   "iso2": "BI",
+   "num": "108",
+   "name": "Burundi",
+   "names": [
+    "Burundi",
+    "Republic of Burundi",
+    "Republika y'Uburundi",
+    "République du Burundi"
+   ],
+   "slug": "burundi",
+   "capital": "Gitega",
+   "lat": -3.5,
+   "lon": 30,
+   "region": "Africa"
+  },
+  {
+   "iso3": "CPV",
+   "iso2": "CV",
+   "num": "132",
+   "name": "Cabo Verde",
+   "names": [
+    "Cabo Verde",
+    "Cape Verde",
+    "Republic of Cabo Verde",
+    "República de Cabo Verde"
+   ],
+   "slug": "cabo-verde",
+   "capital": "Praia",
+   "lat": 16,
+   "lon": -24,
+   "region": "Africa"
+  },
+  {
+   "iso3": "KHM",
+   "iso2": "KH",
+   "num": "116",
+   "name": "Cambodia",
+   "names": [
+    "Cambodia",
+    "Kingdom of Cambodia"
+   ],
+   "slug": "cambodia",
+   "capital": "Phnom Penh",
+   "lat": 13,
+   "lon": 105,
+   "region": "Western Pacific"
+  },
+  {
+   "iso3": "CMR",
+   "iso2": "CM",
+   "num": "120",
+   "name": "Cameroon",
+   "names": [
+    "Cameroon",
+    "Republic of Cameroon",
+    "République du Cameroun"
+   ],
+   "slug": "cameroon",
+   "capital": "Yaoundé",
+   "lat": 6,
+   "lon": 12,
+   "region": "Africa"
+  },
+  {
+   "iso3": "CAN",
+   "iso2": "CA",
+   "num": "124",
+   "name": "Canada",
+   "names": [
+    "Canada"
+   ],
+   "slug": "canada",
+   "capital": "Ottawa",
+   "lat": 60,
+   "lon": -95,
+   "region": "Americas",
+   "desk": "canada"
+  },
+  {
+   "iso3": "CAF",
+   "iso2": "CF",
+   "num": "140",
+   "name": "Central African Republic",
+   "names": [
+    "Central African Republic",
+    "Central African Rep.",
+    "République centrafricaine"
+   ],
+   "slug": "central-african-republic",
+   "capital": "Bangui",
+   "lat": 7,
+   "lon": 21,
+   "region": "Africa"
+  },
+  {
+   "iso3": "TCD",
+   "iso2": "TD",
+   "num": "148",
+   "name": "Chad",
+   "names": [
+    "Chad",
+    "Republic of Chad",
+    "Tchad",
+    "République du Tchad"
+   ],
+   "slug": "chad",
+   "capital": "N'Djamena",
+   "lat": 15,
+   "lon": 19,
+   "region": "Africa"
+  },
+  {
+   "iso3": "CHL",
+   "iso2": "CL",
+   "num": "152",
+   "name": "Chile",
+   "names": [
+    "Chile",
+    "Republic of Chile",
+    "República de Chile"
+   ],
+   "slug": "chile",
+   "capital": "Santiago",
+   "lat": -30,
+   "lon": -71,
+   "region": "Americas"
+  },
+  {
+   "iso3": "CHN",
+   "iso2": "CN",
+   "num": "156",
+   "name": "China",
+   "names": [
+    "China",
+    "People's Republic of China",
+    "Zhōngguó",
+    "Zhongguo",
+    "Zhonghua",
+    "中华人民共和国",
+    "Zhōnghuá Rénmín Gònghéguó"
+   ],
+   "slug": "china",
+   "capital": "Beijing",
+   "lat": 35,
+   "lon": 105,
+   "region": "Western Pacific",
+   "desk": "china"
+  },
+  {
+   "iso3": "COL",
+   "iso2": "CO",
+   "num": "170",
+   "name": "Colombia",
+   "names": [
+    "Colombia",
+    "Republic of Colombia",
+    "República de Colombia"
+   ],
+   "slug": "colombia",
+   "capital": "Bogotá",
+   "lat": 4,
+   "lon": -72,
+   "region": "Americas",
+   "desk": "colombia"
+  },
+  {
+   "iso3": "COM",
+   "iso2": "KM",
+   "num": "174",
+   "name": "Comoros",
+   "names": [
+    "Comoros",
+    "Union of the Comoros",
+    "Union des Comores",
+    "Udzima wa Komori",
+    "al-Ittiḥād al-Qumurī"
+   ],
+   "slug": "comoros",
+   "capital": "Moroni",
+   "lat": -12.17,
+   "lon": 44.25,
+   "region": "Africa"
+  },
+  {
+   "iso3": "COG",
+   "iso2": "CG",
+   "num": "178",
+   "name": "Congo",
+   "names": [
+    "Congo",
+    "Republic of the Congo",
+    "Congo-Brazzaville"
+   ],
+   "slug": "congo",
+   "capital": "Brazzaville",
+   "lat": -1,
+   "lon": 15,
+   "region": "Africa"
+  },
+  {
+   "iso3": "COK",
+   "iso2": "CK",
+   "num": "184",
+   "name": "Cook Islands",
+   "names": [
+    "Cook Islands",
+    "Kūki 'Āirani"
+   ],
+   "slug": "cook-islands",
+   "capital": "Avarua",
+   "lat": -21.23,
+   "lon": -159.77,
+   "region": "Western Pacific"
+  },
+  {
+   "iso3": "CRI",
+   "iso2": "CR",
+   "num": "188",
+   "name": "Costa Rica",
+   "names": [
+    "Costa Rica",
+    "Republic of Costa Rica",
+    "República de Costa Rica"
+   ],
+   "slug": "costa-rica",
+   "capital": "San José",
+   "lat": 10,
+   "lon": -84,
+   "region": "Americas"
+  },
+  {
+   "iso3": "HRV",
+   "iso2": "HR",
+   "num": "191",
+   "name": "Croatia",
+   "names": [
+    "Croatia",
+    "Republic of Croatia",
+    "Hrvatska",
+    "Republika Hrvatska"
+   ],
+   "slug": "croatia",
+   "capital": "Zagreb",
+   "lat": 45.17,
+   "lon": 15.5,
+   "region": "Europe"
+  },
+  {
+   "iso3": "CUB",
+   "iso2": "CU",
+   "num": "192",
+   "name": "Cuba",
+   "names": [
+    "Cuba",
+    "Republic of Cuba",
+    "República de Cuba"
+   ],
+   "slug": "cuba",
+   "capital": "Havana",
+   "lat": 21.5,
+   "lon": -80,
+   "region": "Americas"
+  },
+  {
+   "iso3": "CYP",
+   "iso2": "CY",
+   "num": "196",
+   "name": "Cyprus",
+   "names": [
+    "Cyprus",
+    "Republic of Cyprus",
+    "Kýpros",
+    "Kıbrıs",
+    "Κυπριακή Δημοκρατία",
+    "Kıbrıs Cumhuriyeti"
+   ],
+   "slug": "cyprus",
+   "capital": "Nicosia",
+   "lat": 35,
+   "lon": 33,
+   "region": "Europe"
+  },
+  {
+   "iso3": "CZE",
+   "iso2": "CZ",
+   "num": "203",
+   "name": "Czechia",
+   "names": [
+    "Czechia",
+    "Czech Republic",
+    "Česká republika",
+    "Česko"
+   ],
+   "slug": "czechia",
+   "capital": "Prague",
+   "lat": 49.75,
+   "lon": 15.5,
+   "region": "Europe"
+  },
+  {
+   "iso3": "CIV",
+   "iso2": "CI",
+   "num": "384",
+   "name": "Côte d'Ivoire",
+   "names": [
+    "Côte d'Ivoire",
+    "Ivory Coast",
+    "Republic of Côte d'Ivoire",
+    "Cote d'Ivoire",
+    "République de Côte d'Ivoire"
+   ],
+   "slug": "cote-d-ivoire",
+   "capital": "Yamoussoukro",
+   "lat": 8,
+   "lon": -5,
+   "region": "Africa"
+  },
+  {
+   "iso3": "COD",
+   "iso2": "CD",
+   "num": "180",
+   "name": "DR Congo",
+   "names": [
+    "DR Congo",
+    "Democratic Republic of the Congo",
+    "Dem. Rep. Congo",
+    "Congo-Kinshasa",
+    "Congo, the Democratic Republic of the",
+    "Democratic Republic of Congo"
+   ],
+   "slug": "dr-congo",
+   "capital": "Kinshasa",
+   "lat": 0,
+   "lon": 25,
+   "region": "Africa",
+   "desk": "dr-congo"
+  },
+  {
+   "iso3": "DNK",
+   "iso2": "DK",
+   "num": "208",
+   "name": "Denmark",
+   "names": [
+    "Denmark",
+    "Kingdom of Denmark",
+    "Danmark",
+    "Kongeriget Danmark"
+   ],
+   "slug": "denmark",
+   "capital": "Copenhagen",
+   "lat": 56,
+   "lon": 10,
+   "region": "Europe"
+  },
+  {
+   "iso3": "DJI",
+   "iso2": "DJ",
+   "num": "262",
+   "name": "Djibouti",
+   "names": [
+    "Djibouti",
+    "Republic of Djibouti",
+    "Jabuuti",
+    "Gabuuti",
+    "République de Djibouti",
+    "Gabuutih Ummuuno",
+    "Jamhuuriyadda Jabuuti"
+   ],
+   "slug": "djibouti",
+   "capital": "Djibouti",
+   "lat": 11.5,
+   "lon": 43,
+   "region": "Eastern Mediterranean"
+  },
+  {
+   "iso3": "DMA",
+   "iso2": "DM",
+   "num": "212",
+   "name": "Dominica",
+   "names": [
+    "Dominica",
+    "Commonwealth of Dominica",
+    "Dominique",
+    "Wai‘tu kubuli"
+   ],
+   "slug": "dominica",
+   "capital": "Roseau",
+   "lat": 15.42,
+   "lon": -61.33,
+   "region": "Americas"
+  },
+  {
+   "iso3": "DOM",
+   "iso2": "DO",
+   "num": "214",
+   "name": "Dominican Republic",
+   "names": [
+    "Dominican Republic",
+    "Dominican Rep."
+   ],
+   "slug": "dominican-republic",
+   "capital": "Santo Domingo",
+   "lat": 19,
+   "lon": -70.67,
+   "region": "Americas"
+  },
+  {
+   "iso3": "ECU",
+   "iso2": "EC",
+   "num": "218",
+   "name": "Ecuador",
+   "names": [
+    "Ecuador",
+    "Republic of Ecuador",
+    "República del Ecuador"
+   ],
+   "slug": "ecuador",
+   "capital": "Quito",
+   "lat": -2,
+   "lon": -77.5,
+   "region": "Americas"
+  },
+  {
+   "iso3": "EGY",
+   "iso2": "EG",
+   "num": "818",
+   "name": "Egypt",
+   "names": [
+    "Egypt",
+    "Arab Republic of Egypt"
+   ],
+   "slug": "egypt",
+   "capital": "Cairo",
+   "lat": 27,
+   "lon": 30,
+   "region": "Eastern Mediterranean",
+   "desk": "egypt"
+  },
+  {
+   "iso3": "SLV",
+   "iso2": "SV",
+   "num": "222",
+   "name": "El Salvador",
+   "names": [
+    "El Salvador",
+    "Republic of El Salvador",
+    "República de El Salvador"
+   ],
+   "slug": "el-salvador",
+   "capital": "San Salvador",
+   "lat": 13.83,
+   "lon": -88.92,
+   "region": "Americas"
+  },
+  {
+   "iso3": "GNQ",
+   "iso2": "GQ",
+   "num": "226",
+   "name": "Equatorial Guinea",
+   "names": [
+    "Equatorial Guinea",
+    "Republic of Equatorial Guinea",
+    "Eq. Guinea",
+    "República de Guinea Ecuatorial",
+    "République de Guinée équatoriale",
+    "República da Guiné Equatorial"
+   ],
+   "slug": "equatorial-guinea",
+   "capital": "Ciudad de la Paz",
+   "lat": 2,
+   "lon": 10,
+   "region": "Africa"
+  },
+  {
+   "iso3": "ERI",
+   "iso2": "ER",
+   "num": "232",
+   "name": "Eritrea",
+   "names": [
+    "Eritrea",
+    "State of Eritrea",
+    "ሃገረ ኤርትራ",
+    "Dawlat Iritriyá",
+    "ʾErtrā",
+    "Iritriyā"
+   ],
+   "slug": "eritrea",
+   "capital": "Asmara",
+   "lat": 15,
+   "lon": 39,
+   "region": "Africa"
+  },
+  {
+   "iso3": "EST",
+   "iso2": "EE",
+   "num": "233",
+   "name": "Estonia",
+   "names": [
+    "Estonia",
+    "Republic of Estonia",
+    "Eesti",
+    "Eesti Vabariik"
+   ],
+   "slug": "estonia",
+   "capital": "Tallinn",
+   "lat": 59,
+   "lon": 26,
+   "region": "Europe"
+  },
+  {
+   "iso3": "SWZ",
+   "iso2": "SZ",
+   "num": "748",
+   "name": "Eswatini",
+   "names": [
+    "Eswatini",
+    "Kingdom of Eswatini",
+    "Swaziland",
+    "weSwatini",
+    "Swatini",
+    "Ngwane",
+    "Umbuso weSwatini"
+   ],
+   "slug": "eswatini",
+   "capital": "Lobamba",
+   "lat": -26.5,
+   "lon": 31.5,
+   "region": "Africa"
+  },
+  {
+   "iso3": "ETH",
+   "iso2": "ET",
+   "num": "231",
+   "name": "Ethiopia",
+   "names": [
+    "Ethiopia",
+    "Federal Democratic Republic of Ethiopia",
+    "ʾĪtyōṗṗyā",
+    "የኢትዮጵያ ፌዴራላዊ ዲሞክራሲያዊ ሪፐብሊክ"
+   ],
+   "slug": "ethiopia",
+   "capital": "Addis Ababa",
+   "lat": 8,
+   "lon": 38,
+   "region": "Africa",
+   "desk": "ethiopia"
+  },
+  {
+   "iso3": "FJI",
+   "iso2": "FJ",
+   "num": "242",
+   "name": "Fiji",
+   "names": [
+    "Fiji",
+    "Republic of Fiji",
+    "Viti",
+    "Matanitu ko Viti",
+    "Fijī Gaṇarājya"
+   ],
+   "slug": "fiji",
+   "capital": "Suva",
+   "lat": -18,
+   "lon": 175,
+   "region": "Western Pacific"
+  },
+  {
+   "iso3": "FIN",
+   "iso2": "FI",
+   "num": "246",
+   "name": "Finland",
+   "names": [
+    "Finland",
+    "Republic of Finland",
+    "Suomi",
+    "Suomen tasavalta",
+    "Republiken Finland"
+   ],
+   "slug": "finland",
+   "capital": "Helsinki",
+   "lat": 64,
+   "lon": 26,
+   "region": "Europe"
+  },
+  {
+   "iso3": "FRA",
+   "iso2": "FR",
+   "num": "250",
+   "name": "France",
+   "names": [
+    "France",
+    "French Republic",
+    "République française"
+   ],
+   "slug": "france",
+   "capital": "Paris",
+   "lat": 46,
+   "lon": 2,
+   "region": "Europe",
+   "desk": "france"
+  },
+  {
+   "iso3": "GAB",
+   "iso2": "GA",
+   "num": "266",
+   "name": "Gabon",
+   "names": [
+    "Gabon",
+    "Gabonese Republic",
+    "République Gabonaise"
+   ],
+   "slug": "gabon",
+   "capital": "Libreville",
+   "lat": -1,
+   "lon": 11.75,
+   "region": "Africa"
+  },
+  {
+   "iso3": "GMB",
+   "iso2": "GM",
+   "num": "270",
+   "name": "Gambia",
+   "names": [
+    "Gambia",
+    "Republic of the Gambia"
+   ],
+   "slug": "gambia",
+   "capital": "Banjul",
+   "lat": 13.47,
+   "lon": -16.57,
+   "region": "Africa"
+  },
+  {
+   "iso3": "GEO",
+   "iso2": "GE",
+   "num": "268",
+   "name": "Georgia",
+   "names": [
+    "Georgia",
+    "Sakartvelo"
+   ],
+   "slug": "georgia",
+   "capital": "Tbilisi",
+   "lat": 42,
+   "lon": 43.5,
+   "region": "Europe"
+  },
+  {
+   "iso3": "DEU",
+   "iso2": "DE",
+   "num": "276",
+   "name": "Germany",
+   "names": [
+    "Germany",
+    "Federal Republic of Germany",
+    "Bundesrepublik Deutschland"
+   ],
+   "slug": "germany",
+   "capital": "Berlin",
+   "lat": 51,
+   "lon": 9,
+   "region": "Europe",
+   "desk": "germany"
+  },
+  {
+   "iso3": "GHA",
+   "iso2": "GH",
+   "num": "288",
+   "name": "Ghana",
+   "names": [
+    "Ghana",
+    "Republic of Ghana"
+   ],
+   "slug": "ghana",
+   "capital": "Accra",
+   "lat": 8,
+   "lon": -2,
+   "region": "Africa"
+  },
+  {
+   "iso3": "GRC",
+   "iso2": "GR",
+   "num": "300",
+   "name": "Greece",
+   "names": [
+    "Greece",
+    "Hellenic Republic",
+    "Elláda",
+    "Ελληνική Δημοκρατία"
+   ],
+   "slug": "greece",
+   "capital": "Athens",
+   "lat": 39,
+   "lon": 22,
+   "region": "Europe"
+  },
+  {
+   "iso3": "GRD",
+   "iso2": "GD",
+   "num": "308",
+   "name": "Grenada",
+   "names": [
+    "Grenada"
+   ],
+   "slug": "grenada",
+   "capital": "St. George's",
+   "lat": 12.12,
+   "lon": -61.67,
+   "region": "Americas"
+  },
+  {
+   "iso3": "GTM",
+   "iso2": "GT",
+   "num": "320",
+   "name": "Guatemala",
+   "names": [
+    "Guatemala",
+    "Republic of Guatemala"
+   ],
+   "slug": "guatemala",
+   "capital": "Guatemala City",
+   "lat": 15.5,
+   "lon": -90.25,
+   "region": "Americas"
+  },
+  {
+   "iso3": "GIN",
+   "iso2": "GN",
+   "num": "324",
+   "name": "Guinea",
+   "names": [
+    "Guinea",
+    "Republic of Guinea",
+    "République de Guinée"
+   ],
+   "slug": "guinea",
+   "capital": "Conakry",
+   "lat": 11,
+   "lon": -10,
+   "region": "Africa"
+  },
+  {
+   "iso3": "GNB",
+   "iso2": "GW",
+   "num": "624",
+   "name": "Guinea-Bissau",
+   "names": [
+    "Guinea-Bissau",
+    "Republic of Guinea-Bissau",
+    "República da Guiné-Bissau"
+   ],
+   "slug": "guinea-bissau",
+   "capital": "Bissau",
+   "lat": 12,
+   "lon": -15,
+   "region": "Africa"
+  },
+  {
+   "iso3": "GUY",
+   "iso2": "GY",
+   "num": "328",
+   "name": "Guyana",
+   "names": [
+    "Guyana",
+    "Co-operative Republic of Guyana"
+   ],
+   "slug": "guyana",
+   "capital": "Georgetown",
+   "lat": 5,
+   "lon": -59,
+   "region": "Americas"
+  },
+  {
+   "iso3": "HTI",
+   "iso2": "HT",
+   "num": "332",
+   "name": "Haiti",
+   "names": [
+    "Haiti",
+    "Republic of Haiti",
+    "République d'Haïti",
+    "Repiblik Ayiti"
+   ],
+   "slug": "haiti",
+   "capital": "Port-au-Prince",
+   "lat": 19,
+   "lon": -72.42,
+   "region": "Americas"
+  },
+  {
+   "iso3": "VAT",
+   "iso2": "VA",
+   "num": "336",
+   "name": "Holy See",
+   "names": [
+    "Holy See",
+    "Vatican City",
+    "Vatican City State",
+    "Holy See (Vatican City State)",
+    "Vatican",
+    "Stato della Città del Vaticano"
+   ],
+   "slug": "holy-see",
+   "capital": "Vatican City",
+   "lat": 41.9,
+   "lon": 12.45,
+   "region": "Not a WHO region"
+  },
+  {
+   "iso3": "HND",
+   "iso2": "HN",
+   "num": "340",
+   "name": "Honduras",
+   "names": [
+    "Honduras",
+    "Republic of Honduras",
+    "República de Honduras"
+   ],
+   "slug": "honduras",
+   "capital": "Tegucigalpa",
+   "lat": 15,
+   "lon": -86.5,
+   "region": "Americas"
+  },
+  {
+   "iso3": "HUN",
+   "iso2": "HU",
+   "num": "348",
+   "name": "Hungary",
+   "names": [
+    "Hungary"
+   ],
+   "slug": "hungary",
+   "capital": "Budapest",
+   "lat": 47,
+   "lon": 20,
+   "region": "Europe"
+  },
+  {
+   "iso3": "ISL",
+   "iso2": "IS",
+   "num": "352",
+   "name": "Iceland",
+   "names": [
+    "Iceland",
+    "Island",
+    "Republic of Iceland",
+    "Lýðveldið Ísland"
+   ],
+   "slug": "iceland",
+   "capital": "Reykjavik",
+   "lat": 65,
+   "lon": -18,
+   "region": "Europe"
+  },
+  {
+   "iso3": "IND",
+   "iso2": "IN",
+   "num": "356",
+   "name": "India",
+   "names": [
+    "India",
+    "Republic of India",
+    "Bhārat",
+    "Bharat Ganrajya",
+    "இந்தியா"
+   ],
+   "slug": "india",
+   "capital": "New Delhi",
+   "lat": 20,
+   "lon": 77,
+   "region": "South-East Asia",
+   "desk": "india"
+  },
+  {
+   "iso3": "IDN",
+   "iso2": "ID",
+   "num": "360",
+   "name": "Indonesia",
+   "names": [
+    "Indonesia",
+    "Republic of Indonesia",
+    "Republik Indonesia"
+   ],
+   "slug": "indonesia",
+   "capital": "Jakarta",
+   "lat": -5,
+   "lon": 120,
+   "region": "Western Pacific",
+   "desk": "indonesia"
+  },
+  {
+   "iso3": "IRN",
+   "iso2": "IR",
+   "num": "364",
+   "name": "Iran",
+   "names": [
+    "Iran",
+    "Islamic Republic of Iran",
+    "Iran (Islamic Republic of)",
+    "Iran, Islamic Republic of",
+    "Jomhuri-ye Eslāmi-ye Irān"
+   ],
+   "slug": "iran",
+   "capital": "Tehran",
+   "lat": 32,
+   "lon": 53,
+   "region": "Eastern Mediterranean"
+  },
+  {
+   "iso3": "IRQ",
+   "iso2": "IQ",
+   "num": "368",
+   "name": "Iraq",
+   "names": [
+    "Iraq",
+    "Republic of Iraq",
+    "Jumhūriyyat al-‘Irāq"
+   ],
+   "slug": "iraq",
+   "capital": "Baghdad",
+   "lat": 33,
+   "lon": 44,
+   "region": "Eastern Mediterranean"
+  },
+  {
+   "iso3": "IRL",
+   "iso2": "IE",
+   "num": "372",
+   "name": "Ireland",
+   "names": [
+    "Ireland",
+    "Republic of Ireland",
+    "Éire",
+    "Poblacht na hÉireann"
+   ],
+   "slug": "ireland",
+   "capital": "Dublin",
+   "lat": 53,
+   "lon": -8,
+   "region": "Europe"
+  },
+  {
+   "iso3": "ISR",
+   "iso2": "IL",
+   "num": "376",
+   "name": "Israel",
+   "names": [
+    "Israel",
+    "State of Israel",
+    "Medīnat Yisrā'el"
+   ],
+   "slug": "israel",
+   "capital": "Jerusalem",
+   "lat": 31.47,
+   "lon": 35.13,
+   "region": "Europe"
+  },
+  {
+   "iso3": "ITA",
+   "iso2": "IT",
+   "num": "380",
+   "name": "Italy",
+   "names": [
+    "Italy",
+    "Italian Republic",
+    "Repubblica italiana"
+   ],
+   "slug": "italy",
+   "capital": "Rome",
+   "lat": 42.83,
+   "lon": 12.83,
+   "region": "Europe"
+  },
+  {
+   "iso3": "JAM",
+   "iso2": "JM",
+   "num": "388",
+   "name": "Jamaica",
+   "names": [
+    "Jamaica"
+   ],
+   "slug": "jamaica",
+   "capital": "Kingston",
+   "lat": 18.25,
+   "lon": -77.5,
+   "region": "Americas"
+  },
+  {
+   "iso3": "JPN",
+   "iso2": "JP",
+   "num": "392",
+   "name": "Japan",
+   "names": [
+    "Japan",
+    "Nippon",
+    "Nihon"
+   ],
+   "slug": "japan",
+   "capital": "Tokyo",
+   "lat": 36,
+   "lon": 138,
+   "region": "Western Pacific",
+   "desk": "japan"
+  },
+  {
+   "iso3": "JOR",
+   "iso2": "JO",
+   "num": "400",
+   "name": "Jordan",
+   "names": [
+    "Jordan",
+    "Hashemite Kingdom of Jordan",
+    "al-Mamlakah al-Urdunīyah al-Hāshimīyah"
+   ],
+   "slug": "jordan",
+   "capital": "Amman",
+   "lat": 31,
+   "lon": 36,
+   "region": "Eastern Mediterranean"
+  },
+  {
+   "iso3": "KAZ",
+   "iso2": "KZ",
+   "num": "398",
+   "name": "Kazakhstan",
+   "names": [
+    "Kazakhstan",
+    "Republic of Kazakhstan",
+    "Qazaqstan",
+    "Казахстан",
+    "Қазақстан Республикасы",
+    "Qazaqstan Respublïkası",
+    "Республика Казахстан",
+    "Respublika Kazakhstan"
+   ],
+   "slug": "kazakhstan",
+   "capital": "Astana",
+   "lat": 48,
+   "lon": 68,
+   "region": "Europe"
+  },
+  {
+   "iso3": "KEN",
+   "iso2": "KE",
+   "num": "404",
+   "name": "Kenya",
+   "names": [
+    "Kenya",
+    "Republic of Kenya",
+    "Jamhuri ya Kenya"
+   ],
+   "slug": "kenya",
+   "capital": "Nairobi",
+   "lat": 1,
+   "lon": 38,
+   "region": "Africa",
+   "desk": "kenya"
+  },
+  {
+   "iso3": "KIR",
+   "iso2": "KI",
+   "num": "296",
+   "name": "Kiribati",
+   "names": [
+    "Kiribati",
+    "Independent and Sovereign Republic of Kiribati",
+    "Republic of Kiribati",
+    "Ribaberiki Kiribati"
+   ],
+   "slug": "kiribati",
+   "capital": "South Tarawa",
+   "lat": 1.42,
+   "lon": 173,
+   "region": "Western Pacific"
+  },
+  {
+   "iso3": "UNK",
+   "iso2": "XK",
+   "num": "",
+   "name": "Kosovo",
+   "names": [
+    "Kosovo",
+    "Republic of Kosovo",
+    "Република Косово"
+   ],
+   "slug": "kosovo",
+   "capital": "Pristina",
+   "lat": 42.67,
+   "lon": 21.17,
+   "region": "Not a WHO region"
+  },
+  {
+   "iso3": "KWT",
+   "iso2": "KW",
+   "num": "414",
+   "name": "Kuwait",
+   "names": [
+    "Kuwait",
+    "State of Kuwait",
+    "Dawlat al-Kuwait"
+   ],
+   "slug": "kuwait",
+   "capital": "Kuwait City",
+   "lat": 29.5,
+   "lon": 45.75,
+   "region": "Eastern Mediterranean"
+  },
+  {
+   "iso3": "KGZ",
+   "iso2": "KG",
+   "num": "417",
+   "name": "Kyrgyzstan",
+   "names": [
+    "Kyrgyzstan",
+    "Kyrgyz Republic",
+    "Киргизия",
+    "Кыргыз Республикасы",
+    "Kyrgyz Respublikasy"
+   ],
+   "slug": "kyrgyzstan",
+   "capital": "Bishkek",
+   "lat": 41,
+   "lon": 75,
+   "region": "Europe"
+  },
+  {
+   "iso3": "LAO",
+   "iso2": "LA",
+   "num": "418",
+   "name": "Laos",
+   "names": [
+    "Laos",
+    "Lao People's Democratic Republic",
+    "Sathalanalat Paxathipatai Paxaxon Lao"
+   ],
+   "slug": "laos",
+   "capital": "Vientiane",
+   "lat": 18,
+   "lon": 105,
+   "region": "Western Pacific"
+  },
+  {
+   "iso3": "LVA",
+   "iso2": "LV",
+   "num": "428",
+   "name": "Latvia",
+   "names": [
+    "Latvia",
+    "Republic of Latvia",
+    "Latvijas Republika"
+   ],
+   "slug": "latvia",
+   "capital": "Riga",
+   "lat": 57,
+   "lon": 25,
+   "region": "Europe"
+  },
+  {
+   "iso3": "LBN",
+   "iso2": "LB",
+   "num": "422",
+   "name": "Lebanon",
+   "names": [
+    "Lebanon",
+    "Lebanese Republic",
+    "Al-Jumhūrīyah Al-Libnānīyah"
+   ],
+   "slug": "lebanon",
+   "capital": "Beirut",
+   "lat": 33.83,
+   "lon": 35.83,
+   "region": "Eastern Mediterranean"
+  },
+  {
+   "iso3": "LSO",
+   "iso2": "LS",
+   "num": "426",
+   "name": "Lesotho",
+   "names": [
+    "Lesotho",
+    "Kingdom of Lesotho",
+    "Muso oa Lesotho"
+   ],
+   "slug": "lesotho",
+   "capital": "Maseru",
+   "lat": -29.5,
+   "lon": 28.5,
+   "region": "Africa"
+  },
+  {
+   "iso3": "LBR",
+   "iso2": "LR",
+   "num": "430",
+   "name": "Liberia",
+   "names": [
+    "Liberia",
+    "Republic of Liberia"
+   ],
+   "slug": "liberia",
+   "capital": "Monrovia",
+   "lat": 6.5,
+   "lon": -9.5,
+   "region": "Africa"
+  },
+  {
+   "iso3": "LBY",
+   "iso2": "LY",
+   "num": "434",
+   "name": "Libya",
+   "names": [
+    "Libya",
+    "State of Libya",
+    "Dawlat Libya"
+   ],
+   "slug": "libya",
+   "capital": "Tripoli",
+   "lat": 25,
+   "lon": 17,
+   "region": "Eastern Mediterranean"
+  },
+  {
+   "iso3": "LIE",
+   "iso2": "LI",
+   "num": "438",
+   "name": "Liechtenstein",
+   "names": [
+    "Liechtenstein",
+    "Principality of Liechtenstein",
+    "Fürstentum Liechtenstein"
+   ],
+   "slug": "liechtenstein",
+   "capital": "Vaduz",
+   "lat": 47.27,
+   "lon": 9.53,
+   "region": "Europe"
+  },
+  {
+   "iso3": "LTU",
+   "iso2": "LT",
+   "num": "440",
+   "name": "Lithuania",
+   "names": [
+    "Lithuania",
+    "Republic of Lithuania",
+    "Lietuvos Respublika"
+   ],
+   "slug": "lithuania",
+   "capital": "Vilnius",
+   "lat": 56,
+   "lon": 24,
+   "region": "Europe"
+  },
+  {
+   "iso3": "LUX",
+   "iso2": "LU",
+   "num": "442",
+   "name": "Luxembourg",
+   "names": [
+    "Luxembourg",
+    "Grand Duchy of Luxembourg",
+    "Grand-Duché de Luxembourg",
+    "Großherzogtum Luxemburg",
+    "Groussherzogtum Lëtzebuerg"
+   ],
+   "slug": "luxembourg",
+   "capital": "Luxembourg",
+   "lat": 49.75,
+   "lon": 6.17,
+   "region": "Europe"
+  },
+  {
+   "iso3": "MDG",
+   "iso2": "MG",
+   "num": "450",
+   "name": "Madagascar",
+   "names": [
+    "Madagascar",
+    "Republic of Madagascar",
+    "Repoblikan'i Madagasikara",
+    "République de Madagascar"
+   ],
+   "slug": "madagascar",
+   "capital": "Antananarivo",
+   "lat": -20,
+   "lon": 47,
+   "region": "Africa"
+  },
+  {
+   "iso3": "MWI",
+   "iso2": "MW",
+   "num": "454",
+   "name": "Malawi",
+   "names": [
+    "Malawi",
+    "Republic of Malawi"
+   ],
+   "slug": "malawi",
+   "capital": "Lilongwe",
+   "lat": -13.5,
+   "lon": 34,
+   "region": "Africa"
+  },
+  {
+   "iso3": "MYS",
+   "iso2": "MY",
+   "num": "458",
+   "name": "Malaysia",
+   "names": [
+    "Malaysia"
+   ],
+   "slug": "malaysia",
+   "capital": "Kuala Lumpur",
+   "lat": 2.5,
+   "lon": 112.5,
+   "region": "Western Pacific",
+   "desk": "malaysia"
+  },
+  {
+   "iso3": "MDV",
+   "iso2": "MV",
+   "num": "462",
+   "name": "Maldives",
+   "names": [
+    "Maldives",
+    "Republic of the Maldives",
+    "Maldive Islands",
+    "Dhivehi Raajjeyge Jumhooriyya"
+   ],
+   "slug": "maldives",
+   "capital": "Malé",
+   "lat": 3.25,
+   "lon": 73,
+   "region": "South-East Asia"
+  },
+  {
+   "iso3": "MLI",
+   "iso2": "ML",
+   "num": "466",
+   "name": "Mali",
+   "names": [
+    "Mali",
+    "Republic of Mali",
+    "République du Mali"
+   ],
+   "slug": "mali",
+   "capital": "Bamako",
+   "lat": 17,
+   "lon": -4,
+   "region": "Africa"
+  },
+  {
+   "iso3": "MLT",
+   "iso2": "MT",
+   "num": "470",
+   "name": "Malta",
+   "names": [
+    "Malta",
+    "Republic of Malta",
+    "Repubblika ta' Malta"
+   ],
+   "slug": "malta",
+   "capital": "Valletta",
+   "lat": 35.83,
+   "lon": 14.58,
+   "region": "Europe"
+  },
+  {
+   "iso3": "MHL",
+   "iso2": "MH",
+   "num": "584",
+   "name": "Marshall Islands",
+   "names": [
+    "Marshall Islands",
+    "Republic of the Marshall Islands",
+    "Aolepān Aorōkin M̧ajeļ"
+   ],
+   "slug": "marshall-islands",
+   "capital": "Majuro",
+   "lat": 9,
+   "lon": 168,
+   "region": "Western Pacific"
+  },
+  {
+   "iso3": "MRT",
+   "iso2": "MR",
+   "num": "478",
+   "name": "Mauritania",
+   "names": [
+    "Mauritania",
+    "Islamic Republic of Mauritania",
+    "al-Jumhūriyyah al-ʾIslāmiyyah al-Mūrītāniyyah"
+   ],
+   "slug": "mauritania",
+   "capital": "Nouakchott",
+   "lat": 20,
+   "lon": -12,
+   "region": "Africa"
+  },
+  {
+   "iso3": "MUS",
+   "iso2": "MU",
+   "num": "480",
+   "name": "Mauritius",
+   "names": [
+    "Mauritius",
+    "Republic of Mauritius",
+    "République de Maurice"
+   ],
+   "slug": "mauritius",
+   "capital": "Port Louis",
+   "lat": -20.28,
+   "lon": 57.55,
+   "region": "Africa"
+  },
+  {
+   "iso3": "MEX",
+   "iso2": "MX",
+   "num": "484",
+   "name": "Mexico",
+   "names": [
+    "Mexico",
+    "United Mexican States",
+    "Mexicanos",
+    "Estados Unidos Mexicanos"
+   ],
+   "slug": "mexico",
+   "capital": "Mexico City",
+   "lat": 23,
+   "lon": -102,
+   "region": "Americas"
+  },
+  {
+   "iso3": "FSM",
+   "iso2": "FM",
+   "num": "583",
+   "name": "Micronesia",
+   "names": [
+    "Micronesia",
+    "Federated States of Micronesia",
+    "Micronesia (Federated States of)",
+    "Micronesia, Federated States of"
+   ],
+   "slug": "micronesia",
+   "capital": "Palikir",
+   "lat": 6.92,
+   "lon": 158.25,
+   "region": "Western Pacific"
+  },
+  {
+   "iso3": "MDA",
+   "iso2": "MD",
+   "num": "498",
+   "name": "Moldova",
+   "names": [
+    "Moldova",
+    "Republic of Moldova",
+    "Moldova, Republic of",
+    "Republica Moldova"
+   ],
+   "slug": "moldova",
+   "capital": "Chișinău",
+   "lat": 47,
+   "lon": 29,
+   "region": "Europe"
+  },
+  {
+   "iso3": "MCO",
+   "iso2": "MC",
+   "num": "492",
+   "name": "Monaco",
+   "names": [
+    "Monaco",
+    "Principality of Monaco",
+    "Principauté de Monaco"
+   ],
+   "slug": "monaco",
+   "capital": "Monaco",
+   "lat": 43.73,
+   "lon": 7.4,
+   "region": "Europe"
+  },
+  {
+   "iso3": "MNG",
+   "iso2": "MN",
+   "num": "496",
+   "name": "Mongolia",
+   "names": [
+    "Mongolia"
+   ],
+   "slug": "mongolia",
+   "capital": "Ulan Bator",
+   "lat": 46,
+   "lon": 105,
+   "region": "Western Pacific"
+  },
+  {
+   "iso3": "MNE",
+   "iso2": "ME",
+   "num": "499",
+   "name": "Montenegro",
+   "names": [
+    "Montenegro",
+    "Crna Gora"
+   ],
+   "slug": "montenegro",
+   "capital": "Podgorica",
+   "lat": 42.5,
+   "lon": 19.3,
+   "region": "Europe"
+  },
+  {
+   "iso3": "MAR",
+   "iso2": "MA",
+   "num": "504",
+   "name": "Morocco",
+   "names": [
+    "Morocco",
+    "Kingdom of Morocco",
+    "Al-Mamlakah al-Maġribiyah"
+   ],
+   "slug": "morocco",
+   "capital": "Rabat",
+   "lat": 32,
+   "lon": -5,
+   "region": "Eastern Mediterranean"
+  },
+  {
+   "iso3": "MOZ",
+   "iso2": "MZ",
+   "num": "508",
+   "name": "Mozambique",
+   "names": [
+    "Mozambique",
+    "Republic of Mozambique",
+    "República de Moçambique"
+   ],
+   "slug": "mozambique",
+   "capital": "Maputo",
+   "lat": -18.25,
+   "lon": 35,
+   "region": "Africa"
+  },
+  {
+   "iso3": "MMR",
+   "iso2": "MM",
+   "num": "104",
+   "name": "Myanmar",
+   "names": [
+    "Myanmar",
+    "Republic of the Union of Myanmar",
+    "Burma",
+    "Pyidaunzu Thanmăda Myăma Nainngandaw"
+   ],
+   "slug": "myanmar",
+   "capital": "Naypyidaw",
+   "lat": 22,
+   "lon": 98,
+   "region": "South-East Asia"
+  },
+  {
+   "iso3": "NAM",
+   "iso2": "NA",
+   "num": "516",
+   "name": "Namibia",
+   "names": [
+    "Namibia",
+    "Republic of Namibia",
+    "Namibië"
+   ],
+   "slug": "namibia",
+   "capital": "Windhoek",
+   "lat": -22,
+   "lon": 17,
+   "region": "Africa"
+  },
+  {
+   "iso3": "NRU",
+   "iso2": "NR",
+   "num": "520",
+   "name": "Nauru",
+   "names": [
+    "Nauru",
+    "Republic of Nauru",
+    "Naoero",
+    "Pleasant Island",
+    "Ripublik Naoero"
+   ],
+   "slug": "nauru",
+   "capital": "Yaren",
+   "lat": -0.53,
+   "lon": 166.92,
+   "region": "Western Pacific"
+  },
+  {
+   "iso3": "NPL",
+   "iso2": "NP",
+   "num": "524",
+   "name": "Nepal",
+   "names": [
+    "Nepal",
+    "Federal Democratic Republic of Nepal",
+    "Loktāntrik Ganatantra Nepāl"
+   ],
+   "slug": "nepal",
+   "capital": "Kathmandu",
+   "lat": 28,
+   "lon": 84,
+   "region": "South-East Asia"
+  },
+  {
+   "iso3": "NLD",
+   "iso2": "NL",
+   "num": "528",
+   "name": "Netherlands",
+   "names": [
+    "Netherlands",
+    "Kingdom of the Netherlands",
+    "Netherlands (Kingdom of the)",
+    "Holland",
+    "Nederland",
+    "The Netherlands"
+   ],
+   "slug": "netherlands",
+   "capital": "Amsterdam",
+   "lat": 52.5,
+   "lon": 5.75,
+   "region": "Europe"
+  },
+  {
+   "iso3": "NZL",
+   "iso2": "NZ",
+   "num": "554",
+   "name": "New Zealand",
+   "names": [
+    "New Zealand",
+    "Aotearoa"
+   ],
+   "slug": "new-zealand",
+   "capital": "Wellington",
+   "lat": -41,
+   "lon": 174,
+   "region": "Western Pacific"
+  },
+  {
+   "iso3": "NIC",
+   "iso2": "NI",
+   "num": "558",
+   "name": "Nicaragua",
+   "names": [
+    "Nicaragua",
+    "Republic of Nicaragua",
+    "República de Nicaragua"
+   ],
+   "slug": "nicaragua",
+   "capital": "Managua",
+   "lat": 13,
+   "lon": -85,
+   "region": "Americas"
+  },
+  {
+   "iso3": "NER",
+   "iso2": "NE",
+   "num": "562",
+   "name": "Niger",
+   "names": [
+    "Niger",
+    "Republic of Niger",
+    "Nijar"
+   ],
+   "slug": "niger",
+   "capital": "Niamey",
+   "lat": 16,
+   "lon": 8,
+   "region": "Africa"
+  },
+  {
+   "iso3": "NGA",
+   "iso2": "NG",
+   "num": "566",
+   "name": "Nigeria",
+   "names": [
+    "Nigeria",
+    "Federal Republic of Nigeria",
+    "Nijeriya",
+    "Naíjíríà"
+   ],
+   "slug": "nigeria",
+   "capital": "Abuja",
+   "lat": 10,
+   "lon": 8,
+   "region": "Africa",
+   "desk": "nigeria"
+  },
+  {
+   "iso3": "NIU",
+   "iso2": "NU",
+   "num": "570",
+   "name": "Niue",
+   "names": [
+    "Niue"
+   ],
+   "slug": "niue",
+   "capital": "Alofi",
+   "lat": -19.03,
+   "lon": -169.87,
+   "region": "Western Pacific"
+  },
+  {
+   "iso3": "PRK",
+   "iso2": "KP",
+   "num": "408",
+   "name": "North Korea",
+   "names": [
+    "North Korea",
+    "Democratic People's Republic of Korea",
+    "조선민주주의인민공화국",
+    "Chosŏn Minjujuŭi Inmin Konghwaguk",
+    "Korea, Democratic People's Republic of"
+   ],
+   "slug": "north-korea",
+   "capital": "Pyongyang",
+   "lat": 40,
+   "lon": 127,
+   "region": "South-East Asia"
+  },
+  {
+   "iso3": "MKD",
+   "iso2": "MK",
+   "num": "807",
+   "name": "North Macedonia",
+   "names": [
+    "North Macedonia",
+    "Republic of North Macedonia",
+    "Macedonia",
+    "The former Yugoslav Republic of Macedonia",
+    "Macedonia, The Former Yugoslav Republic of",
+    "Република Северна Македонија"
+   ],
+   "slug": "north-macedonia",
+   "capital": "Skopje",
+   "lat": 41.83,
+   "lon": 22,
+   "region": "Europe"
+  },
+  {
+   "iso3": "NOR",
+   "iso2": "NO",
+   "num": "578",
+   "name": "Norway",
+   "names": [
+    "Norway",
+    "Kingdom of Norway",
+    "Norge",
+    "Noreg",
+    "Kongeriket Norge",
+    "Kongeriket Noreg"
+   ],
+   "slug": "norway",
+   "capital": "Oslo",
+   "lat": 62,
+   "lon": 10,
+   "region": "Europe"
+  },
+  {
+   "iso3": "OMN",
+   "iso2": "OM",
+   "num": "512",
+   "name": "Oman",
+   "names": [
+    "Oman",
+    "Sultanate of Oman",
+    "Salṭanat ʻUmān"
+   ],
+   "slug": "oman",
+   "capital": "Muscat",
+   "lat": 21,
+   "lon": 57,
+   "region": "Eastern Mediterranean"
+  },
+  {
+   "iso3": "PAK",
+   "iso2": "PK",
+   "num": "586",
+   "name": "Pakistan",
+   "names": [
+    "Pakistan",
+    "Islamic Republic of Pakistan",
+    "Pākistān",
+    "Islāmī Jumhūriya'eh Pākistān"
+   ],
+   "slug": "pakistan",
+   "capital": "Islamabad",
+   "lat": 30,
+   "lon": 70,
+   "region": "Eastern Mediterranean"
+  },
+  {
+   "iso3": "PLW",
+   "iso2": "PW",
+   "num": "585",
+   "name": "Palau",
+   "names": [
+    "Palau",
+    "Republic of Palau",
+    "Beluu er a Belau"
+   ],
+   "slug": "palau",
+   "capital": "Ngerulmud",
+   "lat": 7.5,
+   "lon": 134.5,
+   "region": "Western Pacific"
+  },
+  {
+   "iso3": "PSE",
+   "iso2": "PS",
+   "num": "275",
+   "name": "Palestine",
+   "names": [
+    "Palestine",
+    "State of Palestine",
+    "Palestine, State of",
+    "Dawlat Filasṭin"
+   ],
+   "slug": "palestine",
+   "capital": "Ramallah",
+   "lat": 31.9,
+   "lon": 35.2,
+   "region": "Eastern Mediterranean"
+  },
+  {
+   "iso3": "PAN",
+   "iso2": "PA",
+   "num": "591",
+   "name": "Panama",
+   "names": [
+    "Panama",
+    "Republic of Panama",
+    "República de Panamá"
+   ],
+   "slug": "panama",
+   "capital": "Panama City",
+   "lat": 9,
+   "lon": -80,
+   "region": "Americas"
+  },
+  {
+   "iso3": "PNG",
+   "iso2": "PG",
+   "num": "598",
+   "name": "Papua New Guinea",
+   "names": [
+    "Papua New Guinea",
+    "Independent State of Papua New Guinea",
+    "Independen Stet bilong Papua Niugini"
+   ],
+   "slug": "papua-new-guinea",
+   "capital": "Port Moresby",
+   "lat": -6,
+   "lon": 147,
+   "region": "Western Pacific"
+  },
+  {
+   "iso3": "PRY",
+   "iso2": "PY",
+   "num": "600",
+   "name": "Paraguay",
+   "names": [
+    "Paraguay",
+    "Republic of Paraguay",
+    "República del Paraguay",
+    "Tetã Paraguái"
+   ],
+   "slug": "paraguay",
+   "capital": "Asunción",
+   "lat": -23,
+   "lon": -58,
+   "region": "Americas"
+  },
+  {
+   "iso3": "PER",
+   "iso2": "PE",
+   "num": "604",
+   "name": "Peru",
+   "names": [
+    "Peru",
+    "Republic of Peru",
+    "República del Perú"
+   ],
+   "slug": "peru",
+   "capital": "Lima",
+   "lat": -10,
+   "lon": -76,
+   "region": "Americas"
+  },
+  {
+   "iso3": "PHL",
+   "iso2": "PH",
+   "num": "608",
+   "name": "Philippines",
+   "names": [
+    "Philippines",
+    "Republic of the Philippines",
+    "Repúblika ng Pilipinas"
+   ],
+   "slug": "philippines",
+   "capital": "Manila",
+   "lat": 13,
+   "lon": 122,
+   "region": "Western Pacific"
+  },
+  {
+   "iso3": "POL",
+   "iso2": "PL",
+   "num": "616",
+   "name": "Poland",
+   "names": [
+    "Poland",
+    "Republic of Poland",
+    "Rzeczpospolita Polska"
+   ],
+   "slug": "poland",
+   "capital": "Warsaw",
+   "lat": 52,
+   "lon": 20,
+   "region": "Europe"
+  },
+  {
+   "iso3": "PRT",
+   "iso2": "PT",
+   "num": "620",
+   "name": "Portugal",
+   "names": [
+    "Portugal",
+    "Portuguese Republic",
+    "Portuguesa",
+    "República Portuguesa"
+   ],
+   "slug": "portugal",
+   "capital": "Lisbon",
+   "lat": 39.5,
+   "lon": -8,
+   "region": "Europe"
+  },
+  {
+   "iso3": "QAT",
+   "iso2": "QA",
+   "num": "634",
+   "name": "Qatar",
+   "names": [
+    "Qatar",
+    "State of Qatar",
+    "Dawlat Qaṭar"
+   ],
+   "slug": "qatar",
+   "capital": "Doha",
+   "lat": 25.5,
+   "lon": 51.25,
+   "region": "Eastern Mediterranean"
+  },
+  {
+   "iso3": "ROU",
+   "iso2": "RO",
+   "num": "642",
+   "name": "Romania",
+   "names": [
+    "Romania",
+    "Rumania",
+    "Roumania",
+    "România"
+   ],
+   "slug": "romania",
+   "capital": "Bucharest",
+   "lat": 46,
+   "lon": 25,
+   "region": "Europe"
+  },
+  {
+   "iso3": "RUS",
+   "iso2": "RU",
+   "num": "643",
+   "name": "Russia",
+   "names": [
+    "Russia",
+    "Russian Federation",
+    "Российская Федерация"
+   ],
+   "slug": "russia",
+   "capital": "Moscow",
+   "lat": 60,
+   "lon": 100,
+   "region": "Europe"
+  },
+  {
+   "iso3": "RWA",
+   "iso2": "RW",
+   "num": "646",
+   "name": "Rwanda",
+   "names": [
+    "Rwanda",
+    "Republic of Rwanda",
+    "Repubulika y'u Rwanda",
+    "République du Rwanda"
+   ],
+   "slug": "rwanda",
+   "capital": "Kigali",
+   "lat": -2,
+   "lon": 30,
+   "region": "Africa"
+  },
+  {
+   "iso3": "KNA",
+   "iso2": "KN",
+   "num": "659",
+   "name": "Saint Kitts and Nevis",
+   "names": [
+    "Saint Kitts and Nevis",
+    "Federation of Saint Christopher and Nevis"
+   ],
+   "slug": "saint-kitts-and-nevis",
+   "capital": "Basseterre",
+   "lat": 17.33,
+   "lon": -62.75,
+   "region": "Americas"
+  },
+  {
+   "iso3": "LCA",
+   "iso2": "LC",
+   "num": "662",
+   "name": "Saint Lucia",
+   "names": [
+    "Saint Lucia"
+   ],
+   "slug": "saint-lucia",
+   "capital": "Castries",
+   "lat": 13.88,
+   "lon": -60.97,
+   "region": "Americas"
+  },
+  {
+   "iso3": "VCT",
+   "iso2": "VC",
+   "num": "670",
+   "name": "Saint Vincent and the Grenadines",
+   "names": [
+    "Saint Vincent and the Grenadines"
+   ],
+   "slug": "saint-vincent-and-the-grenadines",
+   "capital": "Kingstown",
+   "lat": 13.25,
+   "lon": -61.2,
+   "region": "Americas"
+  },
+  {
+   "iso3": "WSM",
+   "iso2": "WS",
+   "num": "882",
+   "name": "Samoa",
+   "names": [
+    "Samoa",
+    "Independent State of Samoa",
+    "Malo Saʻoloto Tutoʻatasi o Sāmoa"
+   ],
+   "slug": "samoa",
+   "capital": "Apia",
+   "lat": -13.58,
+   "lon": -172.33,
+   "region": "Western Pacific"
+  },
+  {
+   "iso3": "SMR",
+   "iso2": "SM",
+   "num": "674",
+   "name": "San Marino",
+   "names": [
+    "San Marino",
+    "Most Serene Republic of San Marino",
+    "Republic of San Marino",
+    "Repubblica di San Marino"
+   ],
+   "slug": "san-marino",
+   "capital": "City of San Marino",
+   "lat": 43.77,
+   "lon": 12.42,
+   "region": "Europe"
+  },
+  {
+   "iso3": "SAU",
+   "iso2": "SA",
+   "num": "682",
+   "name": "Saudi Arabia",
+   "names": [
+    "Saudi Arabia",
+    "Kingdom of Saudi Arabia",
+    "Saudi",
+    "Al-Mamlakah al-‘Arabiyyah as-Su‘ūdiyyah"
+   ],
+   "slug": "saudi-arabia",
+   "capital": "Riyadh",
+   "lat": 25,
+   "lon": 45,
+   "region": "Eastern Mediterranean"
+  },
+  {
+   "iso3": "SEN",
+   "iso2": "SN",
+   "num": "686",
+   "name": "Senegal",
+   "names": [
+    "Senegal",
+    "Republic of Senegal",
+    "République du Sénégal"
+   ],
+   "slug": "senegal",
+   "capital": "Dakar",
+   "lat": 14,
+   "lon": -14,
+   "region": "Africa"
+  },
+  {
+   "iso3": "SRB",
+   "iso2": "RS",
+   "num": "688",
+   "name": "Serbia",
+   "names": [
+    "Serbia",
+    "Republic of Serbia",
+    "Srbija",
+    "Republika Srbija",
+    "Србија",
+    "Република Србија"
+   ],
+   "slug": "serbia",
+   "capital": "Belgrade",
+   "lat": 44,
+   "lon": 21,
+   "region": "Europe"
+  },
+  {
+   "iso3": "SYC",
+   "iso2": "SC",
+   "num": "690",
+   "name": "Seychelles",
+   "names": [
+    "Seychelles",
+    "Republic of Seychelles",
+    "Repiblik Sesel",
+    "République des Seychelles"
+   ],
+   "slug": "seychelles",
+   "capital": "Victoria",
+   "lat": -4.58,
+   "lon": 55.67,
+   "region": "Africa"
+  },
+  {
+   "iso3": "SLE",
+   "iso2": "SL",
+   "num": "694",
+   "name": "Sierra Leone",
+   "names": [
+    "Sierra Leone",
+    "Republic of Sierra Leone"
+   ],
+   "slug": "sierra-leone",
+   "capital": "Freetown",
+   "lat": 8.5,
+   "lon": -11.5,
+   "region": "Africa"
+  },
+  {
+   "iso3": "SGP",
+   "iso2": "SG",
+   "num": "702",
+   "name": "Singapore",
+   "names": [
+    "Singapore",
+    "Republic of Singapore",
+    "Singapura",
+    "Republik Singapura",
+    "新加坡共和国"
+   ],
+   "slug": "singapore",
+   "capital": "Singapore",
+   "lat": 1.37,
+   "lon": 103.8,
+   "region": "Western Pacific",
+   "desk": "singapore"
+  },
+  {
+   "iso3": "SVK",
+   "iso2": "SK",
+   "num": "703",
+   "name": "Slovakia",
+   "names": [
+    "Slovakia",
+    "Slovak Republic",
+    "Slovenská republika"
+   ],
+   "slug": "slovakia",
+   "capital": "Bratislava",
+   "lat": 48.67,
+   "lon": 19.5,
+   "region": "Europe"
+  },
+  {
+   "iso3": "SVN",
+   "iso2": "SI",
+   "num": "705",
+   "name": "Slovenia",
+   "names": [
+    "Slovenia",
+    "Republic of Slovenia",
+    "Republika Slovenija"
+   ],
+   "slug": "slovenia",
+   "capital": "Ljubljana",
+   "lat": 46.12,
+   "lon": 14.82,
+   "region": "Europe"
+  },
+  {
+   "iso3": "SLB",
+   "iso2": "SB",
+   "num": "090",
+   "name": "Solomon Islands",
+   "names": [
+    "Solomon Islands",
+    "Solomon Is."
+   ],
+   "slug": "solomon-islands",
+   "capital": "Honiara",
+   "lat": -8,
+   "lon": 159,
+   "region": "Western Pacific"
+  },
+  {
+   "iso3": "SOM",
+   "iso2": "SO",
+   "num": "706",
+   "name": "Somalia",
+   "names": [
+    "Somalia",
+    "Federal Republic of Somalia",
+    "aṣ-Ṣūmāl",
+    "Jamhuuriyadda Federaalka Soomaaliya",
+    "Jumhūriyyat aṣ-Ṣūmāl al-Fiderāliyya"
+   ],
+   "slug": "somalia",
+   "capital": "Mogadishu",
+   "lat": 10,
+   "lon": 49,
+   "region": "Eastern Mediterranean"
+  },
+  {
+   "iso3": "ZAF",
+   "iso2": "ZA",
+   "num": "710",
+   "name": "South Africa",
+   "names": [
+    "South Africa",
+    "Republic of South Africa",
+    "Suid-Afrika"
+   ],
+   "slug": "south-africa",
+   "capital": "Pretoria",
+   "lat": -29,
+   "lon": 24,
+   "region": "Africa",
+   "desk": "south-africa"
+  },
+  {
+   "iso3": "KOR",
+   "iso2": "KR",
+   "num": "410",
+   "name": "South Korea",
+   "names": [
+    "South Korea",
+    "Republic of Korea",
+    "Korea, Republic of"
+   ],
+   "slug": "south-korea",
+   "capital": "Seoul",
+   "lat": 37,
+   "lon": 127.5,
+   "region": "Western Pacific",
+   "desk": "south-korea"
+  },
+  {
+   "iso3": "SSD",
+   "iso2": "SS",
+   "num": "728",
+   "name": "South Sudan",
+   "names": [
+    "South Sudan",
+    "Republic of South Sudan",
+    "S. Sudan"
+   ],
+   "slug": "south-sudan",
+   "capital": "Juba",
+   "lat": 7,
+   "lon": 30,
+   "region": "Africa"
+  },
+  {
+   "iso3": "ESP",
+   "iso2": "ES",
+   "num": "724",
+   "name": "Spain",
+   "names": [
+    "Spain",
+    "Kingdom of Spain",
+    "Reino de España"
+   ],
+   "slug": "spain",
+   "capital": "Madrid",
+   "lat": 40,
+   "lon": -4,
+   "region": "Europe",
+   "desk": "spain"
+  },
+  {
+   "iso3": "LKA",
+   "iso2": "LK",
+   "num": "144",
+   "name": "Sri Lanka",
+   "names": [
+    "Sri Lanka",
+    "Democratic Socialist Republic of Sri Lanka",
+    "ilaṅkai"
+   ],
+   "slug": "sri-lanka",
+   "capital": "Colombo",
+   "lat": 7,
+   "lon": 81,
+   "region": "South-East Asia"
+  },
+  {
+   "iso3": "SDN",
+   "iso2": "SD",
+   "num": "729",
+   "name": "Sudan",
+   "names": [
+    "Sudan",
+    "Republic of the Sudan",
+    "Jumhūrīyat as-Sūdān"
+   ],
+   "slug": "sudan",
+   "capital": "Khartoum",
+   "lat": 15,
+   "lon": 30,
+   "region": "Eastern Mediterranean"
+  },
+  {
+   "iso3": "SUR",
+   "iso2": "SR",
+   "num": "740",
+   "name": "Suriname",
+   "names": [
+    "Suriname",
+    "Republic of Suriname",
+    "Sarnam",
+    "Sranangron",
+    "Republiek Suriname"
+   ],
+   "slug": "suriname",
+   "capital": "Paramaribo",
+   "lat": 4,
+   "lon": -56,
+   "region": "Americas"
+  },
+  {
+   "iso3": "SWE",
+   "iso2": "SE",
+   "num": "752",
+   "name": "Sweden",
+   "names": [
+    "Sweden",
+    "Kingdom of Sweden",
+    "Konungariket Sverige"
+   ],
+   "slug": "sweden",
+   "capital": "Stockholm",
+   "lat": 62,
+   "lon": 15,
+   "region": "Europe"
+  },
+  {
+   "iso3": "CHE",
+   "iso2": "CH",
+   "num": "756",
+   "name": "Switzerland",
+   "names": [
+    "Switzerland",
+    "Swiss Confederation",
+    "Schweiz",
+    "Suisse",
+    "Svizzera",
+    "Svizra"
+   ],
+   "slug": "switzerland",
+   "capital": "Bern",
+   "lat": 47,
+   "lon": 8,
+   "region": "Europe"
+  },
+  {
+   "iso3": "SYR",
+   "iso2": "SY",
+   "num": "760",
+   "name": "Syria",
+   "names": [
+    "Syria",
+    "Syrian Arab Republic",
+    "Al-Jumhūrīyah Al-ʻArabīyah As-Sūrīyah"
+   ],
+   "slug": "syria",
+   "capital": "Damascus",
+   "lat": 35,
+   "lon": 38,
+   "region": "Eastern Mediterranean"
+  },
+  {
+   "iso3": "STP",
+   "iso2": "ST",
+   "num": "678",
+   "name": "São Tomé and Príncipe",
+   "names": [
+    "São Tomé and Príncipe",
+    "Democratic Republic of São Tomé and Príncipe",
+    "Sao Tome and Principe",
+    "República Democrática de São Tomé e Príncipe"
+   ],
+   "slug": "sao-tome-and-principe",
+   "capital": "São Tomé",
+   "lat": 1,
+   "lon": 7,
+   "region": "Africa"
+  },
+  {
+   "iso3": "TWN",
+   "iso2": "TW",
+   "num": "158",
+   "name": "Taiwan",
+   "names": [
+    "Taiwan",
+    "Republic of China (Taiwan)",
+    "Táiwān",
+    "Republic of China",
+    "中華民國",
+    "Zhōnghuá Mínguó",
+    "Chinese Taipei"
+   ],
+   "slug": "taiwan",
+   "capital": "Taipei",
+   "lat": 23.5,
+   "lon": 121,
+   "region": "Not a WHO region"
+  },
+  {
+   "iso3": "TJK",
+   "iso2": "TJ",
+   "num": "762",
+   "name": "Tajikistan",
+   "names": [
+    "Tajikistan",
+    "Republic of Tajikistan",
+    "Toçikiston",
+    "Ҷумҳурии Тоҷикистон",
+    "Çumhuriyi Toçikiston"
+   ],
+   "slug": "tajikistan",
+   "capital": "Dushanbe",
+   "lat": 39,
+   "lon": 71,
+   "region": "Europe"
+  },
+  {
+   "iso3": "TZA",
+   "iso2": "TZ",
+   "num": "834",
+   "name": "Tanzania",
+   "names": [
+    "Tanzania",
+    "United Republic of Tanzania",
+    "Tanzania, United Republic of",
+    "Jamhuri ya Muungano wa Tanzania"
+   ],
+   "slug": "tanzania",
+   "capital": "Dodoma",
+   "lat": -6,
+   "lon": 35,
+   "region": "Africa"
+  },
+  {
+   "iso3": "THA",
+   "iso2": "TH",
+   "num": "764",
+   "name": "Thailand",
+   "names": [
+    "Thailand",
+    "Kingdom of Thailand",
+    "Prathet",
+    "Thai",
+    "ราชอาณาจักรไทย",
+    "Ratcha Anachak Thai"
+   ],
+   "slug": "thailand",
+   "capital": "Bangkok",
+   "lat": 15,
+   "lon": 100,
+   "region": "South-East Asia",
+   "desk": "thailand"
+  },
+  {
+   "iso3": "TLS",
+   "iso2": "TL",
+   "num": "626",
+   "name": "Timor-Leste",
+   "names": [
+    "Timor-Leste",
+    "Democratic Republic of Timor-Leste",
+    "East Timor",
+    "Timor",
+    "República Democrática de Timor-Leste",
+    "Repúblika Demokrátika Timór-Leste",
+    "Timór Lorosa'e",
+    "Timor Lorosae"
+   ],
+   "slug": "timor-leste",
+   "capital": "Dili",
+   "lat": -8.83,
+   "lon": 125.92,
+   "region": "South-East Asia"
+  },
+  {
+   "iso3": "TGO",
+   "iso2": "TG",
+   "num": "768",
+   "name": "Togo",
+   "names": [
+    "Togo",
+    "Togolese Republic",
+    "Togolese",
+    "République Togolaise"
+   ],
+   "slug": "togo",
+   "capital": "Lomé",
+   "lat": 8,
+   "lon": 1.17,
+   "region": "Africa"
+  },
+  {
+   "iso3": "TON",
+   "iso2": "TO",
+   "num": "776",
+   "name": "Tonga",
+   "names": [
+    "Tonga",
+    "Kingdom of Tonga"
+   ],
+   "slug": "tonga",
+   "capital": "Nuku'alofa",
+   "lat": -20,
+   "lon": -175,
+   "region": "Western Pacific"
+  },
+  {
+   "iso3": "TTO",
+   "iso2": "TT",
+   "num": "780",
+   "name": "Trinidad and Tobago",
+   "names": [
+    "Trinidad and Tobago",
+    "Republic of Trinidad and Tobago"
+   ],
+   "slug": "trinidad-and-tobago",
+   "capital": "Port of Spain",
+   "lat": 11,
+   "lon": -61,
+   "region": "Americas"
+  },
+  {
+   "iso3": "TUN",
+   "iso2": "TN",
+   "num": "788",
+   "name": "Tunisia",
+   "names": [
+    "Tunisia",
+    "Tunisian Republic",
+    "Republic of Tunisia",
+    "al-Jumhūriyyah at-Tūnisiyyah"
+   ],
+   "slug": "tunisia",
+   "capital": "Tunis",
+   "lat": 34,
+   "lon": 9,
+   "region": "Eastern Mediterranean"
+  },
+  {
+   "iso3": "TKM",
+   "iso2": "TM",
+   "num": "795",
+   "name": "Turkmenistan",
+   "names": [
+    "Turkmenistan"
+   ],
+   "slug": "turkmenistan",
+   "capital": "Ashgabat",
+   "lat": 40,
+   "lon": 60,
+   "region": "Europe"
+  },
+  {
+   "iso3": "TUV",
+   "iso2": "TV",
+   "num": "798",
+   "name": "Tuvalu",
+   "names": [
+    "Tuvalu"
+   ],
+   "slug": "tuvalu",
+   "capital": "Funafuti",
+   "lat": -8,
+   "lon": 178,
+   "region": "Western Pacific"
+  },
+  {
+   "iso3": "TUR",
+   "iso2": "TR",
+   "num": "792",
+   "name": "Türkiye",
+   "names": [
+    "Türkiye",
+    "Republic of Türkiye",
+    "Turkey",
+    "Turkiye",
+    "Republic of Turkey",
+    "Türkiye Cumhuriyeti"
+   ],
+   "slug": "turkiye",
+   "capital": "Ankara",
+   "lat": 39,
+   "lon": 35,
+   "region": "Europe"
+  },
+  {
+   "iso3": "UGA",
+   "iso2": "UG",
+   "num": "800",
+   "name": "Uganda",
+   "names": [
+    "Uganda",
+    "Republic of Uganda",
+    "Jamhuri ya Uganda"
+   ],
+   "slug": "uganda",
+   "capital": "Kampala",
+   "lat": 1,
+   "lon": 32,
+   "region": "Africa",
+   "desk": "uganda"
+  },
+  {
+   "iso3": "UKR",
+   "iso2": "UA",
+   "num": "804",
+   "name": "Ukraine",
+   "names": [
+    "Ukraine",
+    "Ukrayina"
+   ],
+   "slug": "ukraine",
+   "capital": "Kyiv",
+   "lat": 49,
+   "lon": 32,
+   "region": "Europe"
+  },
+  {
+   "iso3": "ARE",
+   "iso2": "AE",
+   "num": "784",
+   "name": "United Arab Emirates",
+   "names": [
+    "United Arab Emirates",
+    "Emirates"
+   ],
+   "slug": "united-arab-emirates",
+   "capital": "Abu Dhabi",
+   "lat": 24,
+   "lon": 54,
+   "region": "Eastern Mediterranean"
+  },
+  {
+   "iso3": "GBR",
+   "iso2": "GB",
+   "num": "826",
+   "name": "United Kingdom",
+   "names": [
+    "United Kingdom",
+    "United Kingdom of Great Britain and Northern Ireland",
+    "Great Britain"
+   ],
+   "slug": "united-kingdom",
+   "capital": "London",
+   "lat": 54,
+   "lon": -2,
+   "region": "Europe",
+   "desk": "united-kingdom"
+  },
+  {
+   "iso3": "USA",
+   "iso2": "US",
+   "num": "840",
+   "name": "United States",
+   "names": [
+    "United States",
+    "United States of America"
+   ],
+   "slug": "united-states",
+   "capital": "Washington D.C.",
+   "lat": 38,
+   "lon": -97,
+   "region": "Americas",
+   "desk": "united-states"
+  },
+  {
+   "iso3": "URY",
+   "iso2": "UY",
+   "num": "858",
+   "name": "Uruguay",
+   "names": [
+    "Uruguay",
+    "Oriental Republic of Uruguay",
+    "República Oriental del Uruguay"
+   ],
+   "slug": "uruguay",
+   "capital": "Montevideo",
+   "lat": -33,
+   "lon": -56,
+   "region": "Americas"
+  },
+  {
+   "iso3": "UZB",
+   "iso2": "UZ",
+   "num": "860",
+   "name": "Uzbekistan",
+   "names": [
+    "Uzbekistan",
+    "Republic of Uzbekistan",
+    "O‘zbekiston Respublikasi",
+    "Ўзбекистон Республикаси"
+   ],
+   "slug": "uzbekistan",
+   "capital": "Tashkent",
+   "lat": 41,
+   "lon": 64,
+   "region": "Europe"
+  },
+  {
+   "iso3": "VUT",
+   "iso2": "VU",
+   "num": "548",
+   "name": "Vanuatu",
+   "names": [
+    "Vanuatu",
+    "Republic of Vanuatu",
+    "Ripablik blong Vanuatu",
+    "République de Vanuatu"
+   ],
+   "slug": "vanuatu",
+   "capital": "Port Vila",
+   "lat": -16,
+   "lon": 167,
+   "region": "Western Pacific"
+  },
+  {
+   "iso3": "VEN",
+   "iso2": "VE",
+   "num": "862",
+   "name": "Venezuela",
+   "names": [
+    "Venezuela",
+    "Bolivarian Republic of Venezuela",
+    "Venezuela (Bolivarian Republic of)",
+    "Venezuela, Bolivarian Republic of",
+    "República Bolivariana de Venezuela"
+   ],
+   "slug": "venezuela",
+   "capital": "Caracas",
+   "lat": 8,
+   "lon": -66,
+   "region": "Americas"
+  },
+  {
+   "iso3": "VNM",
+   "iso2": "VN",
+   "num": "704",
+   "name": "Vietnam",
+   "names": [
+    "Vietnam",
+    "Socialist Republic of Vietnam",
+    "Viet Nam",
+    "Cộng hòa Xã hội chủ nghĩa Việt Nam"
+   ],
+   "slug": "vietnam",
+   "capital": "Hanoi",
+   "lat": 16.17,
+   "lon": 107.83,
+   "region": "Western Pacific"
+  },
+  {
+   "iso3": "YEM",
+   "iso2": "YE",
+   "num": "887",
+   "name": "Yemen",
+   "names": [
+    "Yemen",
+    "Republic of Yemen",
+    "Yemeni Republic",
+    "al-Jumhūriyyah al-Yamaniyyah"
+   ],
+   "slug": "yemen",
+   "capital": "Sana'a",
+   "lat": 15,
+   "lon": 48,
+   "region": "Eastern Mediterranean"
+  },
+  {
+   "iso3": "ZMB",
+   "iso2": "ZM",
+   "num": "894",
+   "name": "Zambia",
+   "names": [
+    "Zambia",
+    "Republic of Zambia"
+   ],
+   "slug": "zambia",
+   "capital": "Lusaka",
+   "lat": -15,
+   "lon": 30,
+   "region": "Africa"
+  },
+  {
+   "iso3": "ZWE",
+   "iso2": "ZW",
+   "num": "716",
+   "name": "Zimbabwe",
+   "names": [
+    "Zimbabwe",
+    "Republic of Zimbabwe"
+   ],
+   "slug": "zimbabwe",
+   "capital": "Harare",
+   "lat": -20,
+   "lon": 30,
+   "region": "Africa"
+  }
+ ]
+}

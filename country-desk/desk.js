@@ -145,7 +145,7 @@ async function renderCountry() {
 
   const nav = [["highlights", "Highlights"], ["agenda", "Government agenda"], ["projects", "Projects"], ["calendar", "Calendar"], ["alerts", "Outbreaks and risk"], ["numbers", "Numbers"], ["headlines", "Headlines"]];
   root.append(
-    h("a", { class: "back", href: "../" }, "All countries"),
+    h("a", { class: "back", href: "../" }, "Country Desk"),
     h("header", { class: "head" }, h("div", null, h("h1", { text: c.name }), h("p", { class: "sub", text: profile.snapshot || c.who })), clock),
     h("ul", { class: "who" }, (profile.leadership || []).map(p => h("li", null, h("div", { class: "role", text: p.role }),
       h("div", { class: "nm" }, link(p.name, p.src)), p.note ? h("div", { class: "small muted", text: p.note }) : null))),

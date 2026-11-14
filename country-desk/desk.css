@@ -150,4 +150,33 @@ footer p{margin:0 0 6px}
   .clock{text-align:left}
   .news{columns:1}
 }
+/* ---------- all countries (shadow desk, refreshed by hand) ---------- */
+.shadowdesk{--spot:#5B7083}
+@media (prefers-color-scheme:dark){.shadowdesk{--spot:#8FA6B8}}
+.mast .alllink{margin:16px 0 0;max-width:none}
+.alllink a{display:inline-flex;align-items:baseline;gap:10px;flex-wrap:wrap;text-decoration:none;border:1px dashed var(--ink);border-radius:999px;padding:7px 16px;font-weight:600}
+.alllink a span{font-weight:400;font-size:13.5px;color:var(--muted)}
+.alllink a:hover{background:color-mix(in srgb,var(--ink) 7%,transparent)}
+.tools{display:grid;gap:10px;margin:22px 0 4px}
+.tools input{font:inherit;padding:10px 14px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--ink);max-width:460px;width:100%}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:none;border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:14px;cursor:pointer}
+.chip:hover{border-color:var(--ink)}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.region{padding-top:26px}
+.region>h2{font-size:24px;display:flex;gap:10px;align-items:baseline}
+.region>h2 span{font:400 14px var(--body);color:var(--muted)}
+.shadowlist{margin-top:8px}
+.shadowlist a{grid-template-columns:240px minmax(0,1fr) auto}
+.shadowlist .name{font-size:20px}
+.shadowlist .name i{width:12px;height:12px;background:transparent;border:2px dashed var(--muted)}
+.shadowlist .full .name i{background:var(--ink);border:0}
+.shadowlist .full .top{color:var(--muted)}
+.fulltag{font-weight:600;color:var(--ink);margin:0}
+.shadowdesk .head{border-bottom-style:dashed}
+.shadownote{font-size:14px;color:var(--muted);max-width:280px;border:1px dashed var(--line);border-radius:6px;padding:10px 14px;line-height:1.4}
+.shadownote b{display:block;color:var(--ink);font-family:var(--display);font-size:17px}
+.snap{font-size:17px;max-width:70ch;margin:0 0 10px}
+.snap .srcs a{margin-right:10px}
+@media (max-width:760px){.shadowlist a{grid-template-columns:1fr auto}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}

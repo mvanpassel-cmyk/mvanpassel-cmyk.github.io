@@ -1,0 +1,68 @@
+name: Country Desk all countries (manual)
+
+# Run by hand only: Actions > "Country Desk all countries (manual)" > Run workflow.
+# Refreshes the free data for every country without a full desk page and lets Claude
+# (with web search) write or rewrite the short sketches. The weekly desk run is separate.
+on:
+  workflow_dispatch:
+    inputs:
+      sketches:
+        description: "Claude sketches: missing = only countries without one, all = rewrite the oldest first, none = free data only"
+        type: choice
+        options: [missing, all, none]
+        default: missing
+      limit:
+        description: "At most this many sketches in this run (each is one Claude request with up to 4 web searches)"
+        type: string
+        default: "200"
+      only:
+        description: "Optional: only these countries, comma-separated ISO3 codes or names (e.g. GHA,Peru)"
+        type: string
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: country-desk-shadow
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Unit tests
+        run: python -m unittest discover -s country-desk/tests -v
+
+      - name: Refresh all countries
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SKETCHES: ${{ github.event.inputs.sketches }}
+          LIMIT: ${{ github.event.inputs.limit }}
+          ONLY: ${{ github.event.inputs.only }}
+          MAX_MINUTES: "200"
+        run: python country-desk/pipeline/shadow.py
+
+      - name: Commit what was refreshed, even after a failure
+        if: always()
+        run: |
+          git config user.name "country-desk bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add country-desk/data/shadow
+          if git diff --cached --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+          git commit -m "Country Desk all countries: manual refresh"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push && exit 0
+            sleep 10
+          done
+          exit 1
