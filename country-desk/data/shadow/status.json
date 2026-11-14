@@ -1,15 +1,30 @@
 {
- "generated": "2026-11-14T09:58:23Z",
- "data_countries": 3,
- "model": "claude-sonnet-5-5",
+ "generated": "2026-11-14T10:08:35Z",
+ "data_countries": 175,
+ "model": "claude-haiku-5-5",
  "sketch_mode": "missing",
- "sketches_written": 3,
- "sketch_errors": [],
+ "sketches_written": 20,
+ "sketch_errors": [
+  "BEL: reply was not valid JSON",
+  "HRV: reply was not valid JSON",
+  "CYP: reply was not valid JSON",
+  "CZE: reply was not valid JSON",
+  "EST: reply was not valid JSON",
+  "FIN: reply was not valid JSON",
+  "HUN: reply was not valid JSON",
+  "IRL: reply was not valid JSON",
+  "ITA: reply was not valid JSON",
+  "LTU: reply was not valid JSON",
+  "MLT: reply was not valid JSON",
+  "POL: reply was not valid JSON"
+ ],
  "usage": {
-  "input_tokens": 167992,
-  "output_tokens": 4930,
-  "web_searches": 11
+  "input_tokens": 1770531,
+  "output_tokens": 164570,
+  "web_searches": 120
  },
- "notes": [],
+ "notes": [
+  "KHM: World Bank projects failed (HTTPError)"
+ ],
  "sketch_date": "2026-11-14"
 }
