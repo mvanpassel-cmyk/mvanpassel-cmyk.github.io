@@ -9,8 +9,8 @@
 <link rel="apple-touch-icon" href="/logos/nphi-map-180.png">
 <meta name="description" content="A world map of publicly documented collaborations between national public health institutes (RKI, RIVM, UKHSA, CDC, Africa CDC and others) on global health.">
 <style>
-:root{--bg:#f6f4ef;--ink:#1c1f26;--muted:#667085;--card:#fff;--line:#e4e0d6;--sea:#e8eef2;--land:#d9d6cb;--act:#1f6f78;--par:#e0a526;--done:#8a8f99;--plan:#7a4fb5;--accent:#1f3a5f}
-@media (prefers-color-scheme:dark){:root{--bg:#14161b;--ink:#eceae4;--muted:#9aa1ae;--card:#1c1f26;--line:#2b303a;--sea:#10151b;--land:#2a2f38;--act:#4fb3bd;--par:#f4c95d;--done:#8a8f99;--plan:#b794f4;--accent:#f4c95d}}
+:root{--bg:#f6f4ef;--ink:#1c1f26;--muted:#667085;--card:#fff;--line:#e4e0d6;--sea:#e8eef2;--land:#d9d6cb;--act:#1f6f78;--par:#e0a526;--done:#8a8f99;--plan:#7a4fb5;--accent:#1f3a5f;--pf:#c2255c}
+@media (prefers-color-scheme:dark){:root{--bg:#14161b;--ink:#eceae4;--muted:#9aa1ae;--card:#1c1f26;--line:#2b303a;--sea:#10151b;--land:#2a2f38;--act:#4fb3bd;--par:#f4c95d;--done:#8a8f99;--plan:#b794f4;--accent:#f4c95d;--pf:#ff7aa8}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
 .wrap{max-width:1100px;margin:0 auto;padding:28px 16px 64px}
@@ -56,6 +56,25 @@ svg#map{display:block;width:100%;height:auto;cursor:grab;touch-action:none}
 .st.ongoing{background:var(--act);color:#06262b}.st.completed{background:var(--done)}.st.planned{background:var(--plan)}.st.unclear{background:var(--par);color:#3a2a00}
 .note{font-size:12px;color:var(--muted);margin-top:6px}
 .warn{border-left:3px solid var(--par);padding:2px 12px;color:var(--muted);font-size:13px;margin:20px 0}
+#pfBtn[aria-pressed="true"]{background:var(--pf);border-color:var(--pf);color:#fff}
+.star{fill:var(--pf);stroke:var(--bg);stroke-width:.8;cursor:pointer}
+.pf,.themes{margin:0 0 14px}
+.pf>summary,.themes>summary{cursor:pointer;font-size:14px;font-weight:600;padding:6px 0}
+.pf>summary b{color:var(--pf)}
+.pfi{border-left:3px solid var(--pf)}
+.st.pfst{background:var(--pf);color:#fff}
+.pfnote{font-size:12px;color:var(--muted);margin:8px 0 0}
+.thgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-top:6px}
+.th{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:13px;min-width:0}
+.th.on{border-color:var(--ink)}
+.thh{all:unset;cursor:pointer;display:flex;justify-content:space-between;gap:8px;width:100%;font-weight:600;font-size:15px}
+.thh:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.thbar{height:4px;border-radius:2px;background:var(--line);margin:6px 0 4px;overflow:hidden}
+.thbar i{display:block;height:100%;background:var(--act)}
+.thm{color:var(--muted);margin-bottom:6px}
+.thl{margin-top:4px;overflow-wrap:anywhere}
+.thl .lbl{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.thl button{all:unset;cursor:pointer;text-decoration:underline;text-decoration-color:var(--line)}
 footer{margin-top:36px;color:var(--muted);font-size:13px}
 </style>
 </head>
@@ -67,6 +86,7 @@ footer{margin-top:36px;color:var(--muted);font-size:13px}
 
   <div class="bar">
     <input id="q" type="search" placeholder="Search projects…" aria-label="Search projects">
+    <button class="chip" id="pfBtn" aria-pressed="false" title="Show countries with a Pandemic Fund grant">★ Pandemic Fund</button>
     <button class="chip" id="reset">Reset</button>
   </div>
   <details class="filters" id="filters"><summary class="chip" id="fsum">Filters</summary>
@@ -86,14 +106,24 @@ footer{margin-top:36px;color:var(--muted);font-size:13px}
     <span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="var(--done)" stroke-width="1.2" stroke-dasharray="4 3"/></svg> completed</span>
     <span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="var(--par)" stroke-width="1.2"/></svg> status unclear</span>
     <span><svg width="26" height="10"><line x1="0" y1="5" x2="12" y2="5" stroke="var(--muted)" stroke-width=".8"/><line x1="15" y1="5" x2="26" y2="5" stroke="var(--muted)" stroke-width="2.8"/></svg> one line per country pair; thicker and darker = more projects</span>
+    <span><b style="color:var(--pf)">★</b> Pandemic Fund grant (switch on with the ★ button)</span>
   </div>
+
+  <details class="themes" id="thBox"><summary>Themes overview</summary>
+    <div class="thgrid" id="themes"></div>
+    <p class="pfnote">Counts follow the search, status, type, institute and country selection above. A collaboration can fall under more than one theme. Click a theme to filter, or a country to select it.</p>
+  </details>
+  <details class="pf" id="pfBox" hidden><summary id="pfSum"></summary>
+    <div class="list" id="pfList"></div>
+    <p class="pfnote"><button class="chip" id="csvPf">⤓ CSV (Pandemic Fund)</button> Country grants from the <a href="https://www.thepandemicfund.org/projects" rel="noopener">Pandemic Fund</a>, carried out by implementing entities (WHO, FAO, UNICEF, development banks) with national authorities. They are not institute-to-institute collaborations, so they are shown as a separate layer and are not counted in the totals below. Amounts are shown only where an official page states them.</p>
+  </details>
 
   <div class="countrow"><div class="count" id="count"></div><span class="dl"><button class="chip" id="csvAll">⤓ CSV (all)</button> <button class="chip" id="csvVis">⤓ CSV (filtered)</button></span></div>
   <div class="list" id="list"></div>
   <button class="chip more" id="more" hidden></button>
 
   <p class="warn"><strong>Read with care.</strong> Entries come from public web sources (project databases, institute pages, press releases) and are summarised in my own words; always check the source link. Not finding a collaboration here does not mean it does not exist. “Unclear” means the source gives no end date or is undated. <span id="upd"></span></p>
-  <footer>By <a href="https://github.com/mvanpassel-cmyk">Mark van Passel</a> · data in <a href="projects.json">projects.json</a>, refreshed weekly</footer>
+  <footer>By <a href="https://github.com/mvanpassel-cmyk">Mark van Passel</a> · data in <a href="projects.json">projects.json</a>, refreshed weekly · Pandemic Fund layer in <a href="pandemic-fund.json">pandemic-fund.json</a></footer>
 </div>
 
 <script src="lib/d3.min.js"></script>
@@ -111,24 +141,30 @@ const svg=d3.select("#map").attr("viewBox",[0,0,W,H]);
 const proj=d3.geoNaturalEarth1().fitExtent([[6,6],[W-6,H-6]],{type:"Sphere"});
 const path=d3.geoPath(proj).pointRadius(3.2);
 const g=svg.append("g");
-const gl=g.append("g"),ga=g.append("g"),gd=g.append("g");
+const gl=g.append("g"),ga=g.append("g"),gd=g.append("g"),gs=g.append("g");
 const tip=document.getElementById("tip");
 let data=[],feats=[],cent={},sel=null,shown=50,zoomK=1;
 const PAGE=50;
+/* Pandemic Fund layer: country grants shown as stars, kept apart from the collaborations */
+let pf=[],pfOn=false,pfSel,pfN=new Map();
+const STAR=d3.symbol().type(d3.symbolStar).size(46)();
+const NICE={"Macedonia":"North Macedonia","Turkey":"Türkiye","S. Sudan":"South Sudan","Dem. Rep. Congo":"DR Congo","Laos":"Lao PDR","Palestine":"West Bank and Gaza","Antigua and Barb.":"Antigua and Barbuda","St. Kitts and Nevis":"Saint Kitts and Nevis","St. Vin. and Gren.":"Saint Vincent and the Grenadines","Marshall Is.":"Marshall Islands"};
+const nice=c=>NICE[c]||c;
+const starT=c=>{const p=proj(cent[c]);return `translate(${p[0]+4/zoomK},${p[1]-4/zoomK}) scale(${1/zoomK})`};
 const F={topic:new Set(),status:new Set(),kind:new Set(),actor:"",q:""};
 
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 function chips(id,map,set){
   const el=document.getElementById(id);
   Object.entries(map).forEach(([k,v])=>{
-    const b=document.createElement("button");b.className="chip";b.textContent=v;b.setAttribute("aria-pressed","false");
+    const b=document.createElement("button");b.className="chip";b.dataset.k=k;b.textContent=v;b.setAttribute("aria-pressed","false");
     b.onclick=()=>{set.has(k)?set.delete(k):set.add(k);b.setAttribute("aria-pressed",set.has(k));draw()};
     el.appendChild(b)});
 }
 chips("fTopic",TOPICS,F.topic);chips("fStatus",STATUS,F.status);chips("fKind",KINDS,F.kind);
 document.getElementById("fActor").onchange=e=>{F.actor=e.target.value;draw()};
 document.getElementById("q").oninput=e=>{F.q=e.target.value.toLowerCase();draw()};
-document.getElementById("reset").onclick=()=>{F.topic.clear();F.status.clear();F.kind.clear();F.actor="";F.q="";sel=null;
+document.getElementById("reset").onclick=()=>{F.topic.clear();F.status.clear();F.kind.clear();F.actor="";F.q="";sel=null;pfOn=false;
   document.querySelectorAll(".chip[aria-pressed]").forEach(b=>b.setAttribute("aria-pressed","false"));
   document.getElementById("fActor").value="";document.getElementById("q").value="";draw()};
 
@@ -143,6 +179,48 @@ function visible(){
 const fDet=document.getElementById("filters");
 if(matchMedia("(min-width:701px)").matches)fDet.open=true;
 function fLabel(){const n=F.topic.size+F.status.size+F.kind.size+(F.actor?1:0);document.getElementById("fsum").textContent=n?`Filters (${n} active)`:"Filters"}
+document.getElementById("pfBtn").onclick=e=>{pfOn=!pfOn;e.currentTarget.setAttribute("aria-pressed",pfOn);pfSel=undefined;draw()};
+function drawPF(){
+  const box=document.getElementById("pfBox");box.hidden=!pfOn;
+  const base=pfOn?pf.filter(p=>!F.q||p.text.includes(F.q)):[];
+  const n=new Map();base.forEach(p=>p.countries.forEach(c=>n.set(c,(n.get(c)||0)+1)));
+  gs.selectAll("path").data([...n.keys()].filter(c=>cent[c]),c=>c).join(e=>e.append("path").attr("class","star").attr("d",STAR).call(s=>s.append("title")))
+    .attr("transform",starT).on("click",(e,c)=>{sel=sel===c?null:c;draw()})
+    .select("title").text(c=>`${nice(c)}: ${n.get(c)} Pandemic Fund project${n.get(c)>1?"s":""}`);
+  if(!pfOn)return;
+  const vis=base.filter(p=>!sel||p.countries.includes(sel)).sort((a,b)=>b.round-a.round||a.title.localeCompare(b.title));
+  const reg=base.filter(p=>p.scope==="regional");
+  if(sel!==pfSel){box.open=!!sel;pfSel=sel}
+  document.getElementById("pfSum").innerHTML=`<b>★</b> Pandemic Fund grants · ${vis.length} of ${pf.length} projects${sel?" · "+esc(nice(sel)):""}`;
+  const SC={single:"Single country",multi:"Multi-country",regional:"Regional"};
+  document.getElementById("pfList").innerHTML=(vis.map(p=>{const cs=p.countries.map(nice);return `<article class="item pfi">
+    <h3>${esc(p.title)}</h3>
+    <div class="route">${p.scope==="regional"?esc(p.region)+" (regional, no country list)":esc((p.region?p.region+": ":"")+cs.join(", "))}${p.lead?" · led by "+esc(p.lead):""}</div>
+    <div class="tags"><span class="st pfst">Round ${p.round} · ${p.year}</span>${p.amountUSDm?`<span class="tag">US$ ${p.amountUSDm.toFixed(1)} m</span>`:""}<span class="tag">${SC[p.scope]}</span>${p.fastTrack?'<span class="tag">mpox fast-track</span>':""}<span class="tag">via ${esc(p.entities.join(", "))}</span>
+      ${p.page?`<a href="${esc(p.page)}" target="_blank" rel="noopener">Project page ↗</a>`:""}<a href="${esc(p.source)}" target="_blank" rel="noopener">Round announcement ↗</a><span style="color:var(--muted);font-size:12px;margin-left:6px" title="Date the round announcement was last opened and checked">checked ${esc(p.checked)}</span></div>
+    ${p.note?`<div class="note">${esc(p.note)}</div>`:""}</article>`}).join("")||`<p>No Pandemic Fund project names ${esc(sel?nice(sel):"this")} as a recipient${F.q?" for this search":""}.</p>`)
+    +(sel&&reg.length?`<p class="pfnote">${reg.length} regional project${reg.length>1?"s":""} (${esc(reg.map(p=>p.region).join("; "))}) ${reg.length>1?"are":"is"} not tied to single countries. Clear the country selection to see ${reg.length>1?"them":"it"}.</p>`:"");
+}
+function themes(){
+  const rows=data.filter(p=>(!F.status.size||F.status.has(p.status))&&(!F.kind.size||F.kind.has(p.kind))&&(!F.actor||p.actor===F.actor)&&
+    (!F.q||(p.title+" "+p.summary+" "+p.actor+" "+p.institutes+" "+p.partners.join(" ")).toLowerCase().includes(F.q))&&(!sel||p.actorCountry===sel||p.partners.includes(sel)));
+  const top=(m,k)=>[...m].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])).slice(0,k);
+  const T=Object.entries(TOPICS).map(([k,label])=>{const it=rows.filter(p=>p.topics.includes(k)),pc=new Map(),ac=new Map();
+    it.forEach(p=>{ac.set(p.actor,(ac.get(p.actor)||0)+1);new Set(p.partners).forEach(c=>{if(c!==sel)pc.set(c,(pc.get(c)||0)+1)})});
+    return {k,label,n:it.length,on:it.filter(p=>p.status==="ongoing").length,pc:top(pc,6),ac:top(ac,4)}});
+  const max=Math.max(1,...T.map(t=>t.n));
+  document.getElementById("themes").innerHTML=T.map(t=>`<div class="th${F.topic.has(t.k)?" on":""}">
+    <button class="thh" data-t="${t.k}" aria-pressed="${F.topic.has(t.k)}"><span>${esc(t.label)}</span><span>${t.n}</span></button>
+    <div class="thbar"><i style="width:${100*t.n/max}%"></i></div>
+    <div class="thm">${t.n?t.on+" ongoing":"no collaborations in this selection"}</div>
+    ${t.pc.length?`<div class="thl"><span class="lbl">Top partner countries</span>${t.pc.map(([c,n])=>`<button data-c="${esc(c)}">${esc(c)}</button> ${n}`).join(" · ")}</div>`:""}
+    ${t.ac.length?`<div class="thl"><span class="lbl">Most active institutes</span>${t.ac.map(([a,n])=>esc(a)+" "+n).join(" · ")}</div>`:""}</div>`).join("");
+}
+document.getElementById("themes").onclick=e=>{const b=e.target.closest("button");if(!b)return;
+  if(b.dataset.t){const k=b.dataset.t;F.topic.has(k)?F.topic.delete(k):F.topic.add(k);
+    document.querySelectorAll("#fTopic .chip").forEach(c=>c.setAttribute("aria-pressed",F.topic.has(c.dataset.k)))}
+  else if(b.dataset.c){sel=b.dataset.c}
+  draw()};
 function draw(){
   fLabel();shown=PAGE;
   const vis=visible();
@@ -168,7 +246,7 @@ function draw(){
     .select("title").text(d=>`${d.names[0]} – ${d.names[1]}: ${d.n} project${d.n>1?"s":""}${d.on?` (${d.on} ongoing)`:""}`);
   gd.selectAll("circle").data([...new Set(vis.map(p=>p.actorCountry))].filter(c=>cent[c])).join("circle").attr("class","dot")
     .attr("r",3).attr("transform",c=>{const p=proj(cent[c]);return `translate(${p})`});
-  list(vis);
+  list(vis);themes();drawPF();
 }
 function years(p){return p.start?(p.end?(p.start===p.end?p.start:p.start+"–"+p.end):p.start+"–"):(p.end?"–"+p.end:"dates not stated")}
 function list(vis){
@@ -188,16 +266,17 @@ function list(vis){
     ${p.note?`<div class="note">${esc(p.note)}</div>`:""}</article>`).join("")||"<p>No collaborations match these filters.</p>";
 }
 
-function csv(rows,name){
-  const cols=["title","actor","actorCountry","partners","institutes","type","topics","status","start","end","summary","url","checked"];
+function csv(rows,name,cols){
+  cols=cols||["title","actor","actorCountry","partners","institutes","type","topics","status","start","end","summary","url","checked"];
   const q=v=>{v=Array.isArray(v)?v.map(t=>TOPICS[t]||t).join("; "):(v??"");v=String(v);return /[",\n;]/.test(v)?`"${v.replace(/"/g,'""')}"`:v};
   const body=[cols.join(","),...rows.map(p=>cols.map(c=>q(c==="topics"?p.topics:p[c])).join(","))].join("\r\n");
   const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+body],{type:"text/csv;charset=utf-8"}));
   a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);
 }
 document.getElementById("csvAll").onclick=()=>csv(data,"nphi-collaborations.csv");
+document.getElementById("csvPf").onclick=()=>csv(pf.map(p=>({...p,countries:p.countries.map(nice)})),"pandemic-fund-grants.csv",["title","round","year","scope","region","countries","lead","entities","amountUSDm","fastTrack","page","source","checked"]);
 document.getElementById("csvVis").onclick=()=>csv(visible(),"nphi-collaborations-filtered.csv");
-Promise.all([d3.json(ATLAS),d3.json("projects.json")]).then(([topo,pj])=>{
+Promise.all([d3.json(ATLAS),d3.json("projects.json"),d3.json("pandemic-fund.json").catch(()=>({projects:[]}))]).then(([topo,pj,pfj])=>{
   data=pj.projects;data.forEach(p=>p.kind=kind(p.type));
   document.getElementById("upd").textContent="List last edited "+pj.updated+"; each entry shows when its source was last checked.";
   feats=topojson.feature(topo,topo.objects.countries).features.filter(f=>f.properties.name!=="Antarctica");
@@ -207,17 +286,21 @@ Promise.all([d3.json(ATLAS),d3.json("projects.json")]).then(([topo,pj])=>{
   Object.entries(SMALL).forEach(([n,c])=>{if(!have.has(n))feats.push({type:"Feature",properties:{name:n},geometry:{type:"Point",coordinates:c}})});
   feats.forEach(f=>{cent[f.properties.name]=OVR[f.properties.name]||d3.geoCentroid(f)});
   cent["Ethiopia"]=cent["Ethiopia"];
+  // Pandemic Fund recipients too small for the atlas: position only, so their star can be drawn and clicked.
+  Object.entries({"Cabo Verde":[-23.6,15.1],"Antigua and Barb.":[-61.8,17.07],"Dominica":[-61.35,15.42],"Grenada":[-61.68,12.12],"St. Kitts and Nevis":[-62.75,17.3],"Saint Lucia":[-60.98,13.9],"St. Vin. and Gren.":[-61.2,13.25],"Micronesia":[158.2,6.9]}).forEach(([n,c])=>{if(!cent[n])cent[n]=c});
+  pf=pfj.projects||[];pf.forEach(p=>{p.text=(p.title+" "+(p.region||"")+" "+(p.lead||"")+" "+p.entities.join(" ")+" "+p.countries.join(" ")+" "+p.countries.map(nice).join(" ")+" pandemic fund").toLowerCase();p.countries.forEach(c=>pfN.set(c,(pfN.get(c)||0)+1))});
+  const pfMiss=[...pfN.keys()].filter(c=>!cent[c]);if(pfMiss.length)console.warn("Pandemic Fund countries without a map position:",pfMiss);
   gl.selectAll("path").data(feats).join("path").attr("d",path)
     .on("mousemove",(e,d)=>{const r=svg.node().getBoundingClientRect(),n=d.properties.name;
       const c=data.filter(p=>p.actorCountry===n||p.partners.includes(n)).length;
-      tip.style.opacity=1;tip.style.left=(e.clientX-r.left+12)+"px";tip.style.top=(e.clientY-r.top+12)+"px";tip.textContent=n+(c?" · "+c+" collaboration"+(c>1?"s":""):"")})
+      tip.style.opacity=1;tip.style.left=(e.clientX-r.left+12)+"px";tip.style.top=(e.clientY-r.top+12)+"px";tip.textContent=n+(c?" · "+c+" collaboration"+(c>1?"s":""):"")+(pfOn&&pfN.get(n)?" · ★ "+pfN.get(n)+" Pandemic Fund":"")})
     .on("mouseleave",()=>tip.style.opacity=0)
     .on("click",(e,d)=>{sel=sel===d.properties.name?null:d.properties.name;draw()});
   const actors=[...new Set(data.map(p=>p.actor))].sort();
   const s=document.getElementById("fActor");actors.forEach(a=>{const o=document.createElement("option");o.value=a;o.textContent=a;s.appendChild(o)});
   const missing=[...new Set(data.flatMap(p=>[p.actorCountry,...p.partners]))].filter(c=>!cent[c]);
   if(missing.length)console.warn("Unmatched country names:",missing);
-  svg.call(d3.zoom().scaleExtent([1,8]).translateExtent([[0,0],[W,H]]).on("zoom",e=>{zoomK=e.transform.k;g.attr("transform",e.transform);gd.selectAll("circle").attr("r",3/zoomK);ga.selectAll("path").style("stroke-width",d=>d.w/zoomK)}));
+  svg.call(d3.zoom().scaleExtent([1,8]).translateExtent([[0,0],[W,H]]).on("zoom",e=>{zoomK=e.transform.k;g.attr("transform",e.transform);gd.selectAll("circle").attr("r",3/zoomK);ga.selectAll("path").style("stroke-width",d=>d.w/zoomK);gs.selectAll("path").attr("transform",starT)}));
   draw();
 }).catch(err=>{document.getElementById("list").innerHTML="<p>Could not load the map data: "+esc(err.message)+"</p>"});
 </script>
