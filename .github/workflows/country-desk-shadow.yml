@@ -1,20 +1,12 @@
 name: Country Desk all countries (manual)
 
 # Run by hand only: Actions > "Country Desk all countries (manual)" > Run workflow.
-# Refreshes the free data for every country without a full desk page and lets Claude
-# (with web search) write or rewrite the short sketches. The weekly desk run is separate.
+# Refreshes the free data for every country without a full desk page. No API key, no
+# cost: the short sketches (data/shadow/sketch/) are written by Claude in a chat session
+# and committed by hand. The weekly desk run is separate.
 on:
   workflow_dispatch:
     inputs:
-      sketches:
-        description: "Claude sketches: missing = only countries without one, all = rewrite the oldest first, none = free data only"
-        type: choice
-        options: [missing, all, none]
-        default: missing
-      limit:
-        description: "At most this many sketches in this run (each is one Claude request with up to 2 web searches)"
-        type: string
-        default: "60"
       only:
         description: "Optional: only these countries, comma-separated ISO3 codes or names (e.g. GHA,Peru)"
         type: string
@@ -43,9 +35,7 @@ jobs:
 
       - name: Refresh all countries
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          SKETCHES: ${{ github.event.inputs.sketches }}
-          LIMIT: ${{ github.event.inputs.limit }}
+          SKETCHES: none
           ONLY: ${{ github.event.inputs.only }}
           MAX_MINUTES: "200"
         run: python country-desk/pipeline/shadow.py
