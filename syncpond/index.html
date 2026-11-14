@@ -43,6 +43,7 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid 
 .row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .chip{height:40px;padding:0 14px;border-radius:20px;border:1px solid var(--edge);font-size:14px;white-space:nowrap}
 .chip[aria-pressed=true]{background:var(--foam);color:var(--water);border-color:var(--foam)}
+.chip.fx{height:36px;padding:0 12px;font-size:13px}
 .chip.warn{color:#ffb4ab;border-color:#ffb4ab66}
 .strip{display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
 .strip button{aspect-ratio:1;border-radius:50%;border:2px solid transparent;min-width:0}
@@ -65,6 +66,8 @@ select,input[type=text]{height:40px;border-radius:20px;border:1px solid var(--ed
 #hint{position:fixed;left:0;right:0;top:42%;text-align:center;pointer-events:none;z-index:1;padding:0 30px;font-size:17px;color:var(--mist);transition:opacity .5s}
 #toast{position:fixed;left:50%;top:calc(74px + env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:5;background:var(--foam);color:var(--water);font-weight:700;padding:8px 16px;border-radius:20px;opacity:0;transition:opacity .2s;pointer-events:none;max-width:86vw;text-align:center}
 #toast.on{opacity:1}
+@media(min-width:760px){.sheet{left:auto;right:12px;bottom:auto;top:calc(74px + env(safe-area-inset-top,0px));width:372px;max-height:calc(100vh - 96px);margin:0}}
+@media(max-width:759px){#nodeSheet{padding:10px 12px;gap:8px}#nodeSheet h2{font-size:16px}#nodeSheet .chip{height:36px;padding:0 12px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -99,20 +102,22 @@ function toast(msg){ const t = $("toast"); t.textContent = msg; t.classList.add(
 const SCALES = { "Pentatonic": [0, 2, 4, 7, 9], "Minor pentatonic": [0, 3, 5, 7, 10], "Major": [0, 2, 4, 5, 7, 9, 11], "Minor": [0, 2, 3, 5, 7, 8, 10], "Dorian": [0, 2, 3, 5, 7, 9, 10], "Whole tone": [0, 2, 4, 6, 8, 10], "Chromatic": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] };
 const KEYS = ["C", "C♯", "D", "E♭", "E", "F", "F♯", "G", "A♭", "A", "B♭", "B"], STEPS = 20, MAXN = 40, MAXGEN = 3;
 const TYPES = { e1: "Beat", e2: "Half", re: "Ring", rf: "Echo" }, TDESC = { e1: "Sends a ripple on every beat.", e2: "Sends a ripple on every second beat.", re: "Rings when a ripple reaches it. Farther away is softer.", rf: "Rings, and sends the ripple on." };
+const FX = { echo: ["Echo", "Repeats in time with the tempo"], shimmer: ["Shimmer", "An octave above, floating in the reverb"], trem: ["Tremolo", "A quick flutter in the volume"], soft: ["Soft", "Fades in instead of striking"], low: ["Low", "One octave down"] };
 const VOICES = { bell: "Sine bell", glass: "Glass", pluck: "Pluck", wood: "Wood", drop: "Drop", pad: "Soft pad" };
 const color = s => s < 0 ? "#5f7b7a" : `hsl(${Math.round(s / STEPS * 310 + 8)} 88% 64%)`;
 let uid = 1;
-const mk = (type, x, y, seq, o) => Object.assign({ id: uid++, type, x, y, seq: seq || [4], si: 0, voice: "bell", orbit: null }, o);
-function blank(){ return { v: 1, name: "My pond", tempo: 84, key: 0, scale: "Pentatonic", speed: 0.3, reach: 0.62, mode: "2d", lis: { x: 0, y: 0.1 }, pv: { a: -Math.PI / 2, s: 0 }, space: 0.4, vol: 0.8, nodes: [] }; }
+const mk = (type, x, y, seq, o) => Object.assign({ id: uid++, type, x, y, seq: seq || [4], si: 0, voice: "bell", fx: {}, orbit: null }, o);
+function blank(){ return { v: 1, name: "My pond", tempo: 84, key: 0, scale: "Pentatonic", speed: 0.3, reach: 0.62, mode: "2d", lis: { x: 0, y: 0.1 }, pv: { a: -Math.PI / 2, s: 0 }, space: 0.4, vol: 0.8, heart: "off", nodes: [] }; }
 const EXAMPLES = {
-  "First ripples": () => { const p = blank(); p.name = "First ripples"; p.nodes = [mk("e2", 0, 0, [5, 7]), mk("re", 0.14, -0.1, [9]), mk("re", -0.2, -0.16, [10]), mk("re", 0.1, 0.3, [12]), mk("re", -0.3, 0.26, [7]), mk("re", 0.34, 0.1, [14, 15, 12])]; return p; },
-  "Moon": () => { const p = blank(); p.name = "Moon"; p.tempo = 72; const sun = mk("e1", 0, -0.05, [0, -1, 2, -1], { voice: "pad" }), a = mk("re", 0.26, -0.05, [9, 10, 12, 14], { voice: "glass" }), b = mk("rf", -0.18, 0.22, [7], { voice: "bell" }), c = mk("re", -0.36, 0.34, [14, 12], { voice: "drop" }), d = mk("re", 0.08, 0.36, [10], { voice: "wood" });
+  "First ripples": () => { const p = blank(); p.name = "First ripples"; p.nodes = [mk("e2", 0, 0, [5, 7]), mk("re", 0.14, -0.1, [9]), mk("re", -0.2, -0.16, [10]), mk("re", 0.1, 0.3, [12]), mk("re", -0.3, 0.26, [7]), mk("re", 0.34, 0.1, [14, 15, 12], { fx: { echo: 1 } })]; return p; },
+  "Moon": () => { const p = blank(); p.name = "Moon"; p.tempo = 72; p.heart = "lub"; const sun = mk("e1", 0, -0.05, [0, -1, 2, -1], { voice: "pad" }), a = mk("re", 0.26, -0.05, [9, 10, 12, 14], { voice: "glass", fx: { echo: 1 } }), b = mk("rf", -0.18, 0.22, [7], { voice: "bell" }), c = mk("re", -0.36, 0.34, [14, 12], { voice: "drop" }), d = mk("re", 0.08, 0.36, [10], { voice: "wood" });
     a.orbit = { t: sun.id, r: 0.26, a: 0, per: 16 }; c.orbit = { t: b.id, r: 0.2, a: 2.4, per: 8 }; p.nodes = [sun, a, b, c, d]; return p; },
   "Canon": () => { const p = blank(); p.name = "Canon"; p.tempo = 96; p.scale = "Minor pentatonic"; p.nodes = [mk("e2", -0.22, -0.3, [5], { voice: "wood" }), mk("e1", 0.26, 0.34, [0, 0, 3, 0], { voice: "pluck" }), mk("rf", -0.05, -0.02, [10, 12, 9, 7], { voice: "glass" }), mk("re", 0.28, -0.2, [14]), mk("re", -0.3, 0.2, [12, 15]), mk("re", 0.05, 0.3, [8], { voice: "drop" }), mk("re", -0.12, -0.34, [17, 16])]; return p; }
 };
+let more = false; const wide = () => matchMedia("(min-width:760px)").matches;
 let P, sel = null, tool = "e1", picking = false, waves = [], lastPitch = 5, seqSel = 0;
 function adopt(p){ const b = blank(); P = Object.assign(b, p); P.lis = Object.assign({ x: 0, y: 0.1 }, p.lis); P.pv = Object.assign({ a: -Math.PI / 2, s: 0 }, p.pv);
-  P.nodes = (p.nodes || []).slice(0, MAXN).map(n => { const m = mk(TYPES[n.type] ? n.type : "re", +n.x || 0, +n.y || 0, (Array.isArray(n.seq) && n.seq.length ? n.seq : [4]).slice(0, STEPS).map(s => clamp(s | 0, -1, STEPS - 1)), { voice: n.voice || "bell", orbit: n.orbit ? { ...n.orbit } : null }); m.old = n.id; return m; });
+  P.nodes = (p.nodes || []).slice(0, MAXN).map(n => { const m = mk(TYPES[n.type] ? n.type : "re", +n.x || 0, +n.y || 0, (Array.isArray(n.seq) && n.seq.length ? n.seq : [4]).slice(0, STEPS).map(s => clamp(s | 0, -1, STEPS - 1)), { voice: n.voice || "bell", fx: Object.assign({}, n.fx), orbit: n.orbit ? { ...n.orbit } : null }); m.old = n.id; return m; });
   for (const n of P.nodes) if (n.orbit) { const t = P.nodes.find(m => m.old === n.orbit.t); if (t && t !== n) n.orbit.t = t.id; else n.orbit = null; }
   P.nodes.forEach(n => delete n.old); waves = []; sel = null; }
 const pack = () => JSON.stringify(P, (k, v) => k === "si" || k === "flash" || k === "cool" ? undefined : typeof v === "number" ? Math.round(v * 1000) / 1000 : v);
@@ -123,7 +128,7 @@ const b64 = { enc: s => btoa(unescape(encodeURIComponent(s))).replace(/\+/g, "-"
 let undoPond = null;
 
 /* ---------- sound ---------- */
-let ac = null, master, revSend, recTap, samples = new Map(), playing = true, pt = 0, lastAc = 0, stats = { hits: 0, emits: 0 };
+let ac = null, master, revSend, recTap, delayIn, delayNode, pulse = 0, heartG, samples = new Map(), playing = true, pt = 0, lastAc = 0, stats = { hits: 0, emits: 0 };
 function hall(seconds){ const sr = ac.sampleRate, len = Math.floor(sr * seconds), ir = ac.createBuffer(2, len, sr); for (let c = 0; c < 2; c++) { const d = ir.getChannelData(c); let lp = 0; for (let i = 0; i < len; i++) { const t = i / sr, a = Math.min(0.96, 0.3 + t * 0.4); lp = lp * a + (Math.random() * 2 - 1) * (1 - a); d[i] = lp * Math.exp(-6.9 * t / seconds) * (1 + 2 * a); } } return ir; }
 function audio(){
   if (ac) { if (ac.state !== "running") ac.resume(); return; }
@@ -132,21 +137,30 @@ function audio(){
   master = ac.createGain(); const comp = ac.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4; comp.attack.value = 0.005; comp.release.value = 0.2;
   recTap = ac.createGain(); master.connect(comp); comp.connect(recTap); recTap.connect(ac.destination);
   revSend = ac.createGain(); const conv = ac.createConvolver(); conv.buffer = hall(3.2); const wet = ac.createGain(); wet.gain.value = 0.9; revSend.connect(conv); conv.connect(wet); wet.connect(master);
+  delayIn = ac.createGain(); delayNode = ac.createDelay(2.5); const fb = ac.createGain(), dlp = ac.createBiquadFilter(), dw = ac.createGain(); fb.gain.value = 0.46; dlp.type = "lowpass"; dlp.frequency.value = 3200; dw.gain.value = 0.7;
+  delayIn.connect(delayNode); delayNode.connect(dlp); dlp.connect(fb); fb.connect(delayNode); dlp.connect(dw); dw.connect(master); dw.connect(revSend);
+  heartG = ac.createGain(); heartG.gain.value = 0.9; heartG.connect(master);
+  // The pond's clock runs off the sound itself, so it keeps going when the screen is off and animation stops.
+  if (ac.createScriptProcessor) { const clock = ac.createScriptProcessor(2048, 1, 1), z = ac.createGain(); z.gain.value = 0; clock.onaudioprocess = () => tick(); clock.connect(z); z.connect(ac.destination); }
+  setInterval(tick, 120);
+  ac.onstatechange = () => { if (playing && ac.state !== "running" && ac.state !== "closed") ac.resume().catch(() => {}); };
+  if ("mediaSession" in navigator) { try { navigator.mediaSession.metadata = new MediaMetadata({ title: P.name, artist: "Syncpond" }); navigator.mediaSession.setActionHandler("play", () => { playing = true; ac.resume(); head(); }); navigator.mediaSession.setActionHandler("pause", () => { playing = false; head(); }); } catch (e) {} }
   lastAc = ac.currentTime; mix(); loadSamples();
 }
-function mix(){ if (!ac) return; master.gain.setTargetAtTime(Math.pow(P.vol, 1.5) * 0.9, ac.currentTime, 0.03); revSend.gain.setTargetAtTime(P.space * 0.9, ac.currentTime, 0.03); }
-function freq(step, cents){ const sc = SCALES[P.scale] || SCALES.Pentatonic, m = 45 + P.key + 12 * Math.floor(step / sc.length) + sc[step % sc.length]; return 440 * Math.pow(2, (m - 69) / 12 + (cents || 0) / 1200); }
-function voice(name, f, when, amp, len, out){
+function mix(){ if (!ac) return; master.gain.setTargetAtTime(Math.pow(P.vol, 1.5) * 0.9, ac.currentTime, 0.03); revSend.gain.setTargetAtTime(P.space * 0.9, ac.currentTime, 0.03); delayNode.delayTime.setTargetAtTime(Math.min(2.4, 0.75 * 60 / P.tempo), ac.currentTime, 0.05); }
+function freq(step, cents){ const sc = SCALES[P.scale] || SCALES.Pentatonic, m = 48 + P.key + 12 * Math.floor(step / sc.length) + sc[step % sc.length]; return 440 * Math.pow(2, (m - 69) / 12 + (cents || 0) / 1200); }
+function voice(name, f, when, amp, len, out, soft){
   const g = ac.createGain(), o = (type, fr) => { const x = ac.createOscillator(); x.type = type; x.frequency.value = fr; x.start(when); return x; }, srcs = [];
   let dec = 1.2, att = 0.004, peak = amp;
-  if (name.startsWith("s:")) { const s = samples.get(name.slice(2)); if (!s) return voice("bell", f, when, amp, len, out);
-    const b = ac.createBufferSource(); b.buffer = s.buf; b.playbackRate.value = clamp(f / 261.63, 0.12, 8); b.connect(g); b.start(when); g.gain.setValueAtTime(peak, when); const end = when + Math.min(6, s.buf.duration / b.playbackRate.value); g.gain.setTargetAtTime(0, end - 0.05, 0.02); b.stop(end + 0.1); g.connect(out); return; }
+  if (name.startsWith("s:")) { const s = samples.get(name.slice(2)); if (!s) return voice("bell", f, when, amp, len, out, soft);
+    const b = ac.createBufferSource(); b.buffer = s.buf; b.playbackRate.value = clamp(f / 261.63, 0.12, 8); b.connect(g); b.start(when); if (soft) { g.gain.setValueAtTime(0, when); g.gain.linearRampToValueAtTime(peak, when + 0.16); } else g.gain.setValueAtTime(peak, when); const end = when + Math.min(6, s.buf.duration / b.playbackRate.value); g.gain.setTargetAtTime(0, end - 0.05, 0.02); b.stop(end + 0.1); g.connect(out); return; }
   if (name === "glass") { const c = o("sine", f), m = o("sine", f * 3.5), mg = ac.createGain(); mg.gain.setValueAtTime(f * 2.2, when); mg.gain.setTargetAtTime(f * 0.1, when, 0.25); m.connect(mg); mg.connect(c.frequency); c.connect(g); srcs.push(c, m); dec = 1.9; peak *= 0.8; }
   else if (name === "pluck") { const a = o("triangle", f), b = o("sawtooth", f), bg = ac.createGain(), lp = ac.createBiquadFilter(); bg.gain.value = 0.35; lp.type = "lowpass"; lp.frequency.setValueAtTime(Math.min(9000, f * 8), when); lp.frequency.setTargetAtTime(f * 1.2, when, 0.09); a.connect(lp); b.connect(bg); bg.connect(lp); lp.connect(g); srcs.push(a, b); dec = 0.55; }
   else if (name === "wood") { const a = o("sine", f), b = o("sine", f * 3.98), bg = ac.createGain(); bg.gain.setValueAtTime(0.4, when); bg.gain.setTargetAtTime(0, when, 0.03); a.connect(g); b.connect(bg); bg.connect(g); srcs.push(a, b); dec = 0.4; peak *= 1.1; }
   else if (name === "drop") { const a = o("sine", f); a.frequency.setValueAtTime(f * 1.7, when); a.frequency.exponentialRampToValueAtTime(f, when + 0.05); a.connect(g); srcs.push(a); dec = 0.28; peak *= 1.1; }
   else if (name === "pad") { const a = o("sawtooth", f), b = o("sawtooth", f), lp = ac.createBiquadFilter(); a.detune.value = -8; b.detune.value = 8; lp.type = "lowpass"; lp.frequency.value = Math.min(4000, 500 + f * 1.5); a.connect(lp); b.connect(lp); lp.connect(g); srcs.push(a, b); dec = 2.4; att = 0.14; peak *= 0.4; }
   else { const a = o("sine", f), b = o("sine", f * 2), bg = ac.createGain(); bg.gain.value = 0.18; a.connect(g); b.connect(bg); bg.connect(g); srcs.push(a, b); dec = 1.3; }
+  if (soft) att = Math.max(att, 0.16);
   dec *= len; g.gain.setValueAtTime(0, when); g.gain.linearRampToValueAtTime(peak, when + att); g.gain.setTargetAtTime(0, when + att, dec / 3.5);
   for (const s of srcs) s.stop(when + att + dec * 1.6 + 0.1); g.connect(out);
 }
@@ -155,16 +169,29 @@ function ring(n, tp, strength){
   const step = n.seq[n.si % n.seq.length]; n.si = (n.si + 1) % n.seq.length; n.flash = 1; stats.hits++;
   if (step < 0 || !ac) return; lastPitch = step;
   const dx = n.x - P.lis.x, dy = n.y - P.lis.y, d = Math.hypot(dx, dy), spatial = P.mode !== "2d";
-  let when = ac.currentTime - (pt - tp) + 0.05, amp = 0.2 + 0.5 * strength, pan = clamp(n.x * 1.1, -0.6, 0.6), cut = 20000, cents = 0;
+  let when = ac.currentTime - (pt - tp) + (document.hidden ? 0.13 : 0.05), amp = 0.2 + 0.5 * strength, pan = clamp(n.x * 1.1, -0.6, 0.6), cut = 20000, cents = 0;
   if (spatial) { pan = clamp(dx * 2.6, -1, 1); amp *= clamp(1.15 - d * 0.9, 0.12, 1); if (dy > 0) cut = 9000 * Math.pow(0.12, clamp(dy * 1.6, 0, 1)) + 700;
     cents = P.pv.s * 1200 * clamp((dx * Math.cos(P.pv.a) + dy * Math.sin(P.pv.a)) / 0.5, -1, 1);
     if (P.mode === "4d") when += Math.min(5, d / (P.speed * P.tempo / 60)); }
   when = Math.max(when, ac.currentTime + 0.005);
-  const pn = ac.createStereoPanner(); pn.pan.value = pan; let out = pn;
+  const fx = n.fx || {}, pn = ac.createStereoPanner(); pn.pan.value = pan; let out = pn;
   if (cut < 19000) { const lp = ac.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = cut; lp.connect(pn); out = lp; }
   pn.connect(master); pn.connect(revSend);
-  voice(n.voice, freq(step, cents), when, amp, 0.45 + 0.55 * strength, out);
+  if (fx.echo) { const e = ac.createGain(); e.gain.value = 0.55; pn.connect(e); e.connect(delayIn); }
+  if (fx.trem) { const t = ac.createGain(), l = ac.createOscillator(), d = ac.createGain(); t.gain.value = 0.62; l.frequency.value = 4 * P.tempo / 60; d.gain.value = 0.38; l.connect(d); d.connect(t.gain); l.start(when); l.stop(when + 8); t.connect(out); out = t; }
+  const f = freq(step, cents) * (fx.low ? 0.5 : 1), len = 0.45 + 0.55 * strength;
+  voice(n.voice, f, when, amp, len, out, fx.soft);
+  if (fx.shimmer) { const sh = ac.createStereoPanner(); sh.pan.value = -pan * 0.6; sh.connect(revSend); voice(n.voice.startsWith("s:") ? n.voice : "bell", f * 2, when + 0.03, amp * 0.5, len * 1.3, sh, true); setTimeout(() => { try { sh.disconnect(); } catch (e) {} }, (when - ac.currentTime + 9) * 1000); }
   setTimeout(() => { try { pn.disconnect(); } catch (e) {} }, (when - ac.currentTime + 9) * 1000);
+}
+// Heartbeat: a low thump on the root note that the whole pond breathes with.
+function thump(tp, amp, up){
+  if (!ac) return; const when = Math.max(ac.currentTime + 0.005, ac.currentTime - (pt - tp) + (document.hidden ? 0.13 : 0.05)), f = 440 * Math.pow(2, (36 + P.key - 69) / 12) * (up ? 1.26 : 1);
+  const o = ac.createOscillator(), o2 = ac.createOscillator(), g = ac.createGain(), g2 = ac.createGain(), lp = ac.createBiquadFilter();
+  o.frequency.setValueAtTime(f * 2.2, when); o.frequency.exponentialRampToValueAtTime(f, when + 0.06); o2.type = "triangle"; o2.frequency.setValueAtTime(f * 4.4, when); o2.frequency.exponentialRampToValueAtTime(f * 2, when + 0.05);
+  g.gain.setValueAtTime(0, when); g.gain.linearRampToValueAtTime(amp, when + 0.006); g.gain.setTargetAtTime(0, when + 0.02, 0.09); g2.gain.value = 0.3; lp.type = "lowpass"; lp.frequency.value = 900;
+  o.connect(g); o2.connect(g2); g2.connect(g); g.connect(lp); lp.connect(heartG); o.start(when); o2.start(when); o.stop(when + 0.7); o2.stop(when + 0.7);
+  setTimeout(() => { pulse = Math.max(pulse, up ? 0.6 : 1); }, Math.max(0, (when - ac.currentTime) * 1000));
 }
 const isE = n => n.type === "e1" || n.type === "e2";
 function emit(n, tp, gen){ if (waves.length < 160) waves.push({ src: n.id, x: n.x, y: n.y, t0: tp, gen, step: n.seq[(n.si + n.seq.length - 1) % n.seq.length] }); stats.emits++; }
@@ -180,6 +207,8 @@ function tick(){
   const now = ac.currentTime, dt = Math.min(0.25, now - lastAc), prev = pt; lastAc = now; pt += dt; if (dt <= 0) return;
   const beat = 60 / P.tempo, v = P.speed / beat;
   for (const n of P.nodes) place(n);
+  if (P.heart === "beat") { const k = Math.floor(pt / beat); if (k > Math.floor(prev / beat) || prev === 0) thump(Math.max(prev, k * beat), 0.55, false); }
+  else if (P.heart === "lub") { const per = beat * 2; for (const [off, a, u] of [[0, 0.6, false], [0.3 * beat, 0.42, true]]) { const k = Math.floor((pt - off) / per); if (pt >= off && (k > Math.floor((prev - off) / per) || prev === 0 && off === 0)) thump(Math.max(prev, k * per + off), a, u); } }
   for (const n of P.nodes) { if (!isE(n)) continue; const per = (n.type === "e1" ? 1 : 2) * beat, k = Math.floor(pt / per); if (k > Math.floor(prev / per) || prev === 0) { const te = Math.max(prev, k * per); ring(n, te, 0.75); emit(n, te, 0); } }
   for (let i = waves.length - 1; i >= 0; i--) { const w = waves[i], r0 = (prev - w.t0) * v, r1 = (pt - w.t0) * v;
     for (const n of P.nodes) { if (n.id === w.src || isE(n)) continue; const d = Math.hypot(n.x - w.x, n.y - w.y); if (d > r0 && d <= r1 && d <= P.reach) { const th = w.t0 + d / v; if (th - (n.cool || -9) < 0.07) continue; n.cool = th; ring(n, th, 1 - d / P.reach); if (n.type === "rf" && w.gen < MAXGEN) emit(n, th, w.gen + 1); } }
@@ -200,7 +229,7 @@ function shape(n, x, y, r){
 }
 function draw(){
   tick(); cx.setTransform(DPR, 0, 0, DPR, 0, 0);
-  const g = cx.createRadialGradient(W / 2, H * 0.45, 0, W / 2, H * 0.45, Math.max(W, H) * 0.75); g.addColorStop(0, "#0a2f38"); g.addColorStop(0.6, "#04161c"); g.addColorStop(1, "#020b0f"); cx.fillStyle = g; cx.fillRect(0, 0, W, H);
+  const g = cx.createRadialGradient(W / 2, H * 0.45, 0, W / 2, H * 0.45, Math.max(W, H) * 0.75); g.addColorStop(0, `rgb(${10 + pulse * 22},${47 + pulse * 30},${56 + pulse * 30})`); g.addColorStop(0.6, "#04161c"); g.addColorStop(1, "#020b0f"); cx.fillStyle = g; cx.fillRect(0, 0, W, H);
   const v = P.speed / (60 / P.tempo), R = Math.max(11, Math.min(17, M * 0.034));
   for (const w of waves) { const r = (pt - w.t0) * v, life = 1 - r / P.reach; if (life <= 0 || r <= 0) continue; const c = px(w); cx.beginPath(); cx.arc(c.x, c.y, r * M, 0, TAU); cx.strokeStyle = color(w.step); cx.globalAlpha = life * (0.75 - w.gen * 0.15); cx.lineWidth = 1 + 2.2 * life; cx.stroke(); }
   cx.globalAlpha = 1;
@@ -212,7 +241,7 @@ function draw(){
     cx.fillStyle = cx.strokeStyle = col; shape(n, c.x, c.y, r);
     if (n === sel || (picking && n !== sel)) { cx.beginPath(); cx.arc(c.x, c.y, R * 1.9, 0, TAU); cx.strokeStyle = "#e8f4f2"; cx.lineWidth = n === sel ? 1.8 : 1; cx.setLineDash(n === sel ? [] : [3, 5]); cx.stroke(); cx.setLineDash([]); }
     n.flash = f * 0.9; }
-  requestAnimationFrame(draw);
+  pulse *= 0.93; requestAnimationFrame(draw);
 }
 const pvHandle = () => { const l = px(P.lis), len = 26 + P.pv.s * 60; return { x: l.x + Math.cos(P.pv.a) * len, y: l.y + Math.sin(P.pv.a) * len }; };
 
@@ -256,24 +285,25 @@ function nodeSheet(){
   const close = el("button", { class: "ib", "aria-label": "Close", onclick: () => { sel = null; picking = false; nodeSheet(); } }, "✕");
   const orbitT = n.orbit && P.nodes.find(m => m.id === n.orbit.t);
   if (picking) return void s.replaceChildren(el("h2", {}, "Tap the node it should circle", el("button", { class: "chip", onclick: () => { picking = false; nodeSheet(); } }, "Cancel")));
+  const full = more || wide();
   s.replaceChildren(
-    el("h2", {}, TYPES[n.type] + " node", close),
-    el("div", { class: "row" }, Object.keys(TYPES).map(t => el("button", { class: "chip", "aria-pressed": String(n.type === t), onclick: set(() => n.type = t) }, TYPES[t]))),
-    el("p", { class: "note" }, TDESC[n.type]),
-    el("h3", {}, n.seq.length > 1 ? "Notes, played one per turn" : "Note"),
+    el("h2", {}, TYPES[n.type] + " node", el("span", { class: "row" }, !wide() && el("button", { class: "chip", "aria-expanded": String(more), onclick: () => { more = !more; nodeSheet(); } }, more ? "Less" : "More"), close)),
+    el("div", { class: "row" }, Object.keys(TYPES).map(t => el("button", { class: "chip", "aria-pressed": String(n.type === t), title: TDESC[t], onclick: set(() => n.type = t) }, TYPES[t]))),
+    full && el("p", { class: "note" }, TDESC[n.type]),
     el("div", { class: "seq" }, n.seq.map((st, i) => el("button", { class: st < 0 ? "rest" : "", style: st < 0 ? "" : "background:" + color(st), "aria-pressed": String(i === seqSel), "aria-label": "Step " + (i + 1), onclick: () => { seqSel = i; nodeSheet(); } }, st < 0 ? "–" : "")),
       n.seq.length < STEPS && el("button", { class: "add", onclick: set(() => { n.seq.push(n.seq[seqSel] < 0 ? lastPitch : n.seq[seqSel]); seqSel = n.seq.length - 1; }) }, "+ step"),
       el("button", { class: "add", onclick: set(() => n.seq[seqSel] = -1) }, "rest"),
       n.seq.length > 1 && el("button", { class: "add", onclick: set(() => { n.seq.splice(seqSel, 1); n.si = 0; }) }, "remove")),
     el("div", { class: "strip" }, Array.from({ length: STEPS }, (_, i) => el("button", { style: "background:" + color(i), "aria-pressed": String(n.seq[seqSel] === i), "aria-label": "Pitch " + (i + 1), onclick: () => { n.seq[seqSel] = i; lastPitch = i; persist(); if (ac) { const keep = n.si; n.si = seqSel; ring(n, pt, 0.8); n.si = keep; } nodeSheet(); } }))),
-    el("h3", {}, "Sound"),
-    el("div", { class: "row" }, el("select", { "aria-label": "Sound", onchange: e => { n.voice = e.target.value; persist(); ring(n, pt, 0.8); } },
+    el("div", { class: "row" }, Object.keys(FX).map(k => el("button", { class: "chip fx", "aria-pressed": String(!!n.fx[k]), title: FX[k][1], onclick: () => { if (n.fx[k]) delete n.fx[k]; else n.fx[k] = 1; persist(); nodeSheet(); if (ac) { const keep = n.si; ring(n, pt, 0.8); n.si = keep; } } }, FX[k][0]))),
+    full && el("h3", {}, "Sound"),
+    full && el("div", { class: "row" }, el("select", { "aria-label": "Sound", onchange: e => { n.voice = e.target.value; persist(); ring(n, pt, 0.8); } },
       Object.keys(VOICES).map(k => el("option", { value: k, selected: n.voice === k }, VOICES[k])), [...samples.values()].map(sm => el("option", { value: "s:" + sm.id, selected: n.voice === "s:" + sm.id }, "♪ " + sm.name))),
       el("button", { class: "chip", onclick: () => { addFor = n; $("file").click(); } }, "Use my own sound")),
-    el("h3", {}, "Movement"),
-    el("div", { class: "row" }, n.orbit && orbitT ? [el("span", {}, "One turn every"), el("select", { "aria-label": "Beats per turn", onchange: e => { const old = n.orbit.per, per = +e.target.value; n.orbit.a += TAU * pt / (per * 60 / P.tempo) - TAU * pt / (old * 60 / P.tempo); n.orbit.per = per; persist(); } }, [2, 4, 8, 16, 32].map(b => el("option", { value: b, selected: n.orbit.per === b }, b + " beats"))), el("button", { class: "chip", onclick: set(() => n.orbit = null) }, "Stop circling")]
-      : el("button", { class: "chip", "aria-pressed": String(picking), onclick: () => { picking = !picking; nodeSheet(); } }, picking ? "Now tap the node to circle" : "Circle another node")),
-    el("div", { class: "row" }, el("button", { class: "chip warn", onclick: () => { P.nodes = P.nodes.filter(m => m !== n); P.nodes.forEach(m => { if (m.orbit && m.orbit.t === n.id) m.orbit = null; }); sel = null; persist(); nodeSheet(); } }, "Remove node")));
+    full && el("h3", {}, "Movement"),
+    full && el("div", { class: "row" }, n.orbit && orbitT ? [el("span", {}, "One turn every"), el("select", { "aria-label": "Beats per turn", onchange: e => { const old = n.orbit.per, per = +e.target.value; n.orbit.a += TAU * pt / (per * 60 / P.tempo) - TAU * pt / (old * 60 / P.tempo); n.orbit.per = per; persist(); } }, [2, 4, 8, 16, 32].map(b => el("option", { value: b, selected: n.orbit.per === b }, b + " beats"))), el("button", { class: "chip", onclick: set(() => n.orbit = null) }, "Stop circling")]
+      : el("button", { class: "chip", onclick: () => { picking = true; nodeSheet(); } }, "Circle another node")),
+    full && el("div", { class: "row" }, el("button", { class: "chip warn", onclick: () => { P.nodes = P.nodes.filter(m => m !== n); P.nodes.forEach(m => { if (m.orbit && m.orbit.t === n.id) m.orbit = null; }); sel = null; persist(); nodeSheet(); } }, "Remove node")));
 }
 
 /* ---------- settings sheet ---------- */
@@ -292,6 +322,8 @@ function setSheet(){
     slider("Volume", 0, 1, 0.01, P.vol, v => Math.round(v * 100) + "", v => P.vol = v),
     el("div", { class: "row" }, el("select", { "aria-label": "Key", onchange: e => { P.key = +e.target.value; persist(); } }, KEYS.map((k, i) => el("option", { value: i, selected: P.key === i }, k))),
       el("select", { "aria-label": "Scale", style: "flex:1", onchange: e => { P.scale = e.target.value; persist(); } }, Object.keys(SCALES).map(k => el("option", { value: k, selected: P.scale === k }, k)))),
+    el("h3", {}, "Heartbeat"),
+    el("div", { class: "row" }, [["off", "Off"], ["beat", "Every beat"], ["lub", "Lub-dub"]].map(([m, l]) => el("button", { class: "chip", "aria-pressed": String(P.heart === m), onclick: () => { P.heart = m; re(); } }, l))),
     el("h3", {}, "Listening"),
     el("div", { class: "row" }, [["2d", "Flat"], ["3d", "Around you"], ["4d", "Ripples reach you"]].map(([m, l]) => el("button", { class: "chip", "aria-pressed": String(P.mode === m), onclick: () => { P.mode = m; re(); } }, l))),
     el("p", { class: "note" }, P.mode === "2d" ? "Every node sounds the same wherever it is." : P.mode === "3d" ? "Use headphones. Drag the listener: nodes sound left or right of it, softer far away and muffled behind it. Pull the arrow out to bend pitch across the pond." : "Like Around you, but each sound arrives only when its ripple reaches the listener."),
@@ -308,7 +340,7 @@ function setSheet(){
     el("div", { class: "row" }, el("button", { class: "chip", onclick: () => { addFor = null; $("file").click(); } }, "Add a sound file")),
     el("p", { class: "note" }, "Short sounds work best: a note, a voice, a glass. They are played higher and lower to follow each node's colour, and stay on this device. Shared links do not carry them."));
 }
-function head(){ $("pname").textContent = P.name; $("tempoBtn").textContent = P.tempo + " bpm"; $("playIcon").setAttribute("d", playing ? "M7 5h4v14H7zM13 5h4v14h-4z" : "M8 5l11 7-11 7z"); $("play").setAttribute("aria-label", playing ? "Pause the pond" : "Play the pond"); }
+function head(){ if (navigator.mediaSession && ac) { try { navigator.mediaSession.metadata = new MediaMetadata({ title: P.name, artist: "Syncpond" }); navigator.mediaSession.playbackState = playing ? "playing" : "paused"; } catch (e) {} } $("pname").textContent = P.name; $("tempoBtn").textContent = P.tempo + " bpm"; $("playIcon").setAttribute("d", playing ? "M7 5h4v14H7zM13 5h4v14h-4z" : "M8 5l11 7-11 7z"); $("play").setAttribute("aria-label", playing ? "Pause the pond" : "Play the pond"); }
 $("menu").onclick = () => { if ($("setSheet").hidden) setSheet(); else { $("setSheet").hidden = true; $("tools").hidden = false; } };
 $("tempoBtn").onclick = () => $("menu").onclick();
 $("play").onclick = () => { audio(); playing = !playing; head(); };
@@ -358,7 +390,7 @@ $("rec").onclick = async () => {
   recL = []; recR = [];
 };
 head(); if (P.nodes.length) setTimeout(() => $("hint").textContent = "Tap anywhere to start the sound.", 0); requestAnimationFrame(draw);
-window.__pond = { get P(){ return P; }, stats, get waves(){ return waves; }, get pt(){ return pt; }, samples };
+window.__pond = { get P(){ return P; }, stats, get pulse(){ return pulse; }, get waves(){ return waves; }, get pt(){ return pt; }, samples };
 </script>
 <script data-goatcounter="https://mvanpassel.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
