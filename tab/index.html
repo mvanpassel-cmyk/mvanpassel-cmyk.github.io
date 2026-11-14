@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tab</title>
+<meta name="description" content="A personal guitar songbook: your own chord sheets and tabs, auto-scroll, transpose and chord diagrams. No ads, nothing leaves your device.">
+<link rel="icon" type="image/png" sizes="32x32" href="/logos/tab-32.png">
+<link rel="icon" type="image/svg+xml" href="/logos/tab.svg">
+<link rel="apple-touch-icon" href="/logos/tab-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Tab">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="theme-color" content="#141414">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=JetBrains+Mono:wght@400;700&display=swap">
+<style>
+/* A setlist taped to the stage floor: white paper, black gaffer tape, and a highlighter over the chords. */
+:root{--paper:#fff;--tape:#141414;--ink:#141414;--grey:#6a6a66;--rule:#dcdcd6;--desk:#ecebe6;--hl:#ffe94a;--hl2:#ffb3d1;--size:16px;
+  --display:"Bricolage Grotesque",system-ui,-apple-system,sans-serif;--mono:"JetBrains Mono",ui-monospace,Menlo,monospace}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--desk);color:var(--ink);font:16px/1.4 var(--display);font-weight:500;display:flex;flex-direction:column;overflow:hidden;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
+button,input,textarea,select{font:inherit;color:inherit}
+button{border:0;background:none;cursor:pointer;padding:0;touch-action:manipulation}
+button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid #2a6df4;outline-offset:2px}
+[hidden]{display:none!important}
+h1,h2,p{margin:0}
+header{background:var(--tape);color:#fff;display:flex;align-items:center;gap:10px;padding:calc(8px + env(safe-area-inset-top,0px)) max(14px,env(safe-area-inset-right,0px)) 8px max(14px,env(safe-area-inset-left,0px));flex:none}
+header h1{font-weight:800;font-size:26px;letter-spacing:-.03em;margin-right:auto;display:flex;align-items:center;gap:8px}
+header h1 i{width:22px;height:14px;background:var(--hl);display:inline-block;transform:rotate(-4deg)}
+.hbtn{height:40px;padding:0 14px;border-radius:20px;border:1.5px solid #fff;font-size:15px;white-space:nowrap}
+.hbtn.fill{background:var(--hl);color:var(--ink);border-color:var(--hl);font-weight:800}
+#back{display:none}
+main{flex:1;min-height:0;display:grid;grid-template-columns:300px minmax(0,1fr)}
+/* library */
+#lib{background:var(--desk);overflow-y:auto;padding:14px 12px calc(20px + env(safe-area-inset-bottom,0px));-webkit-overflow-scrolling:touch}
+#search{width:100%;height:44px;border:1.5px solid var(--ink);border-radius:22px;padding:0 16px;background:var(--paper);font-size:16px}
+.artist{font-weight:800;font-size:19px;letter-spacing:-.01em;margin:18px 6px 4px}
+.song{display:flex;align-items:center;gap:8px;width:100%;text-align:left;padding:9px 10px;border-radius:8px;min-height:44px;font-size:16px}
+.song:hover{background:#0000000d}
+.song[aria-current=true]{background:var(--tape);color:#fff}
+.song span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.song em{font-style:normal;font-size:12px;color:var(--grey);flex:none} .song[aria-current=true] em{color:#bbb}
+.song .has{width:10px;height:10px;background:var(--hl);flex:none;border:1px solid var(--ink)} .song .has.no{background:none;border-color:#b5b5ae}
+.libfoot{margin:22px 6px 0;font-size:13px;color:var(--grey);display:flex;flex-direction:column;gap:8px}
+.libfoot div{display:flex;gap:8px;flex-wrap:wrap}
+.mini{height:36px;padding:0 12px;border-radius:18px;border:1.5px solid var(--ink);font-size:14px;color:var(--ink);background:var(--paper)}
+/* sheet */
+#sheet{background:var(--paper);display:flex;flex-direction:column;min-width:0;min-height:0;border-left:1.5px solid var(--ink)}
+.head{padding:16px clamp(14px,3vw,30px) 10px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:flex-end}
+.head h2{font-weight:800;font-size:clamp(26px,4.2vw,44px);line-height:1;letter-spacing:-.035em;flex:1 1 260px}
+.head p{color:var(--grey);font-size:15px;width:100%;order:3}
+.meta{display:flex;gap:6px;flex-wrap:wrap;order:4;width:100%}
+.meta span{font-size:13px;border:1px solid var(--rule);border-radius:12px;padding:2px 9px;white-space:nowrap}
+.seg{display:flex;border:1.5px solid var(--ink);border-radius:20px;overflow:hidden;flex:none}
+.seg button{height:38px;padding:0 14px;font-size:15px}
+.seg button[aria-pressed=true]{background:var(--tape);color:#fff}
+#chordstrip{display:flex;gap:4px;overflow-x:auto;padding:4px clamp(14px,3vw,30px) 8px;flex:none;scrollbar-width:none}
+#chordstrip::-webkit-scrollbar{display:none}
+#chordstrip figure{margin:0;flex:none;text-align:center;font:700 12px var(--mono)}
+#chordstrip svg{display:block;width:54px;height:62px}
+#reader{flex:1;min-height:0;overflow:auto;padding:14px clamp(14px,3vw,30px) 50vh;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;border-top:1.5px solid var(--ink)}
+#reader pre{margin:0;font:var(--size)/1.75 var(--mono);white-space:pre;tab-size:4}
+#reader .c{background:var(--hl);font-weight:700;border-radius:2px;padding:1px 0;box-shadow:-2px 0 0 var(--hl),2px 0 0 var(--hl)}
+#reader .s{font-weight:700;background:var(--hl2);box-shadow:-3px 0 0 var(--hl2),3px 0 0 var(--hl2)}
+.empty{max-width:46ch;font-size:17px;display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+.empty h3{margin:0;font-weight:800;font-size:24px;letter-spacing:-.02em}
+.empty a,.empty button{display:inline-flex;align-items:center;height:44px;padding:0 18px;border-radius:22px;border:1.5px solid var(--ink);color:var(--ink);text-decoration:none;font-size:16px}
+.empty button.fill{background:var(--hl);font-weight:800}
+/* control bar */
+#bar{flex:none;background:var(--tape);color:#fff;display:flex;align-items:center;gap:6px;padding:8px max(10px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(10px,env(safe-area-inset-left,0px));overflow-x:auto;scrollbar-width:none}
+#bar::-webkit-scrollbar{display:none}
+#play{height:46px;min-width:92px;padding:0 16px;border-radius:23px;background:var(--hl);color:var(--ink);font-weight:800;font-size:16px;flex:none}
+.grp{display:flex;align-items:center;border:1.5px solid #fff;border-radius:23px;height:46px;flex:none}
+.grp button{width:42px;height:44px;font-size:20px}
+.grp output{min-width:58px;text-align:center;font-size:13px;line-height:1.1;font-variant-numeric:tabular-nums}
+.grp output b{display:block;font-size:15px}
+.bbtn{height:46px;padding:0 14px;border-radius:23px;border:1.5px solid #fff;font-size:15px;flex:none;white-space:nowrap}
+/* editor */
+dialog{border:0;border-radius:14px;padding:0;width:min(720px,100%);max-width:100%;max-height:100dvh;background:var(--paper);color:var(--ink)}
+dialog::backdrop{background:#141414cc}
+form{display:flex;flex-direction:column;gap:10px;padding:18px max(16px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+form h2{font-weight:800;font-size:26px;letter-spacing:-.02em}
+form label{display:flex;flex-direction:column;gap:3px;font-size:14px}
+form input,form textarea{border:1.5px solid var(--ink);border-radius:8px;padding:9px 10px;font-size:16px;background:#fff;width:100%}
+form textarea{font-family:var(--mono);font-size:14px;line-height:1.5;white-space:pre;overflow:auto;resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px} .three{display:grid;grid-template-columns:1fr 1fr 2fr;gap:10px}
+.tabs2{display:flex;gap:6px;align-items:center}
+.note{font-size:13px;color:var(--grey)}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+.acts button{height:46px;padding:0 18px;border-radius:23px;border:1.5px solid var(--ink);font-size:16px}
+.acts .fill{background:var(--hl);font-weight:800}.acts .danger{margin-left:auto;color:#b3261e;border-color:#b3261e}
+#toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--hl);color:var(--ink);border:1.5px solid var(--ink);font-weight:800;padding:8px 16px;border-radius:20px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:5;max-width:90vw;text-align:center}
+#toast.on{opacity:1}
+body.focus header,body.focus #lib,body.focus .head,body.focus #chordstrip{display:none}
+body.focus main{grid-template-columns:1fr}
+@media(max-width:760px){
+  main{display:block;position:relative}
+  #lib,#sheet{position:absolute;inset:0;border:0}
+  body[data-view=list] #sheet,body[data-view=song] #lib{display:none}
+  body[data-view=song] #back{display:block} body[data-view=song] header h1{display:none}
+  body[data-view=song] #add{display:none}
+  .head{padding-top:12px}.head h2{font-size:28px;flex-basis:100%}
+  dialog{width:100%;height:100dvh;border-radius:0;margin:0}
+  .three{grid-template-columns:1fr 1fr}.three label:last-child{grid-column:1/-1}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body data-view="list">
+<header>
+  <button class="hbtn" id="back" aria-label="Back to the song list">‹ Songs</button>
+  <h1><i></i>Tab</h1>
+  <button class="hbtn" id="edit" hidden>Edit</button>
+  <button class="hbtn fill" id="add">Add a song</button>
+</header>
+<main>
+  <nav id="lib" aria-label="Songs">
+    <input type="search" id="search" placeholder="Search songs and artists" aria-label="Search songs and artists" autocomplete="off">
+    <div id="songs"></div>
+    <div class="libfoot">
+      <p>A yellow square means you have filled in that song. Everything you add stays on this device.</p>
+      <div><button class="mini" id="export">Back up my songs</button><button class="mini" id="import">Restore a backup</button></div>
+    </div>
+  </nav>
+  <article id="sheet" aria-labelledby="title">
+    <div class="head">
+      <h2 id="title"></h2>
+      <div class="seg" role="group" aria-label="What to show"><button id="mChords" aria-pressed="true">Chords</button><button id="mTabs" aria-pressed="false">Tab</button></div>
+      <p id="artist"></p>
+      <div class="meta" id="meta"></div>
+    </div>
+    <div id="chordstrip" aria-label="Chord shapes used in this song"></div>
+    <div id="reader" tabindex="0" aria-label="Song sheet"></div>
+    <div id="bar">
+      <button id="play">Scroll</button>
+      <div class="grp" title="Scroll speed"><button id="slower" aria-label="Scroll slower">−</button><output id="speedOut"></output><button id="faster" aria-label="Scroll faster">+</button></div>
+      <div class="grp" title="Transpose"><button id="trDown" aria-label="Transpose down">♭</button><output id="trOut"></output><button id="trUp" aria-label="Transpose up">♯</button></div>
+      <div class="grp" title="Text size"><button id="smaller" aria-label="Smaller text">A</button><output id="sizeOut"></output><button id="larger" aria-label="Larger text" style="font-size:25px">A</button></div>
+      <button class="bbtn" id="top">To top</button>
+      <button class="bbtn" id="focus">Focus</button>
+    </div>
+  </article>
+</main>
+<dialog id="editor" aria-labelledby="edTitle">
+  <form id="form">
+    <h2 id="edTitle">Edit song</h2>
+    <div class="two"><label>Artist<input name="artist" required maxlength="100" autocomplete="off"></label><label>Title<input name="title" required maxlength="120" autocomplete="off"></label></div>
+    <div class="three"><label>Key<input name="key" maxlength="12" placeholder="Em" autocomplete="off"></label><label>Capo<input name="capo" maxlength="12" placeholder="none" autocomplete="off"></label><label>Tuning<input name="tuning" maxlength="40" placeholder="standard" autocomplete="off"></label></div>
+    <div class="tabs2"><div class="seg"><button type="button" id="eChords" aria-pressed="true">Chords and words</button><button type="button" id="eTabs" aria-pressed="false">Tab</button></div><button type="button" class="mini" id="paste">Paste</button></div>
+    <textarea name="chords" rows="12" spellcheck="false" autocapitalize="off" autocorrect="off" aria-label="Chords and words" placeholder="[Verse]&#10;Em       C&#10;Put each chord line above its words"></textarea>
+    <textarea name="tabs" rows="12" spellcheck="false" autocapitalize="off" autocorrect="off" aria-label="Tab" hidden placeholder="e|----------------|&#10;B|----------------|"></textarea>
+    <p class="note">Chords on their own line get highlighted and can be transposed. Put section names in [brackets]. Spacing is kept exactly as you type it.</p>
+    <p class="note" id="err" role="alert" hidden></p>
+    <div class="acts"><button class="fill" type="submit">Save song</button><button type="button" id="cancel">Cancel</button><button type="button" class="danger" id="remove">Delete song</button></div>
+  </form>
+</dialog>
+<input type="file" id="file" accept=".json,application/json" hidden>
+<div id="toast" role="status"></div>
+<script>
+"use strict";
+/* Starter list: titles and playing facts only. The chord maps are short memory aids without words;
+   paste your own full sheet over them with Edit. */
+const S = (artist, title, o) => Object.assign({ id: (artist + "-" + title).toLowerCase().replace(/[^a-z0-9]+/g, "-"), artist, title }, o);
+const SKETCH = "\n\n[Note]\nA rough chord map to get going.\nCheck it against the record, then\npaste your own sheet over it with Edit.";
+const catalog = [
+  S("Bon Iver", "Skinny Love", { tuning: "open C: C G E G C C" }), S("Bon Iver", "Flume"), S("Bon Iver", "Re: Stacks"), S("Bon Iver", "Holocene"), S("Bon Iver", "For Emma"), S("Bon Iver", "Blood Bank"),
+  S("Neil Young", "Heart of Gold", { key: "Em", tuning: "standard", chords: "[Intro]\nEm7  D  Em\n\n[Verse]\nEm  C  D  G\n\n[Refrain]\nEm  G  C  C/B  Am7  G" + SKETCH }),
+  S("Neil Young", "Old Man", { key: "D", tuning: "standard", chords: "[Intro]\nFmaj7  D\n\n[Verse]\nD  F  C  G\n\n[Chorus]\nD  Am7  Em7  G" + SKETCH }),
+  S("Neil Young", "The Needle and the Damage Done", { key: "D", tuning: "standard", chords: "[Intro and verse]\nD  D/C  D/B  Bb  C  F  Esus4  E" + SKETCH }),
+  S("Neil Young", "Harvest", { key: "D" }), S("Neil Young", "Out on the Weekend"), S("Neil Young", "Are You Ready for the Country?"),
+  S("Coldplay", "Yellow", { key: "B", tuning: "record: E A B G B D#", chords: "[Verse]\nB  F#  E\n\n[Chorus]\nE  G#m  F#" + SKETCH + "\nTry key −4 with a capo on 4\nfor easy G shapes." }),
+  S("Coldplay", "The Scientist", { key: "F", chords: "[Verse]\nDm7  Bb  F  Fsus2\n\n[Chorus]\nBb  F  Fsus2\nBb  F  C" + SKETCH }),
+  S("Coldplay", "Fix You", { key: "Eb", capo: "3 for C shapes" }), S("Coldplay", "Sparks"), S("Coldplay", "Green Eyes"), S("Coldplay", "Trouble"),
+  S("Novo Amor", "Anchor"), S("Novo Amor", "Holland"), S("Novo Amor", "Carry You"), S("Novo Amor", "Birthplace"),
+  S("I Am Oak", "On Trees and Birds and Fire"),
+  S("Eefje de Visser", "Ongeveer"), S("Eefje de Visser", "Uit de lucht"), S("Eefje de Visser", "De bedoeling"), S("Eefje de Visser", "Nee joh"), S("Eefje de Visser", "In het echt"), S("Eefje de Visser", "Alles doen"), S("Eefje de Visser", "Nu af aan"),
+  S("The Police", "Message in a Bottle", { key: "C#m", tuning: "standard", chords: "[Riff and verse]\nC#m  A  B  F#m\n\n[Pre-chorus]\nA  D  E\n\n[Chorus]\nC#m  A" + SKETCH + "\nThe riff plays each chord as a\nstretched add9 shape." }),
+  S("The Police", "Every Breath You Take", { tuning: "standard; the record sounds a semitone below these shapes", chords: "[Verse]\nA  F#m  D  E  F#m\n\n[Bridge]\nF  G" + SKETCH + "\nPlayed as picked add9 shapes." }),
+  S("The Police", "So Lonely", { key: "C", chords: "[Verse and chorus]\nC  G  Am  F" + SKETCH }),
+  S("The Police", "Roxanne", { key: "Gm" }), S("The Police", "Walking on the Moon"),
+  S("Sting", "Fields of Gold", { key: "D" }), S("Sting", "Shape of My Heart", { key: "F#m" }), S("Sting", "Englishman in New York"), S("Sting", "Fragile", { key: "Em" }),
+  S("Simon & Garfunkel", "The Sound of Silence", { capo: "6", tuning: "standard", chords: "[Verse, shapes with capo on 6]\nAm  G  Am\nC  F  C\nF  C\nF  C  Am\nC  G  Am" + SKETCH }),
+  S("Simon & Garfunkel", "The Boxer", { tuning: "C shapes; the record sounds a semitone lower" }), S("Simon & Garfunkel", "Mrs. Robinson", { capo: "2" }), S("Simon & Garfunkel", "America"), S("Simon & Garfunkel", "April Come She Will"), S("Simon & Garfunkel", "Kathy's Song"),
+  S("Kings of Convenience", "Homesick"), S("Kings of Convenience", "Misread"), S("Kings of Convenience", "Cayman Islands"), S("Kings of Convenience", "I'd Rather Dance with You"), S("Kings of Convenience", "Mrs. Cold"), S("Kings of Convenience", "Know-How"),
+  S("The Dandy Warhols", "Bohemian Like You", { key: "B", tuning: "standard", chords: "[Riff, verse and chorus]\nB  D  A  E" + SKETCH }),
+  S("The Dandy Warhols", "Godless"), S("The Dandy Warhols", "Get Off"), S("The Dandy Warhols", "Sleep"),
+  S("Dire Straits", "Sultans of Swing", { key: "Dm", tuning: "standard", chords: "[Verse]\nDm  C  Bb  A\nF  C  Bb\n\n[Chorus]\nDm  Bb  C" + SKETCH }),
+  S("Dire Straits", "Romeo and Juliet", { tuning: "open G, capo 3" }), S("Dire Straits", "So Far Away"), S("Dire Straits", "Brothers in Arms", { key: "G#m" }), S("Dire Straits", "Walk of Life", { key: "E" }), S("Dire Straits", "Why Worry"),
+  S("The National", "Bloodbuzz Ohio"), S("The National", "I Need My Girl"), S("The National", "About Today"), S("The National", "Slow Show"), S("The National", "Vanderlyle Crybaby Geeks"), S("The National", "Fake Empire"),
+  S("Practice", "Fingerpicking in C", { key: "C", tuning: "standard", chords: "[Pattern, four beats per chord]\nC      Am     Fmaj7  G\nC      Am     Fmaj7  G\n\n[Middle]\nAm     Fmaj7  C      G\nAm     Fmaj7  C      G\n\n[End]\nFmaj7  G      C",
+    tabs: "[Pattern, standard tuning]\n\n   C               Am\ne|-------0-------|-------0-------|\nB|-----1---1-----|-----1---1-----|\nG|---0-------0---|---2-------2---|\nD|-------------2-|-------------2-|\nA|-3-------------|-0-------------|\nE|---------------|---------------|\n\n   Fmaj7           G\ne|-------0-------|-------3-------|\nB|-----1---1-----|-----0---0-----|\nG|---2-------2---|---0-------0---|\nD|-3-----------3-|-------------0-|\nA|---------------|---------------|\nE|---------------|-3-------------|" })
+];
+
+/* ---------- storage ---------- */
+const KEY = "tab-v1", $ = id => document.getElementById(id);
+let db = { songs: {}, gone: [], selected: null, speed: 14, size: 16 };
+try { Object.assign(db, JSON.parse(localStorage.getItem(KEY)) || {}); } catch {}
+function save(next){ try { localStorage.setItem(KEY, JSON.stringify(next || db)); return true; } catch { return false; } }
+function all(){
+  const base = catalog.filter(s => !db.gone.includes(s.id)).map(s => ({ ...s, ...db.songs[s.id] }));
+  return base.concat(Object.values(db.songs).filter(s => !catalog.some(c => c.id === s.id)));
+}
+const filled = s => !!((db.songs[s.id] && ((db.songs[s.id].chords || "").trim() || (db.songs[s.id].tabs || "").trim())) || (!catalog.some(c => c.id === s.id)));
+let mode = "chords", song = null, running = false, raf = 0, last = 0, frac = 0, lock = null, editing = null;
+function toast(msg){ const t = $("toast"); t.textContent = msg; t.classList.add("on"); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("on"), 2400); }
+function el(tag, text, cls){ const n = document.createElement(tag); if (text != null) n.textContent = text; if (cls) n.className = cls; return n; }
+
+/* ---------- chords: detect, transpose, draw ---------- */
+const NAMES = ["C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"], IDX = { C: 0, "C#": 1, Db: 1, D: 2, "D#": 3, Eb: 3, E: 4, F: 5, "F#": 6, Gb: 6, G: 7, "G#": 8, Ab: 8, A: 9, "A#": 10, Bb: 10, B: 11 };
+const CHORD = /^([A-G](?:#|b)?)((?:maj|min|m|dim|aug|sus|add|M|\+|°)?[0-9]*(?:(?:sus|add|maj|b|#)[0-9]*)*)(?:\/([A-G](?:#|b)?))?$/;
+const FILLER = /^(?:\||\|\||\/|-|–|·|x\d+|×\d+|\(?x\d+\)?|\(|\)|N\.?C\.?|%)$/i;
+function isChordLine(line){ const t = line.trim().split(/\s+/).filter(Boolean); if (!t.length) return false; let n = 0; for (const k of t) { if (CHORD.test(k)) n++; else if (!FILLER.test(k)) return false; } return n > 0; }
+function shift(ch, n){ const m = CHORD.exec(ch); if (!m || !n) return ch; const mv = r => NAMES[(IDX[r] + n + 120) % 12]; return mv(m[1]) + m[2] + (m[3] ? "/" + mv(m[3]) : ""); }
+function shiftLine(line, n){
+  if (!n) return line; let out = "", debt = 0;
+  for (const part of line.split(/(\s+)/)) {
+    if (!part) continue;
+    if (/^\s+$/.test(part)) { let len = part.length - debt; debt = 0; if (len < 1) { debt = 1 - len; len = 1; } out += " ".repeat(len); }
+    else { const s = CHORD.test(part) ? shift(part, n) : part; debt += s.length - part.length; out += s; }
+  }
+  return out;
+}
+const SHAPES = { C: "x32010", Cmaj7: "x32000", C7: "x32310", Cadd9: "x32030", "C/B": "x20010", "C/G": "332010", D: "xx0232", Dm: "xx0231", D7: "xx0212", Dm7: "xx0211", Dmaj7: "xx0222", Dsus2: "xx0230", Dsus4: "xx0233", "D/F#": "2x0232", "D/C": "x30232", "D/B": "x20232",
+  E: "022100", Em: "022000", E7: "020100", Em7: "022030", Esus4: "022200", F: "133211", Fmaj7: "xx3210", Fsus2: "xx3011", "F#m": "244222", "F#": "244322", "F#m7": "242222", G: "320003", G7: "320001", Gmaj7: "320002", "G/B": "x20033", Gm: "355333", "G#m": "466444",
+  A: "x02220", Am: "x02210", A7: "x02020", Am7: "x02010", Asus2: "x02200", Asus4: "x02230", Amaj7: "x02120", "Am/G": "302210", Bb: "x13331", B: "x24442", Bm: "x24432", B7: "x21202", Bm7: "x24232", "C#m": "x46654", Eb: "x68886", Ab: "466544" };
+function diagram(name){
+  const sh = SHAPES[name]; if (!sh) return null;
+  const fr = [...sh].map(c => c === "x" ? -1 : parseInt(c, 36)), max = Math.max(...fr), min = Math.min(...fr.filter(f => f > 0)), base = max > 4 ? min : 1;
+  const ns = "http://www.w3.org/2000/svg", svg = document.createElementNS(ns, "svg"); svg.setAttribute("viewBox", "0 0 54 62"); svg.setAttribute("role", "img"); svg.setAttribute("aria-label", name + " chord shape");
+  let d = ""; for (let i = 0; i < 6; i++) d += `M${9 + i * 7.2} 14V54`; for (let j = 0; j < 5; j++) d += `M9 ${14 + j * 10}H45`;
+  let h = `<path d="${d}" stroke="#141414" stroke-width="1" fill="none"/>` + (base === 1 ? `<path d="M8.5 13.5H45.5" stroke="#141414" stroke-width="3"/>` : `<text x="50" y="23" font-size="8" font-family="monospace" text-anchor="middle">${base}</text>`);
+  fr.forEach((f, i) => { const x = 9 + i * 7.2;
+    if (f < 0) h += `<path d="M${x - 2.2} 5l4.4 4.4m0-4.4l-4.4 4.4" stroke="#141414" stroke-width="1.1"/>`;
+    else if (f === 0) h += `<circle cx="${x}" cy="7.2" r="2.4" fill="none" stroke="#141414" stroke-width="1.1"/>`;
+    else h += `<circle cx="${x}" cy="${14 + (f - base) * 10 + 5}" r="3.1" fill="#141414"/>`; });
+  svg.innerHTML = h; const fig = el("figure"); fig.append(svg, el("figcaption", name)); return fig;
+}
+
+/* ---------- views ---------- */
+function list(){
+  const q = $("search").value.trim().toLowerCase(), box = $("songs"), groups = new Map();
+  for (const s of all()) { if (!groups.has(s.artist)) groups.set(s.artist, []); groups.get(s.artist).push(s); }
+  box.replaceChildren(); let n = 0;
+  for (const [artist, songs] of [...groups].sort((a, b) => a[0] === "Practice" ? 1 : b[0] === "Practice" ? -1 : a[0].localeCompare(b[0]))) {
+    const vis = songs.filter(s => (s.title + " " + artist).toLowerCase().includes(q)); if (!vis.length) continue;
+    box.append(el("h2", artist, "artist"));
+    for (const s of vis) { n++; const b = el("button", null, "song"); b.type = "button"; b.setAttribute("aria-current", String(song && s.id === song.id));
+      const mark = el("i", null, "has" + (filled(s) ? "" : " no")); mark.title = filled(s) ? "Your own sheet" : "Not filled in yet";
+      b.append(mark, el("span", s.title)); if (s.key) b.append(el("em", s.key)); b.onclick = () => open(s.id, true); box.append(b); }
+  }
+  if (!n) box.append(el("p", "No songs match. Use “Add a song” to start one.", "artist"));
+}
+function open(id, show){
+  stop(); song = all().find(s => s.id === id) || all()[0]; if (!song) return;
+  db.selected = song.id; save(); mode = (song.chords || "").trim() || !(song.tabs || "").trim() ? "chords" : "tabs";
+  if (show) document.body.dataset.view = "song";
+  $("edit").hidden = document.body.dataset.view !== "song" && matchMedia("(max-width:760px)").matches;
+  list(); draw(); $("reader").scrollTop = 0;
+}
+function draw(){
+  const r = $("reader"), tr = song.tr || 0; $("title").textContent = song.title; $("artist").textContent = song.artist;
+  $("mChords").setAttribute("aria-pressed", String(mode === "chords")); $("mTabs").setAttribute("aria-pressed", String(mode === "tabs"));
+  const meta = $("meta"); meta.replaceChildren();
+  if (song.key) meta.append(el("span", "Key " + (tr ? shift(song.key, tr) + " (was " + song.key + ")" : song.key)));
+  if (song.capo) meta.append(el("span", "Capo " + song.capo)); if (song.tuning) meta.append(el("span", "Tuning: " + song.tuning));
+  const text = (song[mode] || "").replace(/\s+$/, ""), strip = $("chordstrip"), seen = []; r.replaceChildren(); strip.replaceChildren();
+  if (text) {
+    const pre = el("pre");
+    for (const raw of text.split(/\r?\n/)) {
+      if (/^\s*\[.+\]\s*$/.test(raw)) pre.append(el("span", raw.trim(), "s"), "\n");
+      else if (mode === "chords" && isChordLine(raw)) { const line = shiftLine(raw, tr);
+        for (const part of line.split(/(\s+)/)) { if (CHORD.test(part)) { pre.append(el("span", part, "c")); if (!seen.includes(part)) seen.push(part); } else pre.append(part); } pre.append("\n"); }
+      else pre.append(raw + "\n");
+    }
+    r.append(pre);
+    for (const c of seen) { const f = diagram(c); if (f) strip.append(f); }
+  } else {
+    const box = el("div", null, "empty"), q = encodeURIComponent(song.artist + " " + song.title + (mode === "tabs" ? " guitar tab" : " chords"));
+    box.append(el("h3", mode === "tabs" ? "No tab for this song yet" : "This sheet is still empty"), el("p", "Find a version you like, copy it, then paste it here. It is saved on this device, scrolls by itself and can be transposed."));
+    const b = el("button", "Paste my sheet", "fill"); b.onclick = () => edit(song, true);
+    const a = el("a", "Search the web for it"); a.href = "https://duckduckgo.com/?q=" + q; a.target = "_blank"; a.rel = "noopener noreferrer";
+    box.append(b, a); r.append(box);
+  }
+  strip.hidden = !strip.children.length; controls();
+}
+function controls(){
+  const sp = song && song.speed || db.speed, tr = song && song.tr || 0;
+  $("speedOut").innerHTML = "<b>" + sp + "</b>speed"; $("trOut").innerHTML = "<b>" + (tr > 0 ? "+" + tr : tr) + "</b>key"; $("sizeOut").innerHTML = "<b>" + db.size + "</b>size";
+  document.documentElement.style.setProperty("--size", db.size + "px"); $("play").textContent = running ? "Pause" : "Scroll";
+  $("focus").textContent = document.body.classList.contains("focus") ? "Exit focus" : "Focus";
+}
+function patch(o){ db.songs[song.id] = { ...(db.songs[song.id] || { id: song.id, artist: song.artist, title: song.title }), ...o }; Object.assign(song, o); save(); }
+
+/* ---------- auto-scroll ---------- */
+async function awake(){ if (!navigator.wakeLock || lock) return; try { const l = await navigator.wakeLock.request("screen"); if (running) lock = l; else l.release(); } catch {} }
+function stop(){ running = false; cancelAnimationFrame(raf); if (lock) { lock.release().catch(() => {}); lock = null; } if (song) controls(); }
+function step(now){
+  if (!running) return; const r = $("reader");
+  if (last) { frac += Math.min(80, now - last) * (song.speed || db.speed) / 1000; const px = Math.floor(frac); if (px) { r.scrollTop += px; frac -= px; } }
+  last = now; if (r.scrollTop >= r.scrollHeight - r.clientHeight - 1) { stop(); return; }
+  raf = requestAnimationFrame(step);
+}
+function toggle(){ if (running) return stop(); const r = $("reader"); if (r.scrollHeight - r.clientHeight < 2) return toast("The whole sheet already fits"); last = 0; frac = 0; running = true; controls(); raf = requestAnimationFrame(step); awake(); }
+
+/* ---------- editor ---------- */
+const form = $("form"), dlg = $("editor"); let eMode = "chords";
+function eShow(m){ eMode = m; form.elements.chords.hidden = m !== "chords"; form.elements.tabs.hidden = m !== "tabs"; $("eChords").setAttribute("aria-pressed", String(m === "chords")); $("eTabs").setAttribute("aria-pressed", String(m === "tabs")); }
+function edit(s, clean){
+  stop(); editing = s ? s.id : null; $("edTitle").textContent = s ? "Edit song" : "Add a song";
+  for (const f of ["artist", "title", "key", "capo", "tuning", "chords", "tabs"]) form.elements[f].value = s && s[f] || "";
+  if (s && clean && !(db.songs[s.id] && db.songs[s.id].chords)) form.elements.chords.value = "";
+  $("remove").hidden = !s; $("err").hidden = true; eShow(s ? mode : "chords"); dlg.showModal(); if (!s) form.elements.artist.focus();
+}
+form.onsubmit = e => {
+  e.preventDefault(); const d = Object.fromEntries(new FormData(form)); for (const k in d) d[k] = k === "chords" || k === "tabs" ? d[k].replace(/\s+$/, "") : d[k].trim();
+  const id = editing || "my-" + Date.now().toString(36), prev = db.songs[id] || {}, next = { ...db, songs: { ...db.songs, [id]: { ...prev, id, ...d } } };
+  if (!save(next)) { $("err").textContent = "Could not save: this browser's storage is full or blocked."; $("err").hidden = false; return; }
+  db = next; dlg.close(); open(id, true); toast("Saved");
+};
+$("remove").onclick = () => { if (!confirm("Delete this song from your book?")) return; delete db.songs[editing]; if (catalog.some(c => c.id === editing)) db.gone.push(editing); save(); dlg.close(); song = null; document.body.dataset.view = "list"; const f = all()[0]; if (f) open(f.id, false); else list(); toast("Deleted"); };
+$("cancel").onclick = () => dlg.close();
+$("eChords").onclick = () => eShow("chords"); $("eTabs").onclick = () => eShow("tabs");
+$("paste").onclick = async () => { const ta = form.elements[eMode]; try { const t = await navigator.clipboard.readText(); if (!t) return toast("The clipboard is empty"); ta.value = ta.value.trim() ? ta.value + "\n\n" + t : t; toast("Pasted"); } catch { ta.focus(); toast("Tap in the box and choose Paste"); } };
+
+/* ---------- wiring ---------- */
+$("search").oninput = list; $("add").onclick = () => edit(null); $("edit").onclick = () => edit(song);
+$("back").onclick = () => { stop(); document.body.dataset.view = "list"; document.body.classList.remove("focus"); $("edit").hidden = true; };
+$("mChords").onclick = () => { mode = "chords"; stop(); draw(); }; $("mTabs").onclick = () => { mode = "tabs"; stop(); draw(); };
+$("play").onclick = toggle; $("top").onclick = () => { stop(); $("reader").scrollTop = 0; };
+const spd = n => { patch({ speed: Math.max(2, Math.min(80, (song.speed || db.speed) + n)) }); db.speed = song.speed; save(); controls(); };
+$("slower").onclick = () => spd(-2); $("faster").onclick = () => spd(2);
+const trn = n => { let t = (song.tr || 0) + n; if (t > 6) t -= 12; if (t < -6) t += 12; patch({ tr: t }); draw(); };
+$("trDown").onclick = () => trn(-1); $("trUp").onclick = () => trn(1);
+const sz = n => { db.size = Math.max(10, Math.min(30, db.size + n)); save(); controls(); };
+$("smaller").onclick = () => sz(-1); $("larger").onclick = () => sz(1);
+$("focus").onclick = () => { document.body.classList.toggle("focus"); controls(); };
+$("reader").addEventListener("pointerdown", () => { if (running && matchMedia("(pointer:coarse)").matches) stop(); });
+document.addEventListener("keydown", e => { if (e.code === "Space" && !dlg.open && !e.target.closest("input,textarea,button,a")) { e.preventDefault(); toggle(); } if (e.key === "Escape" && document.body.classList.contains("focus")) { document.body.classList.remove("focus"); controls(); } });
+document.addEventListener("visibilitychange", () => { if (document.hidden) stop(); });
+$("export").onclick = async () => {
+  const blob = new Blob([JSON.stringify({ app: "tab", v: 1, songs: db.songs, gone: db.gone }, null, 1)], { type: "application/json" }), file = new File([blob], "tab-songbook.json", { type: "application/json" });
+  if (navigator.canShare && navigator.canShare({ files: [file] })) { try { await navigator.share({ files: [file] }); } catch {} return; }
+  const a = el("a"); a.href = URL.createObjectURL(blob); a.download = file.name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+};
+$("import").onclick = () => $("file").click();
+$("file").onchange = async e => { const f = e.target.files[0]; e.target.value = ""; if (!f) return;
+  try { const d = JSON.parse(await f.text()); if (d.app !== "tab" || typeof d.songs !== "object") throw 0; const n = Object.keys(d.songs).length;
+    if (!confirm("Add " + n + " songs from this backup? Songs with the same name are replaced.")) return;
+    db.songs = { ...db.songs, ...d.songs }; db.gone = db.gone.filter(id => !d.songs[id]); save(); open(db.selected, false); toast("Restored " + n + " songs"); } catch { toast("That file is not a Tab backup"); } };
+const first = all().find(s => s.id === db.selected) || all().find(s => s.chords) || all()[0];
+if (first) open(first.id, false); else list();
+</script>
+<script data-goatcounter="https://mvanpassel.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
