@@ -223,11 +223,11 @@ def parse_sketch(text, urls, today):
     pr = []
     for p in (raw.get("priorities") or [])[:3]:
         if p.get("title") and p.get("text") and ok(p.get("src")):
-            pr.append({"title": U.clean(p["title"], 80), "text": U.clean(p["text"], 260), "src": ok(p["src"])})
+            pr.append({"title": U.clean(p["title"], 80), "text": U.clean(p["text"], 360), "src": ok(p["src"])})
     out["priorities"] = pr
     nl = raw.get("netherlands") or {}
     if nl.get("text") and ok(nl.get("src")):
-        out["netherlands"] = {"text": U.clean(nl["text"], 220), "src": ok(nl["src"])}
+        out["netherlands"] = {"text": U.clean(nl["text"], 360), "src": ok(nl["src"])}
     return out
 
 
