@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>Syncpond</title>
+<meta name="description" content="A spatial sequencer: place nodes in a pond, let their ripples trigger each other, and listen. Inspired by Zach Gage's synthPond.">
+<link rel="icon" type="image/png" sizes="32x32" href="/logos/syncpond-32.png">
+<link rel="icon" type="image/svg+xml" href="/logos/syncpond.svg">
+<link rel="apple-touch-icon" href="/logos/syncpond-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Syncpond">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#04161c">
+<style>
+/* The pond is everything; controls float on it like things left at the water's edge. */
+:root{--water:#04161c;--deep:#020b0f;--foam:#e8f4f2;--mist:#8fb0ae;--glass:rgba(8,34,42,.82);--edge:rgba(232,244,242,.18);--hot:#ff5d4d;
+  --ui:ui-rounded,"SF Pro Rounded","Nunito",system-ui,-apple-system,sans-serif}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;overflow:hidden;background:var(--deep);color:var(--foam);font:15px/1.35 var(--ui);-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
+button,select,input{font:inherit;color:inherit}
+button{border:0;background:none;cursor:pointer;padding:0;touch-action:manipulation}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--foam);outline-offset:2px}
+[hidden]{display:none!important}
+#pond{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none}
+.float{position:fixed;z-index:2;background:var(--glass);border:1px solid var(--edge);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+#top{top:calc(10px + env(safe-area-inset-top,0px));left:max(10px,env(safe-area-inset-left,0px));right:max(10px,env(safe-area-inset-right,0px));border-radius:26px;height:52px;display:flex;align-items:center;gap:4px;padding:0 6px}
+#top h1{font-size:17px;font-weight:700;margin:0 auto 0 10px;letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ib{width:44px;height:44px;border-radius:22px;display:grid;place-items:center;flex:none}
+.ib:hover{background:rgba(232,244,242,.1)}
+.ib svg{width:22px;height:22px}
+#rec.on{background:var(--hot)} #rec.on svg{animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:.3}}
+#tempoBtn{height:44px;padding:0 12px;border-radius:22px;font-variant-numeric:tabular-nums;font-weight:700;white-space:nowrap}
+#tools{bottom:calc(10px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);border-radius:30px;display:flex;gap:2px;padding:5px}
+#tools button{width:62px;height:52px;border-radius:26px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;font-size:10.5px;color:var(--mist)}
+#tools button svg{width:22px;height:22px}
+#tools button[aria-pressed=true]{background:var(--foam);color:var(--water)}
+.sheet{left:max(8px,env(safe-area-inset-left,0px));right:max(8px,env(safe-area-inset-right,0px));bottom:calc(8px + env(safe-area-inset-bottom,0px));border-radius:22px;padding:14px;max-height:72vh;overflow-y:auto;z-index:3;max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:12px;-webkit-overflow-scrolling:touch}
+.sheet h2{margin:0;font-size:17px;font-weight:700;display:flex;align-items:center;justify-content:space-between}
+.sheet h3{margin:4px 0 -4px;font-size:13px;font-weight:600;color:var(--mist)}
+.row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.chip{height:40px;padding:0 14px;border-radius:20px;border:1px solid var(--edge);font-size:14px;white-space:nowrap}
+.chip[aria-pressed=true]{background:var(--foam);color:var(--water);border-color:var(--foam)}
+.chip.warn{color:#ffb4ab;border-color:#ffb4ab66}
+.strip{display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.strip button{aspect-ratio:1;border-radius:50%;border:2px solid transparent;min-width:0}
+.strip button[aria-pressed=true]{border-color:var(--foam);transform:scale(1.12)}
+.seq{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+.seq button{width:30px;height:30px;border-radius:8px;border:2px solid transparent;font-size:12px}
+.seq button.rest{background:none;border:1.5px dashed var(--mist)}
+.seq button[aria-pressed=true]{border-color:var(--foam)}
+.seq .add{border:1px solid var(--edge);border-radius:15px;width:auto;padding:0 10px;font-size:13px}
+label.sl{display:grid;grid-template-columns:88px 1fr 44px;gap:8px;align-items:center;font-size:14px}
+label.sl output{text-align:right;font-variant-numeric:tabular-nums;color:var(--mist);font-size:13px}
+input[type=range]{-webkit-appearance:none;appearance:none;background:none;height:28px;margin:0;width:100%}
+input[type=range]::-webkit-slider-runnable-track{height:3px;border-radius:2px;background:var(--edge)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--foam);margin-top:-10px}
+select,input[type=text]{height:40px;border-radius:20px;border:1px solid var(--edge);background:rgba(0,0,0,.25);padding:0 12px;font-size:16px;min-width:0}
+.list{display:flex;flex-direction:column;gap:4px}
+.list div{display:flex;align-items:center;gap:6px;padding:4px 4px 4px 12px;border-radius:14px;background:rgba(0,0,0,.22)}
+.list span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.note{font-size:13px;color:var(--mist);margin:0}
+#hint{position:fixed;left:0;right:0;top:42%;text-align:center;pointer-events:none;z-index:1;padding:0 30px;font-size:17px;color:var(--mist);transition:opacity .5s}
+#toast{position:fixed;left:50%;top:calc(74px + env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:5;background:var(--foam);color:var(--water);font-weight:700;padding:8px 16px;border-radius:20px;opacity:0;transition:opacity .2s;pointer-events:none;max-width:86vw;text-align:center}
+#toast.on{opacity:1}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<canvas id="pond" aria-label="The pond. Tap to place a node, drag to move it, tap a node to edit it."></canvas>
+<div id="hint">Tap the water to drop a node.<br>Round ones send ripples. Square ones ring when a ripple reaches them.</div>
+<div class="float" id="top">
+  <h1 id="pname">Syncpond</h1>
+  <button id="tempoBtn" class="ib" style="width:auto" title="Tempo" aria-label="Tempo"></button>
+  <button class="ib" id="play" aria-label="Pause the pond"><svg viewBox="0 0 24 24"><path id="playIcon" d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor"/></svg></button>
+  <button class="ib" id="rec" aria-label="Record to MP3"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6.5" fill="currentColor"/></svg></button>
+  <button class="ib" id="menu" aria-label="Pond settings"><svg viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 12h3M11 12h9M4 17h12M20 17h0" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="16" cy="7" r="2.2" fill="currentColor"/><circle cx="9" cy="12" r="2.2" fill="currentColor"/><circle cx="18" cy="17" r="2.2" fill="currentColor"/></svg></button>
+</div>
+<div class="float" id="tools" role="group" aria-label="Node to place">
+  <button data-t="e1" aria-pressed="true" title="Sends a ripple every beat"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="currentColor"/></svg>Beat</button>
+  <button data-t="e2" aria-pressed="false" title="Sends a ripple every second beat"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>Half</button>
+  <button data-t="re" aria-pressed="false" title="Rings when a ripple reaches it"><svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2.5" fill="currentColor"/></svg>Ring</button>
+  <button data-t="rf" aria-pressed="false" title="Rings and sends the ripple on"><svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="2.5"/><rect x="9.5" y="9.5" width="5" height="5" fill="currentColor"/></svg>Echo</button>
+</div>
+<div class="float sheet" id="nodeSheet" hidden></div>
+<div class="float sheet" id="setSheet" hidden></div>
+<input type="file" id="file" accept="audio/*,.mp3,.wav,.m4a,.aif,.aiff,.caf" hidden>
+<div id="toast" role="status"></div>
+<script>
+"use strict";
+/* ---------- helpers ---------- */
+const $ = id => document.getElementById(id), TAU = Math.PI * 2, clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+function el(tag, props, ...kids){ const n = document.createElement(tag); for (const k in props || {}) { const v = props[k]; if (k === "class") n.className = v; else if (k.startsWith("on")) n[k] = v; else if (k === "style") n.style.cssText = v; else if (v !== false && v != null) n.setAttribute(k, v === true ? "" : v); } for (const c of kids.flat()) if (c != null && c !== false) n.append(c.nodeType ? c : document.createTextNode(c)); return n; }
+function toast(msg){ const t = $("toast"); t.textContent = msg; t.classList.add("on"); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("on"), 2600); }
+
+/* ---------- the pond ---------- */
+const SCALES = { "Pentatonic": [0, 2, 4, 7, 9], "Minor pentatonic": [0, 3, 5, 7, 10], "Major": [0, 2, 4, 5, 7, 9, 11], "Minor": [0, 2, 3, 5, 7, 8, 10], "Dorian": [0, 2, 3, 5, 7, 9, 10], "Whole tone": [0, 2, 4, 6, 8, 10], "Chromatic": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] };
+const KEYS = ["C", "C♯", "D", "E♭", "E", "F", "F♯", "G", "A♭", "A", "B♭", "B"], STEPS = 20, MAXN = 40, MAXGEN = 3;
+const TYPES = { e1: "Beat", e2: "Half", re: "Ring", rf: "Echo" }, TDESC = { e1: "Sends a ripple on every beat.", e2: "Sends a ripple on every second beat.", re: "Rings when a ripple reaches it. Farther away is softer.", rf: "Rings, and sends the ripple on." };
+const VOICES = { bell: "Sine bell", glass: "Glass", pluck: "Pluck", wood: "Wood", drop: "Drop", pad: "Soft pad" };
+const color = s => s < 0 ? "#5f7b7a" : `hsl(${Math.round(s / STEPS * 310 + 8)} 88% 64%)`;
+let uid = 1;
+const mk = (type, x, y, seq, o) => Object.assign({ id: uid++, type, x, y, seq: seq || [4], si: 0, voice: "bell", orbit: null }, o);
+function blank(){ return { v: 1, name: "My pond", tempo: 84, key: 0, scale: "Pentatonic", speed: 0.3, reach: 0.62, mode: "2d", lis: { x: 0, y: 0.1 }, pv: { a: -Math.PI / 2, s: 0 }, space: 0.4, vol: 0.8, nodes: [] }; }
+const EXAMPLES = {
+  "First ripples": () => { const p = blank(); p.name = "First ripples"; p.nodes = [mk("e2", 0, 0, [5, 7]), mk("re", 0.14, -0.1, [9]), mk("re", -0.2, -0.16, [10]), mk("re", 0.1, 0.3, [12]), mk("re", -0.3, 0.26, [7]), mk("re", 0.34, 0.1, [14, 15, 12])]; return p; },
+  "Moon": () => { const p = blank(); p.name = "Moon"; p.tempo = 72; const sun = mk("e1", 0, -0.05, [0, -1, 2, -1], { voice: "pad" }), a = mk("re", 0.26, -0.05, [9, 10, 12, 14], { voice: "glass" }), b = mk("rf", -0.18, 0.22, [7], { voice: "bell" }), c = mk("re", -0.36, 0.34, [14, 12], { voice: "drop" }), d = mk("re", 0.08, 0.36, [10], { voice: "wood" });
+    a.orbit = { t: sun.id, r: 0.26, a: 0, per: 16 }; c.orbit = { t: b.id, r: 0.2, a: 2.4, per: 8 }; p.nodes = [sun, a, b, c, d]; return p; },
+  "Canon": () => { const p = blank(); p.name = "Canon"; p.tempo = 96; p.scale = "Minor pentatonic"; p.nodes = [mk("e2", -0.22, -0.3, [5], { voice: "wood" }), mk("e1", 0.26, 0.34, [0, 0, 3, 0], { voice: "pluck" }), mk("rf", -0.05, -0.02, [10, 12, 9, 7], { voice: "glass" }), mk("re", 0.28, -0.2, [14]), mk("re", -0.3, 0.2, [12, 15]), mk("re", 0.05, 0.3, [8], { voice: "drop" }), mk("re", -0.12, -0.34, [17, 16])]; return p; }
+};
+let P, sel = null, tool = "e1", picking = false, waves = [], lastPitch = 5, seqSel = 0;
+function adopt(p){ const b = blank(); P = Object.assign(b, p); P.lis = Object.assign({ x: 0, y: 0.1 }, p.lis); P.pv = Object.assign({ a: -Math.PI / 2, s: 0 }, p.pv);
+  P.nodes = (p.nodes || []).slice(0, MAXN).map(n => { const m = mk(TYPES[n.type] ? n.type : "re", +n.x || 0, +n.y || 0, (Array.isArray(n.seq) && n.seq.length ? n.seq : [4]).slice(0, STEPS).map(s => clamp(s | 0, -1, STEPS - 1)), { voice: n.voice || "bell", orbit: n.orbit ? { ...n.orbit } : null }); m.old = n.id; return m; });
+  for (const n of P.nodes) if (n.orbit) { const t = P.nodes.find(m => m.old === n.orbit.t); if (t && t !== n) n.orbit.t = t.id; else n.orbit = null; }
+  P.nodes.forEach(n => delete n.old); waves = []; sel = null; }
+const pack = () => JSON.stringify(P, (k, v) => k === "si" || k === "flash" || k === "cool" ? undefined : typeof v === "number" ? Math.round(v * 1000) / 1000 : v);
+function persist(){ clearTimeout(persist.t); persist.t = setTimeout(() => { try { localStorage.setItem("syncpond.now", pack()); } catch (e) {} }, 300); }
+const b64 = { enc: s => btoa(unescape(encodeURIComponent(s))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""), dec: s => decodeURIComponent(escape(atob(s.replace(/-/g, "+").replace(/_/g, "/")))) };
+(function boot(){ try { if (location.hash.startsWith("#p=")) { adopt(JSON.parse(b64.dec(location.hash.slice(3)))); history.replaceState(null, "", location.pathname); return; } } catch (e) {}
+  try { const s = localStorage.getItem("syncpond.now"); if (s) return adopt(JSON.parse(s)); } catch (e) {} adopt(EXAMPLES["First ripples"]()); })();
+let undoPond = null;
+
+/* ---------- sound ---------- */
+let ac = null, master, revSend, recTap, samples = new Map(), playing = true, pt = 0, lastAc = 0, stats = { hits: 0, emits: 0 };
+function hall(seconds){ const sr = ac.sampleRate, len = Math.floor(sr * seconds), ir = ac.createBuffer(2, len, sr); for (let c = 0; c < 2; c++) { const d = ir.getChannelData(c); let lp = 0; for (let i = 0; i < len; i++) { const t = i / sr, a = Math.min(0.96, 0.3 + t * 0.4); lp = lp * a + (Math.random() * 2 - 1) * (1 - a); d[i] = lp * Math.exp(-6.9 * t / seconds) * (1 + 2 * a); } } return ir; }
+function audio(){
+  if (ac) { if (ac.state !== "running") ac.resume(); return; }
+  try { if (navigator.audioSession) navigator.audioSession.type = "playback"; } catch (e) {}
+  ac = new (window.AudioContext || window.webkitAudioContext)({ latencyHint: "interactive" });
+  master = ac.createGain(); const comp = ac.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4; comp.attack.value = 0.005; comp.release.value = 0.2;
+  recTap = ac.createGain(); master.connect(comp); comp.connect(recTap); recTap.connect(ac.destination);
+  revSend = ac.createGain(); const conv = ac.createConvolver(); conv.buffer = hall(3.2); const wet = ac.createGain(); wet.gain.value = 0.9; revSend.connect(conv); conv.connect(wet); wet.connect(master);
+  lastAc = ac.currentTime; mix(); loadSamples();
+}
+function mix(){ if (!ac) return; master.gain.setTargetAtTime(Math.pow(P.vol, 1.5) * 0.9, ac.currentTime, 0.03); revSend.gain.setTargetAtTime(P.space * 0.9, ac.currentTime, 0.03); }
+function freq(step, cents){ const sc = SCALES[P.scale] || SCALES.Pentatonic, m = 45 + P.key + 12 * Math.floor(step / sc.length) + sc[step % sc.length]; return 440 * Math.pow(2, (m - 69) / 12 + (cents || 0) / 1200); }
+function voice(name, f, when, amp, len, out){
+  const g = ac.createGain(), o = (type, fr) => { const x = ac.createOscillator(); x.type = type; x.frequency.value = fr; x.start(when); return x; }, srcs = [];
+  let dec = 1.2, att = 0.004, peak = amp;
+  if (name.startsWith("s:")) { const s = samples.get(name.slice(2)); if (!s) return voice("bell", f, when, amp, len, out);
+    const b = ac.createBufferSource(); b.buffer = s.buf; b.playbackRate.value = clamp(f / 261.63, 0.12, 8); b.connect(g); b.start(when); g.gain.setValueAtTime(peak, when); const end = when + Math.min(6, s.buf.duration / b.playbackRate.value); g.gain.setTargetAtTime(0, end - 0.05, 0.02); b.stop(end + 0.1); g.connect(out); return; }
+  if (name === "glass") { const c = o("sine", f), m = o("sine", f * 3.5), mg = ac.createGain(); mg.gain.setValueAtTime(f * 2.2, when); mg.gain.setTargetAtTime(f * 0.1, when, 0.25); m.connect(mg); mg.connect(c.frequency); c.connect(g); srcs.push(c, m); dec = 1.9; peak *= 0.8; }
+  else if (name === "pluck") { const a = o("triangle", f), b = o("sawtooth", f), bg = ac.createGain(), lp = ac.createBiquadFilter(); bg.gain.value = 0.35; lp.type = "lowpass"; lp.frequency.setValueAtTime(Math.min(9000, f * 8), when); lp.frequency.setTargetAtTime(f * 1.2, when, 0.09); a.connect(lp); b.connect(bg); bg.connect(lp); lp.connect(g); srcs.push(a, b); dec = 0.55; }
+  else if (name === "wood") { const a = o("sine", f), b = o("sine", f * 3.98), bg = ac.createGain(); bg.gain.setValueAtTime(0.4, when); bg.gain.setTargetAtTime(0, when, 0.03); a.connect(g); b.connect(bg); bg.connect(g); srcs.push(a, b); dec = 0.4; peak *= 1.1; }
+  else if (name === "drop") { const a = o("sine", f); a.frequency.setValueAtTime(f * 1.7, when); a.frequency.exponentialRampToValueAtTime(f, when + 0.05); a.connect(g); srcs.push(a); dec = 0.28; peak *= 1.1; }
+  else if (name === "pad") { const a = o("sawtooth", f), b = o("sawtooth", f), lp = ac.createBiquadFilter(); a.detune.value = -8; b.detune.value = 8; lp.type = "lowpass"; lp.frequency.value = Math.min(4000, 500 + f * 1.5); a.connect(lp); b.connect(lp); lp.connect(g); srcs.push(a, b); dec = 2.4; att = 0.14; peak *= 0.4; }
+  else { const a = o("sine", f), b = o("sine", f * 2), bg = ac.createGain(); bg.gain.value = 0.18; a.connect(g); b.connect(bg); bg.connect(g); srcs.push(a, b); dec = 1.3; }
+  dec *= len; g.gain.setValueAtTime(0, when); g.gain.linearRampToValueAtTime(peak, when + att); g.gain.setTargetAtTime(0, when + att, dec / 3.5);
+  for (const s of srcs) s.stop(when + att + dec * 1.6 + 0.1); g.connect(out);
+}
+// One node sounds. strength 0..1 (how close the ripple's source was), tp = pond time of the event.
+function ring(n, tp, strength){
+  const step = n.seq[n.si % n.seq.length]; n.si = (n.si + 1) % n.seq.length; n.flash = 1; stats.hits++;
+  if (step < 0 || !ac) return; lastPitch = step;
+  const dx = n.x - P.lis.x, dy = n.y - P.lis.y, d = Math.hypot(dx, dy), spatial = P.mode !== "2d";
+  let when = ac.currentTime - (pt - tp) + 0.05, amp = 0.2 + 0.5 * strength, pan = clamp(n.x * 1.1, -0.6, 0.6), cut = 20000, cents = 0;
+  if (spatial) { pan = clamp(dx * 2.6, -1, 1); amp *= clamp(1.15 - d * 0.9, 0.12, 1); if (dy > 0) cut = 9000 * Math.pow(0.12, clamp(dy * 1.6, 0, 1)) + 700;
+    cents = P.pv.s * 1200 * clamp((dx * Math.cos(P.pv.a) + dy * Math.sin(P.pv.a)) / 0.5, -1, 1);
+    if (P.mode === "4d") when += Math.min(5, d / (P.speed * P.tempo / 60)); }
+  when = Math.max(when, ac.currentTime + 0.005);
+  const pn = ac.createStereoPanner(); pn.pan.value = pan; let out = pn;
+  if (cut < 19000) { const lp = ac.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = cut; lp.connect(pn); out = lp; }
+  pn.connect(master); pn.connect(revSend);
+  voice(n.voice, freq(step, cents), when, amp, 0.45 + 0.55 * strength, out);
+  setTimeout(() => { try { pn.disconnect(); } catch (e) {} }, (when - ac.currentTime + 9) * 1000);
+}
+const isE = n => n.type === "e1" || n.type === "e2";
+function emit(n, tp, gen){ if (waves.length < 160) waves.push({ src: n.id, x: n.x, y: n.y, t0: tp, gen, step: n.seq[(n.si + n.seq.length - 1) % n.seq.length] }); stats.emits++; }
+
+/* ---------- simulation ---------- */
+function place(n, seen){ // orbiting nodes follow their centre, counterclockwise
+  if (!n.orbit) return n; seen = seen || new Set(); if (seen.has(n.id)) { n.orbit = null; return n; } seen.add(n.id);
+  const t = P.nodes.find(m => m.id === n.orbit.t); if (!t) { n.orbit = null; return n; } place(t, seen);
+  const a = n.orbit.a - TAU * pt / (n.orbit.per * 60 / P.tempo); n.x = t.x + Math.cos(a) * n.orbit.r; n.y = t.y + Math.sin(a) * n.orbit.r; return n;
+}
+function tick(){
+  if (!ac || !playing) { if (ac) lastAc = ac.currentTime; return; }
+  const now = ac.currentTime, dt = Math.min(0.25, now - lastAc), prev = pt; lastAc = now; pt += dt; if (dt <= 0) return;
+  const beat = 60 / P.tempo, v = P.speed / beat;
+  for (const n of P.nodes) place(n);
+  for (const n of P.nodes) { if (!isE(n)) continue; const per = (n.type === "e1" ? 1 : 2) * beat, k = Math.floor(pt / per); if (k > Math.floor(prev / per) || prev === 0) { const te = Math.max(prev, k * per); ring(n, te, 0.75); emit(n, te, 0); } }
+  for (let i = waves.length - 1; i >= 0; i--) { const w = waves[i], r0 = (prev - w.t0) * v, r1 = (pt - w.t0) * v;
+    for (const n of P.nodes) { if (n.id === w.src || isE(n)) continue; const d = Math.hypot(n.x - w.x, n.y - w.y); if (d > r0 && d <= r1 && d <= P.reach) { const th = w.t0 + d / v; if (th - (n.cool || -9) < 0.07) continue; n.cool = th; ring(n, th, 1 - d / P.reach); if (n.type === "rf" && w.gen < MAXGEN) emit(n, th, w.gen + 1); } }
+    if (r1 > P.reach) waves.splice(i, 1); }
+}
+
+/* ---------- drawing ---------- */
+const cv = $("pond"), cx = cv.getContext("2d"); let W = 0, H = 0, M = 1, DPR = 1;
+function size(){ DPR = Math.min(2.5, window.devicePixelRatio || 1); W = innerWidth; H = innerHeight; M = Math.min(W, H); cv.width = W * DPR; cv.height = H * DPR; }
+addEventListener("resize", size); size();
+const px = p => ({ x: W / 2 + p.x * M, y: H / 2 + p.y * M }), un = (x, y) => ({ x: (x - W / 2) / M, y: (y - H / 2) / M });
+function shape(n, x, y, r){
+  cx.beginPath();
+  if (n.type === "e1") { cx.arc(x, y, r, 0, TAU); cx.fill(); }
+  else if (n.type === "e2") { cx.arc(x, y, r * 0.42, 0, TAU); cx.fill(); cx.beginPath(); cx.arc(x, y, r * 0.95, 0, TAU); cx.lineWidth = r * 0.24; cx.stroke(); }
+  else if (n.type === "re") { cx.roundRect(x - r * 0.9, y - r * 0.9, r * 1.8, r * 1.8, r * 0.3); cx.fill(); }
+  else { cx.roundRect(x - r * 0.85, y - r * 0.85, r * 1.7, r * 1.7, r * 0.3); cx.lineWidth = r * 0.26; cx.stroke(); cx.beginPath(); cx.rect(x - r * 0.32, y - r * 0.32, r * 0.64, r * 0.64); cx.fill(); }
+}
+function draw(){
+  tick(); cx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  const g = cx.createRadialGradient(W / 2, H * 0.45, 0, W / 2, H * 0.45, Math.max(W, H) * 0.75); g.addColorStop(0, "#0a2f38"); g.addColorStop(0.6, "#04161c"); g.addColorStop(1, "#020b0f"); cx.fillStyle = g; cx.fillRect(0, 0, W, H);
+  const v = P.speed / (60 / P.tempo), R = Math.max(11, Math.min(17, M * 0.034));
+  for (const w of waves) { const r = (pt - w.t0) * v, life = 1 - r / P.reach; if (life <= 0 || r <= 0) continue; const c = px(w); cx.beginPath(); cx.arc(c.x, c.y, r * M, 0, TAU); cx.strokeStyle = color(w.step); cx.globalAlpha = life * (0.75 - w.gen * 0.15); cx.lineWidth = 1 + 2.2 * life; cx.stroke(); }
+  cx.globalAlpha = 1;
+  for (const n of P.nodes) if (n.orbit) { const t = P.nodes.find(m => m.id === n.orbit.t); if (t) { const c = px(t); cx.beginPath(); cx.arc(c.x, c.y, n.orbit.r * M, 0, TAU); cx.setLineDash([2, 7]); cx.strokeStyle = "rgba(232,244,242,.22)"; cx.lineWidth = 1; cx.stroke(); cx.setLineDash([]); } }
+  if (P.mode !== "2d") { const l = px(P.lis); cx.strokeStyle = cx.fillStyle = "#e8f4f2"; cx.lineWidth = 1.5; cx.beginPath(); cx.arc(l.x, l.y, 13, 0, TAU); cx.stroke(); cx.beginPath(); cx.arc(l.x - 13, l.y, 4, Math.PI / 2, Math.PI * 1.5); cx.stroke(); cx.beginPath(); cx.arc(l.x + 13, l.y, 4, -Math.PI / 2, Math.PI / 2); cx.stroke(); cx.beginPath(); cx.moveTo(l.x, l.y - 13); cx.lineTo(l.x - 4, l.y - 7); cx.lineTo(l.x + 4, l.y - 7); cx.fill();
+    const h = pvHandle(); cx.globalAlpha = P.pv.s > 0.01 ? 0.9 : 0.35; cx.beginPath(); cx.moveTo(l.x + Math.cos(P.pv.a) * 16, l.y + Math.sin(P.pv.a) * 16); cx.lineTo(h.x, h.y); cx.stroke(); cx.beginPath(); cx.arc(h.x, h.y, 5, 0, TAU); cx.fill(); cx.globalAlpha = 1; }
+  for (const n of P.nodes) { const c = px(n), f = n.flash || 0, r = R * (1 + f * 0.45), col = color(n.seq[n.si % n.seq.length]);
+    if (f > 0.02) { cx.beginPath(); cx.arc(c.x, c.y, r * 2.1, 0, TAU); cx.fillStyle = col; cx.globalAlpha = f * 0.22; cx.fill(); cx.globalAlpha = 1; }
+    cx.fillStyle = cx.strokeStyle = col; shape(n, c.x, c.y, r);
+    if (n === sel || (picking && n !== sel)) { cx.beginPath(); cx.arc(c.x, c.y, R * 1.9, 0, TAU); cx.strokeStyle = "#e8f4f2"; cx.lineWidth = n === sel ? 1.8 : 1; cx.setLineDash(n === sel ? [] : [3, 5]); cx.stroke(); cx.setLineDash([]); }
+    n.flash = f * 0.9; }
+  requestAnimationFrame(draw);
+}
+const pvHandle = () => { const l = px(P.lis), len = 26 + P.pv.s * 60; return { x: l.x + Math.cos(P.pv.a) * len, y: l.y + Math.sin(P.pv.a) * len }; };
+
+/* ---------- touch ---------- */
+let drag = null;
+function nodeAt(x, y){ let best = null, bd = 30; for (const n of P.nodes) { const c = px(n), d = Math.hypot(c.x - x, c.y - y); if (d < bd) { bd = d; best = n; } } return best; }
+cv.addEventListener("pointerdown", e => {
+  const first = !ac; audio(); $("hint").style.opacity = 0; if (first && P.nodes.length) return; cv.setPointerCapture(e.pointerId); const x = e.clientX, y = e.clientY;
+  if (P.mode !== "2d") { const h = pvHandle(), l = px(P.lis); if (Math.hypot(h.x - x, h.y - y) < 22) return void (drag = { kind: "pv" }); if (Math.hypot(l.x - x, l.y - y) < 24) return void (drag = { kind: "lis" }); }
+  const n = nodeAt(x, y); drag = n ? { kind: "node", n, x, y, moved: false } : { kind: "empty", x, y };
+});
+cv.addEventListener("pointermove", e => {
+  if (!drag) return; const p = un(e.clientX, e.clientY), lim = { x: W / M / 2 - 0.03, y: H / M / 2 - 0.03 };
+  if (drag.kind === "lis") { P.lis.x = clamp(p.x, -lim.x, lim.x); P.lis.y = clamp(p.y, -lim.y, lim.y); persist(); }
+  else if (drag.kind === "pv") { const l = px(P.lis), dx = e.clientX - l.x, dy = e.clientY - l.y; P.pv.a = Math.atan2(dy, dx); P.pv.s = clamp((Math.hypot(dx, dy) - 26) / 60, 0, 1); persist(); }
+  else if (drag.kind === "node") { if (!drag.moved && Math.hypot(e.clientX - drag.x, e.clientY - drag.y) < 7) return; drag.moved = true; const n = drag.n;
+    if (n.orbit) { const t = P.nodes.find(m => m.id === n.orbit.t); if (t) { const dx = p.x - t.x, dy = p.y - t.y; n.orbit.r = clamp(Math.hypot(dx, dy), 0.04, 0.8); n.orbit.a = Math.atan2(dy, dx) + TAU * pt / (n.orbit.per * 60 / P.tempo); } }
+    else { n.x = clamp(p.x, -lim.x, lim.x); n.y = clamp(p.y, -lim.y, lim.y); } persist(); }
+});
+const up = e => {
+  const d = drag; drag = null; if (!d) return;
+  if (d.kind === "node" && !d.moved) {
+    if (picking && sel && d.n !== sel) { let loop = false, t = d.n; for (let i = 0; i < 50 && t && t.orbit; i++) { if (t.orbit.t === sel.id) loop = true; t = P.nodes.find(m => m.id === t.orbit.t); }
+      if (loop) toast("That node already circles this one"); else { const dx = sel.x - d.n.x, dy = sel.y - d.n.y; sel.orbit = { t: d.n.id, r: clamp(Math.hypot(dx, dy), 0.04, 0.8), a: Math.atan2(dy, dx) + TAU * pt / (8 * 60 / P.tempo), per: 8 }; }
+      picking = false; persist(); return nodeSheet(); }
+    if (isE(d.n)) { ring(d.n, pt, 0.75); emit(d.n, pt, 0); }
+    sel = d.n; seqSel = 0; picking = false; $("setSheet").hidden = true; nodeSheet();
+  } else if (d.kind === "empty") {
+    if (!$("nodeSheet").hidden || !$("setSheet").hidden) { sel = null; picking = false; $("nodeSheet").hidden = true; $("setSheet").hidden = true; $("tools").hidden = false; return; }
+    if (P.nodes.length >= MAXN) return toast("The pond is full (" + MAXN + " nodes)");
+    const p = un(d.x, d.y), n = mk(tool, p.x, p.y, [isE({ type: tool }) ? Math.max(0, lastPitch - 5) : lastPitch]); P.nodes.push(n); n.flash = 1; lastPitch = (lastPitch + [2, 3, 1, 4][P.nodes.length % 4]) % 16 + 2; persist();
+  }
+};
+cv.addEventListener("pointerup", up); cv.addEventListener("pointercancel", () => drag = null);
+
+/* ---------- node sheet ---------- */
+function nodeSheet(){
+  const s = $("nodeSheet"), n = sel; if (!n) { s.hidden = true; $("tools").hidden = false; return; }
+  $("tools").hidden = true; s.hidden = false; seqSel = Math.min(seqSel, n.seq.length - 1);
+  const set = fn => () => { fn(); persist(); nodeSheet(); };
+  const close = el("button", { class: "ib", "aria-label": "Close", onclick: () => { sel = null; picking = false; nodeSheet(); } }, "✕");
+  const orbitT = n.orbit && P.nodes.find(m => m.id === n.orbit.t);
+  if (picking) return void s.replaceChildren(el("h2", {}, "Tap the node it should circle", el("button", { class: "chip", onclick: () => { picking = false; nodeSheet(); } }, "Cancel")));
+  s.replaceChildren(
+    el("h2", {}, TYPES[n.type] + " node", close),
+    el("div", { class: "row" }, Object.keys(TYPES).map(t => el("button", { class: "chip", "aria-pressed": String(n.type === t), onclick: set(() => n.type = t) }, TYPES[t]))),
+    el("p", { class: "note" }, TDESC[n.type]),
+    el("h3", {}, n.seq.length > 1 ? "Notes, played one per turn" : "Note"),
+    el("div", { class: "seq" }, n.seq.map((st, i) => el("button", { class: st < 0 ? "rest" : "", style: st < 0 ? "" : "background:" + color(st), "aria-pressed": String(i === seqSel), "aria-label": "Step " + (i + 1), onclick: () => { seqSel = i; nodeSheet(); } }, st < 0 ? "–" : "")),
+      n.seq.length < STEPS && el("button", { class: "add", onclick: set(() => { n.seq.push(n.seq[seqSel] < 0 ? lastPitch : n.seq[seqSel]); seqSel = n.seq.length - 1; }) }, "+ step"),
+      el("button", { class: "add", onclick: set(() => n.seq[seqSel] = -1) }, "rest"),
+      n.seq.length > 1 && el("button", { class: "add", onclick: set(() => { n.seq.splice(seqSel, 1); n.si = 0; }) }, "remove")),
+    el("div", { class: "strip" }, Array.from({ length: STEPS }, (_, i) => el("button", { style: "background:" + color(i), "aria-pressed": String(n.seq[seqSel] === i), "aria-label": "Pitch " + (i + 1), onclick: () => { n.seq[seqSel] = i; lastPitch = i; persist(); if (ac) { const keep = n.si; n.si = seqSel; ring(n, pt, 0.8); n.si = keep; } nodeSheet(); } }))),
+    el("h3", {}, "Sound"),
+    el("div", { class: "row" }, el("select", { "aria-label": "Sound", onchange: e => { n.voice = e.target.value; persist(); ring(n, pt, 0.8); } },
+      Object.keys(VOICES).map(k => el("option", { value: k, selected: n.voice === k }, VOICES[k])), [...samples.values()].map(sm => el("option", { value: "s:" + sm.id, selected: n.voice === "s:" + sm.id }, "♪ " + sm.name))),
+      el("button", { class: "chip", onclick: () => { addFor = n; $("file").click(); } }, "Use my own sound")),
+    el("h3", {}, "Movement"),
+    el("div", { class: "row" }, n.orbit && orbitT ? [el("span", {}, "One turn every"), el("select", { "aria-label": "Beats per turn", onchange: e => { const old = n.orbit.per, per = +e.target.value; n.orbit.a += TAU * pt / (per * 60 / P.tempo) - TAU * pt / (old * 60 / P.tempo); n.orbit.per = per; persist(); } }, [2, 4, 8, 16, 32].map(b => el("option", { value: b, selected: n.orbit.per === b }, b + " beats"))), el("button", { class: "chip", onclick: set(() => n.orbit = null) }, "Stop circling")]
+      : el("button", { class: "chip", "aria-pressed": String(picking), onclick: () => { picking = !picking; nodeSheet(); } }, picking ? "Now tap the node to circle" : "Circle another node")),
+    el("div", { class: "row" }, el("button", { class: "chip warn", onclick: () => { P.nodes = P.nodes.filter(m => m !== n); P.nodes.forEach(m => { if (m.orbit && m.orbit.t === n.id) m.orbit = null; }); sel = null; persist(); nodeSheet(); } }, "Remove node")));
+}
+
+/* ---------- settings sheet ---------- */
+function slider(label, min, max, step, val, fmt, on){ const out = el("output", {}, fmt(val)); return el("label", { class: "sl" }, label, el("input", { type: "range", min, max, step, value: val, oninput: e => { on(+e.target.value); out.textContent = fmt(+e.target.value); mix(); persist(); head(); } }), out); }
+function ponds(){ try { return JSON.parse(localStorage.getItem("syncpond.saved")) || {}; } catch (e) { return {}; } }
+function setSheet(){
+  const s = $("setSheet"); sel = null; picking = false; $("nodeSheet").hidden = true; $("tools").hidden = true; s.hidden = false;
+  const saved = ponds(), re = () => { persist(); head(); setSheet(); };
+  const load = p => { undoPond = pack(); adopt(p); mix(); re(); toast("Loaded " + P.name); };
+  s.replaceChildren(
+    el("h2", {}, "Pond", el("button", { class: "ib", "aria-label": "Close", onclick: () => { s.hidden = true; $("tools").hidden = false; } }, "✕")),
+    slider("Tempo", 40, 180, 1, P.tempo, v => v + " bpm", v => P.tempo = v),
+    slider("Ripple speed", 0.1, 0.8, 0.01, P.speed, v => Math.round(v * 100) + "", v => P.speed = v),
+    slider("Ripple reach", 0.2, 1.4, 0.01, P.reach, v => Math.round(v * 100) + "", v => P.reach = v),
+    slider("Space", 0, 1, 0.01, P.space, v => Math.round(v * 100) + "", v => P.space = v),
+    slider("Volume", 0, 1, 0.01, P.vol, v => Math.round(v * 100) + "", v => P.vol = v),
+    el("div", { class: "row" }, el("select", { "aria-label": "Key", onchange: e => { P.key = +e.target.value; persist(); } }, KEYS.map((k, i) => el("option", { value: i, selected: P.key === i }, k))),
+      el("select", { "aria-label": "Scale", style: "flex:1", onchange: e => { P.scale = e.target.value; persist(); } }, Object.keys(SCALES).map(k => el("option", { value: k, selected: P.scale === k }, k)))),
+    el("h3", {}, "Listening"),
+    el("div", { class: "row" }, [["2d", "Flat"], ["3d", "Around you"], ["4d", "Ripples reach you"]].map(([m, l]) => el("button", { class: "chip", "aria-pressed": String(P.mode === m), onclick: () => { P.mode = m; re(); } }, l))),
+    el("p", { class: "note" }, P.mode === "2d" ? "Every node sounds the same wherever it is." : P.mode === "3d" ? "Use headphones. Drag the listener: nodes sound left or right of it, softer far away and muffled behind it. Pull the arrow out to bend pitch across the pond." : "Like Around you, but each sound arrives only when its ripple reaches the listener."),
+    el("h3", {}, "My ponds"),
+    el("div", { class: "row" }, el("input", { type: "text", id: "nm", value: P.name, maxlength: 30, "aria-label": "Pond name", style: "flex:1", onchange: e => { P.name = e.target.value.trim() || "My pond"; persist(); head(); } }),
+      el("button", { class: "chip", onclick: () => { P.name = $("nm").value.trim() || "My pond"; const all = ponds(); all[P.name] = JSON.parse(pack()); try { localStorage.setItem("syncpond.saved", JSON.stringify(all)); toast("Saved " + P.name); } catch (e) { toast("Could not save: storage is full"); } re(); } }, "Save"),
+      el("button", { class: "chip", onclick: async () => { const url = location.origin + location.pathname + "#p=" + b64.enc(pack()); try { if (navigator.share) await navigator.share({ title: "Syncpond: " + P.name, url }); else { await navigator.clipboard.writeText(url); toast("Link copied"); } } catch (e) { if (e.name !== "AbortError") { prompt("Copy this link", url); } } } }, "Share link")),
+    el("div", { class: "list" }, Object.keys(saved).map(k => el("div", {}, el("span", {}, k), el("button", { class: "chip", onclick: () => load(saved[k]) }, "Open"), el("button", { class: "chip warn", "aria-label": "Delete " + k, onclick: () => { const all = ponds(); delete all[k]; localStorage.setItem("syncpond.saved", JSON.stringify(all)); setSheet(); } }, "✕")))),
+    el("div", { class: "row" }, Object.keys(EXAMPLES).map(k => el("button", { class: "chip", onclick: () => load(EXAMPLES[k]()) }, k)),
+      el("button", { class: "chip warn", onclick: () => { undoPond = pack(); const keep = P.name; adopt(Object.assign(JSON.parse(pack()), { nodes: [] })); P.name = keep; re(); toast("Pond emptied"); } }, "Empty the pond"),
+      undoPond && el("button", { class: "chip", onclick: () => { const u = undoPond; undoPond = null; adopt(JSON.parse(u)); mix(); re(); } }, "Undo")),
+    el("h3", {}, "My sounds"),
+    el("div", { class: "list" }, [...samples.values()].map(sm => el("div", {}, el("span", {}, "♪ " + sm.name), el("button", { class: "chip", onclick: () => { audio(); voice("s:" + sm.id, 261.63, ac.currentTime + 0.02, 0.6, 1, master); } }, "Hear"), el("button", { class: "chip warn", "aria-label": "Delete " + sm.name, onclick: async () => { samples.delete(sm.id); try { await idb("readwrite", st => st.delete(sm.id)); } catch (e) {} setSheet(); } }, "✕")))),
+    el("div", { class: "row" }, el("button", { class: "chip", onclick: () => { addFor = null; $("file").click(); } }, "Add a sound file")),
+    el("p", { class: "note" }, "Short sounds work best: a note, a voice, a glass. They are played higher and lower to follow each node's colour, and stay on this device. Shared links do not carry them."));
+}
+function head(){ $("pname").textContent = P.name; $("tempoBtn").textContent = P.tempo + " bpm"; $("playIcon").setAttribute("d", playing ? "M7 5h4v14H7zM13 5h4v14h-4z" : "M8 5l11 7-11 7z"); $("play").setAttribute("aria-label", playing ? "Pause the pond" : "Play the pond"); }
+$("menu").onclick = () => { if ($("setSheet").hidden) setSheet(); else { $("setSheet").hidden = true; $("tools").hidden = false; } };
+$("tempoBtn").onclick = () => $("menu").onclick();
+$("play").onclick = () => { audio(); playing = !playing; head(); };
+for (const b of $("tools").children) b.onclick = () => { tool = b.dataset.t; for (const c of $("tools").children) c.setAttribute("aria-pressed", String(c === b)); };
+addEventListener("keydown", e => { if (e.target.matches("input,select")) return; if (e.code === "Space") { e.preventDefault(); $("play").onclick(); } if ((e.key === "Backspace" || e.key === "Delete") && sel) { P.nodes = P.nodes.filter(m => m !== sel); sel = null; persist(); nodeSheet(); } });
+document.addEventListener("visibilitychange", () => { if (!document.hidden && ac) { lastAc = ac.currentTime; if (ac.state !== "running") ac.resume(); } });
+
+/* ---------- own sounds (kept in the browser) ---------- */
+let addFor = null, dbp = null;
+function idb(mode, fn){ dbp = dbp || new Promise((res, rej) => { const r = indexedDB.open("syncpond", 1); r.onupgradeneeded = () => r.result.createObjectStore("sounds", { keyPath: "id" }); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); });
+  return dbp.then(d => new Promise((res, rej) => { const tx = d.transaction("sounds", mode), rq = fn(tx.objectStore("sounds")); tx.oncomplete = () => res(rq && rq.result); tx.onerror = () => rej(tx.error); })); }
+const decode = bytes => new Promise((res, rej) => { const p = ac.decodeAudioData(bytes.slice(0), res, rej); if (p && p.catch) p.catch(rej); });
+async function loadSamples(){ try { for (const r of await idb("readonly", st => st.getAll()) || []) { try { samples.set(r.id, { id: r.id, name: r.name, buf: await decode(r.bytes) }); } catch (e) {} } } catch (e) {} }
+$("file").onchange = async e => {
+  const f = e.target.files[0]; e.target.value = ""; if (!f) return; audio();
+  try { const bytes = await f.arrayBuffer(); let buf = await decode(bytes);
+    if (buf.duration > 12) { const n = Math.floor(12 * buf.sampleRate), cut = ac.createBuffer(buf.numberOfChannels, n, buf.sampleRate); for (let c = 0; c < buf.numberOfChannels; c++) cut.copyToChannel(buf.getChannelData(c).subarray(0, n), c); buf = cut; }
+    const id = "u" + Date.now().toString(36), name = f.name.replace(/\.[^.]+$/, "").slice(0, 24) || "Sound"; samples.set(id, { id, name, buf });
+    try { await idb("readwrite", st => st.put({ id, name, bytes })); } catch (err) { toast("Added for now, but it could not be stored"); }
+    if (addFor) { addFor.voice = "s:" + id; persist(); sel = addFor; nodeSheet(); ring(addFor, pt, 0.8); } else setSheet();
+    toast("Added " + name + (f.size > 3e6 ? " (first 12 seconds)" : ""));
+  } catch (err) { toast("This file could not be read as sound"); }
+};
+
+/* ---------- record to MP3 ---------- */
+let recNode = null, recL = [], recR = [], recLen = 0;
+function lame(){ return window.lamejs ? Promise.resolve() : new Promise((res, rej) => { const s = document.createElement("script"); s.src = "vendor/lame.min.js"; s.onload = res; s.onerror = rej; document.head.append(s); }); }
+async function toMp3(L, R, rate){
+  await lame(); const enc = new lamejs.Mp3Encoder(2, rate, 192), out = [], B = 1152 * 20, i16 = f => { const o = new Int16Array(f.length); for (let i = 0; i < f.length; i++) { const v = Math.max(-1, Math.min(1, f[i])); o[i] = v < 0 ? v * 32768 : v * 32767; } return o; };
+  for (let i = 0; i < L.length; i += B) { const d = enc.encodeBuffer(i16(L.subarray(i, i + B)), i16(R.subarray(i, i + B))); if (d.length) out.push(new Uint8Array(d)); if (i % (B * 20) === 0) await new Promise(r => setTimeout(r)); }
+  const d = enc.flush(); if (d.length) out.push(new Uint8Array(d)); return new Blob(out, { type: "audio/mpeg" });
+}
+$("rec").onclick = async () => {
+  audio();
+  if (!recNode) { recL = []; recR = []; recLen = 0; recNode = ac.createScriptProcessor(4096, 2, 2);
+    recNode.onaudioprocess = e => { if (recLen > ac.sampleRate * 600) return; recL.push(new Float32Array(e.inputBuffer.getChannelData(0))); recR.push(new Float32Array(e.inputBuffer.getChannelData(1))); recLen += 4096; };
+    const mute = ac.createGain(); mute.gain.value = 0; recTap.connect(recNode); recNode.connect(mute); mute.connect(ac.destination); recNode.mute = mute;
+    $("rec").classList.add("on"); $("rec").setAttribute("aria-label", "Stop recording and save MP3"); if (!playing) $("play").onclick(); return toast("Recording. Tap again to save an MP3."); }
+  recTap.disconnect(recNode); recNode.disconnect(); recNode.mute.disconnect(); recNode = null; $("rec").classList.remove("on"); $("rec").setAttribute("aria-label", "Record to MP3");
+  if (recLen < 8192) return toast("Too short to save");
+  toast("Making the MP3…"); const join = a => { const o = new Float32Array(recLen); let p = 0; for (const c of a) { o.set(c, p); p += c.length; } return o; };
+  try { const blob = await toMp3(join(recL), join(recR), ac.sampleRate), name = "syncpond-" + (P.name || "pond").toLowerCase().replace(/[^a-z0-9]+/g, "-") + ".mp3"; window.__lastMp3 = blob.size;
+    const file = new File([blob], name, { type: "audio/mpeg" });
+    if (matchMedia("(pointer:coarse)").matches && navigator.canShare && navigator.canShare({ files: [file] })) { try { await navigator.share({ files: [file] }); return; } catch (e) { if (e.name === "AbortError") return; } }
+    const a = el("a", { href: URL.createObjectURL(blob), download: name }); document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000); toast("Saved " + name);
+  } catch (e) { toast("The MP3 could not be made"); }
+  recL = []; recR = [];
+};
+head(); if (P.nodes.length) setTimeout(() => $("hint").textContent = "Tap anywhere to start the sound.", 0); requestAnimationFrame(draw);
+window.__pond = { get P(){ return P; }, stats, get waves(){ return waves; }, get pt(){ return pt; }, samples };
+</script>
+<script data-goatcounter="https://mvanpassel.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
