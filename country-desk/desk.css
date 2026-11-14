@@ -153,10 +153,9 @@ footer p{margin:0 0 6px}
 /* ---------- all countries (shadow desk, refreshed by hand) ---------- */
 .shadowdesk{--spot:#5B7083}
 @media (prefers-color-scheme:dark){.shadowdesk{--spot:#8FA6B8}}
-.mast .alllink{margin:16px 0 0;max-width:none}
-.alllink a{display:inline-flex;align-items:baseline;gap:10px;flex-wrap:wrap;text-decoration:none;border:1px dashed var(--ink);border-radius:999px;padding:7px 16px;font-weight:600}
-.alllink a span{font-weight:400;font-size:13.5px;color:var(--muted)}
-.alllink a:hover{background:color-mix(in srgb,var(--ink) 7%,transparent)}
+.alllink{margin:0;text-align:right;font-size:13px}
+.alllink a{color:var(--muted);text-decoration-color:var(--line)}
+.alllink a:hover{color:var(--ink)}
 .tools{display:grid;gap:10px;margin:22px 0 4px}
 .tools input{font:inherit;padding:10px 14px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--ink);max-width:460px;width:100%}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
@@ -176,6 +175,15 @@ footer p{margin:0 0 6px}
 .shadowdesk .head{border-bottom-style:dashed}
 .shadownote{font-size:14px;color:var(--muted);max-width:280px;border:1px dashed var(--line);border-radius:6px;padding:10px 14px;line-height:1.4}
 .shadownote b{display:block;color:var(--ink);font-family:var(--display);font-size:17px}
+.allmap{margin:18px 0 0}
+.allmap .land{fill:var(--land);stroke:var(--sea);stroke-width:.5}
+.allmap a .shadow{fill:color-mix(in srgb,var(--spot) 45%,var(--land));stroke:var(--sea);stroke-width:.5;cursor:pointer}
+.allmap a .sketched{fill:var(--spot)}
+.allmap a .full{fill:var(--ink)}
+.allmap a:hover path,.allmap a:focus-visible path{filter:brightness(1.25)}
+.allmap .dim{opacity:.25}
+.maplegend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin:8px 0 0}
+.maplegend i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:6px;vertical-align:-1px}
 .snap{font-size:17px;max-width:70ch;margin:0 0 10px}
 .snap .srcs a{margin-right:10px}
 @media (max-width:760px){.shadowlist a{grid-template-columns:1fr auto}}

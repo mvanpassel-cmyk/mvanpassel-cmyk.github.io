@@ -12,9 +12,9 @@ on:
         options: [missing, all, none]
         default: missing
       limit:
-        description: "At most this many sketches in this run (each is one Claude request with up to 4 web searches)"
+        description: "At most this many sketches in this run (each is one Claude request with up to 2 web searches)"
         type: string
-        default: "200"
+        default: "60"
       only:
         description: "Optional: only these countries, comma-separated ISO3 codes or names (e.g. GHA,Peru)"
         type: string

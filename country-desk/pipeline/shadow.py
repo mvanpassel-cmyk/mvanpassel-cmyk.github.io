@@ -16,6 +16,10 @@ Environment:
   LIMIT      max sketches this run (default 200)
   ONLY       comma-separated ISO3 codes or names; restricts both parts
   MAX_MINUTES  stop starting new sketches after this many minutes (default 200)
+  SHADOW_MODEL, SHADOW_SEARCHES  model (default claude-haiku-5-5) and web searches per sketch (default 2)
+
+Sketch order: data/shadow/priority.json first (EU, the ring around Europe, a few
+large partners), then the rest alphabetically; small states come last.
 
 The full-desk countries (data/countries.json) are skipped: they have their own pages.
 Standard library only.
@@ -27,8 +31,9 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import update as U  # noqa: E402  (shared helpers of the weekly desk run)
 
 SHADOW = os.path.join(U.DATA, "shadow")
-MODEL = os.environ.get("SHADOW_MODEL", U.MODEL)
-SEARCH_TOOL = {"type": "web_search_20250305", "name": "web_search", "max_uses": 4}
+MODEL = os.environ.get("SHADOW_MODEL") or "claude-haiku-5-5"      # small model: short sourced notes, lower cost
+SEARCHES = int(os.environ.get("SHADOW_SEARCHES") or 2)              # web searches per country
+SEARCH_TOOL = {"type": "web_search_20250305", "name": "web_search", "max_uses": SEARCHES}
 RATING_LEVELS = "ABCDE"
 
 
@@ -142,7 +147,7 @@ def sketch_prompt(c, live, today):
         "\"minister\":{\"name\":\"current minister responsible for health\",\"role\":\"exact title\",\"since\":\"year or empty\",\"src\":\"url\"} or null,"
         "\"priorities\":[{\"title\":\"max 8 words\",\"text\":\"max 35 words: a current health priority, reform or programme of the government\",\"src\":\"url\"}],"
         "\"netherlands\":{\"text\":\"max 30 words on health cooperation with the Netherlands\",\"src\":\"url\"} or null}\n"
-        "At most 3 priorities. Use null or an empty list where the search does not confirm something. Keep searches to four or fewer."
+        "At most 3 priorities. Use null or an empty list where the search does not confirm something. " + f"You have {SEARCHES} searches: make the first one find the current health minister and recent health policy together."
     )
     return {"model": MODEL, "max_tokens": 2500, "system": system, "tools": [SEARCH_TOOL],
             "messages": [{"role": "user", "content": user}]}
@@ -313,7 +318,9 @@ def main():
         def last_checked(c):
             return U.load(os.path.join(SHADOW, "sketch", c["iso3"].lower() + ".json"), {}).get("checked", "")
         queue = [c for c in todo if mode == "all" or not last_checked(c)]
-        queue.sort(key=lambda c: (last_checked(c), c["name"]))
+        prio = U.load(os.path.join(SHADOW, "priority.json"), {}).get("iso3", [])
+        rank = {iso: i for i, iso in enumerate(prio)}
+        queue.sort(key=lambda c: (last_checked(c), rank.get(c["iso3"], len(rank)), c["name"]))
         for c in queue[:limit]:
             if (time.time() - t0) / 60 > max_min:
                 log.append(f"Stopped sketches after {max_min:g} minutes; {len(queue[:limit]) - len(written) - len(errors)} left for the next run")

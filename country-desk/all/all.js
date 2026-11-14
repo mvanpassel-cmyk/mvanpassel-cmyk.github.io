@@ -29,11 +29,11 @@ function fmtNum(v) {
 const host = u => { try { return new URL(u).hostname.replace(/^www\./, ""); } catch { return "Source"; } };
 const REGION_ORDER = ["Africa", "Americas", "Eastern Mediterranean", "Europe", "South-East Asia", "Western Pacific", "Not a WHO region"];
 
-let INDEX = null, STATUS = {};
+let INDEX = null, STATUS = {}, WORLD = [];
 const state = { q: "", region: "" };
 
 async function boot() {
-  [INDEX, STATUS] = await Promise.all([getJSON("data/shadow/index.json", null), getJSON("data/shadow/status.json", {})]);
+  [INDEX, STATUS, WORLD] = await Promise.all([getJSON("data/shadow/index.json", null), getJSON("data/shadow/status.json", {}), getJSON("data/shadow/world.json", { countries: [] }).then(w => w.countries)]);
   window.addEventListener("hashchange", route);
   route();
 }
@@ -62,6 +62,8 @@ function renderList() {
     const rows = all.filter(c => (!state.region || c.region === state.region) &&
       (!q || c.name.toLowerCase().includes(q) || (c.minister || "").toLowerCase().includes(q) || (c.line || "").toLowerCase().includes(q)));
     count.textContent = `${rows.length} of ${all.length} countries`;
+    const shown = new Set(rows.map(c => c.iso3));
+    mapBox.querySelectorAll("a[data-iso]").forEach(a => a.classList.toggle("dim", !shown.has(a.dataset.iso)));
     const groups = REGION_ORDER.map(r => [r, rows.filter(c => c.region === r)]).filter(([, rs]) => rs.length);
     list.replaceChildren(...(rows.length ? groups.map(([r, rs]) => h("section", { class: "region" },
       h("h2", null, r, h("span", { text: String(rs.length) })),
@@ -74,6 +76,10 @@ function renderList() {
     h("span", { class: "counts" }, c.desk ? h("b", { class: "tag fulltag", text: "Full desk" }) :
       [c.life != null ? `Life expectancy ${fmtNum(c.life)}` : "", c.projects ? `${c.projects} projects` : "", c.outbreaks ? `${c.outbreaks} outbreak notice${c.outbreaks > 1 ? "s" : ""}` : ""].filter(Boolean).join(", "))));
 
+  const mapBox = h("div", { class: "map allmap" });
+  const legend = h("p", { class: "maplegend" }, h("span", null, h("i", { style: "background:var(--ink)" }), "Full desk, weekly"),
+    h("span", null, h("i", { style: "background:var(--spot)" }), "Shadow page with sketch"),
+    h("span", null, h("i", { style: "background:color-mix(in srgb,var(--spot) 45%,var(--land))" }), "Figures only"));
   const search = h("input", { type: "search", placeholder: "Search a country, minister or topic", "aria-label": "Search countries", value: state.q,
     oninput: e => { state.q = e.target.value; draw(); } });
   const chips = h("div", { class: "chips", role: "group", "aria-label": "Filter by WHO region" },
@@ -85,13 +91,36 @@ function renderList() {
     h("header", { class: "mast" }, h("div", null, h("h1", { text: "All countries" }),
       h("p", null, `Basic health information for every country. ${all.length - shadow.length} countries have a full desk page that updates weekly; the other ${shadow.length} are refreshed by hand`,
         refreshed ? `, last on ${shortDate(refreshed)}` : "", "."))),
+    mapBox, legend,
     h("div", { class: "tools" }, search, chips, count),
     list,
     h("footer", null,
       h("p", { text: `Figures, projects and outbreak notices come from WHO, the World Bank and the sibling tools; ${sketched} of ${shadow.length} countries have a short sketch written by Claude with web search, each point linked to its source.` }),
       h("p", { text: "Pages here are refreshed irregularly. For a country you follow closely, a full desk page is better." })));
+  drawMap(mapBox, all);
   draw();
   if (state.q) search.focus();
+}
+
+async function drawMap(box, all) {
+  try {
+    const topo = await fetch("../../nphi-map/lib/countries-110m.json").then(r => r.json());
+    if (!window.d3 || !window.topojson) throw new Error("map library missing");
+    const byNum = {}, rows = Object.fromEntries(all.map(c => [c.iso3, c]));
+    for (const w of WORLD) if (w.num && rows[w.iso3]) byNum[w.num] = rows[w.iso3];
+    const W = 1100, H = 500, svg = d3.select(box).append("svg").attr("viewBox", `0 0 ${W} ${H}`).attr("role", "img")
+      .attr("aria-label", "World map; every country links to its page");
+    const feats = topojson.feature(topo, topo.objects.countries).features.filter(f => f.id !== "010");
+    const proj = d3.geoNaturalEarth1().rotate([-20, 0]).fitExtent([[6, 6], [W - 6, H - 6]], { type: "FeatureCollection", features: feats });
+    const path = d3.geoPath(proj);
+    for (const f of feats) {
+      const c = byNum[f.id];
+      if (!c) { svg.append("path").attr("class", "land").attr("d", path(f)); continue; }
+      const a = svg.append("a").attr("href", c.desk ? `../${c.desk}/` : `#${c.slug}`).attr("data-iso", c.iso3).attr("aria-label", c.name);
+      a.append("title").text(c.name + (c.desk ? " (full desk)" : ""));
+      a.append("path").attr("class", c.desk ? "shadow full" : c.checked ? "shadow sketched" : "shadow").attr("d", path(f));
+    }
+  } catch (e) { box.remove(); }
 }
 
 /* =================== country =================== */
