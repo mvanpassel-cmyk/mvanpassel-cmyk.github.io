@@ -174,9 +174,9 @@ async function renderCountry() {
   const renderNphi = p => h("li", null, h("div", { class: "pt" }, link(p.title, p.url)),
     h("div", { class: "pm", text: [p.actor + (p.actorCountry ? ` (${p.actorCountry})` : ""), p.type, [p.start, p.end].filter(Boolean).join(" to "), p.status].filter(Boolean).join(", ") }),
     p.summary ? h("div", { class: "ps", text: p.summary }) : null);
-  const wb = live.wbProjects || [];
+  const wb = live.wbProjects || [], pfund = live.pandemicFund || [];
   const projects = section("projects", "Projects and partnerships",
-    "Dutch links first, then what other public health institutes are doing here, then active World Bank health projects.",
+    "Dutch links first, then what other public health institutes are doing here, then Pandemic Fund grants and active World Bank health projects.",
     h("div", { class: "pgroup" }, h("h3", null, "Dutch links", h("span", { text: `${nlItems.length + nphiNL.length} found` })),
       (profile.nl || {}).text ? h("p", { class: "ps", text: profile.nl.text }) : null,
       nlItems.length + nphiNL.length ? h("ul", { class: "plist" },
@@ -184,6 +184,12 @@ async function renderCountry() {
         nphiNL.map(renderNphi)) : h("p", { class: "empty", text: "No Dutch-linked health projects found in public sources yet." })),
     h("div", { class: "pgroup" }, h("h3", null, "Institute collaborations", h("span", null, `${nphiOther.length} from the `, link("NPHI Collaboration Map", "../../nphi-map/"))),
       nphiOther.length ? expandable(nphiOther, 6, renderNphi, "collaborations") : h("p", { class: "empty", text: "None on the map for this country." })),
+    pfund.length ? h("div", { class: "pgroup" }, h("h3", null, "Pandemic Fund grants", h("span", null, `${pfund.length} from the `, link("NPHI Collaboration Map", "../../nphi-map/"))),
+      h("ul", { class: "plist" }, pfund.map(p => h("li", null, h("div", { class: "pt" }, link(p.title, p.url)),
+        h("div", { class: "pm", text: [`Round ${p.round} (${p.year})`, p.usdM ? `US$ ${p.usdM.toFixed(1)} million` : "",
+          p.scope === "single" ? "country grant" : `shared with ${p.partners - 1} other countr${p.partners - 1 === 1 ? "y" : "ies"}${p.region ? " (" + p.region + ")" : ""}`,
+          p.entities.length ? "via " + p.entities.join(", ") : ""].filter(Boolean).join(", ") })))),
+      h("p", { class: "ps muted small", text: "Country grants carried out by implementing entities with national authorities; not institute-to-institute collaborations." })) : null,
     h("div", { class: "pgroup" }, h("h3", null, "World Bank health projects", h("span", { text: `${wb.length} active` })),
       wb.length ? h("ul", { class: "plist" }, wb.map(p => h("li", null, h("div", { class: "pt" }, link(p.name, p.url)),
         h("div", { class: "pm", text: [p.usd ? `US$ ${fmtNum(p.usd)}` : "", p.approved ? `approved ${p.approved.slice(0, 4)}` : "", `closes ${shortDate(p.closing)}`].filter(Boolean).join(", ") }))))

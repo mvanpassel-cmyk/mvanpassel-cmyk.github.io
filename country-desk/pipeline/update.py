@@ -399,6 +399,21 @@ def nphi_slice(c, projects, home="Netherlands"):
     return rows
 
 
+def pf_slice(c, projects):
+    """Pandemic Fund grants that name this country as a recipient (from the NPHI map's separate layer)."""
+    names = [c["name"], *c.get("alt_names", [])]
+    rows = []
+    for p in projects:
+        if not any(n in p.get("countries", []) for n in names):
+            continue
+        rows.append({"title": p.get("title"), "round": p.get("round"), "year": p.get("year"), "scope": p.get("scope"),
+                     "region": p.get("region", ""), "partners": len(p.get("countries", [])),
+                     "entities": p.get("entities", []), "usdM": p.get("amountUSDm"),
+                     "url": p.get("page") or p.get("source")})
+    rows.sort(key=lambda r: (-(r["round"] or 0), r["scope"] != "single"))
+    return rows
+
+
 def jee_slice(c, assessments):
     evs = [e for e in assessments.get("evaluations", []) if e.get("country") in [c["name"], *c.get("alt_names", [])]]
     if not evs:
@@ -581,6 +596,7 @@ def main():
         log.append(f"World Calendar unavailable ({type(e).__name__})")
     don = who_don(log)
     nphi = load(os.path.join(REPO, "nphi-map", "projects.json"), {}).get("projects", [])
+    pfund = load(os.path.join(REPO, "nphi-map", "pandemic-fund.json"), {}).get("projects")
     jee = load(os.path.join(REPO, "jee-good-practices", "data", "assessments.json"), {})
     signals = load(os.path.join(REPO, "risk-radar", "data", "signals.json"), {})
     forecasts = load(os.path.join(REPO, "crowd-forecasts", "data", "forecasts.json"), {})
@@ -599,6 +615,7 @@ def main():
         if don is not None:
             live["outbreaks"] = outbreaks_for(c, don, now)
         live["nphi"] = nphi_slice(c, nphi) if nphi else live.get("nphi", [])
+        live["pandemicFund"] = pf_slice(c, pfund) if pfund is not None else live.get("pandemicFund", [])
         live["jee"] = jee_slice(c, jee) if jee else live.get("jee")
         live["risk"] = risk_slice(c, signals)
         live["forecasts"] = forecast_slice(c, forecasts)
@@ -644,7 +661,7 @@ def main():
         top = ((live.get("digest") or {}).get("highlights") or [{}])[0]
         index.append({"slug": c["slug"], "top": top.get("headline", ""), "digest": (live.get("digest") or {}).get("date", ""),
                       "news": len(news), "outbreaks": len(live.get("outbreaks", [])),
-                      "projects": len(live.get("nphi", [])) + len(live.get("wbProjects", [])) + len((profile.get("nl") or {}).get("items", [])),
+                      "projects": len(live.get("nphi", [])) + len(live.get("pandemicFund", [])) + len(live.get("wbProjects", [])) + len((profile.get("nl") or {}).get("items", [])),
                       "minister": next((p["name"] for p in profile.get("leadership", []) if p.get("key") == "health"), "")})
 
     save(os.path.join(DATA, "index.json"), {"generated": now.strftime("%Y-%m-%dT%H:%M:%SZ"), "countries": index})

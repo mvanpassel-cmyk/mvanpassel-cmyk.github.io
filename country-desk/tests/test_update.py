@@ -80,6 +80,17 @@ class Slices(unittest.TestCase):
         a = {"evaluations": [{"country": "Dem. Rep. Congo", "year": 2023, "edition": 2, "libraryUrl": "x", "scores": {"P1.1": [2, 3]}}]}
         self.assertIsNotNone(u.jee_slice(c, a))
 
+    def test_pandemic_fund_slice_matches_recipients_only(self):
+        c = {"name": "DR Congo", "alt_names": ["Dem. Rep. Congo"]}
+        pf = [{"title": "multi", "round": 2, "year": 2024, "scope": "multi", "countries": ["Dem. Rep. Congo", "Rwanda", "Uganda"], "entities": ["WHO"], "source": "s"},
+              {"title": "own", "round": 2, "year": 2024, "scope": "single", "countries": ["Dem. Rep. Congo"], "entities": ["WHO"], "source": "s", "page": "p"},
+              {"title": "regional", "round": 3, "year": 2026, "scope": "regional", "countries": [], "entities": ["FAO"], "source": "s"},
+              {"title": "elsewhere", "round": 3, "year": 2026, "scope": "single", "countries": ["Malawi"], "entities": ["FAO"], "source": "s"}]
+        rows = u.pf_slice(c, pf)
+        self.assertEqual([r["title"] for r in rows], ["own", "multi"])
+        self.assertEqual(rows[0]["url"], "p")
+        self.assertEqual(rows[1]["partners"], 3)
+
 
 if __name__ == "__main__":
     unittest.main()
