@@ -60,6 +60,11 @@ class Sketch(unittest.TestCase):
         self.assertEqual([p["title"] for p in sk["priorities"]], ["Insurance reform"])
         self.assertNotIn("netherlands", sk)
 
+    def test_json_after_notes_and_fence(self):
+        reply = 'Searching {first} ... draft {"snapshot": {"text": "x", "src": []}} final:\n```json\n{"snapshot": {"text": "A system.", "src": ["https://a.example/p"]}, "priorities": []}\n```'
+        sk = s.parse_sketch(reply, {"https://a.example/p"}, "2026-11-14")
+        self.assertEqual(sk["snapshot"]["text"], "A system.")
+
     def test_bad_json(self):
         self.assertIsNone(s.parse_sketch("no json here", set(), "2026-11-14"))
 

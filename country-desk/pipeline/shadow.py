@@ -149,7 +149,7 @@ def sketch_prompt(c, live, today):
         "\"netherlands\":{\"text\":\"max 30 words on health cooperation with the Netherlands\",\"src\":\"url\"} or null}\n"
         "At most 3 priorities. Use null or an empty list where the search does not confirm something. " + f"You have {SEARCHES} searches: make the first one find the current health minister and recent health policy together."
     )
-    return {"model": MODEL, "max_tokens": 2500, "system": system, "tools": [SEARCH_TOOL],
+    return {"model": MODEL, "max_tokens": 6000, "system": system, "tools": [SEARCH_TOOL],
             "messages": [{"role": "user", "content": user}]}
 
 
@@ -192,6 +192,8 @@ def call_claude(body, usage, timeout=180):
                         urls.add(ci["url"])
             elif b.get("type") == "web_search_tool_result" and isinstance(b.get("content"), list):
                 urls.update(r.get("url") for r in b["content"] if r.get("url"))
+        if res.get("stop_reason") == "max_tokens":
+            raise RuntimeError("reply cut off at the token limit")
         if res.get("stop_reason") != "pause_turn":
             return text, urls
         messages = messages + [{"role": "assistant", "content": res["content"]}]
@@ -202,14 +204,25 @@ def norm_url(u):
     return re.sub(r"[#?].*$", "", (u or "").strip()).rstrip("/").lower().replace("://www.", "://")
 
 
+def find_json(text):
+    """The last JSON object in the reply that has the sketch's keys. Smaller models
+    sometimes write notes or a draft before the final JSON, or wrap it in a code fence."""
+    text = text or ""
+    dec, best = json.JSONDecoder(), None
+    for m in re.finditer(r"\{", text):
+        try:
+            obj, _end = dec.raw_decode(text, m.start())
+        except json.JSONDecodeError:
+            continue
+        if isinstance(obj, dict) and ({"snapshot", "minister", "priorities"} & obj.keys()):
+            best = obj
+    return best
+
+
 def parse_sketch(text, urls, today):
     """Keep only statements whose source is a page the search returned."""
-    m = re.search(r"\{.*\}", text or "", re.S)
-    if not m:
-        return None
-    try:
-        raw = json.loads(m.group(0))
-    except json.JSONDecodeError:
+    raw = find_json(text)
+    if raw is None:
         return None
     known = {norm_url(u): u for u in urls if u}
 
