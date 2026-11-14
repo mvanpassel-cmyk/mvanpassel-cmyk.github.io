@@ -185,12 +185,32 @@ function renderPages() {
   $("#pages").replaceChildren(...(picks.length ? picks.map((p, i) => {
     const e = p.e, foreign = !["en", "nl"].includes(e.lang), opened = A.countries[e.iso3] || 0;
     return h("article", { class: "page", style: `--bar:${bars[i % 3]}` },
-      h("h3", null, e.name, h("small", { text: `${e.lang.toUpperCase()} · Google News health` })),
+      h("h3", null, e.name, h("small", { text: `${e.lang.toUpperCase()}${foreign ? " → EN" : ""} · Google News health` })),
       h("p", { class: "why", text: `${opened ? `You touched ${e.name} only ${Math.round(opened)}× ` : `You opened nothing about ${e.name} `}in 90 days; ${p.reg || "this region"} is ${pct(A.regions[p.reg] || 0, tot)}% of your reading.` }),
-      h("ul", null, e.items.slice(0, 6).map(it => h("li", null, link(it.title, it.url),
+      h("ul", null, e.items.slice(0, 6).map(it => h("li", { "data-lang": foreign && !it.en ? e.lang : null }, link(it.en || it.title, it.url),
+        it.en ? h("span", { class: "orig", lang: e.lang, text: it.title }) : null,
         h("span", null, [it.src, shortDate(it.date)].filter(Boolean).join(", "),
-          foreign ? [" · ", link("translate", `https://translate.google.com/?sl=auto&tl=en&text=${encodeURIComponent(it.title)}&op=translate`)] : null)))));
+          foreign && !it.en ? [h("span", { class: "tl" }, " · ", link("translate", `https://translate.google.com/?sl=auto&tl=en&text=${encodeURIComponent(it.title)}&op=translate`))] : null)))));
   }) : [h("p", { class: "note", text: "The front pages have not loaded yet. They refresh every night." })]));
+  translateInBrowser();
+}
+
+/* Fallback when the nightly run could not translate: Chrome's built-in, on-device
+   Translator (no data leaves the computer). Elsewhere the "translate" link stays. */
+async function translateInBrowser() {
+  if (!("Translator" in self)) return;
+  for (const li of document.querySelectorAll("#pages li[data-lang]")) {
+    const lang = li.dataset.lang, a = li.querySelector("a");
+    try {
+      const ok = await Translator.availability({ sourceLanguage: lang, targetLanguage: "en" });
+      if (ok !== "available") continue;
+      const tr = await Translator.create({ sourceLanguage: lang, targetLanguage: "en" });
+      const orig = a.textContent;
+      a.textContent = await tr.translate(orig);
+      a.after(h("span", { class: "orig", lang, text: orig }));
+      li.querySelector(".tl")?.remove();
+    } catch (_) { /* leave the original and the translate link */ }
+  }
 }
 
 function renderCards() {
@@ -204,7 +224,7 @@ function renderCards() {
       h("p", null, link(`Open ${c.name} in Country Desk`, `../country-desk/all/#${c.slug}`))));
   }
   const skipped = TOPICS.slice().sort((a, b) => A.topics[a[0]] - A.topics[b[0]]);
-  const all = (FRONT.editions || []).flatMap(e => e.items.map(it => ({ ...it, where: e.name })));
+  const all = (FRONT.editions || []).flatMap(e => e.items.map(it => ({ ...it, title: it.en || it.title, where: e.name })));
   for (const [t, test] of skipped) {
     const hits = all.filter(it => test(it.title)).slice(0, 5);
     if (!hits.length) continue;
@@ -214,7 +234,7 @@ function renderCards() {
     break;
   }
   const known = new Set(Object.keys(A.hosts).map(d => d.split(".").slice(-2, -1)[0]));
-  const rim = edgeEditions().flatMap(p => p.e.items.map(it => ({ ...it, where: p.e.name })));
+  const rim = edgeEditions().flatMap(p => p.e.items.map(it => ({ ...it, title: it.en || it.title, where: p.e.name })));
   const seen = new Set(), fresh = [];
   for (const it of rim) {
     const key = (it.src || "").toLowerCase();
