@@ -1,0 +1,35 @@
+name: Comfort Zone front pages
+
+# Daily, free (no API key): the Google News health section of 60 country editions.
+on:
+  schedule:
+    - cron: "31 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: comfort-zone
+  cancel-in-progress: false
+
+jobs:
+  frontpages:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Fetch the front pages
+        run: python comfort-zone/pipeline/frontpages.py
+      - name: Commit if changed
+        run: |
+          git config user.name "comfort-zone bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add comfort-zone/data
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git commit -m "Comfort Zone: today's front pages"
+          for i in 1 2 3; do git pull --rebase origin main && git push && exit 0; sleep 10; done
+          exit 1

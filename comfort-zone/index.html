@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" sizes="32x32" href="/logos/comfort-zone-32.png">
+<link rel="icon" type="image/svg+xml" href="/logos/comfort-zone.svg">
+<link rel="apple-touch-icon" href="/logos/comfort-zone-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Public+Sans:wght@400;600;700&display=swap">
+<title>Comfort Zone</title>
+<meta name="description" content="A map of your own reading bubble, drawn from what you open in this toolbox, and every day a few front pages from just outside it.">
+<style>
+:root{color-scheme:light dark;
+  --paper:#fbfaf6;--panel:#ffffff;--ink:#1d1d1b;--muted:#66645e;--line:#e3e0d7;
+  --c:#00a3e0;--m:#e6007e;--y:#ffe600;--ring:#f1eee6;
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --body:"Public Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+@media (prefers-color-scheme:dark){:root{--paper:#141413;--panel:#1d1d1b;--ink:#f1efe9;--muted:#a19e96;--line:#34332f;--ring:#232320}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 var(--body)}
+a{color:inherit;text-underline-offset:.18em;text-decoration-thickness:.08em;text-decoration-color:color-mix(in srgb,var(--m) 60%,transparent)}
+a:hover{text-decoration-color:var(--m)}
+:focus-visible{outline:2px solid var(--m);outline-offset:3px;border-radius:3px}
+.wrap{max-width:1140px;margin:0 auto;padding:28px 16px 64px}
+h1,h2,h3{font-family:var(--display);letter-spacing:-.02em;margin:0;line-height:1.05}
+header{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px 40px;align-items:end}
+header h1{font-size:clamp(48px,10vw,108px);font-stretch:82%;font-weight:800}
+header h1 span{display:inline-block;mix-blend-mode:multiply}
+@media (prefers-color-scheme:dark){header h1 span{mix-blend-mode:screen}}
+header p{margin:0;color:var(--muted);max-width:52ch}
+.verdict{font:600 clamp(20px,2.4vw,26px)/1.25 var(--display);margin:22px 0 0;max-width:46ch}
+.verdict b{background:linear-gradient(transparent 62%,color-mix(in srgb,var(--y) 70%,transparent) 62%)}
+.top{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:20px 44px;margin-top:26px;align-items:start}
+.map{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:10px}
+.map svg{display:block;width:100%;height:auto}
+.map text{font:600 12.5px var(--body);fill:var(--ink);paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
+.map .zl{font:700 11px var(--body);letter-spacing:.12em;text-transform:uppercase;fill:var(--muted);stroke:none}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin:8px 6px 4px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.stats h2{font-size:24px;margin-bottom:6px}
+.stats dl{margin:0}
+.stats div{display:grid;grid-template-columns:150px 1fr;gap:12px;padding:10px 0;border-top:1px solid var(--line);font-size:15px}
+.stats dt{color:var(--muted);font-size:13.5px;padding-top:2px}
+.stats dd{margin:0}
+.note{font-size:13.5px;color:var(--muted);margin-top:14px}
+.learning{margin-top:16px;padding:12px 16px;border-left:4px solid var(--y);background:color-mix(in srgb,var(--y) 14%,var(--panel));border-radius:0 10px 10px 0;font-size:14.5px}
+section.edge{margin-top:46px}
+section.edge>h2{font-size:clamp(30px,4vw,44px);font-stretch:85%}
+section.edge>p.lede{color:var(--muted);margin:8px 0 18px;max-width:70ch}
+.pages{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.page{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 18px 12px;position:relative;overflow:hidden}
+.page::before{content:"";position:absolute;inset:0 0 auto 0;height:6px;background:var(--bar,var(--c))}
+.page h3{font-size:22px;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.page h3 small{font:400 12.5px var(--body);color:var(--muted);white-space:nowrap}
+.page .why{font-size:13px;color:var(--muted);margin:4px 0 8px}
+.page ul{list-style:none;margin:0;padding:0}
+.page li{padding:8px 0;border-top:1px solid var(--line);font-size:15px;line-height:1.35}
+.page li span{display:block;font-size:12.5px;color:var(--muted);margin-top:2px}
+.page li span a{color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px}
+.card .k{font:700 11.5px var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--m)}
+.card h3{font-size:24px;margin:6px 0 6px}
+.card p{margin:0 0 8px;font-size:15px}
+.card ul{margin:6px 0 0;padding-left:18px;font-size:14.5px}
+.card li{margin:4px 0}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+button{font:inherit;color:inherit;background:none;border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer}
+button:hover{border-color:var(--ink)}
+footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px;max-width:90ch}
+footer p{margin:0 0 6px}
+@media (max-width:860px){header,.top{grid-template-columns:1fr}.stats div{grid-template-columns:1fr;gap:2px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1><span style="color:var(--c)">Comfort</span> <span style="color:var(--m)">Zone</span></h1>
+    </div>
+    <p>A map of your own reading bubble, drawn from what you open in this toolbox. The middle is where you always go. The rim is what you never look at. Every day, the rim gets a voice.</p>
+  </header>
+  <p class="verdict" id="verdict"></p>
+  <div class="top">
+    <div>
+      <div class="map" id="map"></div>
+      <div class="legend"><span><i style="background:var(--c)"></i>WHO regions</span><span><i style="background:var(--m)"></i>Topics</span><span><i style="background:var(--ink)"></i>You</span></div>
+    </div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <section class="edge">
+    <h2>From the rim, today</h2>
+    <p class="lede" id="edgelede">Health front pages from countries you hardly ever read about, in their own language, as their own newsrooms rank it today.</p>
+    <div class="pages" id="pages"></div>
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <footer>
+    <p>How it works: your tools on this site quietly note which pages you open and which outside links you click, in this browser only. Nothing leaves your device, and each browser (Mac, iPhone) keeps its own map. Front pages are the Google News health section of 60 country editions, refreshed daily.</p>
+    <p id="foot"></p>
+    <div class="btnrow"><button type="button" id="forget">Forget my history</button><button type="button" id="shuffle">Show me other front pages</button></div>
+  </footer>
+</div>
+<script src="/shared/zone-log.js"></script>
+<script src="cz.js"></script>
+<script data-goatcounter="https://mvanpassel.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
