@@ -151,6 +151,12 @@ async function renderCountry(c) {
     sk.netherlands ? h("p", { class: "watch" }, h("b", { text: "Netherlands: " }), sk.netherlands.text, " ", link(host(sk.netherlands.src), sk.netherlands.src, "small")) : null,
     !sk.snapshot && !pr.length ? h("p", { class: "empty", text: "No sketch yet. It is written at the next manual refresh; the figures and projects below are already there." }) : null);
 
+  /* news from the Global Health Ribbon */
+  const news = live.news || [];
+  const newsSec = section("news", "In the news", news.length ? "Headlines naming this country in the Global Health Ribbon, newest first, unedited." : "",
+    news.length ? h("ul", { class: "links" }, news.map(n => h("li", null, link(n.title, n.url), h("span", { text: [n.src, shortDate(n.date)].filter(Boolean).join(", ") }))))
+      : h("p", { class: "empty", text: "No Global Health Ribbon headlines named this country around the last refresh." }));
+
   /* projects */
   const nphi = live.nphi || [], wb = live.wbProjects || [];
   const nphiNL = nphi.filter(p => p.nl), nphiOther = nphi.filter(p => !p.nl);
@@ -210,9 +216,9 @@ async function renderCountry(c) {
         tr.nap ? [link("National action plan", tr.nap), ". "] : "", link("All answers in the TrACSS portal", "../../tracss-good-practices/"), ".")
       : h("p", { class: "empty", text: "No TrACSS 2025 answers for this country." }));
 
-  root.append(h("div", { class: "cols" }, h("div", null, sketch, projects), h("div", null, calendar, alerts, numbers)),
+  root.append(h("div", { class: "cols" }, h("div", null, sketch, newsSec, projects), h("div", null, calendar, alerts, numbers)),
     h("footer", null,
-      h("p", { text: "This is a shadow page: refreshed by hand, irregularly. Sources: WHO Global Health Observatory, World Bank projects, WHO Disease Outbreak News, WHO JEE reports, TrACSS 2025, the NPHI Collaboration Map, Risk Radar and the World Calendar." }),
+      h("p", { text: "This is a shadow page: refreshed by hand, irregularly. Sources: WHO Global Health Observatory, World Bank projects, WHO Disease Outbreak News, WHO JEE reports, TrACSS 2025, the NPHI Collaboration Map, the Global Health Ribbon, Risk Radar and the World Calendar." }),
       h("p", { text: "The sketch is written automatically and can miss or misread things. Follow the links before relying on a point." })));
 }
 

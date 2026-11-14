@@ -32,6 +32,19 @@ class Matching(unittest.TestCase):
         self.assertTrue(self.t["NGA"]("Lassa fever - Nigeria"))
 
 
+class News(unittest.TestCase):
+    def test_ribbon_news_matches_and_keeps_old(self):
+        from datetime import datetime, timezone
+        sup = s.superstrings(WORLD)
+        test = s.matcher(WORLD[3], sup["SDN"])   # Sudan
+        items = [{"title": "Cholera spreads in Sudan camps", "url": "https://a.example/1", "domain": "a.example", "date": "2026-11-10T00:00:00+00:00"},
+                 {"title": "South Sudan floods", "url": "https://a.example/2", "date": "2026-11-11T00:00:00+00:00"}]
+        prev = [{"title": "Sudan measles campaign", "url": "https://b.example/3", "src": "b.example", "date": "2026-10-01"},
+                {"title": "Sudan old story", "url": "https://b.example/4", "src": "b.example", "date": "2026-05-01"}]
+        out = s.ribbon_news(test, items, prev, datetime(2026, 11, 14, tzinfo=timezone.utc))
+        self.assertEqual([n["url"] for n in out], ["https://a.example/1", "https://b.example/3"])
+
+
 class Tracss(unittest.TestCase):
     def test_average_level(self):
         data = {"countries": [{"iso": "AAA"}, {"iso": "BBB"}],

@@ -129,6 +129,23 @@ def text_slice(test, items, title_key, extra_keys=(), n=6):
     return out[:n]
 
 
+def ribbon_news(test, items, prev, now, keep_days=90, n=12):
+    """Global Health Ribbon headlines that name the country, merged with what an
+    earlier refresh found (this page is refreshed irregularly, so keep 90 days)."""
+    cutoff = (now - timedelta(days=keep_days)).strftime("%Y-%m-%d")
+    found = [{"title": U.clean(it.get("title"), 240), "url": it["url"], "src": it.get("domain") or it.get("src", ""),
+              "date": (it.get("date") or "")[:10]}
+             for it in items if it.get("url") and test(it.get("title"))]
+    out, seen = [], set()
+    for it in found + prev:
+        k = U.title_key(it["title"])
+        if it.get("date", "") >= cutoff and k and k not in seen:
+            seen.add(k)
+            out.append(it)
+    out.sort(key=lambda x: x["date"], reverse=True)
+    return out[:n]
+
+
 # ---------- Claude sketch ----------
 def sketch_prompt(c, live, today):
     facts = "; ".join(f"{i['label']}: {i['value']:g} {i['unit']} ({i['year']})" for i in (live.get("indicators") or [])[:6])
@@ -281,6 +298,11 @@ def main():
     except Exception as e:  # noqa: BLE001
         cal_events = None
         log.append(f"World Calendar unavailable ({type(e).__name__})")
+    try:
+        ribbon = U.fetch_json(U.RIBBON + "data/feeds.json", 40).get("items", [])
+    except Exception as e:  # noqa: BLE001
+        ribbon = None
+        log.append(f"Ribbon feed unavailable ({type(e).__name__})")
     nphi = U.load(os.path.join(U.REPO, "nphi-map", "projects.json"), {}).get("projects", [])
     nphi_names = {n for p in nphi for n in p.get("partners", [])} | {p.get("actorCountry") for p in nphi}
     jee = U.load(os.path.join(U.REPO, "jee-good-practices", "data", "assessments.json"), {})
@@ -297,6 +319,8 @@ def main():
         test = matcher(c, sup[c["iso3"]])
         if don is not None:
             live["outbreaks"] = outbreaks_for(test, don, now)
+        if ribbon is not None:
+            live["news"] = ribbon_news(test, ribbon, live.get("news", []), now)
         nn = exact_names(c, nphi_names)
         live["nphi"] = U.nphi_slice({"name": nn[0], "alt_names": nn[1:]}, nphi) if nn else []
         jn = exact_names(c, jee_names)
@@ -366,7 +390,7 @@ def main():
         sk = U.load(os.path.join(SHADOW, "sketch", c["iso3"].lower() + ".json"), {})
         ind = {i["id"]: i["value"] for i in live.get("indicators", [])}
         row.update({"line": (sk.get("snapshot") or {}).get("text", ""), "minister": (sk.get("minister") or {}).get("name", ""),
-                    "outbreaks": len(live.get("outbreaks", [])),
+                    "outbreaks": len(live.get("outbreaks", [])), "news": len(live.get("news", [])),
                     "projects": len(live.get("nphi", [])) + len(live.get("wbProjects", [])),
                     "life": ind.get("WHOSIS_000001"), "uhc": ind.get("UHC_INDEX_REPORTED"),
                     "refreshed": live.get("refreshed", ""), "checked": sk.get("checked", "")})
