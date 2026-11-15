@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Horizon scanner</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f766e'/%3E%3Cpath d='M8 40h48' stroke='%23fff' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M18 40a14 14 0 0 1 28 0' fill='%23f4c95d'/%3E%3Cpath d='M32 12v8M14 20l5 5M50 20l-5 5' stroke='%23fff' stroke-width='3.5' stroke-linecap='round'/%3E%3C/svg%3E">
+<meta name="description" content="Een interactieve methode voor horizon scanning: vul een thema in en werk via vervolgvragen toe naar signalen, prioriteiten, scenario's en een monitoringplan.">
+<style>
+:root{
+  --bg:#f6f4ef; --ink:#1c1f26; --muted:#667085; --card:#fff; --line:#e4e0d6; --soft:#eef0f4;
+  --accent:#0f766e; --accent-ink:#fff; --warn:#b4382f;
+  --c-soc:#2f6fd6; --c-tech:#8a4fd1; --c-eco:#c98a1a; --c-eko:#2e9d5b; --c-pol:#d1453b; --c-wild:#667085;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#14161b; --ink:#eceae4; --muted:#9aa1ae; --card:#1c1f26; --line:#2b303a; --soft:#252a33;
+    --accent:#5eead4; --accent-ink:#06201d; --warn:#ef7b70;
+    --c-soc:#7fb0f0; --c-tech:#b99af0; --c-eco:#e3b062; --c-eko:#5cc58f; --c-pol:#ef7b70; --c-wild:#9aa1ae;}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:900px;margin:0 auto;padding:36px 16px 80px}
+h1{font:600 clamp(28px,5vw,40px)/1.1 ui-serif,Georgia,serif;margin:0 0 8px;letter-spacing:-.01em}
+h2{font:600 22px/1.25 ui-serif,Georgia,serif;margin:0 0 6px}
+h3{font-size:16px;margin:0 0 4px}
+.sub{color:var(--muted);margin:0;max-width:62ch}
+a{color:var(--accent)}
+details.intro{margin:16px 0 0;border:1px solid var(--line);border-radius:12px;background:var(--card);padding:10px 14px}
+details.intro summary{cursor:pointer;font-weight:600}
+details.intro p,details.intro ol{margin:8px 0 0;color:var(--muted);font-size:14.5px}
+details.intro ol{padding-left:20px}
+
+.stepper{position:sticky;top:0;z-index:5;background:var(--bg);padding:12px 0 10px;margin:18px 0 16px;border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto}
+.stepper button{flex:1 0 auto;border:1px solid var(--line);background:transparent;color:var(--ink);padding:7px 12px;border-radius:999px;font:inherit;font-size:13.5px;cursor:pointer;white-space:nowrap;display:inline-flex;gap:7px;align-items:center}
+.stepper button .n{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--soft);font-size:12px;font-weight:700}
+.stepper button[aria-current="step"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.stepper button[aria-current="step"] .n{background:var(--bg);color:var(--ink)}
+.stepper button.done .n{background:var(--accent);color:var(--accent-ink)}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:0 0 14px}
+.lead{color:var(--muted);margin:0 0 14px;max-width:64ch}
+label.f{display:block;margin:14px 0 0;font-weight:600;font-size:14.5px}
+label.f small{display:block;font-weight:400;color:var(--muted);margin-top:1px}
+input[type=text],input[type=date],select,textarea{width:100%;margin-top:6px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;padding:9px 12px;font:inherit;font-size:15px}
+textarea{resize:vertical;min-height:70px}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.row.nowrap{flex-wrap:nowrap}
+.row input{margin-top:0}
+.chip{border:1px solid var(--line);background:transparent;color:var(--ink);padding:6px 12px;border-radius:999px;font:inherit;font-size:13.5px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip .sw{width:9px;height:9px;border-radius:50%;background:var(--c,var(--muted))}
+.chip .ct{font-size:12px;color:var(--muted)}
+.chip[aria-pressed="true"] .ct{color:inherit;opacity:.75}
+.btn{border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);border-radius:10px;padding:9px 16px;font:inherit;font-weight:600;font-size:14.5px;cursor:pointer;white-space:nowrap}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn.plain{background:transparent;border-color:var(--line);color:var(--ink)}
+.btn.danger{background:transparent;border-color:var(--line);color:var(--warn)}
+.btn:disabled{opacity:.45;cursor:default}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:18px;flex-wrap:wrap}
+.hint{font-size:13.5px;color:var(--muted);margin:6px 0 0}
+.empty{color:var(--muted);padding:14px;border:1px dashed var(--line);border-radius:10px;text-align:center}
+
+.q{border-left:3px solid var(--c,var(--accent));padding:2px 0 2px 12px;margin:14px 0}
+.q p{margin:0 0 8px;font-weight:600}
+.q.extra{background:var(--soft);border-radius:0 10px 10px 0;padding:10px 12px}
+.sigs{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:6px}
+.sigs li{display:flex;gap:8px;align-items:center;background:var(--soft);border-radius:10px;padding:7px 10px;font-size:14.5px}
+.sigs li .dot{flex:0 0 10px;height:10px;border-radius:50%;background:var(--c)}
+.sigs li button.t{flex:1;text-align:left;background:none;border:0;color:inherit;font:inherit;cursor:pointer;padding:0}
+.sigs li button.x{background:none;border:0;color:var(--muted);cursor:pointer;font-size:18px;line-height:1;padding:0 4px}
+.bar{height:8px;background:var(--soft);border-radius:99px;overflow:hidden;margin:6px 0 0}
+.bar i{display:block;height:100%;background:var(--accent);transition:width .25s}
+
+.dots{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+.dots button{width:32px;height:32px;border-radius:50%;border:2px solid var(--c,var(--line));background:transparent;color:var(--ink);font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.dots button.done{background:var(--c);color:var(--bg)}
+.dots button[aria-current="true"]{box-shadow:0 0 0 3px var(--ink)}
+.scale{display:flex;gap:6px;margin-top:6px}
+.scale button{flex:1;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:10px;padding:8px 0;font:inherit;font-weight:700;cursor:pointer}
+.scale button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.lbl{font-size:13px;color:var(--muted);margin-top:4px;min-height:1.3em}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.eff{display:flex;gap:8px;align-items:flex-start;margin-top:8px}
+.eff .arrow{color:var(--muted);padding-top:10px;width:18px;text-align:center}
+.eff input{margin-top:0}
+
+.matrix{width:100%;max-width:440px;height:auto;display:block;margin:0 auto}
+.matrix text{font:12px ui-sans-serif,system-ui,sans-serif;fill:var(--muted)}
+.matrix .pt{cursor:pointer}
+.matrix .pt text{fill:var(--bg);font-weight:700;font-size:11px;text-anchor:middle}
+.matrix .pt.sel circle{stroke:var(--ink);stroke-width:3}
+table.t{width:100%;border-collapse:collapse;font-size:14px;margin-top:14px}
+table.t th,table.t td{text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+table.t th{font-size:12.5px;color:var(--muted);font-weight:600}
+table.t tr.sel{background:var(--soft)}
+table.t select{margin:0;padding:5px 8px;font-size:13.5px;min-width:190px}
+table.t{min-width:560px}
+.tag{display:inline-block;font-size:12px;padding:1px 8px;border-radius:99px;background:var(--soft);color:var(--muted)}
+.scroll{overflow-x:auto}
+
+.quad{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+@media (max-width:700px){.quad{grid-template-columns:1fr}}
+.quad .card{margin:0;padding:14px}
+.quad .hd{font-size:13px;color:var(--muted);margin:0 0 6px}
+pre.report{white-space:pre-wrap;word-break:break-word;font:13.5px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--soft);padding:14px;border-radius:10px;margin:12px 0 0;max-height:520px;overflow:auto}
+.foot{margin-top:28px;font-size:13px;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:99px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:20}
+.toast.show{opacity:1}
+@media print{
+  .stepper,.nav,.btn,details.intro,.foot,.noprint,.toast{display:none!important}
+  body{background:#fff;color:#000}
+  pre.report{max-height:none;background:#fff;color:#000;border:0}
+  .card{border:0;padding:0}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Horizon scanner</h1>
+    <p class="sub">Kijk vooruit voordat het urgent wordt. Vul een thema in en werk via vervolgvragen toe naar signalen, prioriteiten, scenario's en een plan om te blijven volgen.</p>
+    <details class="intro">
+      <summary>Wat is horizon scanning, en hoe werkt deze tool?</summary>
+      <p>Horizon scanning is het systematisch speuren naar vroege signalen van veranderingen die over maanden of jaren belangrijk kunnen worden, zodat je niet verrast wordt en op tijd kunt voorbereiden of bijsturen.</p>
+      <ol>
+        <li><b>Thema:</b> waar kijk je naar, vanuit welke rol, hoe ver vooruit.</li>
+        <li><b>Signalen:</b> per domein (sociaal, technologie, economie, ecologie, politiek, wildcards) beantwoord je vragen en noteer je wat je ziet.</li>
+        <li><b>Verdiepen:</b> per signaal vragen we door: wat zie je, hoe snel, hoe groot, en wat gebeurt er dan?</li>
+        <li><b>Prioriteren:</b> impact en waarschijnlijkheid worden een kaart; jij bepaalt wat je voorbereidt en wat je volgt.</li>
+        <li><b>Scenario's:</b> twee grote onzekerheden worden vier mogelijke toekomsten waarmee je je plannen test.</li>
+        <li><b>Monitoren:</b> je legt vast waaraan je merkt dat iets versnelt, en krijgt een rapport om te delen.</li>
+      </ol>
+      <p>De tool geeft geen antwoorden; het stelt de vragen. Alles blijft in je eigen browser (niets wordt verstuurd). Exporteer je scan om hem te bewaren of later te hervatten.</p>
+    </details>
+  </header>
+  <nav class="stepper" id="stepper" aria-label="Stappen"></nav>
+  <main id="app"></main>
+  <p class="foot">Methode: STEEP-domeinen, "en dan?"-ladder, impact/waarschijnlijkheidsmatrix, 2×2-scenario's en indicatoren. Jouw invoer wordt lokaal in je browser bewaard.</p>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+"use strict";
+/* ---------- data ---------- */
+const DOMS={
+  soc:{n:"Sociaal",c:"--c-soc",q:[
+    "Welke veranderingen in gedrag, bevolking of verwachtingen raken {t}?",
+    "Welke groepen worden anders geraakt dan nu, en wie wordt vergeten?",
+    "Welke maatschappelijke discussie over {t} wordt nu nog aan de rand gevoerd?"]},
+  tech:{n:"Technologie",c:"--c-tech",q:[
+    "Welke nieuwe technologie of methode kan {t} sterk veranderen?",
+    "Wat is nu nog duur, traag of experimenteel, maar wordt over een paar jaar gewoon?",
+    "Waar wordt in labs, start-ups of andere sectoren iets gedaan dat voor {t} relevant kan worden?"]},
+  eco:{n:"Economie",c:"--c-eco",q:[
+    "Waar verschuiven geld, prijzen of verdienmodellen rond {t}?",
+    "Welke tekorten (mensen, grondstoffen, financiering) kunnen {t} onder druk zetten?",
+    "Wie verdient aan verandering, en wie verliest?"]},
+  eko:{n:"Ecologie",c:"--c-eko",q:[
+    "Welke klimaat-, milieu- of natuurontwikkelingen beïnvloeden {t}?",
+    "Welke geografische verschuivingen (ziekten, gewassen, water, migratie) zie je?",
+    "Welke grenzen van het systeem (water, energie, ruimte) kom je binnenkort tegen?"]},
+  pol:{n:"Politiek & recht",c:"--c-pol",q:[
+    "Welke wet- en regelgeving, verdragen of verkiezingen kunnen {t} veranderen?",
+    "Welke landen of organisaties nemen het voortouw, en wie trekt zich terug?",
+    "Welke afspraken, budgetten of termijnen lopen de komende jaren af of komen op tafel?"]},
+  wild:{n:"Wildcards",c:"--c-wild",q:[
+    "Wat zou jou echt verbazen als het gebeurt rond {t}?",
+    "Welke gebeurtenis zet alles op z'n kop, hoe onwaarschijnlijk ook?",
+    "Wat is in het verleden gebeurd dat vooraf als onmogelijk gold?"]}
+};
+const DK=Object.keys(DOMS);
+const EXTRA=[
+  "Kijk 10 jaar terug: wat was toen onvoorstelbaar en is nu normaal?",
+  "Welk signaal zie je al in een andere sector of een ander land?",
+  "Wat zeggen critici of tegenstanders, en wat hebben ze mogelijk goed gezien?",
+  "Welke trend zet gewoon door als niemand ingrijpt?",
+  "Welke afhankelijkheden (leveranciers, data, personen) zijn kwetsbaar?",
+  "Wat doen nieuwkomers of jongeren in het veld anders dan de gevestigde partijen?",
+  "Welke term of afkorting hoor je steeds vaker?",
+  "Wat is de zwakste schakel in het huidige systeem?",
+  "Welke aanname over {t} geldt al jaren en wordt zelden getoetst?"
+];
+const TYPES={trend:"Trend",zwak:"Zwak signaal",wild:"Wildcard"};
+const TIJD={t1:"< 2 jaar",t2:"2–5 jaar",t3:"5–10 jaar",t4:"> 10 jaar"};
+const IMP=["","Gering","Beperkt","Merkbaar","Groot","Ingrijpend"];
+const KANS=["","Zeer onwaarschijnlijk","Onwaarschijnlijk","Mogelijk","Waarschijnlijk","Vrijwel zeker"];
+const ATT={voorbereiden:"Voorbereiden",volgen:"Nauwlettend volgen",meenemen:"Meenemen in plannen",parkeren:"Parkeren"};
+const FREQ={week:"Wekelijks",maand:"Maandelijks",kwartaal:"Per kwartaal",jaar:"Jaarlijks"};
+const STEPS=["Thema","Signalen","Verdiepen","Prioriteren","Scenario's","Monitoren"];
+const EXAMPLES=["Antimicrobiële resistentie","Klimaat en gezondheid","AI in de zorg","Pandemische paraatheid","Financiering van mondiale gezondheid"];
+const KEY="horizon-scan-v1";
+
+/* ---------- state ---------- */
+function fresh(){return{v:1,thema:"",rol:"",horizon:"5",scope:"",doel:"",step:0,dom:"soc",cur:0,extra:0,signals:[],
+  scen:{a:"",b:"",aHi:"",aLo:"",bHi:"",bLo:"",q:{},noreg:""},next:""}}
+let S=fresh();
+function load(){try{const r=localStorage.getItem(KEY);if(r){const o=JSON.parse(r);if(o&&Array.isArray(o.signals))S=Object.assign(fresh(),o,{scen:Object.assign(fresh().scen,o.scen||{})})}}catch(e){}}
+let saveT;function saveNow(){clearTimeout(saveT);try{localStorage.setItem(KEY,JSON.stringify(S,(k,v)=>k[0]==="_"?undefined:v))}catch(e){}}
+function save(){clearTimeout(saveT);saveT=setTimeout(saveNow,200)}
+addEventListener("pagehide",saveNow);document.addEventListener("visibilitychange",()=>{if(document.hidden)saveNow()});
+const uid=()=>"s"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const sig=id=>S.signals.find(s=>s.id===id);
+const T=()=>S.thema.trim()||"je thema";
+const fill=t=>t.replace(/\{t\}/g,T());
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function auto(s){const i=+s.impact,k=+s.kans;if(!i||!k)return"";if(i>=4&&k>=4)return"voorbereiden";if(i>=4)return"volgen";if(k>=4)return"meenemen";return"parkeren"}
+const att=s=>s.aandacht||auto(s);
+const rated=s=>+s.impact>0&&+s.kans>0;
+const doneSig=s=>rated(s)&&(s.wat||"").trim().length>0;
+const col=d=>`var(${DOMS[d].c})`;
+function newSig(dom,titel){return{id:uid(),dom,titel,wat:"",bron:"",type:"",tijd:"",impact:0,kans:0,effecten:["",""],wie:"",rem:"",aandacht:"",mon:{indicator:"",bron:"",freq:"",trigger:"",eigenaar:"",actie:""}}}
+function toast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("show");clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove("show"),2200)}
+
+/* ---------- views ---------- */
+function stepper(){
+  document.getElementById("stepper").innerHTML=STEPS.map((n,i)=>{
+    let d="";
+    if(i===0&&S.thema.trim())d="done";
+    if(i===1&&S.signals.length>=5)d="done";
+    if(i===2&&S.signals.length&&S.signals.every(doneSig))d="done";
+    if(i===3&&S.signals.some(s=>s.aandacht))d="done";
+    if(i===4&&S.scen.a&&S.scen.b)d="done";
+    return`<button type="button" data-act="go" data-step="${i}" class="${d}" ${S.step===i?'aria-current="step"':""}><span class="n">${d?"✓":i+1}</span>${n}</button>`}).join("");
+}
+
+function vThema(){
+  return`<section class="card">
+  <h2>1 · Waar gaat je scan over?</h2>
+  <p class="lead">Begin breed: een thema, nog geen oplossing. Hoe scherper het thema, hoe bruikbaarder de signalen.</p>
+  <label class="f">Thema<input type="text" data-bind="thema" value="${esc(S.thema)}" placeholder="Bijvoorbeeld: antimicrobiële resistentie" autocomplete="off"></label>
+  <div class="row" style="margin-top:8px">${EXAMPLES.map(e=>`<button type="button" class="chip" data-act="ex" data-v="${esc(e)}">${esc(e)}</button>`).join("")}</div>
+  <label class="f">Vanuit welke rol of organisatie kijk je?<small>Bepaalt wat relevant is en wat je kunt beïnvloeden.</small><input type="text" data-bind="rol" value="${esc(S.rol)}" placeholder="Bijvoorbeeld: beleidsmedewerker bij een ministerie"></label>
+  <div class="grid2">
+    <label class="f">Hoe ver kijk je vooruit?<select data-bind="horizon">${[["2","2 jaar"],["5","5 jaar"],["10","10 jaar"],["20","20 jaar of verder"]].map(([v,l])=>`<option value="${v}" ${S.horizon===v?"selected":""}>${l}</option>`).join("")}</select></label>
+    <label class="f">Afbakening<small>Regio, sector of doelgroep.</small><input type="text" data-bind="scope" value="${esc(S.scope)}" placeholder="Bijvoorbeeld: Nederland en Europa"></label>
+  </div>
+  <label class="f">Welke beslissing of vraag wil je er beter door kunnen beantwoorden?<textarea data-bind="doel" placeholder="Bijvoorbeeld: waar moeten we de komende jaren in investeren?">${esc(S.doel)}</textarea></label>
+  <div class="nav"><span class="row noprint"><button type="button" class="btn plain" data-act="sample">Voorbeeldscan laden</button></span><button type="button" class="btn" data-act="go" data-step="1">Naar de signalen →</button></div>
+  </section>`;
+}
+
+function vSignalen(){
+  const d=S.dom,D=DOMS[d],n=S.signals.length;
+  const list=S.signals.filter(s=>s.dom===d);
+  const extra=fill(EXTRA[S.extra%EXTRA.length]);
+  const qb=(txt,i,cls)=>`<div class="q ${cls||""}" style="--c:${col(d)}"><p>${esc(txt)}</p>
+    <div class="row nowrap"><input type="text" id="in-${d}-${i}" data-add="${i}" placeholder="Wat zie of verwacht je? Eén zin is genoeg." autocomplete="off"><button type="button" class="btn" data-act="add" data-i="${i}">+ Voeg toe</button></div></div>`;
+  return`<section class="card">
+  <h2>2 · Wat zie je aankomen rond "${esc(T())}"?</h2>
+  <p class="lead">Loop de domeinen langs. Schrijf op wat je zelf al ziet, hoort of vermoedt; ook half-vage signalen tellen. Beoordelen komt later. Mik op minstens 8 signalen, 15 tot 25 is rijk.</p>
+  <div class="row" role="tablist">${DK.map(k=>{const c=S.signals.filter(s=>s.dom===k).length;return`<button type="button" class="chip" style="--c:var(${DOMS[k].c})" data-act="dom" data-d="${k}" aria-pressed="${k===d}"><span class="sw"></span>${DOMS[k].n}<span class="ct">${c}</span></button>`}).join("")}</div>
+  <div class="bar" aria-hidden="true"><i style="width:${Math.min(100,n/15*100)}%"></i></div>
+  <p class="hint">${n} signaal${n===1?"":"en"} verzameld${n<8?`, nog ${8-n} tot een bruikbare basis`:""}.</p>
+  <h3 style="margin-top:16px;color:${col(d)}">${D.n}</h3>
+  ${D.q.map((q,i)=>qb(fill(q),i)).join("")}
+  ${qb(extra,"x","extra")}
+  <div class="row"><button type="button" class="btn plain" data-act="extra">Nog een invalshoek ↻</button></div>
+  ${list.length?`<ul class="sigs" style="margin-top:14px">${list.map(s=>`<li style="--c:${col(s.dom)}"><span class="dot"></span><button type="button" class="t" data-act="open" data-id="${s.id}" title="Verdiepen">${esc(s.titel)}</button><button type="button" class="x" data-act="del" data-id="${s.id}" aria-label="Verwijder">×</button></li>`).join("")}</ul>`:`<p class="hint">Nog niets in dit domein. Sla een domein gerust over als er niets bij opkomt.</p>`}
+  <div class="nav"><button type="button" class="btn plain" data-act="go" data-step="0">← Thema</button><button type="button" class="btn" data-act="go" data-step="2" ${n?"":"disabled"}>Verdiepen (${n}) →</button></div>
+  </section>`;
+}
+
+function scaleBtns(f,s,labels){
+  return`<div class="scale" role="group">${[1,2,3,4,5].map(v=>`<button type="button" data-act="rate" data-id="${s.id}" data-f="${f}" data-v="${v}" aria-pressed="${+s[f]===v}" title="${labels[v]}">${v}</button>`).join("")}</div>
+  <div class="lbl">${+s[f]?labels[+s[f]]:"Nog niet beoordeeld"}</div>`;
+}
+function chips(f,s,map){
+  return`<div class="row" style="margin-top:6px">${Object.entries(map).map(([k,l])=>`<button type="button" class="chip" data-act="pick" data-id="${s.id}" data-f="${f}" data-v="${k}" aria-pressed="${s[f]===k}">${l}</button>`).join("")}</div>`;
+}
+function vVerdiepen(){
+  if(!S.signals.length)return`<section class="card"><h2>3 · Verdiepen</h2><div class="empty">Er zijn nog geen signalen. Verzamel er eerst een paar in stap 2.</div><div class="nav"><button type="button" class="btn" data-act="go" data-step="1">← Naar de signalen</button></div></section>`;
+  S.cur=Math.max(0,Math.min(S.cur,S.signals.length-1));
+  const s=S.signals[S.cur];
+  const effLabels=["Wat gebeurt er als dit doorzet? (eerste gevolg)","En dan? (tweede gevolg)","En dan? (derde gevolg)","En dan?","En dan?"];
+  return`<section class="card">
+  <h2>3 · Verdiep elk signaal</h2>
+  <p class="lead">Ga de signalen een voor een langs. Sla over wat je niet weet; beoordeel in elk geval impact en waarschijnlijkheid.</p>
+  <div class="dots">${S.signals.map((x,i)=>`<button type="button" data-act="cur" data-i="${i}" class="${doneSig(x)?"done":""}" style="--c:${col(x.dom)}" ${i===S.cur?'aria-current="true"':""} title="${esc(x.titel)}">${i+1}</button>`).join("")}</div>
+  <div style="border-left:3px solid ${col(s.dom)};padding-left:12px">
+    <span class="tag" style="color:${col(s.dom)}">${DOMS[s.dom].n}</span>
+    <label class="f" style="margin-top:8px">Het signaal<input type="text" data-sid="${s.id}" data-f="titel" value="${esc(s.titel)}"></label>
+  </div>
+  <label class="f">Wat zie je precies, en waar merk je het nu al?<small>Een voorbeeld, een cijfer, een gesprek, een nieuwsbericht. Concreet maakt het toetsbaar.</small><textarea data-sid="${s.id}" data-f="wat">${esc(s.wat)}</textarea></label>
+  <label class="f">Bron of link <small>Optioneel</small><input type="text" data-sid="${s.id}" data-f="bron" value="${esc(s.bron)}" placeholder="https://…"></label>
+  <label class="f">Wat voor signaal is het?<small>Trend: breed en al gaande. Zwak signaal: klein en vroeg. Wildcard: onwaarschijnlijk, maar groot als het gebeurt.</small></label>${chips("type",s,TYPES)}
+  <label class="f">Wanneer wordt het merkbaar?</label>${chips("tijd",s,TIJD)}
+  <div class="grid2">
+    <div><label class="f">Impact als het gebeurt<small>Hoe groot is het effect op jouw thema?</small></label>${scaleBtns("impact",s,IMP)}</div>
+    <div><label class="f">Waarschijnlijkheid<small>Hoe waarschijnlijk is het binnen jouw horizon?</small></label>${scaleBtns("kans",s,KANS)}</div>
+  </div>
+  <label class="f">De "en dan?"-ladder<small>Volg het signaal een paar stappen: elk gevolg heeft weer een gevolg.</small></label>
+  ${s.effecten.map((e,i)=>`<div class="eff"><span class="arrow">${i?"↓":"→"}</span><input type="text" data-sid="${s.id}" data-eff="${i}" value="${esc(e)}" placeholder="${effLabels[Math.min(i,4)]}" aria-label="${effLabels[Math.min(i,4)]}"></div>`).join("")}
+  ${s.effecten.length<5?`<div class="row" style="margin-top:8px"><button type="button" class="btn plain" data-act="eff" data-id="${s.id}">+ En dan?</button></div>`:""}
+  <div class="grid2">
+    <label class="f">Wie wint, wie verliest?<input type="text" data-sid="${s.id}" data-f="wie" value="${esc(s.wie)}"></label>
+    <label class="f">Wat versnelt of remt dit af?<input type="text" data-sid="${s.id}" data-f="rem" value="${esc(s.rem)}"></label>
+  </div>
+  <div class="nav">
+    <span class="row"><button type="button" class="btn plain" data-act="cur" data-i="${S.cur-1}" ${S.cur?"":"disabled"}>← Vorige</button><button type="button" class="btn plain" data-act="del" data-id="${s.id}">Verwijder signaal</button></span>
+    ${S.cur<S.signals.length-1?`<button type="button" class="btn" data-act="cur" data-i="${S.cur+1}">Volgende signaal →</button>`:`<button type="button" class="btn" data-act="go" data-step="3">Naar prioriteren →</button>`}
+  </div></section>`;
+}
+
+function jitterOf(s,all){
+  const J=[[0,0],[-15,-15],[15,-15],[-15,15],[15,15],[0,-22],[0,22],[-22,0],[22,0]];
+  const same=all.filter(x=>x.impact===s.impact&&x.kans===s.kans);const i=same.indexOf(s);return J[i%J.length]
+}
+function matrix(){
+  const C=64,M=48,T=30,W=M+5*C+8,H=T+5*C+40,rs=S.signals.filter(rated);
+  let g=`<svg class="matrix" viewBox="0 0 ${W} ${H}" role="img" aria-label="Matrix van impact tegen waarschijnlijkheid">`;
+  g+=`<rect x="${M+3*C}" y="${T}" width="${2*C}" height="${2*C}" fill="var(--accent)" opacity=".16"/>`;
+  g+=`<rect x="${M}" y="${T}" width="${3*C}" height="${2*C}" fill="var(--c-eco)" opacity=".10"/>`;
+  for(let i=0;i<=5;i++){g+=`<line x1="${M+i*C}" y1="${T}" x2="${M+i*C}" y2="${T+5*C}" stroke="var(--line)"/><line x1="${M}" y1="${T+i*C}" x2="${M+5*C}" y2="${T+i*C}" stroke="var(--line)"/>`}
+  for(let i=1;i<=5;i++){g+=`<text x="${M+(i-.5)*C}" y="${T+5*C+16}" text-anchor="middle">${i}</text><text x="${M-10}" y="${T+(5-i+.5)*C+4}" text-anchor="end">${i}</text>`}
+  g+=`<text x="${M+2.5*C}" y="${H-6}" text-anchor="middle">waarschijnlijkheid →</text>`;
+  g+=`<text transform="translate(12 ${T+2.5*C}) rotate(-90)" text-anchor="middle">impact →</text>`;
+  g+=`<text x="${M+4*C}" y="${T-8}" text-anchor="middle" style="font-weight:700">voorbereiden</text><text x="${M+1.5*C}" y="${T-8}" text-anchor="middle">nauwlettend volgen</text>`;
+  rs.forEach(s=>{const [jx,jy]=jitterOf(s,rs),cx=M+(s.kans-.5)*C+jx,cy=T+(5-s.impact+.5)*C+jy,n=S.signals.indexOf(s)+1;
+    g+=`<g class="pt ${S.sel===s.id?"sel":""}" data-act="sel" data-id="${s.id}"><circle cx="${cx}" cy="${cy}" r="12" fill="${col(s.dom)}"/><text x="${cx}" y="${cy+4}">${n}</text><title>${esc(s.titel)}</title></g>`});
+  return g+"</svg>";
+}
+function vPrioriteren(){
+  const rs=S.signals.filter(rated),un=S.signals.filter(s=>!rated(s));
+  if(!S.signals.length)return`<section class="card"><h2>4 · Prioriteren</h2><div class="empty">Nog geen signalen om te prioriteren.</div><div class="nav"><button type="button" class="btn" data-act="go" data-step="1">← Naar de signalen</button></div></section>`;
+  const sorted=[...S.signals].sort((a,b)=>(b.impact*b.kans)-(a.impact*a.kans));
+  return`<section class="card">
+  <h2>4 · Wat verdient je aandacht?</h2>
+  <p class="lead">Rechtsboven: groot en waarschijnlijk, dus voorbereiden. Linksboven: groot maar onzeker, dus nauwlettend volgen (en scenario's voor maken). Klik op een bolletje om de rij te markeren. Je kunt de voorgestelde keuze per signaal zelf overrulen.</p>
+  ${rs.length?matrix():`<div class="empty">Beoordeel eerst impact en waarschijnlijkheid in stap 3.</div>`}
+  ${un.length?`<p class="hint">${un.length} signaal${un.length===1?"":"en"} nog zonder beoordeling: ${un.map(s=>`<button type="button" class="chip" data-act="open" data-id="${s.id}">${S.signals.indexOf(s)+1}. ${esc(s.titel.slice(0,28))}${s.titel.length>28?"…":""}</button>`).join(" ")}</p>`:""}
+  <div class="scroll"><table class="t"><thead><tr><th>#</th><th>Signaal</th><th>Imp.</th><th>Kans</th><th>Aandacht</th></tr></thead><tbody>
+  ${sorted.map(s=>{const a=auto(s);return`<tr class="${S.sel===s.id?"sel":""}"><td>${S.signals.indexOf(s)+1}</td><td><button type="button" class="chip" style="--c:${col(s.dom)};margin-right:6px" data-act="open" data-id="${s.id}" title="Verdiepen"><span class="sw"></span>${DOMS[s.dom].n}</button>${esc(s.titel)}</td><td>${s.impact||"–"}</td><td>${s.kans||"–"}</td>
+  <td><select data-sid="${s.id}" data-f="aandacht" data-rerender aria-label="Aandacht voor ${esc(s.titel)}"><option value="">${a?"Voorstel: "+ATT[a]:"Nog niet beoordeeld"}</option>${Object.entries(ATT).map(([k,l])=>`<option value="${k}" ${s.aandacht===k?"selected":""}>${l}</option>`).join("")}</select></td></tr>`}).join("")}
+  </tbody></table></div>
+  <div class="nav"><button type="button" class="btn plain" data-act="go" data-step="2">← Verdiepen</button><button type="button" class="btn" data-act="go" data-step="4">Naar de scenario's →</button></div>
+  </section>`;
+}
+
+function vScenario(){
+  const sc=S.scen,cand=S.signals.filter(s=>+s.impact>=4&&+s.kans>=2&&+s.kans<=4);
+  const opt=cur=>`<option value="">Kies een onzekerheid…</option>`+[...S.signals].sort((a,b)=>cand.includes(b)-cand.includes(a)).map(s=>`<option value="${s.id}" ${cur===s.id?"selected":""}>${cand.includes(s)?"★ ":""}${esc(s.titel.slice(0,70))}</option>`).join("");
+  const A=sig(sc.a),B=sig(sc.b),ready=A&&B&&sc.a!==sc.b;
+  const cell=(k,aOn,bOn)=>{const q=sc.q[k]||{};const f=n=>`data-bind="scen.q.${k}.${n}"`;
+    return`<div class="card"><p class="hd">${esc(aOn?sc.aHi||"A zet door":sc.aLo||"A blijft uit")} <b>én</b> ${esc(bOn?sc.bHi||"B zet door":sc.bLo||"B blijft uit")}</p>
+    <label class="f" style="margin-top:0">Naam van dit scenario<input type="text" ${f("naam")} value="${esc(q.naam||"")}" placeholder="Een korte, pakkende naam"></label>
+    <label class="f">Hoe ziet de wereld er dan uit?<textarea ${f("beeld")}>${esc(q.beeld||"")}</textarea></label>
+    <label class="f">Wat betekent dat voor jou of je organisatie?<textarea ${f("gevolg")}>${esc(q.gevolg||"")}</textarea></label>
+    <label class="f">Wat zou je dan doen?<textarea ${f("actie")}>${esc(q.actie||"")}</textarea></label></div>`};
+  return`<section class="card">
+  <h2>5 · Vier mogelijke toekomsten</h2>
+  <p class="lead">Scenario's voorspellen niets: ze testen of je plannen overeind blijven in verschillende werelden. Kies twee grote onzekerheden die onafhankelijk van elkaar kunnen uitpakken (de ★ zijn signalen met grote impact en een onzekere uitkomst).</p>
+  <div class="grid2">
+    <label class="f">Onzekerheid A<select data-pole="a">${opt(sc.a)}</select></label>
+    <label class="f">Onzekerheid B<select data-pole="b">${opt(sc.b)}</select></label>
+  </div>
+  ${sc.a&&sc.a===sc.b?`<p class="hint" style="color:var(--warn)">Kies twee verschillende onzekerheden.</p>`:""}
+  ${ready?`<div class="grid2">
+    <div><label class="f">A gebeurt: hoe omschrijf je die kant?<input type="text" data-bind="scen.aHi" value="${esc(sc.aHi)}"></label><label class="f">A blijft uit:<input type="text" data-bind="scen.aLo" value="${esc(sc.aLo)}"></label></div>
+    <div><label class="f">B gebeurt: hoe omschrijf je die kant?<input type="text" data-bind="scen.bHi" value="${esc(sc.bHi)}"></label><label class="f">B blijft uit:<input type="text" data-bind="scen.bLo" value="${esc(sc.bLo)}"></label></div>
+  </div>
+  <div class="quad">${cell("hh",1,1)}${cell("hl",1,0)}${cell("lh",0,1)}${cell("ll",0,0)}</div>
+  <label class="f" style="margin-top:18px">Wat zou je in alle vier de werelden doen?<small>Dit zijn je "no-regret"-stappen: ze lonen altijd.</small><textarea data-bind="scen.noreg">${esc(sc.noreg)}</textarea></label>`
+  :`<div class="empty" style="margin-top:14px">${S.signals.length<2?"Je hebt minstens twee signalen nodig.":"Kies hierboven twee onzekerheden om de vier scenario's te openen."} Scenario's zijn optioneel; je kunt ook direct door naar monitoren.</div>`}
+  <div class="nav"><button type="button" class="btn plain" data-act="go" data-step="3">← Prioriteren</button><button type="button" class="btn" data-act="go" data-step="5">Naar monitoren →</button></div>
+  </section>`;
+}
+
+function vMonitor(){
+  const mon=S.signals.filter(s=>["voorbereiden","volgen"].includes(att(s)));
+  const md=report();
+  return`<section class="card">
+  <h2>6 · Blijf het volgen</h2>
+  <p class="lead">Een scan is pas nuttig als je ziet wanneer iets versnelt. Leg voor de belangrijkste signalen vast waaraan je dat merkt, wie het bijhoudt en wat je dan doet.</p>
+  ${mon.length?mon.map(s=>`<div class="card" style="border-left:3px solid ${col(s.dom)}"><h3>${S.signals.indexOf(s)+1}. ${esc(s.titel)} <span class="tag">${ATT[att(s)]}</span></h3>
+    <div class="grid2">
+    <label class="f">Indicator: waaraan zie je dat het sneller of trager gaat?<input type="text" data-sid="${s.id}" data-m="indicator" value="${esc(s.mon.indicator)}"></label>
+    <label class="f">Waar kijk je dat na?<small>Bron, database, nieuwsbrief, persoon.</small><input type="text" data-sid="${s.id}" data-m="bron" value="${esc(s.mon.bron)}"></label>
+    <label class="f">Hoe vaak?<select data-sid="${s.id}" data-m="freq"><option value="">Kies…</option>${Object.entries(FREQ).map(([k,l])=>`<option value="${k}" ${s.mon.freq===k?"selected":""}>${l}</option>`).join("")}</select></label>
+    <label class="f">Wie houdt het bij?<input type="text" data-sid="${s.id}" data-m="eigenaar" value="${esc(s.mon.eigenaar)}"></label>
+    </div>
+    <label class="f">Trigger: "Als … dan …"<input type="text" data-sid="${s.id}" data-m="trigger" value="${esc(s.mon.trigger)}" placeholder="Als [indicator] [drempel] bereikt, dan …"></label>
+    <label class="f">Voorbereidende actie<input type="text" data-sid="${s.id}" data-m="actie" value="${esc(s.mon.actie)}"></label></div>`).join("")
+  :`<div class="empty">Nog geen signalen met "voorbereiden" of "nauwlettend volgen". Beoordeel ze in stap 3 of kies zelf in stap 4.</div>`}
+  <label class="f">Datum van de volgende scan<small>Plan hem nu in: horizon scanning is een ritme, geen eenmalige klus.</small><input type="date" data-bind="next" value="${esc(S.next)}" style="max-width:220px"></label>
+  </section>
+  <section class="card">
+  <h2>Rapport</h2>
+  <p class="lead noprint">Wordt automatisch opgebouwd uit je invoer. Kopieer het naar een document, download het, of bewaar je hele scan als bestand om er later mee verder te gaan.</p>
+  <div class="row noprint">
+    <button type="button" class="btn" data-act="copy">Kopieer als tekst</button>
+    <button type="button" class="btn ghost" data-act="dl-md">Download (.md)</button>
+    <button type="button" class="btn ghost" data-act="print">Afdrukken / pdf</button>
+    <button type="button" class="btn plain" data-act="dl-json">Bewaar scan (.json)</button>
+    <label class="btn plain" style="margin:0;cursor:pointer">Open scan<input type="file" id="imp" accept="application/json,.json" hidden></label>
+    <button type="button" class="btn danger" data-act="reset">Nieuwe scan</button>
+  </div>
+  <pre class="report" id="report">${esc(md)}</pre>
+  <div class="nav noprint"><button type="button" class="btn plain" data-act="go" data-step="4">← Scenario's</button></div>
+  </section>`;
+}
+
+/* ---------- report ---------- */
+function report(){
+  const L=[],sc=S.scen;
+  const dt=new Date().toLocaleDateString("nl-NL",{day:"numeric",month:"long",year:"numeric"});
+  L.push(`# Horizon scan: ${S.thema.trim()||"(thema)"}`,"",`Datum: ${dt}`);
+  if(S.rol.trim())L.push(`Perspectief: ${S.rol.trim()}`);
+  L.push(`Tijdshorizon: ${S.horizon} jaar`+(S.scope.trim()?` · Afbakening: ${S.scope.trim()}`:""));
+  if(S.doel.trim())L.push("",`## Waarvoor`,S.doel.trim());
+  const by=k=>S.signals.filter(s=>att(s)===k).sort((a,b)=>b.impact*b.kans-a.impact*a.kans);
+  const show=s=>{
+    const o=[`- **${s.titel}** (${DOMS[s.dom].n}${s.type?" · "+TYPES[s.type]:""}${s.tijd?" · "+TIJD[s.tijd]:""}; impact ${s.impact||"?"}/5, waarschijnlijkheid ${s.kans||"?"}/5)`];
+    if(s.wat.trim())o.push(`  - Wat: ${s.wat.trim()}`);
+    const e=s.effecten.map(x=>x.trim()).filter(Boolean);if(e.length)o.push(`  - Gevolgen: ${e.join(" → ")}`);
+    if(s.wie.trim())o.push(`  - Wie wint/verliest: ${s.wie.trim()}`);
+    if(s.rem.trim())o.push(`  - Versnelt/remt: ${s.rem.trim()}`);
+    if(s.bron.trim())o.push(`  - Bron: ${s.bron.trim()}`);
+    return o.join("\n")};
+  L.push("",`## Signalen (${S.signals.length})`);
+  let any=false;
+  for(const k of Object.keys(ATT)){const g=by(k);if(g.length){any=true;L.push("",`### ${ATT[k]}`,...g.map(show))}}
+  const un=S.signals.filter(s=>!att(s));if(un.length){any=true;L.push("",`### Nog niet beoordeeld`,...un.map(show))}
+  if(!any)L.push("","(nog geen signalen)");
+  const A=sig(sc.a),B=sig(sc.b);
+  if(A&&B&&A!==B){
+    L.push("",`## Scenario's`,`Twee onzekerheden: **A** ${A.titel} (${sc.aHi||"gebeurt"} / ${sc.aLo||"blijft uit"}) en **B** ${B.titel} (${sc.bHi||"gebeurt"} / ${sc.bLo||"blijft uit"}).`);
+    [["hh",sc.aHi||"A gebeurt",sc.bHi||"B gebeurt"],["hl",sc.aHi||"A gebeurt",sc.bLo||"B blijft uit"],["lh",sc.aLo||"A blijft uit",sc.bHi||"B gebeurt"],["ll",sc.aLo||"A blijft uit",sc.bLo||"B blijft uit"]].forEach(([k,a,b])=>{
+      const q=sc.q[k]||{};if(!(q.naam||q.beeld||q.gevolg||q.actie))return;
+      L.push("",`### ${q.naam||a+" + "+b}`,`_${a} + ${b}_`);
+      if(q.beeld)L.push(q.beeld.trim());if(q.gevolg)L.push("",`Betekenis: ${q.gevolg.trim()}`);if(q.actie)L.push("",`Aanpak: ${q.actie.trim()}`)});
+    if((sc.noreg||"").trim())L.push("",`### In alle scenario's`,sc.noreg.trim());
+  }
+  const mon=S.signals.filter(s=>Object.values(s.mon).some(v=>v.trim()));
+  if(mon.length){L.push("",`## Monitoring`);mon.forEach(s=>{const m=s.mon;L.push(`- **${s.titel}**: indicator: ${m.indicator||"–"}; bron: ${m.bron||"–"}; ${m.freq?FREQ[m.freq].toLowerCase():"frequentie n.v.t."}; eigenaar: ${m.eigenaar||"–"}; trigger: ${m.trigger||"–"}; actie: ${m.actie||"–"}`)})}
+  if(S.next)L.push("",`Volgende scan: ${S.next}`);
+  return L.join("\n")+"\n";
+}
+
+/* ---------- render ---------- */
+const app=document.getElementById("app");
+function render(){
+  stepper();
+  app.innerHTML=[vThema,vSignalen,vVerdiepen,vPrioriteren,vScenario,vMonitor][S.step]();
+  if(S._f){const e=document.getElementById(S._f);if(e)e.focus();S._f=null}
+  save();
+}
+function go(n){S.step=n;render();window.scrollTo({top:0});}
+
+/* ---------- events ---------- */
+function setPath(o,p,v){const k=p.split(".");let c=o;for(let i=0;i<k.length-1;i++){if(typeof c[k[i]]!=="object"||c[k[i]]===null)c[k[i]]={};c=c[k[i]]}c[k[k.length-1]]=v}
+app.addEventListener("input",e=>{
+  const t=e.target,d=t.dataset;
+  if(d.bind){setPath(S,d.bind,t.value);if(d.bind==="thema")stepper();}
+  else if(d.sid){const s=sig(d.sid);if(!s)return;
+    if(d.f)s[d.f]=t.value;else if(d.eff!==undefined)s.effecten[+d.eff]=t.value;else if(d.m)s.mon[d.m]=t.value}
+  if(d.m||d.bind==="next"||d.sid){const r=document.getElementById("report");if(r)r.textContent=report()}
+  save();
+});
+app.addEventListener("change",e=>{
+  const t=e.target,d=t.dataset;
+  if(d.pole){S.scen[d.pole]=t.value;const s=sig(t.value);
+    if(s){const x=d.pole;if(!S.scen[x+"Hi"])S.scen[x+"Hi"]=s.titel+" zet door";if(!S.scen[x+"Lo"])S.scen[x+"Lo"]=s.titel+" blijft uit"}
+    render();return}
+  if(d.rerender!==undefined)render();
+  else if(d.m||d.bind==="next"){const r=document.getElementById("report");if(r)r.textContent=report()}
+  else if(d.bind==="horizon"||d.bind==="scope"){}
+  if(t.id==="imp"&&t.files[0]){const fr=new FileReader();fr.onload=()=>{try{const o=JSON.parse(fr.result);if(!o||!Array.isArray(o.signals))throw 0;
+      S=Object.assign(fresh(),o,{scen:Object.assign(fresh().scen,o.scen||{})});S.signals.forEach(s=>{s.effecten=Array.isArray(s.effecten)?s.effecten:["",""];s.mon=Object.assign({indicator:"",bron:"",freq:"",trigger:"",eigenaar:"",actie:""},s.mon||{});if(!DOMS[s.dom])s.dom="wild"});
+      render();toast("Scan geladen")}catch(x){toast("Dit bestand is geen geldige scan")}};fr.readAsText(t.files[0])}
+});
+app.addEventListener("keydown",e=>{
+  if(e.key==="Enter"&&e.target.dataset.add!==undefined){e.preventDefault();addSig(e.target.dataset.add)}
+});
+function addSig(i){
+  const el=document.getElementById(`in-${S.dom}-${i}`);if(!el)return;const v=el.value.trim();if(!v){el.focus();return}
+  S.signals.push(newSig(S.dom,v));S._f=`in-${S.dom}-${i}`;render();toast("Signaal toegevoegd")
+}
+function dl(name,text,type){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
+const slug=()=>(S.thema.trim().toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"scan");
+function onClick(e){
+  const b=e.target.closest("[data-act]");if(!b)return;const d=b.dataset,a=d.act;
+  if(a==="go")return go(+d.step);
+  if(a==="ex"){S.thema=d.v;return render()}
+  if(a==="dom"){S.dom=d.d;return render()}
+  if(a==="add")return addSig(d.i);
+  if(a==="extra"){S.extra=(S.extra+1)%EXTRA.length;S._f=`in-${S.dom}-x`;return render()}
+  if(a==="del"){const s=sig(d.id);if(s&&(S.step===1||confirm("Dit signaal verwijderen?"))){S.signals=S.signals.filter(x=>x.id!==d.id);if(S.scen.a===d.id)S.scen.a="";if(S.scen.b===d.id)S.scen.b="";render()}return}
+  if(a==="open"){S.cur=Math.max(0,S.signals.findIndex(s=>s.id===d.id));return go(2)}
+  if(a==="cur"){S.cur=+d.i;return render()}
+  if(a==="rate"){const s=sig(d.id);s[d.f]=+s[d.f]===+d.v?0:+d.v;return render()}
+  if(a==="pick"){const s=sig(d.id);s[d.f]=s[d.f]===d.v?"":d.v;return render()}
+  if(a==="eff"){sig(d.id).effecten.push("");return render()}
+  if(a==="sel"){S.sel=d.id;return render()}
+  if(a==="copy"){const t=report();(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast("Gekopieerd")).catch(()=>{const r=document.createRange();r.selectNodeContents(document.getElementById("report"));const s=getSelection();s.removeAllRanges();s.addRange(r);toast("Selecteer en kopieer met Ctrl/Cmd+C")});return}
+  if(a==="dl-md")return dl(`horizon-scan-${slug()}.md`,report(),"text/markdown");
+  if(a==="dl-json")return dl(`horizon-scan-${slug()}.json`,JSON.stringify(S,(k,v)=>k[0]==="_"?undefined:v,1),"application/json");
+  if(a==="print")return window.print();
+  if(a==="reset"){if(confirm("Alles wissen en met een nieuwe scan beginnen? Bewaar eerst je scan als je hem nog nodig hebt.")){S=fresh();render();window.scrollTo({top:0})}return}
+  if(a==="sample")return sample();
+}
+app.addEventListener("click",onClick);
+document.getElementById("stepper").addEventListener("click",onClick);
+function sample(){
+  if(S.signals.length&&!confirm("Je huidige scan wordt vervangen door een voorbeeld. Doorgaan?"))return;
+  S=fresh();S.thema="Antimicrobiële resistentie";S.rol="Beleidsmedewerker volksgezondheid";S.horizon="10";S.scope="Nederland en Europa";S.doel="Waar moeten we de komende jaren in investeren? (Illustratief voorbeeld: de signalen zijn bedoeld om de methode te laten zien.)";
+  const add=(dom,titel,wat,type,tijd,impact,kans,eff,wie)=>{const s=newSig(dom,titel);Object.assign(s,{wat,type,tijd,impact,kans,effecten:eff,wie});S.signals.push(s);return s};
+  add("tech","Snelle diagnostiek aan het bed","Testen die binnen een uur laten zien of een infectie bacterieel is.","trend","t2",4,4,["Minder onnodig antibiotica","Minder selectiedruk","Resistentie neemt trager toe"],"Patiënten en huisartsen winnen; labs verliezen volume.");
+  add("tech","Fagentherapie als alternatief","Virussen die bacteriën doden, nu nog vooral in uitzonderlijke gevallen.","zwak","t3",5,2,["Registratie en productie worden een vraagstuk","Nieuwe markt voor kleine bedrijven"],"");
+  add("eco","Weinig verdienmodel voor nieuwe antibiotica","Nieuwe antibiotica worden spaarzaam gebruikt en leveren dus weinig op.","trend","t1",5,5,["Bedrijven stoppen met ontwikkeling","Pijplijn droogt op"],"Patiënten verliezen; ontwikkelaars gaan failliet.");
+  add("eko","Warmer klimaat en verspreiding van ziekteverwekkers","Warmere zomers en meer water veranderen waar infecties voorkomen.","trend","t3",3,4,["Nieuwe patronen van infecties","Meer antibioticagebruik elders"],"");
+  add("pol","Internationale afspraken over financiering","Onderhandelingen over een gezamenlijk betaalmodel voor nieuwe antibiotica.","zwak","t2",4,3,["Gezamenlijke inkoop wordt normaal"],"");
+  add("wild","Een resistente ziekenhuisuitbraak in Europa","Een snel verspreidende, bijna onbehandelbare bacterie.","wild","t1",5,2,["Ziekenhuizen sluiten afdelingen","Politieke aandacht schiet omhoog"],"");
+  S.step=1;render();toast("Voorbeeld geladen");
+}
+
+load();render();
+</script>
+</body>
+</html>
