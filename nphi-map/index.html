@@ -36,6 +36,7 @@ svg#map{display:block;width:100%;height:auto;cursor:grab;touch-action:none}
 .arc{fill:none;stroke-linecap:round}
 .arc:hover{stroke-opacity:1!important}
 .more{display:block;margin:14px auto 0}
+.more[hidden]{display:none}
 .arc.ongoing{stroke:var(--act)}.arc.completed{stroke:var(--done);stroke-dasharray:4 3}.arc.planned{stroke:var(--plan);stroke-dasharray:1 4}.arc.unclear{stroke:var(--par)}
 .dot{fill:var(--act);stroke:var(--bg);stroke-width:1}
 .tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:12px;padding:4px 8px;border-radius:6px;opacity:0;transition:opacity .1s;max-width:220px}
@@ -254,7 +255,7 @@ function list(vis){
   vis=[...vis].sort((a,b)=>order[a.status]-order[b.status]||(b.start||0)-(a.start||0));
   document.getElementById("count").textContent=vis.length+" of "+data.length+" collaborations"+(sel?" · "+sel:"");
   const more=document.getElementById("more"),rest=vis.length-shown;
-  more.hidden=rest<=0;more.textContent=`Show ${Math.min(PAGE,rest)} more (${rest} left)`;
+  more.hidden=rest<=0;if(rest>0)more.textContent=`Show ${Math.min(PAGE,rest)} more (${rest} left)`;
   more.onclick=()=>{shown+=PAGE;list(vis)};
   document.getElementById("list").innerHTML=vis.slice(0,shown).map(p=>`<article class="item">
     <h3>${esc(p.title)}</h3>
