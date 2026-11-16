@@ -1,0 +1,29 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "games": {
+      "$code": {
+        ".read": "auth != null",
+        ".write": "auth != null && data.child('host').val() === auth.uid",
+        "host": {
+          ".write": "auth != null && !data.exists() && newData.val() === auth.uid"
+        },
+        "players": {
+          "$uid": {
+            ".write": "auth != null && auth.uid === $uid && root.child('games').child($code).child('host').exists()",
+            ".validate": "newData.child('name').isString() && newData.child('name').val().length > 0 && newData.child('name').val().length <= 24"
+          }
+        },
+        "answers": {
+          "$qkey": {
+            "$uid": {
+              ".write": "auth != null && auth.uid === $uid && !data.exists() && root.child('games').child($code).child('state/phase').val() === 'question' && root.child('games').child($code).child('state/qkey').val() === $qkey",
+              ".validate": "newData.hasChildren(['a', 'ms']) && newData.child('ms').isNumber()"
+            }
+          }
+        }
+      }
+    }
+  }
+}
