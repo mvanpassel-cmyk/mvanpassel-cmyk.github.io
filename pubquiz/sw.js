@@ -1,6 +1,6 @@
 /* Service worker: zorgt dat de quizpagina ook laadt als je in een tunnel ververst.
    Eigen bestanden: eerst netwerk, anders uit de cache. Firebase-SDK: uit de cache. */
-const CACHE = 'pubquiz-v1';
+const CACHE = 'pubquiz-v2';
 const SHELL = ['./', 'index.html', 'host.html', 'css/style.css', 'js/store.js', 'js/common.js', 'js/player.js', 'js/host.js',
   'firebase-config.js', 'questions.js', 'favicon.svg'];
 
@@ -27,7 +27,8 @@ self.addEventListener('fetch', (e) => {
   }
 
   if (url.origin === self.location.origin) {
-    e.respondWith(fetch(req).then((res) => {
+    // 'no-cache': altijd bij GitHub controleren of er een nieuwere versie is (bijv. aangepaste vragen)
+    e.respondWith(fetch(req.url, { cache: 'no-cache', credentials: 'same-origin' }).then((res) => {
       if (res.ok) {
         const copy = res.clone();
         caches.open(CACHE).then((c) => c.put(req, copy));
