@@ -50,7 +50,15 @@
       app.innerHTML = '<div class="wrap"><div class="banner err">Kan Firebase niet bereiken. Klopt firebase-config.js en staat Anonymous sign-in aan? (' + esc(e.message) + ')</div></div>';
       return;
     }
-    Store.onConnection((c) => { connected = c; lastHtml = ''; render(); });
+    Store.onConnection((c) => {
+      connected = c;
+      if (game) { lastHtml = ''; render(); return; }
+      // startscherm niet opnieuw opbouwen (dan verdwijnt de ingetypte code): alleen het lampje bijwerken
+      const pill = $('#conn');
+      if (pill) pill.innerHTML = connPill();
+      const ob = $('#offline');
+      if (ob) ob.classList.toggle('hidden', c);
+    });
     if (code) return openGame(code);
     showSetup();
   }
@@ -70,14 +78,18 @@
       '<div class="spacer"></div>' +
       (game ? '<span class="pill">👥 ' + on + (ids.length !== on ? ' / ' + ids.length : '') + '</span>' : '') +
       (code && game ? '<span class="pill">Code <b>' + esc(code) + '</b></span>' : '') +
-      '<span class="pill"><i class="dot ' + (connected ? 'on' : 'off') + '"></i>' + (connected ? '' : 'offline') + '</span></header>';
+      '<span class="pill" id="conn">' + connPill() + '</span></header>';
+  }
+
+  function connPill() {
+    return '<i class="dot ' + (connected ? 'on' : 'off') + '"></i>' + (connected ? '' : 'offline');
   }
 
   function banners() {
     let b = '';
     if (Store.isDemo) b += '<div class="banner">Demo-modus: Firebase is nog niet ingesteld (firebase-config.js). Spelers kunnen alleen meedoen in andere tabbladen van deze browser. Prima om te oefenen!</div>';
     if (skippedTodo) b += '<div class="banner">' + skippedTodo + ' vraag' + (skippedTodo === 1 ? '' : 'en') + ' met <b>todo: true</b> in questions.js nog niet ingevuld. Die worden overgeslagen.</div>';
-    if (!connected) b += '<div class="banner err">Geen verbinding. Wat je nu doet wordt verstuurd zodra je weer online bent.</div>';
+    b += '<div class="banner err' + (connected ? ' hidden' : '') + '" id="offline">Geen verbinding. Wat je nu doet wordt verstuurd zodra je weer online bent.</div>';
     return b;
   }
 

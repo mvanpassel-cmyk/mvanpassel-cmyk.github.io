@@ -71,8 +71,10 @@
   }
 
   function updateConn() {
-    lastKey = '';
-    render();
+    if (game) { lastKey = ''; render(); return; }
+    // join-scherm niet opnieuw opbouwen (ingetypte naam blijft staan): alleen het lampje bijwerken
+    const pill = $('#conn');
+    if (pill) pill.innerHTML = '<i class="dot ' + (connected ? 'on' : 'off') + '"></i>' + (connected ? '' : 'offline');
   }
 
   /* ---------------- meedoen ---------------- */
