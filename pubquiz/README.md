@@ -18,7 +18,7 @@ De quiz staat als map `pubquiz/` in de repository `mvanpassel-cmyk.github.io`. H
 - Spelerslink: <https://mvanpassel-cmyk.github.io/pubquiz/>
 - Quizmaster: <https://mvanpassel-cmyk.github.io/pubquiz/host.html>
 
-Een wijziging in deze map (bijvoorbeeld in `questions.js`) staat na een minuut of twee online.
+Een wijziging in deze map (bijvoorbeeld in `questions.js`) staat na een minuut of twee online. Verhoog daarna het versienummer achter de bestandsnamen in `host.html` en `index.html` (`?v=3` wordt `?v=4`). Zo laadt iedereen meteen de nieuwe versie.
 
 ## 2. Firebase instellen (eenmalig, ±10 min, gratis)
 
