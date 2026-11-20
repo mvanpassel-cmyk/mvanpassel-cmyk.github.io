@@ -1,10 +1,16 @@
 {
- "slow_date": "2026-11-13",
- "generated": "2026-11-16T08:37:28Z",
+ "slow_date": "2026-11-20",
+ "generated": "2026-11-20T15:01:26Z",
  "ai": true,
  "model": "claude-sonnet-5-5",
- "digest_run": false,
- "notes": [],
- "digest_errors": [],
- "digest_date": "2026-11-12"
+ "digest_run": true,
+ "notes": [
+  "colombia: news search failed (HTTPError)",
+  "united-states: news search failed (HTTPError)",
+  "germany: news search failed (HTTPError)"
+ ],
+ "digest_errors": [
+  "dr-congo: reply was not valid JSON"
+ ],
+ "digest_date": "2026-11-20"
 }
