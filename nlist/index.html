@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>NList</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="How the Netherlands compares in hundreds of country rankings.">
+<link rel="icon" type="image/png" sizes="32x32" href="/logos/nlist-32.png">
+<link rel="icon" type="image/svg+xml" href="/logos/nlist.svg">
+<link rel="apple-touch-icon" href="/logos/nlist-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a filter bar over a wrapping grid of chart cards; each card a ranked bar list with NL in orange. */
+:root {
+  --bg: #f4f6f8;
+  --surface: #ffffff;
+  --fg: #16202b;
+  --muted: #5b6875;
+  --line: #dde3e9;
+  --bar-eu: #9aa8b6;
+  --bar-other: #cfd7df;
+  --nl: #e3570c;
+  --nl-soft: #fde6d8;
+  --ref: #16202b;
+  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f151b; --surface: #17202a; --fg: #e8edf2; --muted: #9aa8b6; --line: #2a3643;
+    --bar-eu: #6c7d8f; --bar-other: #3a4856; --nl: #ff7a33; --nl-soft: #3a2316; --ref: #e8edf2;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f151b; --surface: #17202a; --fg: #e8edf2; --muted: #9aa8b6; --line: #2a3643;
+  --bar-eu: #6c7d8f; --bar-other: #3a4856; --nl: #ff7a33; --nl-soft: #3a2316; --ref: #e8edf2;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 1240px; margin: 0 auto; padding-block: 32px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.05; margin: 0 0 10px; letter-spacing: -0.01em; text-wrap: balance; }
+header h1 span { color: var(--nl); }
+header p { margin: 0; max-width: 68ch; color: var(--muted); }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 14px; font-size: 13px; color: var(--muted); }
+.legend i { display: inline-block; width: 12px; height: 12px; border-radius: 2px; vertical-align: -1px; margin-right: 6px; }
+.legend .ref i { width: 2px; height: 14px; background: var(--ref); border-radius: 0; }
+.controls { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 14px; margin-top: 18px; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 10px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.chip { font: 500 13px var(--font-body); border: 1px solid var(--line); background: var(--surface); color: var(--fg); padding: 6px 12px; border-radius: 999px; cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.chip:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--nl); outline-offset: 2px; }
+.chip .n { font-family: var(--font-data); opacity: .6; margin-left: 4px; }
+input[type=search], select { font: 14px var(--font-body); padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--fg); }
+input[type=search] { flex: 1 1 220px; min-width: 0; }
+.count { font-size: 13px; color: var(--muted); margin-left: auto; font-family: var(--font-data); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr)); gap: 16px; margin-top: 20px; align-items: start; }
+.card { content-visibility: auto; contain-intrinsic-size: auto 560px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px 16px 12px; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.cat { font: 500 11px var(--font-body); text-transform: uppercase; letter-spacing: .07em; color: var(--muted); }
+.card h2 { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; line-height: 1.25; margin: 0; text-wrap: balance; }
+.unit { font-size: 12.5px; color: var(--muted); }
+.stat { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; background: var(--nl-soft); border-radius: 6px; padding: 8px 10px; }
+.stat b { font-family: var(--font-data); font-size: 1.25rem; font-weight: 500; color: var(--nl); font-variant-numeric: tabular-nums; }
+.stat span { font-size: 12.5px; color: var(--fg); }
+svg { display: block; width: 100%; height: auto; }
+svg text { font-family: var(--font-body); }
+.src { font-size: 11.5px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 8px; }
+.src a { color: var(--muted); }
+.empty { color: var(--muted); padding: 40px 0; text-align: center; }
+footer { margin-top: 40px; font-size: 13px; color: var(--muted); max-width: 72ch; }
+@media (prefers-reduced-motion: no-preference) { .card { transition: border-color .15s; } .card:hover { border-color: var(--bar-eu); } }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>N<span>List</span></h1>
+    <p>How the Netherlands compares: <span id="total">270+</span> country rankings, each with the latest figure per country since 2014. Every chart shows the EU and a selection of other countries; the Dutch position is ranked against all countries with data. New charts are added every month around a theme.</p>
+    <div class="legend" aria-hidden="true">
+      <span><i style="background:var(--nl)"></i>Netherlands</span>
+      <span><i style="background:var(--bar-eu)"></i>EU country</span>
+      <span><i style="background:var(--bar-other)"></i>Other country</span>
+      <span class="ref"><i></i>EU median</span>
+    </div>
+  </header>
+
+  <div class="controls">
+    <div class="row" id="cats" role="group" aria-label="Theme"></div>
+    <div class="row">
+      <input type="search" id="q" placeholder="Search, e.g. alcohol, trust, cancer" aria-label="Search charts">
+      <select id="scope" aria-label="Countries shown">
+        <option value="all">EU + world selection</option>
+        <option value="eu">EU only</option>
+      </select>
+      <select id="sort" aria-label="Order">
+        <option value="cat">By theme</option>
+        <option value="top">Where NL ranks highest</option>
+        <option value="bottom">Where NL ranks lowest</option>
+      </select>
+      <span class="count" id="count"></span>
+    </div>
+  </div>
+
+  <main class="grid" id="grid" aria-live="polite"></main>
+
+  <footer>
+    Data: <a href="https://ourworldindata.org" style="color:inherit">Our World in Data</a> (CC BY), with the original source on each chart. The chart on religious exclusivity is redrawn from Ryan Burge's World Values Survey chart. Countries are sometimes measured in different years; hover a bar to see its year. For some charts a high rank is bad (corruption, mortality, emissions): check the unit line. Last updated <span id="updated"></span>.
+  </footer>
+</div>
+
+<script>
+const EU = new Set("AUT BEL BGR HRV CYP CZE DNK EST FIN FRA DEU GRC HUN IRL ITA LVA LTU LUX MLT NLD POL PRT ROU SVK SVN ESP SWE".split(" "));
+const CATS = ["Religion & values","Trust & politics","Health & wellbeing","Food & drink","Work & economy","Society","Education & science","Environment & farming","Mobility & technology"];
+let DATA = [], state = { cat: "All", q: "", scope: "all", sort: "cat" };
+try { const s = JSON.parse(localStorage.getItem("nlist-state") || "{}"); Object.assign(state, s, { q: "" }); } catch (e) {}
+
+const nf = (v) => {
+  const a = Math.abs(v);
+  const d = a >= 1000 ? 0 : a >= 100 ? 0 : a >= 10 ? 1 : a >= 1 ? 2 : 3;
+  return v.toLocaleString("en-GB", { minimumFractionDigits: 0, maximumFractionDigits: d });
+};
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const median = (a) => { const s = [...a].sort((x, y) => x - y); const m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
+
+function chart(c) {
+  const rows = c.d.filter((r) => state.scope === "all" || EU.has(r[0]));
+  const W = 360, L = 118, R = 46, bh = 11, gap = 3, top = 4;
+  const H = top + rows.length * (bh + gap) + 4;
+  const max = Math.max(...rows.map((r) => r[3]), 0), min = Math.min(...rows.map((r) => r[3]), 0);
+  const x = (v) => L + ((v - min) / ((max - min) || 1)) * (W - L - R);
+  const euVals = c.d.filter((r) => EU.has(r[0])).map((r) => r[3]);
+  const med = euVals.length >= 5 ? median(euVals) : null;
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(c.t)}">`;
+  rows.forEach((r, i) => {
+    const y = top + i * (bh + gap), isNL = r[0] === "NLD";
+    const fill = isNL ? "var(--nl)" : EU.has(r[0]) ? "var(--bar-eu)" : "var(--bar-other)";
+    const x0 = x(Math.min(0, r[3])), x1 = x(Math.max(0, r[3]));
+    const name = r[1];
+    s += `<g><title>${esc(name)}: ${nf(r[3])} (${r[2]})</title>` +
+      `<text x="${L - 6}" y="${y + bh - 2}" text-anchor="end" font-size="10" fill="${isNL ? "var(--nl)" : "var(--muted)"}" font-weight="${isNL ? 600 : 400}">${esc(name)}</text>` +
+      `<rect x="${x0}" y="${y}" width="${Math.max(1, x1 - x0)}" height="${bh}" rx="1.5" fill="${fill}"></rect>` +
+      (isNL || i === 0 || i === rows.length - 1 ? `<text x="${x1 + 4}" y="${y + bh - 2}" font-size="9.5" fill="${isNL ? "var(--nl)" : "var(--muted)"}" font-family="IBM Plex Mono, monospace" font-weight="${isNL ? 500 : 400}">${nf(r[3])}</text>` : "") +
+      `</g>`;
+  });
+  if (med !== null) s += `<line x1="${x(med)}" x2="${x(med)}" y1="0" y2="${H}" stroke="var(--ref)" stroke-width="1" stroke-dasharray="2 2" opacity=".7"><title>EU median: ${nf(med)}</title></line>`;
+  return s + "</svg>";
+}
+
+function card(c) {
+  const nl = c.d.find((r) => r[0] === "NLD");
+  const ord = (n) => n + (n % 100 >= 11 && n % 100 <= 13 ? "th" : ["th","st","nd","rd"][n % 10] || "th");
+  const eu = c.eur ? ` · ${ord(c.eur)} of ${c.neu} in the EU` : "";
+  return `<article class="card">
+    <div class="cat">${esc(c.cat)}</div>
+    <h2>${esc(c.t)}</h2>
+    <div class="unit">${esc(c.u)}</div>
+    <div class="stat"><b>${nf(nl[3])}</b><span>NL, ${nl[2]} · ${ord(c.rank)} highest of ${c.n} countries${eu}</span></div>
+    ${chart(c)}
+    <div class="src">Source: ${esc(c.src)}${c.url ? ` · <a href="${c.url}" target="_blank" rel="noopener">view on OWID</a>` : ""}</div>
+  </article>`;
+}
+
+function render() {
+  try { localStorage.setItem("nlist-state", JSON.stringify({ cat: state.cat, scope: state.scope, sort: state.sort })); } catch (e) {}
+  const q = state.q.trim().toLowerCase();
+  let list = DATA.filter((c) => (state.cat === "All" || c.cat === state.cat) && (!q || (c.t + " " + c.en + " " + c.cat).toLowerCase().includes(q)));
+  const pct = (c) => c.rank / c.n;
+  if (state.sort === "top") list.sort((a, b) => pct(a) - pct(b));
+  else if (state.sort === "bottom") list.sort((a, b) => pct(b) - pct(a));
+  else list.sort((a, b) => CATS.indexOf(a.cat) - CATS.indexOf(b.cat));
+  document.getElementById("grid").innerHTML = list.length ? list.map(card).join("") : `<p class="empty">No charts match “${esc(state.q)}”.</p>`;
+  document.getElementById("count").textContent = `${list.length} of ${DATA.length}`;
+  document.querySelectorAll("#cats .chip").forEach((b) => b.setAttribute("aria-pressed", b.dataset.cat === state.cat));
+}
+
+function chips() {
+  const counts = {}; DATA.forEach((c) => (counts[c.cat] = (counts[c.cat] || 0) + 1));
+  document.getElementById("cats").innerHTML = ["All", ...CATS].map((k) =>
+    `<button class="chip" type="button" data-cat="${esc(k)}" aria-pressed="false">${esc(k)}<span class="n">${k === "All" ? DATA.length : counts[k] || 0}</span></button>`).join("");
+  document.querySelectorAll("#cats .chip").forEach((b) => b.addEventListener("click", () => { state.cat = b.dataset.cat; render(); }));
+}
+
+document.getElementById("q").addEventListener("input", (e) => { state.q = e.target.value; render(); });
+const scopeEl = document.getElementById("scope"), sortEl = document.getElementById("sort");
+scopeEl.value = state.scope; sortEl.value = state.sort;
+scopeEl.addEventListener("change", (e) => { state.scope = e.target.value; render(); });
+sortEl.addEventListener("change", (e) => { state.sort = e.target.value; render(); });
+
+fetch("data.json", { cache: "no-cache" }).then((r) => r.json()).then((j) => { DATA = j.charts || j; document.getElementById("total").textContent = DATA.length; document.getElementById("updated").textContent = j.updated || ""; chips(); render(); })
+  .catch(() => { document.getElementById("grid").innerHTML = '<p class="empty">The chart data could not be loaded. Reload the page.</p>'; });
+</script>
+<script data-goatcounter="https://mvanpassel.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>
