@@ -9,8 +9,8 @@
 <link rel="apple-touch-icon" href="/logos/nphi-map-180.png">
 <meta name="description" content="A world map of publicly documented collaborations between national public health institutes (RKI, RIVM, UKHSA, CDC, Africa CDC and others) on global health.">
 <style>
-:root{--bg:#f6f4ef;--ink:#1c1f26;--muted:#667085;--card:#fff;--line:#e4e0d6;--sea:#e8eef2;--land:#d9d6cb;--act:#1f6f78;--par:#e0a526;--done:#8a8f99;--plan:#7a4fb5;--accent:#1f3a5f;--pf:#c2255c}
-@media (prefers-color-scheme:dark){:root{--bg:#14161b;--ink:#eceae4;--muted:#9aa1ae;--card:#1c1f26;--line:#2b303a;--sea:#10151b;--land:#2a2f38;--act:#4fb3bd;--par:#f4c95d;--done:#8a8f99;--plan:#b794f4;--accent:#f4c95d;--pf:#ff7aa8}}
+:root{--bg:#f6f4ef;--ink:#1c1f26;--muted:#667085;--card:#fff;--line:#e4e0d6;--sea:#e8eef2;--land:#d9d6cb;--act:#1f6f78;--par:#e0a526;--done:#8a8f99;--plan:#7a4fb5;--accent:#1f3a5f;--pf:#c2255c;--eu:#1d4fb8;--eustar:#f2c200}
+@media (prefers-color-scheme:dark){:root{--bg:#14161b;--ink:#eceae4;--muted:#9aa1ae;--card:#1c1f26;--line:#2b303a;--sea:#10151b;--land:#2a2f38;--act:#4fb3bd;--par:#f4c95d;--done:#8a8f99;--plan:#b794f4;--accent:#f4c95d;--pf:#ff7aa8;--eu:#7ea6ff;--eustar:#ffd84d}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
 .wrap{max-width:1100px;margin:0 auto;padding:28px 16px 64px}
@@ -65,6 +65,17 @@ svg#map{display:block;width:100%;height:auto;cursor:grab;touch-action:none}
 .pfi{border-left:3px solid var(--pf)}
 .st.pfst{background:var(--pf);color:#fff}
 .pfnote{font-size:12px;color:var(--muted);margin:8px 0 0}
+#euBtn[aria-pressed="true"]{background:var(--eu);border-color:var(--eu);color:#fff}
+.eum{fill:var(--eu);stroke:var(--bg);stroke-width:1;cursor:pointer}
+.eum.flag{stroke:var(--eustar);stroke-width:1.6}
+.eu{margin:0 0 14px}
+.eu>summary{cursor:pointer;font-size:14px;font-weight:600;padding:6px 0}
+.eu>summary b{color:var(--eu)}
+.eui{border-left:3px solid var(--eu)}
+.st.eust{background:var(--eu);color:#fff}
+.eugrp{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:14px 0 2px}
+.eugrp:first-child{margin-top:4px}
+.eubar{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 8px}
 .thgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-top:6px}
 .th{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:13px;min-width:0}
 .th.on{border-color:var(--ink)}
@@ -88,6 +99,7 @@ footer{margin-top:36px;color:var(--muted);font-size:13px}
   <div class="bar">
     <input id="q" type="search" placeholder="Search projects…" aria-label="Search projects">
     <button class="chip" id="pfBtn" aria-pressed="false" title="Show countries with a Pandemic Fund grant">★ Pandemic Fund</button>
+    <button class="chip" id="euBtn" aria-pressed="false" title="Show what the European Commission and EU agencies do in health, by country">● EU</button>
     <button class="chip" id="reset">Reset</button>
   </div>
   <details class="filters" id="filters"><summary class="chip" id="fsum">Filters</summary>
@@ -108,6 +120,7 @@ footer{margin-top:36px;color:var(--muted);font-size:13px}
     <span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="var(--par)" stroke-width="1.2"/></svg> status unclear</span>
     <span><svg width="26" height="10"><line x1="0" y1="5" x2="12" y2="5" stroke="var(--muted)" stroke-width=".8"/><line x1="15" y1="5" x2="26" y2="5" stroke="var(--muted)" stroke-width="2.8"/></svg> one line per country pair; thicker and darker = more projects</span>
     <span><b style="color:var(--pf)">★</b> Pandemic Fund grant (switch on with the ★ button)</span>
+    <span><svg width="12" height="12"><circle cx="6" cy="6" r="4.2" fill="var(--eu)" stroke="var(--eustar)" stroke-width="1.6"/></svg> EU health programme (switch on with the ● EU button; gold ring = Team Europe or flagship)</span>
   </div>
 
   <details class="themes" id="thBox"><summary>Themes overview</summary>
@@ -119,12 +132,19 @@ footer{margin-top:36px;color:var(--muted);font-size:13px}
     <p class="pfnote"><button class="chip" id="csvPf">⤓ CSV (Pandemic Fund)</button> Country grants from the <a href="https://www.thepandemicfund.org/projects" rel="noopener">Pandemic Fund</a>, carried out by implementing entities (WHO, FAO, UNICEF, development banks) with national authorities. They are not institute-to-institute collaborations, so they are shown as a separate layer and are not counted in the totals below. Amounts are shown only where an official page states them.</p>
   </details>
 
+  <details class="eu" id="euBox" hidden><summary id="euSum"></summary>
+    <div class="eubar" id="euKinds"></div>
+    <div class="list" id="euList"></div>
+    <button class="chip more" id="euMore" hidden></button>
+    <p class="pfnote"><button class="chip" id="csvEu">⤓ CSV (EU)</button> What the European Commission and EU agencies fund or run in health with partner countries. <b>Team Europe and flagships</b>: Team Europe Initiatives, Global Gateway flagships and HERA/EU4Health actions, checked by hand. <b>Commission country programmes</b>: programme-level health actions of DG INTPA and DG NEAR as the Commission reports them to <a href="https://d-portal.org/" rel="noopener">IATI</a> (ongoing, or ended from 2023). <b>EU-linked collaborations on this map</b>: ECDC and other EU-agency work, and Team Europe or EU-funded institute collaborations, that are already in the main list (only their non-EU partner countries are marked). Amounts are EU or Team Europe amounts as stated by the source. Not counted in the totals below.</p>
+  </details>
+
   <div class="countrow"><div class="count" id="count"></div><span class="dl"><button class="chip" id="csvAll">⤓ CSV (all)</button> <button class="chip" id="csvVis">⤓ CSV (filtered)</button></span></div>
   <div class="list" id="list"></div>
   <button class="chip more" id="more" hidden></button>
 
   <p class="warn"><strong>Read with care.</strong> Entries come from public web sources (project databases, institute pages, press releases) and are summarised in my own words; always check the source link. Not finding a collaboration here does not mean it does not exist. “Unclear” means the source gives no end date or is undated. <span id="upd"></span></p>
-  <footer>By <a href="https://github.com/mvanpassel-cmyk">Mark van Passel</a> · data in <a href="projects.json">projects.json</a>, refreshed monthly · Pandemic Fund layer in <a href="pandemic-fund.json">pandemic-fund.json</a></footer>
+  <footer>By <a href="https://github.com/mvanpassel-cmyk">Mark van Passel</a> · data in <a href="projects.json">projects.json</a>, refreshed monthly · Pandemic Fund layer in <a href="pandemic-fund.json">pandemic-fund.json</a> · EU layer in <a href="eu-programmes.json">eu-programmes.json</a></footer>
 </div>
 
 <script src="lib/d3.min.js"></script>
@@ -148,6 +168,12 @@ let data=[],feats=[],cent={},sel=null,shown=50,zoomK=1;
 const PAGE=50;
 /* Pandemic Fund layer: country grants shown as stars, kept apart from the collaborations */
 let pf=[],pfOn=false,pfSel,pfN=new Map();
+/* EU layer: Commission and EU agency health work, marked per country and listed in its own block */
+let eu=[],euAg=[],euOn=false,euSel,euKind="all",euShown=30,euN=new Map();
+const EUAG=/\b(ecdc|european centre for disease prevention|european medicines agency|\bema\b|hera\b|hadea)/i, EUTXT=/team europe|eu4health|global gateway|eu-funded|european commission/i;
+const EU27=new Set(["Austria","Belgium","Bulgaria","Croatia","Cyprus","Czechia","Czech Rep.","Denmark","Estonia","Finland","France","Germany","Greece","Hungary","Ireland","Italy","Latvia","Lithuania","Luxembourg","Malta","Netherlands","Poland","Portugal","Romania","Slovakia","Slovenia","Spain","Sweden"]);
+const EUT={nphi:"Public health institutes",preparedness:"Health security",manufacturing:"Manufacturing & access",srhr:"SRHR",digital:"Digital health",systems:"Health systems",nutrition:"Nutrition",research:"Research"};
+const euT=c=>{const p=proj(cent[c]);return `translate(${p[0]-4/zoomK},${p[1]-4/zoomK}) scale(${1/zoomK})`};
 const STAR=d3.symbol().type(d3.symbolStar).size(46)();
 const NICE={"Macedonia":"North Macedonia","Turkey":"Türkiye","S. Sudan":"South Sudan","Dem. Rep. Congo":"DR Congo","Laos":"Lao PDR","Palestine":"West Bank and Gaza","Antigua and Barb.":"Antigua and Barbuda","St. Kitts and Nevis":"Saint Kitts and Nevis","St. Vin. and Gren.":"Saint Vincent and the Grenadines","Marshall Is.":"Marshall Islands"};
 const nice=c=>NICE[c]||c;
@@ -165,7 +191,7 @@ function chips(id,map,set){
 chips("fTopic",TOPICS,F.topic);chips("fStatus",STATUS,F.status);chips("fKind",KINDS,F.kind);
 document.getElementById("fActor").onchange=e=>{F.actor=e.target.value;draw()};
 document.getElementById("q").oninput=e=>{F.q=e.target.value.toLowerCase();draw()};
-document.getElementById("reset").onclick=()=>{F.topic.clear();F.status.clear();F.kind.clear();F.actor="";F.q="";sel=null;pfOn=false;
+document.getElementById("reset").onclick=()=>{F.topic.clear();F.status.clear();F.kind.clear();F.actor="";F.q="";sel=null;pfOn=false;euOn=false;euKind="all";
   document.querySelectorAll(".chip[aria-pressed]").forEach(b=>b.setAttribute("aria-pressed","false"));
   document.getElementById("fActor").value="";document.getElementById("q").value="";draw()};
 
@@ -181,6 +207,54 @@ const fDet=document.getElementById("filters");
 if(matchMedia("(min-width:701px)").matches)fDet.open=true;
 function fLabel(){const n=F.topic.size+F.status.size+F.kind.size+(F.actor?1:0);document.getElementById("fsum").textContent=n?`Filters (${n} active)`:"Filters"}
 document.getElementById("pfBtn").onclick=e=>{pfOn=!pfOn;e.currentTarget.setAttribute("aria-pressed",pfOn);pfSel=undefined;draw()};
+document.getElementById("euBtn").onclick=e=>{euOn=!euOn;e.currentTarget.setAttribute("aria-pressed",euOn);euSel=undefined;euShown=30;draw()};
+function euRows(){
+  const q=F.q,ok=t=>!q||t.includes(q);
+  const prog=eu.filter(p=>ok(p.text)).map(p=>({...p,grp:p.kind==="flagship"?"flag":"country"}));
+  const ag=euAg.filter(p=>ok((p.title+" "+p.summary+" "+p.actor+" "+p.institutes+" "+p.partners.join(" ")).toLowerCase())).map(p=>({...p,grp:"agency",countries:p.euC}));
+  return prog.concat(ag);
+}
+function drawEU(){
+  const box=document.getElementById("euBox");box.hidden=!euOn;
+  const rows=euOn?euRows():[];
+  const n=new Map(),fl=new Set();rows.forEach(p=>(p.countries||[]).forEach(c=>{n.set(c,(n.get(c)||0)+1);if(p.grp==="flag")fl.add(c)}));
+  gs.selectAll("circle.eum").data([...n.keys()].filter(c=>cent[c]),c=>c).join(e=>e.append("circle").attr("class","eum").attr("r",4.2).call(s=>s.append("title")))
+    .classed("flag",c=>fl.has(c)).attr("transform",euT).on("click",(e,c)=>{sel=sel===c?null:c;draw()})
+    .select("title").text(c=>`${nice(c)}: ${n.get(c)} EU item${n.get(c)>1?"s":""}`);
+  if(!euOn)return;
+  if(sel!==euSel){box.open=!!sel;euSel=sel;euShown=30}
+  const inSel=p=>!sel||(p.countries||[]).includes(sel);
+  const vis=rows.filter(inSel);
+  const G={flag:"Team Europe and flagships",country:"Commission country programmes",agency:"EU-linked collaborations on this map"};
+  const cnt=g=>vis.filter(p=>p.grp===g).length;
+  document.getElementById("euKinds").innerHTML=[["all","All",vis.length],...Object.entries(G).map(([k,v])=>[k,v,cnt(k)])].map(([k,v,c])=>`<button class="chip" data-k="${k}" aria-pressed="${euKind===k}">${esc(v)} (${c})</button>`).join("");
+  document.querySelectorAll("#euKinds .chip").forEach(b=>b.onclick=()=>{euKind=b.dataset.k;euShown=30;drawEU()});
+  const regional=rows.filter(p=>p.grp==="flag"&&!(p.countries||[]).length);
+  document.getElementById("euSum").innerHTML=`<b>●</b> EU in health · ${vis.length} item${vis.length===1?"":"s"}${sel?" · "+esc(nice(sel)):""}`;
+  const RANKS={ongoing:0,planned:1,unclear:2,completed:3};
+  const list=vis.filter(p=>euKind==="all"||p.grp===euKind).sort((a,b)=>Object.keys(G).indexOf(a.grp)-Object.keys(G).indexOf(b.grp)||RANKS[a.status]-RANKS[b.status]||(b.amountEURm||0)-(a.amountEURm||0)||(b.start||0)-(a.start||0));
+  const money=v=>v>=1000?`€${(v/1000).toFixed(2).replace(/\.?0+$/,"")} bn`:`€${v%1?v.toFixed(1):v} m`;
+  let last="";
+  const card=p=>{
+    let h="";if(euKind==="all"&&p.grp!==last){last=p.grp;h=`<div class="eugrp">${G[p.grp]}</div>`}
+    if(p.grp==="agency")return h+`<article class="item eui"><h3>${esc(p.title)}</h3>
+      <div class="route">${esc(p.actor)} (${esc(p.actorCountry)}) → ${esc(p.partners.length>6?p.partners.slice(0,6).join(", ")+" +"+(p.partners.length-6):p.partners.join(", "))}</div>
+      <p>${esc(p.summary)}</p><div class="tags"><span class="st ${p.status}">${STATUS[p.status]}</span><span class="tag">${years(p)}</span><span class="tag">also in the main list</span><a href="${esc(p.url)}" target="_blank" rel="noopener">Source ↗</a></div></article>`;
+    const cs=(p.countries||[]).map(nice);
+    return h+`<article class="item eui"><h3>${esc(p.title)}</h3>
+      <div class="route">${esc(p.origin)}${p.tei?" · Team Europe: "+esc(p.tei):""} → ${cs.length?esc(cs.length>8?cs.slice(0,8).join(", ")+" +"+(cs.length-8):cs.join(", ")):esc(p.region||"regional")}${p.implementers&&p.implementers.length?" · with "+esc(p.implementers.join(", ")):""}</div>
+      ${p.summary?`<p>${esc(p.summary)}</p>`:""}
+      <div class="tags"><span class="st ${p.status}">${STATUS[p.status]||p.status}</span><span class="tag">${years(p)}</span>${p.amountEURm?`<span class="tag">${money(p.amountEURm)}</span>`:""}
+        ${(p.topics||[]).map(t=>`<span class="tag">${EUT[t]||t}</span>`).join("")}${p.nphi?'<span class="st eust">NPHI</span>':""}
+        ${p.members&&p.members.length>1?`<span class="tag" title="${esc(p.members.join(", "))}">${p.members.length} Team Europe members${p.members.includes("Netherlands")?" incl. NL":""}</span>`:""}
+        ${p.page?`<a href="${esc(p.page)}" target="_blank" rel="noopener">More ↗</a>`:""}<a href="${esc(p.source)}" target="_blank" rel="noopener">${p.kind==="country"?"IATI record":"Source"} ↗</a><span style="color:var(--muted);font-size:12px;margin-left:6px" title="Date the source was last opened and checked">checked ${esc(p.checked)}</span></div>
+      ${p.note?`<div class="note">${esc(p.note)}</div>`:""}${p.mapIds&&p.mapIds.length?`<div class="note">Also in the main list of collaborations.</div>`:""}</article>`};
+  const more=document.getElementById("euMore"),rest=list.length-euShown;
+  more.hidden=rest<=0;if(rest>0)more.textContent=`Show ${Math.min(30,rest)} more (${rest} left)`;
+  more.onclick=()=>{euShown+=30;drawEU()};
+  document.getElementById("euList").innerHTML=(list.slice(0,euShown).map(card).join("")||`<p>No EU item names ${esc(sel?nice(sel):"this")}${F.q?" for this search":""}.</p>`)
+    +(sel&&regional.length?`<p class="pfnote">${regional.length} regional or global EU initiative${regional.length>1?"s":""} (${esc([...new Set(regional.map(p=>p.tei?p.tei.split(";")[0].trim():p.title))].slice(0,6).join("; "))}${new Set(regional.map(p=>p.tei||p.title)).size>6?"; …":""}) ${regional.length>1?"are":"is"} not tied to single countries. Clear the country selection to see ${regional.length>1?"them":"it"}.</p>`:"");
+}
 function drawPF(){
   const box=document.getElementById("pfBox");box.hidden=!pfOn;
   const base=pfOn?pf.filter(p=>!F.q||p.text.includes(F.q)):[];
@@ -247,7 +321,7 @@ function draw(){
     .select("title").text(d=>`${d.names[0]} – ${d.names[1]}: ${d.n} project${d.n>1?"s":""}${d.on?` (${d.on} ongoing)`:""}`);
   gd.selectAll("circle").data([...new Set(vis.map(p=>p.actorCountry))].filter(c=>cent[c])).join("circle").attr("class","dot")
     .attr("r",3).attr("transform",c=>{const p=proj(cent[c]);return `translate(${p})`});
-  list(vis);themes();drawPF();
+  list(vis);themes();drawPF();drawEU();
 }
 function years(p){return p.start?(p.end?(p.start===p.end?p.start:p.start+"–"+p.end):p.start+"–"):(p.end?"–"+p.end:"dates not stated")}
 function list(vis){
@@ -276,8 +350,9 @@ function csv(rows,name,cols){
 }
 document.getElementById("csvAll").onclick=()=>csv(data,"nphi-collaborations.csv");
 document.getElementById("csvPf").onclick=()=>csv(pf.map(p=>({...p,countries:p.countries.map(nice)})),"pandemic-fund-grants.csv",["title","round","year","scope","region","countries","lead","entities","amountUSDm","fastTrack","page","source","checked"]);
+document.getElementById("csvEu").onclick=()=>csv(eu.map(p=>({...p,countries:(p.countries||[]).map(nice).join("; "),implementers:(p.implementers||[]).join("; "),members:(p.members||[]).join("; "),topics:(p.topics||[]).map(t=>EUT[t]||t).join("; ")})),"eu-health-programmes.csv",["title","kind","origin","tei","scope","region","countries","implementers","members","amountEURm","start","end","status","topics","nphi","summary","source","page","checked"]);
 document.getElementById("csvVis").onclick=()=>csv(visible(),"nphi-collaborations-filtered.csv");
-Promise.all([d3.json(ATLAS),d3.json("projects.json"),d3.json("pandemic-fund.json").catch(()=>({projects:[]}))]).then(([topo,pj,pfj])=>{
+Promise.all([d3.json(ATLAS),d3.json("projects.json"),d3.json("pandemic-fund.json").catch(()=>({projects:[]})),d3.json("eu-programmes.json").catch(()=>({projects:[]}))]).then(([topo,pj,pfj,euj])=>{
   data=pj.projects;data.forEach(p=>p.kind=kind(p.type));
   document.getElementById("upd").textContent="List last edited "+pj.updated+"; each entry shows when its source was last checked.";
   feats=topojson.feature(topo,topo.objects.countries).features.filter(f=>f.properties.name!=="Antarctica");
@@ -288,20 +363,27 @@ Promise.all([d3.json(ATLAS),d3.json("projects.json"),d3.json("pandemic-fund.json
   feats.forEach(f=>{cent[f.properties.name]=OVR[f.properties.name]||d3.geoCentroid(f)});
   cent["Ethiopia"]=cent["Ethiopia"];
   // Pandemic Fund recipients too small for the atlas: position only, so their star can be drawn and clicked.
-  Object.entries({"Cabo Verde":[-23.6,15.1],"Antigua and Barb.":[-61.8,17.07],"Dominica":[-61.35,15.42],"Grenada":[-61.68,12.12],"St. Kitts and Nevis":[-62.75,17.3],"Saint Lucia":[-60.98,13.9],"St. Vin. and Gren.":[-61.2,13.25],"Micronesia":[158.2,6.9]}).forEach(([n,c])=>{if(!cent[n])cent[n]=c});
+  Object.entries({"Cabo Verde":[-23.6,15.1],"Antigua and Barb.":[-61.8,17.07],"Dominica":[-61.35,15.42],"Grenada":[-61.68,12.12],"St. Kitts and Nevis":[-62.75,17.3],"Saint Lucia":[-60.98,13.9],"St. Vin. and Gren.":[-61.2,13.25],"Micronesia":[158.2,6.9],"Barbados":[-59.55,13.18]}).forEach(([n,c])=>{if(!cent[n])cent[n]=c});
   pf=pfj.projects||[];pf.forEach(p=>{p.text=(p.title+" "+(p.region||"")+" "+(p.lead||"")+" "+p.entities.join(" ")+" "+p.countries.join(" ")+" "+p.countries.map(nice).join(" ")+" pandemic fund").toLowerCase();p.countries.forEach(c=>pfN.set(c,(pfN.get(c)||0)+1))});
+  eu=euj.projects||[];eu.forEach(p=>{p.countries=p.countries||[];p.text=(p.title+" "+(p.summary||"")+" "+(p.origin||"")+" "+(p.tei||"")+" "+(p.region||"")+" "+(p.implementers||[]).join(" ")+" "+(p.members||[]).join(" ")+" "+p.countries.join(" ")+" "+p.countries.map(nice).join(" ")+" eu european").toLowerCase();p.countries.forEach(c=>euN.set(c,(euN.get(c)||0)+1))});
+  const linked=new Set(eu.flatMap(p=>p.mapIds||[]));
+  euAg=data.filter(p=>!linked.has(p.id)&&(EUAG.test(p.actor)||EUTXT.test(p.title+" "+p.summary+" "+(p.institutes||""))));
+  euAg.forEach(p=>{p.euC=[...new Set([p.actorCountry,...p.partners])].filter(c=>!EU27.has(c))});
+  euAg=euAg.filter(p=>p.euC.length);
+  euAg.forEach(p=>p.euC.forEach(c=>euN.set(c,(euN.get(c)||0)+1)));
+  const euMiss=[...new Set(eu.flatMap(p=>p.countries))].filter(c=>!cent[c]);if(euMiss.length)console.warn("EU countries without a map position:",euMiss);
   const pfMiss=[...pfN.keys()].filter(c=>!cent[c]);if(pfMiss.length)console.warn("Pandemic Fund countries without a map position:",pfMiss);
   gl.selectAll("path").data(feats).join("path").attr("d",path)
     .on("mousemove",(e,d)=>{const r=svg.node().getBoundingClientRect(),n=d.properties.name;
       const c=data.filter(p=>p.actorCountry===n||p.partners.includes(n)).length;
-      tip.style.opacity=1;tip.style.left=(e.clientX-r.left+12)+"px";tip.style.top=(e.clientY-r.top+12)+"px";tip.textContent=n+(c?" · "+c+" collaboration"+(c>1?"s":""):"")+(pfOn&&pfN.get(n)?" · ★ "+pfN.get(n)+" Pandemic Fund":"")})
+      tip.style.opacity=1;tip.style.left=(e.clientX-r.left+12)+"px";tip.style.top=(e.clientY-r.top+12)+"px";tip.textContent=n+(c?" · "+c+" collaboration"+(c>1?"s":""):"")+(pfOn&&pfN.get(n)?" · ★ "+pfN.get(n)+" Pandemic Fund":"")+(euOn&&euN.get(n)?" · ● "+euN.get(n)+" EU":"")})
     .on("mouseleave",()=>tip.style.opacity=0)
     .on("click",(e,d)=>{sel=sel===d.properties.name?null:d.properties.name;draw()});
   const actors=[...new Set(data.map(p=>p.actor))].sort();
   const s=document.getElementById("fActor");actors.forEach(a=>{const o=document.createElement("option");o.value=a;o.textContent=a;s.appendChild(o)});
   const missing=[...new Set(data.flatMap(p=>[p.actorCountry,...p.partners]))].filter(c=>!cent[c]);
   if(missing.length)console.warn("Unmatched country names:",missing);
-  svg.call(d3.zoom().scaleExtent([1,8]).translateExtent([[0,0],[W,H]]).on("zoom",e=>{zoomK=e.transform.k;g.attr("transform",e.transform);gd.selectAll("circle").attr("r",3/zoomK);ga.selectAll("path").style("stroke-width",d=>d.w/zoomK);gs.selectAll("path").attr("transform",starT)}));
+  svg.call(d3.zoom().scaleExtent([1,8]).translateExtent([[0,0],[W,H]]).on("zoom",e=>{zoomK=e.transform.k;g.attr("transform",e.transform);gd.selectAll("circle").attr("r",3/zoomK);ga.selectAll("path").style("stroke-width",d=>d.w/zoomK);gs.selectAll("path").attr("transform",starT);gs.selectAll("circle.eum").attr("transform",euT)}));
   draw();
 }).catch(err=>{document.getElementById("list").innerHTML="<p>Could not load the map data: "+esc(err.message)+"</p>"});
 </script>

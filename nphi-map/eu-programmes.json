@@ -1,0 +1,3584 @@
+{
+ "about": "EU layer of the NPHI collaboration map: what the European Commission and EU agencies fund or run in health with partner countries. kind 'flagship' = hand-checked Team Europe Initiatives, Global Gateway flagships and HERA/EU4Health actions; kind 'country' = Commission programme-level actions with a health focus, refreshed from IATI by tools/eu_iati.py. EU agency collaborations already in projects.json (ECDC, EMA and Team Europe actions) are shown by the page from that file, not duplicated here. Country names follow the map atlas. amountEURm is the EU or Team Europe amount stated by the source (see summary); null when not stated.",
+ "updated": "2026-11-20",
+ "projects": [
+  {
+   "id": "eu-tei-phi-africa",
+   "title": "Team Europe Initiative: Strengthening Public Health Institutes in Africa",
+   "origin": "DG INTPA",
+   "tei": "Public Health Institutes",
+   "countries": [],
+   "scope": "regional",
+   "region": "Africa (AU Member States)",
+   "implementers": [
+    "Africa CDC",
+    "WHO",
+    "IANPHI",
+    "EU Member State public health institutes"
+   ],
+   "members": [
+    "European Commission",
+    "Belgium",
+    "Czechia",
+    "Finland",
+    "France",
+    "Germany",
+    "Ireland",
+    "Italy",
+    "Netherlands",
+    "Portugal",
+    "Spain",
+    "Sweden"
+   ],
+   "amountEURm": 50.0,
+   "start": 2024,
+   "end": null,
+   "status": "ongoing",
+   "topics": [
+    "nphi"
+   ],
+   "nphi": true,
+   "summary": "Team Europe and Africa CDC back national public health institutes in Africa: institutional capacity, networking between African and European institutes, workforce training and evidence-based policy advice. A new €50 million Commission programme runs in 10 countries plus a regional strand, implemented by Belgium, France, Germany, Sweden and WHO.",
+   "source": "https://www.ianphi.org/_includes/documents/sections/tools-resources/regional-networks/2025/session-2/eva-johansson-session-2.pdf",
+   "note": "Survey cited in the source: European institutes and schools of public health run about 60 projects in 41 African countries, worth about €105 million.",
+   "kind": "flagship",
+   "checked": "2026-11-20",
+   "page": null,
+   "mapIds": [
+    "tei-strengthening-phi-africa"
+   ]
+  },
+  {
+   "id": "eu-aueu-2026-three-initiatives",
+   "title": "AU–EU initiatives on public health institutes, One Health/AMR and digital health",
+   "origin": "DG INTPA",
+   "tei": "Public Health Institutes; Health Security / One Health; Digital Health",
+   "countries": [],
+   "scope": "regional",
+   "region": "Africa (10 AU Member States for NPHIs, 6 for digital health)",
+   "implementers": [
+    "Africa CDC",
+    "Sida",
+    "ICARS",
+    "ASLM",
+    "ECDC"
+   ],
+   "members": [
+    "European Commission"
+   ],
+   "amountEURm": 100.0,
+   "start": 2026,
+   "end": null,
+   "status": "ongoing",
+   "topics": [
+    "nphi",
+    "preparedness",
+    "digital"
+   ],
+   "nphi": true,
+   "summary": "Three Global Gateway initiatives launched at the AU in April 2026, led operationally by Africa CDC: support for national public health institutes in 10 countries (surveillance, early warning, response, research, labs), One Health and AMR work with workforce training, and digital health in 6 countries.",
+   "source": "https://www.eeas.europa.eu/delegations/african-union-au/au-and-eu-strengthen-their-health-partnership-launch-initiatives-under-global-gateway_en",
+   "page": "https://healthpolicy-watch.news/africa-and-europe-announce-e100-million-health-initiatives/",
+   "kind": "flagship",
+   "checked": "2026-11-20",
+   "note": null
+  },
+  {
+   "id": "eu-zimbabwe-nphi",
+   "title": "Establishing Zimbabwe's first National Public Health Institute",
+   "origin": "DG INTPA",
+   "tei": "Public Health Institutes",
+   "countries": [
+    "Zimbabwe"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [
+    "WHO"
+   ],
+   "members": [
+    "European Commission"
+   ],
+   "amountEURm": 4.2,
+   "start": 2025,
+   "end": 2029,
+   "status": "ongoing",
+   "topics": [
+    "nphi",
+    "preparedness"
+   ],
+   "nphi": true,
+   "summary": "Four-year EU grant, implemented with WHO, to set up Zimbabwe's national public health institute with a focus on surveillance, evidence and data-driven policy advice, digital health literacy and NCDs.",
+   "source": "https://www.eeas.europa.eu/delegations/zimbabwe/eu-invests-%E2%82%AC42m-support-zimbabwe%E2%80%99s-national-public-health-institute_en",
+   "kind": "flagship",
+   "checked": "2026-11-20",
+   "page": null,
+   "note": null
+  },
+  {
+   "id": "eu-tei-hsoh-africa",
+   "title": "Team Europe Initiative: Sustainable Health Security through a One Health approach",
+   "origin": "DG INTPA",
+   "tei": "Health Security / One Health",
+   "countries": [],
+   "scope": "regional",
+   "region": "Africa",
+   "implementers": [
+    "Africa CDC",
+    "African Union Commission",
+    "Regional Economic Communities",
+    "Quadripartite / WOAH",
+    "ECDC"
+   ],
+   "members": [
+    "European Commission",
+    "Belgium",
+    "Denmark",
+    "France",
+    "Germany",
+    "Spain",
+    "Sweden",
+    "ECDC"
+   ],
+   "amountEURm": 145.0,
+   "start": 2024,
+   "end": null,
+   "status": "ongoing",
+   "topics": [
+    "preparedness"
+   ],
+   "nphi": false,
+   "summary": "Team Europe package (over €430 million in total, €145 million from the Commission via EDF, NDICI, HERA/EU4Health and FPI) for health security in Africa: surveillance, labs, AMR and One Health workforce, with Africa CDC as main partner. ECDC's work for Africa CDC sits under this initiative.",
+   "source": "https://www.ianphi.org/_includes/documents/sections/tools-resources/regional-networks/2025/session-2/eva-johansson-session-2.pdf",
+   "kind": "flagship",
+   "checked": "2026-11-20",
+   "page": null,
+   "note": null
+  },
+  {
+   "id": "eu-tei-digital-health-africa",
+   "title": "Team Europe Initiative: Digital Health in Africa",
+   "origin": "DG INTPA",
+   "tei": "Digital Health",
+   "countries": [],
+   "scope": "regional",
+   "region": "Africa",
+   "implementers": [
+    "Africa CDC",
+    "African Union Commission",
+    "WHO"
+   ],
+   "members": [
+    "European Commission",
+    "Belgium",
+    "France",
+    "Germany",
+    "Portugal",
+    "Sweden",
+    "Luxembourg",
+    "EIB"
+   ],
+   "amountEURm": 67.0,
+   "start": 2024,
+   "end": null,
+   "status": "ongoing",
+   "topics": [
+    "digital"
+   ],
+   "nphi": false,
+   "summary": "Team Europe support (about €223 million in total, €67 million from the Commission) for interoperable digital health systems and data for preparedness and primary care in Africa.",
+   "source": "https://www.ianphi.org/_includes/documents/sections/tools-resources/regional-networks/2025/session-2/eva-johansson-session-2.pdf",
+   "kind": "flagship",
+   "checked": "2026-11-20",
+   "page": null,
+   "note": null
+  },
+  {
+   "id": "eu-who-gdhcn-africa",
+   "title": "EU–WHO digital health: Global Digital Health Certification Network in sub-Saharan Africa",
+   "origin": "DG INTPA",
+   "tei": "Digital Health",
+   "countries": [],
+   "scope": "regional",
+   "region": "Sub-Saharan Africa",
+   "implementers": [
+    "WHO",
+    "WHO Regional Office for Africa",
+    "Africa CDC"
+   ],
+   "members": [
+    "European Commission"
+   ],
+   "amountEURm": 8.0,
+   "start": 2025,
+   "end": 2028,
+   "status": "ongoing",
+   "topics": [
+    "digital",
+    "preparedness"
+   ],
+   "nphi": false,
+   "summary": "EU grant for WHO to help sub-Saharan countries digitise health systems and join the Global Digital Health Certification Network, including digital yellow-fever cards under the revised IHR.",
+   "source": "https://international-partnerships.ec.europa.eu/news-and-events/news/who-and-european-union-launch-collaboration-advance-digitized-health-systems-sub-saharan-africa-2025-10-14_en",
+   "kind": "flagship",
+   "checked": "2026-11-20",
+   "page": null,
+   "note": null
+  },
+  {
+   "id": "eu-tei-mav-plus",
+   "title": "Team Europe Initiative MAV+: manufacturing and access to vaccines, medicines and health technologies in Africa",
+   "origin": "DG INTPA",
+   "tei": "MAV+",
+   "countries": [
+    "Senegal",
+    "Ghana",
+    "Nigeria",
+    "South Africa",
+    "Rwanda",
+    "Egypt"
+   ],
+   "scope": "multi",
+   "region": "Africa (plus regional and continental actions)",
+   "implementers": [
+    "Africa CDC (Platform for Harmonized African Health Products Manufacturing)",
+    "AUDA-NEPAD",
+    "EIB",
+    "national medicines regulators"
+   ],
+   "members": [
+    "European Commission",
+    "Belgium",
+    "France",
+    "Germany",
+    "Luxembourg",
+    "Netherlands",
+    "Spain",
+    "Sweden",
+    "EIB"
+   ],
+   "amountEURm": 1970.0,
+   "start": 2021,
+   "end": null,
+   "status": "ongoing",
+   "topics": [
+    "manufacturing"
+   ],
+   "nphi": false,
+   "summary": "Team Europe's 360-degree package on local production of and access to health products in Africa: industry and supply chains, market shaping, technology transfer, regulatory strengthening and skills. About €1.97 billion invested so far in six priority countries and at regional and continental level.",
+   "source": "https://international-partnerships.ec.europa.eu/policies/global-gateway/manufacturing-and-access-vaccines-medicines-health-technology-products-africa-mav_en",
+   "page": "https://global-gateway-forum.ec.europa.eu/news/global-gateway-eu-scales-local-manufacturing-and-access-health-products-africa-advancing-mav-2025-10-10_en",
+   "kind": "flagship",
+   "checked": "2026-11-20",
+   "note": null
+  },
+  {
+   "id": "eu-mav-biontech-kigali",
+   "title": "BioNTech mRNA manufacturing facility in Kigali (EU–EIB blended finance)",
+   "origin": "DG INTPA + EIB",
+   "tei": "MAV+",
+   "countries": [
+    "Rwanda"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [
+    "BioNTech",
+    "EIB"
+   ],
+   "members": [
+    "European Commission",
+    "EIB"
+   ],
+   "amountEURm": 95.0,
+   "start": 2025,
+   "end": null,
+   "status": "ongoing",
+   "topics": [
+    "manufacturing"
+   ],
+   "nphi": false,
+   "summary": "Under the Human Development Accelerator, a €35 million milestone grant plus up to €60 million EIB credit for site infrastructure, clinical manufacturing and contract manufacturing capacity at BioNTech's Rwanda facility.",
+   "source": "https://global-gateway-forum.ec.europa.eu/news/global-gateway-eu-scales-local-manufacturing-and-access-health-products-africa-advancing-mav-2025-10-10_en",
+   "kind": "flagship",
+   "checked": "2026-11-20",
+   "page": null,
+   "note": null
+  },
+  {
+   "id": "eu-mav-medaccess",
+   "title": "MedAccess volume guarantees for health products in sub-Saharan Africa",
+   "origin": "DG INTPA + EIB",
+   "tei": "MAV+",
+   "countries": [],
+   "scope": "regional",
+   "region": "Sub-Saharan Africa",
+   "implementers": [
+    "MedAccess",
+    "EIB"
+   ],
+   "members": [
+    "European Commission",
+    "EIB"
+   ],
+   "amountEURm": 52.0,
+   "start": 2025,
+   "end": null,
+   "status": "ongoing",
+   "topics": [
+    "manufacturing"
+   ],
+   "nphi": false,
+   "summary": "€52 million agreement that lets MedAccess give manufacturers volume guarantees for medicines, vaccines, diagnostics, devices and nutrition products, so supply to sub-Saharan Africa stays affordable.",
+   "source": "https://global-gateway-forum.ec.europa.eu/news/global-gateway-eu-scales-local-manufacturing-and-access-health-products-africa-advancing-mav-2025-10-10_en",
+   "kind": "flagship",
+   "checked": "2026-11-20",
+   "page": null,
+   "note": null
+  },
+  {
+   "id": "eu-ama-support",
+   "title": "Support to set up the African Medicines Agency (AMRH and EMA cooperation)",
+   "origin": "DG INTPA",
+   "tei": "MAV+",
+   "countries": [],
+   "scope": "regional",
+   "region": "Africa",
+   "implementers": [
+    "AUDA-NEPAD (AMRH)",
+    "European Medicines Agency"
+   ],
+   "members": [
+    "European Commission",
+    "Belgium"
+   ],
+   "amountEURm": 20.0,
+   "start": 2024,
+   "end": null,
+   "status": "ongoing",
+   "topics": [
+    "manufacturing"
+   ],
+   "nphi": false,
+   "summary": "€10 million to AUDA-NEPAD's African Medicines Regulatory Harmonisation programme and a €10 million grant for EMA cooperation, to help establish the African Medicines Agency; Belgium adds €4 million.",
+   "source": "https://international-partnerships.ec.europa.eu/news-and-events/news/global-gateway-european-commission-and-belgian-presidency-increase-their-support-african-medicines-2024-03-20_en",
+   "kind": "flagship",
+   "checked": "2026-11-20",
+   "page": null,
+   "note": null
+  },
+  {
+   "id": "eu-tei-srhr-africa",
+   "title": "Team Europe Initiative on Sexual and Reproductive Health and Rights in Africa",
+   "origin": "DG INTPA",
+   "tei": "SRHR",
+   "countries": [],
+   "scope": "regional",
+   "region": "Sub-Saharan Africa (EAC, ECOWAS/WAHO, SADC)",
+   "implementers": [
+    "East African Community",
+    "WAHO / ECOWAS",
+    "SADC"
+   ],
+   "members": [
+    "European Commission",
+    "Belgium",
+    "Czechia",
+    "Denmark",
+    "Finland",
+    "France",
+    "Germany",
+    "Ireland",
+    "Luxembourg",
+    "Netherlands",
+    "Sweden"
+   ],
+   "amountEURm": 220.0,
+   "start": 2022,
+   "end": null,
+   "status": "ongoing",
+   "topics": [
+    "srhr"
+   ],
+   "nphi": false,
+   "summary": "Umbrella initiative launched in Kigali in December 2022: regional SRHR commitments in health and education, quality-assured SRH commodities, and advocacy and accountability, especially for adolescent girls and young women.",
+   "source": "https://international-partnerships.ec.europa.eu/policies/global-gateway/sexual-and-reproductive-health-and-rights-srhr-sub-saharan-africa_en",
+   "kind": "flagship",
+   "checked": "2026-11-20",
+   "page": null,
+   "note": null
+  },
+  {
+   "id": "eu-raise-srhr",
+   "title": "RAISE SRHR: Regional Access and Accountability for Increased SRHR Equity",
+   "origin": "DG INTPA",
+   "tei": "SRHR",
+   "countries": [],
+   "scope": "regional",
+   "region": "East and Southern Africa",
+   "implementers": [
+    "GIZ",
+    "UNAIDS",
+    "UNFPA",
+    "UNICEF",
+    "WHO",
+    "EAC",
+    "SADC"
+   ],
+   "members": [
+    "European Commission",
+    "Germany",
+    "Sweden"
+   ],
+   "amountEURm": 19.0,
+   "start": 2025,
+   "end": null,
+   "status": "ongoing",
+   "topics": [
+    "srhr"
+   ],
+   "nphi": false,
+   "summary": "About €19 million for SRHR data and accountability, pooled procurement and local production of SRH commodities, and regional collaboration in East and Southern Africa.",
+   "source": "https://www.eeas.europa.eu/delegations/botswana/team-europe-and-its-african-partners-launch-joint-programme-strengthen-health-systems-east-and_en",
+   "kind": "flagship",
+   "checked": "2026-11-20",
+   "page": null,
+   "note": null
+  },
+  {
+   "id": "eu-hera-africa-cdc-genomics",
+   "title": "Joint Africa CDC – European Commission Initiative on Genomic Sequencing",
+   "origin": "HERA",
+   "tei": "Health Security / One Health",
+   "countries": [],
+   "scope": "regional",
+   "region": "Africa",
+   "implementers": [
+    "Africa CDC",
+    "ASLM",
+    "Africa Public Health Foundation"
+   ],
+   "members": [
+    "European Commission (HERA)"
+   ],
+   "amountEURm": 6.0,
+   "start": 2024,
+   "end": null,
+   "status": "ongoing",
+   "topics": [
+    "preparedness"
+   ],
+   "nphi": false,
+   "summary": "HERA agreement with Africa CDC, signed in Addis Ababa in February 2024, to strengthen pathogen genomic surveillance and public health laboratories across Africa.",
+   "source": "https://health.ec.europa.eu/latest-updates/team-europe-mission-hera-and-african-union-take-concrete-steps-boost-cooperation-2024-02-20_en",
+   "kind": "flagship",
+   "checked": "2026-11-20",
+   "page": null,
+   "note": null
+  },
+  {
+   "id": "eu-pamta-mpox",
+   "title": "PAMTA: Partnership to Accelerate Mpox Testing and Sequencing in Africa",
+   "origin": "HERA (EU4Health)",
+   "tei": "Health Security / One Health",
+   "countries": [],
+   "scope": "regional",
+   "region": "Africa",
+   "implementers": [
+    "Africa CDC",
+    "ASLM",
+    "HaDEA"
+   ],
+   "members": [
+    "European Commission (HERA)"
+   ],
+   "amountEURm": 9.4,
+   "start": 2025,
+   "end": 2028,
+   "status": "ongoing",
+   "topics": [
+    "preparedness"
+   ],
+   "nphi": false,
+   "summary": "EU4Health direct grant for mpox diagnostics: over 150,000 tests, genomic sequencing capacity, and training in molecular assays and data analysis.",
+   "source": "https://health.ec.europa.eu/latest-updates/strengthening-health-resilience-new-initiative-mpox-testing-and-sequencing-africa-launched-2025-07-30_en",
+   "kind": "flagship",
+   "checked": "2026-11-20",
+   "page": null,
+   "note": null,
+   "mapIds": [
+    "africacdc-aslm-pamta-2025"
+   ]
+  },
+  {
+   "id": "eu-first-mover-health-fund",
+   "title": "First Mover Health Investors Fund (EFSD+ guarantee)",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [],
+   "scope": "regional",
+   "region": "Sub-Saharan Africa",
+   "implementers": [
+    "Cardano Development"
+   ],
+   "members": [
+    "European Commission"
+   ],
+   "amountEURm": 63.5,
+   "start": 2026,
+   "end": null,
+   "status": "ongoing",
+   "topics": [
+    "manufacturing",
+    "systems"
+   ],
+   "nphi": false,
+   "summary": "EU guarantee meant to mobilise about €150 million for growth-stage health and nutrition companies in sub-Saharan Africa, from local manufacturing to care delivery.",
+   "source": "https://www.eeas.europa.eu/delegations/african-union-au/eu-advances-global-health-resilience-initiative-new-global-gateway-investments-africa-and-latin_en",
+   "kind": "flagship",
+   "checked": "2026-11-20",
+   "page": null,
+   "note": null
+  },
+  {
+   "id": "eu-ethiopia-phc-2026",
+   "title": "Primary health care investment package for Ethiopia",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Ethiopia"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [
+    "European Commission"
+   ],
+   "amountEURm": 60.0,
+   "start": 2026,
+   "end": null,
+   "status": "planned",
+   "topics": [
+    "systems"
+   ],
+   "nphi": false,
+   "summary": "Announced at UNGA in September 2026: construction, rehabilitation and equipment of primary health facilities to improve quality and access.",
+   "source": "https://www.eeas.europa.eu/delegations/african-union-au/eu-advances-global-health-resilience-initiative-new-global-gateway-investments-africa-and-latin_en",
+   "kind": "flagship",
+   "checked": "2026-11-20",
+   "page": null,
+   "note": null
+  },
+  {
+   "id": "eu-vaxthera-colombia",
+   "title": "EIB venture loan to VaxThera for vaccine and biologics production in Colombia",
+   "origin": "DG INTPA + EIB",
+   "tei": "EU–LAC health partnership",
+   "countries": [
+    "Colombia"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [
+    "VaxThera",
+    "EIB"
+   ],
+   "members": [
+    "European Commission",
+    "EIB"
+   ],
+   "amountEURm": 15.0,
+   "start": 2026,
+   "end": null,
+   "status": "ongoing",
+   "topics": [
+    "manufacturing"
+   ],
+   "nphi": false,
+   "summary": "First €15 million tranche of up to €35 million for VaxThera's commercial-scale plant, backed by an EFSD+ guarantee, with €1.5 million technical assistance for three vaccine candidates.",
+   "source": "https://www.eeas.europa.eu/delegations/african-union-au/eu-advances-global-health-resilience-initiative-new-global-gateway-investments-africa-and-latin_en",
+   "kind": "flagship",
+   "checked": "2026-11-20",
+   "page": null,
+   "note": null
+  },
+  {
+   "id": "eu-lac-health-manufacturing",
+   "title": "EU–Latin America and Caribbean partnership on manufacturing vaccines, medicines and health technologies",
+   "origin": "DG INTPA",
+   "tei": "EU–LAC health partnership",
+   "countries": [
+    "Mexico"
+   ],
+   "scope": "regional",
+   "region": "Latin America and the Caribbean",
+   "implementers": [
+    "PAHO",
+    "COFEPRIS (Mexico)",
+    "UN ECLAC"
+   ],
+   "members": [
+    "European Commission",
+    "EU Member States"
+   ],
+   "amountEURm": null,
+   "start": 2022,
+   "end": null,
+   "status": "ongoing",
+   "topics": [
+    "manufacturing",
+    "systems"
+   ],
+   "nphi": false,
+   "summary": "Global Gateway partnership with CELAC's health self-sufficiency plan: regulatory harmonisation with PAHO, technology transfer, research and investment de-risking; a Mexico track strengthens the regulator COFEPRIS.",
+   "source": "https://international-partnerships.ec.europa.eu/policies/global-gateway/partnership-manufacturing-vaccines-medicines-and-health-technologies-and-strengthening-health_en",
+   "page": "https://international-partnerships.ec.europa.eu/policies/global-gateway/eu-lac-partnership-vaccine-production-and-health-systems-resilience-latin-america-and-caribbean_en",
+   "kind": "flagship",
+   "checked": "2026-11-20",
+   "note": null
+  },
+  {
+   "id": "eu-caribbean-pharma",
+   "title": "Local pharmaceutical production and regulators in the Caribbean (PharmaNext)",
+   "origin": "DG INTPA",
+   "tei": "EU–LAC health partnership",
+   "countries": [
+    "Guyana",
+    "Barbados"
+   ],
+   "scope": "multi",
+   "region": "Caribbean",
+   "implementers": [
+    "Lithuanian medicines regulator (PharmaNext twinning)",
+    "BioMed X Institute"
+   ],
+   "members": [
+    "European Commission",
+    "Lithuania"
+   ],
+   "amountEURm": 8.9,
+   "start": 2025,
+   "end": null,
+   "status": "ongoing",
+   "topics": [
+    "manufacturing"
+   ],
+   "nphi": false,
+   "summary": "Joint declaration of Guyana, Barbados and Lithuania to bring Caribbean drug regulators to WHO maturity level 3, plus a Barbados research project on cardiometabolic treatment responses.",
+   "source": "https://international-partnerships.ec.europa.eu/news-and-events/news/eu-boosts-local-pharmaceutical-production-and-strengthens-health-systems-caribbean-2025-02-20_en",
+   "kind": "flagship",
+   "checked": "2026-11-20",
+   "page": null,
+   "note": null
+  },
+  {
+   "id": "eu-egypt-healthcare-gg",
+   "title": "Global Gateway healthcare investment in Egypt",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Egypt"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [
+    "European Commission",
+    "EU Member States"
+   ],
+   "amountEURm": null,
+   "start": null,
+   "end": null,
+   "status": "planned",
+   "topics": [
+    "systems"
+   ],
+   "nphi": false,
+   "summary": "Flagship to strengthen all four levels of care: diagnostic centres, hospitals via public-private partnerships, and research and clinical-trial cooperation with EU medical schools and ministries.",
+   "source": "https://international-partnerships.ec.europa.eu/policies/global-gateway/healthcare-investment-egypt_en",
+   "kind": "flagship",
+   "checked": "2026-11-20",
+   "page": null,
+   "note": null
+  },
+  {
+   "id": "eu-balti-hospital-moldova",
+   "title": "Bălți regional hospital in Moldova",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Moldova"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [
+    "European Commission"
+   ],
+   "amountEURm": null,
+   "start": null,
+   "end": null,
+   "status": "planned",
+   "topics": [
+    "systems"
+   ],
+   "nphi": false,
+   "summary": "Global Gateway flagship for a 340-bed regional tertiary hospital in northern Moldova; the Commission funds technical assistance for its design.",
+   "source": "https://international-partnerships.ec.europa.eu/policies/global-gateway/balti-regional-hospital-republic-moldova_en",
+   "kind": "flagship",
+   "checked": "2026-11-20",
+   "page": null,
+   "note": null
+  },
+  {
+   "id": "eu-who-uhc-partnership",
+   "title": "EU–WHO Universal Health Coverage Partnership (Phase V)",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [],
+   "scope": "global",
+   "region": "Over 115 countries",
+   "implementers": [
+    "WHO"
+   ],
+   "members": [
+    "European Commission"
+   ],
+   "amountEURm": 40.0,
+   "start": 2025,
+   "end": 2028,
+   "status": "ongoing",
+   "topics": [
+    "systems"
+   ],
+   "nphi": false,
+   "summary": "WHO's largest platform for health systems and primary care; the EU is founding and leading donor. Phase V focuses on countries with the biggest gaps, the Lusaka Agenda and domestic resource mobilisation.",
+   "source": "https://international-partnerships.ec.europa.eu/news-and-events/news/eu-renews-support-whos-universal-health-coverage-partnership-2025-09-22_en",
+   "kind": "flagship",
+   "checked": "2026-11-20",
+   "page": null,
+   "note": null
+  },
+  {
+   "id": "eu-asean-pandemic-preparedness",
+   "title": "Southeast Asia Health Pandemic Response and Preparedness (EU–WHO)",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Cambodia",
+    "Indonesia",
+    "Laos",
+    "Malaysia",
+    "Myanmar",
+    "Philippines",
+    "Thailand",
+    "Vietnam"
+   ],
+   "scope": "multi",
+   "region": "ASEAN",
+   "implementers": [
+    "WHO"
+   ],
+   "members": [
+    "European Commission"
+   ],
+   "amountEURm": 20.0,
+   "start": 2021,
+   "end": 2023,
+   "status": "completed",
+   "topics": [
+    "preparedness"
+   ],
+   "nphi": false,
+   "summary": "EU-funded, WHO-implemented project in eight ASEAN countries: COVID-19 response first, then surveillance, labs, quarantine and vaccination capacity for future outbreaks.",
+   "source": "https://www.who.int/news-room/feature-stories/detail/development-partners-making-a-difference--the-european-union-supports-who-in-eight-asian-countries-prepare-for-the-future",
+   "kind": "flagship",
+   "checked": "2026-11-20",
+   "page": null,
+   "note": null
+  },
+  {
+   "id": "eu-ukraine-eu4health",
+   "title": "Ukraine in EU4Health and EU health support",
+   "origin": "DG SANTE / HERA (EU4Health)",
+   "tei": null,
+   "countries": [
+    "Ukraine"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [
+    "Ministry of Health of Ukraine",
+    "EU4Health project consortia"
+   ],
+   "members": [
+    "European Commission"
+   ],
+   "amountEURm": null,
+   "start": 2022,
+   "end": null,
+   "status": "ongoing",
+   "topics": [
+    "systems",
+    "preparedness"
+   ],
+   "nphi": false,
+   "summary": "Ukraine joined the EU4Health programme in July 2022; it takes part in projects on NCD prevention, cancer, hospital infection control, rare diseases and medicines regulation, alongside emergency medical support and patient evacuations.",
+   "source": "https://health.ec.europa.eu/internationalcooperation/eu-ukraine-solidarity-and-cooperation-health_en",
+   "page": "https://moz.gov.ua/en/the-european-union-allocates-over-eur-46-million-to-ukraine-for-healthcare-projects-under-the-eu4health-program",
+   "kind": "flagship",
+   "checked": "2026-11-20",
+   "note": null
+  },
+  {
+   "id": "eu-edctp3-2025-calls",
+   "title": "Global Health EDCTP3: clinical research with sub-Saharan Africa",
+   "origin": "Global Health EDCTP3 (Horizon Europe)",
+   "tei": null,
+   "countries": [],
+   "scope": "regional",
+   "region": "Sub-Saharan Africa",
+   "implementers": [
+    "Global Health EDCTP3 Joint Undertaking",
+    "African and European research consortia"
+   ],
+   "members": [
+    "European Commission",
+    "EDCTP Association"
+   ],
+   "amountEURm": 215.0,
+   "start": 2026,
+   "end": null,
+   "status": "ongoing",
+   "topics": [
+    "research"
+   ],
+   "nphi": false,
+   "summary": "EU–Africa research partnership; its largest call round selected 36 projects for €215 million in January 2026, including TB vaccines and other poverty-related and emerging infectious diseases.",
+   "source": "https://www.global-health-edctp3.europa.eu/news-and-events/news/36-new-global-health-project-proposals-selected-funding-2026-01-19_en",
+   "kind": "flagship",
+   "checked": "2026-11-20",
+   "page": null,
+   "note": null
+  },
+  {
+   "id": "eu-iati-near-2024-act-62864",
+   "kind": "country",
+   "title": "Basic needs, municipal infrastructure, health and social cohesion support for refugees in Türkiye",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Turkey"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 406.0,
+   "start": 2024,
+   "end": 2030,
+   "status": "ongoing",
+   "topics": [
+    "systems"
+   ],
+   "summary": "Basic needs, municipal infrastructure, health and social cohesion support for refugees in Türkiye - Basic needs, municipal infrastructure, health and social cohesion support for refugees in Türkiye",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2024-ACT-62864",
+   "iati": "XI-IATI-EC_NEAR-2024-ACT-62864",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2016-act-d-38165-00",
+   "kind": "country",
+   "title": "Programme de renforcement de l'Offre et Développement de l'accès aux Soins de Santé en RDC",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Dem. Rep. Congo"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 213.5,
+   "start": 2016,
+   "end": 2029,
+   "status": "ongoing",
+   "topics": [
+    "systems"
+   ],
+   "summary": "Programme de renforcement du système de santé en RDC dans tous ses volets et aux niveaux central, intermediaire et péripherique dans les provinces cible.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2016-ACT-D-38165-00",
+   "iati": "XI-IATI-EC_INTPA-2016-ACT-D-38165-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-near-2023-act-61769",
+   "kind": "country",
+   "title": "Individual measure continuing healthcare support to refugees in Türkiye - SIHHAT III",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Turkey"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 210.0,
+   "start": 2023,
+   "end": 2030,
+   "status": "ongoing",
+   "topics": [
+    "srhr"
+   ],
+   "summary": "Due to its geographic position, Türkiye is a prominent reception and transit country for refugees and migrants.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2023-ACT-61769",
+   "iati": "XI-IATI-EC_NEAR-2023-ACT-61769",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-near-2016-act-d-39819-00",
+   "kind": "country",
+   "title": "Programme d'appui au secteur de la santé en Tunisie",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Tunisia"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 170.2,
+   "start": 2017,
+   "end": 2027,
+   "status": "ongoing",
+   "topics": [
+    "systems"
+   ],
+   "summary": "Programme d'appui à la santé de première ligne dans 9 gouvernorats et Tunis sud. Les 9 gouvernorats sont : Jendouba, El Kef et Siliana (pôle nord-ouest), Kasserine, Sidi Bouzid et Gafsa (pôle centre-ouest), Gabes, Kebili et…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2016-ACT-D-39819-00",
+   "iati": "XI-IATI-EC_NEAR-2016-ACT-D-39819-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2016-act-d-38386-00",
+   "kind": "country",
+   "title": "Health Sector Reform Contract",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Ethiopia"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 157.2,
+   "start": 2016,
+   "end": 2029,
+   "status": "ongoing",
+   "topics": [
+    "systems"
+   ],
+   "summary": "The overall objective of this SBS is to support the GoE to improve health and wellbeing of Ethiopian citizens through improving access to equitable and quality health services",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2016-ACT-D-38386-00",
+   "iati": "XI-IATI-EC_INTPA-2016-ACT-D-38386-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-near-2022-act-60835",
+   "kind": "country",
+   "title": "Employment, Education, Social Policies and Health Action TR2022AAP",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Turkey"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 143.0,
+   "start": 2022,
+   "end": 2031,
+   "status": "ongoing",
+   "topics": [
+    "preparedness"
+   ],
+   "summary": "This action aims to strengthen economic and social development in Turkey through contributing to quality employment, education, social policy and healthcare services.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2022-ACT-60835",
+   "iati": "XI-IATI-EC_NEAR-2022-ACT-60835",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-near-2021-act-61147",
+   "kind": "country",
+   "title": "Enabling a More Responsive Healthcare System RS2021AAP",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Serbia"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 122.1,
+   "start": 2021,
+   "end": 2025,
+   "status": "planned",
+   "topics": [
+    "preparedness"
+   ],
+   "summary": "This Action will provide a crucial contribution to enhancing the resilience and further reform of healthcare, contributing to social inclusion and cohesive development.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2021-ACT-61147",
+   "iati": "XI-IATI-EC_NEAR-2021-ACT-61147",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-near-2023-act-62264",
+   "kind": "country",
+   "title": "Providing post-earthquake support for health and education infrastructure in Türkiye",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Turkey"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 115.6,
+   "start": 2023,
+   "end": 2029,
+   "status": "ongoing",
+   "topics": [
+    "systems"
+   ],
+   "summary": "The proposed action aims to provide support in the area of health and education infrastructure in Türkiye following the earthquakes of 6 February 2023.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2023-ACT-62264",
+   "iati": "XI-IATI-EC_NEAR-2023-ACT-62264",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2019-act-d-39998-00",
+   "kind": "country",
+   "title": "Enhancing Rural Nutrition in Myanmar: support to the National Agriculture Development Strategy and its contribution to the Multi-Sectoral National Plan of Action for Nutrition",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Myanmar"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 112.0,
+   "start": 2020,
+   "end": 2027,
+   "status": "ongoing",
+   "topics": [
+    "srhr",
+    "nutrition"
+   ],
+   "summary": "The overall objective is the reduction of all forms of undernutrition in women of reproductive age, infant and under-five children through secured regular access and consumption of safe and diverse food and access to potable…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2019-ACT-D-39998-00",
+   "iati": "XI-IATI-EC_INTPA-2019-ACT-D-39998-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2016-act-d-38583-00",
+   "kind": "country",
+   "title": "Afikepo (let them, the children, develop to their full potential) Nutrition programme in Malawi",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Malawi"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 83.4,
+   "start": 2017,
+   "end": 2028,
+   "status": "ongoing",
+   "topics": [
+    "nutrition"
+   ],
+   "summary": "EU support to promotion of nutrition in Malawi. Overall objective is to 'enhance nutrition security in Malawi' through increased and diversified dietary intake, nutrition education, good governance for optimal nutrition optimal…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2016-ACT-D-38583-00",
+   "iati": "XI-IATI-EC_INTPA-2016-ACT-D-38583-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-near-2022-act-60970",
+   "kind": "country",
+   "title": "EU for Health, Social Protection and Gender Equality- MK2022AAP",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Macedonia"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 72.5,
+   "start": 2022,
+   "end": 2031,
+   "status": "ongoing",
+   "topics": [
+    "srhr"
+   ],
+   "summary": "This Action will improve the health and well-being of North Macedonia population and support the promotion of equal opportunities and access to quality jobs and social protection for all.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2022-ACT-60970",
+   "iati": "XI-IATI-EC_NEAR-2022-ACT-60970",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-near-2013-act-d-24190-10",
+   "kind": "country",
+   "title": "Control and eradication of rabies  phase II",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Albania"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 65.5,
+   "start": 2014,
+   "end": 2026,
+   "status": "completed",
+   "topics": [
+    "systems"
+   ],
+   "summary": "2013 National Programme Albania (centralized management)-Control and eradication of rabies phase II",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2013-ACT-D-24190-10",
+   "iati": "XI-IATI-EC_NEAR-2013-ACT-D-24190-10",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2023-act-61713",
+   "kind": "country",
+   "title": "Unis pour la santé, phase 3",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Dem. Rep. Congo"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 65.0,
+   "start": 2023,
+   "end": 2032,
+   "status": "ongoing",
+   "topics": [
+    "srhr",
+    "nutrition"
+   ],
+   "summary": "La présente action s'inscrit dans le cadre du domaine prioritaire II « Développement humain&nbsp;» du Programme Indicatif Pluriannuel de la République démocratique du Congo (RDC) et vise l'amélioration de la santé et du bien-être…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2023-ACT-61713",
+   "iati": "XI-IATI-EC_INTPA-2023-ACT-61713",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2021-act-63602",
+   "kind": "country",
+   "title": "Enabling Global Gateway investments through strengthening Primary Health Care",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Ethiopia"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 60.0,
+   "start": 2100,
+   "end": null,
+   "status": "planned",
+   "topics": [
+    "systems"
+   ],
+   "summary": "The Action supports advancement of Global Gateway agenda in Ethiopia through a complete package of investments and enablers.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2021-ACT-63602",
+   "iati": "XI-IATI-EC_INTPA-2021-ACT-63602",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-near-2024-act-62393",
+   "kind": "country",
+   "title": "EU for Health ' MK2024AAP",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Macedonia"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 58.6,
+   "start": 2024,
+   "end": 2032,
+   "status": "ongoing",
+   "topics": [
+    "preparedness"
+   ],
+   "summary": "The Action aims to improve the health and well-being of North Macedonia's citizens and to enhance the digitalisation and modernisation of the Healthcare System by:1.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2024-ACT-62393",
+   "iati": "XI-IATI-EC_NEAR-2024-ACT-62393",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2016-act-d-38564-01",
+   "kind": "country",
+   "title": "Programme d'appui à la politique sectorielle santé 2",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Burkina Faso"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 58.1,
+   "start": 2016,
+   "end": 2025,
+   "status": "completed",
+   "topics": [
+    "systems"
+   ],
+   "summary": "appui budgétaire, appui institutionnel et appui à la sociéte civile dans le secteur de la santé et appui à l'assurance maladie universelle au Burkina Faso",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2016-ACT-D-38564-01",
+   "iati": "XI-IATI-EC_INTPA-2016-ACT-D-38564-01",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-near-2018-act-d-41502-12",
+   "kind": "country",
+   "title": "EU Support to Health Sector Reform",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Bosnia and Herz."
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 53.2,
+   "start": 2019,
+   "end": 2029,
+   "status": "ongoing",
+   "topics": [
+    "systems"
+   ],
+   "summary": "Annual Action Programme for Bosnia and Herzegovina 2018 - Objective 2: Support for economic, social and territorial development and related progressive alignment with the Union acquis",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2018-ACT-D-41502-12",
+   "iati": "XI-IATI-EC_NEAR-2018-ACT-D-41502-12",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2021-act-60412",
+   "kind": "country",
+   "title": "AMAGARA MU MURYANGO - Programme dappui au système de la santé III (PASS III)",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Burundi"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 52.9,
+   "start": 2021,
+   "end": 2027,
+   "status": "ongoing",
+   "topics": [
+    "srhr"
+   ],
+   "summary": "L'action proposée, Programme d'appui au système de santé III (PASS III), poursuivra l'appui au secteur de la santé que l'UE soutient depuis 2016 en capitalisant les acquis et prenant en compte les leçons apprises (Programmes…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2021-ACT-60412",
+   "iati": "XI-IATI-EC_INTPA-2021-ACT-60412",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2020-act-d-38729-00",
+   "kind": "country",
+   "title": "Health Development Programme",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Tajikistan"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 52.2,
+   "start": 2020,
+   "end": 2029,
+   "status": "ongoing",
+   "topics": [
+    "systems"
+   ],
+   "summary": "Sector budget support and complementary assistance to the health sector in Tajikistan will support the Tajik authorities to achieve several key health-related objectives as defined in the national health strategy 2010-2020.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2020-ACT-D-38729-00",
+   "iati": "XI-IATI-EC_INTPA-2020-ACT-D-38729-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2009-act-d-21511-01",
+   "kind": "country",
+   "title": "Programme d'appui au plan national de développement sanitaire",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Dem. Rep. Congo"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 51.2,
+   "start": 2010,
+   "end": 2028,
+   "status": "ongoing",
+   "topics": [
+    "systems"
+   ],
+   "summary": "Lobjectif général du Programme est daméliorer létat de la santé de la population dans le contexte global de la lutte contre la pauvreté",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2009-ACT-D-21511-01",
+   "iati": "XI-IATI-EC_INTPA-2009-ACT-D-21511-01",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-near-2019-act-d-42126-00",
+   "kind": "country",
+   "title": "Programme d'appui au secteur de la santé III-PASS III",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Morocco"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 50.0,
+   "start": 2020,
+   "end": 2029,
+   "status": "ongoing",
+   "topics": [
+    "systems"
+   ],
+   "summary": "Secteur de la Santé au Maroc-Programme d'appui au secteur de la santé III-PASS III",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2019-ACT-D-42126-00",
+   "iati": "XI-IATI-EC_NEAR-2019-ACT-D-42126-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-near-2020-act-d-42291-00",
+   "kind": "country",
+   "title": "Programme d'appui au secteur de la santé III-PASS III",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Morocco"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 50.0,
+   "start": 2020,
+   "end": 2029,
+   "status": "ongoing",
+   "topics": [
+    "systems"
+   ],
+   "summary": "AAP 2020: L'objectif global du programme est d'améliorer la qualité de l'offre des soins dans le cadre de la régionalisation avancée pour le bien être des usagers du système de santé Marocain.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2020-ACT-D-42291-00",
+   "iati": "XI-IATI-EC_NEAR-2020-ACT-D-42291-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2021-act-61110",
+   "kind": "country",
+   "title": "Unis pour la santé et l'éducation",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Dem. Rep. Congo"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 50.0,
+   "start": 2021,
+   "end": 2029,
+   "status": "ongoing",
+   "topics": [
+    "systems"
+   ],
+   "summary": "LObjectif général de lintervention est de contribuer au développement humain de la population de la RDC, à travers lamélioration de la santé et du bien-être de la population et de léducation.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2021-ACT-61110",
+   "iati": "XI-IATI-EC_INTPA-2021-ACT-61110",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2019-act-d-41123-00",
+   "kind": "country",
+   "title": "Support to the Lao PDR National Nutrition Strategy and Plan of Action",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Laos"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 49.7,
+   "start": 2019,
+   "end": 2027,
+   "status": "ongoing",
+   "topics": [
+    "nutrition"
+   ],
+   "summary": "Nutrition Budget Support-Support to the Lao PDR National Nutrition Strategy and Plan of Action",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2019-ACT-D-41123-00",
+   "iati": "XI-IATI-EC_INTPA-2019-ACT-D-41123-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2015-act-d-37801-00",
+   "kind": "country",
+   "title": "Partnership for Improved Nutrition in Lao PDR",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Laos"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 47.6,
+   "start": 2016,
+   "end": 2028,
+   "status": "ongoing",
+   "topics": [
+    "nutrition"
+   ],
+   "summary": "The Action is built around three pillars: (1) ''Strengthening Nutrition Governance''; (2) ''Scaling-up Nutrition Specific Support''; and (3) ''Scaling-up Nutrition Sensitive Support''",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2015-ACT-D-37801-00",
+   "iati": "XI-IATI-EC_INTPA-2015-ACT-D-37801-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-near-2024-act-61911",
+   "kind": "country",
+   "title": "EU support to access to essential primary health care services in Lebanon",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Lebanon"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 45.0,
+   "start": 2024,
+   "end": 2029,
+   "status": "ongoing",
+   "topics": [
+    "manufacturing"
+   ],
+   "summary": "The Overall Objective/Impact of this action is to strengthen Lebanon's health systems to improve Universal Health Coverage (UHC).The Specific Objectives (Outcomes) of this action are to 1.Access to equitable, affordable and…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2024-ACT-61911",
+   "iati": "XI-IATI-EC_NEAR-2024-ACT-61911",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2023-act-61551",
+   "kind": "country",
+   "title": "Strengthening Access to Reproductive and Adolescent Health (SARAH) in Nigeria",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Nigeria"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 45.0,
+   "start": 2023,
+   "end": 2030,
+   "status": "ongoing",
+   "topics": [
+    "srhr",
+    "nutrition"
+   ],
+   "summary": "The proposed Action aims to strengthen Access to Reproductive and Adolescent Health (SARAH) by addressing three key areas: i) Enabling policy and institutions: support formulation, revision and operationalisation of relevant…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2023-ACT-61551",
+   "iati": "XI-IATI-EC_INTPA-2023-ACT-61551",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2019-act-d-42236-00",
+   "kind": "country",
+   "title": "Improving Health Outcomes for the Population of Zimbabwe II",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Zimbabwe"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 44.5,
+   "start": 2019,
+   "end": 2025,
+   "status": "completed",
+   "topics": [
+    "systems"
+   ],
+   "summary": "To improve health outcomes for all the population of Zimbabwe, increasing the protection of both women and men against health threats, strengthening the national health system and reducing inequalities in access to quality health…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2019-ACT-D-42236-00",
+   "iati": "XI-IATI-EC_INTPA-2019-ACT-D-42236-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2022-act-60560",
+   "kind": "country",
+   "title": "Improving Health Outcomes for the Population of Zimbabwe III",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Zimbabwe"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 41.0,
+   "start": 2022,
+   "end": 2026,
+   "status": "completed",
+   "topics": [
+    "preparedness",
+    "srhr",
+    "nutrition"
+   ],
+   "summary": "This Action will support high impact interventions to save lives and protect the health of the most vulnerable (especially women, new-borns, children and people with disabilities), with full consideration of specific gender…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2022-ACT-60560",
+   "iati": "XI-IATI-EC_INTPA-2022-ACT-60560",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2023-act-61530",
+   "kind": "country",
+   "title": "Primary Health Care provision for vulnerable populations affected by food insecurity and malnutrition   - Sudan",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Sudan"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 40.0,
+   "start": 2023,
+   "end": 2028,
+   "status": "ongoing",
+   "topics": [
+    "srhr",
+    "nutrition"
+   ],
+   "summary": "Half of Sudan's population remains without access to appropriate primary health care services. Maternal and child health indicators are extremely poor.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2023-ACT-61530",
+   "iati": "XI-IATI-EC_INTPA-2023-ACT-61530",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2023-act-62269",
+   "kind": "country",
+   "title": "Special measure to enhance manufacturing capacities and access to vaccines, medicines and health technologies in Rwanda",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Rwanda"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 40.0,
+   "start": 2023,
+   "end": 2030,
+   "status": "ongoing",
+   "topics": [
+    "manufacturing"
+   ],
+   "summary": "The objectives pursued by this special measure action is to to advance country level interventions in Sub-Saharan Africa deemed critical for reinforcing local manufacturing capacities and creating an improved access to health…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2023-ACT-62269",
+   "iati": "XI-IATI-EC_INTPA-2023-ACT-62269",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2021-act-61069",
+   "kind": "country",
+   "title": "Programme d'Appui au Developpement Humain en Mauritanie",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Mauritania"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 39.7,
+   "start": 2021,
+   "end": 2028,
+   "status": "ongoing",
+   "topics": [
+    "systems"
+   ],
+   "summary": "Appui au Plan National de Développement Sanitaire (PNDS) et AU plan de developpement du secteur éducation (PNDSE).",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2021-ACT-61069",
+   "iati": "XI-IATI-EC_INTPA-2021-ACT-61069",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2022-act-60684",
+   "kind": "country",
+   "title": "Ethiopia : Individual measure for provision of health services in conflict affected areas",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Ethiopia"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 39.5,
+   "start": 2022,
+   "end": 2028,
+   "status": "ongoing",
+   "topics": [
+    "srhr"
+   ],
+   "summary": "Since November 2020, Ethiopia has been engulfed in a civil war. While the conflict is mainly affecting Ethiopia's northern regions, spill over effects and smaller pockets of interrelated conflicts increased significantly the…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2022-ACT-60684",
+   "iati": "XI-IATI-EC_INTPA-2022-ACT-60684",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2013-act-d-23801-00",
+   "kind": "country",
+   "title": "Projet d'accélération des progrès vers les OMD 4 et 5",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Dem. Rep. Congo"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 39.2,
+   "start": 2013,
+   "end": 2029,
+   "status": "ongoing",
+   "topics": [
+    "nutrition"
+   ],
+   "summary": "Des actions de renforcement de chaine de froid, de réhabilitation nutritionnelle, luute contre le sida chez la femme enceinte, infrastructures et équipement des structures sanitaires, de gestion axé sur le résultat",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2013-ACT-D-23801-00",
+   "iati": "XI-IATI-EC_INTPA-2013-ACT-D-23801-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2020-act-d-42529-00",
+   "kind": "country",
+   "title": "PROGRAMME  MULTISECTORIEL DE SECURITE ALIMENTAIRE ET NUTRITIONNELLE (Phase 2)",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Haiti"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 37.1,
+   "start": 2021,
+   "end": 2031,
+   "status": "ongoing",
+   "topics": [
+    "nutrition"
+   ],
+   "summary": "Il s'agit de la seconde phase d'un appui au gouvernement haïtien pour la mise en oeuvre opérationnelle de la politique multisectorielle de sécurité alimentaire et nutritionnelle et d'activités spécifiques au bénéfice de la…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2020-ACT-D-42529-00",
+   "iati": "XI-IATI-EC_INTPA-2020-ACT-D-42529-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-near-2022-act-61255",
+   "kind": "country",
+   "title": "EU Response to the Syrian Crisis: securing access to quality primary health services in Lebanon",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Lebanon"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 35.0,
+   "start": 2022,
+   "end": 2023,
+   "status": "completed",
+   "topics": [
+    "systems"
+   ],
+   "summary": "The Overall Objective (Impact) of this action is to contribute to healthy lives and physical and mental well-being of extreme poor and socially-vulnerable groups in Lebanon.The Specific(s) Objective(s) (Outcomes) of this action…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2022-ACT-61255",
+   "iati": "XI-IATI-EC_NEAR-2022-ACT-61255",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2023-act-61037",
+   "kind": "country",
+   "title": "Unis pour la santé, phase 2",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Dem. Rep. Congo"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 35.0,
+   "start": 2023,
+   "end": 2028,
+   "status": "ongoing",
+   "topics": [
+    "nutrition"
+   ],
+   "summary": "La présente action s'inscrit dans le cadre du domaine prioritaire II «&nbsp;Développement humain&nbsp;» du Programme Indicatif Pluriannuel de la République démocratique du Congo (RDC) et vise l'amélioration de la santé et du…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2023-ACT-61037",
+   "iati": "XI-IATI-EC_INTPA-2023-ACT-61037",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2021-act-60407",
+   "kind": "country",
+   "title": "Programme de Renforcement du Système de Santé en RCA",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Central African Rep."
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 34.0,
+   "start": 2021,
+   "end": 2028,
+   "status": "ongoing",
+   "topics": [
+    "srhr",
+    "nutrition"
+   ],
+   "summary": "L'UE, dans le cadre de ses contributions au secteur de la santé, et en particulier depuis 2014 et 2020 à travers le Fonds fiduciaire Bêkou (conçu pour réduire le déficit entre besoins humanitaires et de développement), a…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2021-ACT-60407",
+   "iati": "XI-IATI-EC_INTPA-2021-ACT-60407",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2022-act-60960",
+   "kind": "country",
+   "title": "UE Santé - Ezaka ho Tomady",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Madagascar"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 32.5,
+   "start": 2022,
+   "end": 2033,
+   "status": "ongoing",
+   "topics": [
+    "nutrition"
+   ],
+   "summary": "Cette action vise à contribuer à l'amélioration de l'accès et de la qualité des services de santé essentiels.&nbsp;L'action appuie les objectifs du Programme Indicatif Multi annuel 2021-2027 en faveur du développement humain du…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2022-ACT-60960",
+   "iati": "XI-IATI-EC_INTPA-2022-ACT-60960",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2023-act-62270",
+   "kind": "country",
+   "title": "Special measure to enhance manufacturing capacities and access to vaccines, medicines and health technologies in Ghana",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Ghana"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 32.0,
+   "start": 2023,
+   "end": 2033,
+   "status": "ongoing",
+   "topics": [
+    "manufacturing"
+   ],
+   "summary": "The objectives pursued by this special measure action is to to advance country level interventions in Sub-Saharan Africa deemed critical for reinforcing local manufacturing capacities and creating an improved access to health…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2023-ACT-62270",
+   "iati": "XI-IATI-EC_INTPA-2023-ACT-62270",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2023-act-60963",
+   "kind": "country",
+   "title": "NutriNorte-In Mozambique, where geographical disparities and socio-economic inequalities are increasing, fighting malnutrition ' as both driver and outcome of poverty ' can help tackling extreme poverty and inequality, by investing into the human capital needed to foster inclusive economic growth. Nearly a third of the fast growing Mozambican population is affected by severe food insecurity, while almost 40 percent of children under 5 suffer from chronic malnutrition (stunting), both factors massively hampering the development of the country in human and economic terms. While nutrition remains a priority in the policy agenda of the Government, namely in the 5-year national development plan 2020-2024, national investments (nutrition specific or sensitive are still low. The system struggles to ensure access to key basic social services, often of low quality and marred by high and systemic inequalities, with the northern provinces and the rural areas being the most disadvantaged. Moreover, with now some 31 million habitants and one of the highest fertility rate in the continent, it is expected that the population of Mozambique will reach over 50 million in 2040, thus putting under more pressure basic social and environmental services. This situation is further aggravated by the security crisis in Cabo Delgado and neighbouring provinces, causing massive forced displacement, the impact of recurrent cyclones and climate-related events and the socio-economic consequences of the COVID-19 pandemic. This action builds upon the sound EU experience and lessons learnt from previous investments for improved nutrition under the 10th and 11th European Development Fund (EDF) implemented in several provinces of Mozambique and from emergency nutrition and multisector responses supported by ECHO. While consolidating and building on the work done in Zambezia and Nampula provinces, the Action will expand the EU support for nutrition to Cabo Delgado, where the armed conflict ongoing since 2017 led to a growing humanitarian crisis, with direct negative impact on the nutritional status of communities.&nbsp;The intervention logic closely aligns to the EU multi-sectoral approach to nutrition, and is structured around three strategic components: i)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nutrition governance; ii)&nbsp;&nbsp;&nbsp;Scale up of key nutrition-specific and nutrition-sensitive actions, with a focus on the effective delivery of quality key nutrition, health and WASH services at community level; iii)&nbsp;&nbsp;Knowledge-building and advocacy, including civil society engagement. The Action will be implemented in the three provinces of Zambezia, Nampula and Cabo Delgado, while advocacy activities carried out by civil society will have a national coverage. It will have a duration of 60 months, with an EU contribution of EUR 30 million.",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Mozambique"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 30.0,
+   "start": 2023,
+   "end": 2028,
+   "status": "ongoing",
+   "topics": [
+    "preparedness",
+    "nutrition"
+   ],
+   "summary": "In Mozambique, where geographical disparities and socio-economic inequalities are increasing, fighting malnutrition ' as both driver and outcome of poverty ' can help tackling extreme poverty and inequality, by investing into the…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2023-ACT-60963",
+   "iati": "XI-IATI-EC_INTPA-2023-ACT-60963",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2019-act-d-41751-00",
+   "kind": "country",
+   "title": "Programme d'Appui au Système de la Santé II (PASS II)",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Burundi"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 29.5,
+   "start": 2019,
+   "end": 2027,
+   "status": "ongoing",
+   "topics": [
+    "systems"
+   ],
+   "summary": "Appui au pillier financier et gouvernance du système de la santé: financement basé sur la performance et comités de santé.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2019-ACT-D-41751-00",
+   "iati": "XI-IATI-EC_INTPA-2019-ACT-D-41751-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2013-act-d-23819-00",
+   "kind": "country",
+   "title": "Projet d'Appui à la Santé en Guinée (PASA)",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Guinea"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 28.4,
+   "start": 2013,
+   "end": 2029,
+   "status": "ongoing",
+   "topics": [
+    "systems"
+   ],
+   "summary": "Relancer les soins de santé maternelle et infantile dans les 6 préfectures de la région de N'Zérékoré, tout en renforçant la capacité institutionnelle du Ministère de la Santé et l'Hygiène Publique.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2013-ACT-D-23819-00",
+   "iati": "XI-IATI-EC_INTPA-2013-ACT-D-23819-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-near-2017-act-d-40689-00",
+   "kind": "country",
+   "title": "EU Support to Egypt's National Population Strategy",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Egypt"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 27.0,
+   "start": 2018,
+   "end": 2025,
+   "status": "completed",
+   "topics": [
+    "srhr"
+   ],
+   "summary": "The overall objective of the present action is to contribute to lowering Egypt's population growth rates. The specific objective is to support the implementation of the NPS, with a particular focus on voluntary family planning.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2017-ACT-D-40689-00",
+   "iati": "XI-IATI-EC_NEAR-2017-ACT-D-40689-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2016-act-d-38044-00",
+   "kind": "country",
+   "title": "PROMOVE NUTRIÇÂO",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Mozambique"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 26.7,
+   "start": 2016,
+   "end": 2025,
+   "status": "completed",
+   "topics": [
+    "nutrition"
+   ],
+   "summary": "Improve Government capacity for planning, coordinating and implementing nutrition interventions based on reliable multi-sector nutrition information, while scaling-up specific-nutrition actions to improve nutritional status of…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2016-ACT-D-38044-00",
+   "iati": "XI-IATI-EC_INTPA-2016-ACT-D-38044-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-near-2020-act-d-42952-03",
+   "kind": "country",
+   "title": "EU4Belarus: Solidarity with the People of Belarus",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Belarus"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 26.5,
+   "start": 2020,
+   "end": 2025,
+   "status": "completed",
+   "topics": [
+    "systems"
+   ],
+   "summary": "The overall objective of the action is to contribute towards re-enforcing resilience to achieve civic empowerment and sustainable economic growth in Belarus.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2020-ACT-D-42952-03",
+   "iati": "XI-IATI-EC_NEAR-2020-ACT-D-42952-03",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2024-act-62591",
+   "kind": "country",
+   "title": "Post-conflict restoration of basic health services, medical and psycho-social support to gender-based violence survivors and conflict affected communities in Ethiopia",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Ethiopia"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 25.0,
+   "start": 2024,
+   "end": 2031,
+   "status": "ongoing",
+   "topics": [
+    "srhr"
+   ],
+   "summary": "While the Pretoria Cessation of Hostilities Agreement (CoHA) signed between the Ethiopian government and the Tigray People Liberation Front (TPLF) in November 2022 has ended a two-year long armed conflict and introduced a peace…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2024-ACT-62591",
+   "iati": "XI-IATI-EC_INTPA-2024-ACT-62591",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2023-act-62262",
+   "kind": "country",
+   "title": "Special measure to enhance manufacturing capacities and access to vaccines, medicines and health technologies in Senegal",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Senegal"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 25.0,
+   "start": 2023,
+   "end": 2031,
+   "status": "ongoing",
+   "topics": [
+    "manufacturing"
+   ],
+   "summary": "The objectives pursued by this special measure action is to to advance country level interventions in Sub-Saharan Africa deemed critical for reinforcing local manufacturing capacities and creating an improved access to health…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2023-ACT-62262",
+   "iati": "XI-IATI-EC_INTPA-2023-ACT-62262",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2017-act-d-40112-00",
+   "kind": "country",
+   "title": "Programme population",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Burkina Faso"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 24.7,
+   "start": 2018,
+   "end": 2025,
+   "status": "completed",
+   "topics": [
+    "systems"
+   ],
+   "summary": "Ce programme constitue un appui complémentaire au CBGD signé fin 2016. Il vise à accompagner l'atteinte des cibles du PNDES en mettant l'accent sur la qualité des prestations de service lié à la population (Planning familial -…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2017-ACT-D-40112-00",
+   "iati": "XI-IATI-EC_INTPA-2017-ACT-D-40112-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2021-act-61825",
+   "kind": "country",
+   "title": "Strengthening health system and service delivery in South Sudan particularly for women and children.",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "S. Sudan"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 24.4,
+   "start": 2023,
+   "end": 2024,
+   "status": "planned",
+   "topics": [
+    "srhr"
+   ],
+   "summary": "Ten years after independence (2011) of South Sudan, the situation in the country remains structurally fragile.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2021-ACT-61825",
+   "iati": "XI-IATI-EC_INTPA-2021-ACT-61825",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2019-act-d-41295-00",
+   "kind": "country",
+   "title": "Programme d'Appui au Secteur de la Santé 2 (PASS2)",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Mauritania"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 24.0,
+   "start": 2020,
+   "end": 2028,
+   "status": "ongoing",
+   "topics": [
+    "systems"
+   ],
+   "summary": "PASS 2 Appui au Plan National de Développement Sanitaire (PNDS) pour la mise en place de la couvrture sanitaire universelle",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2019-ACT-D-41295-00",
+   "iati": "XI-IATI-EC_INTPA-2019-ACT-D-41295-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2018-act-d-40410-00",
+   "kind": "country",
+   "title": "Addressing Social Determinants of Health for Gender equality",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Ethiopia"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 23.5,
+   "start": 2018,
+   "end": 2027,
+   "status": "ongoing",
+   "topics": [
+    "srhr",
+    "nutrition"
+   ],
+   "summary": "The overall objective of the Action is to support the Government of Ethiopia to improve health and well-being of its citizens.The intervention focuses on women and attempts to address health impacts of nutrition, family planning…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2018-ACT-D-40410-00",
+   "iati": "XI-IATI-EC_INTPA-2018-ACT-D-40410-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2024-act-62209",
+   "kind": "country",
+   "title": "Support to the Multi-Sector Nutrition Plan, Phase 3 (2023-2030)",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Nepal"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 23.0,
+   "start": 2024,
+   "end": 2030,
+   "status": "ongoing",
+   "topics": [
+    "nutrition"
+   ],
+   "summary": "This action aims to contribute to the MIP priority 2 area (human capital development) and particularly to its Specific Objective 1 'In line with the National Development Plan, to support inclusive and equitable quality education,…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2024-ACT-62209",
+   "iati": "XI-IATI-EC_INTPA-2024-ACT-62209",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2017-act-d-38623-01",
+   "kind": "country",
+   "title": "Programme d'appui au secteur santé en Guinée (PASA-2)",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Guinea"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 22.8,
+   "start": 2018,
+   "end": 2026,
+   "status": "completed",
+   "topics": [
+    "systems"
+   ],
+   "summary": "Continuation du renforcement du système de la santé en Guinée, et en particulier dans la région de Nzérékoré, avec l'accent sur la santé maternelle et infantile",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2017-ACT-D-38623-01",
+   "iati": "XI-IATI-EC_INTPA-2017-ACT-D-38623-01",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2020-act-d-42513-00",
+   "kind": "country",
+   "title": "Contribuer à l'atténuation des effets de la crise du COVID-19 à Madagascar ainsi que des crises résultant d'évènements climatiques et économiques",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Madagascar"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 21.0,
+   "start": 2020,
+   "end": 2029,
+   "status": "ongoing",
+   "topics": [
+    "preparedness",
+    "nutrition"
+   ],
+   "summary": "Cette action est issue d'un avenant au programme d'appui budgétaire de l'UE à Madagascar qui avait été engagé pour la riposte COVID-19.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2020-ACT-D-42513-00",
+   "iati": "XI-IATI-EC_INTPA-2020-ACT-D-42513-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2016-act-d-38924-00",
+   "kind": "country",
+   "title": "Poursuite de l'appui de l'UE au Programme Intégré de santé Maternelle et Infantile ( PIMI II)",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Guinea-Bissau"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 21.0,
+   "start": 2016,
+   "end": 2024,
+   "status": "completed",
+   "topics": [
+    "systems"
+   ],
+   "summary": "Poursuite de l'appui de l'UE au Programme Intégré de santé Maternelle et Infantile ( PIMI II) - Poursuite de l'appui de l'UE au Programme Intégré de santé Maternelle et Infantile ( PIMI II)",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2016-ACT-D-38924-00",
+   "iati": "XI-IATI-EC_INTPA-2016-ACT-D-38924-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2020-act-d-42901-01",
+   "kind": "country",
+   "title": "Health Support in response to COVID 19 in the Pacific",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Timor-Leste"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 20.8,
+   "start": 2020,
+   "end": 2025,
+   "status": "completed",
+   "topics": [
+    "preparedness"
+   ],
+   "summary": "The programme will help address immediate response needs to the COVID 19 crisis, ensure continuity of health services and help countries achieve containment and mitigation of the COVID 19 impacts.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2020-ACT-D-42901-01",
+   "iati": "XI-IATI-EC_INTPA-2020-ACT-D-42901-01",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2016-act-d-38607-01",
+   "kind": "country",
+   "title": "Programme d'Appui au Secteur de la Santé (PASS)",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Mauritania"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 20.7,
+   "start": 2017,
+   "end": 2026,
+   "status": "completed",
+   "topics": [
+    "systems"
+   ],
+   "summary": "Appui au Plan National de Développement Sanitaire (PNDS) à travers appui institutionnel et création d'un fonds commun.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2016-ACT-D-38607-01",
+   "iati": "XI-IATI-EC_INTPA-2016-ACT-D-38607-01",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2024-act-62396",
+   "kind": "country",
+   "title": "Programme d'appui au secteur de la santé en Guinée (PASS GUI)",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Guinea"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 20.0,
+   "start": 2024,
+   "end": 2033,
+   "status": "ongoing",
+   "topics": [
+    "preparedness",
+    "manufacturing",
+    "srhr"
+   ],
+   "summary": "Le Programme Indicatif Pluriannuel de l'UE en Guinée (PIP 2021-2027) place le secteur de la santé dans le volet « Développement humain » en ciblant « les plus vulnérables, avec une attention particulière à la santé sexuelle et…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2024-ACT-62396",
+   "iati": "XI-IATI-EC_INTPA-2024-ACT-62396",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2021-act-63415",
+   "kind": "country",
+   "title": "Programme d'appui au système de santé (PASS IV)",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Burundi"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 20.0,
+   "start": 2100,
+   "end": null,
+   "status": "planned",
+   "topics": [
+    "systems"
+   ],
+   "summary": "L'objectif général de cette action est d'améliorer l'état de santé de l'ensemble de la population.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2021-ACT-63415",
+   "iati": "XI-IATI-EC_INTPA-2021-ACT-63415",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2019-act-d-39234-00",
+   "kind": "country",
+   "title": "Supporting the Primary Health System to fight Chronic Malnutrition in Guatemala",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Guatemala"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 20.0,
+   "start": 2019,
+   "end": 2025,
+   "status": "completed",
+   "topics": [
+    "srhr",
+    "nutrition"
+   ],
+   "summary": "The Overall Objective of the Action is to reduce malnutrition among adolescent girls, women of reproductive age, and children under 5 years of age, with emphasis on the first 1000 days, in 22 prioritized municipalities of…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2019-ACT-D-39234-00",
+   "iati": "XI-IATI-EC_INTPA-2019-ACT-D-39234-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2013-act-d-23203-00",
+   "kind": "country",
+   "title": "Supporting Health Service Delivery in Zambia",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Zambia"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 19.7,
+   "start": 2013,
+   "end": 2025,
+   "status": "completed",
+   "topics": [
+    "systems"
+   ],
+   "summary": "To improve the health status of people of Zambia in order to contribute to socio-economic development.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2013-ACT-D-23203-00",
+   "iati": "XI-IATI-EC_INTPA-2013-ACT-D-23203-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2023-act-62271",
+   "kind": "country",
+   "title": "62271 - Special measure to enhance manufacturing capacities and access to vaccines, medicines and health technologies in Africa (NIGERIA)",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Nigeria"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 18.0,
+   "start": 2023,
+   "end": 2031,
+   "status": "ongoing",
+   "topics": [
+    "manufacturing"
+   ],
+   "summary": "The objectives pursued by this special measure action is to to advance country level interventions in Sub-Saharan Africa deemed critical for reinforcing local manufacturing capacities and creating an improved access to health…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2023-ACT-62271",
+   "iati": "XI-IATI-EC_INTPA-2023-ACT-62271",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-near-2020-act-d-42873-00",
+   "kind": "country",
+   "title": "Réponse solidaire européenne à la crise COVID-19 en Algérie (3/3)",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Algeria"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 18.0,
+   "start": 2020,
+   "end": 2026,
+   "status": "completed",
+   "topics": [
+    "preparedness"
+   ],
+   "summary": "Cette action solidaire européenne vise à mitiger l'impact de la pandémie COVID-19 en Algérie à travers le renforcement des capacités matérielles du système de santé publique algérien.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2020-ACT-D-42873-00",
+   "iati": "XI-IATI-EC_NEAR-2020-ACT-D-42873-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2023-act-62268",
+   "kind": "country",
+   "title": "Special measure to enhance manufacturing capacities and access to vaccines, medicines and health technologies in South Africa",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "South Africa"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 16.0,
+   "start": 2023,
+   "end": 2028,
+   "status": "ongoing",
+   "topics": [
+    "manufacturing"
+   ],
+   "summary": "The objectives pursued by this special measure action is to to advance country level interventions in Sub-Saharan Africa deemed critical for reinforcing local manufacturing capacities and creating an improved access to health…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2023-ACT-62268",
+   "iati": "XI-IATI-EC_INTPA-2023-ACT-62268",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-near-2022-act-61429",
+   "kind": "country",
+   "title": "Special measures 2022 in favour of Libya: Towards a resilient health system in Libya",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Libya"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 16.0,
+   "start": 2022,
+   "end": 2028,
+   "status": "ongoing",
+   "topics": [
+    "preparedness"
+   ],
+   "summary": "Libya has been affected by a succession of political, economic and security crises since the initial protests in 2011, leaving behind a significantly deteriorated social fabric, reduced access to basic services, weakened national…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2022-ACT-61429",
+   "iati": "XI-IATI-EC_NEAR-2022-ACT-61429",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2021-act-63167",
+   "kind": "country",
+   "title": "63167/Programme d'appui au secteur de la santé - PASS 4",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Mauritania"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 15.0,
+   "start": 2026,
+   "end": 2032,
+   "status": "ongoing",
+   "topics": [
+    "systems"
+   ],
+   "summary": "L'objectif général de cette action est de soutenir l'accès durable, équitable et de qualité aux services de santé pour toute la population résidante en Mauritanie, notamment pour les femmes et les personnes vulnérables.Les…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2021-ACT-63167",
+   "iati": "XI-IATI-EC_INTPA-2021-ACT-63167",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-near-2024-act-62948",
+   "kind": "country",
+   "title": "Action Document for the continuation of health support for refugees in Türkiye",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Turkey"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 15.0,
+   "start": 2024,
+   "end": 2030,
+   "status": "ongoing",
+   "topics": [
+    "srhr"
+   ],
+   "summary": "This action aims to enhance the health and well-being of all refugees, aligning with SDG 3 on Good Health and Well-being.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2024-ACT-62948",
+   "iati": "XI-IATI-EC_NEAR-2024-ACT-62948",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-near-2020-act-d-42924-00",
+   "kind": "country",
+   "title": "COVID-19 Resilience Contract for the Republic of Moldova",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Moldova"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 15.0,
+   "start": 2021,
+   "end": 2025,
+   "status": "completed",
+   "topics": [
+    "preparedness"
+   ],
+   "summary": "The overall objective of this action is to mitigate the impact of the COVID-19 crisis in the Republic of Moldova.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2020-ACT-D-42924-00",
+   "iati": "XI-IATI-EC_NEAR-2020-ACT-D-42924-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-near-2022-act-60899",
+   "kind": "country",
+   "title": "Strengthening Access to Quality Primary Health Care Services for Syrian Refugees, and their host communities in Jordan",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Jordan"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 15.0,
+   "start": 2022,
+   "end": 2026,
+   "status": "completed",
+   "topics": [
+    "systems"
+   ],
+   "summary": "In this context, the Overall Objective of this action is to contribute to improving efficiency, equity, and responsiveness of the PHC system to address the needs of refugees, in particular Syrian refugees (with due attention paid…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2022-ACT-60899",
+   "iati": "XI-IATI-EC_NEAR-2022-ACT-60899",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2020-act-d-42950-01",
+   "kind": "country",
+   "title": "Regional support to Latin America in mitigating the effects of COVID-19 and addressing the regional impact of the Venezuela crisis (Budget support Peru)",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Peru"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 14.0,
+   "start": 2021,
+   "end": 2026,
+   "status": "ongoing",
+   "topics": [
+    "preparedness"
+   ],
+   "summary": "La accion consiste en un nuevo contrato de programa presupuestario sectorialque pretende apoyar al Gobierno del Peru en la implementacion de la politica de aseguramiento universal en salud, con el objetivo de lograr un sistema de…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2020-ACT-D-42950-01",
+   "iati": "XI-IATI-EC_INTPA-2020-ACT-D-42950-01",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-near-2021-act-61067",
+   "kind": "country",
+   "title": "EU Resilience Facility for Azerbaijan",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Azerbaijan"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 13.5,
+   "start": 2021,
+   "end": 2030,
+   "status": "ongoing",
+   "topics": [
+    "systems"
+   ],
+   "summary": "The EU Resilience Facility for Azerbaijan has two components:1)Building resilience with regional development initiatives around areas affected by the conflict & 2)Together for inclusive and resilient societies (a healthcare…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2021-ACT-61067",
+   "iati": "XI-IATI-EC_NEAR-2021-ACT-61067",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2018-act-d-39984-00",
+   "kind": "country",
+   "title": "Partnership for Improving Nutrition in Timor-Leste",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Timor-Leste"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 12.6,
+   "start": 2018,
+   "end": 2025,
+   "status": "completed",
+   "topics": [
+    "nutrition"
+   ],
+   "summary": "Contribute to the reduction of malnutrition in pregnant and lactating women, adolescent girls and children <5 years in Timor-Lest with specific focus on first 1000 days of life.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2018-ACT-D-39984-00",
+   "iati": "XI-IATI-EC_INTPA-2018-ACT-D-39984-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-near-2023-act-62267",
+   "kind": "country",
+   "title": "EU Support to Egypt's National Population Strategy (Phase II)",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Egypt"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 12.0,
+   "start": 2023,
+   "end": 2032,
+   "status": "ongoing",
+   "topics": [
+    "srhr"
+   ],
+   "summary": "EU Support to Egypt's National Population Strategy (Phase II) - EU Support to Egypt's National Population Strategy (Phase II)",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2023-ACT-62267",
+   "iati": "XI-IATI-EC_NEAR-2023-ACT-62267",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2023-act-61793",
+   "kind": "country",
+   "title": "Strengthening Social Inclusion and Nutrition in Timor-Leste",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Timor-Leste"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 12.0,
+   "start": 2023,
+   "end": 2031,
+   "status": "ongoing",
+   "topics": [
+    "nutrition"
+   ],
+   "summary": "The overall objective is to contribute to reduce poverty by addressing malnutrition and social inclusion amongst children under five, pregnant mothers and school age children.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2023-ACT-61793",
+   "iati": "XI-IATI-EC_INTPA-2023-ACT-61793",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2021-act-62626",
+   "kind": "country",
+   "title": "Strengthening the health system towards Universal Health Coverage",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Guinea-Bissau"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 11.0,
+   "start": 2024,
+   "end": 2032,
+   "status": "ongoing",
+   "topics": [
+    "manufacturing",
+    "srhr"
+   ],
+   "summary": "The proposed intervention intends to enhance the governance capacities of the ministries of Health, Economy, and Public Administration for an efficient management of the health system, and to facilitate access to quality and…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2021-ACT-62626",
+   "iati": "XI-IATI-EC_INTPA-2021-ACT-62626",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2017-act-d-39232-00",
+   "kind": "country",
+   "title": "11th EDF Belize (CSP focal sector Health)",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Belize"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 10.9,
+   "start": 2018,
+   "end": 2027,
+   "status": "ongoing",
+   "topics": [
+    "systems"
+   ],
+   "summary": "The Health Support Programme focus on refurbishing health facilities to become storm resilient and energy efficient, upgrading the Health Information System and restructuring the management structure and service delivery",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2017-ACT-D-39232-00",
+   "iati": "XI-IATI-EC_INTPA-2017-ACT-D-39232-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-near-2017-act-d-40359-00",
+   "kind": "country",
+   "title": "European Union Health and Accountability Programme",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Libya"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 10.9,
+   "start": 2017,
+   "end": 2023,
+   "status": "completed",
+   "topics": [
+    "systems"
+   ],
+   "summary": "Special Measure Libya 2017-European Union Health and Accountability Programme",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2017-ACT-D-40359-00",
+   "iati": "XI-IATI-EC_NEAR-2017-ACT-D-40359-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-near-2020-act-d-42691-00",
+   "kind": "country",
+   "title": "Strengthening The Health System in Libya",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Libya"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 10.2,
+   "start": 2020,
+   "end": 2026,
+   "status": "completed",
+   "topics": [
+    "systems"
+   ],
+   "summary": "The Overall Objective is to improve the health status of the population in targeted areas. The Specific Objective is to strengthen health care system at local level.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2020-ACT-D-42691-00",
+   "iati": "XI-IATI-EC_NEAR-2020-ACT-D-42691-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-near-2020-act-d-42776-00",
+   "kind": "country",
+   "title": "EU 4 Egypt's immediate socio-economic response to the COVID-19 outbreak",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Egypt"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 10.0,
+   "start": 2020,
+   "end": 2025,
+   "status": "completed",
+   "topics": [
+    "preparedness"
+   ],
+   "summary": "The expected impact of the action is to contain the prevalence of COVID-19 amongst the most vulnerable groups and mitigate the immediate social impact of the outbreak.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2020-ACT-D-42776-00",
+   "iati": "XI-IATI-EC_NEAR-2020-ACT-D-42776-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2019-act-d-41723-00",
+   "kind": "country",
+   "title": "FORMA-NUT - Formation pour la nutrition",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Chad"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 10.0,
+   "start": 2019,
+   "end": 2029,
+   "status": "ongoing",
+   "topics": [
+    "nutrition"
+   ],
+   "summary": "Formation en nutrition pour une masse critique de fonctionnaires et étudiants Tchadiens et changement des comportements pour une masse critique de tchadiens",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2019-ACT-D-41723-00",
+   "iati": "XI-IATI-EC_INTPA-2019-ACT-D-41723-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2021-act-61114",
+   "kind": "country",
+   "title": "Support Maternal and Child Health towards a Universal Health Coverage System (PIMI III)",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Guinea-Bissau"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 10.0,
+   "start": 2021,
+   "end": 2030,
+   "status": "ongoing",
+   "topics": [
+    "srhr"
+   ],
+   "summary": "The proposed action intends to ensure increased and better access to quality Reproductive, Maternal, Newborn and Child Health (RMNCH) in Guinea Bissau.The intervention aims at consolidating the process, started in 2013 with the…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2021-ACT-61114",
+   "iati": "XI-IATI-EC_INTPA-2021-ACT-61114",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2020-act-d-42377-00",
+   "kind": "country",
+   "title": "Action de résilience pour la sécurité alimentaire et nutritionnelle en République démocratique du Congo",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Dem. Rep. Congo"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 9.9,
+   "start": 2020,
+   "end": 2024,
+   "status": "completed",
+   "topics": [
+    "nutrition"
+   ],
+   "summary": "ENV B - L'objectif général de l'Action est d'améliorer la sécurité alimentaire et nutritionnelle des populations en RDC, et en particulier des ménages les plus pauvres, des femmes et des enfants.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2020-ACT-D-42377-00",
+   "iati": "XI-IATI-EC_INTPA-2020-ACT-D-42377-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2020-act-d-42793-00",
+   "kind": "country",
+   "title": "Health and social safety net response at the community level in Kenya",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Kenya"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 9.8,
+   "start": 2020,
+   "end": 2024,
+   "status": "completed",
+   "topics": [
+    "preparedness"
+   ],
+   "summary": "To minimize the risk of the spread of COVID-19 through implementation of risk communication and community engagement (RCCE) and social safety nets in high-risk areas in Kenya.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2020-ACT-D-42793-00",
+   "iati": "XI-IATI-EC_INTPA-2020-ACT-D-42793-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-near-2020-act-d-42585-00",
+   "kind": "country",
+   "title": "EU4Moldova: Facility to support the health response to the COVID-crisis and Association Agreement related Reforms",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Moldova"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 9.0,
+   "start": 2020,
+   "end": 2028,
+   "status": "ongoing",
+   "topics": [
+    "preparedness"
+   ],
+   "summary": "This action will support the Republic of Moldova in the health response to the COVID-crisis and in the implementation of some reforms linked to the EU-Moldova Association Agreement/DCFTA and Association Agenda.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2020-ACT-D-42585-00",
+   "iati": "XI-IATI-EC_NEAR-2020-ACT-D-42585-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2020-act-d-42817-00",
+   "kind": "country",
+   "title": "Appui à la réponse COVID19 au Niger",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Niger"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 8.0,
+   "start": 2020,
+   "end": 2026,
+   "status": "completed",
+   "topics": [
+    "preparedness"
+   ],
+   "summary": "Le programme vise à appuyer le Plan de riposte à la crise COVID19 de l'État du Niger",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2020-ACT-D-42817-00",
+   "iati": "XI-IATI-EC_INTPA-2020-ACT-D-42817-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2022-act-d-44447-00",
+   "kind": "country",
+   "title": "Sustainable agricultural production and enhanced community-based responses to malnutrition in Haiti",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Haiti"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 8.0,
+   "start": 2022,
+   "end": 2030,
+   "status": "ongoing",
+   "topics": [
+    "nutrition"
+   ],
+   "summary": "The Action will support sustainable agricultural production and enhanced community-based responses to malnutrition, with funds from the 10th EDF reserve mobilised to help the most exposed ACP countries hit by the consequence of…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2022-ACT-D-44447-00",
+   "iati": "XI-IATI-EC_INTPA-2022-ACT-D-44447-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2020-act-d-42916-00",
+   "kind": "country",
+   "title": "Reinforcing Health Systems in Mauritius -REHSIMUS",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Mauritius"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 7.8,
+   "start": 2020,
+   "end": 2025,
+   "status": "completed",
+   "topics": [
+    "preparedness"
+   ],
+   "summary": "Sector Reform Performance Contract in the Health sector in response to COVID crisi",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2020-ACT-D-42916-00",
+   "iati": "XI-IATI-EC_INTPA-2020-ACT-D-42916-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-near-2021-act-60499",
+   "kind": "country",
+   "title": "Financial top up of Decision ENI/2020/042-776 EU 4 Egypt's immediate socio-economic response to the COVID-19 outbreak",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Egypt"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 7.0,
+   "start": 2021,
+   "end": 2025,
+   "status": "completed",
+   "topics": [
+    "preparedness"
+   ],
+   "summary": "This financial top up aims to further contribute to the expected impact of the action adopted in 2020: i.e.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2021-ACT-60499",
+   "iati": "XI-IATI-EC_NEAR-2021-ACT-60499",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2021-act-61124",
+   "kind": "country",
+   "title": "Facilité pour la Coopération Technique et la Communication (FCTC)",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Senegal"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 6.0,
+   "start": 2021,
+   "end": 2029,
+   "status": "ongoing",
+   "topics": [
+    "systems"
+   ],
+   "summary": "La FCTC est un instrument transversal qui contribue à l'amélioration de l'efficacité de l'aide. Elle vise à soutenir toutes les étapes du cycle de programmation et de répondre aux besoins spécifiques du partenariat UE-Sénégal.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2021-ACT-61124",
+   "iati": "XI-IATI-EC_INTPA-2021-ACT-61124",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-near-2020-act-d-42899-01",
+   "kind": "country",
+   "title": "COVID-19 emergency medical support",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Bosnia and Herz."
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 5.8,
+   "start": 2020,
+   "end": 2024,
+   "status": "completed",
+   "topics": [
+    "preparedness"
+   ],
+   "summary": "Special Measure on COVID-19 impact mitigation in Bosnia and Herzegovina (Objective 1)",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2020-ACT-D-42899-01",
+   "iati": "XI-IATI-EC_NEAR-2020-ACT-D-42899-01",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2020-act-d-42774-00",
+   "kind": "country",
+   "title": "Support COVID-19 Response Plan - Delivery of Health, Water & Sanitation Services for IDPs and vulnerable groups in Mogadishu",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Somalia"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 5.8,
+   "start": 2020,
+   "end": 2025,
+   "status": "completed",
+   "topics": [
+    "preparedness"
+   ],
+   "summary": "The objective of the Action is to contribute to enhancing COVID-19 preparedness, response, and mitigation actions among IDPs and vulnerable groups in Mogadishu.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2020-ACT-D-42774-00",
+   "iati": "XI-IATI-EC_INTPA-2020-ACT-D-42774-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2021-act-62822",
+   "kind": "country",
+   "title": "Participation et leadership des femmes et des filles au Bénin",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Benin"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 5.0,
+   "start": 2024,
+   "end": 2033,
+   "status": "ongoing",
+   "topics": [
+    "systems"
+   ],
+   "summary": "L'objectif général de cette action est de promouvoir le leadership féminin pour favoriser la participation des filles et des femmes aux prises de décisions politiques et citoyennes dans la société béninoise.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2021-ACT-62822",
+   "iati": "XI-IATI-EC_INTPA-2021-ACT-62822",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2021-act-61113",
+   "kind": "country",
+   "title": "Projet MADIBA (Manufacturing in Africa for Disease Immunisation and Building Autonomy) de lInstitut Pasteur de Dakar (IPD)",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Senegal"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 5.0,
+   "start": 2021,
+   "end": 2034,
+   "status": "ongoing",
+   "topics": [
+    "manufacturing"
+   ],
+   "summary": "Production locale de vaccins-Projet MADIBA (Manufacturing in Africa for Disease Immunisation and Building Autonomy) de lInstitut Pasteur de Dakar (IPD)",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2021-ACT-61113",
+   "iati": "XI-IATI-EC_INTPA-2021-ACT-61113",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2021-act-62619",
+   "kind": "country",
+   "title": "Women's Economic Empowerment in Uzbekistan",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Uzbekistan"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 5.0,
+   "start": 2024,
+   "end": 2032,
+   "status": "ongoing",
+   "topics": [
+    "srhr"
+   ],
+   "summary": "In late 2016, the Government of Uzbekistan (GoU) launched a comprehensive set of reforms to transition to modernise the country and open it up to the world.",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2021-ACT-62619",
+   "iati": "XI-IATI-EC_INTPA-2021-ACT-62619",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2021-act-61861",
+   "kind": "country",
+   "title": "Girls and adolescents protected from GBV  and early pregnancy in the eastern zone of El Salvador",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "El Salvador"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 4.0,
+   "start": 2023,
+   "end": 2029,
+   "status": "ongoing",
+   "topics": [
+    "srhr"
+   ],
+   "summary": "The proposed Action intends to enable adolescent girls to avoid pregnancy, live free from sexual violence and realise their rights to bodily autonomy in 14 Municipalities in the Eastern region of El Salvador.The Expected Results…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2021-ACT-61861",
+   "iati": "XI-IATI-EC_INTPA-2021-ACT-61861",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2021-act-62564",
+   "kind": "country",
+   "title": "Strengthening Maternal and Child Health in El Salvador",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "El Salvador"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 3.4,
+   "start": 2024,
+   "end": 2024,
+   "status": "planned",
+   "topics": [
+    "srhr"
+   ],
+   "summary": "The action aims at supporting El Salvador is to reduce maternal and infant morbidity and mortality associated with preterm birth and congenital malformations in the short and long term, within the framework of the right to…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2021-ACT-62564",
+   "iati": "XI-IATI-EC_INTPA-2021-ACT-62564",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-near-2023-act-62266",
+   "kind": "country",
+   "title": "EU Support to enhance manufacturing capacities and access to vaccines, medicines and health technologies in Egypt",
+   "origin": "DG NEAR",
+   "tei": null,
+   "countries": [
+    "Egypt"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 3.0,
+   "start": 2023,
+   "end": 2031,
+   "status": "ongoing",
+   "topics": [
+    "manufacturing"
+   ],
+   "summary": "The objectives pursued by this special measure action is to to advance country level intervention in Egypt deemed critical for reinforcing local manufacturing capacities and creating an improved access to health products in…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_NEAR-2023-ACT-62266",
+   "iati": "XI-IATI-EC_NEAR-2023-ACT-62266",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2018-act-d-41497-00",
+   "kind": "country",
+   "title": "Understand, prepare for and respond to disaster displacement in the Pacific",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Fiji"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 3.0,
+   "start": 2018,
+   "end": 2023,
+   "status": "completed",
+   "topics": [
+    "systems"
+   ],
+   "summary": "Adressing protection needs of people displaced in the context of disasters and adverse effects of climate change Pacific region + global component",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2018-ACT-D-41497-00",
+   "iati": "XI-IATI-EC_INTPA-2018-ACT-D-41497-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2020-act-d-42811-00",
+   "kind": "country",
+   "title": "Support the public health and socioeconomic systems to reduce the impact of the Covid19 pandemic in The Gambia",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Gambia"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 2.8,
+   "start": 2020,
+   "end": 2024,
+   "status": "completed",
+   "topics": [
+    "preparedness"
+   ],
+   "summary": "Support the public health and socioeconomic systems to reduce the impact of the Covid19 pandemic through the promotion of prevention measures, the strengthening of the health care services, the provision of basic needs and the…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2020-ACT-D-42811-00",
+   "iati": "XI-IATI-EC_INTPA-2020-ACT-D-42811-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2020-act-d-42811-01",
+   "kind": "country",
+   "title": "Support the public health and socioeconomic systems to reduce the impact of the Covid19 pandemic in The Gambia",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Gambia"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 2.8,
+   "start": 2020,
+   "end": 2024,
+   "status": "completed",
+   "topics": [
+    "preparedness"
+   ],
+   "summary": "Support the public health and socioeconomic systems to reduce the impact of the Covid19 pandemic through the promotion of prevention measures, the strengthening of the health care services, the provision of basic needs and the…",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2020-ACT-D-42811-01",
+   "iati": "XI-IATI-EC_INTPA-2020-ACT-D-42811-01",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2020-act-d-42837-00",
+   "kind": "country",
+   "title": "Soutien au Gouvernement dans sa stratégie de lutte contre la propagation de la pandémie COVID 19",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Côte d'Ivoire"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 1.9,
+   "start": 2020,
+   "end": 2023,
+   "status": "completed",
+   "topics": [
+    "preparedness"
+   ],
+   "summary": "Lobjectif général est de la présente action est de contribuer à la résilience de la Côte dIvoire et de sa population face à la pandémie du COVID 19 afin de réduire conséquences sanitaires, humanitaires et sociales",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2020-ACT-D-42837-00",
+   "iati": "XI-IATI-EC_INTPA-2020-ACT-D-42837-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2020-act-d-42800-00",
+   "kind": "country",
+   "title": "Fighting COVID 19 in Guinea BIssau",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Guinea-Bissau"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 1.5,
+   "start": 2020,
+   "end": 2025,
+   "status": "completed",
+   "topics": [
+    "preparedness"
+   ],
+   "summary": "In light with the Contingency Plan COVID-19 - Fighting COVID 19 in Guinea BIssau",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2020-ACT-D-42800-00",
+   "iati": "XI-IATI-EC_INTPA-2020-ACT-D-42800-00",
+   "checked": "2026-11-20"
+  },
+  {
+   "id": "eu-iati-intpa-2020-act-d-42399-00",
+   "kind": "country",
+   "title": "Extension de la Couverture Maladie Universelle en Mauritanie",
+   "origin": "DG INTPA",
+   "tei": null,
+   "countries": [
+    "Mauritania"
+   ],
+   "scope": "single",
+   "region": "",
+   "implementers": [],
+   "members": [],
+   "amountEURm": 1.2,
+   "start": 2020,
+   "end": 2023,
+   "status": "completed",
+   "topics": [
+    "systems"
+   ],
+   "summary": "Mise en place progressive de la Couverture Sanitaire Universelle (CSU) en Mauritanie (ODD 3), et amélioration de laccès à des soins de qualité pour la population de Sebkha",
+   "nphi": false,
+   "source": "https://d-portal.org/ctrack.html#view=act&aid=XI-IATI-EC_INTPA-2020-ACT-D-42399-00",
+   "iati": "XI-IATI-EC_INTPA-2020-ACT-D-42399-00",
+   "checked": "2026-11-20"
+  }
+ ],
+ "iatiRefreshed": "2026-11-20"
+}

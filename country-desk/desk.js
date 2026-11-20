@@ -174,9 +174,9 @@ async function renderCountry() {
   const renderNphi = p => h("li", null, h("div", { class: "pt" }, link(p.title, p.url)),
     h("div", { class: "pm", text: [p.actor + (p.actorCountry ? ` (${p.actorCountry})` : ""), p.type, [p.start, p.end].filter(Boolean).join(" to "), p.status].filter(Boolean).join(", ") }),
     p.summary ? h("div", { class: "ps", text: p.summary }) : null);
-  const wb = live.wbProjects || [], pfund = live.pandemicFund || [];
+  const wb = live.wbProjects || [], pfund = live.pandemicFund || [], euh = live.euHealth || [];
   const projects = section("projects", "Projects and partnerships",
-    "Dutch links first, then what other public health institutes are doing here, then Pandemic Fund grants and active World Bank health projects.",
+    "Dutch links first, then what other public health institutes are doing here, then EU health programmes, Pandemic Fund grants and active World Bank health projects.",
     h("div", { class: "pgroup" }, h("h3", null, "Dutch links", h("span", { text: `${nlItems.length + nphiNL.length} found` })),
       (profile.nl || {}).text ? h("p", { class: "ps", text: profile.nl.text }) : null,
       nlItems.length + nphiNL.length ? h("ul", { class: "plist" },
@@ -184,6 +184,13 @@ async function renderCountry() {
         nphiNL.map(renderNphi)) : h("p", { class: "empty", text: "No Dutch-linked health projects found in public sources yet." })),
     h("div", { class: "pgroup" }, h("h3", null, "Institute collaborations", h("span", null, `${nphiOther.length} from the `, link("NPHI Collaboration Map", "../../nphi-map/"))),
       nphiOther.length ? expandable(nphiOther, 6, renderNphi, "collaborations") : h("p", { class: "empty", text: "None on the map for this country." })),
+    euh.length ? h("div", { class: "pgroup" }, h("h3", null, "EU health programmes", h("span", null, `${euh.length} from the `, link("NPHI Collaboration Map", "../../nphi-map/"))),
+      expandable(euh, 6, p => h("li", null, h("div", { class: "pt" }, link(p.title, p.url)),
+        h("div", { class: "pm", text: [p.kind === "flagship" ? (p.tei ? `Team Europe: ${p.tei}` : "EU flagship") : p.origin,
+          p.eurM ? `€${p.eurM >= 1000 ? (p.eurM / 1000).toFixed(2) + " billion" : p.eurM + " million"}` : "",
+          [p.start, p.end].filter(Boolean).join(" to "), p.status, p.partners > 1 ? `with ${p.partners - 1} other countr${p.partners - 1 === 1 ? "y" : "ies"}` : "",
+          p.nphi ? "public health institute support" : "", p.nl ? "Netherlands takes part" : ""].filter(Boolean).join(", ") })), "EU programmes"),
+      h("p", { class: "ps muted small", text: "What the European Commission and Team Europe fund in health here: Team Europe and Global Gateway actions, and Commission country programmes as reported to IATI." })) : null,
     pfund.length ? h("div", { class: "pgroup" }, h("h3", null, "Pandemic Fund grants", h("span", null, `${pfund.length} from the `, link("NPHI Collaboration Map", "../../nphi-map/"))),
       h("ul", { class: "plist" }, pfund.map(p => h("li", null, h("div", { class: "pt" }, link(p.title, p.url)),
         h("div", { class: "pm", text: [`Round ${p.round} (${p.year})`, p.usdM ? `US$ ${p.usdM.toFixed(1)} million` : "",

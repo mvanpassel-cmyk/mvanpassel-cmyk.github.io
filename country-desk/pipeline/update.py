@@ -414,6 +414,25 @@ def pf_slice(c, projects):
     return rows
 
 
+def eu_slice(c, projects):
+    """EU health programmes that name this country (from the NPHI map's EU layer): Team Europe and
+    flagship actions first, then Commission country programmes from IATI. Regional and global EU
+    initiatives without a country list stay on the map only."""
+    names = [c["name"], *c.get("alt_names", [])]
+    rows = []
+    for p in projects:
+        if not any(n in p.get("countries", []) for n in names):
+            continue
+        rows.append({"title": p.get("title"), "kind": p.get("kind"), "origin": p.get("origin"), "tei": p.get("tei"),
+                     "eurM": p.get("amountEURm"), "start": p.get("start"), "end": p.get("end"), "status": p.get("status"),
+                     "partners": len(p.get("countries", [])), "nphi": bool(p.get("nphi")),
+                     "nl": "Netherlands" in (p.get("members") or []),
+                     "url": p.get("page") or p.get("source")})
+    order = {"ongoing": 0, "planned": 1, "unclear": 2, "completed": 3}
+    rows.sort(key=lambda r: (r["kind"] != "flagship", order.get(r["status"], 4), -(r["eurM"] or 0)))
+    return rows
+
+
 def jee_slice(c, assessments):
     evs = [e for e in assessments.get("evaluations", []) if e.get("country") in [c["name"], *c.get("alt_names", [])]]
     if not evs:
@@ -597,6 +616,7 @@ def main():
     don = who_don(log)
     nphi = load(os.path.join(REPO, "nphi-map", "projects.json"), {}).get("projects", [])
     pfund = load(os.path.join(REPO, "nphi-map", "pandemic-fund.json"), {}).get("projects")
+    euprog = load(os.path.join(REPO, "nphi-map", "eu-programmes.json"), {}).get("projects")
     jee = load(os.path.join(REPO, "jee-good-practices", "data", "assessments.json"), {})
     signals = load(os.path.join(REPO, "risk-radar", "data", "signals.json"), {})
     forecasts = load(os.path.join(REPO, "crowd-forecasts", "data", "forecasts.json"), {})
@@ -616,6 +636,7 @@ def main():
             live["outbreaks"] = outbreaks_for(c, don, now)
         live["nphi"] = nphi_slice(c, nphi) if nphi else live.get("nphi", [])
         live["pandemicFund"] = pf_slice(c, pfund) if pfund is not None else live.get("pandemicFund", [])
+        live["euHealth"] = eu_slice(c, euprog) if euprog is not None else live.get("euHealth", [])
         live["jee"] = jee_slice(c, jee) if jee else live.get("jee")
         live["risk"] = risk_slice(c, signals)
         live["forecasts"] = forecast_slice(c, forecasts)
@@ -661,7 +682,7 @@ def main():
         top = ((live.get("digest") or {}).get("highlights") or [{}])[0]
         index.append({"slug": c["slug"], "top": top.get("headline", ""), "digest": (live.get("digest") or {}).get("date", ""),
                       "news": len(news), "outbreaks": len(live.get("outbreaks", [])),
-                      "projects": len(live.get("nphi", [])) + len(live.get("pandemicFund", [])) + len(live.get("wbProjects", [])) + len((profile.get("nl") or {}).get("items", [])),
+                      "projects": len(live.get("nphi", [])) + len(live.get("pandemicFund", [])) + len(live.get("euHealth", [])) + len(live.get("wbProjects", [])) + len((profile.get("nl") or {}).get("items", [])),
                       "minister": next((p["name"] for p in profile.get("leadership", []) if p.get("key") == "health"), "")})
 
     save(os.path.join(DATA, "index.json"), {"generated": now.strftime("%Y-%m-%dT%H:%M:%SZ"), "countries": index})
