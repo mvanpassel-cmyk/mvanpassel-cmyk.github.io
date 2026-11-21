@@ -51,6 +51,7 @@ function kiesTaal(code){
   ['#game','#end'].forEach(s=>$(s).classList.add('hidden')); $('#menu').classList.remove('hidden');
   mood('', ...L.tekst.hallo, L.stk.menu);
   showRecord();
+  if(typeof mondInit==='function') mondInit();
 }
 $('#tabs').addEventListener('click',e=>{ const b=e.target.closest('.tab[data-taal]'); if(b && b.dataset.taal!==L.code) kiesTaal(b.dataset.taal); });
 window.addEventListener('hashchange',()=>{ const c=location.hash.slice(1); if(LANGS[c] && c!==L.code) kiesTaal(c); });
@@ -261,7 +262,7 @@ $('#home').onclick=()=>{ $('#end').classList.add('hidden'); $('#menu').classList
 $('#menu').addEventListener('click',e=>{
   const s=e.target.closest('.seg button'); if(s){ const g=s.parentElement; [...g.children].forEach(b=>b.classList.toggle('on',b===s));
     if(g.id==='dir') dir=s.dataset.v; else set=s.dataset.v; return; }
-  const m=e.target.closest('.mode'); if(m) start(m.dataset.m); });
+  const m=e.target.closest('.mode'); if(m && m.dataset.m) start(m.dataset.m); });
 function showRecord(){ const r=store.get('record',0); $('#record').textContent = `Record ${L.race.toLowerCase()}: ${r} · Zaadjes verzameld: ${seeds}`; }
 
 kiesTaal(LANGS[location.hash.slice(1)] ? location.hash.slice(1) : globaal.get('taal','fr'));

@@ -100,6 +100,27 @@ html,body{overflow-x:hidden}
 .tab[disabled]{opacity:.45;cursor:default}
 .tab small{font-weight:600;color:var(--muted)}
 h1 .sub1{font-weight:600;color:var(--muted);font-size:.95rem}
+.mondmenu{border-top:3px dashed #f0d9bd;padding-top:12px;display:grid;gap:10px}
+.mondmenu h2{font-size:1.15rem;margin:0}
+.mq{font-size:1.5rem;font-weight:800;display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:6px 0 4px}
+.nl{color:var(--muted);font-style:italic;margin-bottom:8px}
+.linkbtn{border:none;background:none;color:var(--blue);font:inherit;font-size:.9rem;cursor:pointer;padding:0;text-decoration:underline}
+#minp{width:100%;font:inherit;font-size:1.1rem;padding:12px 14px;border:3px solid #f0d9bd;border-radius:14px;resize:vertical;min-height:56px}
+#minp:disabled{background:#fffaf3}
+.mrow{display:flex;gap:8px;align-items:flex-start}
+.mrow textarea{flex:1;min-width:0}
+#mic.rec{background:var(--red);color:#fff;animation:puff 1s infinite}
+.checks{list-style:none;padding:0;margin:10px 0 0}
+.checks li{padding:3px 0}.checks .ok{color:var(--green)}.checks .no{color:var(--red)}
+.voorbeeld{margin-top:12px;background:#fff7ec;border:2px solid #f0d9bd;border-radius:16px;padding:10px 12px}
+.voorbeeld .vb{display:flex;gap:8px;align-items:center;font-weight:700;font-size:1.1rem;margin:4px 0}
+.voorbeeld .speak{width:34px;height:34px;font-size:1rem;flex:none}
+.voorbeeld u{text-decoration:none;border-bottom:2px solid var(--brown)}
+.tip{color:var(--muted);font-size:.92rem;margin-top:6px}
+.btn.green{background:var(--green);box-shadow:0 4px 0 #1f6f3f}
+.btn.red{background:var(--red);box-shadow:0 4px 0 #a32626}
+.blad h3{margin:14px 0 4px;font-size:1rem}.blad ol{margin:0;padding-left:1.6em}.blad li{margin:6px 0}
+.blad .mine{color:var(--green);font-weight:700}
 </style>
 </head>
 <body>
@@ -131,6 +152,46 @@ h1 .sub1{font-weight:600;color:var(--muted);font-size:.95rem}
     <button class="mode" data-m="race"><span class="ico">⏱️</span><span><b id="racenaam">Race</b><span>Zo veel mogelijk goed in 60 seconden. Haal je record!</span></span></button>
     <div class="small" id="plaaguitleg"></div>
     <div class="small" id="record"></div>
+    <div class="mondmenu hidden" id="mondmenu">
+      <h2>🎤 Mondeling oefenen</h2>
+      <div class="small">De 40 vragen voor je mondeling. Herr Brummbär vraagt, jij antwoordt in een hele zin.</div>
+      <div class="row"><span class="small">Hoofdstuk:</span><div class="seg" id="kap"></div></div>
+      <div class="small" id="kapnaam"></div>
+      <button class="mode" data-mond="oefen"><span class="ico">🗣️</span><span><b>Oefenen</b><span>Hoor de vraag, typ of zeg je antwoord, krijg tips en een voorbeeldzin.</span></span></button>
+      <button class="mode" data-mond="exam"><span class="ico">🎓</span><span><b>Examen-stand</b><span>Alleen de Duitse vraag, geen hulp. Antwoord hardop en kijk dan of het klopte.</span></span></button>
+      <div><button class="linkbtn" id="mblad">📄 Mijn antwoordenblad bekijken</button></div>
+    </div>
+  </section>
+
+  <!-- MONDELING -->
+  <section class="card hidden" id="mond">
+    <div class="row" style="justify-content:space-between"><span class="q-label" id="mlabel"></span><span class="small" id="mprog"></span></div>
+    <div class="mq"><span id="mq"></span><button class="speak" id="mspeak" title="Nog een keer horen">🔊</button></div>
+    <div class="nl hidden" id="mnl"></div>
+    <button class="linkbtn" id="mnlbtn">🇳🇱 Wat vraagt hij?</button>
+    <div id="mtyp" style="margin-top:10px">
+      <div class="mrow"><textarea id="minp" rows="2" autocomplete="off" autocapitalize="sentences" spellcheck="false" placeholder="Jouw antwoord, in een hele zin…"></textarea><button class="speak hidden" id="mic" title="Inspreken">🎙️</button></div>
+      <div class="accents" id="maccents"><button type="button">ä</button><button type="button">ö</button><button type="button">ü</button><button type="button">ß</button></div>
+      <div class="small" id="mvorig" style="margin-top:6px"></div>
+    </div>
+    <ul class="checks" id="mcheck"></ul>
+    <div class="voorbeeld hidden" id="mvoorbeeld"><div class="small">Zo kun je het zeggen:</div><div id="mvb"></div><div class="tip" id="mtip"></div></div>
+    <div class="row" style="margin-top:12px"><button class="btn blue" id="mtoon"></button></div>
+    <div class="row hidden" id="mrate" style="margin-top:12px"><span class="small" style="flex-basis:100%">Kon je het?</span><button class="btn green" id="mja">😊 Ja, kon ik</button><button class="btn red" id="mnee">😬 Nog oefenen</button></div>
+    <div class="row" style="margin-top:12px"><button class="btn ghost" id="mstop">Stoppen</button></div>
+  </section>
+
+  <section class="card end hidden" id="mondend">
+    <h2 id="metitle"></h2>
+    <ul class="list" id="melist"></ul>
+    <div class="row" style="margin-top:14px"><button class="btn" id="meagain">Nog een ronde</button><button class="btn ghost" id="mepractice">Oefen deze nog een keer</button><button class="btn ghost" id="mehome">Menu</button></div>
+  </section>
+
+  <section class="card blad hidden" id="mondblad">
+    <h2 style="margin:0">📄 Mijn antwoordenblad</h2>
+    <div class="small">Wat je bij Oefenen typte, wordt hier bewaard (alleen op dit apparaat).</div>
+    <div id="mbody"></div>
+    <div class="row" style="margin-top:14px"><button class="btn ghost" id="mbhome">Menu</button></div>
   </section>
 
   <!-- GAME -->
@@ -160,7 +221,9 @@ h1 .sub1{font-weight:600;color:var(--muted);font-size:.95rem}
 <script src="lang/nl-groepen.js"></script>
 <script src="lang/fr.js"></script>
 <script src="lang/de.js"></script>
+<script src="lang/de-mondeling.js"></script>
 <script src="taaltjes.js"></script>
+<script src="mondeling.js"></script>
 <!-- bezoekersteller: GoatCounter, zonder cookies -->
 <script data-goatcounter="https://mvanpassel.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
