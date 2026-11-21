@@ -1,5 +1,35 @@
 [
  {
+  "id": "llama-7c95dfafdeb8ed7d",
+  "date": "2026-11-20",
+  "added": "2026-11-21",
+  "title": "Wagyu (XMR1): $13.5M in crypto stolen",
+  "victim": "Wagyu (XMR1)",
+  "country": "",
+  "region": "World",
+  "sector": "Crypto",
+  "type": "Crypto theft",
+  "impact": 3,
+  "people": null,
+  "usd": 13510000,
+  "status": "confirmed",
+  "impact_reason": "$13.5M stolen",
+  "summary": "Frontend & Infrastructure, Key Leaked via Infrastructure",
+  "updates": [],
+  "sources": [
+   {
+    "name": "DeFiLlama",
+    "url": "https://defillama.com/hacks"
+   }
+  ],
+  "via": "defillama",
+  "first_recorded": {
+   "date": "2026-11-21",
+   "impact": 3,
+   "status": "confirmed"
+  }
+ },
+ {
   "id": "llama-27ac9fe1fcc4054d",
   "date": "2026-11-18",
   "added": "2026-11-19",
@@ -1565,6 +1595,36 @@
   "first_recorded": {
    "date": "2026-11-02",
    "impact": 3,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "hibp-TooLost",
+  "date": "2026-11-02",
+  "added": "2026-11-21",
+  "title": "Too Lost: 724,323 accounts in a confirmed data breach",
+  "victim": "Too Lost",
+  "country": "",
+  "region": "World",
+  "sector": "Other",
+  "type": "Data breach",
+  "impact": 2,
+  "people": 724323,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "724,323 accounts reported to Have I Been Pwned",
+  "summary": "In November 2026, an unauthorised party claimed to have obtained data from the music distributor for independent artists, Too Lost. The data contained 724k unique email addresses belonging to artists, their collaborators and fans. Some records also contained…",
+  "updates": [],
+  "sources": [
+   {
+    "name": "Have I Been Pwned",
+    "url": "https://haveibeenpwned.com/Breach/TooLost"
+   }
+  ],
+  "via": "hibp",
+  "first_recorded": {
+   "date": "2026-11-21",
+   "impact": 2,
    "status": "confirmed"
   }
  },
