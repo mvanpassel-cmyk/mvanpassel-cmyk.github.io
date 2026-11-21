@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Pledge & Practice — Dutch Global Health Strategy tracker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="An implementation tracker for the Dutch Global Health Strategy 2023–2030: what was pledged, what the progress reports show, where the money went.">
+<link rel="icon" type="image/png" sizes="32x32" href="/logos/pledge-and-practice-32.png">
+<link rel="icon" type="image/svg+xml" href="/logos/pledge-and-practice.svg">
+<link rel="apple-touch-icon" href="/logos/pledge-and-practice-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: an editorial long-read. Hero with a strategy clock, then sticky section nav over
+   scorecard, pledge framework, money, attention, risks, map, parliament, timeline, notes, library. */
+:root{
+  color-scheme: light;
+  --bg:#f6f4ef; --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#7d7b74; --line:#e2dfd6; --line2:#ecead3;
+  --accent:#e6007e; --cyan:#00a3e0; --yellow:#ffe600;
+  --ev-delivered:#104281; --ev-on-track:#2a78d6; --ev-partial:#86b6ef; --ev-fading:#cde2fb; --ev-none:transparent;
+  --bar:#2a78d6; --bar-plan:#86b6ef; --heat0:#f1f0ea;
+  --serif:"Fraunces", Georgia, serif; --sans:"Inter", system-ui, -apple-system, "Segoe UI", sans-serif; --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --land:#e4e1d8; --land-nl:#0b0b0b;
+}
+@media (prefers-color-scheme: dark){
+  .kicker i{mix-blend-mode:screen}
+  :root{
+    color-scheme: dark;
+    --bg:#121211; --surface:#1a1a19; --ink:#f0efec; --ink2:#c3c2b7; --muted:#8f8d85; --line:#2e2d2a; --line2:#262522;
+    --ev-delivered:#b7d3f6; --ev-on-track:#5598e7; --ev-partial:#256abf; --ev-fading:#184f95;
+    --bar:#3987e5; --bar-plan:#1c5cab; --heat0:#222220; --land:#2c2b28; --land-nl:#f0efec;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration-color:color-mix(in srgb, currentColor 35%, transparent);text-underline-offset:2px}
+a:hover{text-decoration-color:var(--accent)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;margin:0}
+.mono{font-family:var(--mono)}
+.muted{color:var(--muted)} .ink2{color:var(--ink2)}
+.small{font-size:13px}
+
+/* hero */
+header.hero{padding:48px 0 28px;border-bottom:1px solid var(--line)}
+.kicker{font:500 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);display:flex;gap:10px;align-items:center}
+.kicker i{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--cyan);mix-blend-mode:multiply}
+.kicker i+i{background:var(--accent);margin-left:-14px}
+.kicker i+i+i{background:var(--yellow)}
+h1{font-size:clamp(44px,8vw,92px);line-height:.95;font-weight:800;margin:18px 0 14px}
+h1 .amp{font-style:italic;font-weight:400;color:var(--accent)}
+.lede{font-family:var(--serif);font-size:clamp(19px,2.4vw,24px);line-height:1.35;max-width:780px;color:var(--ink2);margin:0}
+.lede em{color:var(--ink);font-style:italic}
+.clock{margin:34px 0 8px}
+.clock-bar{position:relative;height:44px}
+.clock-track{position:absolute;left:0;right:0;top:18px;height:8px;border-radius:4px;background:var(--line)}
+.clock-fill{position:absolute;left:0;top:18px;height:8px;border-radius:4px;background:var(--ink)}
+.clock-now{position:absolute;top:8px;width:2px;height:28px;background:var(--accent)}
+.clock-now span{position:absolute;top:-18px;left:50%;transform:translateX(-50%);white-space:nowrap;font:500 11px var(--mono);color:var(--accent)}
+.clock-rep{position:absolute;top:14px;width:16px;height:16px;margin-left:-8px;border-radius:50%;background:var(--surface);border:2px solid var(--ink);cursor:default}
+.clock-rep b{position:absolute;top:22px;left:50%;transform:translateX(-50%);font:500 10px var(--mono);color:var(--ink2)}
+.clock-years{display:flex;justify-content:space-between;font:12px var(--mono);color:var(--muted);margin-top:10px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:28px}
+.stat{background:var(--surface);padding:16px 18px}
+.stat .n{font:800 38px/1 var(--serif)}
+.stat .l{font-size:13px;color:var(--ink2);margin-top:6px}
+@media (max-width:720px){.stats{grid-template-columns:repeat(2,1fr)}}
+.disclaimer{font-size:12.5px;color:var(--muted);margin-top:16px;max-width:820px}
+
+/* nav */
+nav.toc{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav.toc .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-top:8px;padding-bottom:8px}
+nav.toc a{flex:none;text-decoration:none;font:500 13px var(--sans);color:var(--ink2);padding:6px 10px;border-radius:999px}
+nav.toc a.on,nav.toc a:hover{background:var(--ink);color:var(--bg)}
+
+section{padding:56px 0 8px}
+.sec-h{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;margin-bottom:22px}
+.sec-h .num{font:500 12px var(--mono);color:var(--accent);letter-spacing:.1em}
+.sec-h h2{font-size:clamp(28px,4vw,40px);line-height:1.05}
+.sec-h p{margin:0;max-width:760px;color:var(--ink2)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+
+/* evidence meter */
+.meter{display:inline-flex;gap:3px;vertical-align:middle}
+.meter i{width:9px;height:9px;border-radius:2px;border:1.5px solid var(--ink2);display:block}
+.meter i.f{background:var(--ink);border-color:var(--ink)}
+.stchip{display:inline-flex;align-items:center;gap:8px;font:500 12px var(--sans);color:var(--ink2);white-space:nowrap}
+.sw{width:14px;height:14px;border-radius:3px;display:inline-block;flex:none}
+.sw.delivered{background:var(--ev-delivered)} .sw.on-track{background:var(--ev-on-track)} .sw.partial{background:var(--ev-partial)} .sw.fading{background:var(--ev-fading)}
+.sw.no-evidence{background:transparent;border:1.5px dashed var(--ink2)}
+
+/* scorecard */
+.score{display:grid;grid-template-columns:1.25fr 1fr;gap:20px}
+@media (max-width:860px){.score{grid-template-columns:1fr}}
+.units{padding:20px}
+.urow{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line2)}
+.urow:last-child{border-bottom:0}
+.urow .lab{font:600 13px var(--sans)} .urow .lab small{display:block;font:400 12px var(--sans);color:var(--muted)}
+.ucells{display:flex;flex-wrap:wrap;gap:4px}
+.ucell{width:26px;height:26px;border-radius:5px;border:2px solid var(--surface);outline:none;cursor:pointer;position:relative;padding:0}
+.ucell:hover,.ucell:focus-visible{box-shadow:0 0 0 2px var(--ink)}
+.ucell.no-evidence{border:1.5px dashed var(--ink2)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:14px}
+.verdict{padding:22px}
+.verdict h3{font-size:22px;margin-bottom:10px}
+.verdict ul{margin:0;padding:0;list-style:none}
+.verdict li{padding:9px 0;border-bottom:1px solid var(--line2);display:flex;gap:12px}
+.verdict li:last-child{border:0}
+.verdict li b{font:800 22px/1 var(--serif);min-width:62px;flex:none}
+
+/* framework */
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:18px}
+.chip{font:500 13px var(--sans);border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:6px 12px;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.search{flex:1;min-width:180px;font:14px var(--sans);padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.prio{margin-top:26px}
+.prio-h{display:flex;align-items:baseline;gap:12px;border-top:2px solid var(--ink);padding-top:10px;margin-bottom:4px}
+.prio-h .pid{font:500 13px var(--mono);color:var(--accent)}
+.prio-h h3{font-size:24px}
+.sp-h{font:600 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);margin:18px 0 8px}
+.pl{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
+.pledge{padding:16px 16px 12px;display:flex;flex-direction:column;gap:10px;transition:border-color .15s}
+.pledge:hover{border-color:var(--ink2)}
+.pledge .top{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.role{font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.pledge .txt{font-family:var(--serif);font-size:17px;line-height:1.35}
+.pledge .ass{font-size:14px;color:var(--ink2);margin:0}
+.trail{display:flex;align-items:center;gap:6px;font:11px var(--mono);color:var(--muted)}
+.trail span{display:inline-flex;align-items:center;gap:4px}
+.trail i{width:8px;height:8px;border-radius:50%;border:1.5px solid var(--ink2);display:inline-block}
+.trail i.on{background:var(--ink);border-color:var(--ink)}
+.trail .ln{flex:1;height:1px;background:var(--line);min-width:6px;max-width:22px}
+details.ev{border-top:1px solid var(--line2);padding-top:8px}
+details.ev summary{cursor:pointer;font:500 13px var(--sans);color:var(--ink2);list-style:none}
+details.ev summary::before{content:"+ ";font-family:var(--mono)}
+details.ev[open] summary::before{content:"– "}
+details.ev ol{list-style:none;margin:10px 0 0;padding:0 0 0 14px;border-left:2px solid var(--line)}
+details.ev li{position:relative;margin:0 0 10px;font-size:13.5px}
+details.ev li::before{content:"";position:absolute;left:-20px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--surface);border:2px solid var(--ink)}
+.srcchip{font:500 11px var(--mono);background:var(--line2);color:var(--ink2);padding:1px 6px;border-radius:4px;text-decoration:none;white-space:nowrap}
+.srcchip:hover{background:var(--ink);color:var(--bg)}
+.empty{padding:30px;text-align:center;color:var(--muted)}
+.emerging{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:14px}
+.emerging .card{padding:16px}
+.emerging h4{margin:0 0 6px;font:600 16px var(--serif)}
+.emerging p{margin:0 0 8px;font-size:14px;color:var(--ink2)}
+.tag{font:500 11px var(--mono);border:1px solid var(--line);padding:1px 6px;border-radius:4px;color:var(--ink2)}
+
+/* charts */
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media (max-width:900px){.charts{grid-template-columns:1fr}}
+.chart{padding:18px 18px 14px;position:relative}
+.chart h3{font-size:19px;margin-bottom:4px}
+.chart .sub{font-size:13px;color:var(--ink2);margin:0 0 12px}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.axis text{font:11px var(--mono);fill:var(--muted)}
+.axis line,.axis path{stroke:var(--line)}
+.notes{font-size:12.5px;color:var(--muted);margin:10px 0 0}
+.tip{position:fixed;z-index:50;pointer-events:none;background:var(--ink);color:var(--bg);font:13px/1.4 var(--sans);padding:8px 10px;border-radius:8px;max-width:280px;opacity:0;transition:opacity .1s;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.tip b{font-weight:600}
+.tip .m{font-family:var(--mono);font-size:12px;opacity:.8}
+.ledger{display:flex;flex-direction:column;gap:5px}
+.lrow{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) 62px;gap:10px;align-items:center;font-size:13px;cursor:default;padding:2px 0}
+.lrow:hover .lbar{filter:brightness(1.15)}
+.lrow .w{line-height:1.3}
+.lrow .w small{color:var(--muted);font-family:var(--mono);font-size:11px;margin-left:6px}
+.lbar{height:12px;border-radius:0 4px 4px 0;background:var(--bar);min-width:2px}
+.lbar.yr{background:repeating-linear-gradient(45deg,var(--bar) 0 3px,transparent 3px 6px);border:1px solid var(--bar)}
+.lrow .v{font-family:var(--mono);text-align:right}
+.ptag{font:500 10px var(--mono);color:var(--muted);border:1px solid var(--line);border-radius:3px;padding:0 4px;margin-right:6px}
+
+/* heatmap */
+.heat{width:100%;border-collapse:separate;border-spacing:3px;font-size:13px}
+.heat th{font:500 11px var(--mono);color:var(--ink2);text-align:center;padding:4px;font-weight:500}
+.heat th.t{text-align:left;font:500 13px var(--sans);color:var(--ink);white-space:nowrap}
+.heat td{height:28px;border-radius:4px;text-align:center;font:11px var(--mono);cursor:default;min-width:54px}
+.toggle{font:500 12px var(--sans);background:none;border:1px solid var(--line);border-radius:999px;padding:4px 10px;color:var(--ink2);cursor:pointer;float:right}
+
+/* risks */
+.risks{display:grid;grid-template-columns:1fr;gap:0}
+.rk{display:grid;grid-template-columns:36px minmax(0,1.4fr) 92px minmax(0,1.6fr);gap:14px;align-items:center;padding:11px 14px;border-bottom:1px solid var(--line2)}
+.rk:last-child{border:0}
+.rk .r{font:800 22px var(--serif);color:var(--muted)}
+.rk .t{font-weight:600}
+.rk .t small{display:block;font:400 12px var(--mono);color:var(--muted)}
+.rk .why{font-size:13.5px;color:var(--ink2)}
+.cov{font:500 12px var(--sans);display:inline-flex;gap:6px;align-items:center}
+@media (max-width:720px){.rk{grid-template-columns:30px 1fr;}.rk .cov,.rk .why{grid-column:2}}
+.riskhead{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;margin-bottom:10px}
+.covbar{display:flex;height:12px;border-radius:6px;overflow:hidden;width:260px;gap:2px}
+
+/* map */
+.mapwrap{display:grid;grid-template-columns:1.6fr 1fr;gap:20px}
+@media (max-width:900px){.mapwrap{grid-template-columns:1fr}}
+#map{padding:10px}
+#map svg{width:100%;height:auto;display:block}
+#map .land{fill:var(--land);stroke:var(--surface);stroke-width:.5}
+#map .land.on{cursor:pointer}
+#map .land.nl{fill:var(--land-nl)}
+#map .arc{fill:none;stroke:var(--ink);stroke-opacity:.35;stroke-width:1}
+#map .arc.hi{stroke:var(--accent);stroke-opacity:1;stroke-width:2}
+.plist{padding:14px;max-height:520px;overflow:auto}
+.pc{padding:10px 4px;border-bottom:1px solid var(--line2);cursor:pointer}
+.pc:last-child{border:0}
+.pc.hi{background:var(--line2);border-radius:6px}
+.pc h4{margin:0;font:600 15px var(--serif);display:flex;justify-content:space-between;gap:8px}
+.pc p{margin:4px 0 0;font-size:13px;color:var(--ink2)}
+
+/* parliament */
+table.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{text-align:left;font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:10px 12px;border-bottom:1px solid var(--line)}
+.tbl td{padding:11px 12px;border-bottom:1px solid var(--line2);vertical-align:top}
+.tbl tr:last-child td{border-bottom:0}
+.pstat{font:500 12px var(--sans);display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.pstat i{font-style:normal;font-family:var(--mono)}
+.scroll{overflow-x:auto}
+
+/* timeline */
+.tl{position:relative;padding-left:0}
+.tly{display:grid;grid-template-columns:90px 1fr;gap:16px;padding:14px 0;border-top:1px solid var(--line)}
+.tly .y{font:800 30px/1 var(--serif)}
+.tly.future .y{color:var(--muted)}
+.tle{display:grid;grid-template-columns:70px 120px 1fr;gap:12px;padding:6px 0;font-size:14px;align-items:baseline}
+.tle .d{font:12px var(--mono);color:var(--muted)}
+.tle .k{font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.06em}
+.tle.report{font-weight:600}
+.tle.report .k{color:var(--accent)}
+.tle.future{color:var(--ink2)}
+.tle.future .k{color:var(--muted)}
+@media (max-width:640px){.tle{grid-template-columns:62px 1fr}.tle .k{display:none}.tly{grid-template-columns:1fr}}
+
+/* notes */
+.obs{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.obs .card{padding:18px}
+.obs h4{font:600 19px/1.2 var(--serif);margin:0 0 8px}
+.obs p{margin:0 0 10px;color:var(--ink2);font-size:14.5px}
+.ind{margin-top:22px}
+.ind li{margin:0 0 8px}
+
+/* library */
+.lib td .ty{font:500 11px var(--mono);color:var(--muted);white-space:nowrap}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:28px 0 60px;font-size:13px;color:var(--muted)}
+footer .cl li{margin-bottom:4px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (forced-colors: active){.sw,.ucell{border:1px solid CanvasText}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker"><i></i><i></i><i></i><span>Implementation tracker · Dutch Global Health Strategy 2023–2030</span></div>
+    <h1>Pledge <span class="amp">&amp;</span> Practice</h1>
+    <p class="lede">The Netherlands promised in 2022 to work <em>"together for health worldwide"</em>. The strategy came without indicators, so this page builds the missing framework: every pledge, traced through three progress reports and the documents around them.</p>
+    <div class="clock" aria-label="Strategy period progress">
+      <div class="clock-bar" id="clock"></div>
+      <div class="clock-years"><span>2023</span><span>2024</span><span>2025</span><span>2026</span><span>2027</span><span>2028</span><span>2029</span><span>2030</span></div>
+    </div>
+    <div class="stats" id="stats"></div>
+    <p class="disclaimer">An independent desk review built from public documents (Kamerstukken, RIVM, IOB). Not an official government product. Ratings are this site's reading of the public record, not a verdict on work that is not reported. <span id="upd"></span></p>
+  </div>
+</header>
+
+<nav class="toc"><div class="wrap" id="toc">
+  <a href="#scorecard">Scorecard</a><a href="#framework">Pledges</a><a href="#new">New since 2022</a><a href="#money">Money</a><a href="#attention">Attention</a><a href="#risks">Risks</a><a href="#where">Where</a><a href="#parliament">Parliament</a><a href="#timeline">Timeline</a><a href="#notes">Reading notes</a><a href="#library">Library</a>
+</div></nav>
+
+<main class="wrap">
+
+<section id="scorecard">
+  <div class="sec-h"><span class="num">01 · SCORECARD</span><h2>Thirty-one pledges, one glance</h2>
+  <p>Each square is a pledge from the strategy text, shaded by how much public evidence of delivery there is. Click a square to jump to it.</p></div>
+  <div class="score">
+    <div class="card units"><div id="units"></div><div class="legend" id="legend"></div></div>
+    <div class="card verdict"><h3>The short version</h3><ul id="verdict"></ul></div>
+  </div>
+</section>
+
+<section id="framework">
+  <div class="sec-h"><span class="num">02 · IMPLEMENTATION FRAMEWORK</span><h2>From pledge to practice</h2>
+  <p>Three priorities, six spearheads and the governance chapters, as the strategy set them out. The role label (Connector, Innovator, Champion) is the strategy's own description of how the Netherlands would act. Open a pledge to see its evidence trail.</p></div>
+  <div class="filters" id="filters"></div>
+  <div id="pledges"></div>
+</section>
+
+<section id="new">
+  <div class="sec-h"><span class="num">03 · NEW SINCE 2022</span><h2>What the strategy did not foresee</h2>
+  <p>Lines of work that now appear in the reports but are not in the 2022 text.</p></div>
+  <div class="emerging" id="emerging"></div>
+</section>
+
+<section id="money">
+  <div class="sec-h"><span class="num">04 · MONEY</span><h2>Where the euros went</h2>
+  <p>The strategy promised a growing budget. The budget line for global health and SRHR fell sharply after 2024, then the 2026 coalition put money back, mostly through one channel.</p></div>
+  <div class="charts">
+    <div class="card chart"><h3>Budget article 3.1: global health &amp; SRHR</h3><p class="sub">€ million per year, BHOS budget</p><div id="budget"></div><p class="notes" id="budgetnote"></p></div>
+    <div class="card chart"><h3>Named commitments in the reports</h3><p class="sub">€ million, as stated in the progress reports and letters. Hatched = per year.</p><div class="ledger" id="ledger"></div><p class="notes">Amounts cover different periods and are not additive. The €84.5m GFF intensification is the same money as the SRHR intensification of 2027–2030.</p></div>
+  </div>
+</section>
+
+<section id="attention">
+  <div class="sec-h"><span class="num">05 · ATTENTION</span><h2>What each report talks about</h2>
+  <p id="pulsenote"></p></div>
+  <div class="card chart"><button class="toggle" id="heatToggle">Show counts</button><h3>Mentions per 1,000 words</h3><p class="sub">Shading is relative within each row, so you can see attention shift from document to document.</p><div class="scroll"><table class="heat" id="heat"></table></div></div>
+</section>
+
+<section id="risks">
+  <div class="sec-h"><span class="num">06 · RISK FIT</span><h2>Does the strategy match today's threats?</h2>
+  <p id="risknote"></p></div>
+  <div class="card"><div class="riskhead" style="padding:14px 14px 0"><div class="legend" id="covlegend" style="margin:0"></div><div id="covbar"></div></div><div class="risks" id="risklist"></div></div>
+</section>
+
+<section id="where">
+  <div class="sec-h"><span class="num">07 · WHERE</span><h2>Countries named in the reports</h2>
+  <p>Bilateral partnerships (GHPP), SRHR focus countries, Global Health Hub projects and diplomatic partners, as reported. Hover or tap a country.</p></div>
+  <div class="mapwrap"><div class="card" id="map"></div><div class="card plist" id="plist"></div></div>
+</section>
+
+<section id="parliament">
+  <div class="sec-h"><span class="num">08 · PARLIAMENT</span><h2>Motions and commitments</h2>
+  <p>Promises made to the Tweede Kamer about the strategy, and motions the government says it has carried out through it.</p></div>
+  <div class="card scroll"><table class="tbl" id="ptable"></table></div>
+</section>
+
+<section id="timeline">
+  <div class="sec-h"><span class="num">09 · TIMELINE</span><h2>2022 to 2030</h2></div>
+  <div class="tl" id="tl"></div>
+</section>
+
+<section id="notes">
+  <div class="sec-h"><span class="num">10 · READING NOTES</span><h2>What the paper trail shows</h2>
+  <p>Observations from reading the documents side by side, each with its sources.</p></div>
+  <div class="obs" id="obs"></div>
+  <div class="card ind" style="padding:20px">
+    <h3 style="font-size:22px;margin-bottom:6px">An indicator set that would cost little</h3>
+    <p class="ink2" id="indnote" style="margin:0 0 14px"></p>
+    <div class="scroll"><table class="tbl" id="indtable"></table></div>
+  </div>
+</section>
+
+<section id="library">
+  <div class="sec-h"><span class="num">11 · LIBRARY</span><h2>The documents</h2></div>
+  <div class="filters" id="libfilters"></div>
+  <div class="card scroll"><table class="tbl lib" id="libtable"></table></div>
+</section>
+
+</main>
+
+<footer><div class="wrap">
+  <p><b>Method.</b> Pledges are paraphrased from the action points ("eerste handelingsperspectief") and chapters 7–9 of the 2022 strategy. Evidence comes from the three progress letters to Parliament and the other documents in the library. Ratings: <span id="ratingdefs"></span> Budget figures are taken as published; periods differ. All texts are summaries in our own words. Checked and updated once a month.</p>
+  <p><b>Changelog</b></p><ul class="cl" id="changelog"></ul>
+</div></footer>
+
+<div class="tip" id="tip" role="tooltip"></div>
+
+<script src="../nphi-map/lib/d3.min.js"></script>
+<script src="../nphi-map/lib/topojson-client.min.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const LEVEL={"delivered":4,"on-track":3,"partial":2,"fading":1,"no-evidence":0};
+const ORDER=["delivered","on-track","partial","fading","no-evidence"];
+const fmtDate=(d,approx)=>{if(!d)return"";const t=new Date(d+"T12:00:00");return approx==="year"?String(t.getFullYear()):t.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});};
+const fmtMonth=d=>new Date(d+"T12:00:00").toLocaleDateString("en-GB",{month:"short"});
+const tip=$("#tip");
+function showTip(e,html){tip.innerHTML=html;tip.style.opacity=1;moveTip(e);}
+function moveTip(e){const x=e.clientX??0,y=e.clientY??0;const w=tip.offsetWidth,h=tip.offsetHeight;let L=x+14,T=y+14;if(L+w>innerWidth-8)L=x-w-14;if(T+h>innerHeight-8)T=y-h-14;tip.style.left=L+"px";tip.style.top=T+"px";}
+function hideTip(){tip.style.opacity=0;}
+function meter(st){const n=LEVEL[st];return `<span class="meter" aria-hidden="true">${[0,1,2,3].map(i=>`<i class="${i<n?"f":""}"></i>`).join("")}</span>`;}
+
+fetch("data.json",{cache:"no-cache"}).then(r=>r.json()).then(D=>{
+  const SRC={}; D.library.forEach(l=>SRC[l.id]=l);
+  SRC.S=SRC.strategy;
+  const srcLink=id=>{const s=SRC[id];const lab=D.sources[id]?D.sources[id].short:(s?s.type:id);return s?`<a class="srcchip" href="${esc(s.url)}" target="_blank" rel="noopener" title="${esc(s.title)}">${esc(lab)}</a>`:`<span class="srcchip">${esc(lab)}</span>`;};
+  const stLabel=st=>D.statuses[st].label;
+  const C=D.commitments; const RIDS=D.reports.map(r=>r.id);
+  const SP={};D.priorities.forEach(p=>p.spearheads.forEach(s=>SP[s.id]={...s,p}));
+
+  /* ---------- hero ---------- */
+  const t0=new Date(D.meta.start),t1=new Date(D.meta.end),now=new Date();
+  const pos=d=>Math.max(0,Math.min(100,(new Date(d)-t0)/(t1-t0)*100));
+  const pct=pos(now);
+  $("#clock").innerHTML=`<div class="clock-track"></div><div class="clock-fill" style="width:${pct}%"></div>`+
+    D.reports.map((r,i)=>`<div class="clock-rep" style="left:${pos(r.date)}%" title="${esc(D.sources[r.id].label)}"><b>R${i+1}</b></div>`).join("")+
+    `<div class="clock-now" style="left:${pct}%"><span>today · ${Math.round(pct)}% elapsed</span></div>`;
+  const cnt=st=>C.filter(c=>c.status===st).length;
+  const committed=D.money.ledger.filter(l=>!l.yearly).reduce((a,b)=>a+b.eur,0);
+  $("#stats").innerHTML=[
+    [C.length,"pledges tracked from the strategy text"],
+    [cnt("delivered")+cnt("on-track"),"delivered or on track"],
+    [cnt("fading")+cnt("no-evidence"),"faded or with no public evidence"],
+    [D.reports.length,"progress reports, by "+new Set(D.reports.map(r=>r.cabinet)).size+" different cabinets"]
+  ].map(([n,l])=>`<div class="stat"><div class="n">${n}</div><div class="l">${l}</div></div>`).join("");
+  $("#upd").textContent=`Last checked ${fmtDate(D.meta.updated)}; next check ${fmtDate(D.meta.nextUpdate)}.`;
+
+  /* ---------- scorecard ---------- */
+  $("#units").innerHTML=D.priorities.map(p=>{
+    const cs=C.filter(c=>SP[c.sp].p.id===p.id);
+    return `<div class="urow"><div class="lab">${esc(p.short)}<small>${cs.length} pledges</small></div><div class="ucells">${cs.map(c=>
+      `<button class="ucell ${c.status}" data-id="${c.id}" style="background:var(--ev-${c.status})" aria-label="${esc(c.pledge)} — ${stLabel(c.status)}"></button>`).join("")}</div></div>`;}).join("");
+  $("#legend").innerHTML=ORDER.map(s=>`<span class="stchip"><span class="sw ${s}"></span>${meter(s)} ${stLabel(s)}</span>`).join("");
+  document.querySelectorAll(".ucell").forEach(b=>{
+    const c=C.find(x=>x.id===b.dataset.id);
+    b.addEventListener("mousemove",e=>showTip(e,`<b>${esc(stLabel(c.status))}</b> · ${esc(SP[c.sp].title)}<br>${esc(c.pledge)}`));
+    b.addEventListener("mouseleave",hideTip);
+    b.addEventListener("click",()=>{hideTip();state.p="All";state.s="All";state.q="";renderFilters();renderPledges();const el=document.getElementById("pl-"+c.id);el.scrollIntoView({block:"center"});el.querySelector("details").open=true;el.animate([{boxShadow:"0 0 0 3px var(--accent)"},{boxShadow:"0 0 0 0 transparent"}],{duration:1600});});
+  });
+  const pcount=p=>{const cs=C.filter(c=>SP[c.sp].p.id===p);return Math.round(cs.filter(c=>LEVEL[c.status]>=3).length/cs.length*100);};
+  $("#verdict").innerHTML=[
+    [pcount("P1")+"%","of architecture &amp; health-system pledges delivered or on track, carried by WHO diplomacy, the GFF and SRHR. Mental health never appears."],
+    [pcount("P2")+"%","for pandemics &amp; cross-border threats: AMR and the pandemic agreement stand out; zoonoses and supply security lag."],
+    [pcount("P3")+"%","for climate &amp; health: a diplomatic success story, but the clean cooking target and food/water lines faded."],
+    [pcount("G")+"%","of governance pledges: the Global Health Hub works; the steering group, the 2025 re-calibration and the money path are not visible or fell short."],
+    ["0","indicators in the strategy. Two reports came later than promised; each one has a different structure."]
+  ].map(([n,t])=>`<li><b>${n}</b><span>${t}</span></li>`).join("");
+
+  /* ---------- framework ---------- */
+  const state={p:"All",s:"All",q:""};
+  function renderFilters(){
+    $("#filters").innerHTML=["All",...D.priorities.map(p=>p.id)].map(p=>`<button class="chip" data-p="${p}" aria-pressed="${state.p===p}">${p==="All"?"All priorities":esc(D.priorities.find(x=>x.id===p).short)}</button>`).join("")+
+      `<span style="width:8px"></span>`+["All",...ORDER].map(s=>`<button class="chip" data-s="${s}" aria-pressed="${state.s===s}">${s==="All"?"Any status":stLabel(s)}</button>`).join("")+
+      `<input class="search" id="q" type="search" placeholder="Search pledges and evidence…" value="${esc(state.q)}">`;
+    $("#q").addEventListener("input",e=>{state.q=e.target.value;renderPledges();});
+  }
+  $("#filters").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;if(b.dataset.p)state.p=b.dataset.p;if(b.dataset.s)state.s=b.dataset.s;const q=state.q;renderFilters();renderPledges();});
+  function renderPledges(){
+    const q=state.q.trim().toLowerCase();
+    const ok=c=>(state.p==="All"||SP[c.sp].p.id===state.p)&&(state.s==="All"||c.status===state.s)&&(!q||JSON.stringify(c).toLowerCase().includes(q));
+    let html="";
+    D.priorities.forEach(p=>{
+      const sps=p.spearheads.map(s=>({s,cs:C.filter(c=>c.sp===s.id&&ok(c))})).filter(x=>x.cs.length);
+      if(!sps.length)return;
+      html+=`<div class="prio"><div class="prio-h"><span class="pid">${p.id}</span><h3>${esc(p.title)}</h3></div>`;
+      sps.forEach(({s,cs})=>{
+        html+=`<div class="sp-h">${s.id} · ${esc(s.title)}</div><div class="pl">`+cs.map(c=>{
+          const has=id=>c.evidence.some(e=>e.src===id&&!e.neg);
+          const others=[...new Set(c.evidence.map(e=>e.src).filter(x=>!/^R\d$/.test(x)))];
+          return `<article class="card pledge" id="pl-${c.id}">
+            <div class="top"><span class="stchip"><span class="sw ${c.status}"></span>${meter(c.status)} ${stLabel(c.status)}</span><span class="role">${esc(c.role)}</span></div>
+            <div class="txt">${esc(c.pledge)}</div>
+            <p class="ass">${esc(c.assessment)}</p>
+            <div class="trail" title="Which progress reports give evidence"><span>2022</span><span class="ln"></span>${RIDS.map((r,i)=>`<span><i class="${has(r)?"on":""}"></i>R${i+1}</span>${i<RIDS.length-1?'<span class="ln"></span>':""}`).join("")}${others.length?`<span style="margin-left:6px">+${others.length} other doc${others.length>1?"s":""}</span>`:""}</div>
+            <details class="ev"><summary>Evidence trail (${c.evidence.length})</summary>
+              ${c.evidence.length?`<ol>${c.evidence.map(e=>`<li>${srcLink(e.src)} ${e.neg?"<i>(checked, not mentioned)</i> ":""}${esc(e.text)}</li>`).join("")}</ol>`:`<p class="small muted" style="margin:8px 0 0">No evidence found in the progress reports or other public documents.</p>`}
+            </details></article>`;}).join("")+`</div>`;
+      });
+      html+=`</div>`;
+    });
+    $("#pledges").innerHTML=html||`<div class="card empty">No pledges match these filters.</div>`;
+  }
+  renderFilters();renderPledges();
+
+  $("#emerging").innerHTML=D.emerging.map(e=>`<div class="card"><h4>${esc(e.title)}</h4><p>${esc(e.text)}</p><span class="tag">first in ${esc(D.sources[e.first].short)}</span> ${e.src.map(srcLink).join(" ")}</div>`).join("");
+
+  /* ---------- money: budget bars ---------- */
+  (function(){
+    const S=D.money.series, rows=[...S.realised.map(([y,v])=>({y,v,k:"realised"})),...S.planned.map(([y,v])=>({y,v,k:"planned"}))];
+    const W=520,H=290,m={t:44,r:10,b:26,l:40};
+    const x=d3.scaleBand().domain(rows.map(r=>r.y)).range([m.l,W-m.r]).padding(.28);
+    const y=d3.scaleLinear().domain([0,650]).range([H-m.b,m.t]);
+    const svg=d3.select("#budget").append("svg").attr("viewBox",`0 0 ${W} ${H}`).attr("role","img").attr("aria-label","Bar chart of budget article 3.1, 2018 to 2027");
+    const defs=svg.append("defs");
+    defs.append("pattern").attr("id","hatch").attr("patternUnits","userSpaceOnUse").attr("width",6).attr("height",6).attr("patternTransform","rotate(45)").append("rect").attr("width",3).attr("height",6).attr("fill","var(--bar)");
+    const g=svg.append("g").attr("class","axis");
+    y.ticks(6).forEach(t=>{g.append("line").attr("x1",m.l).attr("x2",W-m.r).attr("y1",y(t)).attr("y2",y(t)).attr("stroke-dasharray",t?"2 3":null);g.append("text").attr("x",m.l-6).attr("y",y(t)+4).attr("text-anchor","end").text(t);});
+    rows.forEach(r=>g.append("text").attr("x",x(r.y)+x.bandwidth()/2).attr("y",H-8).attr("text-anchor","middle").text("’"+String(r.y).slice(2)));
+    const bw=x.bandwidth(),rr=4;
+    const bar=(r)=>{const x0=x(r.y),y0=y(r.v),h=y(0)-y0;return `M${x0},${y(0)}V${y0+rr}Q${x0},${y0} ${x0+rr},${y0}H${x0+bw-rr}Q${x0+bw},${y0} ${x0+bw},${y0+rr}V${y(0)}Z`;};
+    svg.selectAll("path.b").data(rows).join("path").attr("class","b").attr("d",bar)
+      .attr("fill",r=>r.k==="planned"?"url(#hatch)":"var(--bar)").attr("stroke",r=>r.k==="planned"?"var(--bar)":"none").attr("stroke-width",1.2);
+    const a=S.ambition; const ax=x(a.year);
+    svg.append("line").attr("x1",ax-6).attr("x2",ax+bw+6).attr("y1",y(a.value)).attr("y2",y(a.value)).attr("stroke","var(--accent)").attr("stroke-width",2.5);
+    svg.append("line").attr("x1",ax+bw/2).attr("x2",ax+bw/2).attr("y1",y(a.value)-2).attr("y2",y(640)+4).attr("stroke","var(--accent)").attr("stroke-width",1);
+    svg.append("text").attr("x",ax+bw/2).attr("y",y(640)).attr("text-anchor","middle").attr("fill","var(--accent)").style("font","600 11px var(--mono)").text("2023 ambition: 530");
+    const peak=rows.find(r=>r.y===2024),low=rows.find(r=>r.y===2026);
+    [peak,low].forEach(r=>svg.append("text").attr("x",x(r.y)+bw/2).attr("y",y(r.v)-6).attr("text-anchor","middle").attr("fill","var(--ink)").style("font","600 11px var(--mono)").text(r.v));
+    svg.selectAll("rect.hit").data(rows).join("rect").attr("class","hit").attr("x",r=>x(r.y)-x.step()*x.paddingInner()/2).attr("width",x.step()).attr("y",m.t).attr("height",H-m.t-m.b).attr("fill","transparent")
+      .on("mousemove",(e,r)=>showTip(e,`<b>${r.y}</b> · €${r.v}m<br><span class="m">${r.k==="realised"?"realised (IOB)":"planned, Oct 2025, before coalition top-ups"}</span>`)).on("mouseleave",hideTip);
+    const lg=svg.append("g").attr("transform",`translate(${m.l},4)`).style("font","12px var(--sans)");
+    lg.append("rect").attr("width",12).attr("height",12).attr("rx",2).attr("fill","var(--bar)");lg.append("text").attr("x",18).attr("y",10).attr("fill","var(--ink2)").text("Realised");
+    lg.append("rect").attr("x",90).attr("width",12).attr("height",12).attr("rx",2).attr("fill","url(#hatch)").attr("stroke","var(--bar)");lg.append("text").attr("x",108).attr("y",10).attr("fill","var(--ink2)").text("Planned");
+    $("#budgetnote").innerHTML=esc(S.note)+" Top-ups since: "+S.topups.map(t=>`${esc(t.label)} ${srcLink(t.src)}`).join("; ")+".";
+  })();
+
+  /* ---------- money: ledger ---------- */
+  (function(){
+    const L=[...D.money.ledger].sort((a,b)=>b.eur-a.eur), max=d3.max(L,l=>l.eur);
+    $("#ledger").innerHTML=L.map((l,i)=>`<div class="lrow" data-i="${i}"><div class="w"><span class="ptag">${l.p}</span>${esc(l.what)}<small>${esc(l.period)}</small></div><div><div class="lbar ${l.yearly?"yr":""}" style="width:${l.eur/max*100}%"></div></div><div class="v">€${l.eur}m</div></div>`).join("");
+    document.querySelectorAll(".lrow").forEach(r=>{const l=L[r.dataset.i];
+      r.addEventListener("mousemove",e=>showTip(e,`<b>${esc(l.what)}</b><br>€${l.eur}m ${l.yearly?"per year":""} · ${esc(l.period)}<br><span class="m">Source: ${esc((D.sources[l.src]||{}).label||SRC[l.src]?.title||l.src)}</span>`));
+      r.addEventListener("mouseleave",hideTip);});
+  })();
+
+  /* ---------- attention heatmap ---------- */
+  (function(){
+    const P=D.pulse, docs=["S",...RIDS].filter(d=>P.docs[d]); let showCounts=false;
+    $("#pulsenote").textContent=P.note;
+    const blue=["#e3eefc","#cde2fb","#9ec5f4","#6da7ec","#3987e5","#256abf","#184f95"];
+    const dark=matchMedia("(prefers-color-scheme: dark)").matches;
+    const ramp=dark?["#1d2b3d","#184f95","#1c5cab","#256abf","#3987e5","#6da7ec","#9ec5f4"]:blue;
+    function draw(){
+      const head=`<tr><th></th>${docs.map(d=>`<th>${esc(D.sources[d].short)}<br><span class="muted">${P.docs[d].words.toLocaleString("en")} w</span></th>`).join("")}</tr>`;
+      const body=P.terms.map(t=>{const vals=docs.map(d=>P.docs[d].per1000[t]);const mx=Math.max(...vals)||1;
+        return `<tr><th class="t">${esc(t)}</th>${docs.map((d,i)=>{const v=vals[i],k=v?Math.min(6,Math.round(v/mx*6)):-1;const bg=k<0?"var(--heat0)":ramp[k];const fg=k>=4?"#fff":"var(--ink2)";
+          return `<td style="background:${bg};color:${fg}" data-t="${esc(t)}" data-d="${d}">${showCounts?P.docs[d].counts[t]:(v?v.toFixed(1):"·")}</td>`;}).join("")}</tr>`;}).join("");
+      $("#heat").innerHTML=head+body;
+      $("#heat").querySelectorAll("td").forEach(td=>{td.addEventListener("mousemove",e=>{const d=td.dataset.d,t=td.dataset.t;showTip(e,`<b>${esc(t)}</b> · ${esc(D.sources[d].label)}<br>${P.docs[d].counts[t]} mentions · ${P.docs[d].per1000[t]} per 1,000 words`);});td.addEventListener("mouseleave",hideTip);});
+    }
+    $("#heatToggle").onclick=()=>{showCounts=!showCounts;$("#heatToggle").textContent=showCounts?"Show per 1,000 words":"Show counts";draw();};
+    draw();
+  })();
+
+  /* ---------- risks ---------- */
+  (function(){
+    const R=D.risks, COV={strong:{l:"Strongly covered",n:3},partial:{l:"Partly covered",n:2},gap:{l:"Gap",n:0}};
+    const cm=k=>`<span class="meter" aria-hidden="true">${[0,1,2].map(i=>`<i class="${i<COV[k].n?"f":""}"></i>`).join("")}</span>`;
+    $("#risknote").innerHTML=esc(R.note)+" "+srcLink("risicoscan");
+    $("#covlegend").innerHTML=Object.keys(COV).map(k=>`<span class="cov">${cm(k)} ${COV[k].l} <span class="muted mono">${R.items.filter(r=>r.cover===k).length}</span></span>`).join("");
+    $("#risklist").innerHTML=R.items.map(r=>`<div class="rk"><span class="r">${r.rank}</span><div class="t">${esc(r.threat)}<small>${esc(r.cluster)} · ${r.p==="new"?"not in strategy":r.p==="—"?"no priority":r.p}</small></div><span class="cov">${cm(r.cover)} ${COV[r.cover].l.split(" ")[0]}</span><div class="why">${esc(r.why)}</div></div>`).join("");
+  })();
+
+  /* ---------- map ---------- */
+  (function(){
+    const ATLAS={"DR Congo":"Dem. Rep. Congo"}, DOTS={"Palau":[134.58,7.51]};
+    const P=D.partners; const byName={}; P.forEach(p=>byName[ATLAS[p.country]||p.country]=p);
+    $("#plist").innerHTML=P.map((p,i)=>`<div class="pc" data-i="${i}"><h4><span>${esc(p.country)}</span><span class="tag">${esc(p.track)}</span></h4><p>${esc(p.text)}</p><p>${p.themes.map(t=>`<span class="tag">${esc(t)}</span>`).join(" ")} ${p.src.map(srcLink).join(" ")}</p></div>`).join("");
+    fetch("../nphi-map/lib/countries-110m.json").then(r=>r.json()).then(topo=>{
+      const W=640,H=340; const feats=topojson.feature(topo,topo.objects.countries).features.filter(f=>f.properties.name!=="Antarctica");
+      const proj=d3.geoNaturalEarth1().fitExtent([[4,4],[W-4,H-4]],{type:"FeatureCollection",features:feats}); const path=d3.geoPath(proj);
+      const svg=d3.select("#map").append("svg").attr("viewBox",`0 0 ${W} ${H}`).attr("role","img").attr("aria-label","World map of partner countries named in the progress reports");
+      const nl=feats.find(f=>f.properties.name==="Netherlands"); const nlc=proj([5.3,52.2]);
+      const landG=svg.append("g"),arcs=svg.append("g").style("pointer-events","none");
+      landG.selectAll("path").data(feats).join("path").attr("d",path)
+        .attr("class",f=>"land"+(byName[f.properties.name]?" on":"")+(f===nl?" nl":""))
+        .style("fill",f=>byName[f.properties.name]?(byName[f.properties.name].track.startsWith("GHPP")?"var(--ev-on-track)":"var(--ev-partial)"):null)
+        .on("mousemove",(e,f)=>{const p=byName[f.properties.name];if(p){showTip(e,`<b>${esc(p.country)}</b> · ${esc(p.track)}<br>${esc(p.text)}`);hi(P.indexOf(p));}})
+        .on("mouseleave",()=>{hideTip();hi(-1);})
+        .on("click",(e,f)=>{const p=byName[f.properties.name];if(p){const el=document.querySelector(`.pc[data-i="${P.indexOf(p)}"]`);el.scrollIntoView({block:"nearest",behavior:"smooth"});}});
+      Object.entries(DOTS).forEach(([n,c])=>{const p=P.find(x=>x.country===n);if(!p)return;const [x,y]=proj(c);svg.append("circle").attr("cx",x).attr("cy",y).attr("r",4).attr("fill","var(--ev-partial)").attr("stroke","var(--ink)").on("mousemove",e=>showTip(e,`<b>${esc(p.country)}</b> · ${esc(p.track)}<br>${esc(p.text)}`)).on("mouseleave",hideTip);});
+      const centroid=p=>{const n=ATLAS[p.country]||p.country;const f=feats.find(f=>f.properties.name===n);return f?path.centroid(f):DOTS[p.country]?proj(DOTS[p.country]):null;};
+      const arcEls=P.map(p=>{const c=centroid(p);if(!c)return null;const mx=(nlc[0]+c[0])/2,my=Math.min(nlc[1],c[1])-Math.hypot(c[0]-nlc[0],c[1]-nlc[1])*.25;return arcs.append("path").attr("class","arc").attr("d",`M${nlc[0]},${nlc[1]}Q${mx},${my} ${c[0]},${c[1]}`).node();});
+      svg.append("circle").attr("cx",nlc[0]).attr("cy",nlc[1]).attr("r",3.5).attr("fill","var(--accent)");
+      const lg=svg.append("g").attr("transform",`translate(10,${H-40})`).style("font","11px var(--sans)");
+      [["var(--ev-on-track)","GHPP partnership"],["var(--ev-partial)","Other named country"]].forEach(([c,l],i)=>{lg.append("rect").attr("y",i*16).attr("width",11).attr("height",11).attr("rx",2).attr("fill",c);lg.append("text").attr("x",16).attr("y",i*16+9).attr("fill","var(--ink2)").text(l);});
+      function hi(i){arcEls.forEach((a,j)=>a&&a.classList.toggle("hi",j===i));document.querySelectorAll(".pc").forEach(el=>el.classList.toggle("hi",+el.dataset.i===i));}
+      document.querySelectorAll(".pc").forEach(el=>{el.addEventListener("mouseenter",()=>hi(+el.dataset.i));el.addEventListener("mouseleave",()=>hi(-1));});
+    });
+  })();
+
+  /* ---------- parliament ---------- */
+  const PST={"done":["✓","Done"],"done-late":["✓","Done, late"],"partial":["◐","Partly"],"ongoing":["…","Ongoing"],"open":["○","Open"]};
+  $("#ptable").innerHTML=`<tr><th>Date</th><th>Type</th><th>What</th><th>Status</th><th>Note</th></tr>`+D.parliament.map(m=>`<tr><td class="mono small">${m.date?fmtDate(m.date):"—"}</td><td class="small">${esc(m.kind)}<br><span class="muted mono" style="font-size:11px">${esc(m.id)}</span></td><td>${m.url?`<a href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.title)}</a>`:esc(m.title)}<br><span class="muted small">${esc(m.by)}</span></td><td><span class="pstat"><i>${PST[m.status][0]}</i>${PST[m.status][1]}</span></td><td class="small ink2">${esc(m.note)}</td></tr>`).join("");
+
+  /* ---------- timeline ---------- */
+  (function(){
+    const today=new Date().toISOString().slice(0,10);
+    const ev=[...D.timeline].sort((a,b)=>a.date.localeCompare(b.date)); const years=[...new Set(ev.map(e=>e.date.slice(0,4)))];
+    const KL={policy:"Policy",eu:"EU",event:"Event",milestone:"Milestone",evaluation:"Evaluation",report:"Progress report",parliament:"Parliament",money:"Money",future:"Ahead"};
+    $("#tl").innerHTML=years.map(y=>{const es=ev.filter(e=>e.date.startsWith(y));const fut=es.every(e=>e.date>today);
+      return `<div class="tly ${fut?"future":""}"><div class="y">${y}</div><div>${es.map(e=>{const f=e.date>today;const src=e.src&&SRC[e.src]?` ${srcLink(e.src)}`:"";
+        return `<div class="tle ${e.kind} ${f?"future":""}"><span class="d">${e.approx==="year"?"":fmtMonth(e.date)}</span><span class="k">${KL[e.kind]||e.kind}</span><span>${esc(e.title)}${src}</span></div>`;}).join("")}</div></div>`;}).join("");
+  })();
+
+  /* ---------- notes & indicators ---------- */
+  $("#obs").innerHTML=D.observations.map(o=>`<div class="card"><h4>${esc(o.title)}</h4><p>${esc(o.text)}</p>${o.src.map(srcLink).join(" ")}</div>`).join("");
+  $("#indnote").textContent=D.indicators.note;
+  const PN={P1:"Architecture & systems",P2:"Pandemics & threats",P3:"Climate & health",G:"Governance"};
+  $("#indtable").innerHTML=`<tr><th>Priority</th><th>Indicator</th><th>Data source</th></tr>`+D.indicators.items.map(i=>`<tr><td class="small mono">${esc(PN[i.p])}</td><td>${esc(i.name)}</td><td class="small">${i.url?`<a href="${esc(i.url)}" target="_blank" rel="noopener">${esc(i.source)}</a>`:esc(i.source)}</td></tr>`).join("");
+
+  /* ---------- library ---------- */
+  (function(){
+    const types=["All",...new Set(D.library.map(l=>l.type))]; let t="All";
+    const draw=()=>{
+      $("#libfilters").innerHTML=types.map(x=>`<button class="chip" data-t="${esc(x)}" aria-pressed="${x===t}">${esc(x)}</button>`).join("");
+      $("#libtable").innerHTML=`<tr><th>Date</th><th>Document</th><th>By</th></tr>`+[...D.library].sort((a,b)=>b.date.localeCompare(a.date)).filter(l=>t==="All"||l.type===t).map(l=>`<tr><td class="mono small">${fmtDate(l.date)}</td><td><span class="ty">${esc(l.type)}</span><br><a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.title)}</a><br><span class="muted small">${esc(l.ref)}</span></td><td class="small ink2">${esc(l.by)}</td></tr>`).join("");
+    };
+    $("#libfilters").addEventListener("click",e=>{const b=e.target.closest(".chip");if(b){t=b.dataset.t;draw();}});
+    draw();
+  })();
+
+  $("#ratingdefs").innerHTML=ORDER.map(s=>`<b>${stLabel(s)}</b>: ${esc(D.statuses[s].desc.toLowerCase())}`).join(" ");
+  $("#changelog").innerHTML=D.changelog.slice().reverse().map(c=>`<li><span class="mono">${fmtDate(c.date)}</span> — ${esc(c.text)}</li>`).join("");
+
+  /* ---------- toc highlight ---------- */
+  const links=[...document.querySelectorAll("#toc a")];
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+e.target.id));const on=links.find(a=>a.classList.contains("on"));on&&on.scrollIntoView({block:"nearest",inline:"center"});}}),{rootMargin:"-45% 0px -50% 0px"});
+  document.querySelectorAll("main section").forEach(s=>io.observe(s));
+}).catch(err=>{document.querySelector("main").innerHTML=`<p class="empty">Could not load data.json (${esc(err.message)}).</p>`;});
+</script>
+<script data-goatcounter="https://mvanpassel.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script src="/shared/zone-log.js" defer></script>
+</body>
+</html>

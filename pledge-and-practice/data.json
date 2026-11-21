@@ -1,0 +1,2241 @@
+{
+ "meta": {
+  "title": "Pledge & Practice",
+  "subtitle": "An implementation tracker for the Dutch Global Health Strategy 2023–2030",
+  "strategyTitle": "Nederlandse mondiale gezondheidsstrategie 2023–2030: Samen zorgen voor gezondheid wereldwijd",
+  "start": "2023-01-01",
+  "end": "2030-12-31",
+  "launched": "2022-10-21",
+  "updated": "2026-11-21",
+  "nextUpdate": "2026-12-03",
+  "updateCadence": "monthly"
+ },
+ "statuses": {
+  "delivered": {
+   "label": "Delivered",
+   "desc": "The pledge has been carried out, with a concrete result on record."
+  },
+  "on-track": {
+   "label": "On track",
+   "desc": "Sustained, reported activity across reports, with money or results attached."
+  },
+  "partial": {
+   "label": "Partly",
+   "desc": "Some activity on record, but thinner than the pledge, or only in one report."
+  },
+  "fading": {
+   "label": "Faded",
+   "desc": "Reported early on, absent from later reports, or scaled back."
+  },
+  "no-evidence": {
+   "label": "No public evidence",
+   "desc": "Nothing found in the progress reports or other public documents."
+  }
+ },
+ "priorities": [
+  {
+   "id": "P1",
+   "short": "Architecture & health systems",
+   "title": "Strengthening the global health architecture and national health systems",
+   "spearheads": [
+    {
+     "id": "P1a",
+     "title": "International coherence and multilateral cooperation"
+    },
+    {
+     "id": "P1b",
+     "title": "Better access to primary health care and SRHR"
+    }
+   ]
+  },
+  {
+   "id": "P2",
+   "short": "Pandemics & cross-border threats",
+   "title": "Improving international pandemic preparedness and minimising cross-border health threats",
+   "spearheads": [
+    {
+     "id": "P2a",
+     "title": "Global access to medicines and health products"
+    },
+    {
+     "id": "P2b",
+     "title": "Stronger international action on AMR and zoonoses"
+    }
+   ]
+  },
+  {
+   "id": "P3",
+   "short": "Climate & health",
+   "title": "Addressing the impact of climate change on public health, and vice versa",
+   "spearheads": [
+    {
+     "id": "P3a",
+     "title": "Greening health care internationally and making it climate-resilient"
+    },
+    {
+     "id": "P3b",
+     "title": "International action on climate, water and food"
+    }
+   ]
+  },
+  {
+   "id": "G",
+   "short": "Governance & means",
+   "title": "Coherence, coordination, people, money and monitoring (chapters 7–9 of the strategy)",
+   "spearheads": [
+    {
+     "id": "G1",
+     "title": "Coordination structures"
+    },
+    {
+     "id": "G2",
+     "title": "People and money"
+    },
+    {
+     "id": "G3",
+     "title": "Monitoring and evaluation"
+    }
+   ]
+  }
+ ],
+ "commitments": [
+  {
+   "id": "c01",
+   "sp": "P1a",
+   "role": "Champion",
+   "status": "on-track",
+   "pledge": "Argue for a stronger WHO as the central, technical and coordinating actor, backed by higher, flexible and sustainable funding.",
+   "assessment": "Consistently reported. Assessed contributions went up with Dutch support, unearmarked funding rose, and the Netherlands helped start the 2025 WHO reform process. The core contribution has been held flat at €9.6m a year from 2026.",
+   "evidence": [
+    {
+     "src": "R1",
+     "text": "Successfully argued at WHO governing bodies for higher assessed contributions; raised the unearmarked voluntary contribution by €5m a year (2022–2026) and extended the WHO partnership programme to 2028."
+    },
+    {
+     "src": "R3",
+     "text": "A process to make WHO more efficient, transparent and financially sustainable started in 2025, partly at Dutch initiative; NL keeps pushing for a central coordinating WHO in the wider architecture reform."
+    },
+    {
+     "src": "bhos-cuts-2025",
+     "text": "Dutch core contribution to WHO kept at €9.6m a year from 2026, the same as 2025."
+    }
+   ]
+  },
+  {
+   "id": "c02",
+   "sp": "P1a",
+   "role": "Connector",
+   "status": "on-track",
+   "pledge": "Play a bridge-building role in WHO negotiations, including as co-chair of the negotiations on a pandemic instrument.",
+   "assessment": "The pandemic agreement was adopted in May 2025 after negotiations the Netherlands co-chaired with South Africa. The PABS annex is still being negotiated; finishing it is now named as the top priority on preparedness.",
+   "evidence": [
+    {
+     "src": "R1",
+     "text": "Negotiations on a pandemic instrument since early 2022, co-chaired by the Netherlands and South Africa; deadline then May 2024."
+    },
+    {
+     "src": "R3",
+     "text": "Pandemic agreement adopted in May 2025; negotiations on the PABS annex continue and NL presses for an ambitious, quick conclusion."
+    }
+   ]
+  },
+  {
+   "id": "c03",
+   "sp": "P1a",
+   "role": "Innovator",
+   "status": "on-track",
+   "pledge": "Use Dutch expertise (RIVM and others) to support WHO strategies and guidance, e.g. on monitoring and surveillance.",
+   "assessment": "Grew from a passing mention into a named instrument: WHO collaborating centres and secondments funded through the WHO partnership programme.",
+   "evidence": [
+    {
+     "src": "R2",
+     "text": "Dutch knowledge made available via RIVM and its WHO collaborating centres."
+    },
+    {
+     "src": "R3",
+     "text": "Partnership programme funds WHO collaborating centres (incl. at RIVM) and secondments of VWS and RIVM experts to WHO on One Health and AMR."
+    }
+   ]
+  },
+  {
+   "id": "c04",
+   "sp": "P1a",
+   "role": "Champion",
+   "status": "on-track",
+   "pledge": "Strengthen the EU as a geopolitical player in global health; support the EU Global Health Strategy and synergies with member states.",
+   "assessment": "The EU's Global Health Resilience Initiative (2026) gave this pledge a vehicle. The cabinet is positive but asks for clarity on money and governance.",
+   "evidence": [
+    {
+     "src": "R3",
+     "text": "NL pushed within the EU to link development cooperation and preparedness in the GHRI and to keep AMR, SRHR and One Health visible on the agenda."
+    },
+    {
+     "src": "ghri-fiche",
+     "text": "Overall positive BNC fiche on COM(2026) 197; asks the Commission for duration, financing and the role of member states."
+    }
+   ]
+  },
+  {
+   "id": "c05",
+   "sp": "P1a",
+   "role": "Connector",
+   "status": "partial",
+   "pledge": "Promote long-term, flexible funding and better coordination between global health funds and UN agencies.",
+   "assessment": "Concrete examples in the first report (Gavi–Global Fund malaria vaccine roll-out, Gavi–GFF in Mozambique and Pakistan); later reports frame this through architecture reform rather than fund coordination.",
+   "evidence": [
+    {
+     "src": "R1",
+     "text": "Raised contributions to several funds and used board seats to push cooperation; Gavi and the Global Fund jointly introduced a malaria vaccine in 20+ African countries."
+    },
+    {
+     "src": "R3",
+     "text": "Broader architecture reform coordinated by WHO; NL stresses coherence and efficiency."
+    }
+   ]
+  },
+  {
+   "id": "c06",
+   "sp": "P1a",
+   "role": "Champion",
+   "status": "on-track",
+   "pledge": "Champion issues under pressure in funds and UN bodies: SRHR, sexuality education, safe abortion, marginalised groups, youth.",
+   "assessment": "Strongest it has been in the 2026 report: an explicit stance against the anti-rights movement, money attached and hosting of IPPF in 2027.",
+   "evidence": [
+    {
+     "src": "R3",
+     "text": "€11m to IPPF's Fight Back Fund in 2026; coalition-building at CSW, CPD and the Human Rights Council; minister became a SheDecides Champion; IPPF annual meeting in The Hague in 2027."
+    }
+   ]
+  },
+  {
+   "id": "c07",
+   "sp": "P1a",
+   "role": "Champion",
+   "status": "no-evidence",
+   "pledge": "Give attention to mental health and psychosocial support (MHPSS), in particular for people in vulnerable situations.",
+   "assessment": "The strategy names it; none of the three progress reports mentions mental health or MHPSS.",
+   "evidence": []
+  },
+  {
+   "id": "c08",
+   "sp": "P1b",
+   "role": "Connector",
+   "status": "on-track",
+   "pledge": "Strengthen primary health care and sustainable health financing in focus countries, notably via the Global Financing Facility.",
+   "assessment": "The clearest money trail in the strategy: GFF funding rose from €90m (2023–25) to a €119.5m core contribution (2026–30) plus €84.5m extra (2027–30).",
+   "evidence": [
+    {
+     "src": "R1",
+     "text": "GFF contribution raised to €90m for 2023–2025; NL co-hosted the replenishment. Safe births in health centres up 22% in Ethiopia and 27% in Burkina Faso."
+    },
+    {
+     "src": "R2",
+     "text": "Maternal mortality fell in 16 GFF partner countries."
+    },
+    {
+     "src": "R3",
+     "text": "Core contribution €119.5m (2026–2030) plus €84.5m extra for 2027–2030; GFF linked to the Accra Reset on African health sovereignty."
+    },
+    {
+     "src": "intens-2026",
+     "text": "Extra money goes to GFF core funding, tracked through GFF's MEL framework and the BHOS Strategic Evaluation Agenda."
+    }
+   ]
+  },
+  {
+   "id": "c09",
+   "sp": "P1b",
+   "role": "Champion",
+   "status": "on-track",
+   "pledge": "Invest where other donors hesitate: safe abortion, sexuality education, youth and marginalised groups.",
+   "assessment": "Reported every year with country examples, and now with multi-year money (SAAF, SRHR-Next alliance, Focus instrument on harmful practices).",
+   "evidence": [
+    {
+     "src": "R1",
+     "text": "Extra funds through embassies in 9 focus countries (e.g. Burkina Faso SRHR services)."
+    },
+    {
+     "src": "R2",
+     "text": "Support for implementing Benin's new safe-abortion law; SRHR youth programme in Niger."
+    },
+    {
+     "src": "R3",
+     "text": "€12m to the Safe Abortion Action Fund (2027–2030); SRHR-Next alliance of 11 Dutch NGOs; Focus instrument against FGM and child marriage started in 2026."
+    }
+   ]
+  },
+  {
+   "id": "c10",
+   "sp": "P1b",
+   "role": "Connector",
+   "status": "partial",
+   "pledge": "Explore the private sector's role in affordable, sustainable care (business models, public-private partnerships).",
+   "assessment": "Isolated examples (Kenya combitrack, a Nigeria trade mission deal); no programme-level reporting. The 2026 report shifts the emphasis to philanthropy and companies as co-funders.",
+   "evidence": [
+    {
+     "src": "R1",
+     "text": "Health combitrack in Kenya linking Dutch and Kenyan partners."
+    },
+    {
+     "src": "R2",
+     "text": "Nigeria LSH trade mission: agreement between the National Blood Service Commission and HemoClear."
+    },
+    {
+     "src": "R3",
+     "text": "EmpowHer fund with CIFF and Gilead as an example of working with philanthropy and business."
+    }
+   ]
+  },
+  {
+   "id": "c11",
+   "sp": "P1b",
+   "role": "Champion",
+   "status": "on-track",
+   "pledge": "Give special attention to HIV/AIDS and TB; substantially raise contributions to the Global Fund, UNAIDS and WHO.",
+   "assessment": "HIV runs through all three reports and gained weight in 2026: chairing the UNAIDS board and an announced lead role on HIV prevention and cure research.",
+   "evidence": [
+    {
+     "src": "R1",
+     "text": "Contributions to the Global Fund, WHO, UNAIDS and Aidsfonds significantly raised."
+    },
+    {
+     "src": "R2",
+     "text": "HIV work in Mozambique and Ukraine (with UNAIDS)."
+    },
+    {
+     "src": "R3",
+     "text": "Chair of the UNAIDS board, facilitating a new UN model for the HIV response; EmpowHer fund; forward-looking lead role on HIV prevention and cure research."
+    }
+   ]
+  },
+  {
+   "id": "c12",
+   "sp": "P2a",
+   "role": "Connector",
+   "status": "on-track",
+   "pledge": "Promote sustainable local and regional production of health products, incl. hosting the World Local Production Forum with WHO.",
+   "assessment": "Delivered (forum, 850+ participants, Nov 2023) and carried on through Team Europe (MAV+), GHPP Indonesia and a biotech training facility.",
+   "evidence": [
+    {
+     "src": "R1",
+     "text": "Hosted the first in-person World Local Production Forum in November 2023, 850+ participants."
+    },
+    {
+     "src": "R2",
+     "text": "€10m to the Team Europe initiative on manufacturing in Africa; GHPP support to production in Indonesia; WHO mRNA tech-transfer hub in South Africa."
+    },
+    {
+     "src": "R3",
+     "text": "Biotech Training Facility trained 140+ inspectors from Egypt, Indonesia and India; continued MAV+ support."
+    }
+   ]
+  },
+  {
+   "id": "c13",
+   "sp": "P2a",
+   "role": "Champion",
+   "status": "on-track",
+   "pledge": "Secure last-mile access for the most marginalised, building on the Dutch role as a top donor for modern contraception.",
+   "assessment": "UNFPA Supplies is a stable, multi-year commitment.",
+   "evidence": [
+    {
+     "src": "R1",
+     "text": "Partnership with UNFPA Supplies extended for five years."
+    },
+    {
+     "src": "R3",
+     "text": "€110m to UNFPA Supplies (2024–2028), a one-off €7m extra for UNFPA in 2026, and support to DKT International."
+    }
+   ]
+  },
+  {
+   "id": "c14",
+   "sp": "P2a",
+   "role": "Connector",
+   "status": "partial",
+   "pledge": "Invest in security of supply of medical products and countermeasures (open strategic autonomy).",
+   "assessment": "Mentioned as a direction (India MoI, diversified chains) but without targets; most of this agenda now sits with VWS's domestic preparedness and EU medicines policy.",
+   "evidence": [
+    {
+     "src": "R2",
+     "text": "Memorandum of Intent with Indian partners on supply-chain availability."
+    },
+    {
+     "src": "R3",
+     "text": "Working towards more diversified production chains to reduce Dutch dependence on a few producing countries."
+    }
+   ]
+  },
+  {
+   "id": "c15",
+   "sp": "P2a",
+   "role": "Connector",
+   "status": "delivered",
+   "pledge": "Make surplus vaccines available for donation to countries in need.",
+   "assessment": "Delivered during the 2024 mpox emergency.",
+   "evidence": [
+    {
+     "src": "R2",
+     "text": "€3m and 13,000+ vaccines for the WHO mpox response plan, later topped up with 35,000 more vaccines."
+    }
+   ]
+  },
+  {
+   "id": "c16",
+   "sp": "P2a",
+   "role": "Innovator",
+   "status": "partial",
+   "pledge": "Invest in knowledge and innovation: EU Horizon Pandemic Preparedness, a multi-year CEPI contribution, product development partnerships.",
+   "assessment": "CEPI and PDPs are reported; the EU Horizon pandemic preparedness investment never appears in the reports.",
+   "evidence": [
+    {
+     "src": "R1",
+     "text": "Scaled up cooperation with CEPI; invested in product development partnerships."
+    },
+    {
+     "src": "R2",
+     "text": "CEPI funding also supports Dutch companies and research institutes."
+    },
+    {
+     "src": "R3",
+     "text": "€64m to CEPI since 2021."
+    },
+    {
+     "src": "debate-2026",
+     "text": "Ministers mention structural CEPI funding of €2m a year from 2027 and roughly €120m flowing back to Dutch institutions."
+    }
+   ]
+  },
+  {
+   "id": "c17",
+   "sp": "P2a",
+   "role": "Connector",
+   "status": "delivered",
+   "pledge": "Contribute to the Financial Intermediary Fund for pandemic prevention, preparedness and response (now the Pandemic Fund).",
+   "assessment": "Delivered and reused: the Pandemic Fund also co-financed the ebola response.",
+   "evidence": [
+    {
+     "src": "R1",
+     "text": "Collaboration with the Pandemic Fund scaled up; first grants to 37 countries."
+    },
+    {
+     "src": "R3",
+     "text": "€20m to the Pandemic Fund since 2023."
+    }
+   ]
+  },
+  {
+   "id": "c18",
+   "sp": "P2b",
+   "role": "Connector",
+   "status": "on-track",
+   "pledge": "Use the Dutch position on AMR to build support for international agreements; push One Health AMR strategies.",
+   "assessment": "The most consistently delivered thematic pledge: UN High-Level Meeting 2024, a multi-year AMR Multi-Partner Trust Fund commitment, GARDP, JAMRAI-2, GHPP surveillance projects and a WHO secondment.",
+   "evidence": [
+    {
+     "src": "R1",
+     "text": "Funding national AMR action plans via the AMR Multi-Partner Trust Fund; JAMRAI-2; aim to anchor One Health and AMR financing at the UN HLM 2024."
+    },
+    {
+     "src": "R2",
+     "text": "AMR recognised at the UNGA (Sept 2024) as a threat needing coordinated action; GHPP AMR surveillance in Colombia (relevant for Caribbean Netherlands) and wastewater surveillance in South Africa."
+    },
+    {
+     "src": "R3",
+     "text": "€2m a year to the AMR MPTF (2026–2029); €5m to GARDP (2025–2029); RIVM expert seconded to WHO EURO; GHPP surveillance with South Africa, Colombia and Indonesia."
+    },
+    {
+     "src": "amr-plan",
+     "text": "National AMR Action Plan 2024–2030 (VWS, LNV, IenW) with a One Health approach."
+    }
+   ]
+  },
+  {
+   "id": "c19",
+   "sp": "P2b",
+   "role": "Champion",
+   "status": "fading",
+   "pledge": "Keep zoonoses on the international agenda (national action plan on zoonoses policy, One Health).",
+   "assessment": "Appears in the first report only. Zoonoses are named as a top threat in 2026, but without a dedicated international line.",
+   "evidence": [
+    {
+     "src": "R1",
+     "text": "National action plan on zoonoses linked to the One Health initiative; focus on keeping zoonoses on the international agenda."
+    },
+    {
+     "src": "R3",
+     "text": "Zoonoses mentioned among the biggest threats (with infectious diseases and AMR), no specific action."
+    }
+   ]
+  },
+  {
+   "id": "c20",
+   "sp": "P3a",
+   "role": "Champion",
+   "status": "delivered",
+   "pledge": "Push climate adaptation and sustainable health care in UN, EU, OECD and G20 fora.",
+   "assessment": "A genuine Dutch footprint: WHA resolution with Peru (2024), co-chair of the Friends of Climate and Health with Palau, a global action plan adopted in 2025, and a call for an EU climate-and-health strategy (Dec 2025).",
+   "evidence": [
+    {
+     "src": "R1",
+     "text": "Climate and health resolution to be tabled with Peru at WHA 2024."
+    },
+    {
+     "src": "R2",
+     "text": "Resolution adopted May 2024; health stressed at COP29; role in founding the Group of Friends of Climate and Health."
+    },
+    {
+     "src": "R3",
+     "text": "Global action plan on climate and health adopted by all WHO member states in 2025; NL called for an EU climate-and-health strategy at the EPSCO Council (Dec 2025); focus shifting from agenda-setting to implementation."
+    }
+   ]
+  },
+  {
+   "id": "c21",
+   "sp": "P3a",
+   "role": "Innovator",
+   "status": "on-track",
+   "pledge": "Share knowledge on health and climate (Green Deal Sustainable Care, Dutch knowledge institutes).",
+   "assessment": "Growing portfolio of bilateral climate-health projects through GHPP and the Global Health Hub, plus a first euro figure for ATACH.",
+   "evidence": [
+    {
+     "src": "R1",
+     "text": "GHPP 'green hospital development' with China; drought-preparedness planning in Ethiopia."
+    },
+    {
+     "src": "R2",
+     "text": "Climate-resilient health systems with Kenya; support for WHO ATACH."
+    },
+    {
+     "src": "R3",
+     "text": "€1m to ATACH in 2026; GHPP: China (hospital emissions), Kenya (green guidelines, health adaptation plan), India (risk communication since 2026); GHH projects with Denmark, Ghana, Ethiopia and Suriname."
+    }
+   ]
+  },
+  {
+   "id": "c22",
+   "sp": "P3a",
+   "role": "Champion",
+   "status": "on-track",
+   "pledge": "Ask multilateral partners and funds to cut the climate footprint of supply chains and health facilities.",
+   "assessment": "Reported with concrete fund-level results (solar clinics; Global Fund climate initiative).",
+   "evidence": [
+    {
+     "src": "R1",
+     "text": "Thousands of health facilities in low-income countries got solar power via UNICEF, Gavi, GFF, Global Fund, UNDP and EnDev; Global Fund cut packaging."
+    },
+    {
+     "src": "R3",
+     "text": "Global Fund launched a climate-health initiative in 2025 after Dutch pressure in its board."
+    }
+   ]
+  },
+  {
+   "id": "c23",
+   "sp": "P3b",
+   "role": "Connector",
+   "status": "delivered",
+   "pledge": "Co-host the UN 2023 Water Conference and follow up on 'Water for Health'.",
+   "assessment": "Delivered, with follow-up: UN System-Wide Strategy on Water and Sanitation and preparation of the 2026 UN Water Conference.",
+   "evidence": [
+    {
+     "src": "R1",
+     "text": "WASH commitments in the Water Action Agenda of the 2023 conference NL co-hosted; invited to the G20 WASH working group."
+    },
+    {
+     "src": "R2",
+     "text": "UN System-Wide Strategy on Water and Sanitation adopted."
+    },
+    {
+     "src": "R3",
+     "text": "Pleaded for continuity of the water agenda ahead of the 2026 UN Water Conference; supports a coalition aiming at water security for one billion people by 2030."
+    }
+   ]
+  },
+  {
+   "id": "c24",
+   "sp": "P3b",
+   "role": "Champion",
+   "status": "fading",
+   "pledge": "Give 100 million people access to electricity and clean cooking based on renewable energy by 2030.",
+   "assessment": "The only numeric target in the strategy. Progress towards it is not reported; the topic disappears after 2025.",
+   "evidence": [
+    {
+     "src": "R1",
+     "text": "Contributions raised in 2023 to EnDev, FMO's Access to Energy Fund and the World Bank renewables partnership."
+    },
+    {
+     "src": "R2",
+     "text": "Took part in the IEA Clean Cooking Summit for Africa (May 2024)."
+    }
+   ]
+  },
+  {
+   "id": "c25",
+   "sp": "P3b",
+   "role": "Champion",
+   "status": "partial",
+   "pledge": "Support the right to safe water and healthy food, incl. national adaptation plans (NAPs).",
+   "assessment": "Nutrition reach is reported once (32 million people); NAP support is not reported as such.",
+   "evidence": [
+    {
+     "src": "R2",
+     "text": "Support for the Global Alliance Against Hunger and Poverty (G20 Brazil)."
+    },
+    {
+     "src": "R3",
+     "text": "32 million people, mostly children and mothers, reached with nutrition programmes."
+    }
+   ]
+  },
+  {
+   "id": "c26",
+   "sp": "G1",
+   "role": "",
+   "status": "no-evidence",
+   "pledge": "Set up an Interdepartmental Steering Group, co-chaired by BZ and VWS, meeting quarterly on progress, cooperation and bottlenecks.",
+   "assessment": "None of the progress reports mentions the steering group, its meetings or its findings. The reports do stress BZ–VWS cooperation in general terms.",
+   "evidence": [
+    {
+     "src": "R3",
+     "text": "Implementation 'asks for good interdepartmental cooperation and coordination', especially between BZ and VWS (no mention of the steering group).",
+     "neg": true
+    }
+   ]
+  },
+  {
+   "id": "c27",
+   "sp": "G1",
+   "role": "",
+   "status": "delivered",
+   "pledge": "Set up a Dutch Global Health Hub for cross-sector cooperation, with a youth advisory body.",
+   "assessment": "Delivered: launched September 2023 with 27 signatories of the Global Health Pact, 37 partners by early 2024, three working groups, and a youth advisory body in 2026.",
+   "evidence": [
+    {
+     "src": "ghh-launch",
+     "text": "Hub launched on 28 September 2023; Global Health Pact signed."
+    },
+    {
+     "src": "R1",
+     "text": "Grew to 37 partners; a thematic working group per MGS priority."
+    },
+    {
+     "src": "R3",
+     "text": "Youth advisory body added in 2026; Hub follow-up on the Hirsch motion on socially responsible licensing (June 2025, Sept 2026)."
+    }
+   ]
+  },
+  {
+   "id": "c28",
+   "sp": "G2",
+   "role": "",
+   "status": "delivered",
+   "pledge": "Expand capacity at the Permanent Representation in Geneva and at BZ, incl. a coordinating function; explore strategic secondments.",
+   "assessment": "Capacity expansion is confirmed in the cabinet's response to the IOB SRHR evaluation; secondments to WHO are reported in 2026.",
+   "evidence": [
+    {
+     "src": "iob-srgr",
+     "text": "Cabinet states capacity in The Hague and at the PR in Geneva on global health has been expanded."
+    },
+    {
+     "src": "R3",
+     "text": "VWS and RIVM experts seconded to WHO, incl. an RIVM AMR expert at WHO EURO."
+    }
+   ]
+  },
+  {
+   "id": "c29",
+   "sp": "G2",
+   "role": "",
+   "status": "fading",
+   "pledge": "Raise the BHOS budget for global health: intensification rising from €106m (2023) to €125m (2026); global health and SRHR at €530m in 2023.",
+   "assessment": "The first report admits the scale-up was smaller than planned. Article 3.1 spending fell from €543m (2024) to a planned €384m (2026) before the 2026 coalition added €115.5m extra, including €84.5m for the GFF in 2027–2030.",
+   "evidence": [
+    {
+     "src": "R1",
+     "text": "Because of BHOS cuts the scale-up was 'more limited than originally foreseen'."
+    },
+    {
+     "src": "iob-pr",
+     "text": "Article 3.1 spending: €515m (2023), €543m (2024)."
+    },
+    {
+     "src": "bhos-cuts-2025",
+     "text": "Falling budgets: €448m (2025), €384m (2026), €385m (2027)."
+    },
+    {
+     "src": "R3",
+     "text": "From 2026 an extra €115.5m for global health and SRHR."
+    },
+    {
+     "src": "intens-2026",
+     "text": "€84.5m extra on article 3.1 for 2027–2030 (via GFF); structurally €10m a year extra from 2032."
+    }
+   ]
+  },
+  {
+   "id": "c30",
+   "sp": "G3",
+   "role": "",
+   "status": "partial",
+   "pledge": "Re-calibrate the strategy in 2025 (end of the cabinet term) through an evaluation, in light of new trends and threats.",
+   "assessment": "No published 2025 evaluation was found. Two documents do part of the job: the 2026 RIVM risk scan (an update of the 2019 scan that underpinned the strategy) and the coalition agreement's choice to continue and strengthen the strategy.",
+   "evidence": [
+    {
+     "src": "risicoscan",
+     "text": "RIVM risk scan (June 2026) updates the 2019 quick scan that helped shape the strategy; the cabinet response was to be folded into the progress report."
+    },
+    {
+     "src": "R3",
+     "text": "The coalition agreement explicitly chooses to continue and strengthen the strategy; new attention for anti-rights movements and disinformation."
+    }
+   ]
+  },
+  {
+   "id": "c31",
+   "sp": "G3",
+   "role": "",
+   "status": "partial",
+   "pledge": "Inform Parliament through existing reports, annual reports and letters.",
+   "assessment": "Three progress letters, each requested by Parliament rather than scheduled, with a different structure each time and no indicators. In 2024 officials advised against a separate monitoring framework.",
+   "evidence": [
+    {
+     "src": "beslisnota-2024",
+     "text": "Decision note to the minister: 'Er is besloten geen apart monitoringskader in te richten voor de strategie.'"
+    },
+    {
+     "src": "R1",
+     "text": "First progress letter (18 Mar 2024), at Parliament's request ahead of a committee debate."
+    },
+    {
+     "src": "R2",
+     "text": "Second letter (1 Apr 2025), fulfilling a commitment to report before the end of 2024."
+    },
+    {
+     "src": "R3",
+     "text": "Third letter (29 Oct 2026), requested in March 2026; postponed from June via a letter of 29 May 2026."
+    }
+   ]
+  }
+ ],
+ "emerging": [
+  {
+   "title": "Health dis- and misinformation",
+   "first": "R3",
+   "text": "Not in the 2022 strategy. Now a cross-cutting focus, with a separate strategy on false health information (first outline sent to Parliament on 18 Nov 2025) that will include an international component.",
+   "src": [
+    "R3",
+    "risicoscan"
+   ]
+  },
+  {
+   "title": "Countering the anti-rights movement",
+   "first": "R3",
+   "text": "The 2026 report and the SRHR intensification letter frame SRHR work explicitly as pushback against an anti-rights and anti-democratic movement.",
+   "src": [
+    "R3",
+    "intens-2026"
+   ]
+  },
+  {
+   "title": "Outbreak response funding",
+   "first": "R2",
+   "text": "Mpox (2024) and the 2026 ebola outbreak led to ad-hoc money, and a new WHO fund for immediate crisis budget (€10m from NL).",
+   "src": [
+    "R2",
+    "R3"
+   ]
+  },
+  {
+   "title": "EU Global Health Resilience Initiative",
+   "first": "R3",
+   "text": "A new EU vehicle (COM(2026) 197) that bundles several MGS lines: WHO's central role, SRHR, AMR, One Health, local production and disinformation.",
+   "src": [
+    "ghri-fiche",
+    "R3"
+   ]
+  },
+  {
+   "title": "HIV prevention and cure research",
+   "first": "R3",
+   "text": "Announced lead role in accelerating research on HIV prevention and cure, with African scientists and communities in a decisive role.",
+   "src": [
+    "R3"
+   ]
+  },
+  {
+   "title": "Bilateral partnerships (GHPP)",
+   "first": "R1",
+   "text": "The Global Health Partnerships Programme did not exist in the 2022 text. It now has €2.3m a year (2026–2030) and projects with China, Indonesia, Kenya, Colombia, South Africa, India, Ethiopia and Uganda.",
+   "src": [
+    "R1",
+    "R3"
+   ]
+  }
+ ],
+ "sources": {
+  "S": {
+   "label": "Strategy (Oct 2022)",
+   "short": "Strategy"
+  },
+  "R1": {
+   "label": "1st progress report, 18 Mar 2024",
+   "short": "Report 1"
+  },
+  "R2": {
+   "label": "2nd progress report, 1 Apr 2025",
+   "short": "Report 2"
+  },
+  "R3": {
+   "label": "3rd progress report, 29 Oct 2026",
+   "short": "Report 3"
+  }
+ },
+ "reports": [
+  {
+   "id": "R1",
+   "date": "2024-03-18",
+   "ref": "Kamerstuk 36 180, nr. 96",
+   "ministers": "Van Leeuwen (BHO) & Dijkstra (Medische Zorg)",
+   "cabinet": "Rutte IV (caretaker)",
+   "trigger": "Requested by Parliament ahead of the committee debate of 21 Mar 2024",
+   "url": "https://zoek.officielebekendmakingen.nl/kst-36180-96.html",
+   "structure": "By priority and spearhead, mirroring the strategy"
+  },
+  {
+   "id": "R2",
+   "date": "2025-04-01",
+   "ref": "Kamerstuk 36 180, nr. 135",
+   "ministers": "Klever (BHO) & Agema (VWS)",
+   "cabinet": "Schoof",
+   "trigger": "Commitment TZ202404-032 (report before end of 2024)",
+   "url": "https://zoek.officielebekendmakingen.nl/kst-36180-135.html",
+   "structure": "By priority; spearheads dropped as headings"
+  },
+  {
+   "id": "R3",
+   "date": "2026-10-29",
+   "ref": "Tweede Kamer 2026D53840 (zaak 2026Z23345)",
+   "ministers": "Sjoerdsma (BHOS) & Hermans (VWS)",
+   "cabinet": "2026 coalition",
+   "trigger": "Requested by the BHO committee in March and May 2026; postponed to include the RIVM risk scan",
+   "url": "https://www.tweedekamer.nl/kamerstukken/brieven_regering/detail?id=2026Z23345&did=2026D53840",
+   "structure": "By priority, with themes and a forward look"
+  }
+ ],
+ "pulse": {
+  "note": "Number of mentions per 1,000 words, counted by keyword in the Dutch texts (strategy and the three progress letters). A rough signal of attention, not of effort.",
+  "terms": [
+   "WHO",
+   "SRHR",
+   "AMR",
+   "Pandemic preparedness",
+   "Climate",
+   "One Health & zoonoses",
+   "Local production & access",
+   "HIV/AIDS",
+   "Water, food & energy",
+   "EU / Team Europe",
+   "Africa",
+   "Global Health Hub",
+   "GHPP (bilateral)",
+   "Youth",
+   "Outbreaks (mpox, ebola)",
+   "Disinformation",
+   "Anti-rights movement"
+  ],
+  "docs": {
+   "S": {
+    "words": 14843,
+    "per1000": {
+     "WHO": 3.64,
+     "SRHR": 1.55,
+     "AMR": 2.63,
+     "Climate": 5.12,
+     "Pandemic preparedness": 4.78,
+     "EU / Team Europe": 4.31,
+     "Africa": 0.54,
+     "HIV/AIDS": 0.94,
+     "Local production & access": 1.01,
+     "Global Health Hub": 0.34,
+     "GHPP (bilateral)": 0.0,
+     "One Health & zoonoses": 3.03,
+     "Water, food & energy": 5.59,
+     "Youth": 1.15,
+     "Disinformation": 0.0,
+     "Anti-rights movement": 0.0,
+     "Outbreaks (mpox, ebola)": 0.0
+    },
+    "counts": {
+     "WHO": 54,
+     "SRHR": 23,
+     "AMR": 39,
+     "Climate": 76,
+     "Pandemic preparedness": 71,
+     "EU / Team Europe": 64,
+     "Africa": 8,
+     "HIV/AIDS": 14,
+     "Local production & access": 15,
+     "Global Health Hub": 5,
+     "GHPP (bilateral)": 0,
+     "One Health & zoonoses": 45,
+     "Water, food & energy": 83,
+     "Youth": 17,
+     "Disinformation": 0,
+     "Anti-rights movement": 0,
+     "Outbreaks (mpox, ebola)": 0
+    }
+   },
+   "R1": {
+    "words": 3563,
+    "per1000": {
+     "WHO": 5.05,
+     "SRHR": 3.93,
+     "AMR": 3.93,
+     "Climate": 4.21,
+     "Pandemic preparedness": 6.74,
+     "EU / Team Europe": 1.68,
+     "Africa": 1.68,
+     "HIV/AIDS": 1.96,
+     "Local production & access": 2.25,
+     "Global Health Hub": 0.56,
+     "GHPP (bilateral)": 1.12,
+     "One Health & zoonoses": 1.68,
+     "Water, food & energy": 4.21,
+     "Youth": 1.12,
+     "Disinformation": 0.0,
+     "Anti-rights movement": 0.0,
+     "Outbreaks (mpox, ebola)": 0.0
+    },
+    "counts": {
+     "WHO": 18,
+     "SRHR": 14,
+     "AMR": 14,
+     "Climate": 15,
+     "Pandemic preparedness": 24,
+     "EU / Team Europe": 6,
+     "Africa": 6,
+     "HIV/AIDS": 7,
+     "Local production & access": 8,
+     "Global Health Hub": 2,
+     "GHPP (bilateral)": 4,
+     "One Health & zoonoses": 6,
+     "Water, food & energy": 15,
+     "Youth": 4,
+     "Disinformation": 0,
+     "Anti-rights movement": 0,
+     "Outbreaks (mpox, ebola)": 0
+    }
+   },
+   "R2": {
+    "words": 1661,
+    "per1000": {
+     "WHO": 7.22,
+     "SRHR": 2.41,
+     "AMR": 2.41,
+     "Climate": 6.62,
+     "Pandemic preparedness": 3.61,
+     "EU / Team Europe": 0.6,
+     "Africa": 3.01,
+     "HIV/AIDS": 3.61,
+     "Local production & access": 1.2,
+     "Global Health Hub": 0.6,
+     "GHPP (bilateral)": 2.41,
+     "One Health & zoonoses": 0.0,
+     "Water, food & energy": 4.82,
+     "Youth": 1.2,
+     "Disinformation": 0.0,
+     "Anti-rights movement": 0.0,
+     "Outbreaks (mpox, ebola)": 1.81
+    },
+    "counts": {
+     "WHO": 12,
+     "SRHR": 4,
+     "AMR": 4,
+     "Climate": 11,
+     "Pandemic preparedness": 6,
+     "EU / Team Europe": 1,
+     "Africa": 5,
+     "HIV/AIDS": 6,
+     "Local production & access": 2,
+     "Global Health Hub": 1,
+     "GHPP (bilateral)": 4,
+     "One Health & zoonoses": 0,
+     "Water, food & energy": 8,
+     "Youth": 2,
+     "Disinformation": 0,
+     "Anti-rights movement": 0,
+     "Outbreaks (mpox, ebola)": 3
+    }
+   },
+   "R3": {
+    "words": 3798,
+    "per1000": {
+     "WHO": 5.79,
+     "SRHR": 3.95,
+     "AMR": 2.63,
+     "Climate": 7.37,
+     "Pandemic preparedness": 2.11,
+     "EU / Team Europe": 5.27,
+     "Africa": 2.9,
+     "HIV/AIDS": 4.48,
+     "Local production & access": 1.84,
+     "Global Health Hub": 1.84,
+     "GHPP (bilateral)": 1.58,
+     "One Health & zoonoses": 1.05,
+     "Water, food & energy": 3.42,
+     "Youth": 0.53,
+     "Disinformation": 1.58,
+     "Anti-rights movement": 1.05,
+     "Outbreaks (mpox, ebola)": 1.05
+    },
+    "counts": {
+     "WHO": 22,
+     "SRHR": 15,
+     "AMR": 10,
+     "Climate": 28,
+     "Pandemic preparedness": 8,
+     "EU / Team Europe": 20,
+     "Africa": 11,
+     "HIV/AIDS": 17,
+     "Local production & access": 7,
+     "Global Health Hub": 7,
+     "GHPP (bilateral)": 6,
+     "One Health & zoonoses": 4,
+     "Water, food & energy": 13,
+     "Youth": 2,
+     "Disinformation": 6,
+     "Anti-rights movement": 4,
+     "Outbreaks (mpox, ebola)": 4
+    }
+   }
+  }
+ },
+ "money": {
+  "series": {
+   "note": "BHOS budget article 3.1 'Mondiale gezondheid en SRGR', € million. 2018–2024 realised (IOB periodic report, Nov 2025); 2025–2027 as planned in October 2025, before the 2026 coalition's top-ups.",
+   "realised": [
+    [
+     2018,
+     445
+    ],
+    [
+     2019,
+     439
+    ],
+    [
+     2020,
+     423
+    ],
+    [
+     2021,
+     533
+    ],
+    [
+     2022,
+     579
+    ],
+    [
+     2023,
+     515
+    ],
+    [
+     2024,
+     543
+    ]
+   ],
+   "planned": [
+    [
+     2025,
+     448
+    ],
+    [
+     2026,
+     384
+    ],
+    [
+     2027,
+     385
+    ]
+   ],
+   "ambition": {
+    "year": 2023,
+    "value": 530,
+    "label": "Strategy: €530m for global health & SRHR in 2023"
+   },
+   "topups": [
+    {
+     "label": "Coalition: +€115.5m extra from 2026",
+     "src": "R3"
+    },
+    {
+     "label": "+€84.5m to GFF, 2027–2030 (10 / 24.6 / 17.6 / 32.3)",
+     "src": "intens-2026"
+    },
+    {
+     "label": "+€10m a year structurally from 2032",
+     "src": "intens-2026"
+    }
+   ]
+  },
+  "ledger": [
+   {
+    "what": "Global Financing Facility – core",
+    "eur": 119.5,
+    "period": "2026–2030",
+    "p": "P1",
+    "src": "R3"
+   },
+   {
+    "what": "Global Financing Facility – intensification",
+    "eur": 84.5,
+    "period": "2027–2030",
+    "p": "P1",
+    "src": "intens-2026"
+   },
+   {
+    "what": "UNFPA Supplies",
+    "eur": 110,
+    "period": "2024–2028",
+    "p": "P1",
+    "src": "R3"
+   },
+   {
+    "what": "Global Financing Facility (earlier round)",
+    "eur": 90,
+    "period": "2023–2025",
+    "p": "P1",
+    "src": "R1"
+   },
+   {
+    "what": "CEPI",
+    "eur": 64,
+    "period": "since 2021",
+    "p": "P2",
+    "src": "R3"
+   },
+   {
+    "what": "Ukraine: WHO, GFF, UNFPA, UNAIDS",
+    "eur": 27,
+    "period": "2022–2023",
+    "p": "P1",
+    "src": "R1"
+   },
+   {
+    "what": "WHO unearmarked contribution, top-up",
+    "eur": 5,
+    "period": "per year, 2022–2026",
+    "p": "P1",
+    "src": "R1",
+    "yearly": true
+   },
+   {
+    "what": "Pandemic Fund",
+    "eur": 20,
+    "period": "since 2023",
+    "p": "P2",
+    "src": "R3"
+   },
+   {
+    "what": "Safe Abortion Action Fund",
+    "eur": 12,
+    "period": "2027–2030",
+    "p": "P1",
+    "src": "R3"
+   },
+   {
+    "what": "GHPP bilateral partnerships (€2.3m/yr)",
+    "eur": 11.5,
+    "period": "2026–2030",
+    "p": "G",
+    "src": "R3"
+   },
+   {
+    "what": "IPPF Fight Back Fund",
+    "eur": 11,
+    "period": "2026",
+    "p": "P1",
+    "src": "R3"
+   },
+   {
+    "what": "Team Europe: manufacturing in Africa",
+    "eur": 10,
+    "period": "from 2024",
+    "p": "P2",
+    "src": "R2"
+   },
+   {
+    "what": "WHO fund for immediate crisis budget",
+    "eur": 10,
+    "period": "2026",
+    "p": "P2",
+    "src": "R3"
+   },
+   {
+    "what": "AMR Multi-Partner Trust Fund (€2m/yr)",
+    "eur": 8,
+    "period": "2026–2029",
+    "p": "P2",
+    "src": "R3"
+   },
+   {
+    "what": "Ebola response: WHO and Africa CDC",
+    "eur": 7,
+    "period": "2026",
+    "p": "P2",
+    "src": "R3"
+   },
+   {
+    "what": "UNFPA one-off top-up",
+    "eur": 7,
+    "period": "2026",
+    "p": "P1",
+    "src": "R3"
+   },
+   {
+    "what": "GARDP (new antibiotics)",
+    "eur": 5,
+    "period": "2025–2029",
+    "p": "P2",
+    "src": "R3"
+   },
+   {
+    "what": "Mpox: WHO response plan (+ ~48,000 vaccines)",
+    "eur": 3,
+    "period": "2024",
+    "p": "P2",
+    "src": "R2"
+   },
+   {
+    "what": "Gavi top-up",
+    "eur": 3,
+    "period": "2026",
+    "p": "P2",
+    "src": "R3"
+   },
+   {
+    "what": "DRC outbreaks, AMR and surveillance (incidental)",
+    "eur": 2.9,
+    "period": "2026",
+    "p": "P2",
+    "src": "R3"
+   },
+   {
+    "what": "WHO ATACH climate & health alliance",
+    "eur": 1,
+    "period": "2026",
+    "p": "P3",
+    "src": "R3"
+   }
+  ]
+ },
+ "risks": {
+  "note": "The RIVM risk scan (June 2026) lists the main international threats to Dutch public health for the next ten years. Order as given in the RIVM summary of section 3.1. Coverage is this site's desk judgement of how directly the strategy and its reports address each threat.",
+  "items": [
+   {
+    "rank": 1,
+    "threat": "Rising antimicrobial resistance",
+    "cluster": "Infectious disease & resistance",
+    "cover": "strong",
+    "p": "P2",
+    "why": "Spearhead P2b; multi-year funding (AMR MPTF, GARDP) and GHPP surveillance."
+   },
+   {
+    "rank": 2,
+    "threat": "Climate change: heat and weather extremes",
+    "cluster": "Climate & environment",
+    "cover": "strong",
+    "p": "P3",
+    "why": "Priority 3; strongest diplomatic track record (WHA resolution, global action plan)."
+   },
+   {
+    "rank": 3,
+    "threat": "Rapid spread of dis- and misinformation",
+    "cluster": "Information integrity & behaviour",
+    "cover": "partial",
+    "p": "new",
+    "why": "Absent in 2022; a separate strategy is being drafted, with an international component still to be defined."
+   },
+   {
+    "rank": 4,
+    "threat": "Spread of infectious diseases",
+    "cluster": "Infectious disease & resistance",
+    "cover": "strong",
+    "p": "P2",
+    "why": "Pandemic agreement, Pandemic Fund, CEPI, outbreak funding."
+   },
+   {
+    "rank": 5,
+    "threat": "Weakening of international health organisations",
+    "cluster": "International cooperation",
+    "cover": "strong",
+    "p": "P1",
+    "why": "WHO reform and architecture reform are priority 1; core funding held flat."
+   },
+   {
+    "rank": 6,
+    "threat": "Environmental pollution",
+    "cluster": "Climate & environment",
+    "cover": "partial",
+    "p": "P3",
+    "why": "Addressed only via the health sector's own footprint."
+   },
+   {
+    "rank": 7,
+    "threat": "Loss of biodiversity",
+    "cluster": "Climate & environment",
+    "cover": "gap",
+    "p": "P3",
+    "why": "Named as a planetary crisis in 2024; no line of action."
+   },
+   {
+    "rank": 8,
+    "threat": "Dependence on global supply chains",
+    "cluster": "Critical infrastructure & chains",
+    "cover": "partial",
+    "p": "P2",
+    "why": "Local production abroad is well covered; Dutch supply security is mostly handled outside the strategy."
+   },
+   {
+    "rank": 9,
+    "threat": "Less effective international surveillance and response",
+    "cluster": "Infectious disease & resistance",
+    "cover": "partial",
+    "p": "P2",
+    "why": "GHPP surveillance projects and the WHO crisis fund; no systematic view."
+   },
+   {
+    "rank": 10,
+    "threat": "Falling uptake of vaccination and screening",
+    "cluster": "Information integrity & behaviour",
+    "cover": "gap",
+    "p": "—",
+    "why": "Treated as a domestic issue; Gavi support targets low-income countries."
+   },
+   {
+    "rank": 11,
+    "threat": "Growing global (income) inequality",
+    "cluster": "International cooperation",
+    "cover": "strong",
+    "p": "P1",
+    "why": "Foundation of the strategy: UHC, SRHR, GFF."
+   },
+   {
+    "rank": 12,
+    "threat": "Hybrid threats (cyber attacks, sabotage, espionage)",
+    "cluster": "Critical infrastructure & chains",
+    "cover": "gap",
+    "p": "—",
+    "why": "Not addressed in the strategy or its reports."
+   },
+   {
+    "rank": 13,
+    "threat": "Pressure on multilateral cooperation",
+    "cluster": "International cooperation",
+    "cover": "strong",
+    "p": "P1",
+    "why": "Core of priority 1 and of the GHRI."
+   },
+   {
+    "rank": 14,
+    "threat": "Declining trust in politics and science",
+    "cluster": "Information integrity & behaviour",
+    "cover": "partial",
+    "p": "new",
+    "why": "Touched via disinformation; no international line."
+   },
+   {
+    "rank": 15,
+    "threat": "Pressure on the independence of knowledge institutions",
+    "cluster": "International cooperation",
+    "cover": "gap",
+    "p": "—",
+    "why": "Not addressed."
+   }
+  ]
+ },
+ "partners": [
+  {
+   "country": "China",
+   "iso": "CHN",
+   "track": "GHPP",
+   "themes": [
+    "Climate & health"
+   ],
+   "text": "Green hospital development; cutting hospital CO₂ emissions and resource use.",
+   "src": [
+    "R1",
+    "R2",
+    "R3"
+   ]
+  },
+  {
+   "country": "Indonesia",
+   "iso": "IDN",
+   "track": "GHPP",
+   "themes": [
+    "AMR & surveillance",
+    "Local production"
+   ],
+   "text": "Production of medicines and vaccines; surveillance and early warning; a bridge to ASEAN; inspectors trained (2025).",
+   "src": [
+    "R2",
+    "R3"
+   ]
+  },
+  {
+   "country": "Kenya",
+   "iso": "KEN",
+   "track": "GHPP",
+   "themes": [
+    "Climate & health",
+    "Health systems"
+   ],
+   "text": "Green guidelines for facilities, a national health adaptation plan, an air-quality and heat-stress risk model shown at COP; earlier a health combitrack.",
+   "src": [
+    "R1",
+    "R2",
+    "R3"
+   ]
+  },
+  {
+   "country": "Colombia",
+   "iso": "COL",
+   "track": "GHPP",
+   "themes": [
+    "AMR & surveillance"
+   ],
+   "text": "Faster AMR detection in the surveillance system; relevant for Caribbean Netherlands patients treated in Colombia.",
+   "src": [
+    "R2",
+    "R3"
+   ]
+  },
+  {
+   "country": "South Africa",
+   "iso": "ZAF",
+   "track": "GHPP",
+   "themes": [
+    "AMR & surveillance"
+   ],
+   "text": "Detecting pathogens in wastewater; surveillance and early warning.",
+   "src": [
+    "R2",
+    "R3"
+   ]
+  },
+  {
+   "country": "India",
+   "iso": "IND",
+   "track": "GHPP",
+   "themes": [
+    "Climate & health",
+    "Local production"
+   ],
+   "text": "Since 2026 risk communication and community engagement on weather and health; Memorandum of Intent on medical supply chains; inspectors trained (2026).",
+   "src": [
+    "R2",
+    "R3"
+   ]
+  },
+  {
+   "country": "Ethiopia",
+   "iso": "ETH",
+   "track": "GHPP + focus",
+   "themes": [
+    "Biosafety",
+    "Health systems"
+   ],
+   "text": "Biosafety and biosecurity of high-risk pathogens; earlier drought preparedness and GFF results; GHH circular care project.",
+   "src": [
+    "R1",
+    "R3"
+   ]
+  },
+  {
+   "country": "Uganda",
+   "iso": "UGA",
+   "track": "GHPP + focus",
+   "themes": [
+    "Biosafety"
+   ],
+   "text": "Biosafety and biosecurity of laboratories.",
+   "src": [
+    "R3"
+   ]
+  },
+  {
+   "country": "Egypt",
+   "iso": "EGY",
+   "track": "Training",
+   "themes": [
+    "Local production"
+   ],
+   "text": "Inspectors trained at the Biotech Training Facility (2025).",
+   "src": [
+    "R3"
+   ]
+  },
+  {
+   "country": "Benin",
+   "iso": "BEN",
+   "track": "Focus",
+   "themes": [
+    "SRHR"
+   ],
+   "text": "Implementing a new law on safe abortion; co-host of a youth dialogue.",
+   "src": [
+    "R2"
+   ]
+  },
+  {
+   "country": "Burkina Faso",
+   "iso": "BFA",
+   "track": "Focus",
+   "themes": [
+    "SRHR"
+   ],
+   "text": "Clinic capacity and quality of SRHR services; GFF safe-birth gains.",
+   "src": [
+    "R1"
+   ]
+  },
+  {
+   "country": "Niger",
+   "iso": "NER",
+   "track": "Focus",
+   "themes": [
+    "SRHR"
+   ],
+   "text": "Youth SRHR programme to prevent unintended pregnancies.",
+   "src": [
+    "R2"
+   ]
+  },
+  {
+   "country": "Mozambique",
+   "iso": "MOZ",
+   "track": "Focus",
+   "themes": [
+    "HIV"
+   ],
+   "text": "Key populations trained to assess HIV service quality; Gavi–GFF cooperation on zero-dose children.",
+   "src": [
+    "R1",
+    "R2"
+   ]
+  },
+  {
+   "country": "DR Congo",
+   "iso": "COD",
+   "track": "Response",
+   "themes": [
+    "Outbreaks"
+   ],
+   "text": "Ebola response funding via WHO and Africa CDC; incidental support for disease control and surveillance.",
+   "src": [
+    "R3"
+   ]
+  },
+  {
+   "country": "Ukraine",
+   "iso": "UKR",
+   "track": "Humanitarian",
+   "themes": [
+    "Health systems",
+    "HIV"
+   ],
+   "text": "€27m in 2022–2023 for basic care via WHO, GFF, UNFPA and UNAIDS; HIV work with UNAIDS.",
+   "src": [
+    "R1",
+    "R2"
+   ]
+  },
+  {
+   "country": "Ghana",
+   "iso": "GHA",
+   "track": "GHH",
+   "themes": [
+    "Climate & health"
+   ],
+   "text": "Global Health Hub project on circular care and maternity care.",
+   "src": [
+    "R3"
+   ]
+  },
+  {
+   "country": "Suriname",
+   "iso": "SUR",
+   "track": "GHH",
+   "themes": [
+    "Climate & health"
+   ],
+   "text": "Global Health Hub project on circular care and maternity care.",
+   "src": [
+    "R3"
+   ]
+  },
+  {
+   "country": "Denmark",
+   "iso": "DNK",
+   "track": "GHH",
+   "themes": [
+    "Climate & health"
+   ],
+   "text": "Global Health Hub project on green hospitals.",
+   "src": [
+    "R3"
+   ]
+  },
+  {
+   "country": "Nigeria",
+   "iso": "NGA",
+   "track": "Trade",
+   "themes": [
+    "Health systems"
+   ],
+   "text": "LSH trade mission; blood transfusion agreement with a Dutch company.",
+   "src": [
+    "R2"
+   ]
+  },
+  {
+   "country": "Peru",
+   "iso": "PER",
+   "track": "Diplomacy",
+   "themes": [
+    "Climate & health"
+   ],
+   "text": "Co-led the WHA resolution on climate change and health.",
+   "src": [
+    "R1",
+    "R3"
+   ]
+  },
+  {
+   "country": "Palau",
+   "iso": "PLW",
+   "track": "Diplomacy",
+   "themes": [
+    "Climate & health"
+   ],
+   "text": "Co-chairs with NL of the Friends of Climate and Health in the UNFCCC.",
+   "src": [
+    "R3"
+   ]
+  }
+ ],
+ "parliament": [
+  {
+   "kind": "Commitment",
+   "id": "TZ202404-032",
+   "date": "2024-04-04",
+   "title": "Send a progress report before the end of the year",
+   "by": "Minister BHO",
+   "status": "done-late",
+   "note": "Promised for end-2024; delivered on 1 April 2025 (report 2).",
+   "url": "https://www.tweedekamer.nl/kamerstukken/toezeggingen/detail?id=TZ202404-032"
+  },
+  {
+   "kind": "Motion",
+   "id": "36 180, nr. 107",
+   "date": "2024-10-03",
+   "title": "Motie Dobbe — SRHR and civil society",
+   "by": "Dobbe (SP)",
+   "status": "done",
+   "note": "Declared done in report 3 through the SRHR-Next alliance of 11 Dutch NGOs.",
+   "url": "https://zoek.officielebekendmakingen.nl/kst-36180-107.html"
+  },
+  {
+   "kind": "Motion",
+   "id": "36 180, nr. 111",
+   "date": "",
+   "title": "Motie Kamminga — harmful practices",
+   "by": "Kamminga c.s.",
+   "status": "done",
+   "note": "Declared done in report 3 through the Focus instrument against FGM and child marriage (2026).",
+   "url": "https://zoek.officielebekendmakingen.nl/kst-36180-111.html"
+  },
+  {
+   "kind": "Motion",
+   "id": "Hirsch c.s.",
+   "date": "",
+   "title": "Motie Hirsch c.s. — access to medicines via socially responsible licensing",
+   "by": "Hirsch c.s.",
+   "status": "ongoing",
+   "note": "Follow-up through the Global Health Hub in June 2025 and September 2026.",
+   "url": ""
+  },
+  {
+   "kind": "Motion",
+   "id": "36 915 XVII, nr. 11",
+   "date": "2026-06-11",
+   "title": "Motie Bamenga c.s. — ebola response",
+   "by": "Bamenga (D66) c.s.",
+   "status": "done",
+   "note": "Declared done with €7m for WHO and Africa CDC.",
+   "url": "https://zoek.officielebekendmakingen.nl/kst-36915-XVII-11.html"
+  },
+  {
+   "kind": "Motion",
+   "id": "36 915 XVII, nr. 18",
+   "date": "2026-06-11",
+   "title": "Motie Lohman & Kröger — UNFPA and Gavi",
+   "by": "Lohman & Kröger",
+   "status": "done",
+   "note": "Declared done with €7m extra for UNFPA and €3m extra for Gavi.",
+   "url": "https://zoek.officielebekendmakingen.nl/kst-36915-XVII-18.html"
+  },
+  {
+   "kind": "Commitment",
+   "id": "32 793, nr. 912",
+   "date": "2026-06-30",
+   "title": "Include the cabinet response to the RIVM risk scan in the next progress report",
+   "by": "Minister VWS",
+   "status": "partial",
+   "note": "Report 3 cites the risk scan throughout but has no separate response to its recommendations.",
+   "url": "https://zoek.officielebekendmakingen.nl/kst-32793-912.html"
+  },
+  {
+   "kind": "Commitment",
+   "id": "36 180, nr. 221",
+   "date": "2026-05-29",
+   "title": "Send the progress report by the end of September 2026",
+   "by": "Minister BHOS",
+   "status": "done-late",
+   "note": "Delivered on 29 October 2026.",
+   "url": "https://zoek.officielebekendmakingen.nl/kst-36180-221.html"
+  },
+  {
+   "kind": "Commitment",
+   "id": "CD 5 Nov 2026",
+   "date": "2026-11-05",
+   "title": "Inform the House on the Dutch position on a new EU EDCTP programme and on GFF debt instruments",
+   "by": "Minister BHOS",
+   "status": "open",
+   "note": "When concrete steps are taken; no timeline given.",
+   "url": "https://ikregeer.nl/tweede-kamer/document/2026D57547"
+  },
+  {
+   "kind": "Commitment",
+   "id": "CD 5 Nov 2026",
+   "date": "2026-11-05",
+   "title": "Come back on securing access up front in Team Europe funding for local production",
+   "by": "Minister BHOS",
+   "status": "open",
+   "note": "",
+   "url": "https://ikregeer.nl/tweede-kamer/document/2026D57547"
+  },
+  {
+   "kind": "Commitment",
+   "id": "CD 5 Nov 2026",
+   "date": "2026-11-05",
+   "title": "Report on the WHO climate & health action plan at the next WHA report, and answer climate questions in writing",
+   "by": "Minister VWS",
+   "status": "open",
+   "note": "",
+   "url": "https://ikregeer.nl/tweede-kamer/document/2026D57547"
+  }
+ ],
+ "timeline": [
+  {
+   "date": "2022-07-07",
+   "kind": "policy",
+   "title": "Cabinet response to AIV advice 'Fundament voor een Nederlandse mondiale gezondheidsstrategie'",
+   "src": ""
+  },
+  {
+   "date": "2022-10-21",
+   "kind": "policy",
+   "title": "Strategy published: 'Samen zorgen voor gezondheid wereldwijd'",
+   "src": "strategy"
+  },
+  {
+   "date": "2022-11-30",
+   "kind": "eu",
+   "title": "EU Global Health Strategy published",
+   "src": ""
+  },
+  {
+   "date": "2023-03-22",
+   "kind": "event",
+   "title": "UN 2023 Water Conference, co-hosted by the Netherlands",
+   "src": "R1"
+  },
+  {
+   "date": "2023-09-28",
+   "kind": "milestone",
+   "title": "Dutch Global Health Hub launched; Global Health Pact signed",
+   "src": "ghh-launch"
+  },
+  {
+   "date": "2023-11-01",
+   "kind": "milestone",
+   "title": "World Local Production Forum hosted in the Netherlands (850+ participants)",
+   "src": "R1"
+  },
+  {
+   "date": "2023-12-19",
+   "kind": "evaluation",
+   "title": "IOB evaluation of Dutch SRHR policy 2012–2022 and cabinet response",
+   "src": "iob-srgr"
+  },
+  {
+   "date": "2024-03-18",
+   "kind": "report",
+   "title": "Progress report 1",
+   "src": "R1"
+  },
+  {
+   "date": "2024-04-04",
+   "kind": "parliament",
+   "title": "Committee debate on the strategy (after two postponements)",
+   "src": ""
+  },
+  {
+   "date": "2024-05-16",
+   "kind": "policy",
+   "title": "National AMR Action Plan 2024–2030",
+   "src": "amr-plan"
+  },
+  {
+   "date": "2024-05-28",
+   "kind": "milestone",
+   "title": "WHA resolution on climate change and health, led by NL and Peru",
+   "src": "R2"
+  },
+  {
+   "date": "2024-09-26",
+   "kind": "event",
+   "title": "UN High-Level Meeting on AMR: political declaration",
+   "src": "R2"
+  },
+  {
+   "date": "2025-04-01",
+   "kind": "report",
+   "title": "Progress report 2",
+   "src": "R2"
+  },
+  {
+   "date": "2025-05-20",
+   "kind": "milestone",
+   "title": "WHO Pandemic Agreement adopted; PABS annex negotiations start",
+   "src": "R3"
+  },
+  {
+   "date": "2025-10-07",
+   "kind": "money",
+   "title": "Letter on falling global health budgets (€543m in 2024 to €384m in 2026)",
+   "src": "bhos-cuts-2025"
+  },
+  {
+   "date": "2025-11-01",
+   "kind": "evaluation",
+   "title": "IOB periodic report on Social Progress 2018–2024 (incl. global health and SRHR)",
+   "src": "iob-pr"
+  },
+  {
+   "date": "2025-12-01",
+   "kind": "eu",
+   "title": "EPSCO: NL calls for an EU climate-and-health strategy",
+   "src": "R3"
+  },
+  {
+   "date": "2026-04-24",
+   "kind": "policy",
+   "title": "Foreign Affairs policy letter 2026 and VWS policy letter 2026",
+   "src": "bz-beleidsbrief"
+  },
+  {
+   "date": "2026-05-13",
+   "kind": "eu",
+   "title": "Commission communication on the Global Health Resilience Initiative (COM(2026) 197)",
+   "src": "ghri-fiche"
+  },
+  {
+   "date": "2026-05-29",
+   "kind": "parliament",
+   "title": "Progress report postponed to include the RIVM risk scan",
+   "src": "uitstel"
+  },
+  {
+   "date": "2026-06-19",
+   "kind": "eu",
+   "title": "BNC fiche on the GHRI: cabinet positive, asks for clarity on money",
+   "src": "ghri-fiche"
+  },
+  {
+   "date": "2026-06-30",
+   "kind": "evaluation",
+   "title": "RIVM risk scan of international threats to Dutch public health",
+   "src": "risicoscan"
+  },
+  {
+   "date": "2026-10-23",
+   "kind": "money",
+   "title": "Letter on the health and SRHR intensification: +€84.5m via GFF (2027–2030)",
+   "src": "intens-2026"
+  },
+  {
+   "date": "2026-10-29",
+   "kind": "report",
+   "title": "Progress report 3",
+   "src": "R3"
+  },
+  {
+   "date": "2026-11-05",
+   "kind": "parliament",
+   "title": "Committee debate Mondiale gezondheid (BHOS and VWS)",
+   "src": "debate-2026"
+  },
+  {
+   "date": "2026-11-10",
+   "kind": "event",
+   "title": "COP31: NL aims to integrate health into UN climate programmes",
+   "src": "R3"
+  },
+  {
+   "date": "2027-05-01",
+   "kind": "future",
+   "title": "WHA80: report on the climate & health action plan (commitment)",
+   "src": "debate-2026"
+  },
+  {
+   "date": "2027-06-01",
+   "kind": "future",
+   "title": "IPPF annual meeting hosted in The Hague",
+   "src": "R3",
+   "approx": "year"
+  },
+  {
+   "date": "2030-12-31",
+   "kind": "future",
+   "title": "End of the strategy period",
+   "src": "strategy"
+  }
+ ],
+ "indicators": {
+  "note": "The strategy has no indicators. These are suggestions for an implementation framework, each tied to data that already exists publicly, so tracking costs little.",
+  "items": [
+   {
+    "p": "P1",
+    "name": "Share of WHO's budget from assessed contributions; Dutch flexible funding to WHO",
+    "source": "WHO Programme Budget portal",
+    "url": "https://open.who.int/"
+   },
+   {
+    "p": "P1",
+    "name": "Maternal mortality and family planning results in GFF partner countries",
+    "source": "GFF data portal",
+    "url": "https://data.gffportal.org/"
+   },
+   {
+    "p": "P1",
+    "name": "Dutch ODA to health and SRHR, by channel and country",
+    "source": "IATI / d-portal",
+    "url": "https://d-portal.org/"
+   },
+   {
+    "p": "P2",
+    "name": "PABS annex concluded; pandemic agreement signatures and ratifications",
+    "source": "WHO IGWG pages",
+    "url": "https://apps.who.int/gb/igwg/"
+   },
+   {
+    "p": "P2",
+    "name": "Partner countries with a funded national AMR action plan (TrACSS)",
+    "source": "Quadripartite TrACSS",
+    "url": "https://amrcountryprogress.org/"
+   },
+   {
+    "p": "P2",
+    "name": "JEE / SPAR capacity scores in GHPP partner countries",
+    "source": "WHO SPAR & JEE",
+    "url": "https://extranet.who.int/e-spar/"
+   },
+   {
+    "p": "P3",
+    "name": "Countries with a health national adaptation plan and net-zero health commitment (ATACH tracker)",
+    "source": "ATACH commitment tracker",
+    "url": "https://www.atachcommunity.com/"
+   },
+   {
+    "p": "P3",
+    "name": "People reached with clean cooking and electricity (target: 100 million by 2030)",
+    "source": "BHOS annual report results",
+    "url": "https://www.rijksfinancien.nl/"
+   },
+   {
+    "p": "G",
+    "name": "Interdepartmental steering group meetings held and bottlenecks reported",
+    "source": "Progress reports (not yet reported)",
+    "url": ""
+   },
+   {
+    "p": "G",
+    "name": "Global Health Hub partners and joint projects",
+    "source": "Global Health Hub NL",
+    "url": ""
+   }
+  ]
+ },
+ "observations": [
+  {
+   "title": "A strategy without a scoreboard",
+   "text": "There are no indicators, targets or baselines, apart from the 100 million clean cooking target. In 2024 officials advised against a separate monitoring framework. Each progress letter therefore tells a story rather than measuring progress.",
+   "src": [
+    "beslisnota-2024",
+    "S"
+   ]
+  },
+  {
+   "title": "Reports on request, not by design",
+   "text": "All three letters were triggered by Parliament, two of them later than promised. The structure changes every time: spearheads were dropped as headings after the first report.",
+   "src": [
+    "R1",
+    "R2",
+    "R3"
+   ]
+  },
+  {
+   "title": "Money first fell, then rose",
+   "text": "The intensification path of the strategy did not survive the 2023–2025 cuts. Budget article 3.1 dropped about 30% between 2024 and the 2026 plan, before the 2026 coalition added money mainly through the GFF.",
+   "src": [
+    "bhos-cuts-2025",
+    "intens-2026",
+    "R1"
+   ]
+  },
+  {
+   "title": "Climate diplomacy is the Dutch signature",
+   "text": "Priority 3 has the clearest sequence of results: resolution, action plan, Friends group, EU call. It also has the least money attached.",
+   "src": [
+    "R2",
+    "R3"
+   ]
+  },
+  {
+   "title": "Governance promises went quiet",
+   "text": "The steering group, the 2025 re-calibration and the EU Horizon pandemic investment are never reported on. The Global Health Hub is the governance success.",
+   "src": [
+    "S",
+    "R1",
+    "R3"
+   ]
+  },
+  {
+   "title": "The threat picture moved on",
+   "text": "Disinformation, hybrid threats and the weakening of multilateral institutions rank high in the 2026 RIVM risk scan. The strategy text predates them; the 2026 report has started to adapt.",
+   "src": [
+    "risicoscan",
+    "R3"
+   ]
+  }
+ ],
+ "library": [
+  {
+   "id": "strategy",
+   "date": "2022-10-21",
+   "type": "Strategy",
+   "title": "Nederlandse mondiale gezondheidsstrategie 2023–2030: Samen zorgen voor gezondheid wereldwijd",
+   "ref": "Kamerstuk 36 180, nr. 25 (bijlage)",
+   "by": "BZ & VWS",
+   "url": "https://zoek.officielebekendmakingen.nl/blg-1059095.pdf"
+  },
+  {
+   "id": "strategy-en",
+   "date": "2023-03-29",
+   "type": "Strategy",
+   "title": "Dutch Global Health Strategy 2023–2030 (English)",
+   "ref": "Government.nl",
+   "by": "BZ & VWS",
+   "url": "https://www.government.nl/documents/2023/03/29/dutch-global-health-strategy"
+  },
+  {
+   "id": "strategy-letter",
+   "date": "2022-10-21",
+   "type": "Letter",
+   "title": "Kamerbrief bij de mondiale gezondheidsstrategie",
+   "ref": "Kamerstuk 36 180, nr. 25",
+   "by": "BZ & VWS",
+   "url": "https://zoek.officielebekendmakingen.nl/kst-36180-25.html"
+  },
+  {
+   "id": "R1",
+   "date": "2024-03-18",
+   "type": "Progress report",
+   "title": "Voortgangsrapportage Nederlandse mondiale gezondheidsstrategie",
+   "ref": "Kamerstuk 36 180, nr. 96",
+   "by": "BHO & Medische Zorg",
+   "url": "https://zoek.officielebekendmakingen.nl/kst-36180-96.html"
+  },
+  {
+   "id": "beslisnota-2024",
+   "date": "2024-03-13",
+   "type": "Decision note",
+   "title": "Beslisnota bij de eerste voortgangsrapportage (Woo)",
+   "ref": "blg-1136014",
+   "by": "BZ",
+   "url": "https://zoek.officielebekendmakingen.nl/blg-1136014.pdf"
+  },
+  {
+   "id": "R2",
+   "date": "2025-04-01",
+   "type": "Progress report",
+   "title": "Tweede voortgangsrapportage Nederlandse mondiale gezondheidsstrategie",
+   "ref": "Kamerstuk 36 180, nr. 135",
+   "by": "BHO & VWS",
+   "url": "https://zoek.officielebekendmakingen.nl/kst-36180-135.html"
+  },
+  {
+   "id": "R3",
+   "date": "2026-10-29",
+   "type": "Progress report",
+   "title": "Derde voortgangsrapportage Nederlandse mondiale gezondheidsstrategie",
+   "ref": "2026D53840",
+   "by": "BHOS & VWS",
+   "url": "https://www.tweedekamer.nl/kamerstukken/brieven_regering/detail?id=2026Z23345&did=2026D53840"
+  },
+  {
+   "id": "uitstel",
+   "date": "2026-05-29",
+   "type": "Letter",
+   "title": "Uitstel voortgangsrapportage mondiale gezondheidsstrategie",
+   "ref": "Kamerstuk 36 180, nr. 221",
+   "by": "BHOS",
+   "url": "https://zoek.officielebekendmakingen.nl/kst-36180-221.html"
+  },
+  {
+   "id": "intens-2026",
+   "date": "2026-10-23",
+   "type": "Letter",
+   "title": "Nadere inzet op gezondheid en SRGR en invulling intensivering artikel 3.1",
+   "ref": "Kamerstuk 36 180, nr. 256",
+   "by": "BHOS",
+   "url": "https://zoek.officielebekendmakingen.nl/kst-1279005.pdf"
+  },
+  {
+   "id": "bhos-cuts-2025",
+   "date": "2025-10-07",
+   "type": "Letter",
+   "title": "Brief over gevolgen van bezuinigingen (dalende budgetten mondiale gezondheid)",
+   "ref": "Kamerstuk 36 180, nr. 177",
+   "by": "BZ",
+   "url": "https://zoek.officielebekendmakingen.nl/kst-36180-177.html"
+  },
+  {
+   "id": "bz-beleidsbrief",
+   "date": "2026-04-24",
+   "type": "Policy letter",
+   "title": "Beleidsbrief Buitenlandse Zaken 2026",
+   "ref": "Kamerstuk 36 800-V, nr. 103",
+   "by": "BZ & BHOS",
+   "url": "https://zoek.officielebekendmakingen.nl/kst-36800-V-103.html"
+  },
+  {
+   "id": "vws-beleidsbrief",
+   "date": "2026-04-24",
+   "type": "Policy letter",
+   "title": "Beleidsbrief Volksgezondheid, Welzijn en Sport 2026",
+   "ref": "Kamerstuk 36 800-XVI, nr. 191",
+   "by": "VWS",
+   "url": "https://zoek.officielebekendmakingen.nl/kst-36800-XVI-191.html"
+  },
+  {
+   "id": "ghri-fiche",
+   "date": "2026-06-19",
+   "type": "EU fiche",
+   "title": "Fiche: Versterking van de wereldwijde veerkracht op gezondheidsgebied (GHRI)",
+   "ref": "Kamerstuk 22 112, nr. 4385",
+   "by": "BZ",
+   "url": "https://zoek.officielebekendmakingen.nl/kst-22112-4385.html"
+  },
+  {
+   "id": "risicoscan",
+   "date": "2026-06-30",
+   "type": "Risk assessment",
+   "title": "Risicoscan internationale dreigingen voor de Nederlandse volksgezondheid",
+   "ref": "RIVM-rapport 2026-0039; Kamerstuk 32 793, nr. 912",
+   "by": "RIVM for VWS",
+   "url": "https://www.rivm.nl/publicaties/risicoscan-internationale-dreigingen-voor-nederlandse-volksgezondheid-nederland-beter"
+  },
+  {
+   "id": "risicoscan-letter",
+   "date": "2026-06-30",
+   "type": "Letter",
+   "title": "Aanbieding RIVM-rapport Risicoscan internationale dreigingen",
+   "ref": "Kamerstuk 32 793, nr. 912",
+   "by": "VWS",
+   "url": "https://zoek.officielebekendmakingen.nl/kst-32793-912.html"
+  },
+  {
+   "id": "amr-plan",
+   "date": "2024-05-16",
+   "type": "Action plan",
+   "title": "Nationaal Actieplan Antimicrobiële Resistentie 2024–2030",
+   "ref": "Kamerstuk 32 793, nr. 753",
+   "by": "VWS, LNV & IenW",
+   "url": "https://zoek.officielebekendmakingen.nl/kst-32793-753.html"
+  },
+  {
+   "id": "iob-srgr",
+   "date": "2023-12-19",
+   "type": "Evaluation",
+   "title": "IOB: Consistent efforts, persisting challenges — SRHR 2012–2022, with policy response",
+   "ref": "Kamerstuk 33 625, nr. 351",
+   "by": "IOB / BZ",
+   "url": "https://zoek.officielebekendmakingen.nl/kst-33625-351.html"
+  },
+  {
+   "id": "iob-pr",
+   "date": "2025-11-01",
+   "type": "Evaluation",
+   "title": "IOB periodieke rapportage Sociale Vooruitgang 2018–2024",
+   "ref": "Kamerstuk 34 124, nr. 33",
+   "by": "IOB / BZ",
+   "url": "https://zoek.officielebekendmakingen.nl/kst-34124-33.html"
+  },
+  {
+   "id": "suppl-2026",
+   "date": "2026-06-01",
+   "type": "Budget",
+   "title": "Eerste suppletoire begroting BHO 2026 (incl. +€11m mondiale gezondheid en SRGR)",
+   "ref": "Kamerstuk 36 915-XVII, nr. 2",
+   "by": "BHOS",
+   "url": "https://zoek.officielebekendmakingen.nl/kst-36915-XVII-2.html"
+  },
+  {
+   "id": "ghh-launch",
+   "date": "2023-09-28",
+   "type": "News",
+   "title": "VWS en BZ ondertekenen met ruim 20 partijen het Global Health Pact",
+   "ref": "Rijksoverheid",
+   "by": "VWS & BZ",
+   "url": "https://www.rijksoverheid.nl/actueel/nieuws/2023/09/28/de-ministeries-van-vws-en-buitenlandse-zaken-ondertekenen-samen-met-ruim-20-partijen-global-health-pact"
+  },
+  {
+   "id": "debate-2026",
+   "date": "2026-11-05",
+   "type": "Debate",
+   "title": "Commissiedebat Mondiale gezondheid (concept-verslag)",
+   "ref": "2026D57547",
+   "by": "Tweede Kamer",
+   "url": "https://ikregeer.nl/tweede-kamer/document/2026D57547"
+  },
+  {
+   "id": "tz-2024",
+   "date": "2024-04-04",
+   "type": "Commitment",
+   "title": "Toezegging: voortgangsrapportage voor het einde van het jaar",
+   "ref": "TZ202404-032",
+   "by": "Tweede Kamer",
+   "url": "https://www.tweedekamer.nl/kamerstukken/toezeggingen/detail?id=TZ202404-032"
+  }
+ ],
+ "changelog": [
+  {
+   "date": "2026-11-21",
+   "text": "First version: 31 pledges from the strategy tracked against the three progress reports and 20 other government documents."
+  }
+ ]
+}
