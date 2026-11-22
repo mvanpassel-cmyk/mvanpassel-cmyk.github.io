@@ -218,6 +218,7 @@ const TABS = [
   { id:"brieven", label:"Brieven & SO" },
   { id:"moties", label:"Moties" },
   { id:"toezeggingen", label:"Toezeggingen" },
+  { id:"debatten", label:"Debatten" },
   { id:"agenda", label:"Agenda" },
 ];
 const JAAR_TABS = ["vragen","brieven","agenda"];   // deze drie kun je een jaar terugkijken
@@ -250,9 +251,16 @@ function prepAct(a){
   a._text = [a.onderwerp, a.soort].join(" ");
   a._past = a.datum < today;
 }
-const PREP = { vragen:prepVraag, brieven:prepBrief, moties:prepMotie, toezeggingen:prepToez, agenda:prepAct };
+function prepDebat(a){
+  a._text = [a.onderwerp, a.soort, a.commissie, (a.bewindspersonen||[]).join(" ")].join(" ");
+  a._past = a.datum < today;
+  a._held = a._past && !["Geannuleerd","Verplaatst","Vervallen"].includes(a.status);   // echt gehouden
+  a._new = a._held && isNew(a.datum);
+}
+const PREP = { vragen:prepVraag, brieven:prepBrief, moties:prepMotie, toezeggingen:prepToez, debatten:prepDebat, agenda:prepAct };
 function prepList(k, xs){ for(const x of xs||[]){ PREP[k](x); x._hay = norm(x._text); x._star = x.mondiaal || starText(x._text); } }
 function prep(){
+  if(!D.debatten) D.debatten = [];
   for(const k of Object.keys(PREP)) prepList(k, D[k]);
   if(D.jaar) for(const k of JAAR_TABS) prepList(k, D.jaar[k]);
 }
@@ -294,6 +302,7 @@ function renderSince(){
     { n: D.moties.filter(m=>isNew(m.datum)).length, l:"nieuwe motie", lp:"nieuwe moties", go:["moties",{uitslag:"all"}] },
     { n: D.moties.filter(m=>isNew(m.stemdatum)).length, l:"stemuitslag", lp:"stemuitslagen", go:["moties",{uitslag:"all"}] },
     { n: D.toezeggingen.filter(t=>isNew(t.datum)).length, l:"nieuwe toezegging", lp:"nieuwe toezeggingen", go:["toezeggingen",{status:"Openstaand"}] },
+    { n: D.debatten.filter(a=>a._new).length, l:"debat gehouden", lp:"debatten gehouden", go:["debatten",{wanneer:"geweest"}] },
   ];
   const el = document.getElementById("since");
   el.innerHTML = cards.map((c,i)=>`<button class="stat${c.n?"":" zero"}" data-i="${i}" type="button"${c.n?"":" disabled"}><b>${c.n}</b><span>${c.n===1?c.l:c.lp||c.l}</span></button>`).join("");
@@ -306,7 +315,9 @@ function renderSince(){
   };
 
   const end = addDays(today, 7);
-  const week = D.agenda.filter(a => a.datum >= today && a.datum <= end && !a.week && a.soort !== "Procedurevergadering" && a.status !== "Geannuleerd");
+  const inAgenda = new Set(D.agenda.map(a => a.nr));
+  const week = D.agenda.concat(D.debatten.filter(a => !inAgenda.has(a.nr)))
+    .filter(a => a.datum >= today && a.datum <= end && !a.week && a.soort !== "Procedurevergadering" && a.status !== "Geannuleerd" && a.status !== "Verplaatst");
   const stem = D.moties.filter(m => m.gepland && m.gepland <= end);
   const stemDagen = {};
   for(const m of stem) stemDagen[m.gepland] = (stemDagen[m.gepland]||0) + 1;
@@ -318,7 +329,7 @@ function renderSince(){
     : `<li class="empty">Niets gepland rond VWS.</li>`;
 }
 function kortSoort(s){
-  return s.replace("Plenair debat (wetgeving)","plenair, wetgeving").replace("Plenair debat (tweeminutendebat)","tweeminutendebat")
+  return s.replace("Plenair debat (wetgeving)","plenair, wetgeving").replace("Plenair debat (debat)","plenair debat").replace("Plenair debat (tweeminutendebat)","tweeminutendebat")
           .replace("Plenair debat (overig)","plenair debat").replace("Inbreng schriftelijk overleg","schriftelijk overleg (inbreng)")
           .replace("Inbreng verslag (wetsvoorstel)","inbreng verslag").toLowerCase();
 }
@@ -335,8 +346,9 @@ function renderTabs(){
           brieven: D.brieven.filter(b=>b.so==="wacht").length,
           moties: D.moties.filter(m=>m.uitslag==="ingediend").length,
           toezeggingen: D.toezeggingen.filter(t=>t.status==="Openstaand").length,
+          debatten: D.debatten.filter(a=>!a._past && !["Geannuleerd","Verplaatst","Vervallen"].includes(a.status)).length,
           agenda: D.agenda.filter(a=>!a._past).length };
-    hint = { vragen:"open", brieven:"schriftelijke overleggen wachten op het kabinet", moties:"in stemming", toezeggingen:"open", agenda:"gepland" };
+    hint = { vragen:"open", brieven:"schriftelijke overleggen wachten op het kabinet", moties:"in stemming", toezeggingen:"open", debatten:"komende debatten", agenda:"gepland" };
   }
   const el = document.getElementById("tabs");
   el.innerHTML = TABS.map(t=>`<button class="tab" role="tab" aria-selected="${t.id===state.tab}" data-t="${t.id}" title="${n[t.id]} ${hint[t.id]}">${t.label}<small>${n[t.id]}</small></button>`).join("");
@@ -371,6 +383,9 @@ function renderTools(){
   } else if(t==="toezeggingen"){
     h += sel("status", [["Openstaand","Openstaand"],["late","Deadline verstreken"],["deadline","Met deadline"],["Afgedaan","Onlangs afgedaan"],["Deels Afgedaan","Deels afgedaan"],["all","Alles"]], f.status||"Openstaand");
     h += sel("sort", [["nieuw","Nieuwste eerst"],["deadline","Op deadline"]], f.sort||"nieuw");
+  } else if(t==="debatten"){
+    h += sel("wanneer", [["komend","Komende debatten"],["geweest","Gehouden (laatste 3 maanden)"],["all","Alles"]], f.wanneer||"komend");
+    h += sel("soort", [["all","Alle soorten"],["commissie","Commissiedebatten"],["plenair","Plenair"],["twee","Tweeminutendebatten"],["wgo","Wetgevings- en notaoverleggen"],["vragenuur","Vragenuur"]], f.soort||"all");
   } else {
     h += sel("wat", [["std","Alles behalve procedures"],["debat","Debatten en gesprekken"],["so","Schriftelijk overleg"],["plenair","Alleen plenair"],["all","Alles, ook procedures"]], f.wat||"std");
     if(!zoekt()) h += sel("wanneer", [["komend","Komend"],["jaar","Afgelopen jaar"]], f.wanneer||"komend");
@@ -451,6 +466,21 @@ function rowToez(t){
   return `<article class="row"><div class="top"><div class="t" style="font-weight:450">${marks(t)}${esc(t.tekst)}</div>${badge}</div>
     <div class="meta"><span>${fmt(t.datum)}</span><span>${esc(t.functie)}</span>${deb?`<span>${deb}</span>`:""}<a href="${LINK.toez(t.nr)}" target="_blank" rel="noopener">${esc(t.nr)} →</a></div></article>`;
 }
+function rowDebat(a){
+  const gehouden = a._held;
+  const badge = a.status==="Geannuleerd" ? '<span class="badge b-late">geannuleerd</span>'
+    : a.status==="Verplaatst" ? '<span class="badge b-uitstel">verplaatst</span>'
+    : gehouden ? '<span class="badge b-done">gehouden</span>'
+    : '<span class="badge b-open">komend</span>';
+  const when = a.week ? `week van ${fmt(a.datum)} (dag volgt)` : `${fmt(a.datum,true)}${a.tijd?" "+a.tijd+(a.eind && a.eind!==a.tijd?"–"+a.eind:""):""}`;
+  const wie = (a.bewindspersonen||[]).length ? `VWS: ${a.bewindspersonen.join(", ")}`
+    : a.via==="voortouw" ? "VWS-commissie" : a.via==="zaken" ? "VWS-wetgeving" : "";
+  const uit = [];
+  if(gehouden && a.moties) uit.push(`<a href="#moties" data-q="${esc(a.onderwerp)}">${a.moties} ${a.moties===1?"motie":"moties"}</a>`);
+  if(gehouden && a.toezeggingen) uit.push(`<a href="#toezeggingen" data-q="${esc(a.onderwerp)}">${a.toezeggingen} ${a.toezeggingen===1?"toezegging":"toezeggingen"}</a>`);
+  return `<article class="row${a._past?" past":""}"><div class="top"><div class="t">${marks(a)}<a href="${LINK.act(a.nr,a.plenair)}" target="_blank" rel="noopener">${esc(a.onderwerp)}</a></div>${badge}</div>
+    <div class="meta"><span>${esc(when)}</span><span>${esc([kortSoort(a.soort), a.commissie && a.commissie!=="VWS" ? "commissie "+a.commissie : null, a.besloten?"besloten":null].filter(Boolean).join(" · "))}</span>${wie?`<span>${esc(wie)}</span>`:""}${uit.join(" ")}</div></article>`;
+}
 function weekLabel(iso){
   const d = new Date(iso+"T12:00:00"); const day = (d.getDay()+6)%7; d.setDate(d.getDate()-day);
   const mon = d.toISOString().slice(0,10);
@@ -499,6 +529,17 @@ function filtered(){
     xs = xs.slice().sort((a,b)=> (f.sort==="deadline" || s==="deadline" || s==="late")
       ? (a.deadline||"9999").localeCompare(b.deadline||"9999")
       : (b.datum||"").localeCompare(a.datum||""));
+  } else if(t==="debatten"){
+    const w = f.wanneer||"komend";
+    const soort = f.soort||"all";
+    if(soort==="commissie") xs = xs.filter(a=>a.soort==="Commissiedebat");
+    else if(soort==="plenair") xs = xs.filter(a=>a.plenair && a.soort!=="Vragenuur");
+    else if(soort==="twee") xs = xs.filter(a=>/tweeminuten/.test(a.soort));
+    else if(soort==="wgo") xs = xs.filter(a=>/Wetgevingsoverleg|Notaoverleg/.test(a.soort));
+    else if(soort==="vragenuur") xs = xs.filter(a=>a.soort==="Vragenuur");
+    if(zoekt() || w==="all") xs = xs.slice().sort((a,b)=> (b.datum||"").localeCompare(a.datum||"") || (b.tijd||"").localeCompare(a.tijd||""));
+    else if(w==="geweest") xs = xs.filter(a=>a._held).sort((a,b)=> (b.datum||"").localeCompare(a.datum||"") || (b.tijd||"").localeCompare(a.tijd||""));
+    else xs = xs.filter(a=>!a._past);
   } else {
     const w = f.wat||"std";
     if(w==="std") xs = xs.filter(a=>!/Procedurevergadering|E-mailprocedure/.test(a.soort));
@@ -531,9 +572,9 @@ function renderList(){
   document.getElementById("count").textContent = (xs.length===1 ? "1 resultaat" : `${xs.length} resultaten`)
     + (jaar ? ` sinds ${fmt(D.jaar.vanaf)}` : "")
     + (zoekt() && !JAAR_TABS.includes(t) ? (t==="moties" ? " (moties: laatste twee maanden)" : "") : "");
-  const row = { vragen:rowVraag, brieven:rowBrief, moties:rowMotie, toezeggingen:rowToez, agenda:rowAct }[t];
+  const row = { vragen:rowVraag, brieven:rowBrief, moties:rowMotie, toezeggingen:rowToez, debatten:rowDebat, agenda:rowAct }[t];
   let html = "";
-  if(t==="agenda"){
+  if(t==="agenda" || t==="debatten"){
     let last = null;
     for(const a of shown){ const wl = weekLabel(a.datum); if(wl!==last){ html += `<div class="wk">${wl}</div>`; last = wl; } html += row(a); }
   } else if(t==="vragen" && !(state.filt.so==="wacht")){
@@ -547,6 +588,15 @@ function renderList(){
   more.textContent = `Meer tonen (${xs.length - state.shown})`;
 }
 document.getElementById("more").onclick = () => { state.shown += 60; renderList(); };
+// Van een debat naar de moties of toezeggingen die eruit voortkwamen.
+document.getElementById("list").addEventListener("click", e => {
+  const a = e.target.closest("a[data-q]"); if(!a) return;
+  e.preventDefault();
+  state.tab = a.getAttribute("href").slice(1); state.filt = state.tab==="toezeggingen" ? {status:"all"} : {uitslag:"all"};
+  state.q = a.dataset.q; state.shown = 40; state.only.nieuw = false;
+  history.replaceState(null, "", "#"+state.tab); renderAll();
+  document.getElementById("tabs").scrollIntoView({behavior:"smooth"});
+});
 
 function renderAll(){ renderTabs(); renderTools(); metJaar(renderList); }
 

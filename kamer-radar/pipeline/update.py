@@ -7,6 +7,7 @@ Schrijft kamer-radar/data/radar.json met vier onderdelen:
   moties        moties in VWS-dossiers (+ mondiale onderwerpen), met stemuitslag
   toezeggingen  openstaande en recent afgedane toezeggingen van VWS
   agenda        commissie- en plenaire activiteiten over VWS-zaken
+  debatten      alle debatten waar VWS direct bij betrokken is (laatste drie maanden + komende), met aantal moties/toezeggingen
 Een jaar terug (vragen, brieven, agenda) staat in kamer-radar/data/jaar.json; de pagina laadt dat
 pas bij terugkijken of zoeken.
 
@@ -33,6 +34,7 @@ ARCHIEF_DAGEN = 366     # terugkijken: vragen, brieven en agenda van het afgelop
 MOTIES_DAGEN = 60       # moties van de afgelopen twee maanden
 AFGEDAAN_DAGEN = 60     # afgedane toezeggingen nog even laten zien
 AGENDA_TERUG, AGENDA_VOORUIT = 14, 150
+DEBATTEN_TERUG = 92     # debatten van de afgelopen drie maanden (tab Debatten)
 
 # Bewindspersonen van VWS herkennen aan hun functie (namen wisselen per kabinet).
 VWS_FUNCTIE = re.compile(r"Volksgezondheid|Langdurige|Jeugd, Preventie|Maatschappelijke Zorg", re.I)
@@ -221,7 +223,7 @@ def moties(dossiers):
         "$orderby": "GestartOp desc",
         "$expand": "ZaakActor($select=ActorNaam,ActorFractie,Relatie,Verwijderd),"
                    "Document($select=DocumentNummer,Soort,Verwijderd;$expand=Kamerstukdossier($select=Nummer,Toevoeging,Titel)),"
-                   "Agendapunt($select=Id,Verwijderd;$expand=Activiteit($select=Soort,Datum,Onderwerp)),"
+                   "Agendapunt($select=Id,Verwijderd;$expand=Activiteit($select=Nummer,Soort,Datum,Onderwerp)),"
                    "Besluit($select=BesluitSoort,StemmingsSoort,Status,Verwijderd;"
                    "$expand=Agendapunt($select=Id;$expand=Activiteit($select=Datum,Soort)),"
                    "Stemming($select=Soort,ActorFractie,FractieGrootte,Verwijderd))",
@@ -269,8 +271,9 @@ def moties(dossiers):
                 a = p.get("Activiteit") or {}
                 if not p["Verwijderd"] and a.get("Soort") == "Stemmingen" and d(a.get("Datum")) and d(a["Datum"]) >= TODAY.isoformat():
                     gepland = min(filter(None, [gepland, d(a["Datum"])]))
-        debat = next((p["Activiteit"]["Onderwerp"] for p in z["Agendapunt"]
-                      if p.get("Activiteit") and p["Activiteit"].get("Soort") != "Stemmingen"), None)
+        deb = next((p["Activiteit"] for p in z["Agendapunt"]
+                    if p.get("Activiteit") and p["Activiteit"].get("Soort") != "Stemmingen"), None)
+        debat = deb["Onderwerp"] if deb else None
 
         k = ksd[0] if ksd else None
         res.append({
@@ -282,6 +285,7 @@ def moties(dossiers):
             "indieners": personen(z["ZaakActor"], ("Indiener", "Medeindiener")),
             "dossier": {"nr": k["Nummer"], "toev": k["Toevoeging"], "titel": k["Titel"]} if k else None,
             "debat": debat,
+            "debatNr": deb.get("Nummer") if deb else None,
             "appreciatie": z["Kabinetsappreciatie"] if z["Kabinetsappreciatie"] not in (None, "Niet ingevuld") else None,
             "uitslag": uitslag,
             "stemdatum": stemdatum,
@@ -457,6 +461,92 @@ def agenda(terug=ARCHIEF_DAGEN):
     return res
 
 
+def debat_status(onderwerp, status):
+    """De Kamer zet 'geannuleerd' of 'uitgesteld' soms alleen in de titel, terwijl de status Uitgevoerd blijft."""
+    if re.search(r"geannuleerd", onderwerp, re.I):
+        return "Geannuleerd"
+    if re.search(r"uitgesteld|verplaatst", onderwerp, re.I) and status != "Geannuleerd":
+        return "Verplaatst"
+    return status
+
+
+def debatten(terug=DEBATTEN_TERUG):
+    """Alle debatten waar VWS direct bij betrokken is: VWS heeft het voortouw, een VWS-bewindspersoon
+    doet mee (ook bij debatten van andere commissies, tweeminutendebatten, begroting, vragenuur),
+    of bij plenaire debatten hoort minstens de helft van de zaken bij VWS. Geen overleggen,
+    briefings of procedures."""
+    sel = "Id,Nummer,Soort,Onderwerp,Datum,Aanvangstijd,Eindtijd,Status,Besloten,DatumSoort,Locatie,Voortouwafkorting"
+    van, tot = iso(-terug), iso(AGENDA_VOORUIT)
+    basis = f"Verwijderd eq false and Datum ge {van} and Datum lt {tot}"
+    actor = "ActiviteitActor($select=Relatie,Functie,ActorNaam,Verwijderd)"
+    commissie = get("Activiteit", {
+        "$filter": basis + " and (Soort eq 'Commissiedebat' or Soort eq 'Wetgevingsoverleg' or Soort eq 'Notaoverleg' or Soort eq 'Vragenuur')",
+        "$select": sel, "$orderby": "Datum", "$expand": actor,
+    })
+    vt = "ZaakActor($select=ActorAfkorting;$filter=Relatie eq 'Voortouwcommissie')"
+    plenair = get("Activiteit", {
+        "$filter": basis + " and startswith(Soort,'Plenair debat')",
+        "$select": sel, "$orderby": "Datum",
+        "$expand": f"{actor},Zaak($select=Id;$expand={vt}),Agendapunt($select=Id;$expand=Zaak($select=Id;$expand={vt}))",
+    })
+    res = []
+    for a in commissie + plenair:
+        mins = []
+        for x in a["ActiviteitActor"]:
+            if (not x.get("Verwijderd") and x["Relatie"] == "Bewindspersoon c.a."
+                    and VWS_FUNCTIE.search(x["Functie"] or "") and x["ActorNaam"] not in mins):
+                mins.append(x["ActorNaam"])
+        voortouw = a.get("Voortouwafkorting")
+        via = None
+        if voortouw == "VWS":
+            via = "voortouw"
+        elif mins:
+            via = "bewindspersoon"
+        elif a["Soort"].startswith("Plenair"):
+            zaken = list(a["Zaak"]) + [z for p in a["Agendapunt"] for z in p["Zaak"]]
+            sets = [s for s in ({x["ActorAfkorting"] for x in z["ZaakActor"]} - {"TK", None} for z in zaken) if s]
+            if sets and sum("VWS" in s for s in sets) / len(sets) >= 0.5:
+                via = "zaken"
+        if not via and MONDIAAL.search(a["Onderwerp"] or ""):
+            via = "onderwerp"
+        if not via:
+            continue
+        onderwerp = re.sub(r"\s+", " ", a["Onderwerp"] or "").strip()
+        dag = a.get("DatumSoort") == "Dag"
+        res.append({
+            "nr": a["Nummer"],
+            "soort": a["Soort"],
+            "onderwerp": onderwerp,
+            "datum": d(a["Datum"]),
+            "tijd": a["Aanvangstijd"][11:16] if a.get("Aanvangstijd") and dag else None,
+            "eind": a["Eindtijd"][11:16] if a.get("Eindtijd") and dag else None,
+            "week": not dag,
+            "status": debat_status(onderwerp, a["Status"]),
+            "besloten": bool(a["Besloten"]),
+            "plenair": a["Soort"].startswith("Plenair") or a["Soort"] == "Vragenuur",
+            "commissie": voortouw if voortouw and voortouw != "TK" else None,
+            "via": via,
+            "bewindspersonen": mins,
+            "mondiaal": bool(MONDIAAL.search(onderwerp)),
+        })
+    res.sort(key=lambda x: (x["datum"] or "", x["tijd"] or "99", x["nr"]))
+    return res
+
+
+def koppel_debatten(deb, moties_, toez):
+    """Per debat: aantal moties (laatste twee maanden) en toezeggingen dat eruit voortkwam."""
+    m, t = {}, {}
+    for x in moties_:
+        if x.get("debatNr"):
+            m[x["debatNr"]] = m.get(x["debatNr"], 0) + 1
+    for x in toez:
+        if x.get("debat"):
+            t[x["debat"]["nr"]] = t.get(x["debat"]["nr"], 0) + 1
+    for a in deb:
+        a["moties"] = m.get(a["nr"], 0)
+        a["toezeggingen"] = t.get(a["nr"], 0)
+
+
 def main():
     t0 = time.time()
     print("VWS-dossiers…")
@@ -465,13 +555,15 @@ def main():
     out = {"bijgewerkt": dt.datetime.now(dt.timezone.utc).isoformat(timespec="minutes"),
            "bron": "Gegevensmagazijn Tweede Kamer (open data)"}
     for naam, fn in (("vragen", vragen), ("moties", lambda: moties(dossiers)),
-                     ("toezeggingen", toezeggingen), ("agenda", agenda),
+                     ("toezeggingen", toezeggingen), ("agenda", agenda), ("debatten", debatten),
                      ("brieven", lambda: brieven(out["agenda"]))):
         print(naam + "…")
         out[naam] = fn()
         print(f"  {len(out[naam])}")
         if not out[naam]:
             sys.exit(f"Leeg resultaat voor {naam}; radar.json niet overschreven.")
+
+    koppel_debatten(out["debatten"], out["moties"], out["toezeggingen"])
 
     # Het jaar gaat in een apart bestand, zodat de pagina snel opent; het hoofdbestand houdt
     # vier maanden vragen en brieven en de agenda vanaf twee weken terug.
