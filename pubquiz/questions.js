@@ -35,10 +35,10 @@ window.QUIZ = {
         },
         {
           type: 'mc',
-          q: 'Zeven kandidaten willen Tedros in 2027 opvolgen als directeur-generaal van de WHO. Eén van hen is minister van Volksgezondheid van…',
-          options: ['India', 'Zuid-Afrika', 'Indonesië', 'Brazilië'],
+          q: 'Met de Critical Medicines Act wil de EU tekorten aan medicijnen als antibiotica en insuline voorkomen. Hoeveel procent van de ingevoerde grondstoffen voor geneesmiddelen komt uit slechts vijf landen?',
+          options: ['40%', '60%', '80%', '95%'],
           answer: 2,
-          info: 'Budi Gunadi Sadikin. De Wereldgezondheidsvergadering kiest in mei 2027; de nieuwe DG begint op 16 augustus 2027.'
+          info: 'Het gaat om China (samen goed voor 45% van het totaal), de VS, het VK, Indonesië en India. Parlement en Raad bereikten op 12 mei 2026 een voorlopig akkoord over de wet.'
         },
         {
           type: 'mc',
