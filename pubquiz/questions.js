@@ -21,17 +21,17 @@ window.QUIZ = {
       questions: [
         {
           type: 'mc',
-          q: 'In welke plaats kwam Sinterklaas op zaterdag 14 november aan voor de landelijke intocht?',
-          options: ['Grave', 'Texel', 'Gorinchem', 'Deventer'],
-          answer: 0,
-          info: 'Grave ligt in de gemeente Land van Cuijk. Vorig jaar was Texel aan de beurt.'
-        },
-        {
-          type: 'mc',
           q: 'Het VN-klimaatsecretariaat (UNFCCC) zit in Bonn. Maar waar werd deze maand (9–20 november) de klimaattop COP31 gehouden?',
           options: ['Belém', 'Antalya', 'Adelaide', 'Bakoe'],
           answer: 1,
           info: 'Turkije was gastland en voorzitter, Australië leidde de onderhandelingen. Bakoe was COP29 (2024), Belém COP30 (2025).'
+        },
+        {
+          type: 'mc',
+          q: 'Op vrijdag 20 november kwam Tata Steel IJmuiden voor het eerst voor de rechter in een strafzaak. Waarvan verdenkt het Openbaar Ministerie het bedrijf onder meer?',
+          options: ['Opzettelijk schadelijke stoffen in de lucht brengen', 'Prijsafspraken met concurrenten', 'Omkoping van ambtenaren', 'Illegale lozing van radioactief afval'],
+          answer: 0,
+          info: 'Het was een voorbereidende zitting bij de rechtbank in Amsterdam. De zaak begon met een aangifte namens ruim 800 omwonenden, vanwege mogelijke gezondheidsschade.'
         },
         {
           type: 'mc',
@@ -42,10 +42,38 @@ window.QUIZ = {
         },
         {
           type: 'mc',
+          q: 'Voor 2027 rekent het kabinet met een gemiddelde premie voor de basisverzekering van ongeveer…',
+          options: ['€ 145 per maand', '€ 157 per maand', '€ 169 per maand', '€ 185 per maand'],
+          answer: 2,
+          info: 'Dat is ruim € 12 per maand meer dan in 2026. De verzekeraars zitten er gemiddeld iets boven; de maximale zorgtoeslag voor alleenstaanden wordt € 140 per maand.'
+        },
+        {
+          type: 'mc',
           q: 'Oranje haalde op het WK 2026 de achtste finales niet, maar won tóch een prijs. Welke?',
           options: ['De Fair Play-prijs', 'De prijs voor het mooiste doelpunt', 'De prijs voor beste jonge speler', 'De Gouden Handschoen'],
           answer: 0,
           info: 'Wereldkampioen werd Spanje: 1-0 na verlenging tegen Argentinië, met een goal van Ferran Torres.'
+        },
+        {
+          type: 'mc',
+          q: 'Op maandag 16 november won Duitsland met 5-0 van Oranje in Berlijn (Nations League). Wie is bondscoach van Duitsland?',
+          options: ['Julian Nagelsmann', 'Jürgen Klopp', 'Hansi Flick', 'Thomas Tuchel'],
+          answer: 1,
+          info: 'Klopp is pas zes wedstrijden bondscoach. Florian Wirtz scoorde twee keer. Het was de grootste Duitse zege op Nederland sinds 1959, en de eerste nederlaag van Oranje onder Xavi Hernandez.'
+        },
+        {
+          type: 'mc',
+          q: 'Tesla kondigde op 16 november een investering van € 3 miljard aan in de fabriek bij Berlijn (Grünheide). Wat moet daar vanaf 2029 van de band rollen?',
+          options: ['De Cybercab: een robotaxi zonder stuur en pedalen', 'Batterijen voor huisopslag', 'De Cybertruck voor Europa', 'Humanoïde Optimus-robots'],
+          answer: 0,
+          info: 'Tot een miljoen per jaar. De bouw start in de eerste helft van 2027. In de EU is de Cybercab nog niet toegelaten, en Duitse autobouwers schrappen juist banen.'
+        },
+        {
+          type: 'mc',
+          q: 'Duitsland krijgt een suikertaks op sterk gezoete dranken. Half november besloot de coalitie over de begroting 2027 wanneer die ingaat. Wanneer wordt dat?',
+          options: ['1 juli 2027', '1 januari 2028', '1 januari 2027', '1 januari 2030'],
+          answer: 1,
+          info: 'De taks zou eerst op 1 juli 2027 ingaan en schuift een half jaar op. Invoering gebeurt in drie stappen. Gezondheidsorganisaties en zorgverzekeraars hadden liever niet gewacht.'
         }
       ]
     },
