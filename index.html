@@ -228,11 +228,17 @@ function card(t){
       </div>
     </a>`;
 }
+// Favourites shown first within each section, in this order; the rest keep their list order.
+const PIN = ["gh-ribbon","country-desk","nphi-map","kamer-radar",
+             "jee-good-practices","phepa-good-practices","ianphi-good-practices",
+             "soundscape","stem-studio","overprint",
+             "portal-view","crowd-forecasts","long-view"];
+const pinRank = t => { const i = PIN.indexOf(t.repo); return i < 0 ? PIN.length : i; };
 // One section per category; a sub-group (e.g. the portals) gets its own row under it.
 function render(){
   const cats = active==="All" ? [...new Set(TOOLS.map(t=>t.cat))] : [active];
   grid.innerHTML = cats.map(c=>{
-    const ts = TOOLS.filter(t=>t.cat===c), subs = [...new Set(ts.filter(t=>t.sub).map(t=>t.sub))];
+    const ts = TOOLS.filter(t=>t.cat===c).map((t,k)=>[t,k]).sort((x,y)=>pinRank(x[0])-pinRank(y[0])||x[1]-y[1]).map(x=>x[0]), subs = [...new Set(ts.filter(t=>t.sub).map(t=>t.sub))];
     return `<section class="grp">${cats.length>1?`<h2 class="grp-h">${esc(c)}</h2>`:""}
       <div class="grid">${ts.filter(t=>!t.sub).map(card).join("")}</div>
       ${subs.map(sb=>`<h3 class="grp-s">${esc(sb)}</h3><div class="grid">${ts.filter(t=>t.sub===sb).map(card).join("")}</div>`).join("")}
