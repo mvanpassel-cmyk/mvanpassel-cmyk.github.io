@@ -7,57 +7,107 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/logos/jee-good-practices-32.png">
 <link rel="icon" type="image/svg+xml" href="/logos/jee-good-practices.svg">
 <link rel="apple-touch-icon" href="/logos/jee-good-practices-180.png">
-<meta name="description" content="WHO JEE indicators, technical questions, country capacity scores and evidence-based good practices, linked to help countries find solutions to capacity gaps.">
+<meta name="description" content="What the WHO Joint External Evaluation (JEE) measures, indicator by indicator, and the good practices and peer countries that can help close a capacity gap.">
 <style>
 :root{
-  --bg:#f6f4ef;--ink:#1c1f26;--muted:#667085;--card:#fff;--line:#e4e0d6;--accent:#1f3a5f;--warn:#e0a526;
-  --s1:#e8eef5;--s2:#b8cde4;--s3:#7aa5d1;--s4:#3f78b5;--s5:#1f3a5f;
-  --t1:#1c1f26;--t2:#1c1f26;--t3:#101820;--t4:#fff;--t5:#fff;--na:#f0ede4;
+  --bg:#f6f4ef;--ink:#1c1f26;--muted:#667085;--card:#fff;--line:#e4e0d6;--accent:#1f3a5f;--warn:#e0a526;--soft:#eef2f7;
+  --l1:#c8372d;--l2:#ee8a2b;--l3:#f2c94c;--l4:#86c27a;--l5:#2e7d4a;
+  --t1:#fff;--t2:#1c1f26;--t3:#1c1f26;--t4:#1c1f26;--t5:#fff;--na:#f0ede4;
 }
 @media (prefers-color-scheme:dark){
-  :root{--bg:#14161b;--ink:#eceae4;--muted:#9aa1ae;--card:#1c1f26;--line:#2b303a;--accent:#f4c95d;
-    --s1:#26303c;--s2:#34506f;--s3:#4b78a8;--s4:#7fb0e0;--s5:#cfe5fb;
-    --t1:#eceae4;--t2:#eceae4;--t3:#fff;--t4:#0d1117;--t5:#0d1117;--na:#1a1d23}
+  :root{--bg:#14161b;--ink:#eceae4;--muted:#9aa1ae;--card:#1c1f26;--line:#2b303a;--accent:#f4c95d;--soft:#222833;--na:#1a1d23}
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
-.wrap{max-width:1180px;margin:0 auto;padding:28px 16px 72px}
+.wrap{max-width:1180px;margin:0 auto;padding:24px 16px 72px}
 a{color:var(--accent)}
-.back{font-size:14px;color:var(--muted);text-decoration:none}
-h1{font:600 clamp(26px,5vw,38px)/1.1 ui-serif,Georgia,serif;margin:10px 0 8px}
-h2{font:600 22px/1.2 ui-serif,Georgia,serif;margin:28px 0 10px}
+h1{font:600 clamp(26px,5vw,38px)/1.1 ui-serif,Georgia,serif;margin:6px 0 8px}
+h1 a{color:inherit;text-decoration:none}
+h2{font:600 22px/1.2 ui-serif,Georgia,serif;margin:30px 0 10px}
 h3{font-size:16px;margin:0 0 6px}
 .lead{color:var(--muted);max-width:75ch;margin:0 0 16px}
-nav.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 18px;border-bottom:1px solid var(--line);padding-bottom:10px}
+.big{font-size:18px;color:var(--ink);max-width:70ch}
+nav.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 18px;border-bottom:1px solid var(--line);padding-bottom:10px}
 nav.tabs a{padding:6px 14px;border-radius:999px;border:1px solid var(--line);text-decoration:none;color:var(--ink);font-size:14px}
 nav.tabs a[aria-current="page"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.crumb{font-size:13px;color:var(--muted);margin:0 0 4px}.crumb a{color:var(--muted)}
 .bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px}
 .bar .lbl{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
-input[type=search],input[type=text],select{font:inherit;font-size:14px;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);max-width:100%}
+input[type=search],select{font:inherit;font-size:14px;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);max-width:100%}
 button,.btn{font:inherit;font-size:14px;padding:6px 14px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--ink);cursor:pointer;text-decoration:none;display:inline-block}
+.btn.primary{background:var(--accent);color:var(--bg);border-color:var(--accent)}
 button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 button:focus-visible,a:focus-visible,summary:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:0 0 12px}
 .note{border-left:3px solid var(--warn);padding:2px 12px;color:var(--muted);font-size:13px;margin:14px 0}
 .muted{color:var(--muted)}.small{font-size:13px}
-.tag{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:0 8px;font-size:12px;color:var(--muted);margin:0 4px 4px 0}
-.badge{display:inline-block;border-radius:6px;padding:0 6px;font-size:11px;font-weight:600;letter-spacing:.04em;border:1px solid var(--line);color:var(--muted);margin-right:6px}
-details.ind{background:var(--card);border:1px solid var(--line);border-radius:12px;margin:0 0 8px}
-details.ind>summary{cursor:pointer;padding:10px 14px;list-style:none;display:flex;gap:10px;align-items:baseline}
-details.ind>summary::-webkit-details-marker{display:none}
-details.ind>summary .id{font-weight:700;min-width:48px;font-variant-numeric:tabular-nums}
-details.ind .body{padding:0 14px 14px;border-top:1px solid var(--line)}
-table.lv{border-collapse:collapse;width:100%;font-size:14px;margin:8px 0}
-table.lv th,table.lv td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
-table.lv td.n{width:150px;font-weight:600;white-space:nowrap}
-table.lv td,table.lv th{overflow-wrap:anywhere}
-@media (max-width:600px){table.lv td.n{width:auto;white-space:normal}table.lv th,table.lv td{padding:5px 6px}}
-.q ol{margin:6px 0 6px 20px;padding:0}.q li{margin:4px 0}.q ol.sub{list-style:lower-alpha;margin-top:2px}
-.grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
-.areahead{margin:22px 0 8px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
-.areahead h2{margin:0}
+.tag{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:0 8px;font-size:12px;color:var(--muted);margin:0 4px 4px 0;text-decoration:none}
+.badge{display:inline-block;border-radius:6px;padding:0 6px;font-size:11px;font-weight:600;letter-spacing:.04em;border:1px solid var(--line);color:var(--muted);margin-right:6px;white-space:nowrap}
 .fn{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
-/* matrix */
+dl.kv{display:grid;grid-template-columns:130px 1fr;gap:2px 10px;margin:6px 0;font-size:14px}dl.kv dt{color:var(--muted)}dl.kv dd{margin:0}
+@media (max-width:600px){dl.kv{grid-template-columns:1fr}dl.kv dd{margin-bottom:6px}}
+footer{margin-top:40px;color:var(--muted);font-size:13px}
+.sr{position:absolute;left:-9999px}
+/* levels: one palette everywhere */
+.v1{background:var(--l1);color:var(--t1)}.v2{background:var(--l2);color:var(--t2)}.v3{background:var(--l3);color:var(--t3)}.v4{background:var(--l4);color:var(--t4)}.v5{background:var(--l5);color:var(--t5)}
+.lvb{display:inline-block;min-width:22px;text-align:center;border-radius:5px;padding:0 6px;font-weight:700;font-size:12px;margin-right:4px}
+.stack{display:flex;height:8px;border-radius:4px;overflow:hidden;background:var(--na);min-width:80px}
+.stack i{display:block;height:100%}
+/* start page */
+.steps{counter-reset:s}
+.step{position:relative;padding-left:46px;margin:30px 0 0}
+.step::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:0;width:32px;height:32px;border-radius:50%;background:var(--ink);color:var(--bg);font-weight:700;display:flex;align-items:center;justify-content:center}
+.step>h2{margin:2px 0 8px}
+@media (max-width:600px){.step{padding-left:0}.step::before{position:static;display:inline-flex;margin-bottom:6px}}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:stretch;margin:14px 0}
+.flow div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 12px;flex:1 1 120px}
+.flow b{display:block;font:600 26px/1.1 ui-serif,Georgia,serif}
+.flow span{font-size:13px;color:var(--muted)}
+.flow .ar{flex:0 0 auto;border:0;background:none;padding:0;display:flex;align-items:center;color:var(--muted);font-size:20px}
+@media (max-width:600px){.flow .ar{display:none}}
+.scale{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.scale span{padding:3px 10px;border-radius:6px;font-size:13px;font-weight:600}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin:8px 0 14px}
+a.tile{display:block;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;text-decoration:none;color:var(--ink)}
+a.tile:hover{border-color:var(--accent)}
+a.tile .id{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.04em}
+a.tile .nm{font-weight:600;margin:2px 0 6px;line-height:1.3}
+a.tile .meta{font-size:12.5px;color:var(--muted);margin-top:6px}
+.fgroup{margin:16px 0 4px}
+.country{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+/* indicator list on area page */
+a.irow{display:grid;grid-template-columns:56px 1fr 170px;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:0 0 8px;text-decoration:none;color:var(--ink)}
+a.irow:hover{border-color:var(--accent)}
+a.irow .id{font-weight:700;font-variant-numeric:tabular-nums}
+a.irow .sub{font-size:12.5px;color:var(--muted)}
+a.irow .idist{display:flex;flex-direction:column;gap:4px}
+@media (max-width:640px){a.irow{grid-template-columns:48px 1fr}a.irow .idist{grid-column:2}}
+/* indicator page */
+.jump{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px}
+.jump a{font-size:13px}
+table.lv{border-collapse:collapse;width:100%;font-size:14px;margin:8px 0}
+table.lv th,table.lv td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top;overflow-wrap:anywhere}
+table.lv td.n{width:190px;font-weight:600}
+@media (max-width:600px){table.lv td.n{width:auto}table.lv th,table.lv td{padding:5px 6px}}
+.top{margin:8px 0;padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.top .lvrow{margin:4px 0;font-size:14px}
+.chip{display:inline-block;margin:2px 4px 2px 0;padding:1px 9px;border-radius:999px;border:1px solid var(--line);font-size:12.5px;text-decoration:none;background:var(--card)}
+.chip.c5{border-color:var(--l5)}.chip.c4{border-color:var(--l4)}
+ol.key{padding-left:0;list-style:none;margin:8px 0;counter-reset:k}
+ol.key>li{counter-increment:k;position:relative;padding:8px 12px 8px 44px;border:1px solid var(--line);border-radius:10px;background:var(--card);margin:0 0 8px}
+ol.key>li::before{content:counter(k);position:absolute;left:12px;top:9px;width:22px;height:22px;border-radius:50%;background:var(--soft);color:var(--ink);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.sol{margin:4px 0 6px;padding:6px 10px;border-left:3px solid var(--accent);background:var(--card);border-radius:0 8px 8px 0;font-size:13.5px}
+.why{font-size:13px;margin-top:2px}
+.helps{font-size:12px;color:var(--muted);margin-top:3px}
+ol.qs{padding-left:24px}ol.qs>li{margin:12px 0}
+ol.qs ol.sub{list-style:lower-alpha;margin:4px 0}
+.keyref{font-size:12.5px;color:var(--muted);margin:3px 0}
+.keyref a{display:inline-block;min-width:20px;text-align:center;border-radius:50%;background:var(--soft);text-decoration:none;color:var(--ink);font-weight:700;margin:0 2px}
+.nosrc{font-size:12px;color:var(--muted);font-style:italic}
+.grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
+@media (max-width:400px){.grid2{grid-template-columns:1fr}}
+details.more{margin:10px 0}details.more>summary{cursor:pointer;color:var(--muted);font-size:14px}
+/* scores */
 .mwrap{overflow:auto;max-height:78vh;border:1px solid var(--line);border-radius:12px;background:var(--card)}
 table.mx{border-collapse:separate;border-spacing:0;font-size:13px}
 table.mx th,table.mx td{border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:0}
@@ -69,56 +119,35 @@ table.mx th.ch div{writing-mode:vertical-rl;transform:rotate(180deg);padding:6px
 table.mx tr.grp th{background:var(--line);color:var(--ink);font-size:12px;padding:3px 8px;text-transform:uppercase;letter-spacing:.06em;position:sticky;left:0}
 table.mx td button.cell{display:block;width:44px;height:30px;border:0;border-radius:0;padding:0;font-weight:700;cursor:pointer}
 table.mx td.na{background:var(--na);color:var(--muted);text-align:center}
-.s1{background:var(--s1);color:var(--t1)}.s2{background:var(--s2);color:var(--t2)}.s3{background:var(--s3);color:var(--t3)}.s4{background:var(--s4);color:var(--t4)}.s5{background:var(--s5);color:var(--t5)}
+@media (max-width:640px){table.mx th.rh{min-width:170px}}
 .legend{display:flex;gap:8px;flex-wrap:wrap;font-size:12px;margin:6px 0 10px;align-items:center}
-.legend span.sw{display:inline-block;min-width:22px;text-align:center;padding:1px 6px;border-radius:5px;font-weight:700}
 #panel{position:sticky;bottom:10px;margin-top:12px}
-dl.kv{display:grid;grid-template-columns:130px 1fr;gap:2px 10px;margin:6px 0;font-size:14px}dl.kv dt{color:var(--muted)}dl.kv dd{margin:0}
-footer{margin-top:40px;color:var(--muted);font-size:13px}
-
-.dist{border-collapse:collapse;font-size:13px;width:100%;max-width:1180px;background:var(--card);border:1px solid var(--line);border-radius:12px}
+.dist{border-collapse:collapse;font-size:13px;width:100%;background:var(--card);border:1px solid var(--line);border-radius:12px}
 .dist th,.dist td{padding:0 6px}
 .dist thead th{position:sticky;top:0;background:var(--card);z-index:2;text-align:center;font-weight:600;padding:8px 6px;border-bottom:1px solid var(--line)}
 .dist td.ar{font-weight:600;vertical-align:middle;width:170px;border-top:1px solid var(--line);padding:6px 10px}
 .dist tr.first td,.dist tr.first th{border-top:1px solid var(--line)}
 .dist th.ix{text-align:right;font-weight:400;white-space:nowrap;width:70px}
 .dist td.b{height:28px;width:92px;vertical-align:middle;text-align:left;padding-left:8px;white-space:nowrap}
-.dist td.b i{display:inline-block;width:56px;vertical-align:middle;background:var(--bar);border-radius:2px;margin-right:5px}
+.dist td.b i{display:inline-block;width:56px;vertical-align:middle;border-radius:2px;margin-right:5px}
 .dist td.b span{font-size:10px;color:var(--muted);vertical-align:middle}
 .dist td.n{color:var(--muted);font-size:11px;text-align:right;width:36px}
-.l1{--bar:#d62728}.l2{--bar:#f5a031}.l3{--bar:#e0701a}.l4{--bar:#9ad88a}.l5{--bar:#1e7a2e}
-.gapl li{margin:4px 0}
-
-.sol{margin:4px 0 6px 0;padding:6px 10px;border-left:3px solid var(--accent);background:var(--card);border-radius:0 8px 8px 0;font-size:13px}
-.sol .badge{margin-top:0}
-.top{margin:8px 0;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
-.top h4{margin:0 0 4px;font-size:13px}
-.top .lvrow{margin:3px 0;font-size:13px}
-.chip{display:inline-block;margin:2px 4px 2px 0;padding:1px 9px;border-radius:999px;border:1px solid var(--line);font-size:12.5px;text-decoration:none}
-.chip.l5{border-color:#1b6e2a;background:rgba(27,110,42,.12)}
-.chip.l4{border-color:#6fbf6a;background:rgba(143,224,138,.18)}
-.lvb{display:inline-block;min-width:20px;text-align:center;border-radius:5px;padding:0 6px;font-weight:700;font-size:12px;margin-right:4px}
-.nosrc{font-size:12px;color:var(--muted);font-style:italic}
-ol.qs{padding-left:22px}ol.qs>li{margin:10px 0}
-ol.qs ol.sub{list-style:lower-alpha;margin:4px 0}
+.gapl li{margin:5px 0}
 figure.ch{margin:0;overflow:auto}
 svg.pc text{fill:var(--ink);font-family:inherit}
 svg.pc .mut{fill:var(--muted)}
-.sr{position:absolute;left:-9999px}
-@media (max-width:640px){table.mx th.rh{min-width:170px}}
-
-/* Phones: chips and tags big enough to tap (about 32px) */
-@media (pointer:coarse){.chip,.tag{padding:8px 12px;margin:0 6px 6px 0;line-height:1.3}}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;margin:0 0 14px}
+.seg a{padding:6px 14px;font-size:14px;text-decoration:none;color:var(--ink)}
+.seg a[aria-current="page"]{background:var(--ink);color:var(--bg)}
+@media (pointer:coarse){.chip,.tag{padding:6px 12px;margin:0 6px 6px 0;line-height:1.3}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>JEE Good Practices</h1>
-  <p class="lead">WHO Joint External Evaluation indicators, technical questions and country capacity scores, linked to evidence-based good practices. For countries that have had a JEE and for those preparing one.</p>
-  <p style="color:var(--muted);font-size:14px;max-width:75ch;margin:-8px 0 16px">Source: <a href="https://www.who.int/publications/i/item/9789240051980" rel="noopener">WHO JEE tool, third edition (2022), publication page</a> · <a href="https://iris.who.int/server/api/core/bitstreams/f9a1d72f-d8e4-4abe-900f-040829de686d/content" rel="noopener">PDF</a> · <a href="https://www.who.int/emergencies/operations/international-health-regulations-monitoring-evaluation-framework/joint-external-evaluations" rel="noopener">WHO JEE website</a></p>
+  <h1><a href="#/">JEE Good Practices</a></h1>
   <nav class="tabs" id="tabs" aria-label="Sections"></nav>
   <main id="view" aria-live="polite"><p class="muted">Loading data…</p></main>
-  <footer>WHO wording and scores are reproduced from WHO publications with citations; good practice summaries are a curated seed set · data in <a href="data/">data/</a></footer>
+  <footer>Indicator wording and scores are reproduced from WHO publications with citations. A personal project, not a WHO product. · <a href="#/about">About, sources and method</a> · data in <a href="data/">data/</a></footer>
 </div>
 
 <script src="../shared/programmes.js"></script>
@@ -126,156 +155,289 @@ svg.pc .mut{fill:var(--muted)}
 "use strict";
 const LABELS={1:"No capacity",2:"Limited capacity",3:"Developed capacity",4:"Demonstrated capacity",5:"Sustainable capacity"};
 const FUNCS=["Prevent","Detect","Respond","Other hazards"];
-const TABS=[["practices","Good practice summaries"],["indicators","Indicators"],["questions","Technical questions"],["scores","Country scores"],["chart","Profile chart"],["gaps","Find solutions"],["about","About & method"]];
+const FUNC_TXT={"Prevent":"Stop events from happening or spreading","Detect":"Find events early","Respond":"Act fast and well","Other hazards":"Borders, chemicals and radiation"};
+const SHORT={P1:"Legal instruments",P2:"Financing",P3:"IHR coordination",P4:"Antimicrobial resistance",P5:"Zoonotic disease",P6:"Food safety",P7:"Biosafety & biosecurity",P8:"Immunization",D1:"Laboratory system",D2:"Surveillance",D3:"Human resources",R1:"Emergency management",R2:"Public health & security",R3:"Health services",R4:"Infection prevention & control",R5:"Risk communication",PoE:"Points of entry",CE:"Chemical events",RE:"Radiation emergencies"};
+const TABS=[["start","Start"],["areas","Technical areas"],["countries","Countries"],["about","About"]];
 const D={}; const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const view=$("#view");
-const st={qq:"",qa:"",qf:"",qt:"",q:"",fn:"",edition:"1",year:"",region:"",countries:null,mode:"dist",thr:2,self:{},evalId:""};
+const st={q:"",edition:"3",year:"",region:"",cq:"",mode:"dist",thr:2,self:{},evalId:"",cstyle:"thick"};
+const lv=n=>`<span class="lvb v${n}">${n}</span>`;
 
 async function load(){
   const get=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(u+" "+r.status);return r.json()});
-  const [fw,pr,as,rg,sol]=await Promise.all([get("data/jee-v3-framework.json"),get("data/practices.json"),get("data/assessments.json").catch(()=>null),get("data/jee-register.json").catch(()=>null),get("data/solutions.json").catch(()=>({meta:{},solutions:[]})),window.Programmes?Programmes.load("../shared/"):null]);D.sol=sol.solutions;D.solMeta=sol.meta;D.solByQ={};D.sol.forEach(x=>x.questions.forEach(k=>(D.solByQ[k]=D.solByQ[k]||[]).push(x)));
-  D.fw=fw;D.pr=pr.practices;D.prMeta=pr.meta;D.as=as;D.reg=rg;
+  const [fw,pr,as,rg,sol]=await Promise.all([get("data/jee-v3-framework.json"),get("data/practices.json"),get("data/assessments.json").catch(()=>null),get("data/jee-register.json").catch(()=>null),get("data/solutions.json").catch(()=>({meta:{},solutions:[]})),window.Programmes?Programmes.load("../shared/"):null]);
+  D.fw=fw;D.pr=pr.practices;D.prMeta=pr.meta;D.as=as;D.reg=rg;D.sol=sol.solutions;D.solMeta=sol.meta||{};
   D.areas=Object.fromEntries(fw.technicalAreas.map(a=>[a.id,a]));
   D.ind=Object.fromEntries(fw.indicators.map(i=>[i.id,i]));
   D.pByInd={};D.pr.forEach(p=>p.indicators.forEach(i=>(D.pByInd[i]=D.pByInd[i]||[]).push(p)));
+  D.solByInd={};D.sol.forEach(x=>{const ids=new Set(x.questions.map(k=>k.split(":")[0]));ids.forEach(i=>(D.solByInd[i]=D.solByInd[i]||[]).push(x));});
   D.evals=(as&&as.evaluations)||[];
+  D.nQ=fw.indicators.reduce((n,i)=>n+i.technicalQuestions.length,0);
   route();
 }
-function nav(){ const cur=(location.hash.replace(/^#\/?/,"").split("/")[0])||"practices";
-  $("#tabs").innerHTML=TABS.map(([k,l])=>`<a href="#/${k}" ${k===cur?'aria-current="page"':""}>${l}</a>`).join(""); return cur;}
-function route(){ const parts=location.hash.replace(/^#\/?/,"").split("/"); const tab=nav();
-  ({indicators:vIndicators,questions:vQuestions,chart:vChart,scores:vScores,gaps:vGaps,practices:vPractices,about:vAbout}[tab]||vPractices)(parts[1]); }
+
+/* ---------- routing (old links keep working) ---------- */
+function route(){
+  const parts=location.hash.replace(/^#\/?/,"").split("/").filter(Boolean); const [a,b]=parts;
+  const go=h=>{history.replaceState(null,"",h);route();};
+  if(a==="indicators") return go(b?`#/indicator/${b}`:"#/areas");
+  if(a==="questions") return go(b?`#/indicator/${b}`:"#/areas");
+  if(a==="practices"){ const p=b&&D.pr.find(x=>x.id===b); return go(p?`#/areas/${D.ind[p.indicators[0]].areaId}`:"#/areas"); }
+  if(a==="scores") return go("#/countries/scores");
+  if(a==="chart"){ st.mode="chart"; return go("#/countries/scores"); }
+  if(a==="gaps") return go("#/countries");
+  const tab=a==="indicator"?"areas":(a||"start");
+  $("#tabs").innerHTML=TABS.map(([k,l])=>`<a href="#/${k==="start"?"":k}" ${k===tab?'aria-current="page"':""}>${l}</a>`).join("");
+  ({start:vStart,areas:b?()=>vArea(b):vAreas,indicator:()=>vIndicator(b),countries:()=>b==="scores"?vScores():vCountry(b),about:vAbout}[a||"start"]||vStart)();
+  if(!(a==="indicator"&&parts[2])) scrollTo(0,0);
+}
 window.addEventListener("hashchange",route);
 
-/* ---------- helpers ---------- */
+/* ---------- shared numbers ---------- */
+const ev3=()=>D.evals.filter(e=>String(e.edition)==="3");
+function distOf(id,list){ const c=[0,0,0,0,0]; let n=0; (list||ev3()).forEach(e=>{const s=e.scores[id]; if(s){c[s[0]-1]++;n++;}}); return {c,n}; }
+function areaStats(a){ let low=0,n=0; a.indicators.forEach(id=>{const d=distOf(id); low+=d.c[0]+d.c[1]; n+=d.n;}); const gp=new Set(); a.indicators.forEach(id=>(D.solByInd[id]||[]).forEach(x=>gp.add(x.id))); return {low:n?low/n:0,n,gp:gp.size}; }
+function stackBar(d){ if(!d.n) return `<span class="small muted">no v3 scores yet</span>`; return `<div class="stack" title="${d.c.map((v,k)=>`level ${k+1}: ${v}`).join(", ")} (of ${d.n} JEE v3 reports)">${d.c.map((v,k)=>v?`<i class="v${k+1}" style="width:${v/d.n*100}%"></i>`:"").join("")}</div>`; }
+const tl=t=>({"peer-reviewed":"Peer-reviewed study","systematic-review":"Systematic review","scoping-review":"Review","review":"Review","case-study":"Case study","conference-abstract":"Conference abstract","conference abstract":"Conference abstract","commentary":"Commentary","perspective":"Commentary","report":"Report","guidance":"Guidance","guideline":"Guidance","tool":"Tool","strategy":"Strategy or plan","protocol":"Protocol","WHO benchmark":"WHO benchmark","data":"Database","legal":"Legislation","iar":"After-action review","peer-review-report":"Peer evaluation report","statement":"Statement","presentation":"Presentation","event page":"Event page"}[t]||t);
+function solLine(x,extra){ return `<span class="badge" title="${esc((D.solMeta.sourceTypes||{})[x.type]||"")}">${esc(tl(x.type))}</span><a href="${esc(x.url)}" rel="noopener"><strong>${esc(x.title)}</strong></a> <span class="muted small">${esc(x.citation)}</span>${x.why?`<div class="why">${esc(x.why)}</div>`:""}${extra||""}`; }
+
+/* ---------- peers ---------- */
+function topList(id){ return ev3().filter(e=>e.scores[id]&&e.scores[id][0]>=4).sort((a,b)=>b.scores[id][0]-a.scores[id][0]||a.country.localeCompare(b.country)); }
+function chip(e,id,label){ const l=e.scores[id][0]; return `<a class="chip c${l}" href="${esc(e.pdfUrl)}#page=${e.scores[id][1]}" rel="noopener" title="${esc(e.title)}: opens the report at the page for ${esc(id)} (level ${l}, ${LABELS[l]})">${esc(label||e.country+" "+e.year)}</a>`; }
+function peersBlock(id){
+  if(!D.as) return "";
+  const ev=topList(id), d=distOf(id);
+  if(!ev.length) return `<p class="small muted">No country scored level 4 or 5 on ${esc(id)} in the third-edition reports collected so far.</p>`;
+  const row=l=>{const r=ev.filter(e=>e.scores[id][0]===l);return r.length?`<div class="lvrow">${lv(l)}<strong>${LABELS[l]}:</strong> ${r.map(e=>chip(e,id)).join("")}</div>`:"";};
+  return `<div class="top">${row(5)}${row(4)}<p class="small muted" style="margin:6px 0 0">${ev.length} of ${d.n} third-edition reports score this indicator at level 4–5. Each link opens the report at this indicator, where the evaluators describe the country's strengths and best practices. A level reflects one assessment at one moment, so read the page before approaching a country.</p></div>`;
+}
+function topCompact(id){
+  const ev=topList(id); if(!ev.length) return "";
+  const b=ev[0].scores[id][0], bb=ev.filter(e=>e.scores[id][0]===b);
+  return `<p class="small" style="margin:6px 0"><strong>Learn from</strong> ${lv(b)} ${bb.slice(0,6).map(e=>chip(e,id)).join("")}${bb.length>6?`<span class="muted"> +${bb.length-6} more</span>`:""}</p>`;
+}
+
+/* ---------- START ---------- */
+function vStart(){
+  const fw=D.fw, n3=ev3().length;
+  const tiles=f=>fw.technicalAreas.filter(a=>a.function===f).map(a=>{const s=areaStats(a);return `<a class="tile" href="#/areas/${a.id}"><div class="id">${esc(a.id)}</div><div class="nm">${esc(SHORT[a.id]||a.name)}</div><div class="meta">${a.indicators.length} indicator${a.indicators.length>1?"s":""} · ${s.gp} good practices</div>${s.n?`<div class="meta">${Math.round(s.low*100)}% of scores at level 1–2</div>`:""}</a>`}).join("");
+  const worst=fw.indicators.map(i=>{const d=distOf(i.id);return {i,d,low:d.n?(d.c[0]+d.c[1])/d.n:0}}).filter(x=>x.d.n>=5).sort((a,b)=>b.low-a.low).slice(0,6);
+  const opts=k=>D.evals.filter(e=>String(e.edition)===k).sort((a,b)=>a.country.localeCompare(b.country)||a.year-b.year).map(e=>`<option value="${e.id}">${esc(e.country)} ${e.year}</option>`).join("");
+  view.innerHTML=`<p class="lead big">Practical good practices for every capacity the WHO Joint External Evaluation measures, and the countries that already do it well. For countries that have had a JEE and for those preparing one.</p>
+  <div class="steps">
+  <section class="step"><h2>What is a JEE?</h2>
+   <p style="max-width:75ch">A <strong>Joint External Evaluation (JEE)</strong> is a voluntary WHO assessment of how well a country can prevent, detect and respond to public health threats, as the International Health Regulations (IHR 2005) require. The country first assesses itself; then a team of external experts reviews the evidence with national experts and they agree on <strong>one score per indicator</strong>. The report ends with priority actions. The third edition of the tool (2022) is built like this:</p>
+   <div class="flow" role="list"><div role="listitem"><b>4</b><span>functions: prevent, detect, respond, other hazards</span></div><div class="ar" aria-hidden="true">→</div><div role="listitem"><b>19</b><span>technical areas, such as surveillance or financing</span></div><div class="ar" aria-hidden="true">→</div><div role="listitem"><b>56</b><span>indicators, each scored 1 to 5</span></div><div class="ar" aria-hidden="true">→</div><div role="listitem"><b>${D.nQ}</b><span>technical questions the evaluators ask</span></div></div>
+   <div class="scale" aria-label="Score levels">${[1,2,3,4,5].map(n=>`<span class="v${n}">${n} · ${LABELS[n]}</span>`).join("")}</div>
+   <p class="small muted" style="max-width:75ch">This site takes each indicator and its technical questions and adds what can help close a gap: WHO and partner guidance, tools, published experience (${D.sol.length} good practices so far), and the countries that scored highest.</p></section>
+  <section class="step"><h2>Pick a technical area</h2>
+   <p class="muted" style="max-width:75ch;margin-top:0">Each area shows its indicators, what each score level means, the good practices per technical question and the peer countries to learn from.${n3?` Percentages are from ${n3} third-edition JEE reports.`:""}</p>
+   ${FUNCS.map(f=>`<div class="fgroup"><span class="fn">${f}</span> <span class="small muted">· ${FUNC_TXT[f]}</span></div><div class="tiles">${tiles(f)}</div>`).join("")}
+   ${worst.length?`<h3 style="margin-top:18px">The most common gaps</h3><p class="small muted" style="margin:0 0 6px">Indicators where the most third-edition reports give level 1 or 2.</p><ol class="gapl small">${worst.map(w=>`<li><a href="#/indicator/${w.i.id}"><strong>${w.i.id}</strong> ${esc(w.i.title)}</a> <span class="muted">· ${Math.round(w.low*100)}% at level 1–2 · ${(D.solByInd[w.i.id]||[]).length} good practices</span></li>`).join("")}</ol>`:""}</section>
+  <section class="step"><h2>Or start from a country's JEE</h2>
+   <p class="muted" style="max-width:75ch;margin-top:0">Pick a published JEE report to see the indicators where the country scored low, with good practices and peer countries for each.</p>
+   <div class="country"><select id="startev" aria-label="JEE report"><option value="">Choose a JEE report…</option><optgroup label="Third edition (2022 onward)">${opts("3")}</optgroup><optgroup label="Second edition">${opts("2")}</optgroup><optgroup label="First edition">${opts("1")}</optgroup></select>
+   <a class="btn" href="#/countries/self">Preparing a JEE? Rate the indicators yourself</a></div></section>
+  </div>`;
+  $("#startev").onchange=e=>{ if(e.target.value) location.hash=`#/countries/${e.target.value}`; };
+}
+
+/* ---------- TECHNICAL AREAS (overview + search) ---------- */
+function vAreas(){
+  const fw=D.fw;
+  let h=`<p class="lead">The 19 technical areas of the JEE (third edition), grouped by function. Open an area for its indicators, or search for a topic across indicators, questions and good practices.</p>
+  <div class="bar"><input id="q" type="search" placeholder="Search a topic, e.g. “one health”, “laboratory”, “7-1-7”…" aria-label="Search" value="${esc(st.q)}" size="44"></div><div id="res"></div>`;
+  view.innerHTML=h; const res=$("#res");
+  const draw=()=>{ const q=st.q.trim().toLowerCase();
+    if(!q){ res.innerHTML=FUNCS.map(f=>`<div class="fgroup"><span class="fn">${f}</span> <span class="small muted">· ${FUNC_TXT[f]}</span></div>`+fw.technicalAreas.filter(a=>a.function===f).map(a=>{const s=areaStats(a);return `<a class="irow" href="#/areas/${a.id}"><span class="id">${a.id}</span><span>${esc(a.name)}<div class="sub">${a.indicators.length} indicator${a.indicators.length>1?"s":""} · ${s.gp} good practices</div></span><span class="idist">${stackBar(a.indicators.reduce((acc,id)=>{const d=distOf(id);d.c.forEach((v,k)=>acc.c[k]+=v);acc.n+=d.n;return acc},{c:[0,0,0,0,0],n:0}))}</span></a>`}).join("")).join("")+`<p class="small muted">Bars show how third-edition JEE scores in each area spread over levels 1 (red) to 5 (green).</p>`; return; }
+    const hits=fw.indicators.map(i=>{ const qs=i.technicalQuestions.filter(t=>[t.text,...t.sub.map(s=>s.text)].join(" ").toLowerCase().includes(q)).length; const gp=(D.solByInd[i.id]||[]).filter(x=>(x.title+" "+(x.why||"")).toLowerCase().includes(q)).length; const t=(i.id+" "+i.title+" "+D.areas[i.areaId].name).toLowerCase().includes(q); return {i,qs,gp,t,score:(t?10:0)+qs*2+gp}; }).filter(x=>x.score).sort((a,b)=>b.score-a.score);
+    res.innerHTML=hits.length?`<p class="small muted">${hits.length} indicator${hits.length>1?"s":""} match.</p>`+hits.map(x=>`<a class="irow" href="#/indicator/${x.i.id}${x.qs||x.gp?"/q":""}"><span class="id">${x.i.id}</span><span>${esc(x.i.title)}<div class="sub">${esc(SHORT[x.i.areaId])}${x.qs?` · ${x.qs} matching question${x.qs>1?"s":""}`:""}${x.gp?` · ${x.gp} matching good practice${x.gp>1?"s":""}`:""}</div></span><span class="idist">${stackBar(distOf(x.i.id))}</span></a>`).join(""):`<p class="muted">Nothing matches “${esc(st.q)}”.</p>`; };
+  draw();
+  $("#q").oninput=e=>{st.q=e.target.value;draw();};
+}
+
+/* ---------- ONE AREA ---------- */
 function practiceCard(p){
-  const src=p.sources.map(s=>`<li><span class="badge">${esc(tl(s.type))}${s.peerReviewed&&s.type!=="peer-reviewed"?" · peer-reviewed":""}</span><a href="${esc(s.url)}" rel="noopener">${esc(s.citation)}</a>${s.note?` <span class="muted small">(${esc(s.note)})</span>`:""}</li>`).join("");
-  const ind=p.indicators.map(i=>`<a class="tag" href="#/indicators/${i}">${i}</a>`).join("");
-  return `<article class="card" id="p-${esc(p.id)}"><h3>${esc(p.title)}</h3><p>${esc(p.summary)}</p>
+  const src=p.sources.map(s=>`<li><span class="badge">${esc(tl(s.type))}</span><a href="${esc(s.url)}" rel="noopener">${esc(s.citation)}</a>${s.note?` <span class="muted small">(${esc(s.note)})</span>`:""}</li>`).join("");
+  return `<article class="card" id="p-${esc(p.id)}"><h3>${esc(p.title)}</h3><p style="margin:0 0 8px">${esc(p.summary)}</p>
   <p class="small"><strong>Why it can work.</strong> ${esc(p.mechanism)}</p>
-  <details><summary class="small">Elements, evidence and limits</summary>
+  <details><summary class="small">What it involves, evidence and limits</summary>
    <ul class="small">${p.implementation.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
    <dl class="kv"><dt>Strength</dt><dd>${esc(p.strength)}</dd><dt>Context</dt><dd>${esc(p.context)}</dd><dt>Limits</dt><dd>${esc(p.limitations)}</dd></dl>
    <ul class="small">${src}</ul></details>
-  <div style="margin-top:8px"><span class="small muted">Candidate indicators (v3): </span>${ind}</div>
-  <div>${p.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join("")}</div></article>`;
+  <div class="small" style="margin-top:8px"><span class="muted">Relevant to: </span>${p.indicators.map(i=>`<a class="tag" href="#/indicator/${i}">${i}</a>`).join("")}</div></article>`;
 }
-function dist(id){ const c=[0,0,0,0,0]; let n=0; D.evals.filter(e=>String(e.edition)==="3").forEach(e=>{const s=e.scores[id]; if(s){c[s[0]-1]++;n++;}}); return {c,n}; }
+function shortTarget(t){ let x=t.split(/:\s*(?=a\.)|\.\s/)[0].replace(/,?\s*including$/,"").trim(); if(x.length>220) x=x.slice(0,217).replace(/\s+\S*$/,"")+"…"; return x.replace(/[.:]?$/,"")+(x.length<t.length?" (full target below)":"."); }
+function vArea(id){
+  const a=D.areas[id]; if(!a){ view.innerHTML=`<p class="muted">Unknown area. <a href="#/areas">All technical areas</a></p>`; return; }
+  const inds=a.indicators.map(i=>D.ind[i]).filter(Boolean);
+  const ps=D.pr.filter(p=>p.indicators.some(i=>D.ind[i]&&D.ind[i].areaId===id));
+  view.innerHTML=`<p class="crumb"><a href="#/areas">Technical areas</a> › ${esc(a.function)}</p>
+  <h2 style="margin-top:0">${esc(a.id)} · ${esc(a.name)}</h2>
+  ${a.target?`<p style="max-width:75ch"><span class="muted">WHO target:</span> ${esc(shortTarget(a.target))}</p>`:""}
+  <h3 style="margin-top:20px">Indicators</h3><p class="small muted" style="margin:0 0 8px">Open an indicator for its score levels, peer countries and good practices per technical question.</p>
+  ${inds.map(i=>{const d=distOf(i.id);const n=(D.solByInd[i.id]||[]).length;const t=topList(i.id).length;return `<a class="irow" href="#/indicator/${i.id}"><span class="id">${i.id}</span><span>${esc(i.title)}<div class="sub">${n} good practices${t?` · ${t} peer countr${t>1?"ies":"y"} at level 4–5`:""}</div></span><span class="idist">${stackBar(d)}${d.n?`<div class="sub">${d.n} JEE v3 reports</div>`:""}</span></a>`}).join("")}
+  ${ps.length?`<h3 style="margin-top:24px">Good practice in brief</h3><p class="small muted" style="margin:0 0 8px">A short summary of an approach that addresses this area, with the evidence behind it.</p><div class="grid2">${ps.map(practiceCard).join("")}</div>`:""}
+  <details class="more"><summary>WHO target, measure and desired impact</summary><dl class="kv"><dt>Target</dt><dd>${esc(a.target||"")}</dd><dt>As measured by</dt><dd>${esc(a.measuredBy||"")}</dd><dt>Desired impact</dt><dd>${esc(a.desiredImpact||"")}</dd></dl>${a.contextualQuestions.length?`<p class="small muted">Contextual questions for the whole area (manual p. ${a.contextualQuestions[0].page}):</p><ol class="small">${a.contextualQuestions.map(c=>`<li>${esc(c.text)}${c.sub.length?`<ol type="a">${c.sub.map(s=>`<li>${esc(s.text)}</li>`).join("")}</ol>`:""}</li>`).join("")}</ol>`:""}</details>
+  ${window.Programmes?Programmes.html([a.id],{includeAll:true}):""}
+  <p class="small muted">More literature on this area: <a href="../ihr-benchmarks-good-practices/">IHR Benchmarks Good Practices</a> · <a href="../spar-good-practices/">SPAR Good Practices</a></p>`;
+}
 
-/* ---------- indicators ---------- */
-function vIndicators(open){
-  const fw=D.fw;
-  const q=st.q.trim().toLowerCase();
-  const match=i=>{ if(st.fn && D.areas[i.areaId].function!==st.fn) return false; if(st.area && i.areaId!==st.area) return false;
-    if(!q) return true; const hay=[i.id,i.title,...Object.values(i.scoreAttributes),...i.technicalQuestions.flatMap(t=>[t.text,...t.sub.map(s=>s.text)])].join(" ").toLowerCase(); return hay.includes(q); };
-  let html=`<p class="lead">All 19 technical areas and 56 indicators of the <strong>WHO JEE tool, third edition (2022)</strong>, with WHO's score descriptions and technical questions. Technical questions are prompts for the assessment team, not a scoring quiz: each indicator gets one consensus score.</p>
-  <div class="bar"><input id="q" type="search" placeholder="Search ID, keyword or question…" aria-label="Search indicators" value="${esc(st.q)}" size="34">
-   <select id="fn" aria-label="Function"><option value="">All functions</option>${FUNCS.map(f=>`<option ${st.fn===f?"selected":""}>${f}</option>`).join("")}</select>
-   <select id="area" aria-label="Technical area"><option value="">All technical areas</option>${fw.technicalAreas.map(a=>`<option value="${a.id}" ${st.area===a.id?"selected":""}>${a.id} ${esc(a.name)}</option>`).join("")}</select>
-   <button id="rs">Reset</button></div>`;
-  let shown=0;
-  for(const f of FUNCS){ for(const a of fw.technicalAreas.filter(a=>a.function===f)){
-    const list=fw.indicators.filter(i=>i.areaId===a.id&&match(i)); if(!list.length) continue; shown+=list.length;
-    html+=`<div class="areahead"><span class="fn">${f}</span><h2>${a.id} · ${esc(a.name)}</h2></div>`;
-    html+=(window.Programmes?Programmes.html([a.id],{includeAll:true}):"")+`<p class="small muted" style="margin:0 0 8px">Good practices and literature per topic: <a href="../ihr-benchmarks-good-practices/">IHR Benchmarks Good Practices</a> · <a href="../spar-good-practices/">SPAR Good Practices</a></p>`;
-    html+=`<details class="small" style="margin:0 0 8px"><summary>Target, measure and desired impact (WHO)</summary><dl class="kv"><dt>Target</dt><dd>${esc(a.target||"")}</dd><dt>As measured by</dt><dd>${esc(a.measuredBy||"")}</dd><dt>Desired impact</dt><dd>${esc(a.desiredImpact||"")}</dd></dl>${a.contextualQuestions.length?`<p class="muted">Contextual questions (area level, manual p. ${a.contextualQuestions[0].page}):</p><ol>${a.contextualQuestions.map(c=>`<li>${esc(c.text)}${c.sub.length?`<ol class="sub">${c.sub.map(s=>`<li>${esc(s.text)}</li>`).join("")}</ol>`:""}</li>`).join("")}</ol>`:""}</details>`;
-    for(const i of list){ const d=dist(i.id); const pr=D.pByInd[i.id]||[];
-      html+=`<details class="ind" id="i-${i.id}" ${open===i.id?"open":""}><summary><span class="id">${i.id}</span><span>${esc(i.title)}</span>${pr.length?`<span class="badge" title="Linked good practice summaries">${pr.length} good practice summar${pr.length>1?"ies":"y"}</span>`:""}</summary><div class="body">
-       <p class="small muted">WHO JEE tool, third edition · score table p. ${i.scorePageManual.join("–")}</p>
-       <table class="lv"><caption class="sr">Score descriptions for ${i.id}</caption><thead><tr><th>Level</th><th>WHO description</th></tr></thead><tbody>${[1,2,3,4,5].map(n=>`<tr><td class="n"><span class="sw s${n}" style="display:inline-block;min-width:22px;text-align:center;border-radius:5px;padding:0 6px">${n}</span> ${LABELS[n]}</td><td>${esc(i.scoreAttributes[n])}</td></tr>`).join("")}</tbody></table>
-       <p class="small"><a href="#/questions/${i.id}"><strong>Open the technical questions with good practices and peer examples →</strong></a></p><div class="q"><h3>Technical questions <span class="muted small">(prompts, manual p. ${i.technicalQuestions[0]?.page}–${i.technicalQuestions.at(-1)?.page})</span></h3><ol>${i.technicalQuestions.map(t=>`<li>${esc(t.text)}${t.sub.length?`<ol class="sub">${t.sub.map(s=>`<li>${esc(s.text)}</li>`).join("")}</ol>`:""}</li>`).join("")}</ol></div>
-       ${pr.length?`<h3>Good practice summaries that may help (candidate links)</h3><div class="grid2">${pr.map(practiceCard).join("")}</div>`:`<p class="small muted">No good practice summary is linked to this indicator yet.</p>`}
-       ${d.n?`<h3>Country scores in this indicator (v3)</h3>${topHTML(i.id)}<p class="small">${d.n} evaluation${d.n>1?"s":""}: ${d.c.map((c,k)=>`level ${k+1}: ${c}`).join(" · ")}. <a href="#/scores">Open the matrix</a>.</p>`:""}
-      </div></details>`; } } }
-  if(!shown) html+=`<p class="muted">No indicator matches.</p>`;
+/* ---------- ONE INDICATOR ---------- */
+function vIndicator(id){
+  const i=D.ind[id]; if(!i){ view.innerHTML=`<p class="muted">Unknown indicator. <a href="#/areas">All technical areas</a></p>`; return; }
+  const a=D.areas[i.areaId], d=distOf(id);
+  // group good practices: "key" = used for the whole indicator or for 2+ questions; others shown under their question
+  const all=D.solByInd[id]||[]; const qOf=k=>k.split(":")[1];
+  const info=all.map(x=>{const ks=x.questions.filter(k=>k.startsWith(id+":")).map(qOf);const base=new Set(ks.map(k=>k==="*"?"*":k.split(".")[0]));return {x,ks,base};});
+  const key=info.filter(o=>o.base.has("*")||o.base.size>=2).sort((p,q)=>q.base.size-p.base.size||p.x.title.localeCompare(q.x.title));
+  const keyNo=new Map(key.map((o,n)=>[o.x.id,n+1]));
+  const qnum=q=>q.replace("q","");
+  const helps=o=>{ if(o.base.has("*")) return "Relevant to the whole indicator"; const qs=[...o.base].map(qnum).sort((a,b)=>a-b); return `Helps with question${qs.length>1?"s":""} ${qs.map(n=>`<a href="#/indicator/${id}/q${n}">${n}</a>`).join(", ")}`; };
+  const specific=(qk)=>info.filter(o=>!keyNo.has(o.x.id)&&o.ks.includes(qk)).map(o=>o.x);
+  const keyFor=(q)=>key.filter(o=>o.base.has(q)).map(o=>keyNo.get(o.x.id));
+  const ps=D.pByInd[id]||[];
+  const qhtml=i.technicalQuestions.map(t=>{ const kr=keyFor(t.id); const own=specific(t.id); const subs=t.sub.map(s=>({s,l:specific(t.id+"."+s.k)})); const any=kr.length||own.length||subs.some(z=>z.l.length);
+    return `<li value="${qnum(t.id)}" id="q-${id}-${qnum(t.id)}">${esc(t.text)} <span class="small muted">(manual p. ${t.page})</span>
+     ${t.sub.length?`<ol class="sub">${subs.map(z=>`<li>${esc(z.s.text)}${z.l.map(x=>`<div class="sol">${solLine(x)}</div>`).join("")}</li>`).join("")}</ol>`:""}
+     ${kr.length?`<div class="keyref">Key good practice${kr.length>1?"s":""} ${kr.map(n=>`<a href="#/indicator/${id}/key${n}" title="Key good practice ${n}">${n}</a>`).join("")}</div>`:""}
+     ${own.map(x=>`<div class="sol">${solLine(x)}</div>`).join("")}
+     ${any?"":`<div class="nosrc">No good practice found for this question yet</div>`}</li>`; }).join("");
+  view.innerHTML=`<p class="crumb"><a href="#/areas">Technical areas</a> › <a href="#/areas/${a.id}">${esc(a.id)} ${esc(SHORT[a.id]||a.name)}</a></p>
+  <h2 style="margin-top:0">${esc(i.id)} · ${esc(i.title)}</h2>
+  <p class="small muted" style="margin:0">${all.length} good practices · ${i.technicalQuestions.length} technical questions${d.n?` · scored in ${d.n} third-edition JEE reports`:""}</p>
+  <nav class="jump small" aria-label="On this page"><a href="#/indicator/${id}/levels">Score levels</a> · <a href="#/indicator/${id}/peers">Countries to learn from</a> · <a href="#/indicator/${id}/key">Key good practices</a> · <a href="#/indicator/${id}/q">By technical question</a></nav>
+
+  <h3 id="sec-levels" style="margin-top:22px">What the score levels mean</h3>
+  <details ${d.n?"":"open"}><summary class="small muted">WHO's description of levels 1–5 (JEE tool p. ${i.scorePageManual.join("–")})</summary>
+  <table class="lv"><caption class="sr">Score descriptions for ${id}</caption><tbody>${[1,2,3,4,5].map(n=>`<tr><td class="n">${lv(n)} ${LABELS[n]}</td><td>${esc(i.scoreAttributes[n])}</td></tr>`).join("")}</tbody></table></details>
+  ${d.n?`<div style="display:flex;gap:10px;align-items:center;margin:8px 0;max-width:520px">${stackBar(d)}<span class="small muted" style="white-space:nowrap">${d.c.map((c,k)=>`${k+1}: ${c}`).join(" · ")}</span></div>`:""}
+
+  <h3 id="sec-peers" style="margin-top:22px">Countries to learn from</h3>${peersBlock(id)}
+
+  <h3 id="sec-key" style="margin-top:22px">Key good practices</h3>
+  ${key.length?`<p class="small muted" style="margin:0">Guidance, tools and studies that help with several technical questions of this indicator.</p><ol class="key">${key.map(o=>`<li id="key-${id}-${keyNo.get(o.x.id)}">${solLine(o.x,`<div class="helps">${helps(o)}</div>`)}</li>`).join("")}</ol>`:`<p class="small muted">No good practice covers several questions of this indicator; see the questions below.</p>`}
+  ${ps.length?`<details class="more"><summary>Good practice in brief (${ps.length})</summary><div class="grid2" style="margin-top:8px">${ps.map(practiceCard).join("")}</div></details>`:""}
+
+  <h3 id="sec-q" style="margin-top:22px">By technical question</h3>
+  <p class="small muted" style="margin:0;max-width:75ch">The questions the evaluation team uses to reach a score (WHO wording). Under each: the key good practices that apply, and good practices for that question only.</p>
+  <ol class="qs">${qhtml}</ol>
+  <p class="small"><a href="#/areas/${a.id}">← All indicators in ${esc(a.id)} ${esc(SHORT[a.id]||a.name)}</a></p>`;
+  // in-page anchors via hash: #/indicator/ID/levels|peers|key|keyN|q|qN
+  const sub=(location.hash.split("/")[3]||"");
+  let el=null;
+  if(sub==="levels") el=$("#sec-levels"); else if(sub==="peers") el=$("#sec-peers"); else if(sub==="key") el=$("#sec-key"); else if(sub==="q") el=$("#sec-q");
+  else if(/^key\d+$/.test(sub)) el=document.getElementById(`key-${id}-${sub.slice(3)}`); else if(/^q\d+$/.test(sub)) el=document.getElementById(`q-${id}-${sub.slice(1)}`);
+  if(sub==="levels"){ const det=$("#sec-levels").nextElementSibling; if(det) det.open=true; }
+  if(el){ el.scrollIntoView(); if(el.tagName==="LI"){el.style.transition="background 1.5s";el.style.background="var(--soft)";setTimeout(()=>el.style.background="",1600);} } else scrollTo(0,0);
+}
+
+/* ---------- COUNTRIES: gaps for one country ---------- */
+const XWALK={"P.1":["P1","P2"],"P.2":["P3"],"P.3":["P4"],"P.4":["P5"],"P.5":["P6"],"P.6":["P7"],"P.7":["P8"],"D.1":["D1"],"D.2":["D2"],"D.3":["P3"],"D.4":["D3"],"R.1":["R1"],"R.2":["R1"],"R.3":["R2"],"R.4":["R1"],"R.5":["R5"],"PoE":["PoE"],"CE":["CE"],"RE":["RE"]};
+function seg(cur){ return `<div class="seg" role="navigation" aria-label="Countries views"><a href="#/countries" ${cur==="gaps"?'aria-current="page"':""}>One country's gaps</a><a href="#/countries/scores" ${cur==="scores"?'aria-current="page"':""}>All scores</a></div>`; }
+function vCountry(evid){
+  if(evid==="self") st.evalId=""; else if(evid) st.evalId=evid;
+  const self=evid==="self"; const ev=D.evals.find(e=>e.id===st.evalId);
+  const opts=k=>D.evals.filter(e=>String(e.edition)===k).sort((a,b)=>a.country.localeCompare(b.country)||a.year-b.year).map(e=>`<option value="${e.id}" ${st.evalId===e.id&&!self?"selected":""}>${esc(e.country)} ${e.year}</option>`).join("");
+  let html=seg("gaps")+`<p class="lead">Pick a published JEE report, or rate the indicators yourself if you are preparing one. You get the indicators at or below the level you choose, each with peer countries and good practices.</p>
+  <div class="bar"><span class="lbl">JEE report</span><select id="ev" aria-label="JEE report"><option value="">Choose…</option><option value="self" ${self?"selected":""}>Rate the indicators myself (third edition)</option><optgroup label="Third edition (2022 onward)">${opts("3")}</optgroup><optgroup label="Second edition">${opts("2")}</optgroup><optgroup label="First edition">${opts("1")}</optgroup></select>
+   <span class="lbl">Show levels up to</span><select id="thr">${[1,2,3].map(n=>`<option value="${n}" ${st.thr===n?"selected":""}>${n} · ${LABELS[n]}</option>`).join("")}</select></div>`;
+  if(self){
+    html+=`<div class="note">Your own rating is <strong>not a JEE score</strong>; a real JEE reaches a consensus score with evidence. The score levels and technical questions on each indicator page can guide the discussion.</div>`;
+    const gaps=D.fw.indicators.filter(i=>st.self[i.id]&&st.self[i.id]<=st.thr);
+    html+=gapList(gaps.map(i=>({id:i.id,title:i.title,score:+st.self[i.id]})));
+    html+=`<h2>Rate the indicators</h2><table class="lv"><thead><tr><th>Indicator</th><th style="width:220px">Your level</th></tr></thead><tbody>${D.fw.indicators.map(i=>`<tr><td><a href="#/indicator/${i.id}/levels"><strong>${i.id}</strong></a> ${esc(i.title)}</td><td><select data-self="${i.id}" aria-label="Level for ${i.id}"><option value="">not rated</option>${[1,2,3,4,5].map(n=>`<option value="${n}" ${st.self[i.id]==n?"selected":""}>${n} · ${LABELS[n]}</option>`).join("")}</select></td></tr>`).join("")}</tbody></table>`;
+  } else if(!ev){
+    html+=`<p class="muted">Choose a report above.</p>`;
+  } else if(String(ev.edition)==="3"){
+    const gaps=D.fw.indicators.filter(i=>ev.scores[i.id]&&ev.scores[i.id][0]<=st.thr).map(i=>({id:i.id,title:i.title,score:ev.scores[i.id][0],page:ev.scores[i.id][1]}));
+    html+=`<p class="small muted">${esc(ev.title)} · <a href="${esc(ev.pdfUrl)}" rel="noopener">open the report</a>. The report's priority actions are specific to the country; the good practices here are general options.</p>`+gapList(gaps,ev);
+  } else {
+    const E=D.as.editions[ev.edition]; const gaps=E.indicators.filter(i=>ev.scores[i.id]&&ev.scores[i.id][0]<=st.thr);
+    const areaSet=new Set(); gaps.forEach(i=>(XWALK[i.area]||[]).forEach(a=>areaSet.add(a)));
+    html+=`<div class="note">This report uses the ${ev.edition==1?"first":"second"} edition of the JEE tool. Its indicators differ from the third edition, so the good practices are matched by technical area, not indicator by indicator.</div>
+    <h2>Indicators at level ${st.thr} or lower (${gaps.length})</h2><table class="lv"><tbody>${gaps.map(i=>`<tr><td><strong>${esc(i.id)}</strong> ${esc(i.title)}</td><td style="width:150px">${lv(ev.scores[i.id][0])} <a href="${esc(ev.pdfUrl)}#page=${ev.scores[i.id][1]}" rel="noopener">report p. ${ev.scores[i.id][1]}</a></td><td class="small">${(XWALK[i.area]||[]).map(a=>`<a class="tag" href="#/areas/${a}">${a} ${esc(SHORT[a])}</a>`).join("")}</td></tr>`).join("")||`<tr><td class="muted">No indicator at or below this level.</td></tr>`}</tbody></table>
+    <h2>Matching technical areas today</h2><div class="tiles">${[...areaSet].map(a=>`<a class="tile" href="#/areas/${a}"><div class="id">${a}</div><div class="nm">${esc(SHORT[a])}</div><div class="meta">${areaStats(D.areas[a]).gp} good practices</div></a>`).join("")}</div>`;
+  }
   view.innerHTML=html;
-  $("#q").oninput=e=>{st.q=e.target.value;const p=e.target.selectionStart;vIndicators();const n=$("#q");n.focus();n.setSelectionRange(p,p)};
-  $("#fn").onchange=e=>{st.fn=e.target.value;st.area="";vIndicators()};
-  $("#area").onchange=e=>{st.area=e.target.value;vIndicators()};
-  $("#rs").onclick=()=>{st.q="";st.fn="";st.area="";vIndicators()};
-  if(open){const el=document.getElementById("i-"+open); if(el) el.scrollIntoView();}
+  $("#ev").onchange=e=>{ const v=e.target.value; location.hash=v?`#/countries/${v}`:"#/countries"; };
+  $("#thr").onchange=e=>{st.thr=+e.target.value;vCountry(evid)};
+  const rz=$("#raise"); if(rz) rz.onclick=()=>{st.thr=+rz.dataset.n;vCountry(evid)};
+  view.querySelectorAll("[data-self]").forEach(s=>s.onchange=e=>{ if(e.target.value) st.self[s.dataset.self]=+e.target.value; else delete st.self[s.dataset.self]; const y=scrollY; vCountry("self"); scrollTo(0,y); });
 }
-
-
-/* ---------- technical questions ---------- */
-const TLAB={"peer-reviewed": "Peer-reviewed study", "systematic-review": "Systematic review", "scoping-review": "Scoping or narrative review", "review": "Scoping or narrative review", "case-study": "Case study", "conference-abstract": "Conference abstract", "conference abstract": "Conference abstract", "commentary": "Commentary or perspective", "perspective": "Commentary or perspective", "report": "Report", "guidance": "Guidance", "guideline": "Guidance", "tool": "Tool", "strategy": "Strategy or plan", "protocol": "Protocol", "WHO benchmark": "WHO benchmark", "data": "Database", "legal": "Legislation", "iar": "After- or intra-action review", "peer-review-report": "Peer evaluation report", "statement": "Statement or declaration", "presentation": "Presentation", "event page": "Event page"};const tl=t=>TLAB[t]||t;
-function solHTML(list){ if(st.qt) list=list.filter(x=>x.type===st.qt); return list.map(x=>`<div class="sol"><span class="badge" title="${esc((D.solMeta&&D.solMeta.sourceTypes&&D.solMeta.sourceTypes[x.type])||"")}">${esc(tl(x.type))}${x.addedBy==="user"?" · supplied by Mark":""}</span><a href="${esc(x.url)}" rel="noopener"><strong>${esc(x.title)}</strong></a> <span class="muted">${esc(x.citation)}</span>${x.note?`<div class="small muted">${esc(x.note)}</div>`:""}${x.why?`<div class="small">${esc(x.why)}</div>`:""}</div>`).join(""); }
-
-function topList(id){
-  if(!D.as) return [];
-  return D.evals.filter(e=>String(e.edition)==="3"&&e.scores[id]&&e.scores[id][0]>=4).sort((a,b)=>b.scores[id][0]-a.scores[id][0]||a.country.localeCompare(b.country));
-}
-function chip(e,id){ const l=e.scores[id][0]; return `<a class="chip l${l}" href="${esc(e.pdfUrl)}#page=${e.scores[id][1]}" rel="noopener" title="${esc(e.title)} — opens the report at PDF page ${e.scores[id][1]} (level ${l}, ${LABELS[l]})">${esc(e.country)} ${e.year}</a>`; }
-function topHTML(id,compact){
-  if(!D.as) return "";
-  const ev=topList(id);
-  if(!ev.length) return `<p class="small muted">No country in the data scored level 4–5 on ${esc(id)} yet.</p>`;
-  const by={5:ev.filter(e=>e.scores[id][0]===5),4:ev.filter(e=>e.scores[id][0]===4)};
-  const row=l=>by[l].length?`<div class="lvrow"><span class="lvb s${l}">${l}</span><strong>${LABELS[l]}:</strong> ${by[l].map(e=>chip(e,id)).join("")}</div>`:"";
-  const best=by[5].length?5:4;
-  if(compact) return `<p class="small" style="margin:6px 0"><strong>Learn from (level ${best}):</strong> ${by[best].slice(0,6).map(e=>chip(e,id)).join("")}${by[best].length>6?`<span class="muted"> +${by[best].length-6} more</span>`:""} <a href="#/questions/${esc(id)}">all ${ev.length} →</a></p>`;
-  return `<div class="top"><h4>Peer countries to learn from: highest level on ${esc(id)} <span class="muted">(JEE v3, ${ev.length} of ${D.evals.filter(e=>String(e.edition)==="3"&&e.scores[id]).length} scored evaluations at level 4–5)</span></h4>${row(5)}${row(4)}<p class="small muted" style="margin:4px 0 0">Each link opens the country's JEE report at the page of this indicator, where WHO's score justification and “strengths and best practices” are given. These are possible peers to learn from, not a ranking: a level reflects one assessment at one moment, so check the page before approaching a country.</p></div>`;
-}
-function peersHTML(id){ return topHTML(id,false); }
-function partnerHTML(gapIds){
-  if(!D.as||!gapIds.length) return "";
-  const rows=D.evals.filter(e=>String(e.edition)==="3").map(e=>({e,ids:gapIds.filter(id=>e.scores[id]&&e.scores[id][0]>=4)})).filter(r=>r.ids.length).sort((a,b)=>b.ids.length-a.ids.length||a.e.country.localeCompare(b.e.country)).slice(0,8);
+function partnerHTML(ids){
+  const rows=ev3().map(e=>({e,ids:ids.filter(id=>e.scores[id]&&e.scores[id][0]>=4)})).filter(r=>r.ids.length).sort((a,b)=>b.ids.length-a.ids.length||a.e.country.localeCompare(b.e.country)).slice(0,8);
   if(!rows.length) return "";
-  return `<h2>Possible peer countries for these gaps</h2><p class="small muted">Countries with a JEE v3 level 4–5 on the most of the indicators listed below. Alphabetical within the same count. Not a ranking; open the report page to see what the country does.</p><ul class="small">${rows.map(r=>`<li><strong>${esc(r.e.country)} ${r.e.year}</strong> — ${r.ids.length} of ${gapIds.length} gap indicators: ${r.ids.map(id=>chip(r.e,id).replace(/>[^<]*</,">"+id+"<")).join("")}</li>`).join("")}</ul>`;
+  return `<details class="more"><summary>Countries strong on several of these gaps (${rows.length})</summary><ul class="small">${rows.map(r=>`<li><strong>${esc(r.e.country)} ${r.e.year}</strong>: level 4–5 on ${r.ids.length} of ${ids.length} · ${r.ids.map(id=>chip(r.e,id,id)).join("")}</li>`).join("")}</ul></details>`;
 }
-function indTop(i){
-  const gen=D.solByQ[i.id+":*"]||[];
-  return `${peersHTML(i.id)}${gen.length?`<details class="small" style="margin:6px 0"><summary>Good practices and literature for the whole indicator (${gen.length})</summary>${solHTML(gen)}</details>`:""}`;
-}
-function vQuestions(open){
-  const q=st.qq.trim().toLowerCase(), fw=D.fw;
-  const total=fw.indicators.reduce((n,i)=>n+i.technicalQuestions.length,0);
-  const withSrc=fw.indicators.reduce((n,i)=>n+i.technicalQuestions.filter(t=>D.solByQ[i.id+":"+t.id]||t.sub.some(s=>D.solByQ[i.id+":"+t.id+"."+s.k])).length,0);
-  const subTot=fw.indicators.reduce((n,i)=>n+i.technicalQuestions.reduce((m,t)=>m+t.sub.length,0),0), subSrc=fw.indicators.reduce((n,i)=>n+i.technicalQuestions.reduce((m,t)=>m+t.sub.filter(x=>D.solByQ[i.id+":"+t.id+"."+x.k]).length,0),0);
-  let h=`<p class="lead">All ${total} technical questions of the WHO JEE tool (3rd edition), per technical area and indicator, in WHO's wording. Under a question you find publications, protocols or tools that can help answer it or close the gap it points to. <strong>${withSrc} of ${total} questions have at least one good practice so far</strong> (counting a good practice on any of its sub-questions); of the ${subTot} sub-questions, ${subSrc} have a good practice of their own; the others are shown as “no good practice yet”, not as “none exists”.</p>
-  <div class="bar"><input id="qq" type="search" placeholder="Search questions…" aria-label="Search questions" value="${esc(st.qq)}" size="30">
-   <select id="qa" aria-label="Technical area"><option value="">All technical areas</option>${fw.technicalAreas.map(a=>`<option value="${a.id}" ${st.qa===a.id?"selected":""}>${a.id} ${esc(a.name)}</option>`).join("")}</select>
-   <select id="qf" aria-label="Good practices"><option value="">All questions</option><option value="with" ${st.qf==="with"?"selected":""}>With good practices</option><option value="without" ${st.qf==="without"?"selected":""}>Without good practices yet</option></select>
-   <select id="qt" aria-label="Type"><option value="">All types</option>${[...new Set(D.sol.map(x=>x.type))].sort().map(t=>`<option value="${esc(t)}" ${st.qt===t?"selected":""}>${esc(tl(t))}</option>`).join("")}</select></div>`;
-  let shown=0;
-  for(const a of fw.technicalAreas){ if(st.qa&&a.id!==st.qa) continue;
-    let ah="";
-    for(const i of fw.indicators.filter(i=>i.areaId===a.id)){
-      const qs=i.technicalQuestions.filter(t=>{const has=!!(D.solByQ[i.id+":"+t.id]||t.sub.some(s=>D.solByQ[i.id+":"+t.id+"."+s.k]));
-        if(st.qf==="with"&&!has) return false; if(st.qf==="without"&&has) return false;
-        return !q||[t.text,...t.sub.map(s=>s.text),i.id,i.title].join(" ").toLowerCase().includes(q)});
-      if(!qs.length) continue; shown+=qs.length;
-      ah+=`<details class="ind" ${(open===i.id||q||st.qf)?"open":""} id="qi-${i.id}"><summary><span class="id">${i.id}</span><span>${esc(i.title)}</span><span class="badge">${qs.length} question${qs.length>1?"s":""} · ${qs.filter(t=>D.solByQ[i.id+":"+t.id]||t.sub.some(s=>D.solByQ[i.id+":"+t.id+"."+s.k])).length} with sources</span></summary><div class="body">${indTop(i)}<ol class="qs">${qs.map(t=>{const n=t.id.replace("q","");const inSub=new Set(t.sub.flatMap(s=>(D.solByQ[i.id+":"+t.id+"."+s.k]||[]).map(x=>x.id)));const ss=(D.solByQ[i.id+":"+t.id]||[]).filter(x=>!inSub.has(x.id));
-        return `<li value="${n}">${esc(t.text)} <span class="small muted">(manual p. ${t.page})</span>${t.sub.length?`<ol class="sub">${t.sub.map(s=>{const sl=D.solByQ[i.id+":"+t.id+"."+s.k]||[];return `<li>${esc(s.text)}${sl.length?solHTML(sl):""}</li>`}).join("")}</ol>`:""}${ss.length?solHTML(ss):(t.sub.some(s=>D.solByQ[i.id+":"+t.id+"."+s.k])?"":`<div class="nosrc">no good practice yet</div>`)}</li>`}).join("")}</ol><p class="small"><a href="#/indicators/${i.id}">Indicator definition and level descriptions</a></p></div></details>`; }
-    if(ah) h+=`<div class="areahead"><span class="fn">${a.function}</span><h2>${a.id} · ${esc(a.name)}</h2></div>`+ah; }
-  if(!shown) h+=`<p class="muted">No question matches.</p>`;
-  view.innerHTML=h+`<p class="note">${esc((D.solMeta&&D.solMeta.status)||"")}</p>`;
-  $("#qq").oninput=e=>{st.qq=e.target.value;const p=e.target.selectionStart;vQuestions();const n=$("#qq");n.focus();n.setSelectionRange(p,p)};
-  $("#qa").onchange=e=>{st.qa=e.target.value;vQuestions()}; $("#qf").onchange=e=>{st.qf=e.target.value;vQuestions()}; $("#qt").onchange=e=>{st.qt=e.target.value;vQuestions()};
-  if(open){const el=document.getElementById("qi-"+open); if(el) el.scrollIntoView();}
+function gapList(gaps,ev){
+  if(!gaps.length){ if(!ev) return `<p class="muted">No indicator rated at or below this level yet. Rate the indicators below.</p>`;
+    const next=[2,3].find(n=>n>st.thr&&D.fw.indicators.some(i=>ev.scores[i.id]&&ev.scores[i.id][0]<=n));
+    return `<p>${esc(ev.country)} has no indicator at level ${st.thr} or lower.${next?` <button id="raise" data-n="${next}">Show indicators up to level ${next}</button>`:` All its scored indicators are at level 4 or 5; it may be a peer country for others.`}</p>`; }
+  let out=`<h2>${gaps.length} indicator${gaps.length>1?"s":""} at level ${st.thr} or lower</h2>`+partnerHTML(gaps.map(g=>g.id));
+  gaps.forEach(g=>{ const all=D.solByInd[g.id]||[]; const ps=D.pByInd[g.id]||[];
+    out+=`<div class="card"><h3>${lv(g.score)}<a href="#/indicator/${g.id}">${g.id} ${esc(g.title)}</a>${ev&&g.page?` <span class="small muted">· <a href="${esc(ev.pdfUrl)}#page=${g.page}" rel="noopener">report p. ${g.page}</a></span>`:""}</h3>
+    ${topCompact(g.id)}
+    ${ps.length?ps.map(p=>`<p class="small" style="margin:4px 0"><strong>${esc(p.title)}.</strong> ${esc(p.summary)}</p>`).join(""):""}
+    <p class="small" style="margin:6px 0 0"><a href="#/indicator/${g.id}/key"><strong>${all.length} good practices for ${g.id}</strong>, per technical question →</a></p></div>`; });
+  return out;
 }
 
-/* ---------- profile chart (SVG) ---------- */
-const LVC={1:"#e0202b",2:"#f6a623",3:"#ea8a12",4:"#8fe08a",5:"#1b6e2a"};
-const SHORT={P1:"Legal instruments",P2:"Financing",P3:"IHR coordination",P4:"AMR",P5:"Zoonotic disease",P6:"Food safety",P7:"Biosafety & biosecurity",P8:"Immunization",D1:"Laboratory",D2:"Surveillance",D3:"Human resources",R1:"Emergency management",R2:"Public health & security",R3:"Health services",R4:"IPC",R5:"RCCE",PoE:"Points of entry",CE:"Chemical events",RE:"Radiation"};
-function vChart(){
-  if(!D.as){ view.innerHTML=`<div class="note">Country score data is not available.</div>`; return; }
+/* ---------- COUNTRIES: all scores ---------- */
+function evalsFor(ed){ return D.evals.filter(e=>String(e.edition)===String(ed)); }
+function vScores(){
+  if(!D.as){ view.innerHTML=seg("scores")+`<div class="note">Country score data is not available.</div>`; return; }
   const ed=st.edition; const E=D.as.editions[ed]; const all=evalsFor(ed);
-  const years=[...new Set(all.map(e=>e.year))].sort();
-  let ev=all.filter(e=>!st.year||String(e.year)===st.year); const qc=(st.cq||"").toLowerCase(); if(qc) ev=ev.filter(e=>e.country.toLowerCase().includes(qc));
-  const style=st.cstyle||"thick";
-  let h=`<p class="lead">Profile of the selected evaluations: for each indicator, how the evaluations spread over capacity levels 1–5. Same data as the distribution table under Country scores.</p>
-  <div class="bar"><span class="lbl">Edition</span>${["1","2","3"].map(k=>`<button data-ed="${k}" aria-pressed="${ed===k}">JEE v${k} <span class="muted small">(${evalsFor(k).length})</span></button>`).join("")}
+  const years=[...new Set(all.map(e=>e.year))].sort(); const regions=[...new Set(all.map(e=>e.region).filter(Boolean))].sort();
+  let ev=all.filter(e=>(!st.year||String(e.year)===st.year)&&(!st.region||e.region===st.region));
+  const qc=(st.cq||"").toLowerCase(); if(qc) ev=ev.filter(e=>e.country.toLowerCase().includes(qc));
+  ev=ev.slice().sort((a,b)=>a.country.localeCompare(b.country));
+  let head=seg("scores")+`<p class="lead">Consensus scores (1–5) from published JEE reports. <strong>Compare within one edition only:</strong> the editions use different indicators. Scores are levels, not percentages, and not a ranking of countries.</p>
+  <div class="bar"><span class="lbl">Edition</span>${["3","2","1"].map(k=>`<button data-ed="${k}" aria-pressed="${ed===k}">JEE v${k} <span class="muted small">(${evalsFor(k).length})</span></button>`).join("")}
    <span class="lbl">Year</span><select id="yr"><option value="">All</option>${years.map(y=>`<option ${String(y)===st.year?"selected":""}>${y}</option>`).join("")}</select>
-   <input id="cq" type="search" placeholder="Filter countries…" aria-label="Filter countries" value="${esc(st.cq||"")}">
-   <span class="lbl">Style</span><button data-cs="thick" aria-pressed="${style==="thick"}">Thickness (as in the example)</button><button data-cs="len" aria-pressed="${style==="len"}">Bar graph (length)</button><button id="svgdl">Download SVG</button></div>`;
-  if(!ev.length){ view.innerHTML=h+`<p class="muted">No evaluations match.</p>`; bindChart(); return; }
-  let maxP=0.01; for(const i of E.indicators){const c=[0,0,0,0,0];let n=0;ev.forEach(e=>{const s=e.scores[i.id];if(s){c[s[0]-1]++;n++}}); if(n) maxP=Math.max(maxP,...c.map(v=>v/n));}
+   ${regions.length?`<span class="lbl">WHO region</span><select id="rg"><option value="">All</option>${regions.map(r=>`<option ${r===st.region?"selected":""}>${esc(r)}</option>`).join("")}</select>`:""}
+   <input id="cq" type="search" placeholder="Filter countries…" aria-label="Filter countries" value="${esc(st.cq||"")}"></div>
+  <div class="bar"><span class="lbl">View</span><button data-mode="dist" aria-pressed="${st.mode==="dist"}">Spread per indicator</button><button data-mode="ind" aria-pressed="${st.mode==="ind"}">Matrix per country</button><button data-mode="area" aria-pressed="${st.mode==="area"}">Areas (summary)</button><button data-mode="chart" aria-pressed="${st.mode==="chart"}">Profile chart</button>
+   <button id="csv">Download CSV</button></div>
+  <div class="legend" aria-label="Legend">${[1,2,3,4,5].map(n=>`<span>${lv(n)}${LABELS[n]}</span>`).join("")}${st.mode==="ind"||st.mode==="area"?`<span><span class="lvb" style="background:var(--na);color:var(--muted)">·</span>no score extracted</span>`:""}</div>`;
+  if(ed!=="3") head+=`<div class="note">Edition ${ed} is assigned by the indicator set found in each report. v1, v2 and v3 use different indicators and are not directly comparable; a lower later score does not mean capacity declined.</div>`;
+  else head+=`<div class="note">Third-edition reports (mission 2022 onward) come from WHO's IRIS repository; the year is the year of the mission. The Netherlands (2025) was assessed jointly with an ECDC preparedness assessment.</div>`;
+  if(!ev.length){ view.innerHTML=head+`<p class="muted">No evaluations match.</p>`; bindScores(ev,E); return; }
+  if(st.mode==="chart"){ view.innerHTML=head+chartHTML(ev,E,ed); bindScores(ev,E); return; }
+  if(st.mode==="dist"){ view.innerHTML=head+distHTML(ev,E,ed)+`<p class="note">Scores were read automatically from the report PDFs and can contain extraction errors; check them in the report (the matrix view links to each page). Missing scores are not counted as zero.</p>`; bindScores(ev,E); return; }
+  let t=`<div class="mwrap"><table class="mx"><caption class="sr">JEE v${ed} scores: rows are indicators, columns are country evaluations</caption><thead><tr><th class="rh" scope="col">${st.mode==="ind"?"Indicator":"Technical area"}</th>${ev.map(e=>`<th class="ch" scope="col" title="${esc(e.country)} ${e.year}"><div>${esc(e.country)} ${e.year}</div></th>`).join("")}</tr></thead><tbody>`;
+  const cell=(e,rowLabel,score,id)=> score? `<td><button class="cell v${score[0]}" data-e="${e.id}" data-i="${esc(id)}" aria-label="${esc(e.country)} ${e.year}, ${esc(rowLabel)}: score ${score[0]}, ${LABELS[score[0]]}">${score[0]}</button></td>` : `<td class="na" title="No score extracted">·</td>`;
+  if(st.mode==="ind"){
+    for(const a of E.areas){ const rows=E.indicators.filter(i=>i.area===a.id); if(!rows.length) continue;
+      t+=`<tr class="grp"><th class="rh" colspan="${ev.length+1}">${esc(a.id)} · ${esc(a.name)}</th></tr>`;
+      for(const i of rows){ t+=`<tr><th class="rh" scope="row">${ed==="3"?`<a href="#/indicator/${esc(i.id)}"><strong>${esc(i.id)}</strong></a>`:`<strong>${esc(i.id)}</strong>`} ${esc(i.title)}</th>${ev.map(e=>cell(e,i.id+" "+i.title,e.scores[i.id],i.id)).join("")}</tr>`; } }
+  } else {
+    t+=`<tr class="grp"><th class="rh" colspan="${ev.length+1}">Mean of available indicator levels per area (n scored / n indicators). A rough summary only.</th></tr>`;
+    for(const a of E.areas){ const rows=E.indicators.filter(i=>i.area===a.id); if(!rows.length) continue;
+      t+=`<tr><th class="rh" scope="row">${ed==="3"?`<a href="#/areas/${esc(a.id)}"><strong>${esc(a.id)}</strong></a>`:`<strong>${esc(a.id)}</strong>`} ${esc(a.name)}</th>${ev.map(e=>{const v=rows.map(i=>e.scores[i.id]?.[0]).filter(Boolean); if(!v.length) return `<td class="na" title="No scores extracted">·</td>`; const m=v.reduce((x,y)=>x+y,0)/v.length; return `<td class="v${Math.round(m)}" style="text-align:center;font-weight:700;font-size:12px" title="mean ${m.toFixed(1)} from ${v.length} of ${rows.length} indicators">${m.toFixed(1)}<br><span style="font-weight:400">${v.length}/${rows.length}</span></td>`}).join("")}</tr>`; }
+  }
+  t+=`</tbody></table></div><div id="panel" class="card" hidden></div>`;
+  view.innerHTML=head+t+`<p class="note">Scores were read automatically from the report PDFs and can contain extraction errors. Click a cell for the report page, and check it there. “·” means no score was extracted, not a score of zero.</p>`;
+  bindScores(ev,E);
+}
+function distHTML(ev,E,ed){
+  const has=id=>ed==="3"&&D.ind[id];
+  let h=`<p class="small muted">For each indicator: the share of the ${ev.length} selected report${ev.length===1?"":"s"} at each level. ${ed==="3"?"Click an indicator for its good practices.":""}</p>`;
+  h+=`<div style="overflow-x:auto"><table class="dist"><caption class="sr">Share of evaluations per level for each indicator, JEE v${ed}</caption><thead><tr><th scope="col" colspan="2">Technical area · indicator</th>${[1,2,3,4,5].map(n=>`<th scope="col" title="${LABELS[n]}">${n}<div class="small muted" style="font-weight:400">${LABELS[n].replace(" capacity","")}</div></th>`).join("")}<th scope="col">n</th>${ed==="3"?`<th scope="col">Countries to learn from</th>`:""}</tr></thead><tbody>`;
+  for(const a of E.areas){ const inds=E.indicators.filter(i=>i.area===a.id); if(!inds.length) continue;
+    inds.forEach((i,k)=>{ const c=[0,0,0,0,0]; let n=0; ev.forEach(e=>{const s=e.scores[i.id]; if(s){c[s[0]-1]++;n++;}});
+      h+=`<tr class="${k===0?"first":""}">${k===0?`<td class="ar" rowspan="${inds.length}">${ed==="3"?`<a href="#/areas/${esc(a.id)}">${esc(a.id)} · ${esc(a.name)}</a>`:`${esc(a.id)} · ${esc(a.name)}`}</td>`:""}<th scope="row" class="ix" title="${esc(i.title)}">${has(i.id)?`<a href="#/indicator/${esc(i.id)}">${esc(i.id)}</a>`:esc(i.id)}</th>${c.map((v,x)=>{const p=n?v/n:0;return `<td class="b"><i class="v${x+1}" style="height:${p?Math.max(2,Math.round(p*26)):0}px"></i><span>${n?Math.round(p*100)+"%":""}<span class="sr"> ${v} of ${n} at level ${x+1}</span></span></td>`}).join("")}<td class="n">${n}</td>${ed==="3"?`<td class="small">${(()=>{const t=topList(i.id);if(!t.length)return `<span class="muted">none at 4–5</span>`;const b=t[0].scores[i.id][0];const bb=t.filter(e=>e.scores[i.id][0]===b);return lv(b)+bb.slice(0,3).map(e=>chip(e,i.id)).join("")+(bb.length>3?` <a href="#/indicator/${esc(i.id)}/peers">+${bb.length-3}</a>`:"")})()}</td>`:""}</tr>`; }); }
+  return h+`</tbody></table></div>`;
+}
+const LVC={1:"#c8372d",2:"#ee8a2b",3:"#f2c94c",4:"#86c27a",5:"#2e7d4a"};
+function chartHTML(ev,E,ed){
+  const style=st.cstyle; let maxP=0.01;
+  for(const i of E.indicators){const c=[0,0,0,0,0];let n=0;ev.forEach(e=>{const s=e.scores[i.id];if(s){c[s[0]-1]++;n++}}); if(n) maxP=Math.max(maxP,...c.map(v=>v/n));}
   const rowH=16, x0=190, colW=86, barW=46, top=8, idX=x0+5*colW+8, W=idX+60; let y=top; let g="";
   for(const a of E.areas){ const inds=E.indicators.filter(i=>i.area===a.id); if(!inds.length) continue; const yA=y;
     inds.forEach(i=>{const c=[0,0,0,0,0];let n=0;ev.forEach(e=>{const s=e.scores[i.id];if(s){c[s[0]-1]++;n++}});
-      c.forEach((v,k)=>{const p=n?v/n:0; if(!p) return; const cx=x0+k*colW+colW/2; const tip=`${i.id}: level ${k+1} (${LABELS[k+1]}): ${v} of ${n} evaluations (${Math.round(p*100)}%)`;
+      c.forEach((v,k)=>{const p=n?v/n:0; if(!p) return; const cx=x0+k*colW+colW/2; const tip=`${i.id}: level ${k+1} (${LABELS[k+1]}): ${v} of ${n} (${Math.round(p*100)}%)`;
         if(style==="thick"){const hh=Math.max(1.5,(p/maxP)*(rowH-2)); g+=`<rect x="${cx-barW/2}" y="${y+(rowH-hh)/2}" width="${barW}" height="${hh}" fill="${LVC[k+1]}"><title>${esc(tip)}</title></rect>`;}
         else{const ww=Math.max(1.5,p*(colW-26)); g+=`<rect x="${x0+k*colW+6}" y="${y+3}" width="${ww}" height="${rowH-6}" fill="${LVC[k+1]}"><title>${esc(tip)}</title></rect><text x="${x0+k*colW+8+ww}" y="${y+rowH-4}" font-size="8.5" class="mut">${Math.round(p*100)}</text>`;}});
       g+=`<text x="${idX}" y="${y+rowH-4}" font-size="9" class="mut"><title>${esc(i.title)}</title>${esc(i.id)}</text>`; y+=rowH;});
@@ -284,79 +446,22 @@ function vChart(){
     y+=4; g+=`<line x1="8" x2="${W-6}" y1="${y-2}" y2="${y-2}" stroke="var(--line)" stroke-dasharray="3 3"/>`; }
   const H=y+36; let ax=""; for(let k=1;k<=5;k++) ax+=`<text x="${x0+(k-1)*colW+colW/2}" y="${y+16}" font-size="14" font-weight="700" text-anchor="middle">${k}</text><text x="${x0+(k-1)*colW+colW/2}" y="${y+28}" font-size="8" text-anchor="middle" class="mut">${LABELS[k].replace(" capacity","")}</text>`;
   ax+=`<line x1="${x0-4}" x2="${x0-4}" y1="${top-4}" y2="${y-4}" stroke="var(--ink)"/>`;
-  h+=`<figure class="ch"><svg class="pc" id="pcsvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" role="img" aria-label="Profile chart of JEE v${ed}: share of ${ev.length} evaluations per capacity level per indicator">${g}${ax}</svg><figcaption class="small muted">Share of ${ev.length} evaluation${ev.length===1?"":"s"} per level, JEE v${ed}. ${style==="thick"?`Bar thickness = share (thickest bar = ${Math.round(maxP*100)}%).`:"Bar length = share (number = %)."} Colours: 1 red, 2–3 orange, 4 light green, 5 dark green. Exact numbers: Country scores, “Level distribution” view.</figcaption></figure>`;
-  view.innerHTML=h; bindChart();
-}
-function bindChart(){
-  view.querySelectorAll("[data-ed]").forEach(b=>b.onclick=()=>{st.edition=b.dataset.ed;st.year="";vChart()});
-  view.querySelectorAll("[data-cs]").forEach(b=>b.onclick=()=>{st.cstyle=b.dataset.cs;vChart()});
-  const y=$("#yr"); if(y) y.onchange=e=>{st.year=e.target.value;vChart()};
-  const c=$("#cq"); if(c) c.oninput=e=>{st.cq=e.target.value;const p=e.target.selectionStart;vChart();const n=$("#cq");n.focus();n.setSelectionRange(p,p)};
-  const d=$("#svgdl"); if(d) d.onclick=()=>{const svg=$("#pcsvg"); if(!svg) return; let t=new XMLSerializer().serializeToString(svg).replace(/var\(--ink\)/g,"#1c1f26").replace(/var\(--muted\)/g,"#667085").replace(/var\(--line\)/g,"#bbb");t=t.replace("<svg ",'<svg style="background:#fff" ').replace(/<text /g,'<text fill="#1c1f26" ');const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"image/svg+xml"}));a.download=`jee-v${st.edition}-profile.svg`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)};
-}
-
-/* ---------- scores matrix ---------- */
-function evalsFor(ed){ return D.evals.filter(e=>String(e.edition)===String(ed)); }
-function vScores(){
-  if(!D.as){ view.innerHTML=`<div class="note">Country score data has not been published yet.</div>`; return; }
-  const ed=st.edition; const E=D.as.editions[ed]; const all=evalsFor(ed);
-  const years=[...new Set(all.map(e=>e.year))].sort(); const regions=[...new Set(all.map(e=>e.region).filter(Boolean))].sort();
-  let ev=all.filter(e=>(!st.year||String(e.year)===st.year)&&(!st.region||e.region===st.region));
-  const qc=(st.cq||"").toLowerCase(); if(qc) ev=ev.filter(e=>e.country.toLowerCase().includes(qc));
-  ev=ev.slice().sort((a,b)=>a.country.localeCompare(b.country));
-  const inds=E.indicators, areas=E.areas;
-  let head=`<p class="lead">Consensus capacity levels (1–5) from official JEE reports. <strong>Always compare within one edition.</strong> Levels are ordinal, not percentages, and this is not a ranking of countries.</p>
-  <div class="bar"><span class="lbl">Edition</span>${["1","2","3"].map(k=>`<button data-ed="${k}" aria-pressed="${ed===k}">JEE v${k} <span class="muted small">(${evalsFor(k).length})</span></button>`).join("")}
-   <span class="lbl">Year</span><select id="yr"><option value="">All</option>${years.map(y=>`<option ${String(y)===st.year?"selected":""}>${y}</option>`).join("")}</select>
-   ${regions.length?`<span class="lbl">WHO region</span><select id="rg"><option value="">All</option>${regions.map(r=>`<option ${r===st.region?"selected":""}>${esc(r)}</option>`).join("")}</select>`:""}
-   <input id="cq" type="search" placeholder="Filter countries…" aria-label="Filter countries" value="${esc(st.cq||"")}">
-   <span class="lbl">View</span><button data-mode="dist" aria-pressed="${st.mode==="dist"}">Level distribution</button><button data-mode="ind" aria-pressed="${st.mode==="ind"}">Matrix per country</button><button data-mode="area" aria-pressed="${st.mode==="area"}">Areas (summary)</button>
-   <button id="csv">Download CSV</button></div>
-  ${st.mode==="dist"?"":`<div class="legend" aria-label="Legend">${[1,2,3,4,5].map(n=>`<span><span class="sw s${n}">${n}</span> ${LABELS[n]}</span>`).join("")}<span><span class="sw" style="background:var(--na);color:var(--muted)">·</span> no score extracted</span></div>`}`;
-  if(ed==="1"||ed==="2") head+=`<div class="note">Edition ${ed} is shown by <strong>year of the evaluation</strong> and by the indicator set found in each report. Indicator titles are as printed in the reports. v1, v2 and v3 use different indicators and are not directly comparable; a lower later score does not mean capacity declined.</div>`;
-  if(ed==="3") head+=`<div class="note">Third-edition reports (mission 2022 onward) come from WHO's IRIS repository. The year is the year of the mission. A few reports have 1–5 indicators without an extracted score, shown as “·”. The Netherlands (2025) was assessed jointly with an ECDC preparedness assessment.</div>`;
-  if(!ev.length){ view.innerHTML=head+(all.length?`<p class="muted">No evaluations match.</p>`:`<div class="note">No JEE v${ed} country scores have been extracted yet. Reports of the third edition (2022 onwards) are listed in the WHO library; their scores will be added in a later step. Until then, use the <a href="#/indicators">v3 indicator directory</a> and the self-assessment under <a href="#/gaps">Find solutions</a>.</div>`); bindScores(ev,E); return; }
-  if(st.mode==="dist"){ view.innerHTML=head+distHTML(ev,E,ed)+`<p class="note">Scores were read automatically from the report PDFs and can contain extraction errors; check them in the source report (see the Matrix per country view for page links). Missing scores are not counted as zero.</p>`; bindScores(ev,E); return; }
-  let t=`<div class="mwrap"><table class="mx"><caption class="sr">JEE v${ed} scores: rows are indicators, columns are country evaluations</caption><thead><tr><th class="rh" scope="col">${st.mode==="ind"?"Indicator":"Technical area"}</th>${ev.map(e=>`<th class="ch" scope="col" title="${esc(e.country)} ${e.year}"><div>${esc(e.country)} ${e.year}</div></th>`).join("")}</tr></thead><tbody>`;
-  const cell=(e,rowLabel,score,id)=> score? `<td><button class="cell s${score[0]}" data-e="${e.id}" data-i="${esc(id)}" aria-label="${esc(e.country)} ${e.year}, ${esc(rowLabel)}: score ${score[0]}, ${LABELS[score[0]]}">${score[0]}</button></td>` : `<td class="na" title="No score extracted">·</td>`;
-  if(st.mode==="ind"){
-    for(const a of areas){ const rows=inds.filter(i=>i.area===a.id); if(!rows.length) continue;
-      t+=`<tr class="grp"><th class="rh" colspan="${ev.length+1}">${esc(a.id)} · ${esc(a.name)}</th></tr>`;
-      for(const i of rows){ t+=`<tr><th class="rh" scope="row">${ed==="3"?`<a href="#/indicators/${esc(i.id)}"><strong>${esc(i.id)}</strong></a>`:`<strong>${esc(i.id)}</strong>`} ${esc(i.title)}</th>${ev.map(e=>cell(e,i.id+" "+i.title,e.scores[i.id],i.id)).join("")}</tr>`; } }
-  } else {
-    t+=`<tr class="grp"><th class="rh" colspan="${ev.length+1}">Descriptive mean of available indicator levels per area (n scored / n indicators in the area). Ordinal levels: the mean is a rough summary only.</th></tr>`;
-    for(const a of areas){ const rows=inds.filter(i=>i.area===a.id); if(!rows.length) continue;
-      t+=`<tr><th class="rh" scope="row"><strong>${esc(a.id)}</strong> ${esc(a.name)}</th>${ev.map(e=>{const v=rows.map(i=>e.scores[i.id]?.[0]).filter(Boolean); if(!v.length) return `<td class="na" title="No scores extracted">·</td>`; const m=v.reduce((x,y)=>x+y,0)/v.length; return `<td class="s${Math.round(m)}" style="text-align:center;font-weight:700;font-size:12px" title="mean ${m.toFixed(1)} from ${v.length} of ${rows.length} indicators">${m.toFixed(1)}<br><span style="font-weight:400">${v.length}/${rows.length}</span></td>`}).join("")}</tr>`; }
-  }
-  t+=`</tbody></table></div><div id="panel" class="card" hidden></div>`;
-  view.innerHTML=head+t+`<p class="note">Scores were read automatically from the report PDFs and can contain extraction errors. Click a cell for the source report and page, and check it there. Evaluations without a score cell are shown as “·”; this is not a score of zero (JEE has no level 0).</p>`;
-  bindScores(ev,E);
-}
-
-function distHTML(ev,E,ed){
-  const rows=[];const has=id=>ed==="3"&&D.ind[id];
-  let h=`<p class="small muted">Each bar shows the share of the ${ev.length} selected evaluation${ev.length===1?"":"s"} that scored that level on an indicator (bar thickness and percentage). It describes the group, not any one country. Click an indicator to open its definition, technical questions and linked practices.</p>`;
-  h+=`<div style="overflow-x:auto"><table class="dist"><caption class="sr">Share of evaluations per capacity level for each indicator, JEE v${ed}</caption><thead><tr><th scope="col" colspan="2">Technical area · indicator</th>${[1,2,3,4,5].map(n=>`<th scope="col" title="${LABELS[n]}">${n}<div class="small muted" style="font-weight:400">${LABELS[n].replace(" capacity","")}</div></th>`).join("")}<th scope="col">n</th>${ed==="3"?`<th scope="col">Highest level: countries to learn from</th>`:""}</tr></thead><tbody>`;
-  const stats=[];
-  for(const a of E.areas){ const inds=E.indicators.filter(i=>i.area===a.id); if(!inds.length) continue;
-    inds.forEach((i,k)=>{ const c=[0,0,0,0,0]; let n=0; ev.forEach(e=>{const s=e.scores[i.id]; if(s){c[s[0]-1]++;n++;}}); stats.push({i,c,n});
-      h+=`<tr class="${k===0?"first":""}">${k===0?`<td class="ar" rowspan="${inds.length}" title="${esc(a.name)}">${esc(a.id)} · ${esc(a.name)}</td>`:""}<th scope="row" class="ix" title="${esc(i.title)}">${has(i.id)?`<a href="#/indicators/${esc(i.id)}">${esc(i.id)}</a>`:esc(i.id)}</th>${c.map((v,x)=>{const p=n?v/n:0;return `<td class="b l${x+1}"><i style="height:${p?Math.max(2,Math.round(p*26)):0}px"></i><span>${n?Math.round(p*100)+"%":""}<span class="sr"> ${v} of ${n} evaluations at level ${x+1}, ${LABELS[x+1]}</span></span></td>`}).join("")}<td class="n">${n}</td>${ed==="3"?`<td class="small">${(()=>{const t=topList(i.id);if(!t.length)return `<span class="muted">none at 4–5</span>`;const b=t[0].scores[i.id][0];const bb=t.filter(e=>e.scores[i.id][0]===b);return `<span class="lvb s${b}">${b}</span>`+bb.slice(0,3).map(e=>chip(e,i.id)).join("")+(bb.length>3?` <a href="#/indicators/${esc(i.id)}">+${bb.length-3}</a>`:"")})()}</td>`:""}</tr>`; }); }
-  h+=`</tbody></table></div>`;
-  const worst=stats.filter(s=>s.n>=3).map(s=>({...s,low:(s.c[0]+s.c[1])/s.n})).sort((a,b)=>b.low-a.low).slice(0,10);
-  h+=`<h2>Where the gaps are largest</h2><p class="small muted">Indicators with the highest share of evaluations at level 1–2 (at least 3 evaluations scored). These are the entry points to the technical questions and good practices.</p><ol class="gapl">${worst.map(w=>{const pr=D.pByInd[w.i.id]||[];return `<li>${has(w.i.id)?`<a href="#/indicators/${esc(w.i.id)}"><strong>${esc(w.i.id)}</strong></a>`:`<strong>${esc(w.i.id)}</strong>`} ${esc(w.i.title)} <span class="badge">${Math.round(w.low*100)}% at level 1–2</span>${has(w.i.id)?` <span class="small muted">${pr.length?pr.length+" linked good practice summar"+(pr.length>1?"ies":"y"):"no good practice summary linked yet"} · ${D.ind[w.i.id].technicalQuestions.length} technical questions</span>`:""}</li>`}).join("")}</ol>`;
-  return h;
+  return `<div class="bar"><span class="lbl">Style</span><button data-cs="thick" aria-pressed="${style==="thick"}">Thickness</button><button data-cs="len" aria-pressed="${style==="len"}">Bar length</button><button id="svgdl">Download SVG</button></div>
+  <figure class="ch"><svg class="pc" id="pcsvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" role="img" aria-label="Profile chart of JEE v${ed}: share of ${ev.length} evaluations per level per indicator">${g}${ax}</svg><figcaption class="small muted">Share of ${ev.length} report${ev.length===1?"":"s"} per level, JEE v${ed}. ${style==="thick"?`Bar thickness = share (thickest = ${Math.round(maxP*100)}%).`:"Bar length = share (number = %)."}</figcaption></figure>`;
 }
 function bindScores(ev,E){
   view.querySelectorAll("[data-ed]").forEach(b=>b.onclick=()=>{st.edition=b.dataset.ed;st.year="";st.region="";vScores()});
   view.querySelectorAll("[data-mode]").forEach(b=>b.onclick=()=>{st.mode=b.dataset.mode;vScores()});
+  view.querySelectorAll("[data-cs]").forEach(b=>b.onclick=()=>{st.cstyle=b.dataset.cs;vScores()});
   const y=$("#yr"); if(y) y.onchange=e=>{st.year=e.target.value;vScores()};
   const r=$("#rg"); if(r) r.onchange=e=>{st.region=e.target.value;vScores()};
   const c=$("#cq"); if(c) c.oninput=e=>{st.cq=e.target.value;const p=e.target.selectionStart;vScores();const n=$("#cq");n.focus();n.setSelectionRange(p,p)};
   const csv=$("#csv"); if(csv) csv.onclick=()=>exportCsv(ev,E);
+  const d=$("#svgdl"); if(d) d.onclick=()=>{const svg=$("#pcsvg"); if(!svg) return; let t=new XMLSerializer().serializeToString(svg).replace(/var\(--ink\)/g,"#1c1f26").replace(/var\(--muted\)/g,"#667085").replace(/var\(--line\)/g,"#bbb");t=t.replace("<svg ",'<svg style="background:#fff" ').replace(/<text /g,'<text fill="#1c1f26" ');const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"image/svg+xml"}));a.download=`jee-v${st.edition}-profile.svg`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)};
   view.querySelectorAll("button.cell").forEach(b=>b.onclick=()=>{
     const e=D.evals.find(x=>x.id===b.dataset.e); const id=b.dataset.i; const sc=e.scores[id]; const ind=E.indicators.find(i=>i.id===id);
     const p=$("#panel"); p.hidden=false;
-    p.innerHTML=`<h3>${esc(e.country)} ${e.year} · ${esc(id)} · level ${sc[0]} (${LABELS[sc[0]]})</h3><dl class="kv"><dt>Indicator</dt><dd>${esc(ind.title)}</dd><dt>Edition</dt><dd>JEE v${e.edition} <span class="muted small">(${esc(e.editionBasis||"")})</span></dd><dt>Report</dt><dd>${esc(e.title)} · <a href="${esc(e.pdfUrl)}#page=${sc[1]}" rel="noopener">open PDF at page ${sc[1]}</a> · <a href="${esc(e.libraryUrl)}" rel="noopener">WHO library entry</a></dd><dt>Page</dt><dd>PDF page ${sc[1]} (page number in the PDF file, not the printed number)</dd></dl>`+(String(e.edition)==="3"&&D.ind[id]?`<p><a href="#/indicators/${esc(id)}">Open indicator definition, questions and good practices</a></p>`:"");
+    p.innerHTML=`<h3>${esc(e.country)} ${e.year} · ${esc(id)} · ${lv(sc[0])}${LABELS[sc[0]]}</h3><dl class="kv"><dt>Indicator</dt><dd>${esc(ind.title)}</dd><dt>Report</dt><dd>${esc(e.title)} · <a href="${esc(e.pdfUrl)}#page=${sc[1]}" rel="noopener">open at PDF page ${sc[1]}</a> · <a href="${esc(e.libraryUrl)}" rel="noopener">WHO library entry</a></dd></dl>`+(String(e.edition)==="3"&&D.ind[id]?`<p><a href="#/indicator/${esc(id)}">Good practices and peer countries for ${esc(id)} →</a></p>`:"");
     p.scrollIntoView({block:"nearest"});
   });
 }
@@ -367,69 +472,24 @@ function exportCsv(ev,E){
   const a=document.createElement("a"); a.href=URL.createObjectURL(new Blob(["﻿"+csv],{type:"text/csv"})); a.download=`jee-v${st.edition}-scores.csv`; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),2000);
 }
 
-/* ---------- find solutions (gaps) ---------- */
-const XWALK={ // v1/v2 area -> v3 areas (matched by name; indicators differ)
- "P.1":["P1","P2"],"P.2":["P3"],"P.3":["P4"],"P.4":["P5"],"P.5":["P6"],"P.6":["P7"],"P.7":["P8"],
- "D.1":["D1"],"D.2":["D2"],"D.3":["P3"],"D.4":["D3"],"R.1":["R1"],"R.2":["R1"],"R.3":["R2"],"R.4":["R1"],"R.5":["R5"],
- "PoE":["PoE"],"CE":["CE"],"RE":["RE"]};
-function vGaps(){
-  const e3=evalsFor("3"), all=D.evals;
-  let html=`<p class="lead">Find good practices for capacity gaps. Pick a completed evaluation, or rate the indicators yourself if you are preparing for a JEE. The tool lists indicators at or below your threshold and the good practices linked to them.</p>
-  <div class="bar"><span class="lbl">Start from</span><select id="ev"><option value="">Self-assessment (v3 indicators)</option>${["3","2","1"].map(k=>`<optgroup label="JEE v${k}">${evalsFor(k).sort((a,b)=>a.country.localeCompare(b.country)).map(e=>`<option value="${e.id}" ${st.evalId===e.id?"selected":""}>${esc(e.country)} ${e.year}</option>`).join("")}</optgroup>`).join("")}</select>
-   <span class="lbl">Show levels up to</span><select id="thr">${[1,2,3].map(n=>`<option value="${n}" ${st.thr===n?"selected":""}>${n} · ${LABELS[n]}</option>`).join("")}</select></div>`;
-  const ev=all.find(e=>e.id===st.evalId);
-  if(!ev){
-    html+=`<div class="note">Self-assessment: a level you choose here is your own judgement, <strong>not a JEE score</strong>. A real JEE uses a consensus process with evidence. Technical questions on the <a href="#/indicators">Indicators</a> page can guide discussion.</div>`;
-    html+=`<table class="lv"><thead><tr><th>Indicator</th><th style="width:210px">Your level</th></tr></thead><tbody>${D.fw.indicators.map(i=>`<tr><td><a href="#/indicators/${i.id}"><strong>${i.id}</strong></a> ${esc(i.title)}</td><td><select data-self="${i.id}" aria-label="Level for ${i.id}"><option value="">not rated</option>${[1,2,3,4,5].map(n=>`<option value="${n}" ${st.self[i.id]==n?"selected":""}>${n} · ${LABELS[n]}</option>`).join("")}</select></td></tr>`).join("")}</tbody></table>`;
-    const gaps=D.fw.indicators.filter(i=>st.self[i.id]&&st.self[i.id]<=st.thr);
-    html+=gapList(gaps.map(i=>({id:i.id,title:i.title,score:+st.self[i.id]})),"v3");
-  } else if(String(ev.edition)==="3"){
-    const gaps=D.fw.indicators.filter(i=>ev.scores[i.id]&&ev.scores[i.id][0]<=st.thr).map(i=>({id:i.id,title:i.title,score:ev.scores[i.id][0],page:ev.scores[i.id][1]}));
-    html+=`<p class="small muted">${esc(ev.title)} · <a href="${esc(ev.pdfUrl)}" rel="noopener">report</a>. Priority actions in the report are country-specific; good practices below are general, evidence-informed options.</p>`+gapList(gaps,"v3",ev);
-  } else {
-    const E=D.as.editions[ev.edition]; const gaps=E.indicators.filter(i=>ev.scores[i.id]&&ev.scores[i.id][0]<=st.thr);
-    const areaSet=new Set(); gaps.forEach(i=>(XWALK[i.area]||[]).forEach(a=>areaSet.add(a)));
-    html+=`<div class="note">This is a v${ev.edition} evaluation. Indicators were redefined in v3, so good practices are matched at <strong>area level</strong> (by area name), not indicator by indicator.</div>
-    <h2>Indicators at level ≤ ${st.thr}</h2><table class="lv"><tbody>${gaps.map(i=>`<tr><td><strong>${esc(i.id)}</strong> ${esc(i.title)}</td><td class="n">level ${ev.scores[i.id][0]} · <a href="${esc(ev.pdfUrl)}#page=${ev.scores[i.id][1]}" rel="noopener">p. ${ev.scores[i.id][1]}</a></td><td class="small">${(XWALK[i.area]||[]).map(a=>`<a class="tag" href="#/indicators">${a}</a>`).join("")}</td></tr>`).join("")||`<tr><td class="muted">No indicator at or below this level.</td></tr>`}</tbody></table>`;
-    const ps=D.pr.filter(p=>p.indicators.some(i=>areaSet.has(D.ind[i].areaId)));
-    html+=`<h2>Good practice summaries for the matching v3 areas</h2>${ps.length?`<div class="grid2">${ps.map(practiceCard).join("")}</div>`:`<p class="muted">No linked practice yet for these areas. The seed set is small and will grow.</p>`}`;
-  }
-  view.innerHTML=html;
-  $("#ev").onchange=e=>{st.evalId=e.target.value;vGaps()}; $("#thr").onchange=e=>{st.thr=+e.target.value;vGaps()};
-  view.querySelectorAll("[data-self]").forEach(s=>s.onchange=e=>{ if(e.target.value) st.self[s.dataset.self]=+e.target.value; else delete st.self[s.dataset.self]; const y=scrollY; vGaps(); scrollTo(0,y); });
-}
-function gapList(gaps){
-  if(!gaps.length) return `<h2>Gaps</h2><p class="muted">Nothing at or below this level yet. Rate indicators above, or raise the threshold.</p>`;
-  const seen=new Set(); let out=partnerHTML(gaps.map(g=>g.id))+(window.Programmes&&gaps.length?`<h2>Programmes, networks and funders for these areas</h2>`+Programmes.html(gaps.map(g=>g.id),{includeAll:true}):"")+`<h2>Gaps (${gaps.length}) and practices that may help</h2>`;
-  gaps.forEach(g=>{ const ps=D.pByInd[g.id]||[]; const nq=D.fw.indicators.find(x=>x.id===g.id).technicalQuestions.filter(t=>D.solByQ[g.id+":"+t.id]||t.sub.some(s=>D.solByQ[g.id+":"+t.id+"."+s.k])).length;
-    out+=`<div class="card"><h3><a href="#/indicators/${g.id}">${g.id}</a> ${esc(g.title)} <span class="badge">level ${g.score} · ${LABELS[g.score]}</span></h3><p class="small"><a href="#/questions/${g.id}">Technical questions with sources (${nq} questions with sources) and peer examples →</a></p>${topHTML(g.id,true)}${ps.length?ps.map(p=>`<p class="small" style="margin:4px 0"><a href="#/practices/${esc(p.id)}"><strong>${esc(p.title)}</strong></a> — ${esc(p.summary)}</p>`).join(""):`<p class="small muted">No good practice summary is linked to this indicator yet.</p>`}</div>`; ps.forEach(p=>seen.add(p.id)); });
-  return out;
-}
-
-/* ---------- practices ---------- */
-function vPractices(openId){
-  const types=["guideline","systematic-review","tool","strategy"]; const tags=[...new Set(D.pr.flatMap(p=>p.tags))].sort();
-  let html=`<p class="lead">A seed set of evidence-informed good practice summaries linked to JEE v3 indicators. <strong>Links are candidates, not promises:</strong> no source shows that a practice raises a JEE score. Types are shown on every card: WHO guidance recommends; it is not an effectiveness study.</p>
-  <div class="bar"><span class="lbl">Evidence</span><select id="pt"><option value="">All</option>${types.map(t=>`<option value="${esc(t)}" ${st.pt===t?"selected":""}>${esc(tl(t))}</option>`).join("")}</select><span class="lbl">Tag</span><select id="pg"><option value="">All</option>${tags.map(t=>`<option ${st.pg===t?"selected":""}>${esc(t)}</option>`).join("")}</select></div>`;
-  const list=D.pr.filter(p=>(!st.pt||p.sources.some(s=>s.type===st.pt))&&(!st.pg||p.tags.includes(st.pg)));
-  html+=`<div class="grid2">${list.map(practiceCard).join("")}</div><p class="note">${esc(D.prMeta.status)}</p>`;
-  view.innerHTML=html; $("#pt").onchange=e=>{st.pt=e.target.value;vPractices()}; $("#pg").onchange=e=>{st.pg=e.target.value;vPractices()};
-  if(openId){const el=document.getElementById("p-"+openId); if(el){el.querySelector("details")?.setAttribute("open","");el.scrollIntoView();}}
-}
-
-/* ---------- about ---------- */
+/* ---------- ABOUT ---------- */
 function vAbout(){
-  const f=D.fw.framework, as=D.as&&D.as.meta, reg=D.reg;
-  view.innerHTML=`<h2>What this is</h2><p>A public, source-linked view of the WHO Joint External Evaluation (JEE): the indicator definitions, the technical questions, the capacity levels countries received, and good practices that may help close gaps. It is a personal project, not a WHO product.</p>
-  <h2>Framework (v3)</h2><p>${esc(f.name)}, ISBN ${esc(f.isbn)}. <a href="${esc(f.sourceUrl)}" rel="noopener">WHO publication page</a> · <a href="${esc(f.pdfUrl)}" rel="noopener">PDF</a>. Text was extracted from the PDF (accessed ${esc(f.dateAccessed)}, SHA-256 <code class="small">${esc(f.pdfSha256.slice(0,16))}…</code>) and checked against it: 19 areas, 56 unique indicators, ${D.fw.indicators.reduce((n,i)=>n+i.technicalQuestions.length,0)} technical questions. Footnote markers were removed; WHO wording is otherwise kept. Page numbers are the printed page numbers of the manual.</p>
-  <h2>Country scores</h2><ul>
+  const f=D.fw.framework, as=D.as&&D.as.meta, reg=D.reg, m=D.solMeta;
+  view.innerHTML=`<h2 style="margin-top:0">What this is</h2><p style="max-width:75ch">A public, source-linked view of the WHO Joint External Evaluation (JEE): the indicator definitions and technical questions, the scores countries received, and good practices that may help close gaps. It is a personal project, not a WHO product. Sources: <a href="https://www.who.int/publications/i/item/9789240051980" rel="noopener">WHO JEE tool, third edition (2022)</a> · <a href="https://www.who.int/emergencies/operations/international-health-regulations-monitoring-evaluation-framework/joint-external-evaluations" rel="noopener">WHO JEE website</a>.</p>
+  <h2>How to read the good practices</h2><ul style="max-width:75ch">
+   <li>A good practice is a guidance document, tool, study or country example that can help answer a technical question or close the gap behind it. It is <strong>not a claim that it raises a JEE score</strong>.</li>
+   <li>Each one is labelled with its type. WHO guidance recommends what to do; it is not an effectiveness study. A case study describes what one country did.</li>
+   <li>“Key good practices” are those that help with several questions of one indicator; the others are shown under the one question they fit.</li>
+   <li>Questions without a good practice say so; that means none was found yet, not that none exists.</li>
+   <li>The short “good practice in brief” summaries (${D.pr.length}, at least one per technical area) are a curated set. ${esc(D.prMeta.status)}</li></ul>
+  <h2>How the good practices were found</h2><p style="max-width:75ch">${esc(m.status||"")} ${m.nSources?`The set holds ${m.nSources} good practices covering ${m.nQuestionsCovered} of ${m.nQuestions} technical questions${m.nSubQuestions?` and ${m.nSubQuestionsCovered} of ${m.nSubQuestions} sub-questions`:""}.`:""} The set is refreshed monthly.</p>
+  <h2>Framework (third edition)</h2><p style="max-width:75ch">${esc(f.name)}, ISBN ${esc(f.isbn)}. <a href="${esc(f.sourceUrl)}" rel="noopener">WHO publication page</a> · <a href="${esc(f.pdfUrl)}" rel="noopener">PDF</a>. Text was extracted from the PDF (accessed ${esc(f.dateAccessed)}, SHA-256 <code class="small">${esc(f.pdfSha256.slice(0,16))}…</code>) and checked against it: 19 areas, 56 indicators, ${D.nQ} technical questions. Footnote markers were removed; WHO wording is otherwise kept. Page numbers are the printed page numbers of the manual.</p>
+  <h2>Country scores</h2><ul style="max-width:75ch">
    <li>JEE scores are consensus judgements by a joint team, informed by evidence and context. They are levels, not percentages, and not a league table.</li>
-   <li>Scores were read from the official report PDFs listed in the <a href="data/assessments.json">data file</a>; each score keeps its report, edition basis and PDF page. ${as?esc(as.method||""):""}</li>
-   <li>Editions differ in indicators and wording, so scores are not directly comparable across v1, v2 and v3. WHO warns that a lower later score need not mean capacity declined.</li>
-   <li>Reports are listed from the WHO SPH document library${reg?` (${reg.entries.length} entries retrieved ${esc(reg.retrieved)})`:""}. Some countries or reports are missing; absence here does not mean a country has had no JEE.</li></ul>
-  <h2>Good practices and literature per technical question</h2><p>${esc((D.solMeta&&D.solMeta.status)||"")} ${D.solMeta&&D.solMeta.nSources?`The set holds ${D.solMeta.nSources} good practices covering ${D.solMeta.nQuestionsCovered} of ${D.solMeta.nQuestions} questions${D.solMeta.nSubQuestions?` and ${D.solMeta.nSubQuestionsCovered} of ${D.solMeta.nSubQuestions} sub-questions`:""}.`:""} Each indicator also lists the WHO benchmark actions for its technical area and, as peer examples, the countries that scored level 4–5 on it in a third-edition JEE, with a link to the page of their report.</p>
-  <h2>Good practice summaries</h2><p>${esc(D.prMeta.status)}</p>
-  <h2>Using this for a JEE you are preparing</h2><p>Read each indicator's five level descriptions, use the technical questions as discussion prompts, and rate the indicators on the “Find solutions” page for a first, informal view of gaps. That rating is not a JEE score.</p>
+   <li>Each score keeps its report, edition and PDF page (<a href="data/assessments.json">data file</a>). ${as?esc(as.method||""):""}</li>
+   <li>Editions differ in indicators and wording, so scores are not directly comparable across v1, v2 and v3. A lower later score need not mean capacity declined.</li>
+   <li>Reports are listed from the WHO SPH document library${reg?` (${reg.entries.length} entries retrieved ${esc(reg.retrieved)})`:""}. Some reports are missing; absence here does not mean a country has had no JEE.</li>
+   <li>“Countries to learn from” lists third-edition reports with level 4 or 5 on an indicator, linking to the report page where evaluators describe strengths and best practices.</li></ul>
   <h2>Corrections</h2><p>Spotted an error? Open an issue on <a href="https://github.com/mvanpassel-cmyk/mvanpassel-cmyk.github.io/issues">GitHub</a>.</p>`;
 }
 load().catch(e=>{view.innerHTML=`<div class="note">Could not load the data: ${esc(e.message)}</div>`});
