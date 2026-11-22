@@ -106,6 +106,8 @@ ol.qs ol.sub{list-style:lower-alpha;margin:4px 0}
 .nosrc{font-size:12px;color:var(--muted);font-style:italic}
 .grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
 @media (max-width:400px){.grid2{grid-template-columns:1fr}}
+details.nphi{margin:8px 0;font-size:13px}details.nphi>summary{cursor:pointer;color:var(--muted)}
+details.nphi ul{margin:6px 0;padding-left:18px}details.nphi li{margin:3px 0}
 details.more{margin:10px 0}details.more>summary{cursor:pointer;color:var(--muted);font-size:14px}
 /* scores */
 .mwrap{overflow:auto;max-height:78vh;border:1px solid var(--line);border-radius:12px;background:var(--card)}
@@ -218,6 +220,29 @@ function topCompact(id){
   return `<p class="small" style="margin:6px 0"><strong>Learn from</strong> ${lv(b)} ${bb.slice(0,6).map(e=>chip(e,id)).join("")}${bb.length>6?`<span class="muted"> +${bb.length-6} more</span>`:""}</p>`;
 }
 
+/* ---------- NPHI collaboration map cross-reference (a pointer, not a review) ---------- */
+const NPHI_KW={P1:/legislat|legal|\blaws?\b|public health act/i,P2:/financ|budget|costing|investment case|domestic resource/i,P3:/\bIHR\b|international health regulations|focal point|NAPHS|health security|joint external evaluation|\bJEE\b/i,P4:/antimicrobial|\bAMR\b|stewardship|drug.resist/i,P5:/zoono|one health|rabies|avian|anthrax|brucell|animal health|veterinar/i,P6:/food safety|foodborne|food-borne|INFOSAN/i,P7:/biosafety|biosecurity|biorisk|\bBSL/i,P8:/vaccin|immuni[sz]|\bEPI\b/i,D1:/laborator|diagnost|sequenc|genomic|specimen|reference lab/i,D2:/surveillance|early warning|event.based|\bIDSR|outbreak detection|epidemic intelligence|disease intelligence|\bDHIS/i,D3:/\bFETP|field epidemiolog|workforce|training|fellowship|curricul|mentor/i,R1:/emergency operations|\bP?H?EOC\b|incident management|simulation exercise|rapid response team|outbreak response|emergency response|emergency preparedness|stockpile|preparedness and response/i,R2:/military|civil-military|law enforcement|police|deliberate/i,R3:/essential health services|case management|clinical management|hospital preparedness|health services/i,R4:/infection prevention|\bIPC\b|healthcare.associated|hospital.acquired|\bHAI\b|\bWASH\b/i,R5:/risk communication|community engagement|infodemic|\bRCCE\b|health communication/i,PoE:/points? of entry|\bborder|port health|airport|cross-border/i,CE:/chemical|poison|toxicolog/i,RE:/radiation|radiolog|nuclear/i};
+const NPHI_ALIAS={"Lao People's Democratic Republic":"Laos","Viet Nam":"Vietnam","Republic of Korea":"South Korea","United Republic of Tanzania":"Tanzania","United Republic of Tanzania (Zanzibar)":"Tanzania","Eswatini":"eSwatini","Solomon Islands":"Solomon Is.","Côte d'Ivoire":"Ivory Coast","Türkiye":"Turkey","Russian Federation":"Russia","Iran (Islamic Republic of)":"Iran","Syrian Arab Republic":"Syria","Democratic Republic of the Congo":"Dem. Rep. Congo"};
+let nphiP=null;
+function loadNphi(){ if(!nphiP) nphiP=fetch("../nphi-map/projects.json").then(r=>r.ok?r.json():{projects:[]}).then(j=>{ (j.projects||[]).forEach(p=>{const t=p.title+" "+p.summary; p._a=new Set(Object.keys(NPHI_KW).filter(k=>NPHI_KW[k].test(t))); if((p.topics||[]).includes("amr")) p._a.add("P4"); if((p.topics||[]).includes("onehealth")) p._a.add("P5");}); return j.projects||[]; }).catch(()=>[]); return nphiP; }
+const nphiSlot=(area,country)=>`<div class="nphislot" data-area="${esc(area)}" data-country="${esc(country||"")}"></div>`;
+function fillNphi(){
+  const slots=[...view.querySelectorAll(".nphislot")]; if(!slots.length) return;
+  loadNphi().then(all=>{ slots.forEach(el=>{ if(!el.isConnected) return;
+    const area=el.dataset.area, jc=el.dataset.country, c=NPHI_ALIAS[jc]||jc;
+    const order={ongoing:0,planned:1,unclear:2,completed:3};
+    const list=all.filter(p=>p._a.has(area)&&(!c||(p.partners||[]).includes(c))).sort((a,b)=>(order[a.status]??2)-(order[b.status]??2)||(b.start||0)-(a.start||0));
+    if(!list.length){ el.innerHTML=c?`<p class="small muted" style="margin:6px 0">NPHI collaboration map: no collaboration with ${esc(jc)} on ${esc(SHORT[area])} found.</p>`:""; return; }
+    const prev=list.filter(p=>p.status==="completed").length, cur=list.length-prev;
+    const st=p=>p.status==="completed"?"previous":p.status==="unclear"?"status unclear":p.status;
+    const yrs=p=>p.start?(p.end&&p.end!==p.start?`${p.start}–${p.end}`:`${p.start}`):"";
+    const li=p=>`<li><a href="${esc(p.url)}" rel="noopener">${esc(p.title)}</a> <span class="muted">· ${esc(p.actor)}${c?"":` → ${esc((p.partners||[]).slice(0,4).join(", "))}${(p.partners||[]).length>4?"…":""}`} · ${st(p)}${yrs(p)?" · "+yrs(p):""}</span></li>`;
+    const cap=12;
+    el.innerHTML=`<details class="nphi"><summary>NPHI collaboration map: ${list.length} collaboration${list.length>1?"s":""} on ${esc(SHORT[area])}${c?` with ${esc(jc)}`:""} (${cur} current, ${prev} previous)</summary><ul>${list.slice(0,cap).map(li).join("")}</ul>${list.length>cap?`<button class="nphimore" style="font-size:12px;padding:2px 10px">Show all ${list.length}</button>`:""}<p class="small muted" style="margin:4px 0 0">Projects of national public health institutes and partners from the <a href="../nphi-map/">NPHI Collaboration Map</a>, matched to this technical area by keywords in their title and summary. A pointer to who already works on this, not an assessment.</p></details>`;
+    const b=el.querySelector(".nphimore"); if(b) b.onclick=()=>{ el.querySelector("ul").innerHTML=list.map(li).join(""); b.remove(); };
+  }); });
+}
+
 /* ---------- START ---------- */
 function vStart(){
   const fw=D.fw, n3=ev3().length;
@@ -320,6 +345,8 @@ function vIndicator(id){
   ${key.length?`<p class="small muted" style="margin:0">Guidance, tools and studies that help with several technical questions of this indicator.</p><ol class="key">${key.map(o=>`<li id="key-${id}-${keyNo.get(o.x.id)}">${solLine(o.x,`<div class="helps">${helps(o)}</div>`)}</li>`).join("")}</ol>`:`<p class="small muted">No good practice covers several questions of this indicator; see the questions below.</p>`}
   ${ps.length?`<details class="more"><summary>Good practice in brief (${ps.length})</summary><div class="grid2" style="margin-top:8px">${ps.map(practiceCard).join("")}</div></details>`:""}
 
+  ${nphiSlot(i.areaId,"")}
+
   <h3 id="sec-q" style="margin-top:22px">By technical question</h3>
   <p class="small muted" style="margin:0;max-width:75ch">The questions the evaluation team uses to reach a score (WHO wording). Under each: the key good practices that apply, and good practices for that question only.</p>
   <ol class="qs">${qhtml}</ol>
@@ -330,6 +357,7 @@ function vIndicator(id){
   if(sub==="levels") el=$("#sec-levels"); else if(sub==="peers") el=$("#sec-peers"); else if(sub==="key") el=$("#sec-key"); else if(sub==="q") el=$("#sec-q");
   else if(/^key\d+$/.test(sub)) el=document.getElementById(`key-${id}-${sub.slice(3)}`); else if(/^q\d+$/.test(sub)) el=document.getElementById(`q-${id}-${sub.slice(1)}`);
   if(sub==="levels"){ const det=$("#sec-levels").nextElementSibling; if(det) det.open=true; }
+  fillNphi();
   if(el){ el.scrollIntoView(); if(el.tagName==="LI"){el.style.transition="background 1.5s";el.style.background="var(--soft)";setTimeout(()=>el.style.background="",1600);} } else scrollTo(0,0);
 }
 
@@ -360,7 +388,7 @@ function vCountry(evid){
     <h2>Indicators at level ${st.thr} or lower (${gaps.length})</h2><table class="lv"><tbody>${gaps.map(i=>`<tr><td><strong>${esc(i.id)}</strong> ${esc(i.title)}</td><td style="width:150px">${lv(ev.scores[i.id][0])} <a href="${esc(ev.pdfUrl)}#page=${ev.scores[i.id][1]}" rel="noopener">report p. ${ev.scores[i.id][1]}</a></td><td class="small">${(XWALK[i.area]||[]).map(a=>`<a class="tag" href="#/areas/${a}">${a} ${esc(SHORT[a])}</a>`).join("")}</td></tr>`).join("")||`<tr><td class="muted">No indicator at or below this level.</td></tr>`}</tbody></table>
     <h2>Matching technical areas today</h2><div class="tiles">${[...areaSet].map(a=>`<a class="tile" href="#/areas/${a}"><div class="id">${a}</div><div class="nm">${esc(SHORT[a])}</div><div class="meta">${areaStats(D.areas[a]).gp} good practices</div></a>`).join("")}</div>`;
   }
-  view.innerHTML=html;
+  view.innerHTML=html; fillNphi();
   $("#ev").onchange=e=>{ const v=e.target.value; location.hash=v?`#/countries/${v}`:"#/countries"; };
   $("#thr").onchange=e=>{st.thr=+e.target.value;vCountry(evid)};
   const rz=$("#raise"); if(rz) rz.onclick=()=>{st.thr=+rz.dataset.n;vCountry(evid)};
@@ -376,11 +404,12 @@ function gapList(gaps,ev){
     const next=[2,3].find(n=>n>st.thr&&D.fw.indicators.some(i=>ev.scores[i.id]&&ev.scores[i.id][0]<=n));
     return `<p>${esc(ev.country)} has no indicator at level ${st.thr} or lower.${next?` <button id="raise" data-n="${next}">Show indicators up to level ${next}</button>`:` All its scored indicators are at level 4 or 5; it may be a peer country for others.`}</p>`; }
   let out=`<h2>${gaps.length} indicator${gaps.length>1?"s":""} at level ${st.thr} or lower</h2>`+partnerHTML(gaps.map(g=>g.id));
+  const seenA=new Set();
   gaps.forEach(g=>{ const all=D.solByInd[g.id]||[]; const ps=D.pByInd[g.id]||[];
     out+=`<div class="card"><h3>${lv(g.score)}<a href="#/indicator/${g.id}">${g.id} ${esc(g.title)}</a>${ev&&g.page?` <span class="small muted">· <a href="${esc(ev.pdfUrl)}#page=${g.page}" rel="noopener">report p. ${g.page}</a></span>`:""}</h3>
     ${topCompact(g.id)}
     ${ps.length?ps.map(p=>`<p class="small" style="margin:4px 0"><strong>${esc(p.title)}.</strong> ${esc(p.summary)}</p>`).join(""):""}
-    <p class="small" style="margin:6px 0 0"><a href="#/indicator/${g.id}/key"><strong>${all.length} good practices for ${g.id}</strong>, per technical question →</a></p></div>`; });
+    <p class="small" style="margin:6px 0 0"><a href="#/indicator/${g.id}/key"><strong>${all.length} good practices for ${g.id}</strong>, per technical question →</a></p>${ev&&!seenA.has(D.ind[g.id].areaId)?(seenA.add(D.ind[g.id].areaId),nphiSlot(D.ind[g.id].areaId,ev.country)):""}</div>`; });
   return out;
 }
 
@@ -489,7 +518,8 @@ function vAbout(){
    <li>Each score keeps its report, edition and PDF page (<a href="data/assessments.json">data file</a>). ${as?esc(as.method||""):""}</li>
    <li>Editions differ in indicators and wording, so scores are not directly comparable across v1, v2 and v3. A lower later score need not mean capacity declined.</li>
    <li>Reports are listed from the WHO SPH document library${reg?` (${reg.entries.length} entries retrieved ${esc(reg.retrieved)})`:""}. Some reports are missing; absence here does not mean a country has had no JEE.</li>
-   <li>“Countries to learn from” lists third-edition reports with level 4 or 5 on an indicator, linking to the report page where evaluators describe strengths and best practices.</li></ul>
+   <li>“Countries to learn from” lists third-edition reports with level 4 or 5 on an indicator, linking to the report page where evaluators describe strengths and best practices.</li>
+   <li>Under each indicator, and under each gap when you pick a country, a collapsed line lists current and previous projects from the <a href="../nphi-map/">NPHI Collaboration Map</a> on the same technical area. Projects are matched by keywords in their title and summary, at the level of the technical area, so treat them as pointers to who already works on a topic.</li></ul>
   <h2>Corrections</h2><p>Spotted an error? Open an issue on <a href="https://github.com/mvanpassel-cmyk/mvanpassel-cmyk.github.io/issues">GitHub</a>.</p>`;
 }
 load().catch(e=>{view.innerHTML=`<div class="note">Could not load the data: ${esc(e.message)}</div>`});
