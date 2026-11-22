@@ -2,7 +2,8 @@
 
 Bron: het Gegevensmagazijn (OData v4) van de Tweede Kamer, zonder sleutel.
 Schrijft kamer-radar/data/radar.json met vier onderdelen:
-  vragen        schriftelijke Kamervragen aan VWS-bewindspersonen (+ mondiale onderwerpen)
+  vragen        schriftelijke Kamervragen aan VWS-bewindspersonen (+ mondiale onderwerpen);
+                een jaar terug staat in data/vragen-jaar.json
   moties        moties in VWS-dossiers (+ mondiale onderwerpen), met stemuitslag
   toezeggingen  openstaande en recent afgedane toezeggingen van VWS
   agenda        commissie- en plenaire activiteiten over VWS-zaken
@@ -22,9 +23,11 @@ from concurrent.futures import ThreadPoolExecutor
 API = "https://gegevensmagazijn.tweedekamer.nl/OData/v4/2.0/"
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "..", "data", "radar.json")
+ARCHIEF = os.path.join(HERE, "..", "data", "vragen-jaar.json")
 
 TODAY = dt.date.today()
-VRAGEN_DAGEN = 120      # vragen van de afgelopen vier maanden
+VRAGEN_DAGEN = 120      # vragen van de afgelopen vier maanden (hoofdbestand)
+ARCHIEF_DAGEN = 366     # terugkijken: vragen van het afgelopen jaar (apart bestand)
 MOTIES_DAGEN = 60       # moties van de afgelopen twee maanden
 AFGEDAAN_DAGEN = 60     # afgedane toezeggingen nog even laten zien
 AGENDA_TERUG, AGENDA_VOORUIT = 14, 150
@@ -91,9 +94,9 @@ def kort_functie(f):
 
 
 # ---------------------------------------------------------------- Kamervragen
-def vragen():
+def vragen(dagen=ARCHIEF_DAGEN):
     rows = get("Zaak", {
-        "$filter": f"Soort eq 'Schriftelijke vragen' and Verwijderd eq false and GestartOp ge {iso(-VRAGEN_DAGEN)}",
+        "$filter": f"Soort eq 'Schriftelijke vragen' and Verwijderd eq false and GestartOp ge {iso(-dagen)}",
         "$select": "Id,Nummer,Onderwerp,GestartOp,Afgedaan",
         "$orderby": "GestartOp desc",
         "$expand": "ZaakActor($select=ActorNaam,ActorFractie,Functie,Relatie,Verwijderd),"
@@ -383,9 +386,17 @@ def main():
         print(f"  {len(out[naam])}")
         if not out[naam]:
             sys.exit(f"Leeg resultaat voor {naam}; radar.json niet overschreven.")
+    # Het jaararchief apart, zodat de pagina snel blijft; het hoofdbestand houdt vier maanden.
+    jaar = out["vragen"]
+    grens = iso(-VRAGEN_DAGEN)
+    out["vragen"] = [v for v in jaar if (v["datum"] or "") >= grens]
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, separators=(",", ":"))
+    with open(ARCHIEF, "w", encoding="utf-8") as f:
+        json.dump({"bijgewerkt": out["bijgewerkt"], "vanaf": iso(-ARCHIEF_DAGEN), "vragen": jaar},
+                  f, ensure_ascii=False, separators=(",", ":"))
+    print(f"Archief: {len(jaar)} vragen sinds {iso(-ARCHIEF_DAGEN)}, {os.path.getsize(ARCHIEF) // 1024} kB")
     print(f"Klaar in {time.time() - t0:.0f}s, {os.path.getsize(OUT) // 1024} kB")
 
 
