@@ -1,0 +1,48 @@
+name: Kamer-radar daily update
+
+on:
+  schedule:
+    - cron: "23 4 * * *"   # elke ochtend vroeg (05:23/06:23 Nederlandse tijd)
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "kamer-radar/pipeline/**"
+      - ".github/workflows/kamer-radar.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: kamer-radar
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fetch VWS items from the Tweede Kamer open data
+        run: python kamer-radar/pipeline/update.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "kamer-radar bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add kamer-radar/data
+          if git diff --cached --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+          git commit -m "Kamer-radar: daily update $(date -u +%F)"
+          for i in 1 2 3; do
+            git pull --rebase origin "${GITHUB_REF_NAME}" && git push && exit 0
+            sleep 5
+          done
+          exit 1

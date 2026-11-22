@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kamer-radar · VWS in de Tweede Kamer</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/logos/kamer-radar-32.png">
+<link rel="icon" type="image/svg+xml" href="/logos/kamer-radar.svg">
+<link rel="apple-touch-icon" href="/logos/kamer-radar-180.png">
+<meta name="description" content="Dagelijks bijgewerkt: Kamervragen, moties en stemmingen, toezeggingen en de debatagenda rond Volksgezondheid, Welzijn en Sport.">
+<meta name="theme-color" content="#f6f4ee" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#15181d" media="(prefers-color-scheme: dark)">
+<style>
+/* Indeling: kop met 'sinds je laatste bezoek' en 'deze week', daarna vier tabbladen.
+   Rijen zijn compact zodat het op een telefoon in de trein snel scant. */
+:root{
+  color-scheme:light dark;
+  --bg:#f6f4ee; --surface:#fffdf8; --ink:#1b1f24; --muted:#5f6670; --line:#e2ddd2;
+  --accent:#0a7c86; --accent-soft:#d9eef0; --mag:#c2185b; --mag-soft:#f8dde8;
+  --yel:#f2c230; --yel-soft:#fcf1cc; --ok:#2f7d32; --ok-soft:#dcefdc; --bad:#b3261e; --bad-soft:#f7dcd9;
+  --star:#d08a00;
+  --serif:ui-serif,"Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#15181d; --surface:#1d2128; --ink:#eceae4; --muted:#9ba2ad; --line:#2d323b;
+  --accent:#4fc1ca; --accent-soft:#16363a; --mag:#f06292; --mag-soft:#3b1d2a;
+  --yel:#f2c230; --yel-soft:#3a3218; --ok:#7bc47f; --ok-soft:#1d3320; --bad:#ef8a80; --bad-soft:#3d1f1c; --star:#f2c230;
+}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 var(--sans);-webkit-text-size-adjust:100%}
+a{color:inherit}
+.wrap{max-width:900px;margin:0 auto;padding:calc(18px + env(safe-area-inset-top)) 14px 80px}
+header{display:flex;gap:14px;align-items:center;margin:6px 0 14px}
+header img{width:44px;height:44px;border-radius:11px;flex:none}
+h1{font:600 26px/1.1 var(--serif);margin:0;letter-spacing:-.01em}
+.sub{color:var(--muted);font-size:13px;margin-top:3px}
+
+/* Samenvatting bovenaan */
+.since{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+.stat{display:flex;align-items:baseline;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 12px 5px 11px;font:inherit;color:inherit;cursor:pointer}
+.stat b{font:600 17px/1 var(--serif)}
+.stat span{font-size:13px;color:var(--muted)}
+.stat.zero{opacity:.5;cursor:default}
+.since-h{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;color:var(--muted);margin:2px 0 6px;text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+.since-h button{border:0;background:none;color:var(--accent);font:inherit;text-transform:none;letter-spacing:0;cursor:pointer;padding:0}
+.week{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:0 0 16px}
+.week h2{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 6px}
+.week ul{list-style:none;margin:0;padding:0}
+.week li{display:flex;gap:10px;padding:4px 0;font-size:14px;border-top:1px dashed var(--line)}
+.week li:first-child{border-top:0}
+.week .d{flex:none;width:92px;color:var(--muted);font-variant-numeric:tabular-nums;font-size:13px;padding-top:1px}
+.week .w{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.week .empty{color:var(--muted);font-size:14px}
+
+/* Tabs en filters */
+nav.tabs{display:flex;gap:4px;position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0 8px;margin:0 -2px;overflow-x:auto;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 13px;font:inherit;font-size:14px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tab small{opacity:.65;margin-left:4px}
+.tools{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 12px;align-items:center}
+.tools input[type=search]{flex:1 1 180px;min-width:0;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:8px 11px;font:inherit}
+.tools select{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:7px 8px;font:inherit;font-size:14px;max-width:46vw}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 11px;font:inherit;font-size:13px;cursor:pointer;white-space:nowrap}
+.chip[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+.count{color:var(--muted);font-size:13px;margin:-4px 0 8px}
+
+/* Rijen */
+.list{display:flex;flex-direction:column;gap:8px}
+.row{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.row.past{opacity:.6}
+.row .top{display:flex;gap:8px;align-items:flex-start}
+.row .t{flex:1;font-weight:550;line-height:1.35}
+.row .t a{text-decoration:none}
+.row .t a:hover{text-decoration:underline}
+.meta{display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:5px;color:var(--muted);font-size:13px}
+.meta a{color:var(--accent);text-decoration:none}
+.badge{flex:none;font-size:11.5px;font-weight:650;border-radius:6px;padding:2px 7px;white-space:nowrap;letter-spacing:.01em}
+.b-open{background:var(--yel-soft);color:var(--ink)}
+.b-late{background:var(--bad-soft);color:var(--bad)}
+.b-uitstel{background:var(--mag-soft);color:var(--mag)}
+.b-done{background:var(--ok-soft);color:var(--ok)}
+.b-aangenomen{background:var(--ok-soft);color:var(--ok)}
+.b-verworpen{background:var(--bad-soft);color:var(--bad)}
+.b-ingediend,.b-aangehouden,.b-ingetrokken,.b-vervallen{background:var(--accent-soft);color:var(--accent)}
+.new{display:inline-block;font-size:10.5px;font-weight:700;color:#fff;background:var(--mag);border-radius:5px;padding:0 5px;margin-right:5px;vertical-align:1px}
+.star{color:var(--star);margin-right:3px}
+.fr{display:inline-block;font-size:11.5px;border:1px solid var(--line);border-radius:5px;padding:0 5px;margin-left:3px}
+.bar{display:flex;height:6px;border-radius:3px;overflow:hidden;margin-top:7px;background:var(--line)}
+.bar i{display:block}
+.bar .v{background:var(--ok)} .bar .x{background:var(--bad)}
+details{margin-top:6px;font-size:13px;color:var(--muted)}
+details summary{cursor:pointer;color:var(--accent)}
+details p{margin:5px 0 0}
+.wk{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600;margin:14px 2px 2px}
+.wk:first-child{margin-top:0}
+.more{display:block;margin:12px auto 0;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:9px 16px;font:inherit;cursor:pointer}
+.none{color:var(--muted);padding:18px 4px}
+footer{margin-top:34px;color:var(--muted);font-size:12.5px;line-height:1.6}
+footer button{border:0;background:none;color:var(--accent);font:inherit;padding:0;cursor:pointer;text-decoration:underline}
+dialog{border:1px solid var(--line);border-radius:14px;background:var(--surface);color:var(--ink);max-width:520px;width:calc(100% - 28px)}
+dialog textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:13px/1.5 ui-monospace,Menlo,monospace;padding:8px}
+dialog .btns{display:flex;gap:8px;justify-content:flex-end;margin-top:10px}
+dialog button{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:9px;padding:7px 14px;font:inherit;cursor:pointer}
+dialog button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.err{background:var(--bad-soft);color:var(--bad);padding:12px;border-radius:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="/logos/kamer-radar.svg" alt="">
+    <div>
+      <h1>Kamer-radar</h1>
+      <div class="sub">VWS in de Tweede Kamer · <span id="upd">laden…</span></div>
+    </div>
+  </header>
+
+  <div class="since-h"><span id="sinceLabel">Sinds je laatste bezoek</span><button id="markRead" type="button">Alles gezien</button></div>
+  <div class="since" id="since"></div>
+  <section class="week"><h2>Komende 7 dagen</h2><ul id="week"></ul></section>
+
+  <nav class="tabs" role="tablist" id="tabs"></nav>
+  <div class="tools" id="tools"></div>
+  <div class="count" id="count"></div>
+  <main class="list" id="list"></main>
+  <button class="more" id="more" hidden>Meer tonen</button>
+
+  <footer>
+    Bron: open data van de Tweede Kamer (Gegevensmagazijn), elke ochtend bijgewerkt. Kamervragen aan VWS-bewindspersonen,
+    moties in VWS-dossiers, toezeggingen van VWS en activiteiten van de commissie VWS en plenaire debatten over VWS-zaken.
+    Onderwerpen over mondiale gezondheid komen er ook bij als een ander ministerie ze trekt.
+    <span class="star">★</span> = past bij <button id="editKw" type="button">je trefwoorden</button>.
+    De antwoordtermijn van Kamervragen is gerekend als drie weken na indienen.
+  </footer>
+</div>
+
+<dialog id="kwDialog">
+  <form method="dialog">
+    <h3 style="margin:0 0 6px;font:600 18px var(--serif)">Mijn trefwoorden</h3>
+    <p style="margin:0 0 8px;color:var(--muted);font-size:13px">Eén per regel. Wat hierop past krijgt een ★ en kun je apart filteren. Hoofdletters tellen niet, behalve bij afkortingen in hoofdletters (WHO, IHR).</p>
+    <textarea id="kwText" spellcheck="false"></textarea>
+    <div class="btns"><button value="reset" id="kwReset">Standaard</button><button value="cancel">Annuleren</button><button value="ok" class="primary">Bewaren</button></div>
+  </form>
+</dialog>
+
+<script>
+"use strict";
+const TK = "https://www.tweedekamer.nl";
+const LINK = {
+  vraag: (nr, did) => `${TK}/kamerstukken/kamervragen/detail?id=${nr}&did=${did}`,
+  motie: (nr, did) => `${TK}/kamerstukken/moties/detail?id=${nr}&did=${did}`,
+  toez: nr => `${TK}/kamerstukken/toezeggingen/detail?id=${encodeURIComponent(nr)}`,
+  act: (nr, plenair) => plenair
+    ? `${TK}/debat_en_vergadering/plenaire_vergaderingen/details/activiteit?id=${nr}`
+    : `${TK}/debat_en_vergadering/commissievergaderingen/details?id=${nr}`,
+};
+const DEFAULT_KW = ["WHO","IHR","pandemi","mondiale gezondheid","global health","antimicrobi","antibiotica","resistentie",
+  "vaccin","uitbraak","infectieziekte","ebola","mpox","vogelgriep","zoönose","one health","RIVM","GGD",
+  "EU-Gezondheidsraad","Europese","internationaal","ECDC","HERA","paraatheid","gezondheidsbescherming"];
+
+// ---- opslag (alleen in deze browser)
+const store = {
+  get(k, f){ try{ const v = localStorage.getItem("kamerRadar."+k); return v==null ? f : JSON.parse(v); }catch(_){ return f; } },
+  set(k, v){ try{ localStorage.setItem("kamerRadar."+k, JSON.stringify(v)); }catch(_){} },
+};
+const ss = {
+  get(k){ try{ return sessionStorage.getItem("kamerRadar."+k); }catch(_){ return null; } },
+  set(k, v){ try{ sessionStorage.setItem("kamerRadar."+k, v); }catch(_){} },
+};
+
+const today = new Date().toISOString().slice(0,10);
+const addDays = (iso, n) => { const d = new Date(iso+"T12:00:00"); d.setDate(d.getDate()+n); return d.toISOString().slice(0,10); };
+// Basis voor 'nieuw': de vorige bezoekdag. Binnen één sessie blijft die gelijk, ook na herladen.
+let since = ss.get("since");
+if(!since){
+  since = store.get("lastVisit", addDays(today, -3));
+  if(since >= today) since = addDays(today, -1);
+  ss.set("since", since);
+}
+store.set("lastVisit", today);
+
+const MONTHS = ["jan","feb","mrt","apr","mei","jun","jul","aug","sep","okt","nov","dec"];
+const DAYS = ["zo","ma","di","wo","do","vr","za"];
+function fmt(iso, withDay){
+  if(!iso) return "";
+  const d = new Date(iso+"T12:00:00");
+  return (withDay ? DAYS[d.getDay()]+" " : "") + d.getDate()+" "+MONTHS[d.getMonth()] + (iso.slice(0,4)!==today.slice(0,4) ? " "+iso.slice(0,4) : "");
+}
+function esc(s){ return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+const isNew = iso => iso && iso > since;
+
+// ---- trefwoorden
+let kwRe = null;
+function buildKw(){
+  const kws = store.get("kw", DEFAULT_KW).filter(Boolean);
+  if(!kws.length){ kwRe = null; return; }
+  // Afkortingen in hoofdletters (WHO, IHR) hoofdlettergevoelig, de rest niet.
+  const caps = kws.filter(k => /^[A-Z0-9-]{2,6}$/.test(k)).map(k => k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  const rest = kws.filter(k => !/^[A-Z0-9-]{2,6}$/.test(k)).map(k => k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  kwRe = { caps: caps.length ? new RegExp(`\\b(?:${caps.join("|")})\\b`) : null,
+           rest: rest.length ? new RegExp(rest.join("|"), "i") : null };
+}
+const starText = s => !!kwRe && ((kwRe.caps && kwRe.caps.test(s)) || (kwRe.rest && kwRe.rest.test(s)));
+
+// ---- data
+let D = null;
+const state = { tab: location.hash.slice(1) || "vragen", q: "", only: { star:false, nieuw:false }, filt: {}, shown: 40 };
+const TABS = [
+  { id:"vragen", label:"Kamervragen" },
+  { id:"moties", label:"Moties" },
+  { id:"toezeggingen", label:"Toezeggingen" },
+  { id:"agenda", label:"Agenda" },
+];
+
+function prep(){
+  for(const v of D.vragen){
+    v._text = [v.onderwerp, v.gericht.join(" "), v.indieners.map(p=>p.naam+" "+(p.fractie||"")).join(" ")].join(" ");
+    v._late = v.status !== "beantwoord" && v.termijn && v.termijn < today;
+    v._new = isNew(v.datum) || isNew(v.antwoord);
+    v._fr = v.indieners.map(p=>p.fractie).filter(Boolean);
+  }
+  for(const m of D.moties){
+    m._text = [m.volledig, m.dossier && m.dossier.titel, m.debat].join(" ");
+    m._new = isNew(m.datum) || isNew(m.stemdatum);
+    m._fr = m.indieners.map(p=>p.fractie).filter(Boolean);
+  }
+  for(const t of D.toezeggingen){
+    t._text = [t.tekst, t.wie, t.debat && t.debat.onderwerp].join(" ");
+    t._new = isNew(t.datum) || (t.status !== "Openstaand" && isNew(t.gewijzigd));
+    t._late = t.status === "Openstaand" && t.deadline && t.deadline < today;
+  }
+  for(const a of D.agenda){
+    a._text = [a.onderwerp, a.soort].join(" ");
+    a._past = a.datum < today;
+  }
+  restar();
+}
+function restar(){
+  for(const k of ["vragen","moties","toezeggingen","agenda"])
+    for(const x of D[k]) x._star = x.mondiaal || starText(x._text);
+}
+
+// ---- bovenaan: nieuw sinds laatste bezoek + komende week
+function renderSince(){
+  document.getElementById("sinceLabel").textContent = `Nieuw sinds ${fmt(since, true)}`;
+  const cards = [
+    { n: D.vragen.filter(v=>isNew(v.datum)).length, l:"nieuwe vraag", lp:"nieuwe vragen", go:["vragen",{status:"all"}] },
+    { n: D.vragen.filter(v=>isNew(v.antwoord)).length, l:"antwoord", lp:"antwoorden", go:["vragen",{status:"beantwoord"}] },
+    { n: D.moties.filter(m=>isNew(m.datum)).length, l:"nieuwe motie", lp:"nieuwe moties", go:["moties",{uitslag:"all"}] },
+    { n: D.moties.filter(m=>isNew(m.stemdatum)).length, l:"stemuitslag", lp:"stemuitslagen", go:["moties",{uitslag:"all"}] },
+    { n: D.toezeggingen.filter(t=>isNew(t.datum)).length, l:"nieuwe toezegging", lp:"nieuwe toezeggingen", go:["toezeggingen",{status:"Openstaand"}] },
+  ];
+  const el = document.getElementById("since");
+  el.innerHTML = cards.map((c,i)=>`<button class="stat${c.n?"":" zero"}" data-i="${i}" type="button"${c.n?"":" disabled"}><b>${c.n}</b><span>${c.n===1?c.l:c.lp||c.l}</span></button>`).join("");
+  el.onclick = e => {
+    const b = e.target.closest(".stat"); if(!b) return;
+    const c = cards[+b.dataset.i];
+    state.tab = c.go[0]; state.filt = Object.assign({}, c.go[1]); state.only.nieuw = true; state.shown = 40;
+    location.hash = state.tab; renderAll();
+    document.getElementById("tabs").scrollIntoView({behavior:"smooth"});
+  };
+
+  const end = addDays(today, 7);
+  const week = D.agenda.filter(a => a.datum >= today && a.datum <= end && !a.week && a.soort !== "Procedurevergadering" && a.status !== "Geannuleerd");
+  const stem = D.moties.filter(m => m.gepland && m.gepland <= end);
+  const stemDagen = {};
+  for(const m of stem) stemDagen[m.gepland] = (stemDagen[m.gepland]||0) + 1;
+  const items = week.map(a => ({ d:a.datum, t:a.tijd, html:`<a href="${LINK.act(a.nr,a.plenair)}" target="_blank" rel="noopener">${a._star?'<span class="star">★</span>':""}${esc(a.onderwerp)}</a> <span style="color:var(--muted)">· ${esc(kortSoort(a.soort))}${a.status==="Verplaatst"?" · verplaatst":""}</span>` }));
+  for(const [d,n] of Object.entries(stemDagen)) items.push({ d, t:"", html:`Stemmingen over ${n} VWS-motie${n>1?"s":""}` });
+  items.sort((a,b)=> (a.d+(a.t||"")).localeCompare(b.d+(b.t||"")));
+  document.getElementById("week").innerHTML = items.length
+    ? items.map(i=>`<li><span class="d">${fmt(i.d,true)}${i.t?" "+i.t:""}</span><span class="w">${i.html}</span></li>`).join("")
+    : `<li class="empty">Niets gepland rond VWS.</li>`;
+}
+function kortSoort(s){
+  return s.replace("Plenair debat (wetgeving)","plenair, wetgeving").replace("Plenair debat (tweeminutendebat)","tweeminutendebat")
+          .replace("Plenair debat (overig)","plenair debat").replace("Inbreng schriftelijk overleg","schriftelijk overleg (inbreng)")
+          .replace("Inbreng verslag (wetsvoorstel)","inbreng verslag").toLowerCase();
+}
+
+// ---- tabbladen
+function renderTabs(){
+  const n = { vragen: D.vragen.filter(v=>v.status!=="beantwoord").length,
+              moties: D.moties.filter(m=>m.uitslag==="ingediend").length,
+              toezeggingen: D.toezeggingen.filter(t=>t.status==="Openstaand").length,
+              agenda: D.agenda.filter(a=>!a._past).length };
+  const hint = { vragen:"open", moties:"in stemming", toezeggingen:"open", agenda:"gepland" };
+  const el = document.getElementById("tabs");
+  el.innerHTML = TABS.map(t=>`<button class="tab" role="tab" aria-selected="${t.id===state.tab}" data-t="${t.id}" title="${n[t.id]} ${hint[t.id]}">${t.label}<small>${n[t.id]}</small></button>`).join("");
+  el.onclick = e => {
+    const b = e.target.closest(".tab"); if(!b) return;
+    state.tab = b.dataset.t; state.filt = {}; state.shown = 40; state.only.nieuw = false;
+    history.replaceState(null, "", "#"+state.tab); renderAll();
+  };
+}
+
+function fractieOptions(items){
+  const s = new Set(); for(const x of items) for(const f of x._fr||[]) s.add(f);
+  return [...s].sort((a,b)=>a.localeCompare(b,"nl"));
+}
+function sel(id, opts, val){
+  return `<select data-f="${id}">${opts.map(([v,l])=>`<option value="${esc(v)}"${v===val?" selected":""}>${esc(l)}</option>`).join("")}</select>`;
+}
+function renderTools(){
+  const f = state.filt, t = state.tab;
+  let h = `<input type="search" id="q" placeholder="Zoeken…" value="${esc(state.q)}" autocomplete="off">`;
+  if(t==="vragen"){
+    h += sel("status", [["all","Alle vragen"],["open","Nog open"],["late","Termijn verlopen"],["uitstel","Uitstel"],["beantwoord","Beantwoord"]], f.status||"all");
+    h += sel("fractie", [["all","Alle fracties"], ...fractieOptions(D.vragen).map(x=>[x,x])], f.fractie||"all");
+  } else if(t==="moties"){
+    h += sel("uitslag", [["all","Alle moties"],["ingediend","Nog te stemmen"],["aangenomen","Aangenomen"],["verworpen","Verworpen"],["aangehouden","Aangehouden"],["ingetrokken","Ingetrokken"]], f.uitslag||"all");
+    h += sel("fractie", [["all","Alle fracties"], ...fractieOptions(D.moties).map(x=>[x,x])], f.fractie||"all");
+  } else if(t==="toezeggingen"){
+    h += sel("status", [["Openstaand","Openstaand"],["late","Deadline verstreken"],["deadline","Met deadline"],["Afgedaan","Onlangs afgedaan"],["Deels Afgedaan","Deels afgedaan"],["all","Alles"]], f.status||"Openstaand");
+    h += sel("sort", [["nieuw","Nieuwste eerst"],["deadline","Op deadline"]], f.sort||"nieuw");
+  } else {
+    h += sel("wat", [["debat","Debatten en gesprekken"],["all","Alles, ook procedures"],["plenair","Alleen plenair"]], f.wat||"debat");
+    h += sel("wanneer", [["komend","Komend"],["recent","Afgelopen twee weken"]], f.wanneer||"komend");
+  }
+  h += `<button class="chip" data-o="star" aria-pressed="${state.only.star}">★ Mijn onderwerpen</button>`;
+  if(t!=="agenda") h += `<button class="chip" data-o="nieuw" aria-pressed="${state.only.nieuw}">Alleen nieuw</button>`;
+  const el = document.getElementById("tools");
+  el.innerHTML = h;
+  el.querySelector("#q").oninput = e => { state.q = e.target.value; state.shown = 40; renderList(); };
+  el.querySelectorAll("select").forEach(s => s.onchange = () => { state.filt[s.dataset.f] = s.value; state.shown = 40; renderList(); });
+  el.querySelectorAll(".chip").forEach(c => c.onclick = () => { state.only[c.dataset.o] = !state.only[c.dataset.o]; c.setAttribute("aria-pressed", state.only[c.dataset.o]); state.shown = 40; renderList(); });
+}
+
+function matchQ(x){
+  if(!state.q.trim()) return true;
+  const hay = x._text.toLowerCase();
+  return state.q.toLowerCase().split(/\s+/).filter(Boolean).every(w => hay.includes(w));
+}
+function people(list, max=3){
+  const p = list.slice(0,max).map(x=>`${esc(x.naam)}${x.fractie?`<span class="fr">${esc(x.fractie)}</span>`:""}`).join(", ");
+  return p + (list.length>max ? ` +${list.length-max}` : "");
+}
+
+function rowVraag(v){
+  let badge;
+  if(v.status==="beantwoord") badge = `<span class="badge b-done">beantwoord ${fmt(v.antwoord)}</span>`;
+  else if(v.status==="uitstel") badge = `<span class="badge b-uitstel">uitstel</span>`;
+  else if(v._late) badge = `<span class="badge b-late">termijn verlopen</span>`;
+  else badge = `<span class="badge b-open">open t/m ${fmt(v.termijn)}</span>`;
+  return `<article class="row"><div class="top"><div class="t">${v._new?'<span class="new">nieuw</span>':""}${v._star?'<span class="star">★</span>':""}<a href="${LINK.vraag(v.nr,v.did)}" target="_blank" rel="noopener">${esc(v.onderwerp)}</a></div>${badge}</div>
+    <div class="meta"><span>${fmt(v.datum)}</span><span>${people(v.indieners)}</span><span>aan ${esc(v.gericht.join(", "))}</span>${v.antwoordDid?`<a href="${LINK.vraag(v.nr,v.antwoordDid)}" target="_blank" rel="noopener">antwoord →</a>`:""}</div></article>`;
+}
+function rowMotie(m){
+  const label = m.uitslag==="ingediend" ? (m.gepland ? `stemming ${fmt(m.gepland)}` : "ingediend") : m.uitslag;
+  const v = m.voor.reduce((s,x)=>s+x[1],0), t = m.tegen.reduce((s,x)=>s+x[1],0);
+  const bar = (v+t) ? `<div class="bar" title="${v} voor, ${t} tegen"><i class="v" style="width:${v/150*100}%"></i><i class="x" style="width:${t/150*100}%"></i></div>` : "";
+  const fr = (v+t) ? `<details><summary>${v} voor · ${t} tegen${m.stemming==="Hoofdelijk"?" (hoofdelijk)":""}</summary>
+      <p><b style="color:var(--ok)">Voor:</b> ${m.voor.map(x=>`${esc(x[0])} ${x[1]}`).join(", ")||"—"}</p>
+      <p><b style="color:var(--bad)">Tegen:</b> ${m.tegen.map(x=>`${esc(x[0])} ${x[1]}`).join(", ")||"—"}</p></details>` : "";
+  return `<article class="row"><div class="top"><div class="t">${m._new?'<span class="new">nieuw</span>':""}${m._star?'<span class="star">★</span>':""}<a href="${LINK.motie(m.nr,m.did)}" target="_blank" rel="noopener" title="${esc(m.volledig)}">${esc(m.onderwerp)}</a></div><span class="badge b-${m.uitslag}">${esc(label)}</span></div>
+    <div class="meta"><span>${fmt(m.datum)}</span><span>${people(m.indieners,2)}</span>${m.appreciatie?`<span>kabinet: ${esc(m.appreciatie.toLowerCase())}</span>`:""}<span>${esc(m.debat || (m.dossier && m.dossier.titel) || "")}</span></div>${bar}${fr}</article>`;
+}
+function rowToez(t){
+  let badge;
+  if(t.status==="Afgedaan") badge = `<span class="badge b-done">afgedaan</span>`;
+  else if(t.status==="Deels Afgedaan") badge = `<span class="badge b-uitstel">deels afgedaan</span>`;
+  else if(t._late) badge = `<span class="badge b-late">deadline ${fmt(t.deadline)} verstreken</span>`;
+  else if(t.deadline) badge = `<span class="badge b-open">uiterlijk ${fmt(t.deadline)}</span>`;
+  else badge = `<span class="badge b-ingediend">open</span>`;
+  const deb = t.debat ? `<a href="${LINK.act(t.debat.nr, (t.debat.soort||"").startsWith("Plenair"))}" target="_blank" rel="noopener">${esc(t.debat.onderwerp)}</a>` : "";
+  return `<article class="row"><div class="top"><div class="t" style="font-weight:450">${t._new?'<span class="new">nieuw</span>':""}${t._star?'<span class="star">★</span>':""}${esc(t.tekst)}</div>${badge}</div>
+    <div class="meta"><span>${fmt(t.datum)}</span><span>${esc(t.functie)}</span>${deb?`<span>${deb}</span>`:""}<a href="${LINK.toez(t.nr)}" target="_blank" rel="noopener">${esc(t.nr)} →</a></div></article>`;
+}
+function weekLabel(iso){
+  const d = new Date(iso+"T12:00:00"); const day = (d.getDay()+6)%7; d.setDate(d.getDate()-day);
+  const mon = d.toISOString().slice(0,10);
+  const thisMon = (()=>{ const x=new Date(today+"T12:00:00"); x.setDate(x.getDate()-((x.getDay()+6)%7)); return x.toISOString().slice(0,10); })();
+  if(mon===thisMon) return "Deze week";
+  if(mon===addDays(thisMon,7)) return "Volgende week";
+  if(mon===addDays(thisMon,-7)) return "Vorige week";
+  return "Week van "+fmt(mon);
+}
+function rowAct(a){
+  const extra = [kortSoort(a.soort), a.besloten?"besloten":null, a.status==="Verplaatst"?"verplaatst":null, a.status==="Geannuleerd"?"geannuleerd":null, a.locatie].filter(Boolean);
+  const when = a.week ? `week van ${fmt(a.datum)} (dag volgt)` : `${fmt(a.datum,true)}${a.tijd?" "+a.tijd+(a.eind?"–"+a.eind:""):""}`;
+  return `<article class="row${a._past?" past":""}"><div class="top"><div class="t">${a._star?'<span class="star">★</span>':""}<a href="${LINK.act(a.nr,a.plenair)}" target="_blank" rel="noopener">${esc(a.onderwerp)}</a></div>${a.plenair?'<span class="badge b-uitstel">plenair</span>':'<span class="badge b-ingediend">commissie</span>'}</div>
+    <div class="meta"><span>${esc(when)}</span><span>${esc(extra.join(" · "))}</span></div></article>`;
+}
+
+function filtered(){
+  const f = state.filt, t = state.tab;
+  let xs = D[t].filter(matchQ);
+  if(state.only.star) xs = xs.filter(x=>x._star);
+  if(state.only.nieuw && t!=="agenda") xs = xs.filter(x=>x._new);
+  if(t==="vragen"){
+    const s = f.status||"all";
+    if(s==="open") xs = xs.filter(v=>v.status!=="beantwoord");
+    else if(s==="late") xs = xs.filter(v=>v._late);
+    else if(s!=="all") xs = xs.filter(v=>v.status===s);
+    if(f.fractie && f.fractie!=="all") xs = xs.filter(v=>v._fr.includes(f.fractie));
+  } else if(t==="moties"){
+    const u = f.uitslag||"all";
+    if(u!=="all") xs = xs.filter(m=>m.uitslag===u);
+    if(f.fractie && f.fractie!=="all") xs = xs.filter(m=>m._fr.includes(f.fractie));
+    xs = xs.slice().sort((a,b)=> ((b.stemdatum||b.datum)+b.nr).localeCompare((a.stemdatum||a.datum)+a.nr));
+  } else if(t==="toezeggingen"){
+    const s = f.status||"Openstaand";
+    if(s==="late") xs = xs.filter(x=>x._late);
+    else if(s==="deadline") xs = xs.filter(x=>x.deadline && x.status==="Openstaand");
+    else if(s!=="all") xs = xs.filter(x=>x.status===s);
+    xs = xs.slice().sort((a,b)=> (f.sort==="deadline" || s==="deadline" || s==="late")
+      ? (a.deadline||"9999").localeCompare(b.deadline||"9999")
+      : (b.datum||"").localeCompare(a.datum||""));
+  } else {
+    const w = f.wat||"debat";
+    if(w==="debat") xs = xs.filter(a=>!/Procedurevergadering|E-mailprocedure|Inbreng/.test(a.soort));
+    else if(w==="plenair") xs = xs.filter(a=>a.plenair);
+    xs = (f.wanneer==="recent") ? xs.filter(a=>a._past).reverse() : xs.filter(a=>!a._past);
+  }
+  return xs;
+}
+
+function renderList(){
+  const xs = filtered();
+  const t = state.tab;
+  const shown = xs.slice(0, state.shown);
+  document.getElementById("count").textContent = xs.length===1 ? "1 resultaat" : `${xs.length} resultaten`;
+  const row = { vragen:rowVraag, moties:rowMotie, toezeggingen:rowToez, agenda:rowAct }[t];
+  let html = "";
+  if(t==="agenda"){
+    let last = null;
+    for(const a of shown){ const wl = weekLabel(a.datum); if(wl!==last){ html += `<div class="wk">${wl}</div>`; last = wl; } html += row(a); }
+  } else html = shown.map(row).join("");
+  document.getElementById("list").innerHTML = html || `<div class="none">Niets gevonden met deze filters.</div>`;
+  const more = document.getElementById("more");
+  more.hidden = xs.length <= state.shown;
+  more.textContent = `Meer tonen (${xs.length - state.shown})`;
+}
+document.getElementById("more").onclick = () => { state.shown += 60; renderList(); };
+
+function renderAll(){ renderTabs(); renderTools(); renderList(); }
+
+document.getElementById("markRead").onclick = () => {
+  since = today; ss.set("since", today); store.set("lastVisit", today); prep(); renderSince(); renderAll();
+};
+
+// trefwoorden bewerken
+const dlg = document.getElementById("kwDialog");
+document.getElementById("editKw").onclick = () => {
+  document.getElementById("kwText").value = store.get("kw", DEFAULT_KW).join("\n");
+  dlg.showModal();
+};
+dlg.addEventListener("close", () => {
+  if(dlg.returnValue==="ok") store.set("kw", document.getElementById("kwText").value.split("\n").map(s=>s.trim()).filter(Boolean));
+  if(dlg.returnValue==="reset") store.set("kw", DEFAULT_KW);
+  if(dlg.returnValue==="ok" || dlg.returnValue==="reset"){ buildKw(); restar(); renderSince(); renderAll(); }
+});
+
+window.addEventListener("hashchange", () => {
+  const h = location.hash.slice(1);
+  if(TABS.some(t=>t.id===h) && h!==state.tab){ state.tab = h; state.filt = {}; state.shown = 40; renderAll(); }
+});
+
+buildKw();
+fetch("data/radar.json", {cache:"no-cache"}).then(r => { if(!r.ok) throw new Error(r.status); return r.json(); }).then(data => {
+  D = data;
+  if(!TABS.some(t=>t.id===state.tab)) state.tab = "vragen";
+  const u = new Date(D.bijgewerkt);
+  document.getElementById("upd").textContent = "bijgewerkt " + fmt(u.toISOString().slice(0,10), true) + " " + u.toLocaleTimeString("nl-NL",{hour:"2-digit",minute:"2-digit"});
+  prep(); renderSince(); renderAll();
+}).catch(e => {
+  document.getElementById("list").innerHTML = `<div class="err">De gegevens konden niet worden geladen (${esc(e.message)}).</div>`;
+});
+</script>
+<script data-goatcounter="https://mvanpassel.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script src="/shared/zone-log.js" defer></script>
+</body>
+</html>
