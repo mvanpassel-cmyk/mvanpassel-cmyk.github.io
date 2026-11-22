@@ -35,10 +35,10 @@ window.QUIZ = {
         },
         {
           type: 'mc',
-          q: 'Met de Critical Medicines Act wil de EU tekorten aan medicijnen als antibiotica en insuline voorkomen. Hoeveel procent van de ingevoerde grondstoffen voor geneesmiddelen komt uit slechts vijf landen?',
-          options: ['40%', '60%', '80%', '95%'],
-          answer: 2,
-          info: 'Het gaat om China (samen goed voor 45% van het totaal), de VS, het VK, Indonesië en India. Parlement en Raad bereikten op 12 mei 2026 een voorlopig akkoord over de wet.'
+          q: 'Onderzoekers van Maastricht University wonnen vorig jaar de Ig Nobel-vredesprijs, voor onderzoek dat precies bij deze treinreis past. Wat toonden ze aan?',
+          options: ['Duitsers spreken na een paar drankjes beter Nederlands', 'Nederlanders spreken na een paar drankjes beter Duits', 'Glühwein verlaagt de bloeddruk van treinreizigers', 'Wachten op een vertraagde trein maakt Nederlanders humeuriger'],
+          answer: 0,
+          info: 'Ze testten 50 Duitsers van in de twintig: na een paar drankjes werd hun Nederlands beter beoordeeld. Een soort Dutch courage dus. Andere Ig Nobels dat jaar: de groeisnelheid van vingernagels en de vliegkunst van dronken vleermuizen.'
         },
         {
           type: 'mc',
