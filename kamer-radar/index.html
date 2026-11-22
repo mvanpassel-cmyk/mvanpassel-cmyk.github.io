@@ -130,11 +130,12 @@ dialog button.primary{background:var(--accent);color:#fff;border-color:var(--acc
 
   <footer>
     Bron: open data van de Tweede Kamer (Gegevensmagazijn), elke ochtend bijgewerkt. Kamervragen aan VWS-bewindspersonen,
-    moties in VWS-dossiers, toezeggingen van VWS en activiteiten van de commissie VWS en plenaire debatten over VWS-zaken.
+    Kamerbrieven van VWS met hun schriftelijk overleg, moties in VWS-dossiers, toezeggingen van VWS en activiteiten van de commissie VWS en plenaire debatten over VWS-zaken.
     Onderwerpen over mondiale gezondheid komen er ook bij als een ander ministerie ze trekt.
     <span class="star">★</span> = past bij <button id="editKw" type="button">je trefwoorden</button>.
     De antwoordtermijn van Kamervragen is gerekend als drie weken na indienen.
-    Kamervragen kun je een jaar terugkijken: kies “Afgelopen jaar” en zoek op onderwerp, naam of fractie.
+    Zoeken gaat door alle tabbladen en een jaar terug voor Kamervragen, brieven en de agenda; moties gaan twee maanden terug.
+    Bij brieven staat de stand van een schriftelijk overleg (SO): inbreng gepland, wacht op het kabinet, of beantwoord.
   </footer>
 </div>
 
@@ -154,6 +155,8 @@ const LINK = {
   vraag: (nr, did) => `${TK}/kamerstukken/kamervragen/detail?id=${nr}&did=${did}`,
   motie: (nr, did) => `${TK}/kamerstukken/moties/detail?id=${nr}&did=${did}`,
   toez: nr => `${TK}/kamerstukken/toezeggingen/detail?id=${encodeURIComponent(nr)}`,
+  brief: (nr, did) => `${TK}/kamerstukken/brieven_regering/detail?id=${nr}&did=${did}`,
+  doc: (nr, did) => `${TK}/kamerstukken/detail?id=${nr}&did=${did}`,
   act: (nr, plenair) => plenair
     ? `${TK}/debat_en_vergadering/plenaire_vergaderingen/details/activiteit?id=${nr}`
     : `${TK}/debat_en_vergadering/commissievergaderingen/details?id=${nr}`,
@@ -212,52 +215,73 @@ let D = null;
 const state = { tab: location.hash.slice(1) || "vragen", q: "", only: { star:false, nieuw:false }, filt: {}, shown: 40 };
 const TABS = [
   { id:"vragen", label:"Kamervragen" },
+  { id:"brieven", label:"Brieven & SO" },
   { id:"moties", label:"Moties" },
   { id:"toezeggingen", label:"Toezeggingen" },
   { id:"agenda", label:"Agenda" },
 ];
+const JAAR_TABS = ["vragen","brieven","agenda"];   // deze drie kun je een jaar terugkijken
 
-function prep(){
-  D.vragen.forEach(prepVraag);
-  if(D.vragenJaar) D.vragenJaar.forEach(prepVraag);
-  for(const m of D.moties){
-    m._text = [m.volledig, m.dossier && m.dossier.titel, m.debat].join(" ");
-    m._new = isNew(m.datum) || isNew(m.stemdatum);
-    m._fr = m.indieners.map(p=>p.fractie).filter(Boolean);
-  }
-  for(const t of D.toezeggingen){
-    t._text = [t.tekst, t.wie, t.debat && t.debat.onderwerp].join(" ");
-    t._new = isNew(t.datum) || (t.status !== "Openstaand" && isNew(t.gewijzigd));
-    t._late = t.status === "Openstaand" && t.deadline && t.deadline < today;
-  }
-  for(const a of D.agenda){
-    a._text = [a.onderwerp, a.soort].join(" ");
-    a._past = a.datum < today;
-  }
-  restar();
-}
+// Zoeken zonder accenten en hoofdletters: "zoonose" vindt ook "zoönose".
+const norm = s => String(s||"").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+
 function prepVraag(v){
   v._text = [v.onderwerp, v.gericht.join(" "), v.indieners.map(p=>p.naam+" "+(p.fractie||"")).join(" ")].join(" ");
   v._late = v.status !== "beantwoord" && v.termijn && v.termijn < today;
   v._new = isNew(v.datum) || isNew(v.antwoord);
   v._fr = v.indieners.map(p=>p.fractie).filter(Boolean);
-  v._star = v.mondiaal || starText(v._text);
+}
+function prepBrief(b){
+  b._text = [b.onderwerp, b.dossier && b.dossier.titel, b.kamerstuk, b.so ? "schriftelijk overleg" : ""].join(" ");
+  b._new = isNew(b.datum) || isNew(b.antwoord);
+  b._late = b.so === "wacht" && b.inbreng && b.inbreng < addDays(today, -42);
+}
+function prepMotie(m){
+  m._text = [m.volledig, m.dossier && m.dossier.titel, m.debat].join(" ");
+  m._new = isNew(m.datum) || isNew(m.stemdatum);
+  m._fr = m.indieners.map(p=>p.fractie).filter(Boolean);
+}
+function prepToez(t){
+  t._text = [t.tekst, t.wie, t.debat && t.debat.onderwerp].join(" ");
+  t._new = isNew(t.datum) || (t.status !== "Openstaand" && isNew(t.gewijzigd));
+  t._late = t.status === "Openstaand" && t.deadline && t.deadline < today;
+}
+function prepAct(a){
+  a._text = [a.onderwerp, a.soort].join(" ");
+  a._past = a.datum < today;
+}
+const PREP = { vragen:prepVraag, brieven:prepBrief, moties:prepMotie, toezeggingen:prepToez, agenda:prepAct };
+function prepList(k, xs){ for(const x of xs||[]){ PREP[k](x); x._hay = norm(x._text); x._star = x.mondiaal || starText(x._text); } }
+function prep(){
+  for(const k of Object.keys(PREP)) prepList(k, D[k]);
+  if(D.jaar) for(const k of JAAR_TABS) prepList(k, D.jaar[k]);
 }
 function restar(){
-  for(const k of ["vragen","moties","toezeggingen","agenda","vragenJaar"])
-    for(const x of D[k]||[]) x._star = x.mondiaal || starText(x._text);
+  const lists = Object.keys(PREP).map(k=>D[k]).concat(D.jaar ? JAAR_TABS.map(k=>D.jaar[k]) : []);
+  for(const xs of lists) for(const x of xs||[]) x._star = x.mondiaal || starText(x._text);
 }
-// Terugkijken: het jaararchief van Kamervragen wordt pas geladen als je erom vraagt.
-const jaarArchief = () => state.filt.periode === "jaar";
-const vragenBron = () => (jaarArchief() && D.vragenJaar) ? D.vragenJaar : D.vragen;
+
+// Terugkijken en zoeken: het jaararchief (vragen, brieven, agenda) wordt pas geladen als het nodig is.
 let jaarLaden = null;
 function laadJaar(){
-  if(D.vragenJaar) return Promise.resolve();
-  if(!jaarLaden) jaarLaden = fetch("data/vragen-jaar.json", {cache:"no-cache"})
+  if(D.jaar) return Promise.resolve();
+  if(!jaarLaden) jaarLaden = fetch("data/jaar.json", {cache:"no-cache"})
     .then(r => { if(!r.ok) throw new Error(r.status); return r.json(); })
-    .then(j => { D.vragenJaar = j.vragen; D.vragenJaarVanaf = j.vanaf; D.vragenJaar.forEach(prepVraag); })
+    .then(j => { D.jaar = j; for(const k of JAAR_TABS) prepList(k, j[k]); })
     .catch(e => { jaarLaden = null; throw e; });
   return jaarLaden;
+}
+const zoekt = () => !!state.q.trim();
+function wilJaar(t){
+  if(!JAAR_TABS.includes(t)) return false;
+  if(zoekt()) return true;
+  return t==="agenda" ? state.filt.wanneer==="jaar" : state.filt.periode==="jaar";
+}
+const bron = t => (wilJaar(t) && D.jaar) ? D.jaar[t] : D[t];
+function metJaar(then){
+  if(!wilJaar(state.tab) || D.jaar) return then();
+  document.getElementById("count").textContent = "Het afgelopen jaar laden…";
+  laadJaar().then(then).catch(e => { document.getElementById("count").textContent = `Het jaararchief kon niet worden geladen (${e.message}).`; });
 }
 
 // ---- bovenaan: nieuw sinds laatste bezoek + komende week
@@ -266,6 +290,7 @@ function renderSince(){
   const cards = [
     { n: D.vragen.filter(v=>isNew(v.datum)).length, l:"nieuwe vraag", lp:"nieuwe vragen", go:["vragen",{status:"all"}] },
     { n: D.vragen.filter(v=>isNew(v.antwoord)).length, l:"antwoord", lp:"antwoorden", go:["vragen",{status:"beantwoord"}] },
+    { n: D.brieven.filter(b=>isNew(b.datum)).length, l:"nieuwe brief", lp:"nieuwe brieven", go:["brieven",{so:"all"}] },
     { n: D.moties.filter(m=>isNew(m.datum)).length, l:"nieuwe motie", lp:"nieuwe moties", go:["moties",{uitslag:"all"}] },
     { n: D.moties.filter(m=>isNew(m.stemdatum)).length, l:"stemuitslag", lp:"stemuitslagen", go:["moties",{uitslag:"all"}] },
     { n: D.toezeggingen.filter(t=>isNew(t.datum)).length, l:"nieuwe toezegging", lp:"nieuwe toezeggingen", go:["toezeggingen",{status:"Openstaand"}] },
@@ -275,7 +300,7 @@ function renderSince(){
   el.onclick = e => {
     const b = e.target.closest(".stat"); if(!b) return;
     const c = cards[+b.dataset.i];
-    state.tab = c.go[0]; state.filt = Object.assign({}, c.go[1]); state.only.nieuw = true; state.shown = 40;
+    state.tab = c.go[0]; state.filt = Object.assign({}, c.go[1]); state.only.nieuw = true; state.shown = 40; state.q = "";
     location.hash = state.tab; renderAll();
     document.getElementById("tabs").scrollIntoView({behavior:"smooth"});
   };
@@ -300,11 +325,19 @@ function kortSoort(s){
 
 // ---- tabbladen
 function renderTabs(){
-  const n = { vragen: D.vragen.filter(v=>v.status!=="beantwoord").length,
-              moties: D.moties.filter(m=>m.uitslag==="ingediend").length,
-              toezeggingen: D.toezeggingen.filter(t=>t.status==="Openstaand").length,
-              agenda: D.agenda.filter(a=>!a._past).length };
-  const hint = { vragen:"open", moties:"in stemming", toezeggingen:"open", agenda:"gepland" };
+  let n, hint;
+  if(zoekt()){
+    // Bij zoeken laat elk tabblad zien hoeveel treffers het heeft.
+    n = {}; for(const t of TABS) n[t.id] = bron(t.id).filter(matchQ).length;
+    hint = Object.fromEntries(TABS.map(t=>[t.id,"treffers"]));
+  } else {
+    n = { vragen: D.vragen.filter(v=>v.status!=="beantwoord").length,
+          brieven: D.brieven.filter(b=>b.so==="wacht").length,
+          moties: D.moties.filter(m=>m.uitslag==="ingediend").length,
+          toezeggingen: D.toezeggingen.filter(t=>t.status==="Openstaand").length,
+          agenda: D.agenda.filter(a=>!a._past).length };
+    hint = { vragen:"open", brieven:"schriftelijke overleggen wachten op het kabinet", moties:"in stemming", toezeggingen:"open", agenda:"gepland" };
+  }
   const el = document.getElementById("tabs");
   el.innerHTML = TABS.map(t=>`<button class="tab" role="tab" aria-selected="${t.id===state.tab}" data-t="${t.id}" title="${n[t.id]} ${hint[t.id]}">${t.label}<small>${n[t.id]}</small></button>`).join("");
   el.onclick = e => {
@@ -321,13 +354,17 @@ function fractieOptions(items){
 function sel(id, opts, val){
   return `<select data-f="${id}">${opts.map(([v,l])=>`<option value="${esc(v)}"${v===val?" selected":""}>${esc(l)}</option>`).join("")}</select>`;
 }
+const PERIODE = [["recent","Afgelopen 4 maanden"],["jaar","Afgelopen jaar"]];
 function renderTools(){
   const f = state.filt, t = state.tab;
-  let h = `<input type="search" id="q" placeholder="Zoeken…" value="${esc(state.q)}" autocomplete="off">`;
+  let h = `<input type="search" id="q" placeholder="Zoek in alles, een jaar terug…" value="${esc(state.q)}" autocomplete="off">`;
   if(t==="vragen"){
-    h += sel("periode", [["recent","Afgelopen 4 maanden"],["jaar","Afgelopen jaar"]], f.periode||"recent");
+    if(!zoekt()) h += sel("periode", PERIODE, f.periode||"recent");
     h += sel("status", [["all","Alle vragen"],["open","Nog open"],["late","Termijn verlopen"],["uitstel","Uitstel"],["beantwoord","Beantwoord"]], f.status||"all");
-    h += sel("fractie", [["all","Alle fracties"], ...fractieOptions(vragenBron()).map(x=>[x,x])], f.fractie||"all");
+    h += sel("fractie", [["all","Alle fracties"], ...fractieOptions(bron("vragen")).map(x=>[x,x])], f.fractie||"all");
+  } else if(t==="brieven"){
+    if(!zoekt()) h += sel("periode", PERIODE, f.periode||"recent");
+    h += sel("so", [["all","Alle brieven"],["metso","Met schriftelijk overleg"],["wacht","SO: wacht op kabinet"],["gepland","SO: inbreng gepland"],["beantwoord","SO: beantwoord"],["geenantw","Zonder antwoordbrieven"]], f.so||"all");
   } else if(t==="moties"){
     h += sel("uitslag", [["all","Alle moties"],["ingediend","Nog te stemmen"],["aangenomen","Aangenomen"],["verworpen","Verworpen"],["aangehouden","Aangehouden"],["ingetrokken","Ingetrokken"]], f.uitslag||"all");
     h += sel("fractie", [["all","Alle fracties"], ...fractieOptions(D.moties).map(x=>[x,x])], f.fractie||"all");
@@ -335,37 +372,39 @@ function renderTools(){
     h += sel("status", [["Openstaand","Openstaand"],["late","Deadline verstreken"],["deadline","Met deadline"],["Afgedaan","Onlangs afgedaan"],["Deels Afgedaan","Deels afgedaan"],["all","Alles"]], f.status||"Openstaand");
     h += sel("sort", [["nieuw","Nieuwste eerst"],["deadline","Op deadline"]], f.sort||"nieuw");
   } else {
-    h += sel("wat", [["debat","Debatten en gesprekken"],["all","Alles, ook procedures"],["plenair","Alleen plenair"]], f.wat||"debat");
-    h += sel("wanneer", [["komend","Komend"],["recent","Afgelopen twee weken"]], f.wanneer||"komend");
+    h += sel("wat", [["std","Alles behalve procedures"],["debat","Debatten en gesprekken"],["so","Schriftelijk overleg"],["plenair","Alleen plenair"],["all","Alles, ook procedures"]], f.wat||"std");
+    if(!zoekt()) h += sel("wanneer", [["komend","Komend"],["jaar","Afgelopen jaar"]], f.wanneer||"komend");
   }
   h += `<button class="chip" data-o="star" aria-pressed="${state.only.star}">★ Mijn onderwerpen</button>`;
   if(t!=="agenda") h += `<button class="chip" data-o="nieuw" aria-pressed="${state.only.nieuw}">Alleen nieuw</button>`;
   const el = document.getElementById("tools");
   el.innerHTML = h;
-  el.querySelector("#q").oninput = e => { state.q = e.target.value; state.shown = 40; renderList(); };
+  const q = el.querySelector("#q");
+  q.oninput = e => {
+    const was = zoekt();
+    state.q = e.target.value; state.shown = 40;
+    const nu = zoekt();
+    // Bij de eerste letter het jaar erbij halen; tabbladen tonen dan het aantal treffers.
+    const herteken = () => { renderTabs(); if(was !== nu){ renderTools(); const i = document.getElementById("q"); i.focus(); i.setSelectionRange(i.value.length, i.value.length); } renderList(); };
+    if(nu && !D.jaar){ laadJaar().then(herteken).catch(()=>herteken()); herteken(); }
+    else herteken();
+  };
   el.querySelectorAll("select").forEach(s => s.onchange = () => {
     state.filt[s.dataset.f] = s.value; state.shown = 40;
-    if(s.dataset.f === "periode" && s.value === "jaar" && !D.vragenJaar){
-      document.getElementById("count").textContent = "Jaararchief laden…";
-      laadJaar().then(() => { renderTools(); renderList(); })
-        .catch(e => { document.getElementById("count").textContent = `Het jaararchief kon niet worden geladen (${e.message}).`; });
-      return;
-    }
-    if(s.dataset.f === "periode") renderTools();
-    renderList();
+    metJaar(() => { if(s.dataset.f==="periode" || s.dataset.f==="wanneer") renderTools(); renderList(); });
   });
   el.querySelectorAll(".chip").forEach(c => c.onclick = () => { state.only[c.dataset.o] = !state.only[c.dataset.o]; c.setAttribute("aria-pressed", state.only[c.dataset.o]); state.shown = 40; renderList(); });
 }
 
 function matchQ(x){
-  if(!state.q.trim()) return true;
-  const hay = x._text.toLowerCase();
-  return state.q.toLowerCase().split(/\s+/).filter(Boolean).every(w => hay.includes(w));
+  if(!zoekt()) return true;
+  return norm(state.q).split(/\s+/).filter(Boolean).every(w => x._hay.includes(w));
 }
 function people(list, max=3){
   const p = list.slice(0,max).map(x=>`${esc(x.naam)}${x.fractie?`<span class="fr">${esc(x.fractie)}</span>`:""}`).join(", ");
   return p + (list.length>max ? ` +${list.length-max}` : "");
 }
+const marks = x => `${x._new?'<span class="new">nieuw</span>':""}${x._star?'<span class="star">★</span>':""}`;
 
 function rowVraag(v){
   let badge;
@@ -373,8 +412,23 @@ function rowVraag(v){
   else if(v.status==="uitstel") badge = `<span class="badge b-uitstel">uitstel</span>`;
   else if(v._late) badge = `<span class="badge b-late">termijn verlopen</span>`;
   else badge = `<span class="badge b-open">open t/m ${fmt(v.termijn)}</span>`;
-  return `<article class="row"><div class="top"><div class="t">${v._new?'<span class="new">nieuw</span>':""}${v._star?'<span class="star">★</span>':""}<a href="${LINK.vraag(v.nr,v.did)}" target="_blank" rel="noopener">${esc(v.onderwerp)}</a></div>${badge}</div>
+  return `<article class="row"><div class="top"><div class="t">${marks(v)}<a href="${LINK.vraag(v.nr,v.did)}" target="_blank" rel="noopener">${esc(v.onderwerp)}</a></div>${badge}</div>
     <div class="meta"><span>${fmt(v.datum)}</span><span>${people(v.indieners)}</span><span>aan ${esc(v.gericht.join(", "))}</span>${v.antwoordDid?`<a href="${LINK.vraag(v.nr,v.antwoordDid)}" target="_blank" rel="noopener">antwoord →</a>`:""}</div></article>`;
+}
+function rowBrief(b){
+  let badge = "";
+  if(b.so==="beantwoord") badge = `<span class="badge b-done">SO beantwoord ${fmt(b.antwoord)}</span>`;
+  else if(b.so==="wacht") badge = `<span class="badge ${b._late?"b-late":"b-uitstel"}">SO: wacht op kabinet</span>`;
+  else if(b.so==="gepland") badge = `<span class="badge b-open">SO-inbreng ${fmt(b.inbreng)}</span>`;
+  else if(b.antwoordOp) badge = `<span class="badge b-ingediend">antwoord op SO</span>`;
+  const so = [];
+  if(b.so==="wacht") so.push(`<span>Kamer stelde vragen op ${fmt(b.inbreng)}${b._late?` · ${Math.round((new Date(today)-new Date(b.inbreng))/864e5/7)} weken geleden`:""}</span>`);
+  if(b.inbrengDid) so.push(`<a href="${LINK.doc(b.nr,b.inbrengDid)}" target="_blank" rel="noopener">vragen Kamer →</a>`);
+  else if(b.inbrengAct) so.push(`<a href="${LINK.act(b.inbrengAct,false)}" target="_blank" rel="noopener">inbreng →</a>`);
+  if(b.antwoordDid && b.antwoordNr) so.push(`<a href="${LINK.brief(b.antwoordNr,b.antwoordDid)}" target="_blank" rel="noopener">antwoord kabinet →</a>`);
+  const dos = b.dossier ? `${b.dossier.titel}${b.kamerstuk?` · ${b.kamerstuk}`:""}` : "";
+  return `<article class="row"><div class="top"><div class="t">${marks(b)}<a href="${LINK.brief(b.nr,b.did)}" target="_blank" rel="noopener">${esc(b.onderwerp)}</a></div>${badge}</div>
+    <div class="meta"><span>${fmt(b.datum)}</span><span>${esc(dos)}</span>${so.join("")}</div></article>`;
 }
 function rowMotie(m){
   const label = m.uitslag==="ingediend" ? (m.gepland ? `stemming ${fmt(m.gepland)}` : "ingediend") : m.uitslag;
@@ -383,7 +437,7 @@ function rowMotie(m){
   const fr = (v+t) ? `<details><summary>${v} voor · ${t} tegen${m.stemming==="Hoofdelijk"?" (hoofdelijk)":""}</summary>
       <p><b style="color:var(--ok)">Voor:</b> ${m.voor.map(x=>`${esc(x[0])} ${x[1]}`).join(", ")||"—"}</p>
       <p><b style="color:var(--bad)">Tegen:</b> ${m.tegen.map(x=>`${esc(x[0])} ${x[1]}`).join(", ")||"—"}</p></details>` : "";
-  return `<article class="row"><div class="top"><div class="t">${m._new?'<span class="new">nieuw</span>':""}${m._star?'<span class="star">★</span>':""}<a href="${LINK.motie(m.nr,m.did)}" target="_blank" rel="noopener" title="${esc(m.volledig)}">${esc(m.onderwerp)}</a></div><span class="badge b-${m.uitslag}">${esc(label)}</span></div>
+  return `<article class="row"><div class="top"><div class="t">${marks(m)}<a href="${LINK.motie(m.nr,m.did)}" target="_blank" rel="noopener" title="${esc(m.volledig)}">${esc(m.onderwerp)}</a></div><span class="badge b-${m.uitslag}">${esc(label)}</span></div>
     <div class="meta"><span>${fmt(m.datum)}</span><span>${people(m.indieners,2)}</span>${m.appreciatie?`<span>kabinet: ${esc(m.appreciatie.toLowerCase())}</span>`:""}<span>${esc(m.debat || (m.dossier && m.dossier.titel) || "")}</span></div>${bar}${fr}</article>`;
 }
 function rowToez(t){
@@ -394,7 +448,7 @@ function rowToez(t){
   else if(t.deadline) badge = `<span class="badge b-open">uiterlijk ${fmt(t.deadline)}</span>`;
   else badge = `<span class="badge b-ingediend">open</span>`;
   const deb = t.debat ? `<a href="${LINK.act(t.debat.nr, (t.debat.soort||"").startsWith("Plenair"))}" target="_blank" rel="noopener">${esc(t.debat.onderwerp)}</a>` : "";
-  return `<article class="row"><div class="top"><div class="t" style="font-weight:450">${t._new?'<span class="new">nieuw</span>':""}${t._star?'<span class="star">★</span>':""}${esc(t.tekst)}</div>${badge}</div>
+  return `<article class="row"><div class="top"><div class="t" style="font-weight:450">${marks(t)}${esc(t.tekst)}</div>${badge}</div>
     <div class="meta"><span>${fmt(t.datum)}</span><span>${esc(t.functie)}</span>${deb?`<span>${deb}</span>`:""}<a href="${LINK.toez(t.nr)}" target="_blank" rel="noopener">${esc(t.nr)} →</a></div></article>`;
 }
 function weekLabel(iso){
@@ -408,14 +462,15 @@ function weekLabel(iso){
 }
 function rowAct(a){
   const extra = [kortSoort(a.soort), a.besloten?"besloten":null, a.status==="Verplaatst"?"verplaatst":null, a.status==="Geannuleerd"?"geannuleerd":null, a.locatie].filter(Boolean);
-  const when = a.week ? `week van ${fmt(a.datum)} (dag volgt)` : `${fmt(a.datum,true)}${a.tijd?" "+a.tijd+(a.eind?"–"+a.eind:""):""}`;
+  const when = a.week ? `week van ${fmt(a.datum)} (dag volgt)` : `${fmt(a.datum,true)}${a.tijd?" "+a.tijd+(a.eind && a.eind!==a.tijd?"–"+a.eind:""):""}`;
   return `<article class="row${a._past?" past":""}"><div class="top"><div class="t">${a._star?'<span class="star">★</span>':""}<a href="${LINK.act(a.nr,a.plenair)}" target="_blank" rel="noopener">${esc(a.onderwerp)}</a></div>${a.plenair?'<span class="badge b-uitstel">plenair</span>':'<span class="badge b-ingediend">commissie</span>'}</div>
     <div class="meta"><span>${esc(when)}</span><span>${esc(extra.join(" · "))}</span></div></article>`;
 }
 
+const nieuwsteEerst = (a,b)=> ((b.datum||"")+b.nr).localeCompare((a.datum||"")+a.nr);
 function filtered(){
   const f = state.filt, t = state.tab;
-  let xs = (t==="vragen" ? vragenBron() : D[t]).filter(matchQ);
+  let xs = bron(t).filter(matchQ);
   if(state.only.star) xs = xs.filter(x=>x._star);
   if(state.only.nieuw && t!=="agenda") xs = xs.filter(x=>x._new);
   if(t==="vragen"){
@@ -424,7 +479,13 @@ function filtered(){
     else if(s==="late") xs = xs.filter(v=>v._late);
     else if(s!=="all") xs = xs.filter(v=>v.status===s);
     if(f.fractie && f.fractie!=="all") xs = xs.filter(v=>v._fr.includes(f.fractie));
-    xs = xs.slice().sort((a,b)=> ((b.datum||"")+b.nr).localeCompare((a.datum||"")+a.nr));
+    xs = xs.slice().sort(nieuwsteEerst);
+  } else if(t==="brieven"){
+    const s = f.so||"all";
+    if(s==="metso") xs = xs.filter(b=>b.so);
+    else if(s==="geenantw") xs = xs.filter(b=>!b.antwoordOp);
+    else if(s!=="all") xs = xs.filter(b=>b.so===s);
+    xs = xs.slice().sort(s==="wacht" ? (a,b)=>(a.inbreng||"").localeCompare(b.inbreng||"") : nieuwsteEerst);
   } else if(t==="moties"){
     const u = f.uitslag||"all";
     if(u!=="all") xs = xs.filter(m=>m.uitslag===u);
@@ -439,43 +500,55 @@ function filtered(){
       ? (a.deadline||"9999").localeCompare(b.deadline||"9999")
       : (b.datum||"").localeCompare(a.datum||""));
   } else {
-    const w = f.wat||"debat";
-    if(w==="debat") xs = xs.filter(a=>!/Procedurevergadering|E-mailprocedure|Inbreng/.test(a.soort));
+    const w = f.wat||"std";
+    if(w==="std") xs = xs.filter(a=>!/Procedurevergadering|E-mailprocedure/.test(a.soort));
+    else if(w==="debat") xs = xs.filter(a=>!/Procedurevergadering|E-mailprocedure|Inbreng/.test(a.soort));
+    else if(w==="so") xs = xs.filter(a=>/schriftelijk overleg/i.test(a.soort));
     else if(w==="plenair") xs = xs.filter(a=>a.plenair);
-    xs = (f.wanneer==="recent") ? xs.filter(a=>a._past).reverse() : xs.filter(a=>!a._past);
+    if(zoekt()) xs = xs.slice().sort((a,b)=> (b.datum||"").localeCompare(a.datum||""));        // treffers: nieuwste eerst
+    else if(f.wanneer==="jaar") xs = xs.filter(a=>a._past).sort((a,b)=> (b.datum||"").localeCompare(a.datum||""));
+    else xs = xs.filter(a=>!a._past);
   }
   return xs;
 }
 
+function maandKoppen(xs, shown, row, enkel, meer){
+  const perMaand = {};
+  for(const v of xs){ const m = (v.datum||"").slice(0,7); perMaand[m] = (perMaand[m]||0) + 1; }
+  let html = "", last = null;
+  for(const v of shown){
+    const m = (v.datum||"").slice(0,7);
+    if(m!==last){ html += `<div class="wk">${MAANDEN[+m.slice(5,7)-1]} ${m.slice(0,4)} · ${perMaand[m]} ${perMaand[m]===1?enkel:meer}</div>`; last = m; }
+    html += row(v);
+  }
+  return html;
+}
 function renderList(){
   const xs = filtered();
   const t = state.tab;
   const shown = xs.slice(0, state.shown);
+  const jaar = wilJaar(t) && D.jaar;
   document.getElementById("count").textContent = (xs.length===1 ? "1 resultaat" : `${xs.length} resultaten`)
-    + (t==="vragen" && jaarArchief() && D.vragenJaarVanaf ? ` sinds ${fmt(D.vragenJaarVanaf)}` : "");
-  const row = { vragen:rowVraag, moties:rowMotie, toezeggingen:rowToez, agenda:rowAct }[t];
+    + (jaar ? ` sinds ${fmt(D.jaar.vanaf)}` : "")
+    + (zoekt() && !JAAR_TABS.includes(t) ? (t==="moties" ? " (moties: laatste twee maanden)" : "") : "");
+  const row = { vragen:rowVraag, brieven:rowBrief, moties:rowMotie, toezeggingen:rowToez, agenda:rowAct }[t];
   let html = "";
   if(t==="agenda"){
     let last = null;
     for(const a of shown){ const wl = weekLabel(a.datum); if(wl!==last){ html += `<div class="wk">${wl}</div>`; last = wl; } html += row(a); }
-  } else if(t==="vragen"){
-    const perMaand = {};
-    for(const v of xs){ const m = (v.datum||"").slice(0,7); perMaand[m] = (perMaand[m]||0) + 1; }
-    let last = null;
-    for(const v of shown){
-      const m = (v.datum||"").slice(0,7);
-      if(m!==last){ html += `<div class="wk">${MAANDEN[+m.slice(5,7)-1]} ${m.slice(0,4)} · ${perMaand[m]} ${perMaand[m]===1?"vraag":"vragen"}</div>`; last = m; }
-      html += row(v);
-    }
+  } else if(t==="vragen" && !(state.filt.so==="wacht")){
+    html = maandKoppen(xs, shown, row, "vraag", "vragen");
+  } else if(t==="brieven" && state.filt.so!=="wacht"){
+    html = maandKoppen(xs, shown, row, "brief", "brieven");
   } else html = shown.map(row).join("");
-  document.getElementById("list").innerHTML = html || `<div class="none">Niets gevonden met deze filters.</div>`;
+  document.getElementById("list").innerHTML = html || `<div class="none">Niets gevonden${zoekt() ? " in dit tabblad. Kijk bij de andere tabbladen: daar staat het aantal treffers" : " met deze filters"}.</div>`;
   const more = document.getElementById("more");
   more.hidden = xs.length <= state.shown;
   more.textContent = `Meer tonen (${xs.length - state.shown})`;
 }
 document.getElementById("more").onclick = () => { state.shown += 60; renderList(); };
 
-function renderAll(){ renderTabs(); renderTools(); renderList(); }
+function renderAll(){ renderTabs(); renderTools(); metJaar(renderList); }
 
 document.getElementById("markRead").onclick = () => {
   since = today; ss.set("since", today); store.set("lastVisit", today); prep(); renderSince(); renderAll();

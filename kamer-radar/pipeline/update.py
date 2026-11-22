@@ -2,11 +2,13 @@
 
 Bron: het Gegevensmagazijn (OData v4) van de Tweede Kamer, zonder sleutel.
 Schrijft kamer-radar/data/radar.json met vier onderdelen:
-  vragen        schriftelijke Kamervragen aan VWS-bewindspersonen (+ mondiale onderwerpen);
-                een jaar terug staat in data/vragen-jaar.json
+  vragen        schriftelijke Kamervragen aan VWS-bewindspersonen (+ mondiale onderwerpen)
+  brieven       Kamerbrieven van VWS (+ mondiale onderwerpen), met de stand van een schriftelijk overleg
   moties        moties in VWS-dossiers (+ mondiale onderwerpen), met stemuitslag
   toezeggingen  openstaande en recent afgedane toezeggingen van VWS
   agenda        commissie- en plenaire activiteiten over VWS-zaken
+Een jaar terug (vragen, brieven, agenda) staat in kamer-radar/data/jaar.json; de pagina laadt dat
+pas bij terugkijken of zoeken.
 
 Alleen standaardbibliotheek. Faalt zonder iets te overschrijven als een onderdeel leeg terugkomt.
 """
@@ -23,11 +25,11 @@ from concurrent.futures import ThreadPoolExecutor
 API = "https://gegevensmagazijn.tweedekamer.nl/OData/v4/2.0/"
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "..", "data", "radar.json")
-ARCHIEF = os.path.join(HERE, "..", "data", "vragen-jaar.json")
+ARCHIEF = os.path.join(HERE, "..", "data", "jaar.json")
 
 TODAY = dt.date.today()
 VRAGEN_DAGEN = 120      # vragen van de afgelopen vier maanden (hoofdbestand)
-ARCHIEF_DAGEN = 366     # terugkijken: vragen van het afgelopen jaar (apart bestand)
+ARCHIEF_DAGEN = 366     # terugkijken: vragen, brieven en agenda van het afgelopen jaar (data/jaar.json)
 MOTIES_DAGEN = 60       # moties van de afgelopen twee maanden
 AFGEDAAN_DAGEN = 60     # afgedane toezeggingen nog even laten zien
 AGENDA_TERUG, AGENDA_VOORUIT = 14, 150
@@ -327,9 +329,92 @@ def toezeggingen():
 SKIP_SOORT = {"Petitie", "Reservering", "Werkbezoek"}
 
 
-def agenda():
+# ---------------------------------------------------------------- Kamerbrieven + schriftelijk overleg
+KAMERSTUK_REF = re.compile(r"\(Kamerstuk(?:ken)? (\d+)(?:-([A-Z0-9]+))?-(\d+)\)")
+MONDIAAL_ZOEK = ["WHO", "Wereldgezondheid", "pandemi", "mondiale gezondheid", "Gezondheidsregeling",
+                 "antimicrobi", "antibiotica", "Gavi", "Global Fund", "UNAIDS", "CEPI", "ebola", "mpox"]
+
+
+def norm(s):
+    return re.sub(r"\W+", " ", (s or "").lower()).strip()
+
+
+def brieven(agenda_items, dagen=ARCHIEF_DAGEN):
+    exp = ("Document($select=Soort,DocumentNummer,Datum,Volgnummer,Verwijderd;"
+           "$expand=Kamerstukdossier($select=Nummer,Toevoeging,Titel)),"
+           "Kamerstukdossier($select=Nummer,Toevoeging,Titel)")
+    sel = "Id,Nummer,Onderwerp,GestartOp"
+    basis = f"Verwijderd eq false and Soort eq 'Brief regering' and GestartOp ge {iso(-dagen)}"
+    rows = get("Zaak", {"$filter": basis + " and ZaakActor/any(a: a/Relatie eq 'Voortouwcommissie' and a/ActorAfkorting eq 'VWS')",
+                        "$select": sel, "$expand": exp, "$orderby": "GestartOp desc"})
+    vws_ids = {z["Id"] for z in rows}
+    kw = " or ".join(f"contains(Onderwerp,'{k}')" for k in MONDIAAL_ZOEK)
+    extra = get("Zaak", {"$filter": f"{basis} and ({kw})", "$select": sel, "$expand": exp})
+    rows += [z for z in extra if z["Id"] not in vws_ids and MONDIAAL.search(z["Onderwerp"] or "")]
+
+    # Inbrengdata van schriftelijke overleggen uit de agenda (ook toekomstige), op onderwerp
+    so_datum = {}
+    for a in agenda_items:
+        if a["soort"] == "Inbreng schriftelijk overleg":
+            so_datum.setdefault(norm(a["onderwerp"]), []).append((a["datum"], a["nr"]))
+
+    res, per_kamerstuk = [], {}
+    for z in rows:
+        docs = [x for x in z["Document"] if not x["Verwijderd"]]
+        brief = next((x for x in docs if x["Soort"] == "Brief regering"), docs[0] if docs else None)
+        k = (brief or {}).get("Kamerstukdossier") or z["Kamerstukdossier"]
+        k = k[0] if k else None
+        kamerstuk = None
+        if k and brief and brief.get("Volgnummer"):
+            kamerstuk = f"{k['Nummer']}{'-' + k['Toevoeging'] if k['Toevoeging'] else ''}-{brief['Volgnummer']}"
+        inbreng = sorted((x for x in docs if x["Soort"] == "Inbreng verslag schriftelijk overleg"), key=lambda x: x["Datum"] or "")
+        verslag = sorted((x for x in docs if x["Soort"] == "Verslag van een schriftelijk overleg"), key=lambda x: x["Datum"] or "")
+        onderwerp = re.sub(r"\s+", " ", z["Onderwerp"] or "").strip()
+        geplande = [x for x in so_datum.get(norm(onderwerp), [])]
+        ref = KAMERSTUK_REF.search(onderwerp)
+        item = {
+            "nr": z["Nummer"],
+            "did": brief["DocumentNummer"] if brief else None,
+            "onderwerp": onderwerp,
+            "datum": d(z["GestartOp"]),
+            "dossier": {"nr": k["Nummer"], "toev": k["Toevoeging"], "titel": k["Titel"]} if k else None,
+            "kamerstuk": kamerstuk,
+            "inbreng": d(inbreng[-1]["Datum"]) if inbreng else (max(g[0] for g in geplande) if geplande else None),
+            "inbrengDid": inbreng[-1]["DocumentNummer"] if inbreng else None,
+            "inbrengAct": max(geplande)[1] if geplande else None,
+            "antwoord": d(verslag[-1]["Datum"]) if verslag else None,
+            "antwoordNr": z["Nummer"] if verslag else None,
+            "antwoordDid": verslag[-1]["DocumentNummer"] if verslag else None,
+            # Antwoorden op een SO komen vaak als aparte brief "Antwoorden op vragen commissie over … (Kamerstuk x-y)"
+            "antwoordOp": "-".join(filter(None, ref.groups())) if ref and onderwerp.lower().startswith("antwoorden op vragen") else None,
+            "vws": z["Id"] in vws_ids,
+            "mondiaal": bool(MONDIAAL.search(onderwerp)),
+        }
+        res.append(item)
+        if kamerstuk:
+            per_kamerstuk[kamerstuk] = item
+    # Koppel losse antwoordbrieven aan de oorspronkelijke brief
+    for b in res:
+        if b["antwoordOp"] and b["antwoordOp"] in per_kamerstuk:
+            o = per_kamerstuk[b["antwoordOp"]]
+            if not o["antwoord"] or (b["datum"] or "") > o["antwoord"]:
+                o["antwoord"], o["antwoordNr"], o["antwoordDid"] = b["datum"], b["nr"], b["did"]
+    for b in res:
+        if b["antwoord"]:
+            b["so"] = "beantwoord"
+        elif b["inbreng"] and b["inbreng"] < TODAY.isoformat():
+            b["so"] = "wacht"           # Kamer heeft vragen gesteld, kabinet moet nog antwoorden
+        elif b["inbreng"]:
+            b["so"] = "gepland"         # inbrengdatum ligt nog in de toekomst
+        else:
+            b["so"] = None
+    res.sort(key=lambda b: (b["datum"] or "", b["nr"]), reverse=True)
+    return res
+
+
+def agenda(terug=ARCHIEF_DAGEN):
     sel = "Id,Nummer,Soort,Onderwerp,Datum,Aanvangstijd,Eindtijd,Status,Besloten,DatumSoort,Locatie,Noot,Voortouwafkorting"
-    van, tot = iso(-AGENDA_TERUG), iso(AGENDA_VOORUIT)
+    van, tot = iso(-terug), iso(AGENDA_VOORUIT)
     commissie = get("Activiteit", {
         "$filter": f"Verwijderd eq false and Datum ge {van} and Datum lt {tot} and Voortouwafkorting eq 'VWS'",
         "$select": sel, "$orderby": "Datum",
@@ -380,23 +465,32 @@ def main():
     out = {"bijgewerkt": dt.datetime.now(dt.timezone.utc).isoformat(timespec="minutes"),
            "bron": "Gegevensmagazijn Tweede Kamer (open data)"}
     for naam, fn in (("vragen", vragen), ("moties", lambda: moties(dossiers)),
-                     ("toezeggingen", toezeggingen), ("agenda", agenda)):
+                     ("toezeggingen", toezeggingen), ("agenda", agenda),
+                     ("brieven", lambda: brieven(out["agenda"]))):
         print(naam + "…")
         out[naam] = fn()
         print(f"  {len(out[naam])}")
         if not out[naam]:
             sys.exit(f"Leeg resultaat voor {naam}; radar.json niet overschreven.")
-    # Het jaararchief apart, zodat de pagina snel blijft; het hoofdbestand houdt vier maanden.
-    jaar = out["vragen"]
-    grens = iso(-VRAGEN_DAGEN)
-    out["vragen"] = [v for v in jaar if (v["datum"] or "") >= grens]
+
+    # Het jaar gaat in een apart bestand, zodat de pagina snel opent; het hoofdbestand houdt
+    # vier maanden vragen en brieven en de agenda vanaf twee weken terug.
+    jaar = {"bijgewerkt": out["bijgewerkt"], "vanaf": iso(-ARCHIEF_DAGEN),
+            "vragen": out["vragen"], "brieven": out["brieven"], "agenda": out["agenda"]}
+    recent = iso(-VRAGEN_DAGEN)
+    out["vragen"] = [v for v in out["vragen"] if (v["datum"] or "") >= recent]
+    out["brieven"] = [b for b in out["brieven"] if (b["datum"] or "") >= recent or b["so"] in ("wacht", "gepland")]
+    out["agenda"] = [a for a in out["agenda"] if (a["datum"] or "") >= iso(-AGENDA_TERUG)]
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, separators=(",", ":"))
     with open(ARCHIEF, "w", encoding="utf-8") as f:
-        json.dump({"bijgewerkt": out["bijgewerkt"], "vanaf": iso(-ARCHIEF_DAGEN), "vragen": jaar},
-                  f, ensure_ascii=False, separators=(",", ":"))
-    print(f"Archief: {len(jaar)} vragen sinds {iso(-ARCHIEF_DAGEN)}, {os.path.getsize(ARCHIEF) // 1024} kB")
+        json.dump(jaar, f, ensure_ascii=False, separators=(",", ":"))
+    oud = os.path.join(os.path.dirname(OUT), "vragen-jaar.json")
+    if os.path.exists(oud):
+        os.remove(oud)
+    print(f"Jaar: {len(jaar['vragen'])} vragen, {len(jaar['brieven'])} brieven, {len(jaar['agenda'])} activiteiten "
+          f"sinds {jaar['vanaf']}, {os.path.getsize(ARCHIEF) // 1024} kB")
     print(f"Klaar in {time.time() - t0:.0f}s, {os.path.getsize(OUT) // 1024} kB")
 
 
