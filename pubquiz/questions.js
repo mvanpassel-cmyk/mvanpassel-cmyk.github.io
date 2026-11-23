@@ -108,6 +108,13 @@ window.QUIZ = {
           options: ['Paul Ehrlich', 'Rudolf Virchow', 'Robert Koch', 'Emil von Behring'],
           answer: 2,
           info: 'Koch kreeg er in 1905 de Nobelprijs voor. Het Robert Koch-Institut in Berlijn is naar hem vernoemd.'
+        },
+        {
+          type: 'mc',
+          q: 'Op woensdag 25 november begint de wereldwijde campagne Orange the World tegen geweld tegen vrouwen en meisjes. Waar staat de kleur oranje voor?',
+          options: ['Hoop op een toekomst zonder geweld tegen vrouwen', 'Waarschuwing voor gevaar', 'Solidariteit met vluchtelingen', 'Veiligheid op het werk'],
+          answer: 0,
+          info: 'De campagne, de 16 Days of Activism, loopt van 25 november tot 10 december. Het thema van dit jaar: zorg voor gerechtigheid, bescherm slachtoffers en maak een einde aan straffeloosheid. Volgens de WHO krijgt bijna 1 op 3 vrouwen in haar leven te maken met partnergeweld of seksueel geweld.'
         }
       ]
     },
