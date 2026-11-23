@@ -1,113 +1,8 @@
 {
- "generated": "2026-11-16T07:15:02Z",
+ "generated": "2026-11-23T08:09:54Z",
  "model": "claude-sonnet-5-5",
- "brief": "The next six weeks matter most for global health and EU diplomacy. The WHO pandemic annex (PABS) is not coming this year: IGWG9 ended on 13 November without a text and moved to formal rounds from January 2027, so I put the December special WHA at about 2%. Spain's snap election on 29 November is likely to produce a PP win that depends on Vox for a majority, and I put the EU's 2028–34 budget (MFF) deal at about 3% for the 26–27 November summit. I disagree with the crowd on Taipei: it prices Chiang Wan-an at 62%, and I say 80% because he is the KMT incumbent. The cheap tail-risk markets (pandemics, Iran regime change, a Ukraine peace deal) look fairly priced; the exceptions are Ukraine 'winning' and 'partial Crimea control', which I put at 10% against 27–30%.",
+ "brief": "Climate talks collapsed and the PABS pandemic-annex deadline slipped, so the next six weeks are about elections and EU money rather than new health treaties. My main view is that there is no special World Health Assembly in December. WHO's 13 November line was that members still aim to finish the PABS annex by May 2027, so the 14–15 December session is very unlikely to happen. Spain votes on 29 November, and I expect a PP plurality and a PP-Vox majority. I put Chiang Wan-an at about 88% in Taipei, well above the crowd's 70%. The crowd's 90% for Feijóo as 'next PM' by 30 November looks mis-timed, because Spanish government formation takes weeks. I also think the 24% for a US screwworm national emergency is too high.",
  "events": [
-  {
-   "id": "2026-11-09-cop31-un-climate-change-conference",
-   "title": "COP31 — UN Climate Change Conference",
-   "start": "2026-11-09",
-   "end": "2026-11-20",
-   "place": "Antalya, Türkiye",
-   "cat": "summit",
-   "src": "https://en.wikipedia.org/wiki/2026_United_Nations_Climate_Change_Conference",
-   "expect": "The summit part is over. Von der Leyen spoke, and the US, China and India were absent at leader level. Expect a late-running closing plenary with a general cover decision. A binding fossil-fuel transition roadmap is unlikely because the Turkish presidency favours implementation language.",
-   "calls": [
-    {
-     "id": "111012684ea6",
-     "q": "COP31 adopts an overarching cover decision by 22 November 2026",
-     "by": "2026-11-22",
-     "p": 0.85
-    },
-    {
-     "id": "21801b569b4d",
-     "q": "COP31 formally adopts a decision establishing a fossil-fuel transition roadmap by 22 November 2026",
-     "by": "2026-11-22",
-     "p": 0.12
-    }
-   ],
-   "markets": [],
-   "watch": "Draft cover text circulated 18–19 November, and whether petrostates and the Arab Group block fossil language.",
-   "sources": [
-    {
-     "url": "https://www.anews.com.tr/turkey/2026/11/11/cop31-leaders-summit-set-to-open-in-turkiye-with-electrification-in-focus",
-     "title": "COP31 leaders’ summit set to open in Türkiye with electrification in focus"
-    },
-    {
-     "url": "https://www.commonspace.eu/news/cop-31-update-4-world-leaders-address-climate-summit-antalya",
-     "title": "COP 31 Update 4: World leaders address climate summit in Antalya"
-    }
-   ]
-  },
-  {
-   "id": "2026-11-19-who-director-general-election-first-candidates-f",
-   "title": "WHO Director-General election — first candidates' forum",
-   "start": "2026-11-19",
-   "end": null,
-   "place": "Geneva",
-   "cat": "health",
-   "src": "https://www.who.int/news/item/29-10-2026-announcement-of-candidates-for-the-position-of-who-director-general",
-   "expect": "The first candidates' forum should go ahead in Geneva as a scheduled, low-drama event. It matters as an early read on the field and on how candidates treat the PABS annex and WHO financing after the US exit. No decision is taken; the vote is at WHA80 in May 2027.",
-   "calls": [
-    {
-     "id": "fd0c54da3c7c",
-     "q": "The WHO Director-General candidates' forum takes place in Geneva on 19 November 2026",
-     "by": "2026-11-20",
-     "p": 0.92
-    }
-   ],
-   "markets": [],
-   "watch": "A late candidate withdrawal, or a postponement notice from the WHO Secretariat.",
-   "sources": []
-  },
-  {
-   "id": "2026-11-18-apec-economic-leaders-meeting",
-   "title": "APEC Economic Leaders' Meeting",
-   "start": "2026-11-18",
-   "end": "2026-11-19",
-   "place": "Shenzhen, China",
-   "cat": "summit",
-   "src": "https://www.lg.gov.cn/english/news/latestnews/content/post_12588327.html",
-   "expect": "Xi hosts in Shenzhen. A consensus leaders' declaration on trade and the economy is likely, since APEC usually manages one. I have not checked Trump's plans; he would more likely send a delegation or skip, given the G20 he hosts in December.",
-   "calls": [
-    {
-     "id": "52a9e5c335db",
-     "q": "APEC leaders issue a joint leaders' declaration by 20 November 2026",
-     "by": "2026-11-20",
-     "p": 0.85
-    },
-    {
-     "id": "867b901cdc1b",
-     "q": "Donald Trump attends the APEC Leaders' Meeting in Shenzhen in person",
-     "by": "2026-11-19",
-     "p": 0.15
-    }
-   ],
-   "markets": [],
-   "watch": "White House travel announcements and any US–China summit scheduling around the meeting.",
-   "sources": []
-  },
-  {
-   "id": "2026-11-21-eu-indonesia-cepa-formal-signature-targeted",
-   "title": "EU–Indonesia CEPA — formal signature targeted",
-   "start": "2026-11-21",
-   "end": null,
-   "place": "Indonesia / EU",
-   "cat": "partners",
-   "src": "https://en.antaranews.com/news/440543/indonesia-targets-nov-21-signing-for-ieu-cepa-trade-pact-airlangga",
-   "expect": "A signature on 21 November is a target, not a certainty. EU trade deals often slip on legal and Council procedure. I give signing by month-end slightly under even odds. It would be a rare EU trade win as tariff tensions persist.",
-   "calls": [
-    {
-     "id": "2ed19848ce72",
-     "q": "The EU–Indonesia CEPA is formally signed by 30 November 2026",
-     "by": "2026-11-30",
-     "p": 0.45
-    }
-   ],
-   "markets": [],
-   "watch": "A Council decision on signature, or an official announcement of a signing ceremony.",
-   "sources": []
-  },
   {
    "id": "2026-11-25-tweede-kamer-commissiedebat-eu-gezondheidsraad",
    "title": "Tweede Kamer — commissiedebat EU-Gezondheidsraad",
@@ -116,17 +11,23 @@
    "place": "Den Haag",
    "cat": "eu",
    "src": "https://www.tweedekamer.nl/debat_en_vergadering/commissievergaderingen/details?id=2026A05494",
-   "expect": "The committee debate ahead of the 8 December EPSCO (Health) will most likely go ahead. Committee debates are occasionally postponed, so I leave room for a reschedule. Expect the usual topics: pharma and critical-medicines files, EU health legislation and global health financing.",
+   "expect": "The committee debate goes ahead and prepares the Dutch line for the 8 December EPSCO Health Council. MPs will probably file motions in a follow-up two-minute debate before EPSCO. I haven't verified the agenda; this is based on Dutch parliamentary routine.",
    "calls": [
     {
      "id": "299c240966b0",
      "q": "The Tweede Kamer commissiedebat EU-Gezondheidsraad takes place on 25 November 2026",
-     "by": "2026-11-26",
-     "p": 0.82
+     "by": "2026-11-25",
+     "p": 0.92
+    },
+    {
+     "id": "cd9d3f68b135",
+     "q": "A tweeminutendebat on the EU Health Council is held in plenary before 8 December 2026",
+     "by": "2026-12-08",
+     "p": 0.7
     }
    ],
    "markets": [],
-   "watch": "A change in the Kamer's agenda or a cancellation notice in the days before.",
+   "watch": "Rescheduling by the Kamer's agenda committee, or a cabinet-related disruption.",
    "sources": []
   },
   {
@@ -137,46 +38,23 @@
    "place": "Brussels",
    "cat": "eu",
    "src": "https://www.eunews.it/en/2026/10/13/2028-2034-budget-plans-for-an-extraordinary-summit-of-leaders-on-26-and-27-november/",
-   "expect": "No deal. The MFF needs unanimity, and net payers, cohesion and farm-aid recipients, and the new-own-resources question remain far apart. Expect a leaders' discussion and instructions to continue, with real bargaining pushed into 2027.",
+   "expect": "No final MFF deal. Special summits on the long-term budget have historically ended without agreement at the first attempt. I expect a negotiating-box-style discussion, with frugal states and cohesion/farm-funding recipients still far apart. Health spending lines are unlikely to be settled.",
    "calls": [
     {
-     "id": "4b5ec04532a3",
-     "q": "EU leaders reach political agreement on the 2028–2034 MFF by 27 November 2026",
+     "id": "a29a6a00d0f1",
+     "q": "EU leaders reach a unanimous political agreement on the full MFF 2028–2034 at the special European Council",
      "by": "2026-11-27",
-     "p": 0.03
+     "p": 0.07
+    },
+    {
+     "id": "ee24ad7e5b02",
+     "q": "EU leaders have agreed the MFF 2028–2034 by the end of the 17–18 December European Council",
+     "by": "2026-12-18",
+     "p": 0.15
     }
    ],
    "markets": [],
-   "watch": "A revised negotiating box with figures, or Commission or Council signals of a fast compromise.",
-   "sources": []
-  },
-  {
-   "id": "2026-11-28-taiwan-local-elections-nine-in-one",
-   "title": "Taiwan — local elections (nine-in-one)",
-   "start": "2026-11-28",
-   "end": null,
-   "place": "Taiwan",
-   "cat": "election",
-   "src": "https://focustaiwan.tw/politics/202608200010",
-   "expect": "The KMT should hold Taipei and do well overall, as in 2022 when it took most local executive posts. I have not seen fresh Taipei polling. I put incumbent Chiang Wan-an well above the 62% crowd price on incumbency and the city's lean.",
-   "calls": [
-    {
-     "id": "5a80b21e6653",
-     "q": "Chiang Wan-an wins the Taipei mayoral election on 28 November 2026",
-     "by": "2026-11-29",
-     "p": 0.8
-    },
-    {
-     "id": "1da0e45af492",
-     "q": "The KMT wins more city and county top posts than the DPP in the 28 November 2026 local elections",
-     "by": "2026-11-30",
-     "p": 0.85
-    }
-   ],
-   "markets": [
-    "pm-848341"
-   ],
-   "watch": "Late Taipei polls showing the DPP within 5 points, or a scandal hitting Chiang.",
+   "watch": "Summit extended past 27 November, or a leaked revised negotiating box with figures.",
    "sources": []
   },
   {
@@ -187,23 +65,52 @@
    "place": "Palestine",
    "cat": "election",
    "src": "https://english.wafa.ps/Pages/Details/172518",
-   "expect": "I could not verify preparations, and Palestinian votes have a long record of slipping. Gaza voting is very unlikely under current conditions, and candidate eligibility rules are contested. I make it slightly better than a coin flip that West Bank voting happens on the date.",
+   "expect": "Real doubt that it happens on schedule. I did not verify preparations, and no market is trading on it. If it is held, expect voting in the West Bank only, with Gaza excluded or impractical and Hamas's participation contested. Treat this as close to a coin flip.",
    "calls": [
     {
-     "id": "0490b72bb4c7",
-     "q": "Voting in the Palestinian legislative election takes place in the West Bank on 28 November 2026",
-     "by": "2026-11-29",
+     "id": "fcfe5f346bae",
+     "q": "Voting in the Palestinian legislative election takes place on 28 November 2026",
+     "by": "2026-11-28",
      "p": 0.5
     },
     {
-     "id": "ff158620584f",
-     "q": "Voting in the Palestinian legislative election also takes place in the Gaza Strip by 30 November 2026",
-     "by": "2026-11-30",
-     "p": 0.12
+     "id": "612018da6a0d",
+     "q": "Official final results of the Palestinian legislative election are announced by 5 December 2026",
+     "by": "2026-12-05",
+     "p": 0.38
     }
    ],
    "markets": [],
-   "watch": "Postponement decree from the Palestinian Authority or the Central Elections Commission.",
+   "watch": "An official postponement notice or a Central Elections Commission statement on polling stations.",
+   "sources": []
+  },
+  {
+   "id": "2026-11-28-taiwan-local-elections-nine-in-one",
+   "title": "Taiwan — local elections (nine-in-one)",
+   "start": "2026-11-28",
+   "end": null,
+   "place": "Taiwan",
+   "cat": "election",
+   "src": "https://focustaiwan.tw/politics/202608200010",
+   "expect": "KMT incumbent Chiang Wan-an holds Taipei comfortably. The KMT should again win more of the 22 city and county top posts than the DPP. I put Chiang well above the crowd's 70%.",
+   "calls": [
+    {
+     "id": "a0c68f5b1eef",
+     "q": "Chiang Wan-an wins the Taipei mayoral election",
+     "by": "2026-11-29",
+     "p": 0.88
+    },
+    {
+     "id": "897d100e72a7",
+     "q": "The KMT wins more of the 22 mayor and county-magistrate posts than the DPP",
+     "by": "2026-11-29",
+     "p": 0.8
+    }
+   ],
+   "markets": [
+    "pm-848341"
+   ],
+   "watch": "Late Taipei polls showing the DPP within 5 points, or a sharp turnout swing.",
    "sources": []
   },
   {
@@ -214,37 +121,39 @@
    "place": "Spain",
    "cat": "election",
    "src": "https://www.atalayar.com/en/articulo/politics/sanchez-dissolves-parliament-and-calls-general-election-for-29-november/20261005095443229697.html",
-   "expect": "The PP wins the most seats; polls put PP plus Vox at roughly 190–200 of 350, but the PP needs Vox to govern. The PSOE is polling at about 105–108 seats in the surveys I saw. Investiture before year-end is very unlikely because the Cortes only convene in late December.",
+   "expect": "All four polls published on 22 November put PP first, and PP plus Vox at 190–210 seats against 176 needed. I expect Feijóo to become PM, but not by 30 November, because investiture takes weeks. This matters for the PP-Vox health and migration agenda.",
    "calls": [
     {
-     "id": "1b6df2761266",
-     "q": "The PP wins the most seats in the 29 November 2026 Spanish general election",
+     "id": "3dfabe4b443e",
+     "q": "The PP wins the most seats in Spain's 29 November general election",
      "by": "2026-11-30",
      "p": 0.93
     },
     {
-     "id": "fe30691ac531",
-     "q": "PP and Vox together win at least 176 of 350 seats in the 29 November 2026 election",
+     "id": "2d18175bfc1b",
+     "q": "PP and Vox together win at least 176 of 350 seats",
      "by": "2026-11-30",
-     "p": 0.85
+     "p": 0.82
     },
     {
-     "id": "9cf94faf5126",
-     "q": "Alberto Núñez Feijóo wins a parliamentary investiture vote as prime minister by 31 December 2026",
-     "by": "2026-12-31",
-     "p": 0.05
+     "id": "473ab7d79085",
+     "q": "Vox wins at least 60 seats",
+     "by": "2026-11-30",
+     "p": 0.68
     }
    ],
-   "markets": [],
-   "watch": "Late polls showing PP+Vox under 176, or a PSOE surge after the Toledo train crash.",
+   "markets": [
+    "pm-637442"
+   ],
+   "watch": "A PSOE rise past 30% in final polls, or Vox falling below 17%.",
    "sources": [
+    {
+     "url": "https://www.euronews.com/2026/11/22/polls-put-spains-pp-ahead-of-psoe-a-week-before-29-november-election",
+     "title": "Polls put Spain's PP ahead of PSOE a week before 29 November election"
+    },
     {
      "url": "https://www.france24.com/en/europe/20261109-spain-right-leads-sanchez-socialists-in-polls-for-november-29-snap-election",
      "title": "Spain's right holds poll lead over Sanchez's Socialists ahead of November 29 snap election - France 24"
-    },
-    {
-     "url": "https://www.theolivepress.es/spain-news/2026/11/09/spains-right-holds-poll-lead-just-three-weeks-before-election/",
-     "title": "Spain’s right-wing bloc maintains poll lead as PSOE support edges up ahead of November 29 election"
     }
    ]
   },
@@ -256,31 +165,27 @@
    "place": "Geneva",
    "cat": "health",
    "src": "https://apps.who.int/gb/IGWG/pdf_files/IGWG7/A_IGWG7_3Rev1-en.pdf",
-   "expect": "These reserved dates will almost certainly go unused. After IGWG9, WHO says formal talks resume on 11–15 January 2027, with more rounds in February and March, and the target is WHA80 in May 2027. A December special session to adopt the annex is therefore also off.",
+   "expect": "The reserved dates probably go unused. WHO's 13 November news item says members reiterated commitment to finalise the PABS annex by May 2027. That points to continued talks into 2027 rather than an emergency December round.",
    "calls": [
     {
-     "id": "7234a23294fb",
-     "q": "No formal IGWG negotiating meeting on the PABS annex is held between 30 November and 4 December 2026",
+     "id": "88fb4aa54479",
+     "q": "The IGWG holds a formal PABS negotiating session between 30 November and 4 December 2026",
      "by": "2026-12-04",
-     "p": 0.9
+     "p": 0.15
     },
     {
-     "id": "233a11468ec4",
-     "q": "A special session of the World Health Assembly adopts the PABS annex by 15 December 2026",
-     "by": "2026-12-15",
+     "id": "f9bda83f8245",
+     "q": "A final agreed PABS annex text is announced by 4 December 2026",
+     "by": "2026-12-04",
      "p": 0.02
     }
    ],
    "markets": [],
-   "watch": "Any WHO notice convening additional IGWG sessions or an Executive Board call for a special WHA.",
+   "watch": "A WHO notice convening IGWG for these dates or co-chairs announcing a breakthrough.",
    "sources": [
     {
-     "url": "https://www.who.int/news/item/13-11-2026-member-states-reiterate-commitment-to-finalize-pandemic-agreement-pabs-annex-by-may-2027",
-     "title": "Member States reiterate commitment to finalize Pandemic Agreement PABS Annex by May 2027"
-    },
-    {
-     "url": "https://meridianaffairs.org/research/pandemic-agreement-pabs-annex-2026",
-     "title": "The Missing Annex: Pathogen Sharing and the Unfinished WHO Pandemic Agreement"
+     "url": "https://www.who.int/health-topics/who-pandemic-agreement",
+     "title": "WHO Pandemic Agreement - Global"
     }
    ]
   },
@@ -292,17 +197,104 @@
    "place": "The Gambia",
    "cat": "election",
    "src": "https://modeldiplomat.com/politics/elections/2026",
-   "expect": "Incumbent Adama Barrow is the favourite in a plurality, one-round contest against a split opposition. I have not checked recent polling, so I leave real room for a surprise. A disputed result is a smaller risk than in many West African votes.",
+   "expect": "Incumbent Adama Barrow is the favourite against a split opposition under a first-past-the-post system, so there is no runoff. I did not search for recent polling, so I hold some uncertainty on margin. A win above 50% is likely but not certain.",
    "calls": [
     {
-     "id": "1ea40f3c12c8",
-     "q": "Adama Barrow is declared winner of the 5 December 2026 Gambian presidential election by 9 December 2026",
+     "id": "826afcc4667d",
+     "q": "Adama Barrow is declared winner of The Gambia's presidential election",
      "by": "2026-12-09",
-     "p": 0.8
+     "p": 0.84
+    },
+    {
+     "id": "d4ea95ebd772",
+     "q": "Barrow wins more than 50% of the valid vote",
+     "by": "2026-12-09",
+     "p": 0.6
     }
    ],
    "markets": [],
-   "watch": "Opposition consolidation behind one candidate, or a candidacy ruling against Barrow.",
+   "watch": "Opposition consolidation behind one candidate, or electoral commission delays.",
+   "sources": []
+  },
+  {
+   "id": "2026-12-06-5th-global-high-level-ministerial-conference-on-",
+   "title": "5th Global High-Level Ministerial Conference on AMR",
+   "start": "2026-12-06",
+   "end": "2026-12-08",
+   "place": "Abuja, Nigeria",
+   "cat": "amr",
+   "src": "https://www.qjsamr.org/about-us/fifth-global-high-level-ministerial-conference-on-amr",
+   "expect": "The conference should close with a ministerial outcome document, following the Jeddah precedent of 2024. Expect commitments on surveillance, financing and the evidence panel on AMR, but little in binding or funded terms. The Africa venue should push manufacturing and access language.",
+   "calls": [
+    {
+     "id": "2527c3b23cd7",
+     "q": "The 5th Global High-Level Ministerial Conference on AMR opens in Abuja by 7 December 2026",
+     "by": "2026-12-07",
+     "p": 0.93
+    },
+    {
+     "id": "c43cb5f6fd33",
+     "q": "The conference adopts a ministerial declaration or outcome document by 9 December 2026",
+     "by": "2026-12-09",
+     "p": 0.82
+    },
+    {
+     "id": "9c3cae31fb50",
+     "q": "The outcome text explicitly references the Independent Panel on Evidence for Action against AMR",
+     "by": "2026-12-09",
+     "p": 0.6
+    }
+   ],
+   "markets": [],
+   "watch": "Delegation downgrades, or a draft text circulating without finance or accountability language.",
+   "sources": []
+  },
+  {
+   "id": "2026-12-08-epsco-council-health",
+   "title": "EPSCO Council (Health)",
+   "start": "2026-12-08",
+   "end": null,
+   "place": "Brussels",
+   "cat": "eu",
+   "src": "https://www.consilium.europa.eu/en/meetings/epsco/2026/12/08/",
+   "expect": "The meeting goes ahead under the Irish presidency. I have not verified the agenda, so expect routine progress reports and possibly one health file reaching a Council position. Do not expect headline decisions.",
+   "calls": [
+    {
+     "id": "e9bf3cd03af0",
+     "q": "The EPSCO Council (Health) meets in Brussels on 8 December 2026",
+     "by": "2026-12-08",
+     "p": 0.96
+    },
+    {
+     "id": "09f6cd1cc757",
+     "q": "The Council agrees a general approach or Council negotiating position on at least one health legislative file at the meeting",
+     "by": "2026-12-08",
+     "p": 0.3
+    }
+   ],
+   "markets": [],
+   "watch": "The published provisional agenda showing 'general approach' items.",
+   "sources": []
+  },
+  {
+   "id": "2026-12-13-haiti-general-election-first-round-with-constitu",
+   "title": "Haiti — general election, first round (with constitutional referendum)",
+   "start": "2026-12-13",
+   "end": null,
+   "place": "Haiti",
+   "cat": "election",
+   "src": "https://canadacaribbeaninstitute.org/2026/07/29/haiti-sets-dec-13-date-for-first-national-election-in-a-decade/",
+   "expect": "I doubt the vote happens on the date. Gang control of much of the country and repeated slippage of earlier dates make another delay more likely than not. If held, expect very low turnout and a partial, disputed process.",
+   "calls": [
+    {
+     "id": "c9671e30fd1b",
+     "q": "Haiti's general election first round is held on 13 December 2026",
+     "by": "2026-12-13",
+     "p": 0.14
+    }
+   ],
+   "markets": [],
+   "watch": "Electoral council confirming ballot printing and distribution, or a security-driven postponement.",
    "sources": []
   },
   {
@@ -313,148 +305,188 @@
    "place": "Trump National Doral, Miami, USA",
    "cat": "summit",
    "src": "https://en.wikipedia.org/wiki/2026_G20_Miami_summit",
-   "expect": "Trump hosts a slimmed-down summit at Doral. A leaders' text is possible but not assured, because the US has narrowed the agenda and has excluded South Africa. Health and climate language is likely thin or absent.",
+   "expect": "Trump hosts, and the US has pared the agenda back, so a long consensus communiqué is a coin flip at best. Health and pandemic language is unlikely in any joint text. Xi's attendance is uncertain after Shenzhen.",
    "calls": [
     {
-     "id": "4c05ad602aa4",
-     "q": "The G20 Leaders' Summit takes place at Doral on 14–15 December 2026 with Donald Trump present",
+     "id": "039d2d66a3b3",
+     "q": "Donald Trump attends the G20 Leaders' Summit in Miami in person",
      "by": "2026-12-15",
-     "p": 0.92
+     "p": 0.93
     },
     {
-     "id": "bfbf6af641da",
-     "q": "A joint leaders' declaration is issued at the end of the 2026 G20 Leaders' Summit",
+     "id": "bbb5c20dbdb9",
+     "q": "G20 leaders adopt a joint leaders' declaration by 16 December 2026",
      "by": "2026-12-16",
-     "p": 0.4
+     "p": 0.5
+    },
+    {
+     "id": "9e1647916e79",
+     "q": "Any joint G20 leaders' text refers to health or pandemic preparedness",
+     "by": "2026-12-16",
+     "p": 0.12
     }
    ],
    "markets": [],
-   "watch": "Sherpa reports of a draft declaration, and the final invitation list, including South Africa.",
+   "watch": "Sherpa-level reports on a declaration versus a chair's summary; Chinese attendance announcements.",
+   "sources": []
+  },
+  {
+   "id": "2026-12-14-possible-special-session-of-the-wha-to-adopt-the",
+   "title": "Possible special session of the WHA to adopt the PABS annex",
+   "start": "2026-12-14",
+   "end": "2026-12-15",
+   "place": "Geneva",
+   "cat": "health",
+   "src": "https://apps.who.int/gb/IGWG/pdf_files/IGWG7/A_IGWG7_3Rev1-en.pdf",
+   "expect": "Very unlikely to happen. The IGWG did not deliver an agreed text, the Executive Board's 13 November deadline to call a special session has passed, and WHO's 13 November item points to May 2027. I expect the PABS annex to go to WHA80.",
+   "calls": [
+    {
+     "id": "6855e104d83a",
+     "q": "A special session of the World Health Assembly convenes by 15 December 2026",
+     "by": "2026-12-15",
+     "p": 0.02
+    },
+    {
+     "id": "4763a58a8210",
+     "q": "The World Health Assembly adopts the PABS annex by 31 December 2026",
+     "by": "2026-12-31",
+     "p": 0.02
+    }
+   ],
+   "markets": [],
+   "watch": "Any WHO notice convening delegates in Geneva for 14–15 December.",
+   "sources": [
+    {
+     "url": "https://www.who.int/health-topics/who-pandemic-agreement",
+     "title": "WHO Pandemic Agreement - Global"
+    },
+    {
+     "url": "https://apps.who.int/gb/IGWG/pdf_files/IGWG7/A_IGWG7_3Rev1-en.pdf",
+     "title": "Seventh meeting of the open-ended Intergovernmental Working Group on the"
+    }
+   ]
+  },
+  {
+   "id": "2026-12-22-south-sudan-general-election",
+   "title": "South Sudan — general election",
+   "start": "2026-12-22",
+   "end": null,
+   "place": "South Sudan",
+   "cat": "election",
+   "src": "https://www.sudanspost.com/nec-declares-december-22-2026-as-south-sudans-election-date/",
+   "expect": "Another postponement is much more likely than voting. I did not verify current preparations, but the political settlement is fragile and the conditions for a credible vote look weak. I'd expect an announced delay close to the date.",
+   "calls": [
+    {
+     "id": "eec76577be6f",
+     "q": "Voting in South Sudan's general election begins on or before 22 December 2026",
+     "by": "2026-12-22",
+     "p": 0.08
+    },
+    {
+     "id": "be99e95000de",
+     "q": "South Sudan's authorities formally announce a further postponement of the election by 22 December 2026",
+     "by": "2026-12-22",
+     "p": 0.82
+    }
+   ],
+   "markets": [],
+   "watch": "Voter registration completion, and statements from the electoral commission or UN mission.",
    "sources": []
   }
  ],
  "odds": {
-  "pi-9109": {
-   "p": 0.03,
-   "crowd": 0.02,
-   "why": "Government funding looks stable through mid-December; the crowd is right."
+  "pm-1283700": {
+   "p": 0.92,
+   "crowd": 0.915,
+   "why": "US measles is running far above 6,000 this year; the threshold looks very likely met."
   },
-  "mf-tgZqNznhpc": {
-   "p": 0.01,
-   "crowd": 0.034,
-   "why": "Over 100 Ebola cases in the US would need a massive imported outbreak."
-  },
-  "pi-8442": {
-   "p": 0.02,
-   "crowd": 0.05,
-   "why": "The House cannot pass articles before January; floor time is nearly gone."
-  },
-  "mf-2qSIdSL5cL": {
-   "p": 0.02,
-   "crowd": 0.035,
-   "why": "No sign of a normalisation deal within six weeks."
-  },
-  "mf-DxJpflB1KwrKx5xk5hSn": {
+  "pm-580337": {
    "p": 0.1,
-   "crowd": 0.27,
-   "why": "No Ukraine–Russia treaty is likely soon, and any deal leaves Crimea Russian."
-  },
-  "mf-RiB3ECnJ48CXPeRVKKu7": {
-   "p": 0.1,
-   "crowd": 0.3,
-   "why": "A Ukrainian 'win' by year-end is very unlikely on current battlefield and talks; crowd too high."
+   "crowd": 0.235,
+   "why": "A formal national emergency in five weeks is unlikely; no declaration so far. Crowd 24% looks too high."
   },
   "pm-448037": {
    "p": 0.01,
-   "crowd": 0.011,
-   "why": "Hantavirus clusters are contained; sustained human spread is very rare."
-  },
-  "pm-95116": {
-   "p": 0.015,
-   "crowd": 0.015,
-   "why": "No sign of a novel pathogen spreading widely; six weeks left."
-  },
-  "pm-86950": {
-   "p": 0.04,
-   "crowd": 0.105,
-   "why": "WHO has not designated a COVID variant of concern in years."
-  },
-  "pm-1141914": {
-   "p": 0.02,
-   "crowd": 0.018,
-   "why": "Cross-border spread of pneumonic plague is rare and contained."
-  },
-  "pm-1143487": {
-   "p": 0.05,
-   "crowd": 0.025,
-   "why": "Sporadic US plague cases occur, but few fall in winter; resolution wording unclear."
-  },
-  "pm-580337": {
-   "p": 0.2,
-   "crowd": 0.25,
-   "why": "Emergency declaration possible, but nothing I saw points to imminence; crowd slightly high."
-  },
-  "mf-ID1jBWOPnr2GjVrOPErn": {
-   "p": 0.75,
-   "crowd": 0.8,
-   "why": "Strong earlier data, but 'pass' is ambiguous and timing uncertain."
-  },
-  "pm-73130": {
-   "p": 0.03,
-   "crowd": 0.065,
-   "why": "Invasion would be a major escalation; the Iran talks channel is thin but war declaration is unlikely."
-  },
-  "pm-455875": {
-   "p": 0.04,
-   "crowd": 0.045,
-   "why": "Hormuz normalisation by year-end would need a durable deal first."
-  },
-  "pm-917892": {
-   "p": 0.03,
-   "crowd": 0.041,
-   "why": "Putin–Zelensky meeting is not in sight despite envoy shuttling."
-  },
-  "pm-143669": {
-   "p": 0.1,
-   "crowd": 0.115,
-   "why": "US military action against Cuba is possible but remains a low-probability tail."
-  },
-  "pm-34044": {
-   "p": 0.01,
-   "crowd": 0.015,
-   "why": "A Chinese invasion of Taiwan in six weeks is extremely unlikely."
+   "crowd": 0.013,
+   "why": "No sign of a hantavirus pandemic; ship cluster is a contained event."
   },
   "mf-2hOztUzsty": {
    "p": 0.06,
    "crowd": 0.082,
-   "why": "Ship-rat origin is a narrow hypothesis; most outbreak origins are not announced by year-end."
+   "why": "The specific onboard-rat origin is a narrow claim; no evidence."
+  },
+  "pm-95116": {
+   "p": 0.01,
+   "crowd": 0.019,
+   "why": "Five weeks left; WHO would need to declare a pandemic, and nothing indicates one."
+  },
+  "pm-139482": {
+   "p": 0.01,
+   "crowd": 0.022,
+   "why": "No new coronavirus pandemic signal; same logic as the general pandemic market."
+  },
+  "pm-86950": {
+   "p": 0.03,
+   "crowd": 0.05,
+   "why": "No WHO variant of concern since Omicron; five weeks left."
+  },
+  "pm-488808": {
+   "p": 0.01,
+   "crowd": 0.012,
+   "why": "An Ebola pandemic would need global spread; very unlikely."
+  },
+  "mf-tgZqNznhpc": {
+   "p": 0.01,
+   "crowd": 0.034,
+   "why": "Over 100 US Ebola cases would require a major importation event."
+  },
+  "pm-1141914": {
+   "p": 0.02,
+   "crowd": 0.018,
+   "why": "Spread abroad of pneumonic plague has been historically rare."
+  },
+  "pm-1143487": {
+   "p": 0.03,
+   "crowd": 0.023,
+   "why": "Resolution terms unclear; the 2% crowd price implies a narrow criterion."
+  },
+  "pm-73130": {
+   "p": 0.04,
+   "crowd": 0.055,
+   "why": "A ground invasion of Iran in five weeks is very unlikely."
+  },
+  "pm-455875": {
+   "p": 0.03,
+   "crowd": 0.03,
+   "why": "Normal Hormuz traffic in five weeks looks improbable; agree with the crowd."
+  },
+  "mf-tt0Uy260hp": {
+   "p": 0.01,
+   "crowd": 0.025,
+   "why": "Regime collapse inside five weeks is very unlikely."
+  },
+  "pm-34044": {
+   "p": 0.01,
+   "crowd": 0.015,
+   "why": "No sign of an imminent invasion; the 2% price is slightly rich."
+  },
+  "pm-917892": {
+   "p": 0.02,
+   "crowd": 0.028,
+   "why": "No meeting is scheduled; Shenzhen produced no concrete Ukraine step."
+  },
+  "pm-34052": {
+   "p": 0.02,
+   "crowd": 0.025,
+   "why": "No trigger for Zelenskyy leaving office in five weeks."
+  },
+  "pi-8442": {
+   "p": 0.01,
+   "crowd": 0.02,
+   "why": "House impeachment articles passing this year: no sign of it."
   }
  },
  "also": [
-  {
-   "id": "2026-11-16-49th-asean-summit-and-related-summits",
-   "title": "49th ASEAN Summit and related summits",
-   "start": "2026-11-16",
-   "end": "2026-11-18",
-   "place": "Manila, Philippines",
-   "cat": "summit"
-  },
-  {
-   "id": "2026-11-16-gha-reform-4th-joint-task-force-meeting",
-   "title": "GHA reform — 4th Joint Task Force meeting",
-   "start": "2026-11-16",
-   "end": "2026-11-17",
-   "place": "—",
-   "cat": "gha"
-  },
-  {
-   "id": "2026-11-17-union-world-conference-on-lung-health",
-   "title": "Union World Conference on Lung Health",
-   "start": "2026-11-17",
-   "end": "2026-11-20",
-   "place": "Rio de Janeiro, Brazil",
-   "cat": "health"
-  },
   {
    "id": "2026-11-18-world-amr-awareness-week",
    "title": "World AMR Awareness Week",
@@ -488,28 +520,12 @@
    "cat": "health"
   },
   {
-   "id": "2026-12-06-5th-global-high-level-ministerial-conference-on-",
-   "title": "5th Global High-Level Ministerial Conference on AMR",
-   "start": "2026-12-06",
-   "end": "2026-12-08",
-   "place": "Abuja, Nigeria",
-   "cat": "amr"
-  },
-  {
    "id": "2026-12-06-guinea-bissau-presidential-and-legislative-elect",
    "title": "Guinea-Bissau — presidential and legislative elections",
    "start": "2026-12-06",
    "end": null,
    "place": "Guinea-Bissau",
    "cat": "election"
-  },
-  {
-   "id": "2026-12-08-epsco-council-health",
-   "title": "EPSCO Council (Health)",
-   "start": "2026-12-08",
-   "end": null,
-   "place": "Brussels",
-   "cat": "eu"
   },
   {
    "id": "2026-12-08-unaids-programme-coordinating-board-pcb59",
@@ -544,22 +560,6 @@
    "cat": "health"
   },
   {
-   "id": "2026-12-13-haiti-general-election-first-round-with-constitu",
-   "title": "Haiti — general election, first round (with constitutional referendum)",
-   "start": "2026-12-13",
-   "end": null,
-   "place": "Haiti",
-   "cat": "election"
-  },
-  {
-   "id": "2026-12-14-possible-special-session-of-the-wha-to-adopt-the",
-   "title": "Possible special session of the WHA to adopt the PABS annex",
-   "start": "2026-12-14",
-   "end": "2026-12-15",
-   "place": "Geneva",
-   "cat": "health"
-  },
-  {
    "id": "2026-12-17-european-council",
    "title": "European Council",
    "start": "2026-12-17",
@@ -568,24 +568,24 @@
    "cat": "eu"
   },
   {
-   "id": "2026-12-22-south-sudan-general-election",
-   "title": "South Sudan — general election",
-   "start": "2026-12-22",
+   "id": "2027-01-01-lithuania-takes-over-the-eu-council-presidency",
+   "title": "Lithuania takes over the EU Council presidency",
+   "start": "2027-01-01",
    "end": null,
-   "place": "South Sudan",
-   "cat": "election"
+   "place": "EU",
+   "cat": "eu"
   }
  ],
  "status": {
   "settled_today": 0,
   "searches": 5,
-  "events": 12,
-  "odds": 19,
-  "last_run": "2026-11-16T07:15:02Z"
+  "events": 13,
+  "odds": 18,
+  "last_run": "2026-11-23T08:09:54Z"
  },
  "score": {
-  "resolved": 4,
-  "open": 76,
+  "resolved": 17,
+  "open": 108,
   "market": {
    "n": 0,
    "claude": null,
@@ -593,64 +593,168 @@
    "claude_closer": 0
   },
   "own": {
-   "n": 4,
-   "claude": 0.02,
-   "right": 4
+   "n": 17,
+   "claude": 0.169,
+   "right": 13
   },
-  "next_due": "2026-11-19"
+  "next_due": "2026-11-25"
  },
  "resolved": [
   {
-   "id": "ca71345732ff",
+   "id": "0d7bb35d9e15",
    "type": "own",
    "made": "2026-11-09",
-   "by": "2026-11-13",
-   "q": "The IGWG agrees a complete PABS annex text, with no open brackets, by 13 November 2026",
-   "p": 0.05,
+   "by": "2026-11-20",
+   "q": "WHO calls a special World Health Assembly session in December 2026 to adopt the PABS annex, announced by 20 November 2026",
+   "p": 0.04,
    "event": "IGWG9 — PABS annex negotiations (WHO Pandemic Agreement)",
    "status": "no",
-   "settled": "2026-11-16",
+   "settled": "2026-11-23",
    "how": "Claude, with a source",
-   "source": "https://www.who.int/news/item/13-11-2026-member-states-reiterate-commitment-to-finalize-pandemic-agreement-pabs-annex-by-may-2027"
+   "source": "https://www.who.int/health-topics/who-pandemic-agreement"
   },
   {
-   "id": "f4643a4c77ff",
+   "id": "a11b13d58981",
    "type": "own",
    "made": "2026-11-09",
-   "by": "2026-11-12",
-   "q": "Ursula von der Leyen attends the COP31 Leaders' Summit in person on 11 or 12 November 2026",
+   "by": "2026-11-22",
+   "q": "COP31 adopts a final cover decision by 22 November 2026",
    "p": 0.82,
-   "event": "COP31 Leaders' Summit",
-   "status": "yes",
-   "settled": "2026-11-16",
+   "event": "COP31 — UN Climate Change Conference",
+   "status": "no",
+   "settled": "2026-11-23",
    "how": "Claude, with a source",
-   "source": "https://caneurope.org/news/von-der-leyen-misses-the-mark-at-cop31-while-taking-the-stage-in-absence-of-other-european-leaders/"
+   "source": "https://www.cnn.com/2026/11/22/climate/cop31-summit-collapses-in-fossil-fuel-failure"
   },
   {
-   "id": "e7eb3ee8d0b0",
+   "id": "791ea5c2b5b8",
    "type": "own",
    "made": "2026-11-09",
-   "by": "2026-11-12",
-   "q": "The US federal government sends no official delegation to COP31 through 12 November 2026",
-   "p": 0.93,
-   "event": "COP31 Leaders' Summit",
+   "by": "2026-11-21",
+   "q": "COP31's closing plenary runs past the scheduled end on 20 November 2026",
+   "p": 0.72,
+   "event": "COP31 — UN Climate Change Conference",
    "status": "yes",
-   "settled": "2026-11-16",
+   "settled": "2026-11-23",
    "how": "Claude, with a source",
-   "source": "https://abcnews.com/US/cop31-international-climate-conference-begins-monday/story?id=137885179"
+   "source": "https://casrai.org/news/cop31-ends-without-agreement-eu-rejects-fossil-fuel-text-2026"
   },
   {
-   "id": "fe6abae8c99f",
+   "id": "73b3aa978703",
    "type": "own",
    "made": "2026-11-09",
-   "by": "2026-11-12",
-   "q": "Volodymyr Zelensky attends the Dublin EPC meeting in person on 12 November 2026",
+   "by": "2026-11-22",
+   "q": "The adopted COP31 cover decision contains an agreed roadmap for transitioning away from fossil fuels",
+   "p": 0.1,
+   "event": "COP31 — UN Climate Change Conference",
+   "status": "no",
+   "settled": "2026-11-23",
+   "how": "Claude, with a source",
+   "source": "https://peoplesreview.com.np/2026/11/23/cop31-ends-without-consensus-on-climate-finance-fossil-fuel-transition/"
+  },
+  {
+   "id": "0b82f5e1c818",
+   "type": "own",
+   "made": "2026-11-09",
+   "by": "2026-11-20",
+   "q": "APEC leaders adopt a joint leaders' declaration at Shenzhen by 20 November 2026",
    "p": 0.8,
-   "event": "European Political Community — 9th meeting",
+   "event": "APEC Economic Leaders' Meeting",
    "status": "yes",
-   "settled": "2026-11-16",
+   "settled": "2026-11-23",
    "how": "Claude, with a source",
-   "source": "https://www.latintimes.com/dublin-epc-summit-european-leaders-security-ukraine-601280"
+   "source": "https://www.latintimes.com/apec-shenzhen-declaration-us-china-ai-governance-601553"
+  },
+  {
+   "id": "2b2af65675eb",
+   "type": "own",
+   "made": "2026-11-09",
+   "by": "2026-11-19",
+   "q": "Donald Trump attends the Shenzhen APEC Leaders' Meeting in person",
+   "p": 0.3,
+   "event": "APEC Economic Leaders' Meeting",
+   "status": "yes",
+   "settled": "2026-11-23",
+   "how": "Claude, with a source",
+   "source": "https://www.scmp.com/news/china/diplomacy/article/3374977/world-leaders-gather-talk-trade-and-investment-apec-chinas-tech-hub-shenzhen"
+  },
+  {
+   "id": "97b753a888cc",
+   "type": "own",
+   "made": "2026-11-09",
+   "by": "2026-11-20",
+   "q": "WHO holds the first DG candidates' forum on 18-19 November 2026",
+   "p": 0.95,
+   "event": "WHO Director-General election — first candidates' forum",
+   "status": "yes",
+   "settled": "2026-11-23",
+   "how": "Claude, with a source",
+   "source": "https://www.archyde.com/who-dg-candidates-split-on-funding-as-geneva-forum-ends/"
+  },
+  {
+   "id": "f9565a293889",
+   "type": "own",
+   "made": "2026-11-09",
+   "by": "2026-11-20",
+   "q": "All seven announced candidates are still in the race on 20 November 2026",
+   "p": 0.92,
+   "event": "WHO Director-General election — first candidates' forum",
+   "status": "yes",
+   "settled": "2026-11-23",
+   "how": "Claude, with a source",
+   "source": "https://www.archyde.com/who-dg-candidates-split-on-funding-as-geneva-forum-ends/"
+  },
+  {
+   "id": "111012684ea6",
+   "type": "own",
+   "made": "2026-11-16",
+   "by": "2026-11-22",
+   "q": "COP31 adopts an overarching cover decision by 22 November 2026",
+   "p": 0.85,
+   "event": "COP31 — UN Climate Change Conference",
+   "status": "no",
+   "settled": "2026-11-23",
+   "how": "Claude, with a source",
+   "source": "https://www.cnn.com/2026/11/22/climate/cop31-summit-collapses-in-fossil-fuel-failure"
+  },
+  {
+   "id": "21801b569b4d",
+   "type": "own",
+   "made": "2026-11-16",
+   "by": "2026-11-22",
+   "q": "COP31 formally adopts a decision establishing a fossil-fuel transition roadmap by 22 November 2026",
+   "p": 0.12,
+   "event": "COP31 — UN Climate Change Conference",
+   "status": "no",
+   "settled": "2026-11-23",
+   "how": "Claude, with a source",
+   "source": "https://peoplesreview.com.np/2026/11/23/cop31-ends-without-consensus-on-climate-finance-fossil-fuel-transition/"
+  },
+  {
+   "id": "fd0c54da3c7c",
+   "type": "own",
+   "made": "2026-11-16",
+   "by": "2026-11-20",
+   "q": "The WHO Director-General candidates' forum takes place in Geneva on 19 November 2026",
+   "p": 0.92,
+   "event": "WHO Director-General election — first candidates' forum",
+   "status": "yes",
+   "settled": "2026-11-23",
+   "how": "Claude, with a source",
+   "source": "https://www.archyde.com/who-dg-candidates-split-on-funding-as-geneva-forum-ends/"
+  },
+  {
+   "id": "52a9e5c335db",
+   "type": "own",
+   "made": "2026-11-16",
+   "by": "2026-11-20",
+   "q": "APEC leaders issue a joint leaders' declaration by 20 November 2026",
+   "p": 0.85,
+   "event": "APEC Economic Leaders' Meeting",
+   "status": "yes",
+   "settled": "2026-11-23",
+   "how": "Claude, with a source",
+   "source": "https://www.latintimes.com/apec-shenzhen-declaration-us-china-ai-governance-601553"
   }
  ]
 }
