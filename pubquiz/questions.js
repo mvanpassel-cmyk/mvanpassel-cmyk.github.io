@@ -232,6 +232,11 @@ window.QUIZ = {
           type: 'vote',
           q: 'Wie van ons komt met de meeste kerstmarktinkopen thuis?',
           time: 25
+        },
+        {
+          type: 'vote',
+          q: 'Bonnefooi: wie van ons verzint de beste lunchplek rond het hotel?',
+          time: 30
         }
       ]
     },
