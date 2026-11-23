@@ -235,7 +235,7 @@ window.QUIZ = {
         },
         {
           type: 'vote',
-          q: 'Bonnefooi: de lunch rond het hotel is vrij, dus zelf regelen! Wie van ons zit als eerste aan tafel?',
+          q: 'Bonn-e-fooi: de lunch rond het hotel is vrij, dus zelf regelen! Wie van ons zit als eerste aan tafel?',
           time: 30
         }
       ]
