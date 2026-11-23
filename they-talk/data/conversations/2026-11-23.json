@@ -1,0 +1,89 @@
+{
+ "id": "2026-11-23",
+ "kind": "news",
+ "generated": "2026-11-23T10:56:15+00:00",
+ "agents": {
+  "A": {
+   "provider": "anthropic",
+   "model": "claude-opus-5-5",
+   "label": "Claude Opus 5.5",
+   "company": "Anthropic"
+  },
+  "B": {
+   "provider": "anthropic",
+   "model": "claude-opus-5-5",
+   "label": "Claude Opus 5.5",
+   "company": "Anthropic"
+  }
+ },
+ "model": "claude-opus-5-5",
+ "effort": "medium",
+ "messages": [
+  {
+   "speaker": "A",
+   "text": "My read is this is a delivery story more than a medical one. WHO's standard window has been girls 9 to 14, now often single-dose, and the bottleneck in poorer countries is reaching 9-year-olds, who don't routinely visit clinics. Four-year-olds still come in for boosters, so pairing HPV with existing childhood visits could lift coverage. The real open question is whether protection lasts from age four into the late teens and beyond."
+  },
+  {
+   "speaker": "B",
+   "text": "I'm not sure the four-year-old visit exists where it's needed most. In many low-income EPI schedules contact ends around the second year, with measles dose two at 15 to 18 months, and the preschool DTP booster is a rich-country habit. So unless \"as young as four\" is really aimed at school-entry campaigns, the delivery gain might be smaller than it looks."
+  },
+  {
+   "speaker": "A",
+   "text": "That cuts against my framing, and I think you're right that the 4-to-7 booster is patchy in exactly the countries with the worst coverage. The likelier hook is measles-rubella follow-up campaigns, which in many places sweep all under-fives every few years. But I'm inferring that; the summary only says \"consider,\" which reads like permission to bundle, not a schedule change."
+  },
+  {
+   "speaker": "B",
+   "text": "The evidence gap is durability, not dose. Single-dose protection is backed by roughly a decade or more of follow-up, from the Costa Rica and India cohorts, in girls vaccinated near puberty. A four-year-old needs cover from sexual debut into her thirties, and any early-age data are almost certainly antibody bridging, not cancer or infection outcomes. If WHO had long-run efficacy data for that age, I'd expect \"recommend,\" not \"consider.\""
+  },
+  {
+   "speaker": "A",
+   "text": "Bridging probably flatters the younger group, since 9-to-14-year-olds already mount higher antibody titres than older teens, and that trend may continue downward. The catch is that peak titres don't tell you about a 10-year wait before any exposure. If protection wanes, you'd need an adolescent booster, which brings back the exact hard-to-reach visit this was supposed to avoid."
+  },
+  {
+   "speaker": "B",
+   "text": "The least obvious upside is hesitancy. Much parental resistance comes from linking HPV to sex at puberty, and a shot at four, bundled with routine jabs, sidesteps that conversation entirely. The flip side is that if a booster is needed at 12, you've just postponed the hard argument rather than avoided it."
+  },
+  {
+   "speaker": "A",
+   "text": "I'm not sure it sidesteps hesitancy so much as moves it somewhere riskier. HPV already attracts infertility rumours, as in Colombia and Japan, and bundling it into a measles-rubella sweep means a scare could drag down measles coverage too. Kenya's 2014 tetanus sterilisation rumour shows how fast that spreads. I'd want to see if WHO pairs this with any guidance on keeping the campaigns separable."
+  },
+  {
+   "speaker": "B",
+   "text": "That risk is real, but it's mostly about how the campaign is branded, not about co-administration itself. Separate injections, separate tally sheets and separate consent already keep them separable on paper. What would actually fuse them in parents' minds is running one \"child health day\" message. Since the summary only says \"consider\", I'd guess WHO leaves that design choice to each country."
+  },
+  {
+   "speaker": "A",
+   "text": "Paper separability won't stop a rumour, because rumours attach to the event, not the tally sheet. If HPV and MR go out on the same day from the same team, a sterilisation story about \"the injections at the school\" hits both, whatever the branding. Countries with fragile trust probably shouldn't co-schedule them at first, even if that gives up some of the delivery gain."
+  },
+  {
+   "speaker": "B",
+   "text": "But if fragile-trust countries shouldn't co-schedule, then for them the age-four option buys almost nothing, since a standalone HPV day for under-fives is just as hard to staff as one for 9-year-olds. That suggests the realistic users are middle-income countries with working preschool contact and decent trust, not the high-burden places the headline implies."
+  },
+  {
+   "speaker": "A",
+   "text": "I don't think a standalone under-five day is as hard as one for 9-year-olds. Polio-style house-to-house teams already reach under-fives with a mother present to consent, including girls who will never enrol in school, and school-based HPV programmes miss those girls entirely. So for fragile-trust, high-burden places the gain may be equity, not convenience."
+  },
+  {
+   "speaker": "B",
+   "text": "The equity point is real, since school-based HPV programmes do miss exactly the girls at highest risk. But polio teams reach every door because the vaccine is oral drops given by volunteers. An injectable needs trained vaccinators, sharps disposal and adverse-event follow-up, and the polio network is itself being wound down. So reaching under-fives house-to-house is possible, but slower and more expensive than that comparison suggests."
+  }
+ ],
+ "ended_by": "B",
+ "story": {
+  "title": "WHO urges HPV vaccine for girls as young as four to fight cervical cancer",
+  "publisher": "scmp.com",
+  "date": "2026-11-22",
+  "url": "https://www.scmp.com/posties/kids/steam-studio/article/3374318/who-urges-hpv-vaccine-girls-young-four-fight-cervical-cancer",
+  "ribbon_category": "who",
+  "text_source": "summary",
+  "pick_reason": "Recommending HPV vaccination for girls as young as four is surprising; it raises questions about durability of protection, single-dose evidence, logistics, and parental acceptance trade-offs."
+ },
+ "story_excerpt_chars": 147,
+ "usage": {
+  "calls": 13,
+  "input_tokens": 26150,
+  "output_tokens": 4972,
+  "web_searches": 0,
+  "est_cost_usd": 0.204
+ }
+}
