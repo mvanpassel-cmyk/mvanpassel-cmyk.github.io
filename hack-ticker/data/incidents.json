@@ -1,5 +1,35 @@
 [
  {
+  "id": "llama-6e944753a1f16718",
+  "date": "2026-11-22",
+  "added": "2026-11-23",
+  "title": "Endurance Bridge: $1.0M in crypto stolen",
+  "victim": "Endurance Bridge",
+  "country": "",
+  "region": "World",
+  "sector": "Crypto",
+  "type": "Crypto theft",
+  "impact": 2,
+  "people": null,
+  "usd": 1040000,
+  "status": "confirmed",
+  "impact_reason": "$1.0M stolen",
+  "summary": "Bridge & Cross-Chain, Unbacked Cross-Chain Mint",
+  "updates": [],
+  "sources": [
+   {
+    "name": "DeFiLlama",
+    "url": "https://defillama.com/hacks"
+   }
+  ],
+  "via": "defillama",
+  "first_recorded": {
+   "date": "2026-11-23",
+   "impact": 2,
+   "status": "confirmed"
+  }
+ },
+ {
   "id": "llama-f2ec1965d9fcba01",
   "date": "2026-11-21",
   "added": "2026-11-22",
@@ -56,6 +86,36 @@
   "first_recorded": {
    "date": "2026-11-21",
    "impact": 3,
+   "status": "confirmed"
+  }
+ },
+ {
+  "id": "llama-56bcde59c06e2adb",
+  "date": "2026-11-19",
+  "added": "2026-11-23",
+  "title": "Fluidkey: $1.6M in crypto stolen",
+  "victim": "Fluidkey",
+  "country": "",
+  "region": "World",
+  "sector": "Crypto",
+  "type": "Crypto theft",
+  "impact": 2,
+  "people": null,
+  "usd": 1600000,
+  "status": "confirmed",
+  "impact_reason": "$1.6M stolen",
+  "summary": "Frontend & Infrastructure, Database Breach",
+  "updates": [],
+  "sources": [
+   {
+    "name": "DeFiLlama",
+    "url": "https://defillama.com/hacks"
+   }
+  ],
+  "via": "defillama",
+  "first_recorded": {
+   "date": "2026-11-23",
+   "impact": 2,
    "status": "confirmed"
   }
  },
@@ -2718,6 +2778,36 @@
    "date": "2026-10-31",
    "impact": 4,
    "status": "claimed"
+  }
+ },
+ {
+  "id": "hibp-Bromcom",
+  "date": "2026-09-06",
+  "added": "2026-11-23",
+  "title": "Bromcom: 355,051 accounts in a confirmed data breach",
+  "victim": "Bromcom",
+  "country": "",
+  "region": "World",
+  "sector": "Other",
+  "type": "Data breach",
+  "impact": 2,
+  "people": 355051,
+  "usd": null,
+  "status": "confirmed",
+  "impact_reason": "355,051 accounts reported to Have I Been Pwned",
+  "summary": "In September 2026, UK education software provider Bromcom suffered a data breach involving a legacy single sign-on (SSO) registration system . The incident exposed 355k unique email addresses belonging to staff and pupils at UK schools, alongside SSO…",
+  "updates": [],
+  "sources": [
+   {
+    "name": "Have I Been Pwned",
+    "url": "https://haveibeenpwned.com/Breach/Bromcom"
+   }
+  ],
+  "via": "hibp",
+  "first_recorded": {
+   "date": "2026-11-23",
+   "impact": 2,
+   "status": "confirmed"
   }
  },
  {
