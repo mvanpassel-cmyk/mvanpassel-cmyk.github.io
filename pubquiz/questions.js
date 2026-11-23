@@ -204,11 +204,9 @@ window.QUIZ = {
       title: 'Over elkaar', emoji: '🧑‍🤝‍🧑',
       questions: [
         {
-          type: 'mc', todo: true,
-          q: 'VUL IN: Wie van ons heeft ooit …?',
-          options: ['Collega 1', 'Collega 2', 'Collega 3', 'Collega 4'],
-          answer: 0,
-          info: 'VUL IN: korte toelichting of anekdote.'
+          type: 'vote',
+          q: 'Wie van ons is het vaakst in Duitsland geweest?',
+          time: 25
         },
         {
           type: 'vote',
@@ -216,11 +214,9 @@ window.QUIZ = {
           time: 25
         },
         {
-          type: 'mc', todo: true,
-          q: 'VUL IN: Wie van ons …?',
-          options: ['Collega 1', 'Collega 2', 'Collega 3', 'Collega 4'],
-          answer: 0,
-          info: 'VUL IN'
+          type: 'vote',
+          q: 'Wie van ons spreekt het slechtst Duits?',
+          time: 25
         },
         {
           type: 'vote',
@@ -228,11 +224,9 @@ window.QUIZ = {
           time: 25
         },
         {
-          type: 'mc', todo: true,
-          q: 'VUL IN: Wie van ons …?',
-          options: ['Collega 1', 'Collega 2', 'Collega 3', 'Collega 4'],
-          answer: 0,
-          info: 'VUL IN'
+          type: 'vote',
+          q: 'Wie van ons staat als eerste met een Glühwein in de hand?',
+          time: 25
         },
         {
           type: 'vote',
