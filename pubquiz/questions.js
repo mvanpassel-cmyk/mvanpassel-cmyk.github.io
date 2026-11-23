@@ -235,7 +235,7 @@ window.QUIZ = {
         },
         {
           type: 'vote',
-          q: 'Bonnefooi: wie van ons verzint de beste lunchplek rond het hotel?',
+          q: 'Bonnefooi: de lunch rond het hotel is vrij, dus zelf regelen! Wie van ons zit als eerste aan tafel?',
           time: 30
         }
       ]
