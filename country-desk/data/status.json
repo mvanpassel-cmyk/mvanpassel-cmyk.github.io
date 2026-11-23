@@ -1,10 +1,15 @@
 {
- "slow_date": "2026-11-20",
- "generated": "2026-11-23T09:50:17Z",
+ "slow_date": "2026-11-23",
+ "generated": "2026-11-23T15:24:09Z",
  "ai": true,
  "model": "claude-sonnet-5-5",
- "digest_run": false,
- "notes": [],
- "digest_errors": [],
- "digest_date": "2026-11-20"
+ "digest_run": true,
+ "notes": [
+  "germany: news search failed (HTTPError)"
+ ],
+ "digest_errors": [
+  "thailand: reply was not valid JSON",
+  "france: reply was not valid JSON"
+ ],
+ "digest_date": "2026-11-23"
 }
