@@ -70,6 +70,9 @@ input[type=range]{accent-color:var(--m);width:150px}
 .takes small{color:var(--muted)}
 .takes button{all:unset;cursor:pointer;padding:6px 10px;border-radius:999px;font-size:14px}
 .takes button:hover{background:var(--line)}
+input[type=text]{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 15px;min-height:40px;flex:1 1 240px;min-width:0}
+.cnote{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 16px;margin-top:4px}
+.cnote b{display:block;margin-bottom:4px}.cnote p{margin:0;color:var(--muted);line-height:1.45}
 footer{margin-top:34px;color:var(--muted);font-size:13px}footer a{color:inherit}
 @media(max-width:520px){.stage{grid-template-columns:1fr;justify-items:center;text-align:center}.meter{margin-inline:auto}.live .big{font-size:34px}canvas{height:210px}.row>label{min-width:100%}}
 </style>
@@ -126,6 +129,13 @@ footer{margin-top:34px;color:var(--muted);font-size:13px}footer a{color:inherit}
       <div class="row" id="layers"></div>
       <div class="row"><label>Space</label><input type="range" id="space" min="0" max="100" aria-label="Reverb amount">
         <button class="b" id="echo" aria-pressed="false">Echo</button></div>
+    </section>
+
+    <section>
+      <h2>Ask Claude <span>an arrangement of your tune, and a few words about it</span></h2>
+      <div class="row"><input type="text" id="wish" maxlength="200" placeholder="Optional: a mood, a genre or a scene" aria-label="What should it sound like?"></div>
+      <div class="row"><button class="b" id="askClaude">Arrange with Claude</button><span class="hint" id="claudeStatus" role="status"></span></div>
+      <div class="cnote" id="claudeNote" hidden><b id="claudeTitle"></b><p id="claudeText"></p></div>
     </section>
 
     <section>
@@ -238,6 +248,7 @@ const STYLES = {
   lofi:    { label:"Lo-fi",         lead:"piano",    chords:"comp", bass:"lofi",    drums:"lofi",   harm:"",      arp:false, drone:false, space:35, echo:false, pad:["violas","cellos"], comp:"softpiano", bassInst:"pizz", arpInst:"harp", swing:0.2, seventh:true, dull:true, lazy:true },
   film:    { label:"Film",          lead:"violin",   chords:"pad",  bass:"long",    drums:"boom",   harm:"sixth", arp:false, drone:false, space:62, echo:false, pad:["violas","cellos"], comp:"piano", bassInst:"arco", arpInst:"harp" },
   chamber: { label:"Chamber",       lead:"clarinet", chords:"",     bass:"long",    drums:"",       harm:"",      arp:true,  drone:false, space:45, echo:false, pad:["violas","cellos"], comp:"piano", bassInst:"cpizz", arpInst:"harp" },
+  claude:  { label:"Claude",        lead:null,       chords:"",     bass:"",        drums:"",       harm:"",      arp:false, drone:false, space:45, echo:false, pad:["violas","cellos"], comp:"piano", bassInst:"pizz", arpInst:"harp" },
   arcade:  { label:"Arcade",        lead:"square",   chords:"",     bass:"eighths", drums:"arcade", harm:"",      arp:true,  drone:false, space:5,  echo:false, pad:["square","square"], comp:"square", bassInst:"sqbass", arpInst:"square", fast:true },
 };
 const LAYERS = { chords:"Chords", bass:"Bass", drums:"Drums", harm:"Harmony voice", arp:"Arpeggio", drone:"Drone" };
@@ -259,10 +270,11 @@ function rng(seed) { let s = seed || 1; return () => ((s = (s * 16807) % 2147483
 
 function buildScore() {
   const set = take.set, src = take.notes.map((n, i) => ({ ...n, i })).filter(n => !n.off);
-  const S = STYLES[set.style] || STYLES.solo, leadKey = leadOf(set);
+  const CL = set.style === "claude" && set.claude ? set.claude : null;
+  let S = STYLES[set.style] || STYLES.solo; const leadKey = leadOf(set);
   const tune = tuningOf(src), key = keyOf(set, src, tune), pcs = scalePcs(key.tonic, key.mode);
   const bpm = set.bpm || guessBpm(src), beat = 60 / bpm, bar = 4 * beat;
-  const backing = !!(set.chords || set.bass || set.drums || set.arp);
+  const backing = !!(set.chords || set.bass || set.drums || set.arp || CL);
   const grid = set.rhythm === "firm" ? beat / 2 : set.rhythm === "light" ? beat / 4 : 0;
   let lead = src.map(n => {
     let m = set.pitch === "raw" ? (n.raw == null ? n.m : n.raw) : set.pitch === "note" ? Math.round(n.m - tune) : snapToScale(n.m - tune, pcs);
@@ -274,7 +286,8 @@ function buildScore() {
   if (grid) { const seen = new Map(); lead.forEach(n => { const k = n.t.toFixed(4), p = seen.get(k); if (!p || n.d > p.d) seen.set(k, n); }); lead = [...seen.values()].sort((a, b) => a.t - b.t); lead.forEach((n, k) => { const nx = lead[k + 1]; if (nx && n.t + n.d > nx.t) n.d = nx.t - n.t; }); }
   // move the tune by whole octaves into the range where the chosen instrument sounds like itself
   const home = INST[leadKey].home, med = median(lead.map(n => n.m)); let oct = 0;
-  if (lead.length) { while (med + oct < home[0]) oct += 12; while (med + oct > home[1]) oct -= 12; }
+  if (CL) oct = CL.oct || 0;           // keep the register Claude arranged around
+  else if (lead.length) { while (med + oct < home[0]) oct += 12; while (med + oct > home[1]) oct -= 12; }
   lead.forEach(n => (n.m += oct));
   const end = lead.reduce((a, n) => Math.max(a, n.t + n.d), 0);
   const bars = Math.max(1, Math.ceil((end - beat / 8) / bar)), len = backing || grid ? bars * bar : end + 0.35;
@@ -312,10 +325,24 @@ function buildScore() {
     if (set.drums === "boom") { hit(0, "boom"); if (b % 2) hit(3, "boom", 0.5); }
   }
   if (set.drone) { const r = rootOf({ root: tKey.tonic }); T.drone.push({ t: 0, d: len, m: r + 12, v: 0.4, inst: "cellos" }, { t: 0, d: len, m: r + 19, v: 0.3, inst: "cellos" }, { t: 0, d: len, m: r, v: 0.4, inst: S.fast ? "sqbass" : "arco" }); }
+  let shownProg = null;
+  if (CL) {                              // Claude's arrangement: its own parts instead of the rule-based ones
+    const off = set.claudeOff || {}, sh = set.transpose - (CL.transpose || 0), sec = b => b * beat;
+    const fit = n => { const t = sec(n.b); return t < len - 0.01 ? { t, d: Math.min(sec(n.d), len - t), m: n.m + sh, v: n.v } : null; };
+    S = { ...S };
+    CL.parts.forEach(p => { if (off[p.role]) return; const ns = p.notes.map(fit).filter(Boolean);
+      if (p.role === "bass") { S.bassInst = p.instrument; T.bass.push(...ns); }
+      else if (p.role === "arp") { S.arpInst = p.instrument; T.arp.push(...ns); }
+      else if (p.role === "drone") T.drone.push(...ns.map(n => ({ ...n, inst: p.instrument })));
+      else T.chords.push(...ns.map(n => ({ ...n, inst: p.instrument }))); });
+    if (CL.drums && !off.drums) for (let b = Math.max(0, CL.drums.fromBar); b <= Math.min(bars - 1, CL.drums.toBar); b++)
+      CL.drums.hits.forEach(h => { const t = (b * 4 + h.b) * beat; if (t < len) T.drums.push({ t, type: h.type, v: h.v, m: rootOf(chordAt(b * bar)) - 12 }); });
+    shownProg = CL.chords.map(c => ({ name: c.name }));
+  }
   // long backing notes cannot outlast the recordings they are played from
   [T.chords, T.drone, T.bass].forEach(tr => { for (let k = tr.length - 1; k >= 0; k--) { const n = tr[k]; if (n.d > 4.4 && !(INST[n.inst || S.bassInst] || {}).synth) { for (let x = n.t + 4.2; x < n.t + n.d - 0.3; x += 4.2) tr.push({ ...n, t: x, d: Math.min(4.4, n.t + n.d - x) }); n.d = 4.4; } } });
   const shown = set.chords || set.bass || set.arp;
-  return { bpm, beat, bar, bars, len, oct, lead: leadKey, key: tKey, keyLabel: NAMES[tKey.tonic] + " " + key.mode, autoLabel: NAMES[key.auto.tonic] + " " + key.auto.mode, tune, grid, prog: shown ? prog : [], T, S, set, backing };
+  return { bpm, beat, bar, bars, len, oct, lead: leadKey, key: tKey, keyLabel: NAMES[tKey.tonic] + " " + key.mode, autoLabel: NAMES[key.auto.tonic] + " " + key.auto.mode, tune, grid, prog: shownProg || (shown ? prog : []), ruleProg: prog, T, S, set, backing };
 }
 
 /* ---------- recorded instruments ---------- */
@@ -513,7 +540,7 @@ function ingest(pcm, sr) {
     const res = HA.analyse(pcm, sr);
     if (!res.notes.length) { $("hint").className = "hint err"; $("hint").textContent = "I could not find a tune in that. Try a bit louder and closer to the microphone, one note at a time."; $("note").firstChild.textContent = "–"; return; }
     pcmOrig = { buf: pcm, sr, t0: res.t0 };
-    const set = take ? { ...take.set, bpm: 0, key: "auto", transpose: 0 } : DEFAULTS();
+    const set = take ? freshSet(take.set) : DEFAULTS();
     take = { id: Date.now().toString(36), name: "Take " + new Date().toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }), notes: res.notes, trace: res.trace, set };
     sel = -1; refresh(); persist();
     $("hint").textContent = `${res.notes.length} note${res.notes.length === 1 ? "" : "s"} found. Press Play, or Record to try again.`; $("clock").textContent = ""; $("note").firstChild.textContent = "♪";
@@ -531,7 +558,7 @@ $("demo").onclick = () => {
     for (let x = 0; x < d; x += 0.02) trace.push([st + x, m + off + 0.08 * Math.sin(x * 31) + (x < 0.06 ? (x - 0.06) * 3 : 0)]);
     t += b * beat; });
   stop(); pcmOrig = null;
-  const set = take ? { ...take.set, bpm: 0, key: "auto", transpose: 0 } : DEFAULTS();
+  const set = take ? freshSet(take.set) : DEFAULTS();
   take = { id: Date.now().toString(36), name: "Example tune", notes, trace, set };
   sel = -1; refresh(); persist();
   $("hint").className = "hint"; $("hint").textContent = "Example loaded. Pick an instrument under Sound and a setting under Dress it up, then press Play."; $("note").firstChild.textContent = "♪";
@@ -539,6 +566,57 @@ $("demo").onclick = () => {
   $("work").scrollIntoView({ behavior: "smooth", block: "start" });
 };
 $("file").onchange = async e => { const f = e.target.files[0]; if (!f) return; e.target.value = ""; try { const b = await audio().decodeAudioData(await f.arrayBuffer()), n = Math.min(b.length, b.sampleRate * 90), pcm = new Float32Array(n); for (let c = 0; c < b.numberOfChannels; c++) { const d = b.getChannelData(c); for (let i = 0; i < n; i++) pcm[i] += d[i] / b.numberOfChannels; } ingest(pcm, b.sampleRate); } catch (err) { $("hint").className = "hint err"; $("hint").textContent = "That file could not be read as audio."; } };
+
+/* ---------- Ask Claude (through Mark's Cloudflare Worker, which holds the API key) ---------- */
+const CLAUDE_RELAY = "https://hum-claude.mvanpassel.workers.dev";
+const DRUM_TYPES = ["kick", "kick_s", "snare", "snare_s", "hat", "hat_s", "open", "ride", "lkick", "lsnare", "lhat", "boom"];
+function cleanArrangement(a, beats) {
+  const fin = (x, d) => (Number.isFinite(+x) ? +x : d);
+  const notes = list => (Array.isArray(list) ? list : []).slice(0, 800).map(n => {
+    const b = fin(n.b, -1); if (b < 0 || b >= beats) return null;
+    return { b, d: clamp(fin(n.d, 1), 0.05, beats - b), m: clamp(Math.round(fin(n.m, 60)), 21, 108), v: clamp(fin(n.v, 0.6), 0.15, 1) }; }).filter(Boolean);
+  const parts = (Array.isArray(a.parts) ? a.parts : []).slice(0, 5).filter(p => p && INST[p.instrument])
+    .map(p => ({ role: ["pad", "bass", "counter", "arp", "drone"].includes(p.role) ? p.role : "pad", instrument: p.instrument, notes: notes(p.notes) })).filter(p => p.notes.length);
+  let drums = null;
+  if (a.drums && Array.isArray(a.drums.hits)) { const hits = a.drums.hits.filter(h => DRUM_TYPES.includes(h.type)).map(h => ({ b: clamp(fin(h.b, 0), 0, 3.99), type: h.type, v: clamp(fin(h.v, 0.7), 0.1, 1.2) })).slice(0, 32);
+    if (hits.length) drums = { hits, fromBar: Math.max(0, Math.round(fin(a.drums.fromBar, 0))), toBar: Math.round(fin(a.drums.toBar, 999)) }; }
+  return { title: String(a.title || "Claude's arrangement").slice(0, 80), note: String(a.note || "").slice(0, 900),
+    lead: LEADS.includes(a.lead) ? a.lead : null, space: Number.isFinite(+a.space) ? clamp(+a.space, 0, 100) : null, echo: !!a.echo,
+    chords: (Array.isArray(a.chords) ? a.chords : []).slice(0, 128).map(c => ({ b: fin(c.b, 0), name: String(c.name || "").slice(0, 10) })).filter(c => c.name), parts, drums };
+}
+let asking = false;
+async function askClaude() {
+  if (!take || asking) return;
+  const st = $("claudeStatus"), btn = $("askClaude"), saved = take.set;
+  // the notes as the app would play them with backing: tidied to the beat, in the instrument's register
+  take.set = { ...saved, rhythm: saved.rhythm === "free" ? "light" : saved.rhythm, style: "band", ...layerOf("band"), drums: "", claude: null };
+  let sc; try { sc = buildScore(); } finally { take.set = saved; }
+  const payload = { bars: sc.bars, bpm: sc.bpm, key: sc.keyLabel, wish: $("wish").value.trim(),
+    chords: (sc.ruleProg || []).map(c => c.name), melody: sc.T.lead.map(n => ({ b: +(n.t / sc.beat).toFixed(3), d: +(n.d / sc.beat).toFixed(3), m: Math.round(n.m) })) };
+  asking = true; btn.disabled = true; st.className = "hint"; const t0 = performance.now();
+  const tick = setInterval(() => { st.textContent = "Claude is listening and writing… " + Math.round((performance.now() - t0) / 1000) + " s (usually 20–60 s)"; }, 500);
+  const ctl = new AbortController(), kill = setTimeout(() => ctl.abort(), 150000);
+  try {
+    const r = await fetch(CLAUDE_RELAY + "/arrange", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload), signal: ctl.signal });
+    const data = await r.json().catch(() => ({}));
+    if (!r.ok || !data.arrangement) throw new Error(data.error || "the relay answered " + r.status);
+    const A = cleanArrangement(data.arrangement, sc.bars * 4);
+    if (!A.parts.length && !A.drums) throw new Error("the arrangement came back empty");
+    const set = take.set;
+    set.claude = { ...A, transpose: set.transpose, oct: sc.oct, wish: payload.wish, at: Date.now() };
+    set.claudeOff = {}; set.style = "claude"; Object.assign(set, layerOf("claude"));
+    if (set.rhythm === "free") set.rhythm = "light";
+    set.bpm = sc.bpm;
+    if (A.lead) set.lead = A.lead; if (A.space !== null) set.space = A.space; set.echo = A.echo;
+    st.textContent = "Done. Press Play to hear it."; changed();
+  } catch (e) {
+    st.className = "hint err";
+    st.textContent = e.name === "AbortError" ? "Claude took too long. Try again, perhaps with a shorter take."
+      : /Failed to fetch|NetworkError|Load failed/i.test(e.message) ? "Claude isn't reachable: the hum-claude Worker isn't set up yet, or you're offline."
+      : "Claude could not arrange this: " + e.message;
+  } finally { clearInterval(tick); clearTimeout(kill); asking = false; btn.disabled = false; }
+}
+$("askClaude").onclick = askClaude;
 
 /* ---------- takes (kept in this browser) ---------- */
 function loadTakes() { try { return JSON.parse(localStorage.getItem("hum.takes") || "[]"); } catch (e) { return []; } }
@@ -553,7 +631,9 @@ function drawTakes() { const all = loadTakes(), ul = $("takes"); $("takesBox").h
 function seg(el, opts, get, setv) { el.textContent = ""; Object.entries(opts).forEach(([k, label]) => { const b = document.createElement("button"); b.textContent = label; b.setAttribute("aria-pressed", get() === k); b.onclick = () => { setv(k); changed(); }; el.append(b); }); }
 function chip(parent, label, pressed, fn) { const b = document.createElement("button"); b.className = "b"; b.textContent = label; b.setAttribute("aria-pressed", pressed); b.onclick = fn; parent.append(b); return b; }
 function changed() { refresh(); persist(); restartIfPlaying(); }
-function migrate(set) { if (!STYLES[set.style]) Object.assign(set, { style: "solo" }, layerOf("solo")); if (set.bass === true) set.bass = STYLES[set.style].bass || "long"; if (set.bass === false) set.bass = ""; set.lead = leadOf(set); }
+// settings carried over to a new take: an arrangement by Claude belongs to the old tune, so it stays behind
+function freshSet(old) { const set = { ...old, bpm: 0, key: "auto", transpose: 0, claude: null, claudeOff: {} }; if (set.style === "claude") Object.assign(set, { style: "solo" }, layerOf("solo")); return set; }
+function migrate(set) { if (set.style === "claude" && !set.claude) Object.assign(set, { style: "solo" }, layerOf("solo")); if (!STYLES[set.style]) Object.assign(set, { style: "solo" }, layerOf("solo")); if (set.bass === true) set.bass = STYLES[set.style].bass || "long"; if (set.bass === false) set.bass = ""; set.lead = leadOf(set); }
 function refresh() {
   if (!take) return; const set = take.set; migrate(set); score = buildScore(); $("work").hidden = false;
   seg($("segPitch"), { raw: "As hummed", note: "Nearest note", key: "In key" }, () => set.pitch, v => (set.pitch = v));
@@ -564,9 +644,15 @@ function refresh() {
   const cents = Math.round(score.tune * 100), o = score.oct / 12;
   $("tidyInfo").textContent = `you were ${Math.abs(cents) < 8 ? "right in tune" : Math.abs(cents) + " cents " + (cents > 0 ? "sharp" : "flat")} · ${score.keyLabel} · ${score.bpm} bpm` + (o ? ` · played ${Math.abs(o) === 1 ? "an octave" : Math.abs(o) + " octaves"} ${o > 0 ? "up" : "down"} to suit the ${INST[score.lead].label.toLowerCase()}` : "");
   const L = $("leads"); L.textContent = ""; LEADS.forEach(k => chip(L, INST[k].label, score.lead === k, () => { set.lead = k; changed(); }));
-  const St = $("styles"); St.textContent = ""; Object.entries(STYLES).forEach(([k, s]) => chip(St, s.label, set.style === k, () => { set.style = k; Object.assign(set, layerOf(k)); if (s.lead) set.lead = s.lead; if (k !== "solo" && set.rhythm === "free") set.rhythm = "light"; changed(); }));
+  const St = $("styles"); St.textContent = ""; Object.entries(STYLES).forEach(([k, s]) => (k === "claude" && !set.claude) || chip(St, s.label, set.style === k, () => { set.style = k; Object.assign(set, layerOf(k)); if (s.lead) set.lead = s.lead; if (k !== "solo" && set.rhythm === "free") set.rhythm = "light"; changed(); }));
   const Ly = $("layers"); Ly.textContent = ""; const S = STYLES[set.style], dflt = { chords: S.chords || "pad", bass: S.bass || "long", drums: S.drums || "rock", harm: S.harm || "third", arp: true, drone: true };
+  if (set.style === "claude" && set.claude) {
+    const off = set.claudeOff || (set.claudeOff = {}), names = { pad: "Chords", bass: "Bass", counter: "Counter-melody", arp: "Arpeggio", drone: "Drone", drums: "Drums" };
+    const roles = [...new Set(set.claude.parts.map(p => p.role))].concat(set.claude.drums ? ["drums"] : []);
+    roles.forEach(r => chip(Ly, names[r] || r, !off[r], () => { off[r] = !off[r]; changed(); }));
+  } else
   Object.entries(LAYERS).forEach(([k, l]) => chip(Ly, l, !!set[k], () => { set[k] = set[k] ? (typeof dflt[k] === "string" ? "" : false) : dflt[k]; changed(); }));
+  $("claudeNote").hidden = !set.claude; if (set.claude) { $("claudeTitle").textContent = set.claude.title; $("claudeText").textContent = set.claude.note; }
   $("space").value = set.space; $("echo").setAttribute("aria-pressed", set.echo); $("loop").setAttribute("aria-pressed", set.loop);
   const ch = $("chords"); ch.textContent = ""; if (score.prog.length) { const lab = document.createElement("span"); lab.textContent = "Chords  "; ch.append(lab); score.prog.forEach((c, k) => { const b = document.createElement("b"); b.textContent = k && score.prog[k - 1].name === c.name ? "·" : c.name; ch.append(b); }); }
   ui(); draw();
