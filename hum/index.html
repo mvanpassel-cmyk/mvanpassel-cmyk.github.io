@@ -38,6 +38,8 @@ h1 i{font-style:normal;color:var(--m)}
 .hint{color:var(--muted);font-size:14px;margin:0}
 .hint button{all:unset;cursor:pointer;text-decoration:underline}
 .err{color:var(--m);font-weight:600}
+.meter{position:relative}.meter b{position:absolute;top:0;left:0;width:2px;height:100%;background:var(--ink);opacity:.6}.meter i.clip{background:var(--m)}
+.mic{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}.mic select{min-height:34px;padding:4px 12px;font-size:13px;max-width:260px}#micHint{font-size:13px;color:var(--m)}
 #work[hidden]{display:none}
 .roll{margin-top:16px;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
 canvas{display:block;width:100%;height:240px;touch-action:pan-y}
@@ -86,9 +88,10 @@ footer{margin-top:34px;color:var(--muted);font-size:13px}footer a{color:inherit}
     <button class="rec" id="rec" aria-pressed="false"><span id="recLbl">Record</span></button>
     <div class="live">
       <div class="big" id="note">–<small id="clock"></small></div>
-      <div class="meter" aria-hidden="true"><i id="lvl"></i></div>
+      <div class="meter" aria-hidden="true"><i id="lvl"></i><b id="hold"></b></div>
       <p class="hint" id="hint">One note at a time works best: a single voice or a whistle, up to a minute.</p>
       <p class="hint" style="margin-top:6px">Or <button id="pick">open a recording</button>, or <button id="demo">try an example tune</button>.</p>
+      <div class="mic" id="micRow"><select id="micSel" aria-label="Microphone"><option value="">Default microphone</option></select><span id="micHint"></span></div>
       <input type="file" id="file" accept="audio/*" hidden>
     </div>
   </div>
@@ -153,6 +156,7 @@ footer{margin-top:34px;color:var(--muted);font-size:13px}footer a{color:inherit}
 </div>
 
 <script src="analyse.js"></script>
+<script src="clean.js"></script>
 <script>
 "use strict";
 /* ============================================================
@@ -486,11 +490,58 @@ async function save(kind) { if (!score) return; const info = $("saveInfo"); info
   try { if (kind === "mid") download(midiBlob(score), "mid"); else { const buf = await renderOffline(); download(kind === "mp3" ? await mp3Blob(buf) : wavBlob(buf), kind); } info.textContent = "Saved."; }
   catch (e) { info.textContent = "Could not save: " + e.message; } setTimeout(() => { if (info.textContent !== "Rendering…") info.textContent = ""; }, 4000); }
 
-/* ---------- recording ---------- */
-let rec = null;
+/* ---------- recording ----------
+   Same strategy as SlowReverb Studio: the raw microphone samples are tapped straight out of the
+   audio graph by an AudioWorklet (its own audio thread, so a busy screen can't drop pieces), with
+   the browser's echo cancelling, noise suppression and auto-gain off. ScriptProcessor is the
+   fallback for old browsers. After Stop the take is tidied (button clicks off, rumble, light
+   steady-noise reduction, level) before the notes are worked out. */
+let rec = null, tapModule = null;
+const TAP_SRC = `class Tap extends AudioWorkletProcessor {
+  constructor() { super(); this.on = true; this.buf = new Float32Array(16384); this.n = 0;
+    this.port.onmessage = e => { if (e.data === 'stop') { this.flush(); this.on = false; this.port.postMessage('done'); } }; }
+  flush() { if (this.n) { const out = this.buf.slice(0, this.n); this.port.postMessage(out, [out.buffer]); } this.n = 0; }
+  process(inputs) {
+    const inp = inputs[0];
+    if (this.on && inp && inp.length) {
+      const len = inp[0].length, k = inp.length;
+      if (this.n + len > this.buf.length) this.flush();
+      for (let i = 0; i < len; i++) { let v = 0; for (let c = 0; c < k; c++) v += inp[c][i]; this.buf[this.n + i] = v / k; }
+      this.n += len;
+    }
+    return this.on;
+  }
+}
+registerProcessor('hum-tap', Tap);`;
+const lsGet = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+const lsSet = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
+const BT_RE = /airpods|bluetooth|hands-?free|headset|buds|beats|\bbt\b|wh-1000|bose|jabra/i;
 function micError(msg) { $("hint").className = "hint err"; $("hint").textContent = msg; setSession("auto"); }
 // iOS/Safari: record with the microphone, then hand the speaker back for normal playback
 function setSession(type) { try { if (navigator.audioSession) navigator.audioSession.type = type; } catch (e) {} }
+async function refreshMics() {
+  const md = navigator.mediaDevices;
+  if (!md || !md.enumerateDevices || !md.getUserMedia) { $("micRow").hidden = true; return; }
+  let devs = [];
+  try { devs = (await md.enumerateDevices()).filter(d => d.kind === "audioinput" && d.deviceId && d.deviceId !== "default" && d.deviceId !== "communications"); } catch (e) {}
+  const sel = $("micSel"), want = sel.value || lsGet("hum.mic") || "";
+  sel.textContent = "";
+  const add = (v, t) => { const o = document.createElement("option"); o.value = v; o.textContent = t; sel.append(o); };
+  add("", "Default microphone"); devs.forEach((d, i) => add(d.deviceId, d.label || "Microphone " + (i + 1)));
+  if ([...sel.options].some(o => o.value === want)) sel.value = want;
+  $("micRow").hidden = devs.length < 2 && !lsGet("hum.mic");   // only worth showing when there is a choice
+  micHint();
+}
+function micHint(live) {
+  const sel = $("micSel"), label = (live && live.label) || (sel.value && sel.selectedOptions[0] ? sel.selectedOptions[0].textContent : "");
+  const low = live && live.sampleRate && live.sampleRate < 32000;
+  $("micHint").textContent = BT_RE.test(label) || low ? "Bluetooth mics record at phone-call quality: the built-in mic hears you better." : "";
+  if ($("micHint").textContent) $("micRow").hidden = false;
+}
+$("micSel").onchange = () => { lsSet("hum.mic", $("micSel").value); micHint(); };
+if (navigator.mediaDevices && navigator.mediaDevices.addEventListener) navigator.mediaDevices.addEventListener("devicechange", refreshMics);
+refreshMics();
+
 async function startRec() {
   stop(); $("hint").className = "hint";
   // Start the sound engine inside the tap itself: iPhones only allow that during a tap, and after the
@@ -501,38 +552,96 @@ async function startRec() {
     return;
   }
   setSession("play-and-record");
+  const id = $("micSel").value, c = { echoCancellation: false, noiseSuppression: false, autoGainControl: false, channelCount: { ideal: 1 }, sampleRate: { ideal: ctx.sampleRate }, sampleSize: { ideal: 24 } };
   let stream;
-  try { stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } }); }
+  try { stream = await navigator.mediaDevices.getUserMedia({ audio: id ? { ...c, deviceId: { exact: id } } : c }); }
   catch (e) {
-    const n = e && e.name;
-    micError(n === "NotAllowedError" || n === "SecurityError"
-      ? "Microphone blocked. On iPhone: tap “aA” in the address bar → Website Settings → Microphone → Allow (or Settings → Safari → Microphone). Then press Record again."
-      : n === "NotFoundError" ? "No microphone found on this device."
-      : n === "NotReadableError" ? "The microphone is busy in another app. Close it and press Record again."
-      : "The microphone did not start (" + (n || "unknown error") + "). Press Record to try again.");
-    return;
+    if (id && e && e.name === "OverconstrainedError") { try { stream = await navigator.mediaDevices.getUserMedia({ audio: c }); } catch (e2) { e = e2; } }
+    if (!stream) {
+      const n = e && e.name;
+      micError(n === "NotAllowedError" || n === "SecurityError"
+        ? "Microphone blocked. On iPhone: tap “aA” in the address bar → Website Settings → Microphone → Allow (or Settings → Safari → Microphone). Then press Record again."
+        : n === "NotFoundError" ? "No microphone found on this device."
+        : n === "NotReadableError" ? "The microphone is busy in another app. Close it and press Record again."
+        : "The microphone did not start (" + (n || "unknown error") + "). Press Record to try again.");
+      return;
+    }
   }
   if (ctx.state !== "running") { try { await ctx.resume(); } catch (e) {} }
-  const src = ctx.createMediaStreamSource(stream), an = ctx.createAnalyser(), sp = ctx.createScriptProcessor(4096, 1, 1), mute = ctx.createGain();
-  an.fftSize = 2048; mute.gain.value = 0; src.connect(an); src.connect(sp); sp.connect(mute).connect(ctx.destination);
-  const chunks = []; sp.onaudioprocess = e => chunks.push(new Float32Array(e.inputBuffer.getChannelData(0)));
+  const track = stream.getAudioTracks()[0], st = (track && track.getSettings && track.getSettings()) || {};
+  const src = ctx.createMediaStreamSource(stream), an = ctx.createAnalyser(), mute = ctx.createGain();
+  an.fftSize = 2048; mute.gain.value = 0; src.connect(an); mute.connect(ctx.destination);
+  const r = { stream, src, an, mute, node: null, chunks: [], sr: ctx.sampleRate, holdDb: -120, holdT: 0, clipT: -1e9, maxPeak: 0 };
+  if (ctx.audioWorklet && typeof AudioWorkletNode !== "undefined") {
+    try {
+      // data: URL first (works everywhere incl. file://), blob: as second try
+      if (!tapModule) tapModule = ctx.audioWorklet.addModule("data:application/javascript;charset=utf-8," + encodeURIComponent(TAP_SRC))
+        .catch(() => ctx.audioWorklet.addModule(URL.createObjectURL(new Blob([TAP_SRC], { type: "application/javascript" }))));
+      await tapModule;
+      r.node = new AudioWorkletNode(ctx, "hum-tap", { numberOfInputs: 1, numberOfOutputs: 1, outputChannelCount: [1], channelCount: 2, channelCountMode: "max", channelInterpretation: "discrete" });
+      r.node.port.onmessage = e => { if (e.data === "done") finishRec(r); else r.chunks.push(e.data); };
+    } catch (e) { console.warn("AudioWorklet unavailable, using ScriptProcessor", e); tapModule = null; r.node = null; }
+  }
+  if (!r.node) {
+    r.legacy = true; r.node = ctx.createScriptProcessor(4096, 1, 1);
+    r.node.onaudioprocess = e => { if (!r.stopping) r.chunks.push(new Float32Array(e.inputBuffer.getChannelData(0))); };
+  }
+  src.connect(r.node); r.node.connect(mute);
+  micHint({ label: track && track.label, sampleRate: st.sampleRate }); refreshMics();
   const frame = new Float32Array(2048), half = ctx.sampleRate > 30000, fsr = half ? ctx.sampleRate / 2 : ctx.sampleRate, F = HA.frameSetup(fsr), started = performance.now();
-  rec = { stream, src, an, sp, mute, chunks, sr: ctx.sampleRate, timer: setInterval(() => {
-    an.getFloatTimeDomainData(frame); let s = 0; for (let i = 0; i < frame.length; i += 4) s += frame[i] * frame[i]; const rms = Math.sqrt(4 * s / frame.length);
-    $("lvl").style.width = clamp(rms * 500, 0, 100) + "%";
-    const x = half ? HA.halve(frame) : frame, f = rms > 0.006 && x.length >= F.size ? HA.yin(x, fsr, F.W, F.tauMin, F.tauMax, F.d) : 0, secs = (performance.now() - started) / 1000;
+  r.timer = setInterval(() => {
+    an.getFloatTimeDomainData(frame); let s = 0, pk = 0; for (let i = 0; i < frame.length; i++) { const v = frame[i]; s += v * v; if (v > pk) pk = v; else if (-v > pk) pk = -v; }
+    const rms = Math.sqrt(s / frame.length), db = 20 * Math.log10(pk + 1e-9), now = performance.now(), w = v => clamp((v + 60) / 60 * 100, 0, 100);
+    if (db > r.holdDb || now - r.holdT > 1200) { r.holdDb = db; r.holdT = now; }
+    if (pk >= 0.98) r.clipT = now; r.maxPeak = Math.max(r.maxPeak, pk);
+    $("lvl").style.width = w(db) + "%"; $("hold").style.left = w(r.holdDb) + "%"; $("lvl").classList.toggle("clip", now - r.clipT < 1500);
+    // the pitch read-out follows your own level, so a soft hum on a quiet mic still shows notes
+    const x = half ? HA.halve(frame) : frame, f = rms > Math.max(0.0015, r.maxPeak * 0.05) && x.length >= F.size ? HA.yin(x, fsr, F.W, F.tauMin, F.tauMax, F.d) : 0, secs = (now - started) / 1000;
     $("note").firstChild.textContent = f ? noteName(69 + 12 * Math.log2(f / 440)) : "–"; $("clock").textContent = secs.toFixed(1) + " s";
+    if (now - r.clipT < 1500) { $("hint").className = "hint err"; $("hint").textContent = "Too loud: move back a little from the microphone."; }
+    else if (secs > 3 && r.maxPeak < 0.01) { $("hint").className = "hint err"; $("hint").textContent = "Very quiet: come a bit closer to the microphone."; }
+    else if ($("hint").classList.contains("err") && secs > 1.5) { $("hint").className = "hint"; $("hint").textContent = "Listening… press Stop when you are done."; }
     if (secs >= 60) stopRec();
     // the engine should deliver sound within a second; if it doesn't, wake it and say so
-    if (secs > 1.5 && !chunks.length) { ctx.resume().catch(() => {}); if (secs > 3) $("hint").textContent = "No sound is arriving from the microphone yet. Press Stop and then Record again."; }
-  }, 60) };
+    if (secs > 1.5 && !r.chunks.length) { ctx.resume().catch(() => {}); if (secs > 3) { $("hint").className = "hint err"; $("hint").textContent = "No sound is arriving from the microphone yet. Press Stop and then Record again."; } }
+  }, 60);
+  rec = r;
   $("rec").classList.add("on"); $("rec").setAttribute("aria-pressed", "true"); $("recLbl").textContent = "Stop"; $("hint").textContent = "Listening… press Stop when you are done.";
+  $("micSel").disabled = true;
 }
 function stopRec() {
-  if (!rec) return; const r = rec; rec = null; clearInterval(r.timer); r.sp.onaudioprocess = null; r.src.disconnect(); r.sp.disconnect(); r.mute.disconnect(); r.stream.getTracks().forEach(t => t.stop());
-  $("rec").classList.remove("on"); $("rec").setAttribute("aria-pressed", "false"); $("recLbl").textContent = "Record"; $("lvl").style.width = "0"; setSession("auto");
+  const r = rec; if (!r) return; rec = null; r.stopping = true; clearInterval(r.timer);
+  $("rec").classList.remove("on"); $("rec").setAttribute("aria-pressed", "false"); $("recLbl").textContent = "Record"; $("lvl").style.width = "0"; $("hold").style.left = "0"; $("lvl").classList.remove("clip");
+  $("micSel").disabled = false;
+  if (r.legacy) setTimeout(() => finishRec(r), 60);
+  else { r.node.port.postMessage("stop"); r.fallbackT = setTimeout(() => finishRec(r), 800); }
+}
+function finishRec(r) {
+  if (r.done) return; r.done = true; clearTimeout(r.fallbackT);
+  try { r.src.disconnect(); r.node.disconnect(); r.mute.disconnect(); } catch (e) {}
+  r.stream.getTracks().forEach(t => t.stop()); setSession("auto");
   const n = r.chunks.reduce((a, c) => a + c.length, 0), pcm = new Float32Array(n); let o = 0; r.chunks.forEach(c => { pcm.set(c, o); o += c.length; });
-  ingest(pcm, r.sr);
+  if (n < r.sr * 0.3) { $("hint").className = "hint err"; $("hint").textContent = "That was too short. Press Record and hum a little longer."; return; }
+  ingest(tidy(pcm, r.sr, true), r.sr);
+}
+/* Tidy a take: drop the button clicks at both ends, rumble below 40 Hz, a light noise reduction that
+   only acts on steady noise (fan, hiss, hum), then a healthy level with a transparent limiter. */
+function tidy(pcm, sr, fromMic) {
+  let x = pcm;
+  if (fromMic) { const head = Math.round(sr * 0.03), tail = x.length > sr * 2 ? Math.round(sr * 0.12) : 0; x = x.slice(head, x.length - tail); }
+  else x = x.slice();
+  if (!window.DSP) return x;
+  try {
+    const res = DSP.clean({ chans: [x], sr, opts: { strength: 0, hiss: true, rumble: true, clicks: false, level: false, trim: false } }, () => {});
+    x = res.chans[0];
+    let pk = 0; const step = Math.max(1, Math.floor(x.length / 400000)), vals = [];
+    for (let i = 0; i < x.length; i += step) vals.push(Math.abs(x[i]));
+    vals.sort((a, b) => a - b); pk = vals.length ? Math.max(vals[Math.floor(vals.length * 0.9995)], 1e-4) : 1;
+    const g = Math.min(0.89 / pk, 100);
+    if (g > 1.05) { for (let i = 0; i < x.length; i++) x[i] *= g; DSP.limiter([x], sr, 0.944); }
+    const f = Math.min(Math.round(sr * 0.008), x.length >> 2); for (let i = 0; i < f; i++) { x[i] *= i / f; x[x.length - 1 - i] *= i / f; }
+  } catch (e) { console.warn("tidy failed", e); }
+  return x;
 }
 function ingest(pcm, sr) {
   $("hint").className = "hint"; $("hint").textContent = "Working out the notes…";
@@ -565,7 +674,7 @@ $("demo").onclick = () => {
   ensure(score).catch(() => {});
   $("work").scrollIntoView({ behavior: "smooth", block: "start" });
 };
-$("file").onchange = async e => { const f = e.target.files[0]; if (!f) return; e.target.value = ""; try { const b = await audio().decodeAudioData(await f.arrayBuffer()), n = Math.min(b.length, b.sampleRate * 90), pcm = new Float32Array(n); for (let c = 0; c < b.numberOfChannels; c++) { const d = b.getChannelData(c); for (let i = 0; i < n; i++) pcm[i] += d[i] / b.numberOfChannels; } ingest(pcm, b.sampleRate); } catch (err) { $("hint").className = "hint err"; $("hint").textContent = "That file could not be read as audio."; } };
+$("file").onchange = async e => { const f = e.target.files[0]; if (!f) return; e.target.value = ""; try { const b = await audio().decodeAudioData(await f.arrayBuffer()), n = Math.min(b.length, b.sampleRate * 90), pcm = new Float32Array(n); for (let c = 0; c < b.numberOfChannels; c++) { const d = b.getChannelData(c); for (let i = 0; i < n; i++) pcm[i] += d[i] / b.numberOfChannels; } ingest(tidy(pcm, b.sampleRate, false), b.sampleRate); } catch (err) { $("hint").className = "hint err"; $("hint").textContent = "That file could not be read as audio."; } };
 
 /* ---------- Ask Claude (through Mark's Cloudflare Worker, which holds the API key) ---------- */
 const CLAUDE_RELAY = "https://hum-claude.mvanpassel.workers.dev";
