@@ -143,8 +143,8 @@ async function renderCountry() {
   fetch(`https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&current=temperature_2m,precipitation`)
     .then(r => r.json()).then(w => { if (w.current) weather.textContent = `${Math.round(w.current.temperature_2m)} °C in ${c.capital} now` + (w.current.precipitation > 0 ? ", raining" : ""); }).catch(() => {});
 
-  const brief = profile.brief, years = profile.timeline || [];
-  const nav = [...(brief ? [["brief", "Briefing"]] : []), ["highlights", "Highlights"], ["agenda", "Government agenda"], ["projects", "Projects"],
+  const years = profile.timeline || [];
+  const nav = [["highlights", "Highlights"], ["agenda", "Government agenda"], ["projects", "Projects"],
     ...(years.length ? [["year", "The year so far"]] : []), ["calendar", "Calendar"], ["alerts", "Outbreaks and risk"], ["numbers", "Numbers"], ["headlines", "Headlines"]];
   root.append(
     h("a", { class: "back", href: "../" }, "Country Desk"),
@@ -152,17 +152,6 @@ async function renderCountry() {
     h("ul", { class: "who" }, (profile.leadership || []).map(p => h("li", null, h("div", { class: "role", text: p.role }),
       h("div", { class: "nm" }, link(p.name, p.src)), p.note ? h("div", { class: "small muted", text: p.note }) : null))),
     h("ul", { class: "jump" }, nav.map(([id, t]) => h("li", null, h("a", { href: "#" + id, text: t })))));
-
-  /* briefing: hand-written talking points, only for countries that have one */
-  if (brief) {
-    const item = x => typeof x === "string" ? h("li", { text: x }) : h("li", null, x.text, x.src ? [" ", link("Source", x.src, "small muted")] : null);
-    const col = (title, rows) => rows && rows.length ? h("div", null, h("h3", { text: title }), h("ul", null, rows.map(item))) : null;
-    root.append(h("section", { id: "brief", class: "brief" },
-      h("h2", { text: "Briefing" }),
-      h("p", { class: "lede", text: `If you meet them this week. Written by Claude${brief.date ? " on " + shortDate(brief.date) : ""} from the sources linked on this page; check them before you rely on a point.` }),
-      brief.lead ? h("p", { class: "blead", text: brief.lead }) : null,
-      h("div", { class: "bcols" }, col("Talking points", brief.points), col("Handle with care", brief.careful), col("Questions to ask", brief.ask))));
-  }
 
   /* highlights */
   const dg = live.digest || {};
