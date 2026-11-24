@@ -143,13 +143,26 @@ async function renderCountry() {
   fetch(`https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&current=temperature_2m,precipitation`)
     .then(r => r.json()).then(w => { if (w.current) weather.textContent = `${Math.round(w.current.temperature_2m)} °C in ${c.capital} now` + (w.current.precipitation > 0 ? ", raining" : ""); }).catch(() => {});
 
-  const nav = [["highlights", "Highlights"], ["agenda", "Government agenda"], ["projects", "Projects"], ["calendar", "Calendar"], ["alerts", "Outbreaks and risk"], ["numbers", "Numbers"], ["headlines", "Headlines"]];
+  const brief = profile.brief, years = profile.timeline || [];
+  const nav = [...(brief ? [["brief", "Briefing"]] : []), ["highlights", "Highlights"], ["agenda", "Government agenda"], ["projects", "Projects"],
+    ...(years.length ? [["year", "The year so far"]] : []), ["calendar", "Calendar"], ["alerts", "Outbreaks and risk"], ["numbers", "Numbers"], ["headlines", "Headlines"]];
   root.append(
     h("a", { class: "back", href: "../" }, "Country Desk"),
     h("header", { class: "head" }, h("div", null, h("h1", { text: c.name }), h("p", { class: "sub", text: profile.snapshot || c.who })), clock),
     h("ul", { class: "who" }, (profile.leadership || []).map(p => h("li", null, h("div", { class: "role", text: p.role }),
       h("div", { class: "nm" }, link(p.name, p.src)), p.note ? h("div", { class: "small muted", text: p.note }) : null))),
     h("ul", { class: "jump" }, nav.map(([id, t]) => h("li", null, h("a", { href: "#" + id, text: t })))));
+
+  /* briefing: hand-written talking points, only for countries that have one */
+  if (brief) {
+    const item = x => typeof x === "string" ? h("li", { text: x }) : h("li", null, x.text, x.src ? [" ", link("Source", x.src, "small muted")] : null);
+    const col = (title, rows) => rows && rows.length ? h("div", null, h("h3", { text: title }), h("ul", null, rows.map(item))) : null;
+    root.append(h("section", { id: "brief", class: "brief" },
+      h("h2", { text: "Briefing" }),
+      h("p", { class: "lede", text: `If you meet them this week. Written by Claude${brief.date ? " on " + shortDate(brief.date) : ""} from the sources linked on this page; check them before you rely on a point.` }),
+      brief.lead ? h("p", { class: "blead", text: brief.lead }) : null,
+      h("div", { class: "bcols" }, col("Talking points", brief.points), col("Handle with care", brief.careful), col("Questions to ask", brief.ask))));
+  }
 
   /* highlights */
   const dg = live.digest || {};
@@ -202,6 +215,10 @@ async function renderCountry() {
         h("div", { class: "pm", text: [p.usd ? `US$ ${fmtNum(p.usd)}` : "", p.approved ? `approved ${p.approved.slice(0, 4)}` : "", `closes ${shortDate(p.closing)}`].filter(Boolean).join(", ") }))))
         : h("p", { class: "empty", text: "No active World Bank health project listed for this country." })));
 
+  /* the year so far */
+  const year = years.length ? section("year", "The year so far", "Milestones in health policy this year, each linked to its source.",
+    h("ol", { class: "tl" }, years.map(e => h("li", null, h("time", { datetime: e.date, text: shortDate(e.date) }), h("span", null, e.text + " ", e.src ? link("Source", e.src, "small muted") : null))))) : null;
+
   /* calendar */
   const seen = new Set(), t0 = today();
   const events = [...(profile.calendar || []), ...(live.calendar || []), ...(live.holidays || [])].filter(e => (e.end || e.start) >= t0)
@@ -250,7 +267,7 @@ async function renderCountry() {
   const headlines = section("headlines", "Headlines", "Health news from and about the country in the past three weeks, newest first, unedited.",
     news.length ? newsList : h("p", { class: "empty", text: "No health headlines found in the past three weeks." }), moreNews);
 
-  root.append(h("div", { class: "cols" }, h("div", null, highlights, agenda, projects), h("div", null, calendar, alerts, numbers)), headlines,
+  root.append(h("div", { class: "cols" }, h("div", null, highlights, agenda, projects), h("div", null, year, calendar, alerts, numbers)), headlines,
     h("footer", null,
       h("p", { text: `Page data updated ${live.generated ? shortDate(live.generated.slice(0, 10)) : "not yet"}. Headlines, outbreak notices and calendar refresh weekly; highlights and latest moves are written by Claude weekly from the linked headlines only; indicators and projects refresh weekly.` }),
       h("p", null, "Sources: Google News and the Global Health Ribbon (headlines), WHO Disease Outbreak News, WHO Global Health Observatory, World Bank projects, WHO JEE reports. Leadership, priorities, Dutch links and calendar are compiled by hand from the linked sources", profile.checked ? ` and were last checked on ${shortDate(profile.checked)}.` : "."),

@@ -1,5 +1,5 @@
 {
- "snapshot": "WHO African Region. A two-tier system the government wants to merge through National Health Insurance, with the world's largest HIV programme adjusting to the loss of United States funding.",
+ "snapshot": "WHO African Region. Home to the world's largest HIV epidemic, South Africa is losing PEPFAR (the US plans to close it out by early 2027) while it scales up lenacapavir. The National Health Insurance Act awaits a Constitutional Court judgment, and public clinics face the worst medicine shortages in years.",
  "leadership": [
   {
    "key": "head",
@@ -10,52 +10,130 @@
    "key": "health",
    "role": "Minister of Health",
    "name": "Aaron Motsoaledi",
-   "src": "https://www.ewn.co.za/2026/10/09/motsoaledi-says-public-healthcare-upgrades-wont-halt-despite-legal-challenges-to-nhi"
+   "src": "https://www.health.gov.za/",
+   "note": "In office since July 2024 (also 2009 to 2019). On sick leave 24 Aug to 30 Sep 2026, with Stella Ndabeni acting."
+  },
+  {
+   "key": "deputy",
+   "role": "Deputy Minister of Health",
+   "name": "Joe Phaahla",
+   "src": "https://www.health.gov.za/"
+  },
+  {
+   "key": "dg",
+   "role": "Acting Director-General, Department of Health",
+   "name": "Nicholas Crisp",
+   "src": "https://www.health.gov.za/",
+   "note": "Director-General Sandile Buthelezi was suspended in March 2026."
   }
  ],
  "agenda": [
   {
-   "title": "National Health Insurance despite court challenges",
-   "text": "The NHI Act faces legal challenges. The minister says upgrades to public health care will continue regardless; Parliament's health committee is asking questions about NHI spending.",
+   "title": "Medicine shortages",
+   "text": "About 50 critical public-sector medicines are short, from epilepsy and TB drugs to cancer treatment; by the department's own count one in seven state-supplied drugs is unavailable or at risk. The minister blames congestion at Durban port, where about 30 ships with medicines were waiting, and the reliance on imports for about 95% of medicines and all active ingredients. Provinces must keep three months of antiretrovirals in reserve.",
    "src": [
     {
-     "t": "EWN",
-     "u": "https://www.ewn.co.za/2026/10/09/motsoaledi-says-public-healthcare-upgrades-wont-halt-despite-legal-challenges-to-nhi"
+     "t": "Daily Maverick, 20 Nov",
+     "u": "https://www.dailymaverick.co.za/article/2026-11-19-desperate-wait-for-cape-towns-neglected-patients-as-sa-drug-shortage-worsens/"
     },
     {
-     "t": "EWN",
-     "u": "https://www.ewn.co.za/2026/10/12/parliament-s-health-committee-demands-answers-over-nhi-advertising-tender"
+     "t": "allAfrica, 19 Nov",
+     "u": "https://allafrica.com/stories/202611190152.html"
+    },
+    {
+     "t": "Business Day editorial, 11 Nov",
+     "u": "https://www.businessday.co.za/opinion/2026-11-11-editorial-unable-to-deliver-medicines-health-system-is-asking-patients-to-pay-for-its-failings/"
     }
    ]
   },
   {
-   "title": "Medicine shortages",
-   "text": "Shortages of dozens of essential medicines were reported in late October 2026. The Department of Health is seeking alternative products and there are calls for a parliamentary inquiry.",
+   "title": "HIV without PEPFAR",
+   "text": "On 18 June the US State Department announced a phased drawdown of PEPFAR in South Africa: most funded programmes end on 30 September, support for critical staff runs to 31 March 2027. South Africa is not among the countries with an America First health agreement. Lenacapavir, the twice-yearly prevention jab, was launched on 5 June in 360 facilities in 24 districts; more than 55,000 people had started by early September, and demand now raises supply concerns.",
    "src": [
     {
-     "t": "IOL",
-     "u": "https://iol.co.za/news/south-africa/2026-10-28-south-africa-medicine-shortages-health-department-seeks-alternative-drugs/"
+     "t": "Semafor, 18 Jun",
+     "u": "https://www.semafor.com/article/06/18/2026/trump-administration-to-end-pepfar-funding-for-south-africa"
     },
+    {
+     "t": "Harvard Chan School",
+     "u": "https://hsph.harvard.edu/news/what-the-end-of-pepfar-funding-could-mean-for-south-africas-hiv-response/"
+    },
+    {
+     "t": "Department of Health, 8 Sep",
+     "u": "https://www.gov.za/news/media-statements/health-reports-progress-lenacapavir-hiv-prevention-programme-08-sep-2026"
+    }
+   ]
+  },
+  {
+   "title": "National Health Insurance before the Constitutional Court",
+   "text": "On 18 May the court struck down the 'certificate of need' (sections 36 to 40 of the National Health Act), which would have let the state decide where health practitioners work. Two challenges to the NHI Act itself, on public participation (Board of Healthcare Funders and the Western Cape), were heard on 5 and 6 May; judgment is reserved and the President has agreed to delay proclaiming key sections until it comes. The minister says upgrades to public care continue regardless.",
+   "src": [
     {
      "t": "Bizcommunity",
-     "u": "https://www.bizcommunity.com/article/nationwide-drug-shortages-raise-concerns-among-sa-psychiatrists-639651a"
+     "u": "https://www.bizcommunity.com/article/concourt-axes-certificate-of-need-scheme-from-nha-067505a"
+    },
+    {
+     "t": "Bowmans",
+     "u": "https://bowmanslaw.com/insights/south-africa-national-health-insurance-hearing/"
+    },
+    {
+     "t": "Business Report",
+     "u": "https://businessreport.co.za/capetimes/news/2026-05-06-public-participation-concerns-raised-in-constitutional-courts-nhi-act-deliberations/"
+    },
+    {
+     "t": "EWN, 9 Oct",
+     "u": "https://www.ewn.co.za/2026/10/09/motsoaledi-says-public-healthcare-upgrades-wont-halt-despite-legal-challenges-to-nhi"
     }
    ]
   },
   {
-   "title": "Vaccine manufacturing",
-   "text": "The government is working on partnerships to strengthen domestic vaccine manufacturing.",
+   "title": "Governance clean-up",
+   "text": "After the High Court set aside the awards in the R15 billion antiretroviral tender in October, the minister promised an independent forensic investigation and will not appeal. He appointed a team to fix governance at the National Health Laboratory Service, and the Director-General has been suspended since March.",
    "src": [
     {
-     "t": "Tech Review Africa",
-     "u": "https://techreviewafrica.com/news/8213/south-africa-moves-to-strengthen-vaccine-manufacturing-through-strategic-partnerships"
+     "t": "EWN, 19 Nov",
+     "u": "https://www.ewn.co.za/2026/11/19/motsoaledi-to-ensure-independent-forensic-investigation-into-r15bn-arv-tender"
+    },
+    {
+     "t": "Business Day, 12 Oct",
+     "u": "https://www.businessday.co.za/news/health/2026-10-12-health-minister-appoints-team-to-fix-nhls-governance-crisis/"
+    },
+    {
+     "t": "Department of Health, 11 Mar",
+     "u": "https://www.health.gov.za/wp-content/uploads/2026/03/Health-Minister-puts-senior-officials-on-suspension-11-March-2026.pdf"
+    }
+   ]
+  },
+  {
+   "title": "Ebola readiness and local manufacturing",
+   "text": "No Ebola case so far, but 36 hospitals are designated for suspected cases, port screening is stepped up and the NICD, with one of Africa's two BSL-4 laboratories, is ready to test. Biovac's oral cholera vaccine, the first vaccine made entirely in South Africa in over 50 years, is in clinical trials and could be ready by 2028.",
+   "src": [
+    {
+     "t": "EWN, 9 Jul",
+     "u": "https://www.ewn.co.za/2026/07/09/only-a-matter-of-time-health-department-strengthens-ebola-preparedness"
+    },
+    {
+     "t": "EWN, 15 Jul",
+     "u": "https://www.ewn.co.za/2026/07/15/sa-infectious-disease-scientists-undergo-specialised-ebola-preparedness-training"
+    },
+    {
+     "t": "Africanews",
+     "u": "https://www.africanews.com/2025/11/12/south-africa-starts-clinical-trials-on-first-locally-developed-oral-cholera-vaccine//"
     }
    ]
   }
  ],
  "nl": {
-  "text": "No separate bilateral health agreement found in public sources yet; the Dutch links below come from the NPHI Collaboration Map.",
-  "items": []
+  "text": "The main official health link is the Global Health Partnership Programme (GHPP) South Africa between RIVM and the NICD (listed below from the NPHI Collaboration Map). In July 2026 the two countries also signed an MoU on women, youth and persons with disabilities, under which South Africa asked to engage the Dutch Ministry of Health, Welfare and Sport.",
+  "items": [
+   {
+    "title": "MoU on the empowerment of women, youth and persons with disabilities",
+    "who": "Department of Women, Youth and Persons with Disabilities and the Netherlands (Ambassador Joanne Doornewaard)",
+    "when": "signed 20 July 2026, Pretoria",
+    "text": "Sets up a bilateral working group under the South Africa–Netherlands Joint Commission for Cooperation, with a two-year implementation plan and annual reporting. South Africa's deputy minister asked to engage the Dutch Ministry of Foreign Affairs and the Ministry of Health, Welfare and Sport during working visits in 2026 and 2027.",
+    "url": "https://www.sanews.gov.za/node/82990"
+   }
+  ]
  },
  "institutions": [
   {
@@ -65,8 +143,13 @@
   },
   {
    "name": "National Institute for Communicable Diseases (NICD)",
-   "role": "National public health institute",
+   "role": "National public health institute; GHPP partner of RIVM",
    "url": "https://www.nicd.ac.za/"
+  },
+  {
+   "name": "National Health Laboratory Service (NHLS)",
+   "role": "Public laboratories; houses the NICD",
+   "url": "https://www.nhls.ac.za/"
   },
   {
    "name": "SAHPRA",
@@ -74,8 +157,13 @@
    "url": "https://www.sahpra.org.za/"
   },
   {
+   "name": "South African Medical Research Council",
+   "role": "Research; coordinates the cholera vaccine trial",
+   "url": "https://www.samrc.ac.za/"
+  },
+  {
    "name": "Embassy of the Netherlands",
-   "role": "Dutch mission and consular information",
+   "role": "Dutch mission in Pretoria",
    "url": "https://www.netherlandsandyou.nl/web/south-africa"
   }
  ],
@@ -93,7 +181,100 @@
    "place": "Global",
    "status": "confirmed",
    "src": "https://www.who.int/campaigns/world-tb-day"
+  },
+  {
+   "start": "2027-03-31",
+   "title": "Last PEPFAR support for critical health staff ends (planned)",
+   "place": "South Africa",
+   "status": "expected",
+   "src": "https://hsph.harvard.edu/news/what-the-end-of-pepfar-funding-could-mean-for-south-africas-hiv-response/"
   }
  ],
- "checked": "2026-11-10"
+ "timeline": [
+  {
+   "date": "2026-03-11",
+   "text": "Minister suspends Director-General Sandile Buthelezi and other senior officials.",
+   "src": "https://www.health.gov.za/wp-content/uploads/2026/03/Health-Minister-puts-senior-officials-on-suspension-11-March-2026.pdf"
+  },
+  {
+   "date": "2026-05-05",
+   "text": "Constitutional Court hears the public-participation challenges to the NHI Act; judgment reserved.",
+   "src": "https://bowmanslaw.com/insights/south-africa-national-health-insurance-hearing/"
+  },
+  {
+   "date": "2026-05-18",
+   "text": "Constitutional Court strikes down the certificate of need.",
+   "src": "https://www.bizcommunity.com/article/concourt-axes-certificate-of-need-scheme-from-nha-067505a"
+  },
+  {
+   "date": "2026-06-05",
+   "text": "President Ramaphosa launches the national lenacapavir rollout in Secunda.",
+   "src": "https://www.sanews.gov.za/node/82472"
+  },
+  {
+   "date": "2026-06-18",
+   "text": "US announces the phased end of PEPFAR in South Africa.",
+   "src": "https://www.semafor.com/article/06/18/2026/trump-administration-to-end-pepfar-funding-for-south-africa"
+  },
+  {
+   "date": "2026-07-09",
+   "text": "36 hospitals designated for suspected Ebola cases; port screening stepped up.",
+   "src": "https://www.ewn.co.za/2026/07/09/only-a-matter-of-time-health-department-strengthens-ebola-preparedness"
+  },
+  {
+   "date": "2026-07-20",
+   "text": "South Africa and the Netherlands sign the MoU on women, youth and persons with disabilities.",
+   "src": "https://www.sanews.gov.za/node/82990"
+  },
+  {
+   "date": "2026-08-24",
+   "text": "Stella Ndabeni acting health minister while Motsoaledi is on sick leave, to 30 September.",
+   "src": "https://www.gov.za/news/media-statements/president-cyril-ramaphosa-appoints-minister-stella-ndabeni-acting-health"
+  },
+  {
+   "date": "2026-10-12",
+   "text": "Team appointed to fix the governance crisis at the NHLS.",
+   "src": "https://www.businessday.co.za/news/health/2026-10-12-health-minister-appoints-team-to-fix-nhls-governance-crisis/"
+  },
+  {
+   "date": "2026-11-19",
+   "text": "Forensic investigation promised into the R15bn ARV tender; minister ties shortages to Durban port delays.",
+   "src": "https://www.ewn.co.za/2026/11/19/motsoaledi-to-ensure-independent-forensic-investigation-into-r15bn-arv-tender"
+  }
+ ],
+ "brief": {
+  "date": "2026-11-24",
+  "lead": "South Africa is absorbing the end of US HIV funding while its public system strains under medicine shortages and governance trouble. Health security and local manufacturing are where it looks for partners; NHI is its political project.",
+  "points": [
+   {
+    "text": "Build on GHPP: RIVM and the NICD already work on One Health surveillance and early warning. The NICD's regional role (Ebola testing, international outbreak tracing) makes data sharing and risk communication natural next steps.",
+    "src": "https://www.ewn.co.za/2026/07/15/sa-infectious-disease-scientists-undergo-specialised-ebola-preparedness-training"
+   },
+   {
+    "text": "Medicine supply: shortages come from port delays, dependence on imported active ingredients and tender problems. Regulatory cooperation and manufacturing partnerships are concrete openings.",
+    "src": "https://www.timeslive.co.za/news/south-africa/2026-11-19-motsoaledi-cites-global-local-woes-for-medicine-supply-crisis/"
+   },
+   {
+    "text": "HIV transition: with PEPFAR closing, South Africa bets on lenacapavir and future generics. Interest in how it plans to finance and supply prevention at scale will be welcome.",
+    "src": "https://hsph.harvard.edu/news/what-the-end-of-pepfar-funding-could-mean-for-south-africas-hiv-response/"
+   }
+  ],
+  "careful": [
+   {
+    "text": "Relations with Washington are strained and the PEPFAR decision is tied to political disputes; avoid presenting Dutch support as a replacement for US aid.",
+    "src": "https://www.semafor.com/article/06/18/2026/trump-administration-to-end-pepfar-funding-for-south-africa"
+   },
+   {
+    "text": "NHI is contested and before the Constitutional Court: listen rather than take a position."
+   },
+   {
+    "text": "The minister was on sick leave in August and September; check who attends at political level."
+   }
+  ],
+  "ask": [
+   "When does the department expect the NHI judgment, and how will HIV services be covered after March 2027?",
+   "Where would Dutch or EU help on medicine supply matter most: regulation, manufacturing or logistics?"
+  ]
+ },
+ "checked": "2026-11-24"
 }

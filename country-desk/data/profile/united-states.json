@@ -1,5 +1,5 @@
 {
- "snapshot": "Left WHO on 22 January 2026 and rebuilt its global health work around the State Department's America First Global Health Strategy: time-limited bilateral agreements with partner countries instead of large multilateral and USAID-run programmes.",
+ "snapshot": "Outside WHO since 22 January 2026. Global health now runs through the State Department's America First strategy: 36 bilateral agreements, with US$15.9 billion from the US and US$10.3 billion in partner co-investment (KFF, October 2026). At home, the Health Department under Robert F. Kennedy Jr. rewrote vaccine policy, largely stayed in court, and the US lost its measles elimination status in November 2026.",
  "leadership": [
   {
    "key": "head",
@@ -10,53 +10,120 @@
    "key": "health",
    "role": "Secretary of Health and Human Services",
    "name": "Robert F. Kennedy Jr.",
-   "src": "https://www.medicaleconomics.com/view/senate-confirms-erica-schwartz-m-d-j-d-m-p-h-as-cdc-director"
+   "src": "https://www.hhs.gov/"
   },
   {
    "key": "ncdc",
    "role": "Director, Centers for Disease Control and Prevention",
    "name": "Erica Schwartz",
-   "src": "https://www.medicaleconomics.com/view/senate-confirms-erica-schwartz-m-d-j-d-m-p-h-as-cdc-director"
+   "src": "https://www.npr.org/2026/08/05/nx-s1-5920379/cdc-director-confirmed-erica-schwartz",
+   "note": "Confirmed 5 August 2026, after almost a year without a permanent director."
+  },
+  {
+   "key": "nih",
+   "role": "Director, National Institutes of Health",
+   "name": "Jay Bhattacharya",
+   "src": "https://www.scientificamerican.com/article/trump-nominates-new-cdc-chief/"
   }
  ],
  "agenda": [
   {
-   "title": "Bilateral health agreements",
-   "text": "The State Department has signed 36 bilateral health agreements with African countries and intends to sign about 70 in total. At least 11 require partners to share outbreak specimens and data within five days of a US request. The agreements are mostly unpublished. Zimbabwe lost all US health aid on 30 September after rejecting the terms, and Namibia will lose US HIV funding after 2027.",
+   "title": "America First bilateral health agreements",
+   "text": "36 agreements signed by October 2026, mostly in Africa but also in Latin America and Asia, for 2026 to 2030: US$15.9 billion from the US and US$10.3 billion in co-investment, while five-year funding for these countries falls by about a third. Most texts are unpublished; several oblige partners to share outbreak specimens and data with the US. Some, such as Nigeria and Uganda, prioritise faith-based providers. South Africa has none and PEPFAR there is being closed out; Ghana and Zimbabwe turned the terms down.",
    "src": [
     {
-     "t": "GV Wire (6 November 2026)",
+     "t": "KFF tracker",
+     "u": "https://www.kff.org/global-health-policy/kff-tracker-america-first-mou-bilateral-global-health-agreements/"
+    },
+    {
+     "t": "Center for Global Development",
+     "u": "https://www.cgdev.org/blog/where-trump-administrations-global-health-agreements-stand"
+    },
+    {
+     "t": "Public Citizen: agreement texts",
+     "u": "https://www.citizen.org/article/u-s-bilateral-health-agreements-case-act-reporting/"
+    },
+    {
+     "t": "GV Wire, 6 Nov",
+     "u": "https://gvwire.com/2026/11/06/us-global-health-strategy-jeopardizes-prevention-of-pandemics-experts-warn/"
+    }
+   ]
+  },
+  {
+   "title": "Outside WHO, with its own health security tools",
+   "text": "The US left WHO and rejected the revised International Health Regulations. For Ebola it relies on entry restrictions: since May it bars non-citizens, including green-card holders, who were recently in affected countries, and from 3 November every US-bound air passenger must declare no stay in the DR Congo in the previous 21 days (order runs to 18 December).",
+   "src": [
+    {
+     "t": "GV Wire, 6 Nov",
      "u": "https://gvwire.com/2026/11/06/us-global-health-strategy-jeopardizes-prevention-of-pandemics-experts-warn/"
     },
     {
-     "t": "Brookings",
-     "u": "https://www.brookings.edu/articles/the-new-america-first-global-health-strategy-could-erode-years-of-progress-under-pepfar/"
+     "t": "KFF, 29 May",
+     "u": "https://www.kff.org/quick-insights/new-ebola-quarantine-rule-bars-entry-of-noncitizens-including-green-card-holders-from-affected-countries/"
+    },
+    {
+     "t": "EIG Law",
+     "u": "https://eiglaw.com/cdc-replaces-ebola-travel-restrictions-with-new-attestation-requirement-for-air-travelers-from-the-drc/"
     }
    ]
   },
   {
-   "title": "Outside WHO and the revised IHR",
-   "text": "The United States has left WHO, has rejected the revised International Health Regulations, and with Israel and Argentina rejected a recent UN pandemic collaboration pledge. Member states of WHO aim to finalise the pathogen-sharing annex to the pandemic agreement by May 2027.",
+   "title": "Vaccine policy in court",
+   "text": "In January 2026 the CDC, without its advisory committee, cut the diseases covered by universal childhood vaccination recommendations from 17 to 11. On 16 March a federal judge stayed those changes and the reconstituted advisory committee (ACIP); the government appealed to the First Circuit. ACIP had not met since December 2025 as of mid-2026, and several states follow medical societies' own schedules.",
    "src": [
     {
-     "t": "GV Wire (6 November 2026)",
-     "u": "https://gvwire.com/2026/11/06/us-global-health-strategy-jeopardizes-prevention-of-pandemics-experts-warn/"
+     "t": "Congressional Research Service",
+     "u": "https://www.everycrsreport.com/reports/R48982.html"
+    },
+    {
+     "t": "AJMC, 17 Mar",
+     "u": "https://ajmc.com/view/federal-judge-puts-brakes-on-rfk-jr-s-vaccine-agenda"
+    },
+    {
+     "t": "CIDRAP",
+     "u": "https://www.cidrap.umn.edu/childhood-vaccines/hhs-asks-expedited-appeal-court-ruling-us-vaccine-policy"
     }
    ]
   },
   {
-   "title": "New CDC director",
-   "text": "The Senate confirmed Erica Schwartz as CDC director on 5 August 2026 by 51 votes to 44. At her hearing she affirmed the safety of childhood vaccines and said she is all in on the Make America Healthy Again agenda.",
+   "title": "Measles: elimination status lost",
+   "text": "A PAHO commission found that measles has circulated for more than 12 months, ending the elimination status the US held since 2000; Mexico and Bolivia lost theirs too, after Canada last year. CDC counted 5,412 cases in 2026 by 12 November. CDC and partners announced a plan to regain elimination with US$100 million for health departments.",
    "src": [
     {
-     "t": "Medical Economics",
-     "u": "https://www.medicaleconomics.com/view/senate-confirms-erica-schwartz-m-d-j-d-m-p-h-as-cdc-director"
+     "t": "Axios, 14 Nov",
+     "u": "https://www.axios.com/2026/11/14/us-loses-measles-elimination-status"
+    },
+    {
+     "t": "Contemporary Pediatrics, 17 Nov",
+     "u": "https://www.contemporarypediatrics.com/view/us-loses-measles-elimination-status-cdc-outlines-re-elimination-plan"
+    },
+    {
+     "t": "WJLA",
+     "u": "https://wjla.com/news/nation-world/preventable-failure-us-loses-measles-elimination-status-after-26-years"
+    }
+   ]
+  },
+  {
+   "title": "Budget for global health in 2027",
+   "text": "The President asked US$5.1 billion for the main global health account for fiscal 2027, US$4.3 billion below 2026. The House committee bill has US$8.9 billion; the Senate committee released its bills on 16 November. Congress keeps PEPFAR and the Global Fund funded, and the new Congress elected on 3 November takes office in January.",
+   "src": [
+    {
+     "t": "KFF: budget request",
+     "u": "https://www.kff.org/global-health-policy/global-health-funding-in-the-fy-2027-presidents-budget-request/"
+    },
+    {
+     "t": "KFF: House bill",
+     "u": "https://www.kff.org/global-health-policy/house-appropriations-committee-releases-fy-2027-national-security-department-of-state-and-related-programs-nsrp-appropriations-bill/"
+    },
+    {
+     "t": "KFF: Senate bills",
+     "u": "https://www.kff.org/global-health-policy/senate-committee-on-appropriations-releases-fy-2027-department-of-state-foreign-operations-and-related-programs-sfops-and-labor-health-and-human-services-education-and-related-agencies-labor-h/"
     }
    ]
   }
  ],
  "nl": {
-  "text": "No separate bilateral health agreement found in public sources yet; the Dutch links below come from the NPHI Collaboration Map.",
+  "text": "RIVM and the US CDC signed a collaboration agreement in December 2024 on preparedness and surveillance; it grew out of the Dutch global health strategy and is listed below from the NPHI Collaboration Map. No government-to-government health agreement beyond that was found in public sources.",
   "items": []
  },
  "institutions": [
@@ -67,12 +134,12 @@
   },
   {
    "name": "Centers for Disease Control and Prevention (CDC)",
-   "role": "National public health institute",
+   "role": "National public health institute; partner of RIVM",
    "url": "https://www.cdc.gov/"
   },
   {
    "name": "Department of State",
-   "role": "Leads global health programmes (PEPFAR and bilateral agreements)",
+   "role": "Leads global health: PEPFAR and the bilateral agreements",
    "url": "https://www.state.gov/"
   },
   {
@@ -81,8 +148,13 @@
    "url": "https://www.nih.gov/"
   },
   {
+   "name": "Food and Drug Administration (FDA)",
+   "role": "Medicines and vaccines regulator",
+   "url": "https://www.fda.gov/"
+  },
+  {
    "name": "Embassy of the Netherlands",
-   "role": "Dutch mission and consular information",
+   "role": "Dutch mission in Washington",
    "url": "https://www.netherlandsandyou.nl/web/united-states"
   }
  ],
@@ -93,7 +165,105 @@
    "place": "Global",
    "status": "confirmed",
    "src": "https://www.who.int/campaigns/world-aids-day"
+  },
+  {
+   "start": "2026-12-18",
+   "title": "CDC Ebola travel declaration order ends unless extended",
+   "place": "United States",
+   "status": "expected",
+   "src": "https://eiglaw.com/cdc-replaces-ebola-travel-restrictions-with-new-attestation-requirement-for-air-travelers-from-the-drc/"
   }
  ],
- "checked": "2026-11-13"
+ "timeline": [
+  {
+   "date": "2026-01-05",
+   "text": "Childhood vaccine schedule cut to 11 universally recommended diseases, without ACIP.",
+   "src": "https://www.contemporarypediatrics.com/view/cdc-changes-childhood-vaccine-schedule-recommends-fewer-vaccines-for-all-children"
+  },
+  {
+   "date": "2026-01-22",
+   "text": "US withdrawal from WHO takes effect.",
+   "src": "https://gvwire.com/2026/11/06/us-global-health-strategy-jeopardizes-prevention-of-pandemics-experts-warn/"
+  },
+  {
+   "date": "2026-02-03",
+   "text": "US$5.88 billion global HIV package signed into law.",
+   "src": "https://www.dailymaverick.co.za/article/6bn-funding-package-boosts-global-hiv-response-what-does-it-mean-for-sa"
+  },
+  {
+   "date": "2026-03-16",
+   "text": "Federal court stays the vaccine schedule changes and the reconstituted ACIP.",
+   "src": "https://ajmc.com/view/federal-judge-puts-brakes-on-rfk-jr-s-vaccine-agenda"
+  },
+  {
+   "date": "2026-04-03",
+   "text": "Fiscal 2027 budget request: US$5.1 billion for global health.",
+   "src": "https://www.kff.org/global-health-policy/global-health-funding-in-the-fy-2027-presidents-budget-request/"
+  },
+  {
+   "date": "2026-05-18",
+   "text": "Ebola entry restrictions for travellers from the DR Congo, Uganda and South Sudan.",
+   "src": "https://cdc.gov/ebola/situation-summary/returning-travelers.html"
+  },
+  {
+   "date": "2026-06-18",
+   "text": "PEPFAR close-out in South Africa announced.",
+   "src": "https://www.semafor.com/article/06/18/2026/trump-administration-to-end-pepfar-funding-for-south-africa"
+  },
+  {
+   "date": "2026-08-05",
+   "text": "Erica Schwartz confirmed as CDC director.",
+   "src": "https://www.npr.org/2026/08/05/nx-s1-5920379/cdc-director-confirmed-erica-schwartz"
+  },
+  {
+   "date": "2026-11-03",
+   "text": "Ebola travel declaration for all US-bound air passengers; midterm elections.",
+   "src": "https://eiglaw.com/cdc-replaces-ebola-travel-restrictions-with-new-attestation-requirement-for-air-travelers-from-the-drc/"
+  },
+  {
+   "date": "2026-11-13",
+   "text": "US loses measles elimination status.",
+   "src": "https://www.axios.com/2026/11/14/us-loses-measles-elimination-status"
+  },
+  {
+   "date": "2026-11-16",
+   "text": "Senate appropriations committee releases its fiscal 2027 global health bills.",
+   "src": "https://www.kff.org/global-health-policy/senate-committee-on-appropriations-releases-fy-2027-department-of-state-foreign-operations-and-related-programs-sfops-and-labor-health-and-human-services-education-and-related-agencies-labor-h/"
+  }
+ ],
+ "brief": {
+  "date": "2026-11-24",
+  "lead": "US engagement runs through the State Department's bilateral agreements and through HHS and CDC, not WHO. Expect a transactional framing focused on health security, commodities and co-financing.",
+  "points": [
+   {
+    "text": "Technical channel: the RIVM–CDC agreement of December 2024 gives a working route on preparedness and surveillance; Ebola and measles are shared concerns.",
+    "src": "https://www.rivm.nl/weblog/rivm-tekent-samenwerkingsovereenkomst-met-cdc-we-kunnen-veel-leren-van-elkaars-expertises"
+   },
+   {
+    "text": "Partner countries: the bilateral agreements are now the main US vehicle in countries such as Kenya and Nigeria. Coordinating at country level avoids overlap with Dutch and EU support.",
+    "src": "https://www.kff.org/global-health-policy/kff-tracker-america-first-mou-bilateral-global-health-agreements/"
+   },
+   {
+    "text": "Congress funds global health well above the President's request, so committee staff are useful interlocutors on PEPFAR and the Global Fund.",
+    "src": "https://www.kff.org/global-health-policy/house-appropriations-committee-releases-fy-2027-national-security-department-of-state-and-related-programs-nsrp-appropriations-bill/"
+   }
+  ],
+  "careful": [
+   {
+    "text": "The US is outside WHO and rejected the revised IHR: do not assume US participation in WHO-based processes such as the pandemic agreement.",
+    "src": "https://gvwire.com/2026/11/06/us-global-health-strategy-jeopardizes-prevention-of-pandemics-experts-warn/"
+   },
+   {
+    "text": "Vaccine policy is contested at home and in court; stick to evidence and stay out of US domestic politics."
+   },
+   {
+    "text": "Specimen and data-sharing clauses in the agreements matter to partner countries; raise them as a question, not a criticism."
+   }
+  ],
+  "ask": [
+   "Through which channel do HHS and CDC prefer technical cooperation now that the US is outside WHO?",
+   "How will specimen and data sharing under the bilateral agreements relate to partners' commitments under WHO arrangements such as PABS?"
+  ]
+ },
+ "checked": "2026-11-24"
 }

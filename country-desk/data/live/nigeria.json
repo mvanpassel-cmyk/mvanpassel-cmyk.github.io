@@ -1605,14 +1605,6 @@
    "status": "confirmed",
    "src": "https://www.qjsamr.org/about-us/fifth-global-high-level-ministerial-conference-on-amr",
    "cat": "amr"
-  },
-  {
-   "start": "2027-02-20",
-   "title": "Nigeria — presidential and National Assembly elections (INEC date)",
-   "place": "Nigeria",
-   "status": "confirmed",
-   "src": "https://guardian.ng/politics/updated-inec-fixes-feb-20-2027-for-presidential-election/",
-   "cat": "election"
   }
  ],
  "indicators": [
@@ -1811,12 +1803,12 @@
   }
  ],
  "digest": {
-  "date": "2026-11-23",
+  "date": "2026-11-24",
   "model": "claude-sonnet-5-5",
   "highlights": [
    {
-    "headline": "No new Ebola cases; contact monitoring reported ended, virologists urge continued vigilance",
-    "why": "Reports differ on whether 28 contacts are still monitored or monitoring has ended, so the status of the imported-case response needs confirming with NCDC.",
+    "headline": "No new Ebola case: all 62 contacts have completed monitoring, virologists urge vigilance",
+    "why": "NCDC reported on 13 November that every contact of the imported case finished 21 days of follow-up without infection; later reports of 28 contacts under monitoring refer to an earlier count.",
     "sources": [
      {
       "title": "Stay alert despite end of Ebola contact monitoring, virologists tell Nigerians",
@@ -1835,6 +1827,12 @@
       "url": "https://leadership.ng/no-new-ebola-case-in-nigeria-as-28-contacts-remain-under-monitoring-ncdc/",
       "src": "LEADERSHIP Newspapers",
       "date": "2026-11-20"
+     },
+     {
+      "title": "Nigeria Completes Ebola Contact Tracing, Says No New Infection From Imported Case",
+      "url": "https://saharareporters.com/2026/11/13/nigeria-completes-ebola-contact-tracing-says-no-new-infection-imported-case",
+      "src": "Sahara Reporters",
+      "date": "2026-11-13"
      }
     ]
    },
@@ -1917,7 +1915,7 @@
     ]
    }
   ],
-  "watch": "Whether NCDC confirms the end of Ebola contact monitoring and lowers the alert level, and what concrete support follows the vaccine research announcement."
+  "watch": "The Abuja AMR ministerial on 6 to 8 December and the text of the Abuja Compact; whether NCDC lowers its Ebola alert."
  },
  "pandemicFund": [],
  "euHealth": [
