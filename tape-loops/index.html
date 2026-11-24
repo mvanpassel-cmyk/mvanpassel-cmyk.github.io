@@ -56,6 +56,10 @@ details.snd summary{cursor:pointer;color:var(--mute);font-size:.8rem}
 .card .prm input[type=range]{flex:1;width:auto;min-width:0}
 .prm select{flex:1;min-width:0;background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:3px 6px;font-family:inherit}
 .rec-panel{margin-top:16px;color:var(--mute);font-size:.85rem;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.modes{display:inline-flex;border:1px solid var(--line);border-radius:12px;padding:3px;gap:3px;margin:0 0 16px;background:var(--card)}
+.modes button{background:transparent;color:var(--mute);border:0;border-radius:9px;padding:8px 14px;font-size:.9rem;cursor:pointer;font-family:inherit}
+.modes button.on{background:var(--fg);color:var(--bg);font-weight:600}
+body.air{--bg:#0f1114;--card:#161a1e;--line:#262c31}
 footer{margin-top:24px;color:var(--mute);font-size:.78rem;text-align:center}
 kbd{border:1px solid var(--line);border-radius:4px;padding:0 5px}
 </style>
@@ -64,7 +68,8 @@ kbd{border:1px solid var(--line);border-radius:4px;padding:0 5px}
 <audio id="keepalive" playsinline loop preload="auto" style="display:none"></audio>
 <main>
   <h1>Tape Loops</h1>
-  <p class="sub">Five loops of different lengths drift against each other and never quite repeat.</p>
+  <p class="sub" id="sub">Five loops of different lengths drift against each other and never quite repeat.</p>
+  <div class="modes" role="group" aria-label="Mode"><button data-mode="classic" class="on">Tape loops</button><button data-mode="airports">Airports</button></div>
 
   <div class="row">
     <button id="play" class="btn primary">Play</button>
@@ -76,6 +81,7 @@ kbd{border:1px solid var(--line);border-radius:4px;padding:0 5px}
     <label class="slider">Warmth <input id="warm" type="range" min="0" max="1" step="0.01" value="0.6"></label>
     <label class="slider">Delay time <input id="dtime" type="range" min="0.1" max="1.5" step="0.01" value="0.45"></label>
     <label class="slider">Feedback <input id="dfbk" type="range" min="0" max="0.85" step="0.01" value="0.4"></label>
+    <label class="slider" title="Tape wow, flutter, hiss and saturation">Tape <input id="tape" type="range" min="0" max="1" step="0.01" value="0"></label>
   </div>
 
   <div class="stage"><canvas id="viz"></canvas></div>
@@ -107,7 +113,7 @@ kbd{border:1px solid var(--line);border-radius:4px;padding:0 5px}
     <button id="saveMp3" class="btn small" hidden>Save MP3</button>
   </div>
 
-  <footer>Press <kbd>Space</kbd> to play or pause · Generate picks a new key, new lengths and new patterns</footer>
+  <footer>Press <kbd>Space</kbd> to play or pause · Generate picks a new key, new lengths and new patterns · Tape adds wow, flutter and hiss</footer>
 </main>
 
 <script>
@@ -125,28 +131,67 @@ const SCALES = {
   'major pentatonic': [0,2,4,7,9],
   'dorian': [0,2,3,5,7,9,10]
 };
+const CLASSIC_SCALES = Object.keys(SCALES);
+// Airports mode: open, consonant pitch sets (no semitone pairs inside a set except the maj7, kept apart by voicing)
+const AIR_SCALES = {
+  'major add9': [0,2,4,7,9],
+  'maj7 add9':  [0,2,4,7,11],
+  'suspended':  [0,2,5,7,10],
+  'minor 9':    [0,2,3,7,10]
+};
+Object.assign(SCALES, AIR_SCALES);
 const MEL_LENS = [13,17,19,23,29,31,37];
 const PULSE_LENS = [7,9,11,13];
+// Long, uneven tape lengths that practically never line up again
+const AIR_LENS = [17.8,19.7,21.3,23.9,25.4,27.6,29.5,31.8,34.3,37.1];
 
-const loops = [
-  { name:'Pad',   kind:'pad',   color:'--c1', vol:0.7 },
-  { name:'Bell',  kind:'bell',  color:'--c2', vol:0.4 },
-  { name:'Pluck', kind:'pluck', color:'--c3', vol:0.45 },
-  { name:'Pulse', kind:'pulse', color:'--c4', vol:0.45 },
-  { name:'Sample', kind:'sample', color:'--c5', vol:0.6 }
-];
+const MODES = {
+  classic: {
+    sub: 'Five loops of different lengths drift against each other and never quite repeat.',
+    loops: [
+      { name:'Pad',   kind:'pad',   vol:0.7 },
+      { name:'Bell',  kind:'bell',  vol:0.4 },
+      { name:'Pluck', kind:'pluck', vol:0.45 },
+      { name:'Pulse', kind:'pulse', vol:0.45 },
+      { name:'Sample', kind:'sample', vol:0.6 }
+    ],
+    fx: { rev: 0.9, warm: 0.6, dtime: 0.45, dfbk: 0.4, tape: 0 }
+  },
+  airports: {
+    sub: 'Slow voices, a half-speed felt piano and soft swells on long tape loops of uneven length, in the spirit of Music for Airports. Put it on and leave it.',
+    loops: [
+      { name:'Voices low',  kind:'choir', vol:0.6, reg:'low' },
+      { name:'Voices high', kind:'choir', vol:0.5, reg:'high' },
+      { name:'Piano', kind:'piano', vol:0.6 },
+      { name:'Swell', kind:'swell', vol:0.42 },
+      { name:'Sample', kind:'sample', vol:0.55 }
+    ],
+    fx: { rev: 1.0, warm: 0.52, dtime: 0.78, dfbk: 0.38, tape: 0.45 }
+  }
+};
+const COLORS = ['--c1','--c2','--c3','--c4','--c5'];
+let mode = 'classic';
+
+const loops = MODES.classic.loops.map((c, i) => ({ ...c, color: COLORS[i] }));
 const DEFAULTS = {
   pad:   { oct: 0, semi: 0, fine: 0, del: 0, tone: 0.35, att: 0.7, dec: 0.6, det: 8, wave: 'sine' },
   bell:  { oct: 0, semi: 0, fine: 0, del: 0, tone: 0.3, att: 0.75, dec: 0.65, det: 0, wave: 'sine' },
   pluck: { oct: 0, semi: 0, fine: 0, del: 0, tone: 0.3, att: 0.8, dec: 0.6, det: 5, wave: 'sine' },
   pulse: { oct: 0, semi: 0, fine: 0, del: 0, tone: 0.3, att: 0.5, dec: 0.6, det: 0, wave: 'sine' },
-  sample: { oct: 0, semi: 0, fine: 0, del: 0, tone: 0.5, att: 0.6, dec: 0.5, det: 0, wave: 'sine' }
+  sample: { oct: 0, semi: 0, fine: 0, del: 0, tone: 0.5, att: 0.6, dec: 0.5, det: 0, wave: 'sine' },
+  choir: { oct: 0, semi: 0, fine: 0, del: 0.08, tone: 0.45, att: 0.6, dec: 0.55, det: 12, wave: 'sine' },
+  piano: { oct: 0, semi: 0, fine: 0, del: 0.3, tone: 0.35, att: 0.5, dec: 0.55, det: 0, wave: 'sine' },
+  swell: { oct: 0, semi: 0, fine: 0, del: 0.12, tone: 0.4, att: 0.6, dec: 0.55, det: 7, wave: 'triangle', low: 0.6 }
 };
+const AIR_SAMPLE = { oct: 0, semi: 0, fine: 0, del: 0.2, tone: 0.42, att: 0.85, dec: 0.6, det: 0, wave: 'sine' };
+const defaultsFor = L => (mode === 'airports' && L.kind === 'sample') ? AIR_SAMPLE : DEFAULTS[L.kind];
+const REV_SEND = { choir: 0.8, piano: 0.6, swell: 0.7 };
 loops.forEach(L => { L.len = 10; L.events = []; L.muted = false; L.buffer = null; L.sampleName = ''; L.start = 0; L.cursor = 0; L.out = null; L.in = null; L.soft = L.kind === 'bell'; L.locked = false; L.p = { ...DEFAULTS[L.kind] }; });
-const state = { root: 50, scale: 'dorian' };
+const state = { root: 50, scale: 'dorian', flavour: '' };
 
 /* ---------- audio engine ---------- */
-let ctx = null, bus, comp, soft, masterGain, conv, revOut, dly, dfb, noiseBuf, playing = false;
+let ctx = null, bus, comp, soft, masterGain, conv, revIn, revOut, dly, dfb, noiseBuf, playing = false;
+let tapeDly, sat, hissGain, wowGains = [];
 const warmHz = v => 800 * Math.pow(2, parseFloat(v) * 4.4);
 
 // iOS/Safari: treat this as media playback (plays over Bluetooth, ignores the silent switch);
@@ -175,10 +220,21 @@ function initAudio() {
   comp.threshold.value = -16; comp.ratio.value = 3; comp.attack.value = 0.01; comp.release.value = 0.25;
   masterGain = ctx.createGain(); masterGain.gain.value = parseFloat($('#mst').value);
   soft = ctx.createBiquadFilter(); soft.type = 'lowpass'; soft.Q.value = 0.3; soft.frequency.value = warmHz($('#warm').value);
-  bus.connect(comp); comp.connect(soft); soft.connect(masterGain); masterGain.connect(ctx.destination);
-  conv = ctx.createConvolver(); conv.buffer = makeImpulse(5, 2.2);
+  // tape stage: a slowly modulated delay gives wow and flutter to everything at once, then soft saturation
+  tapeDly = ctx.createDelay(0.1); tapeDly.delayTime.value = 0.03;
+  sat = ctx.createWaveShaper(); sat.oversample = '2x';
+  bus.connect(comp); comp.connect(soft); soft.connect(tapeDly); tapeDly.connect(sat); sat.connect(masterGain); masterGain.connect(ctx.destination);
+  // wow (slow), wander (slower) and flutter (fast); depths are set by the Tape slider
+  wowGains = [[0.33, 0.0022], [0.11, 0.0015], [6.3, 0.00003]].map(([hz, depth]) => {
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.frequency.value = hz; g.gain.value = 0; g.depth = depth;
+    o.connect(g); g.connect(tapeDly.delayTime); o.start();
+    return g;
+  });
+  revIn = ctx.createGain();
+  conv = ctx.createConvolver(); conv.buffer = mode === 'airports' ? makeHall() : makeImpulse(5, 2.2);
   revOut = ctx.createGain(); revOut.gain.value = parseFloat($('#rev').value);
-  conv.connect(revOut); revOut.connect(bus);
+  revIn.connect(conv); conv.connect(revOut); revOut.connect(bus);
   // shared delay: loops and the heartbeat feed it through their own send amounts
   dly = ctx.createDelay(2.5); dly.delayTime.value = parseFloat($('#dtime').value);
   dfb = ctx.createGain(); dfb.gain.value = parseFloat($('#dfbk').value);
@@ -186,12 +242,65 @@ function initAudio() {
   const dout = ctx.createGain(); dout.gain.value = 0.8;
   dly.connect(dtone); dtone.connect(dfb); dfb.connect(dly);
   dtone.connect(dout); dout.connect(bus);
-  const dverb = ctx.createGain(); dverb.gain.value = 0.35; dout.connect(dverb); dverb.connect(conv);
+  const dverb = ctx.createGain(); dverb.gain.value = 0.35; dout.connect(dverb); dverb.connect(revIn);
   noiseBuf = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate);
   const d = noiseBuf.getChannelData(0);
   for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+  // tape hiss: soft, band-limited, two seconds of noise so the loop point isn't audible
+  const hb = ctx.createBuffer(2, ctx.sampleRate * 2, ctx.sampleRate);
+  for (let c = 0; c < 2; c++) { const h = hb.getChannelData(c); for (let i = 0; i < h.length; i++) h[i] = Math.random() * 2 - 1; }
+  const hs = ctx.createBufferSource(); hs.buffer = hb; hs.loop = true;
+  const hhp = ctx.createBiquadFilter(); hhp.type = 'highpass'; hhp.frequency.value = 1800;
+  const hlp = ctx.createBiquadFilter(); hlp.type = 'lowpass'; hlp.frequency.value = 7500;
+  hissGain = ctx.createGain(); hissGain.gain.value = 0;
+  hs.connect(hhp); hhp.connect(hlp); hlp.connect(hissGain); hissGain.connect(sat); hs.start();
+  setTape(parseFloat($('#tape').value), true);
   loops.forEach(makeLoopOut);
   makeHeartOut();
+}
+
+function setTape(v, now) {
+  if (!ctx) return;
+  const T = ctx.currentTime, tc = now ? 0.001 : 0.2;
+  wowGains.forEach(g => g.gain.setTargetAtTime(g.depth * v, T, tc));
+  hissGain.gain.setTargetAtTime(0.008 * v * v, T, tc);
+  const k = 0.05 + v * 1.4, n = 2048, c = new Float32Array(n);
+  for (let i = 0; i < n; i++) { const x = i / (n - 1) * 2 - 1; c[i] = v < 0.01 ? x : Math.tanh(k * x) / k; }
+  sat.curve = c;
+}
+
+// A darker, longer hall for the Airports mode: stereo noise whose high end dies away faster than the low end.
+function makeHall() {
+  const rate = ctx.sampleRate, secs = 8, n = Math.floor(rate * secs), pre = Math.floor(rate * 0.025);
+  const b = ctx.createBuffer(2, n, rate);
+  for (let c = 0; c < 2; c++) {
+    const d = b.getChannelData(c);
+    let lp = 0;
+    for (let i = 0; i < n; i++) {
+      if (i < pre) { d[i] = 0; continue; }
+      const x = (i - pre) / (n - pre);
+      const fc = 9000 * Math.pow(900 / 9000, x);              // cutoff glides down as the tail decays
+      const a = Math.exp(-2 * Math.PI * fc / rate);
+      lp = (1 - a) * (Math.random() * 2 - 1) + a * lp;
+      const env = Math.pow(1 - x, 2.4) * (1 - Math.exp(-(i - pre) / (rate * 0.06)));   // soft onset, long decay
+      d[i] = lp * env * (1 + 1.5 * (1 - x));
+    }
+  }
+  return b;
+}
+
+// Swap reverbs with a short crossfade (used when the mode changes).
+function swapReverb() {
+  if (!ctx) return;
+  const old = conv, T = ctx.currentTime;
+  const nc = ctx.createConvolver(); nc.buffer = mode === 'airports' ? makeHall() : makeImpulse(5, 2.2);
+  const g = ctx.createGain(); g.gain.value = 0;
+  revIn.connect(nc); nc.connect(g); g.connect(revOut);
+  g.gain.setTargetAtTime(1, T, 0.3);
+  if (old.fadeGain) old.fadeGain.gain.setTargetAtTime(0, T, 0.3);
+  else { old.disconnect(); const og = ctx.createGain(); old.connect(og); og.connect(revOut); og.gain.setTargetAtTime(0, T, 0.3); old.fadeGain = og; }
+  setTimeout(() => { try { revIn.disconnect(old); old.disconnect(); old.fadeGain.disconnect(); } catch (e) {} }, 4000);
+  nc.fadeGain = g; conv = nc;
 }
 
 function makeImpulse(seconds, decay) {
@@ -213,8 +322,8 @@ function makeLoopOut(L) {
   }
   const o = ctx.createGain();
   o.gain.value = L.muted ? 0 : L.vol;
-  const send = ctx.createGain(); send.gain.value = 0.6;
-  o.connect(bus); o.connect(send); send.connect(conv);
+  const send = ctx.createGain(); send.gain.value = REV_SEND[L.kind] || 0.6;
+  o.connect(bus); o.connect(send); send.connect(revIn);
   const dsend = ctx.createGain(); dsend.gain.value = L.p.del * 0.9; o.connect(dsend); dsend.connect(dly);
   const f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.Q.value = 0.3; f.frequency.value = L.soft ? 2200 : 20000;
   f.connect(o);
@@ -290,8 +399,196 @@ const VOICES = {
       g.gain.setValueAtTime(0.14 * v, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.05 * D);
       o.connect(bp); bp.connect(g); g.connect(out); o.start(t); o.stop(t + 0.05 * D + 0.02);
     }
+  },
+
+  /* ----- Airports voices ----- */
+  // A small choir singing "aah", slowly closing towards "ooh" (or opening), three detuned singers spread in stereo.
+  choir(out, ev, t, L) {
+    const P = L.p, f = midiHz(ev.midi + shiftOf(P));
+    const dur = Math.max(2, ev.dur * mult(P.dec, 2)), end = t + dur;
+    const A = Math.min(dur * 0.45, 2.4 * mult(P.att, 4)), R = Math.min(dur * 0.5, 3.2 * mult(P.dec, 2));
+    const bright = Math.min(1, P.tone * (L.soft ? 0.6 : 1));
+    const master = ctx.createGain(); master.gain.value = 0;
+    swellEnv(master.gain, t, A, R, end, 0.15 * (ev.vel || 1));
+    const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.Q.value = 0.4;
+    lp.frequency.value = clampF(1800 + 3200 * bright, 9000);
+    master.connect(lp); lp.connect(out);
+    // each singer has their own vibrato (blooming as the note swells) and their own slow drift,
+    // so the voices move independently like a real ensemble instead of one organ-like tone
+    const lfos = [];
+    const singer = () => {
+      const vib = ctx.createOscillator(), vg = ctx.createGain(), dr = ctx.createOscillator(), dg = ctx.createGain();
+      vib.frequency.value = rnd(4.3, 5.6);
+      vg.gain.setValueAtTime(0, t); vg.gain.linearRampToValueAtTime(P.det * rnd(0.4, 0.7), t + A * rnd(0.8, 1.3));
+      dr.frequency.value = rnd(0.06, 0.2); dg.gain.value = rnd(3, 6);
+      vib.connect(vg); dr.connect(dg); lfos.push(vib, dr);
+      return [vg, dg];
+    };
+    const wa = vowelWave(f, 'a', bright), wo = vowelWave(f, 'o', bright);
+    const opening = Math.random() < 0.4, a0 = opening ? 0.35 : 0.85, a1 = opening ? 0.85 : 0.35;
+    const spread = 5 + P.det * 0.25;
+    [[-spread, -0.45], [0.15 * spread, 0.05], [0.85 * spread, 0.45]].forEach(([cents, pan]) => {
+      const pn = panner(pan), [vg, dg] = singer();
+      pn.connect(master);
+      [[wa, a0, a1], [wo, 1 - a0, 1 - a1]].forEach(([w, g0, g1]) => {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.setPeriodicWave(w); o.frequency.value = f; o.detune.value = cents + rnd(-1.5, 1.5);
+        vg.connect(o.detune); dg.connect(o.detune);
+        g.gain.setValueAtTime(g0, t); g.gain.linearRampToValueAtTime(g1, end);
+        o.connect(g); g.connect(pn);
+        o.start(t); o.stop(end + 0.05);
+      });
+    });
+    // a little breath in the voices
+    const n = ctx.createBufferSource(), bp = ctx.createBiquadFilter(), bg = ctx.createGain();
+    n.buffer = noiseBuf; n.loop = true; bp.type = 'bandpass'; bp.frequency.value = 1100; bp.Q.value = 0.9; bg.gain.value = 0.05;
+    n.connect(bp); bp.connect(bg); bg.connect(master);
+    n.start(t, Math.random() * 0.9); n.stop(end + 0.05);
+    lfos.forEach(o => { o.start(t); o.stop(end + 0.05); });
+  },
+
+  // A soft piano as if recorded and played back at half speed: rounded hammer, long double decay,
+  // slightly inharmonic partials and two strings beating against each other on the low partials.
+  piano(out, ev, t, L) {
+    const P = L.p, f = midiHz(ev.midi + shiftOf(P)), v = ev.vel || 0.7;
+    const bright = Math.min(1, P.tone * (L.soft ? 0.6 : 1) * (0.7 + 0.5 * v));
+    const T1 = Math.min(9, 3.2 * mult(P.dec, 3) * Math.pow(262 / f, 0.4));
+    const atk = 0.004 + 0.02 * P.att;
+    const stopT = t + Math.min(18, atk + T1 * 5);
+    const N = Math.max(3, Math.min(10, Math.floor(6500 / f)));
+    const sum = ctx.createGain(), lvl = 0.2 * v;
+    sum.gain.setValueAtTime(lvl, t); sum.gain.setValueAtTime(lvl, stopT - 1.5); sum.gain.linearRampToValueAtTime(0, stopT);
+    const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.Q.value = 0.3;
+    lp.frequency.setValueAtTime(clampF(f * 2 + 4800 * bright, 12000), t);
+    lp.frequency.setTargetAtTime(clampF(f * 1.5 + 2200 * bright, 9000), t + 0.02, 0.4);
+    const pn = panner(Math.max(-0.5, Math.min(0.5, (ev.midi - 67) / 24)));
+    sum.connect(lp); lp.connect(pn); pn.connect(out);
+    for (let k = 1; k <= N; k++) {
+      const fk = k * f * Math.sqrt(1 + 0.0004 * k * k);
+      if (fk > 15000) break;
+      const amp = Math.pow(k, -1.25) * Math.exp(-(k - 1) * (0.55 - 0.4 * bright));
+      const tau = T1 / (1 + 0.5 * (k - 1));
+      const strings = k <= 2 ? [-0.9, 1.1] : [0];
+      strings.forEach(det => {
+        const o = ctx.createOscillator(), g = ctx.createGain(), a = amp / strings.length;
+        o.frequency.value = fk; o.detune.value = det;
+        g.gain.setValueAtTime(0, t);
+        g.gain.linearRampToValueAtTime(a, t + atk);
+        g.gain.setTargetAtTime(a * 0.4, t + atk, tau * 0.12);           // quick first drop…
+        g.gain.setTargetAtTime(0, t + atk + tau * 0.35, tau);            // …then the long tail
+        o.connect(g); g.connect(sum); o.start(t); o.stop(stopT);
+      });
+    }
+    const n = ctx.createBufferSource(), nl = ctx.createBiquadFilter(), ng = ctx.createGain();   // felt on string
+    n.buffer = noiseBuf; nl.type = 'lowpass'; nl.frequency.value = 900 + 1500 * bright;
+    ng.gain.setValueAtTime(0.25 * v, t); ng.gain.exponentialRampToValueAtTime(0.0001, t + 0.035);
+    n.connect(nl); nl.connect(ng); ng.connect(sum); n.start(t, Math.random() * 0.9); n.stop(t + 0.06);
+  },
+
+  // A low, slow analogue-style swell whose filter opens and closes with the note.
+  swell(out, ev, t, L) {
+    if (ev.type === 'boom') return boomHit(out, ev, t, L);
+    if (ev.type === 'bass') return bassHit(out, ev, t, L);
+    const P = L.p, f = midiHz(ev.midi + shiftOf(P));
+    const dur = Math.max(3, ev.dur * mult(P.dec, 2)), end = t + dur;
+    const A = Math.min(dur * 0.5, 3.5 * mult(P.att, 4)), R = Math.min(dur * 0.45, 4 * mult(P.dec, 2));
+    const bright = Math.min(1, P.tone * (L.soft ? 0.6 : 1));
+    const g = ctx.createGain(); g.gain.value = 0;
+    swellEnv(g.gain, t, A, R, end, 0.16 * LV[P.wave]);
+    const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.Q.value = 2.2;
+    lp.frequency.setValueAtTime(200, t);
+    lp.frequency.linearRampToValueAtTime(clampF(500 + 1600 * bright, 5000), t + A * 1.2);
+    lp.frequency.linearRampToValueAtTime(220, end);
+    const trem = ctx.createGain(), to = ctx.createOscillator(), tg = ctx.createGain();
+    trem.gain.value = 1; to.frequency.value = rnd(0.15, 0.25); tg.gain.value = 0.12;
+    to.connect(tg); tg.connect(trem.gain);
+    lp.connect(trem); trem.connect(g); g.connect(out);
+    [[P.wave, 1, -P.det, 0.5], [P.wave, 1, P.det, 0.5], ['sine', 0.5, 0, 0.35]].forEach(([type, mul, det, lvl]) => {
+      const o = ctx.createOscillator(), og = ctx.createGain();
+      o.type = type; o.frequency.value = f * mul; o.detune.value = det; og.gain.value = lvl;
+      o.connect(og); og.connect(lp); o.start(t); o.stop(end + 0.05);
+    });
+    to.start(t); to.stop(end + 0.05);
   }
 };
+
+// Occasional low end for the Swell loop: a distant, felt-covered bass drum tuned to the key…
+function boomHit(out, ev, t, L) {
+  const P = L.p, amt = P.low === undefined ? 0.6 : P.low;
+  if (amt < 0.01) return;
+  const f = midiHz(ev.midi + shiftOf(P)), v = (ev.vel || 0.8) * amt;
+  const g = ctx.createGain(), lp = ctx.createBiquadFilter();
+  lp.type = 'lowpass'; lp.frequency.value = 420; lp.Q.value = 0.5;
+  g.connect(lp); lp.connect(out);
+  [[1, 1], [2.02, 0.18]].forEach(([mul, lvl]) => {                 // body plus a faint overtone so it carries on phones
+    const o = ctx.createOscillator(), og = ctx.createGain();
+    o.frequency.setValueAtTime(f * mul * 1.6, t);
+    o.frequency.exponentialRampToValueAtTime(f * mul, t + 0.12);
+    og.gain.value = lvl; o.connect(og); og.connect(g);
+    o.start(t); o.stop(t + 2.6);
+  });
+  g.gain.setValueAtTime(0, t);
+  g.gain.linearRampToValueAtTime(0.5 * v, t + 0.012);
+  g.gain.setTargetAtTime(0, t + 0.04, 0.45);
+  const n = ctx.createBufferSource(), nl = ctx.createBiquadFilter(), ng = ctx.createGain();   // felt beater
+  n.buffer = noiseBuf; nl.type = 'lowpass'; nl.frequency.value = 300;
+  ng.gain.setValueAtTime(0.35 * v, t); ng.gain.exponentialRampToValueAtTime(0.0001, t + 0.08);
+  n.connect(nl); nl.connect(ng); ng.connect(lp); n.start(t, Math.random() * 0.9); n.stop(t + 0.1);
+}
+// …and a deep, round bass note that blooms and dies away slowly.
+function bassHit(out, ev, t, L) {
+  const P = L.p, amt = P.low === undefined ? 0.6 : P.low;
+  if (amt < 0.01) return;
+  const f = midiHz(ev.midi + shiftOf(P)), v = (ev.vel || 0.8) * amt, dec = 2.2 * mult(P.dec, 2);
+  const g = ctx.createGain(), lp = ctx.createBiquadFilter();
+  lp.type = 'lowpass'; lp.Q.value = 0.7;
+  lp.frequency.setValueAtTime(clampF(f * 6, 1200), t); lp.frequency.setTargetAtTime(clampF(f * 2.5, 600), t + 0.05, 0.8);
+  g.connect(lp); lp.connect(out);
+  const end = t + 0.06 + dec * 5;
+  [['sine', 1, 1, -3], ['sine', 1, 0.7, 3], ['triangle', 2, 0.22, 0], ['sine', 3, 0.08, 0]].forEach(([type, mul, lvl, det]) => {
+    const o = ctx.createOscillator(), og = ctx.createGain();
+    o.type = type; o.frequency.value = f * mul; o.detune.value = det; og.gain.value = lvl;
+    o.connect(og); og.connect(g); o.start(t); o.stop(end);
+  });
+  g.gain.setValueAtTime(0, t);
+  g.gain.linearRampToValueAtTime(0.2 * v, t + 0.06);
+  g.gain.setTargetAtTime(0, t + 0.06, dec);
+}
+
+// Smooth (raised-cosine) fade in and fade out on a gain parameter.
+function swellEnv(p, t, A, R, end, peak) {
+  const up = new Float32Array(48), dn = new Float32Array(48);
+  for (let i = 0; i < 48; i++) { const c = Math.cos(Math.PI * i / 47); up[i] = peak * (1 - c) / 2; dn[i] = peak * (1 + c) / 2; }
+  p.setValueCurveAtTime(up, t, A);
+  p.setValueCurveAtTime(dn, Math.max(t + A + 0.01, end - R), Math.min(R, end - t - A - 0.01));
+}
+function panner(v) {
+  if (!ctx.createStereoPanner) return ctx.createGain();
+  const p = ctx.createStereoPanner(); p.pan.value = v; return p;
+}
+
+// Vowel-shaped waveforms: harmonics weighted by alto formants for "a" (aah) and "o" (ooh).
+const FORMANTS = {
+  a: [[800, 0, 80], [1150, -6, 90], [2800, -22, 120], [3500, -34, 130], [4950, -55, 140]],
+  o: [[450, 0, 70], [800, -9, 80], [2830, -18, 100], [3500, -30, 130], [4950, -55, 135]]
+};
+const waveCache = new Map();
+function vowelWave(f, v, bright) {
+  const key = v + Math.round(f) + ':' + Math.round(bright * 10);
+  if (waveCache.has(key)) return waveCache.get(key);
+  const N = Math.max(1, Math.min(48, Math.floor(5200 / f)));
+  const re = new Float32Array(N + 1), im = new Float32Array(N + 1);
+  for (let n = 1; n <= N; n++) {
+    const fh = n * f;
+    let env = 0;
+    for (const [F, dB, B] of FORMANTS[v]) env += Math.pow(10, dB / 20) / (1 + Math.pow((fh - F) / (B * 1.3), 2));
+    const roll = 1 / (1 + Math.pow(fh / (1400 + 3000 * bright), 2));
+    im[n] = (0.25 / n + env) * Math.pow(n, -0.7) * roll;
+  }
+  const w = ctx.createPeriodicWave(re, im);
+  waveCache.set(key, w);
+  return w;
+}
 
 function playSample(L, ev, t) {
   const P = L.p, s = ctx.createBufferSource(), g = ctx.createGain(), lp = ctx.createBiquadFilter();
@@ -308,11 +605,17 @@ function playSample(L, ev, t) {
     const ref = L.kind === 'sample' ? midiHz(state.root + 12) : 261.63;
     rate = Math.min(8, Math.max(0.125, midiHz(ev.midi + shiftOf(P)) / ref));
     dur = Math.min((ev.dur || 3) * D, L.buffer.duration / rate);
+    if (mode === 'airports' && dur > 0.2) {
+      // tape-loop style: the sound fades in and out slowly instead of starting with a click
+      const a = Math.min(dur * 0.4, 0.25 * mult(P.att, 6)), r = Math.min(dur * 0.45, 1.5 * D);
+      swellEnv(g.gain, t, Math.max(0.02, a), Math.max(0.02, r), t + dur, 0.75);
+    } else {
     const a = Math.min(dur * 0.5, 0.02 * mult(P.att, 6));
     g.gain.setValueAtTime(0.0001, t);
     g.gain.linearRampToValueAtTime(0.8, t + a);
     g.gain.setValueAtTime(0.8, t + Math.max(a, dur - 0.4));
     g.gain.linearRampToValueAtTime(0.0001, t + dur);
+    }
   }
   s.playbackRate.value = rate;
   s.connect(lp); lp.connect(g); g.connect(L.in);
@@ -321,6 +624,8 @@ function playSample(L, ev, t) {
 
 function trigger(L, ev, t) {
   if (L.kind === 'sample' && !L.buffer) return;
+  if (ev.chance !== undefined && Math.random() > ev.chance) return;   // occasional events skip some passes
+  if (ev.type && L.buffer) return;                                     // drum/bass hits belong to the synth swell
   ev.lastT = t;
   if (L.buffer) playSample(L, ev, t); else VOICES[L.kind](L.in, ev, t, L);
 }
@@ -469,11 +774,12 @@ function euclid(k, n) {
 }
 
 function generate() {
+  if (mode === 'airports') return generateAir();
   history.length = 0; sel = null; updateEditUI();
   const anyLock = loops.some(L => L.locked);
   if (!anyLock) {
     state.root = pick([45,46,47,48,50,52,53]);
-    state.scale = pick(Object.keys(SCALES));
+    state.scale = pick(CLASSIC_SCALES);
   }
   const scale = SCALES[state.scale];
   const note = oct => state.root + 12 * oct + pick(scale);
@@ -529,8 +835,136 @@ function generate() {
   updateInfo(); updateCards();
 }
 
+/* ---------- Airports generation ---------- */
+const AIR_RANGE = { low: [52, 66], high: [62, 76], piano: [60, 81], swell: [40, 53], sample: [57, 72] };
+const inScale = m => SCALES[state.scale].includes(((m - state.root) % 12 + 12) % 12);
+const notesIn = ([lo, hi]) => { const a = []; for (let m = lo; m <= hi; m++) if (inScale(m)) a.push(m); return a; };
+const degW = m => ({ 0: 2, 7: 2, 3: 1.5, 4: 1.5 })[((m - state.root) % 12 + 12) % 12] || 1;   // lean on root and fifth, but leave room for colour
+function pickW(list) {
+  const tot = list.reduce((s, m) => s + degW(m), 0);
+  let r = Math.random() * tot;
+  for (const m of list) { r -= degW(m); if (r <= 0) return m; }
+  return list[list.length - 1];
+}
+// Sustained notes keep at least a minor third apart, so held voices never rub.
+function pickSpaced(range, used) {
+  const all = notesIn(range), ok = all.filter(n => used.every(u => Math.abs(n - u) >= 3));
+  const m = pickW(ok.length ? ok : all);
+  used.push(m);
+  return m;
+}
+function airEvents(L, flavour, used) {
+  const len = L.len, ev = [];
+  if (L.kind === 'choir') {
+    const n = flavour === 'voices' ? 2 : flavour === 'both' ? rndInt(1, 2) : 1;
+    const t0 = rnd(0, len * 0.4);
+    for (let j = 0; j < n; j++) {
+      const t = j === 0 ? t0 : (t0 + len * rnd(0.45, 0.6)) % len;
+      const dur = n === 2 ? Math.min(12, len * rnd(0.35, 0.5)) : Math.min(14, len * rnd(0.4, 0.6));
+      ev.push({ t, midi: pickSpaced(AIR_RANGE[L.reg || 'low'], used), dur: Math.max(6, dur), vel: rnd(0.75, 1) });
+    }
+  } else if (L.kind === 'piano') {
+    const phrases = flavour === 'piano' ? 2 : flavour === 'both' ? rndInt(1, 2) : 1;
+    // keep the piano from rubbing a semitone against a held voice in the same register
+    const all = notesIn(AIR_RANGE.piano);
+    const calm = all.filter(m => used.every(u => { const d = Math.abs(m - u); return d > 13 || (d % 12 !== 1 && d % 12 !== 11); }));
+    const pool = calm.length >= 5 ? calm : all;
+    for (let j = 0; j < phrases; j++) {
+      const notes = flavour === 'piano' ? rndInt(3, 5) : rndInt(2, 3);
+      let idx = rndInt(Math.floor(pool.length / 3), pool.length - 1);
+      let t = (j / phrases) * len + rnd(0, len * 0.25), vel = rnd(0.62, 0.8);
+      for (let k = 0; k < notes; k++) {
+        ev.push({ t: t % len, midi: pool[idx], dur: 6, vel });
+        if (Math.random() < 0.18 && idx >= 2) ev.push({ t: t % len, midi: pool[idx - 2], dur: 6, vel: vel * 0.75 });
+        idx = Math.max(0, Math.min(pool.length - 1, idx + pick([-2, -1, -1, -1, 1, 1, 2])));
+        t += rnd(0.7, 1.5); vel *= rnd(0.85, 0.98);
+      }
+    }
+  } else if (L.kind === 'swell') {
+    const n = rndInt(1, 2), low = notesIn(AIR_RANGE.swell);
+    const roots = low.filter(m => ((m - state.root) % 12 + 12) % 12 === 0);
+    const fifths = low.filter(m => ((m - state.root) % 12 + 12) % 12 === 7);
+    const t0 = rnd(0, len * 0.3);
+    for (let j = 0; j < n; j++) {
+      const midi = j === 0 ? pick(roots.length ? roots : low) : pick(fifths.length ? fifths : low);
+      ev.push({ t: (t0 + j * len * rnd(0.45, 0.55)) % len, midi, dur: Math.max(8, Math.min(16, len * rnd(0.45, 0.65))), vel: 1 });
+    }
+    // now and then some low end to break the stillness: a distant bass drum and/or a deep bass note,
+    // each sounding only on some passes of the loop so they never settle into a pattern
+    const deep = notesIn([28, 40]), dRoots = deep.filter(m => ((m - state.root) % 12 + 12) % 12 === 0);
+    const dFifths = deep.filter(m => ((m - state.root) % 12 + 12) % 12 === 7);
+    if (Math.random() < 0.75) {
+      const tb = rnd(0, len), hits = Math.random() < 0.35 ? 2 : 1;
+      for (let j = 0; j < hits; j++)
+        ev.push({ t: (tb + j * rnd(1.6, 2.4)) % len, type: 'boom', midi: pick(dRoots.length ? dRoots : deep), vel: j ? 0.6 : rnd(0.7, 0.9), chance: rnd(0.4, 0.6) });
+    }
+    if (Math.random() < 0.6) {
+      const midi = Math.random() < 0.7 ? pick(dRoots.length ? dRoots : deep) + 12 : pick(dFifths.length ? dFifths : deep) + 12;
+      ev.push({ t: rnd(0, len), type: 'bass', midi: Math.min(43, midi), vel: rnd(0.7, 0.9), chance: rnd(0.45, 0.65) });
+    }
+  } else if (L.kind === 'sample') {
+    const n = rndInt(2, 3);
+    for (let j = 0; j < n; j++) ev.push({ t: rnd(0, len * 0.95), midi: pickSpaced(AIR_RANGE.sample, used), dur: rnd(4, 7) });
+  }
+  return ev.sort((a, b) => a.t - b.t);
+}
+function generateAir() {
+  history.length = 0; sel = null; updateEditUI();
+  const anyLock = loops.some(L => L.locked);
+  if (!anyLock || !AIR_SCALES[state.scale]) {
+    state.root = pick([48, 49, 50, 51, 52, 53]);
+    state.scale = pick(Object.keys(AIR_SCALES));
+  }
+  state.flavour = pick(['voices', 'piano', 'both']);
+  const used = [];
+  loops.forEach(L => { if (L.locked && (L.kind === 'choir' || L.kind === 'sample')) L.events.forEach(e => used.push(e.midi)); });
+  const taken = new Set(loops.filter(L => L.locked).map(L => L.len));
+  const pool = shuffle(AIR_LENS.filter(x => !taken.has(x)));
+  loops.forEach(L => {
+    if (L.locked) return;
+    L.len = pool.shift();
+    L.events = airEvents(L, state.flavour, used);
+    if (ctx) {
+      makeLoopOut(L);
+      L.start = ctx.currentTime + 0.2;
+      L.cursor = L.start;
+    }
+  });
+  updateInfo(); updateCards();
+}
+
+/* ---------- modes ---------- */
+const FX_IDS = ['rev', 'warm', 'dtime', 'dfbk', 'tape'];
+const modeFx = {};
+function setMode(m, quiet) {
+  if (!MODES[m]) m = 'classic';
+  if (m === mode && !quiet) return;
+  if (!quiet) modeFx[mode] = Object.fromEntries(FX_IDS.map(id => [id, $('#' + id).value]));
+  mode = m;
+  const fx = modeFx[m] || MODES[m].fx;
+  FX_IDS.forEach(id => { const el = $('#' + id); el.value = fx[id]; el.dispatchEvent(new Event('input')); });
+  MODES[m].loops.forEach((c, i) => {
+    const L = loops[i];
+    Object.assign(L, c);
+    L.p = { ...defaultsFor(L) };
+    L.soft = L.kind === 'bell'; L.locked = false; L.muted = false;
+    if (L.kind !== 'sample') { L.buffer = null; L.sampleName = ''; }
+  });
+  document.body.classList.toggle('air', m === 'airports');
+  $('#sub').textContent = MODES[m].sub;
+  document.querySelectorAll('.modes button').forEach(b => b.classList.toggle('on', b.dataset.mode === m));
+  $('#cards').innerHTML = '';
+  buildCards();
+  if (!quiet) swapReverb();
+  generate();
+  try { localStorage.setItem('tapeLoops.mode', m); } catch (e) {}
+}
+document.querySelectorAll('.modes button').forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
+
 /* ---------- UI ---------- */
 function fmtDur(s) {
+  if (s >= 86400 * 365 * 1e6) return 'millions of years';
+  if (s >= 86400 * 365 * 100) return Math.round(s / (86400 * 365)).toLocaleString('en') + ' years';
   if (s >= 86400 * 365) return (s / (86400 * 365)).toFixed(1) + ' years';
   if (s >= 86400) return (s / 86400).toFixed(1) + ' days';
   if (s >= 3600) return (s / 3600).toFixed(1) + ' hours';
@@ -539,9 +973,10 @@ function fmtDur(s) {
 }
 const gcd = (a, b) => b ? gcd(b, a % b) : a;
 function updateInfo() {
-  $('#key').textContent = NAMES[state.root % 12] + ' ' + state.scale;
-  let l = 1; loops.forEach(L => { l = l * L.len / gcd(l, L.len); });
-  $('#align').textContent = fmtDur(l);
+  const lead = { voices: 'voices lead', piano: 'piano lead', both: 'voices and piano' }[state.flavour];
+  $('#key').textContent = NAMES[state.root % 12] + ' ' + state.scale + (mode === 'airports' && lead ? ' · ' + lead : '');
+  let l = 1; loops.forEach(L => { const n = Math.round(L.len * 10); l = l * n / gcd(l, n); });
+  $('#align').textContent = fmtDur(l / 10);
 }
 
 const WAVES = ['sine', 'triangle', 'sawtooth', 'square'];
@@ -552,7 +987,9 @@ function soundHTML(L) {
   let h = octSel('Octave') + sl('semi', 'Semitones', -12, 12, 1) + sl('fine', 'Fine', -50, 50, 1) + sl('tone', 'Tone', 0, 1, 0.01);
   if (L.kind !== 'pulse') h += sl('att', 'Attack', 0, 1, 0.01);
   h += sl('dec', 'Decay', 0, 1, 0.01);
-  if (L.kind !== 'pulse' && L.kind !== 'sample') h += sl('det', L.kind === 'bell' ? 'Shimmer' : 'Detune', 0, 50, 1) + waveSel;
+  if (L.kind === 'choir') h += sl('det', 'Vibrato', 0, 50, 1);
+  else if (L.kind === 'swell') h += sl('det', 'Detune', 0, 50, 1) + waveSel + sl('low', 'Low end', 0, 1, 0.01);
+  else if (L.kind !== 'pulse' && L.kind !== 'sample' && L.kind !== 'piano') h += sl('det', L.kind === 'bell' ? 'Shimmer' : 'Detune', 0, 50, 1) + waveSel;
   h += sl('del', 'Delay', 0, 1, 0.01);
   return `<details class="snd"><summary>Sound</summary>${h}<button class="btn small reset" style="margin-top:8px">Reset sound</button></details>`;
 }
@@ -607,7 +1044,7 @@ function buildCards() {
     };
     box.addEventListener('input', setP);
     box.addEventListener('change', e => { setP(e); if (e.target.dataset.k !== 'del') refreshLoop(L); });
-    box.querySelector('.reset').addEventListener('click', () => { L.p = { ...DEFAULTS[L.kind] }; sync(); refreshLoop(L); });
+    box.querySelector('.reset').addEventListener('click', () => { L.p = { ...defaultsFor(L) }; sync(); refreshLoop(L); });
   });
 }
 function updateCards() {
@@ -616,7 +1053,7 @@ function updateCards() {
     L.el.mute.classList.toggle('on', L.muted);
     L.el.soft.classList.toggle('on', L.soft);
     L.el.lock.classList.toggle('on', L.locked);
-    L.el.name.textContent = L.buffer ? L.sampleName : (L.kind === 'sample' ? 'Load or record a sound' : 'Synth');
+    L.el.name.textContent = L.buffer ? L.sampleName : (L.kind === 'sample' ? (mode === 'airports' ? 'Load or record a sound — a hum or a sung note works well' : 'Load or record a sound') : 'Synth');
     L.el.clear.hidden = !L.buffer;
   });
 }
@@ -805,6 +1242,7 @@ $('#gen').addEventListener('click', generate);
 $('#rev').addEventListener('input', e => { if (revOut) revOut.gain.value = parseFloat(e.target.value); });
 $('#warm').addEventListener('input', e => { if (soft) soft.frequency.value = warmHz(e.target.value); });
 $('#mst').addEventListener('input', e => { if (masterGain) masterGain.gain.value = parseFloat(e.target.value); });
+$('#tape').addEventListener('input', e => setTape(parseFloat(e.target.value)));
 document.addEventListener('keydown', e => {
   if (e.code === 'Space' && !/INPUT|BUTTON/.test(document.activeElement.tagName)) { e.preventDefault(); togglePlay(); }
 });
@@ -833,13 +1271,22 @@ function draw() {
     g2.strokeStyle = COL[i]; g2.lineWidth = 1.5;
     g2.beginPath(); g2.arc(c, c, r, 0, Math.PI * 2); g2.stroke();
     const dim = L.muted ? 0.3 : 1;
+    if (mode === 'airports' && (L.kind === 'choir' || L.kind === 'swell')) {
+      g2.strokeStyle = COL[i]; g2.lineWidth = 5; g2.lineCap = 'round';
+      for (const ev of L.events) {
+        if (ev.type) continue;
+        const a0 = -Math.PI / 2 + Math.PI * 2 * ev.t / L.len, a1 = a0 + Math.PI * 2 * Math.min(ev.dur, L.len) / L.len;
+        g2.globalAlpha = 0.16 * dim; g2.beginPath(); g2.arc(c, c, r, a0, a1); g2.stroke();
+      }
+      g2.lineCap = 'butt';
+    }
     for (const ev of L.events) {
       const a = -Math.PI / 2 + Math.PI * 2 * ev.t / L.len;
       const x = c + r * Math.cos(a), y = c + r * Math.sin(a);
       g2.fillStyle = COL[i]; g2.globalAlpha = 0.65 * dim;
       const dragging = drag && drag.ev === ev, removing = dragging && drag.removing;
       if (dragging) g2.globalAlpha = removing ? 0.3 : 1;
-      g2.beginPath(); g2.arc(x, y, dragging ? (removing ? 6 : 8) : (ev.drum === 'hat' && ev.vel < 0.5 ? 2.5 : 4.5), 0, Math.PI * 2); g2.fill();
+      g2.beginPath(); g2.arc(x, y, dragging ? (removing ? 6 : 8) : (ev.drum === 'hat' && ev.vel < 0.5 ? 2.5 : ev.type === 'boom' ? 6.5 : 4.5), 0, Math.PI * 2); g2.fill();
       if (sel && sel.ev === ev) {
         g2.globalAlpha = 1; g2.strokeStyle = '#fff'; g2.lineWidth = 2;
         g2.beginPath(); g2.arc(x, y, 9, 0, Math.PI * 2); g2.stroke();
@@ -942,6 +1389,12 @@ function hitTest(p, rad = 16) {
 }
 function newEvent(L, t) {
   const scale = SCALES[state.scale], note = oct => state.root + 12 * oct + pick(scale);
+  if (mode === 'airports') {
+    if (L.kind === 'choir') return { t, midi: pickW(notesIn(AIR_RANGE[L.reg || 'low'])), dur: Math.max(6, Math.min(12, L.len * 0.4)), vel: 0.9 };
+    if (L.kind === 'piano') return { t, midi: pick(notesIn(AIR_RANGE.piano)), dur: 6, vel: 0.7 };
+    if (L.kind === 'swell') return { t, midi: pickW(notesIn(AIR_RANGE.swell)), dur: Math.max(8, Math.min(16, L.len * 0.5)), vel: 1 };
+    if (L.kind === 'sample') return { t, midi: pickW(notesIn(AIR_RANGE.sample)), dur: 5 };
+  }
   if (L.kind === 'pad') return { t, midi: note(pick([0, 1])), dur: (L.len / 3) * 1.5 };
   if (L.kind === 'bell') return { t, midi: note(pick([1, 1, 2])), dur: 3 };
   if (L.kind === 'pluck') return { t, midi: note(pick([0, 1, 1])), dur: 1.8 };
@@ -1124,8 +1577,9 @@ $('#saveMp3').addEventListener('click', async () => {
 });
 
 /* ---------- init ---------- */
-buildCards();
-generate();
+let savedMode = 'classic';
+try { savedMode = localStorage.getItem('tapeLoops.mode') || 'classic'; } catch (e) {}
+setMode(savedMode, true);
 resize();
 draw();
 })();

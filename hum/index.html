@@ -84,7 +84,8 @@ footer{margin-top:34px;color:var(--muted);font-size:13px}footer a{color:inherit}
     <div class="live">
       <div class="big" id="note">–<small id="clock"></small></div>
       <div class="meter" aria-hidden="true"><i id="lvl"></i></div>
-      <p class="hint" id="hint">One note at a time works best: a single voice or a whistle, up to a minute. Or <button id="pick">open a recording</button>.</p>
+      <p class="hint" id="hint">One note at a time works best: a single voice or a whistle, up to a minute.</p>
+      <p class="hint" style="margin-top:6px">Or <button id="pick">open a recording</button>, or <button id="demo">try an example tune</button>.</p>
       <input type="file" id="file" accept="audio/*" hidden>
     </div>
   </div>
@@ -460,12 +461,32 @@ async function save(kind) { if (!score) return; const info = $("saveInfo"); info
 
 /* ---------- recording ---------- */
 let rec = null;
+function micError(msg) { $("hint").className = "hint err"; $("hint").textContent = msg; setSession("auto"); }
+// iOS/Safari: record with the microphone, then hand the speaker back for normal playback
+function setSession(type) { try { if (navigator.audioSession) navigator.audioSession.type = type; } catch (e) {} }
 async function startRec() {
   stop(); $("hint").className = "hint";
+  // Start the sound engine inside the tap itself: iPhones only allow that during a tap, and after the
+  // microphone prompt the tap no longer counts, which left the recording silent.
+  const ctx = audio();
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    micError(window.isSecureContext === false ? "The microphone only works on the https page." : "This view can't use the microphone (it happens inside other apps). Open the page in Safari or Chrome itself, or open a recording instead.");
+    return;
+  }
+  setSession("play-and-record");
   let stream;
   try { stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } }); }
-  catch (e) { $("hint").className = "hint err"; $("hint").textContent = "No microphone: allow microphone access for this page, then press Record again."; return; }
-  const ctx = audio(), src = ctx.createMediaStreamSource(stream), an = ctx.createAnalyser(), sp = ctx.createScriptProcessor(4096, 1, 1), mute = ctx.createGain();
+  catch (e) {
+    const n = e && e.name;
+    micError(n === "NotAllowedError" || n === "SecurityError"
+      ? "Microphone blocked. On iPhone: tap “aA” in the address bar → Website Settings → Microphone → Allow (or Settings → Safari → Microphone). Then press Record again."
+      : n === "NotFoundError" ? "No microphone found on this device."
+      : n === "NotReadableError" ? "The microphone is busy in another app. Close it and press Record again."
+      : "The microphone did not start (" + (n || "unknown error") + "). Press Record to try again.");
+    return;
+  }
+  if (ctx.state !== "running") { try { await ctx.resume(); } catch (e) {} }
+  const src = ctx.createMediaStreamSource(stream), an = ctx.createAnalyser(), sp = ctx.createScriptProcessor(4096, 1, 1), mute = ctx.createGain();
   an.fftSize = 2048; mute.gain.value = 0; src.connect(an); src.connect(sp); sp.connect(mute).connect(ctx.destination);
   const chunks = []; sp.onaudioprocess = e => chunks.push(new Float32Array(e.inputBuffer.getChannelData(0)));
   const frame = new Float32Array(2048), half = ctx.sampleRate > 30000, fsr = half ? ctx.sampleRate / 2 : ctx.sampleRate, F = HA.frameSetup(fsr), started = performance.now();
@@ -475,12 +496,14 @@ async function startRec() {
     const x = half ? HA.halve(frame) : frame, f = rms > 0.006 && x.length >= F.size ? HA.yin(x, fsr, F.W, F.tauMin, F.tauMax, F.d) : 0, secs = (performance.now() - started) / 1000;
     $("note").firstChild.textContent = f ? noteName(69 + 12 * Math.log2(f / 440)) : "–"; $("clock").textContent = secs.toFixed(1) + " s";
     if (secs >= 60) stopRec();
+    // the engine should deliver sound within a second; if it doesn't, wake it and say so
+    if (secs > 1.5 && !chunks.length) { ctx.resume().catch(() => {}); if (secs > 3) $("hint").textContent = "No sound is arriving from the microphone yet. Press Stop and then Record again."; }
   }, 60) };
   $("rec").classList.add("on"); $("rec").setAttribute("aria-pressed", "true"); $("recLbl").textContent = "Stop"; $("hint").textContent = "Listening… press Stop when you are done.";
 }
 function stopRec() {
   if (!rec) return; const r = rec; rec = null; clearInterval(r.timer); r.sp.onaudioprocess = null; r.src.disconnect(); r.sp.disconnect(); r.mute.disconnect(); r.stream.getTracks().forEach(t => t.stop());
-  $("rec").classList.remove("on"); $("rec").setAttribute("aria-pressed", "false"); $("recLbl").textContent = "Record"; $("lvl").style.width = "0";
+  $("rec").classList.remove("on"); $("rec").setAttribute("aria-pressed", "false"); $("recLbl").textContent = "Record"; $("lvl").style.width = "0"; setSession("auto");
   const n = r.chunks.reduce((a, c) => a + c.length, 0), pcm = new Float32Array(n); let o = 0; r.chunks.forEach(c => { pcm.set(c, o); o += c.length; });
   ingest(pcm, r.sr);
 }
@@ -499,6 +522,22 @@ function ingest(pcm, sr) {
 }
 $("rec").onclick = () => (rec ? stopRec() : startRec());
 $("pick").onclick = () => $("file").click();
+// An example tune (an original little melody, sung slightly out of time and tune) to try instruments and styles without the microphone.
+$("demo").onclick = () => {
+  const R = rng(7), beat = 60 / 92, tune = [[62,1],[64,.5],[66,.5],[69,1.5],[66,.5],[67,1],[64,1],[62,1],[64,.5],[66,.5],[71,1.5],[69,.5],[66,2],[67,1],[66,.5],[64,.5],[62,1],[59,1],[61,1],[64,1],[62,2]];
+  const notes = [], trace = []; let t = 0.3;
+  tune.forEach(([m, b]) => { const st = t + (R() - 0.5) * 0.06, d = b * beat * (0.82 + R() * 0.1), off = (R() - 0.5) * 0.3;
+    notes.push({ t: st, d, m: m + off, raw: m + off });
+    for (let x = 0; x < d; x += 0.02) trace.push([st + x, m + off + 0.08 * Math.sin(x * 31) + (x < 0.06 ? (x - 0.06) * 3 : 0)]);
+    t += b * beat; });
+  stop(); pcmOrig = null;
+  const set = take ? { ...take.set, bpm: 0, key: "auto", transpose: 0 } : DEFAULTS();
+  take = { id: Date.now().toString(36), name: "Example tune", notes, trace, set };
+  sel = -1; refresh(); persist();
+  $("hint").className = "hint"; $("hint").textContent = "Example loaded. Pick an instrument under Sound and a setting under Dress it up, then press Play."; $("note").firstChild.textContent = "♪";
+  ensure(score).catch(() => {});
+  $("work").scrollIntoView({ behavior: "smooth", block: "start" });
+};
 $("file").onchange = async e => { const f = e.target.files[0]; if (!f) return; e.target.value = ""; try { const b = await audio().decodeAudioData(await f.arrayBuffer()), n = Math.min(b.length, b.sampleRate * 90), pcm = new Float32Array(n); for (let c = 0; c < b.numberOfChannels; c++) { const d = b.getChannelData(c); for (let i = 0; i < n; i++) pcm[i] += d[i] / b.numberOfChannels; } ingest(pcm, b.sampleRate); } catch (err) { $("hint").className = "hint err"; $("hint").textContent = "That file could not be read as audio."; } };
 
 /* ---------- takes (kept in this browser) ---------- */
