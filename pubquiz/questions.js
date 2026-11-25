@@ -111,10 +111,10 @@ window.QUIZ = {
         },
         {
           type: 'mc',
-          q: 'Op woensdag 25 november begint de wereldwijde campagne Orange the World tegen geweld tegen vrouwen en meisjes. Waar staat de kleur oranje voor?',
-          options: ['Hoop op een toekomst zonder geweld tegen vrouwen', 'Waarschuwing voor gevaar', 'Solidariteit met vluchtelingen', 'Veiligheid op het werk'],
-          answer: 0,
-          info: 'De campagne, de 16 Days of Activism, loopt van 25 november tot 10 december. Het thema van dit jaar: zorg voor gerechtigheid, bescherm slachtoffers en maak een einde aan straffeloosheid. Volgens de WHO krijgt bijna 1 op 3 vrouwen in haar leven te maken met partnergeweld of seksueel geweld.'
+          q: 'Het Duitse Bayer bracht in 1898 een nieuw middel op de markt als hoestmiddel, ook voor kinderen, onder de merknaam…',
+          options: ['Cocaïne', 'Morfine', 'Heroïne', 'Codeïne'],
+          answer: 2,
+          info: 'Echt waar: Bayer verkocht heroïne als hoeststiller, en dacht dat het minder verslavend was dan morfine. Dezelfde chemicus, Felix Hoffmann, maakte in 1897 ook aspirine. In 1913 stopte Bayer met de productie.'
         }
       ]
     },
