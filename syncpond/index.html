@@ -121,48 +121,172 @@ function adopt(p){ const b = blank(); P = Object.assign(b, p); P.lis = Object.as
   for (const n of P.nodes) if (n.orbit) { const t = P.nodes.find(m => m.old === n.orbit.t); if (t && t !== n) n.orbit.t = t.id; else n.orbit = null; }
   P.nodes.forEach(n => delete n.old); waves = []; sel = null; }
 const pack = () => JSON.stringify(P, (k, v) => k === "si" || k === "flash" || k === "cool" ? undefined : typeof v === "number" ? Math.round(v * 1000) / 1000 : v);
-function persist(){ clearTimeout(persist.t); persist.t = setTimeout(() => { try { localStorage.setItem("syncpond.now", pack()); } catch (e) {} }, 300); }
+function persist(){ clearTimeout(persist.t); persist.t = setTimeout(() => { try { localStorage.setItem("syncpond.now", pack()); } catch (e) {} if (ac) warm_up(); }, 300); }
 const b64 = { enc: s => btoa(unescape(encodeURIComponent(s))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""), dec: s => decodeURIComponent(escape(atob(s.replace(/-/g, "+").replace(/_/g, "/")))) };
 (function boot(){ try { if (location.hash.startsWith("#p=")) { adopt(JSON.parse(b64.dec(location.hash.slice(3)))); history.replaceState(null, "", location.pathname); return; } } catch (e) {}
   try { const s = localStorage.getItem("syncpond.now"); if (s) return adopt(JSON.parse(s)); } catch (e) {} adopt(EXAMPLES["First ripples"]()); })();
 let undoPond = null;
 
-/* ---------- sound ---------- */
-let ac = null, master, revSend, recTap, delayIn, delayNode, pulse = 0, heartG, samples = new Map(), playing = true, pt = 0, lastAc = 0, stats = { hits: 0, emits: 0 };
-function hall(seconds){ const sr = ac.sampleRate, len = Math.floor(sr * seconds), ir = ac.createBuffer(2, len, sr); for (let c = 0; c < 2; c++) { const d = ir.getChannelData(c); let lp = 0; for (let i = 0; i < len; i++) { const t = i / sr, a = Math.min(0.96, 0.3 + t * 0.4); lp = lp * a + (Math.random() * 2 - 1) * (1 - a); d[i] = lp * Math.exp(-6.9 * t / seconds) * (1 + 2 * a); } } return ir; }
+/* ---------- sound ----------
+   Every voice is a small physical model, rendered once per note into a stereo buffer and kept:
+   bells and glasses ring with real inharmonic partials that slowly beat against each other, the pluck
+   is a Karplus–Strong string on a wooden body, wood is a marimba bar over its tube, drop is a real
+   rising water bubble, the pad is a slow chorus of soft saws. Each hit gets brightness by strength
+   (a far ripple sounds softer AND darker), then a stereo hall with early reflections and a tail that
+   darkens as it fades, a ping-pong echo and a warm master bus with a gentle tape-like saturation. */
+let ac = null, master, revSend, recTap, delayIn, delayNodes = [], pulse = 0, heartG, samples = new Map(), playing = true, pt = 0, lastAc = 0, stats = { hits: 0, emits: 0 };
+const rngS = seed => { let s = (seed >>> 0) || 1; return () => (s = (Math.imul(s, 1664525) + 1013904223) >>> 0) / 4294967296; };
+function hall(seconds){
+  const sr = ac.sampleRate, len = Math.floor(sr * seconds), ir = ac.createBuffer(2, len, sr), pre = Math.round(sr * 0.018);
+  for (let c = 0; c < 2; c++) {
+    const d = ir.getChannelData(c), R = rngS(1234 + c * 777); let lp = 0, e2 = 0;
+    for (let i = pre; i < len; i++) {
+      const t = (i - pre) / sr, fc = 7500 * Math.exp(-t / 0.7) + 700, a = Math.exp(-2 * Math.PI * fc / sr);   // the tail darkens as it decays
+      lp = lp * a + (R() * 2 - 1) * (1 - a);
+      d[i] = lp * (1 - Math.exp(-t / 0.03)) * Math.exp(-6.9 * t / seconds) * Math.sqrt(fc / 700);
+    }
+    for (let k = 0; k < 14; k++) { const at = pre + Math.round(sr * (0.004 + R() * 0.075)), g = (0.5 + R() * 0.5) * (1 - k / 16) * (R() < 0.5 ? -1 : 1); d[at] += g * 0.9; d[at + 1] += g * 0.4; }   // early reflections
+    for (let i = 0; i < len; i++) e2 += d[i] * d[i];
+    const k = Math.sqrt(1100 / (e2 || 1)); for (let i = 0; i < len; i++) d[i] *= k;
+  }
+  return ir;
+}
 function audio(){
   if (ac) { if (ac.state !== "running") ac.resume(); return; }
   try { if (navigator.audioSession) navigator.audioSession.type = "playback"; } catch (e) {}
   ac = new (window.AudioContext || window.webkitAudioContext)({ latencyHint: "interactive" });
-  master = ac.createGain(); const comp = ac.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4; comp.attack.value = 0.005; comp.release.value = 0.2;
-  recTap = ac.createGain(); master.connect(comp); comp.connect(recTap); recTap.connect(ac.destination);
-  revSend = ac.createGain(); const conv = ac.createConvolver(); conv.buffer = hall(3.2); const wet = ac.createGain(); wet.gain.value = 0.9; revSend.connect(conv); conv.connect(wet); wet.connect(master);
-  delayIn = ac.createGain(); delayNode = ac.createDelay(2.5); const fb = ac.createGain(), dlp = ac.createBiquadFilter(), dw = ac.createGain(); fb.gain.value = 0.46; dlp.type = "lowpass"; dlp.frequency.value = 3200; dw.gain.value = 0.7;
-  delayIn.connect(delayNode); delayNode.connect(dlp); dlp.connect(fb); fb.connect(delayNode); dlp.connect(dw); dw.connect(master); dw.connect(revSend);
+  // master bus: warmth → air → soft saturation → glue compression → safety limiter
+  master = ac.createGain();
+  const warm = ac.createBiquadFilter(); warm.type = "lowshelf"; warm.frequency.value = 180; warm.gain.value = 2;
+  const air = ac.createBiquadFilter(); air.type = "highshelf"; air.frequency.value = 9000; air.gain.value = 2.5;
+  const sat = ac.createWaveShaper(), curve = new Float32Array(2048); for (let i = 0; i < curve.length; i++) { const x = i / 1023.5 - 1; curve[i] = Math.tanh(0.9 * x) / 0.9; }   // unity gain for quiet sound, rounds off only the peaks sat.curve = curve; sat.oversample = "2x";
+  const glue = ac.createDynamicsCompressor(); glue.threshold.value = -20; glue.ratio.value = 2.2; glue.knee.value = 10; glue.attack.value = 0.015; glue.release.value = 0.3;
+  const lim = ac.createDynamicsCompressor(); lim.threshold.value = -2; lim.ratio.value = 20; lim.knee.value = 0; lim.attack.value = 0.002; lim.release.value = 0.12;
+  const trim = ac.createGain(); trim.gain.value = 0.5;   // the compressors add make-up gain; bring it back to the old loudness
+  recTap = ac.createGain(); master.connect(warm); warm.connect(air); air.connect(sat); sat.connect(glue); glue.connect(trim); trim.connect(lim); lim.connect(recTap); recTap.connect(ac.destination);
+  revSend = ac.createGain(); const conv = ac.createConvolver(); conv.buffer = hall(3.6); const wet = ac.createGain(); wet.gain.value = 0.9; const wlo = ac.createBiquadFilter(); wlo.type = "highpass"; wlo.frequency.value = 160;
+  revSend.connect(wlo); wlo.connect(conv); conv.connect(wet); wet.connect(master);
+  // ping-pong echo: left and right repeat in turn, each repeat a little darker
+  delayIn = ac.createGain(); const dw = ac.createGain(); dw.gain.value = 0.7;
+  const side = pan => { const d = ac.createDelay(2.5), lp = ac.createBiquadFilter(), fb = ac.createGain(), p = ac.createStereoPanner(); lp.type = "lowpass"; lp.frequency.value = 3000; fb.gain.value = 0.44; p.pan.value = pan; d.connect(lp); lp.connect(p); p.connect(dw); lp.connect(fb); return { d, fb }; };
+  const Lp = side(-0.75), Rp = side(0.75); delayIn.connect(Lp.d); Lp.fb.connect(Rp.d); Rp.fb.connect(Lp.d); delayNodes = [Lp.d, Rp.d];
+  dw.connect(master); dw.connect(revSend);
   heartG = ac.createGain(); heartG.gain.value = 0.9; heartG.connect(master);
   // The pond's clock runs off the sound itself, so it keeps going when the screen is off and animation stops.
   if (ac.createScriptProcessor) { const clock = ac.createScriptProcessor(2048, 1, 1), z = ac.createGain(); z.gain.value = 0; clock.onaudioprocess = () => tick(); clock.connect(z); z.connect(ac.destination); }
   setInterval(tick, 120);
   ac.onstatechange = () => { if (playing && ac.state !== "running" && ac.state !== "closed") ac.resume().catch(() => {}); };
   if ("mediaSession" in navigator) { try { navigator.mediaSession.metadata = new MediaMetadata({ title: P.name, artist: "Syncpond" }); navigator.mediaSession.setActionHandler("play", () => { playing = true; ac.resume(); head(); }); navigator.mediaSession.setActionHandler("pause", () => { playing = false; head(); }); } catch (e) {} }
-  lastAc = ac.currentTime; mix(); loadSamples();
+  lastAc = ac.currentTime; mix(); loadSamples(); warm_up();
 }
-function mix(){ if (!ac) return; master.gain.setTargetAtTime(Math.pow(P.vol, 1.5) * 0.9, ac.currentTime, 0.03); revSend.gain.setTargetAtTime(P.space * 0.9, ac.currentTime, 0.03); delayNode.delayTime.setTargetAtTime(Math.min(2.4, 0.75 * 60 / P.tempo), ac.currentTime, 0.05); }
+function mix(){ if (!ac) return; master.gain.setTargetAtTime(Math.pow(P.vol, 1.5) * 0.9, ac.currentTime, 0.03); revSend.gain.setTargetAtTime(P.space * 0.9, ac.currentTime, 0.03); delayNodes.forEach(d => d.delayTime.setTargetAtTime(Math.min(2.4, 0.75 * 60 / P.tempo), ac.currentTime, 0.05)); }
 function freq(step, cents){ const sc = SCALES[P.scale] || SCALES.Pentatonic, m = 48 + P.key + 12 * Math.floor(step / sc.length) + sc[step % sc.length]; return 440 * Math.pow(2, (m - 69) / 12 + (cents || 0) / 1200); }
+
+/* --- note renderers (pure maths, also run in Node for tests) --- */
+const SYN = (() => {
+  // a decaying sine, added into L/R with equal-power pan; recursive oscillator = cheap and exact enough
+  function partial(L, R, sr, f, amp, tau, pan, ph, att, start = 0){
+    if (f >= sr * 0.45 || amp < 1e-4) return;
+    const n = Math.min(L.length - start, Math.ceil(tau * 7 * sr)), w = 2 * Math.PI * f / sr, c = Math.cos(w), s = Math.sin(w), dec = Math.exp(-1 / (tau * sr));
+    const gl = Math.cos((pan + 1) * Math.PI / 4), gr = Math.sin((pan + 1) * Math.PI / 4), A = Math.max(1, Math.round(att * sr));
+    let x = Math.cos(ph), y = Math.sin(ph), e = amp;
+    for (let i = 0; i < n; i++) {
+      const v = y * e * (i < A ? i / A : 1); L[start + i] += v * gl; R[start + i] += v * gr;
+      const nx = x * c - y * s; y = x * s + y * c; x = nx; e *= dec;
+      if ((i & 4095) === 4095) { const k = 1.5 - 0.5 * (x * x + y * y); x *= k; y *= k; }
+    }
+  }
+  // a mallet or pick touch: a few ms of coloured noise
+  function touch(L, R, sr, cut, amp, ms, rnd){
+    const n = Math.round(sr * ms / 1000), a = Math.exp(-2 * Math.PI * cut / sr); let l = 0, r = 0;
+    for (let i = 0; i < n * 4 && i < L.length; i++) { const e = amp * Math.exp(-i / n); l = l * a + (rnd() * 2 - 1) * (1 - a); r = r * a + (rnd() * 2 - 1) * (1 - a); L[i] += l * e; R[i] += r * e; }
+  }
+  const dScale = f => Math.min(1.7, Math.max(0.45, Math.pow(262 / f, 0.4)));   // high notes ring shorter
+  // modes: [ratio, amp, decay s]; each mode is a pair a fraction of a hertz apart → slow beating, like real metal and glass
+  function modal(L, R, sr, f, rnd, modes, att, beatLo, beatHi, spread){
+    const d = dScale(f);
+    for (const [r, a, t] of modes) { const fr = f * r, b = beatLo + rnd() * (beatHi - beatLo), p = (rnd() - 0.5) * spread;
+      partial(L, R, sr, fr, a * 0.62, t * d, p, rnd() * 6.283, att); partial(L, R, sr, fr + b, a * 0.38, t * d * 0.92, -p, rnd() * 6.283, att); }
+  }
+  const R = {
+    bell: (L, Rr, sr, f, rnd) => { modal(L, Rr, sr, f, rnd, [[1, 1, 2.6], [2, 0.2, 1.4], [3, 0.07, 0.8], [4.17, 0.055, 0.42], [5.43, 0.035, 0.26], [6.79, 0.018, 0.17]], 0.0025, 0.3, 1.4, 0.85); touch(L, Rr, sr, Math.min(9000, f * 6), 0.05, 3, rnd); },
+    glass: (L, Rr, sr, f, rnd) => { modal(L, Rr, sr, f, rnd, [[1, 1, 4.2], [2.71, 0.3, 1.7], [5.15, 0.13, 0.75], [8.32, 0.05, 0.32], [12.1, 0.02, 0.16]], 0.006, 0.9, 2.6, 0.8); touch(L, Rr, sr, 12000, 0.025, 1.5, rnd); },
+    wood: (L, Rr, sr, f, rnd) => { const d = dScale(f);
+      partial(L, Rr, sr, f, 1, 0.62 * d, 0, 0, 0.0012); partial(L, Rr, sr, f * 1.003, 0.25, 0.9 * d, 0.2, 1, 0.004);     // bar + resonating tube
+      partial(L, Rr, sr, f * 3.93, 0.32, 0.16 * d, -0.25, 2, 0.001); partial(L, Rr, sr, f * 9.24, 0.1, 0.05 * d, 0.3, 4, 0.0008);
+      touch(L, Rr, sr, Math.min(3000, f * 4), 0.35, 4, rnd); },
+    drop: (L, Rr, sr, f, rnd) => {   // a bubble: pitch rises as it reaches the surface, a second smaller one follows
+      const bub = (f0, amp, tau, t0, pan) => { const s0 = Math.round(t0 * sr), n = Math.min(L.length - s0, Math.round(tau * 7 * sr)), gl = Math.cos((pan + 1) * Math.PI / 4), gr = Math.sin((pan + 1) * Math.PI / 4); let ph = 0;
+        for (let i = 0; i < n; i++) { const t = i / sr, fr = f0 * (0.78 + 0.22 * (1 - Math.exp(-t / 0.018))); ph += 2 * Math.PI * fr / sr; const v = Math.sin(ph) * amp * Math.exp(-t / tau) * Math.min(1, i / (sr * 0.0015)); L[s0 + i] += v * gl; Rr[s0 + i] += v * gr; } };
+      bub(f, 1, 0.11 * dScale(f) + 0.04, 0, (rnd() - 0.5) * 0.4); bub(f * 2, 0.12, 0.05, 0.004, 0.3); bub(f * 1.5, 0.22, 0.05, 0.03 + rnd() * 0.03, (rnd() - 0.5) * 1.2);
+      touch(L, Rr, sr, 6000, 0.04, 2, rnd); },
+    pluck: (L, Rr, sr, f, rnd) => {   // Karplus–Strong: two strings a hair apart (left/right), plucked a fifth along
+      const T60 = 3.2 * dScale(f), seed = rnd() * 1e9;
+      for (const [ch, det] of [[L, -1.6], [Rr, 1.6]]) { const rn = rngS(seed);
+        const fr = f * Math.pow(2, det / 1200), Pd = sr / fr - 0.5, N = Math.floor(Pd), frac = Pd - N, C = (1 - frac) / (1 + frac), loss = Math.pow(10, -3 / (fr * T60));
+        const buf = new Float32Array(N), pick = Math.max(1, Math.round(N * 0.18)); let lp = 0; const a = Math.exp(-2 * Math.PI * Math.min(7000, f * 6) / sr);
+        for (let i = 0; i < N; i++) { lp = lp * a + (rn() * 2 - 1) * (1 - a); buf[i] = lp; }
+        for (let i = N - 1; i >= pick; i--) buf[i] -= buf[i - pick];   // pick position: removes some harmonics, like a real pluck
+        let idx = 0, prev = 0, ax = 0, ay = 0;
+        for (let i = 0; i < ch.length; i++) { const x = buf[idx]; ch[i] += x; const y = loss * 0.5 * (x + prev); prev = x; const ap = C * y + ax - C * ay; ax = y; ay = ap; buf[idx] = ap; if (++idx >= N) idx = 0; }
+      }
+      // a small wooden body: two resonances that colour the string
+      for (const ch of [L, Rr]) { const res = (fc, q, g) => { const w = 2 * Math.PI * fc / sr, al = Math.sin(w) / (2 * q), a0 = 1 + al, b0 = al / a0, a1 = -2 * Math.cos(w) / a0, a2 = (1 - al) / a0; let x1 = 0, x2 = 0, y1 = 0, y2 = 0; const out = new Float32Array(ch.length);
+          for (let i = 0; i < ch.length; i++) { const x = ch[i], y = b0 * x - b0 * x2 - a1 * y1 - a2 * y2; x2 = x1; x1 = x; y2 = y1; y1 = y; out[i] = y * g; } return out; };
+        const b1 = res(190, 3, 0.9), b2 = res(420, 4, 0.6); for (let i = 0; i < ch.length; i++) ch[i] = ch[i] + b1[i] + b2[i]; }
+    },
+    pad: (L, Rr, sr, f, rnd) => {   // three soft saws per side, detuned differently left and right → slow chorus
+      const n = L.length, att = 0.45, hold = 1.6, rel = 1.1;
+      for (const [ch, dets] of [[L, [-9, 1, 7]], [Rr, [-5, -1, 10]]]) for (const dc of dets) { const fr = f * Math.pow(2, dc / 1200);
+        for (let h = 1; h <= 10 && fr * h < sr * 0.4; h++) { const amp = Math.exp(-h / 4.5) / h, w = 2 * Math.PI * fr * h / sr, c = Math.cos(w), s = Math.sin(w); let x = Math.cos(rnd() * 6.283), y = Math.sin(rnd() * 6.283);
+          for (let i = 0; i < n; i++) { ch[i] += y * amp; const nx = x * c - y * s; y = x * s + y * c; x = nx; } } }
+      for (let i = 0; i < n; i++) { const t = i / sr, e = t < att ? Math.sin(t / att * Math.PI / 2) ** 2 : t < att + hold ? 1 : Math.exp(-(t - att - hold) / rel * 2.3); L[i] *= e; Rr[i] *= e; }
+    },
+  };
+  const LEN = { bell: 3.4, glass: 4.8, wood: 1.5, drop: 0.8, pluck: 3, pad: 4.4 };
+  const RMS = { bell: 0.4, glass: 0.34, wood: 0.3, drop: 0.26, pluck: 0.75, pad: 0.12 };   // matched loudness over the first 0.4 s
+  function render(name, midi, sr){
+    const f = 440 * Math.pow(2, (midi - 69) / 12), n = Math.round(LEN[name] * sr), L = new Float32Array(n), Rr = new Float32Array(n);
+    R[name](L, Rr, sr, f, rngS(midi * 131 + name.length * 7919));
+    let e = 0; const m = Math.min(n, Math.round(sr * 0.4)); for (let i = 0; i < m; i++) e += L[i] * L[i] + Rr[i] * Rr[i];
+    let pk = 0; for (let i = 0; i < n; i++) pk = Math.max(pk, Math.abs(L[i]), Math.abs(Rr[i]));
+    const k = Math.min(RMS[name] / (Math.sqrt(e / (2 * m)) || 1), (name === "pluck" ? 1.8 : 1.1) / (pk || 1)); for (let i = 0; i < n; i++) { L[i] *= k; Rr[i] *= k; }
+    const fo = Math.round(sr * 0.05); for (let i = 0; i < fo; i++) { const g = i / fo; L[n - 1 - i] *= g; Rr[n - 1 - i] *= g; }
+    return [L, Rr];
+  }
+  return { render, names: Object.keys(R), LEN };
+})();
+const RING = { bell: 1.3, glass: 1.9, pluck: 0.9, wood: 0.5, drop: 0.3, pad: 2.4 }, vox = new Map();
+function noteBuf(name, midi){
+  const k = name + "|" + midi; let b = vox.get(k); if (b) { vox.delete(k); vox.set(k, b); return b; }
+  const [L, R] = SYN.render(name, midi, ac.sampleRate); b = ac.createBuffer(2, L.length, ac.sampleRate); b.copyToChannel(L, 0); b.copyToChannel(R, 1);
+  vox.set(k, b); if (vox.size > 72) vox.delete(vox.keys().next().value); return b;
+}
+// render the notes the pond is about to use in quiet moments, so no hit ever waits for its sound
+function warm_up(){
+  if (!ac) return; const want = [];
+  for (const n of P.nodes) { const v = n.voice && !n.voice.startsWith("s:") && SYN.names.includes(n.voice) ? n.voice : (n.voice && n.voice.startsWith("s:") ? null : "bell"); if (!v) continue;
+    for (const s of n.seq || []) if (s >= 0) { const m = Math.round(69 + 12 * Math.log2(freq(s) / 440)); want.push([v, m]); if (n.fx && n.fx.low) want.push([v, m - 12]); if (n.fx && n.fx.shimmer) want.push(["bell", m + 12]); } }
+  const todo = want.filter(([v, m]) => !vox.has(v + "|" + m));
+  clearTimeout(warm_up.t); let i = 0;
+  const step = () => { const t0 = performance.now(); while (i < todo.length && performance.now() - t0 < 12) { noteBuf(todo[i][0], todo[i][1]); i++; } if (i < todo.length) warm_up.t = setTimeout(step, 30); };
+  step();
+}
 function voice(name, f, when, amp, len, out, soft){
-  const g = ac.createGain(), o = (type, fr) => { const x = ac.createOscillator(); x.type = type; x.frequency.value = fr; x.start(when); return x; }, srcs = [];
-  let dec = 1.2, att = 0.004, peak = amp;
+  const g = ac.createGain();
   if (name.startsWith("s:")) { const s = samples.get(name.slice(2)); if (!s) return voice("bell", f, when, amp, len, out, soft);
-    const b = ac.createBufferSource(); b.buffer = s.buf; b.playbackRate.value = clamp(f / 261.63, 0.12, 8); b.connect(g); b.start(when); if (soft) { g.gain.setValueAtTime(0, when); g.gain.linearRampToValueAtTime(peak, when + 0.16); } else g.gain.setValueAtTime(peak, when); const end = when + Math.min(6, s.buf.duration / b.playbackRate.value); g.gain.setTargetAtTime(0, end - 0.05, 0.02); b.stop(end + 0.1); g.connect(out); return; }
-  if (name === "glass") { const c = o("sine", f), m = o("sine", f * 3.5), mg = ac.createGain(); mg.gain.setValueAtTime(f * 2.2, when); mg.gain.setTargetAtTime(f * 0.1, when, 0.25); m.connect(mg); mg.connect(c.frequency); c.connect(g); srcs.push(c, m); dec = 1.9; peak *= 0.8; }
-  else if (name === "pluck") { const a = o("triangle", f), b = o("sawtooth", f), bg = ac.createGain(), lp = ac.createBiquadFilter(); bg.gain.value = 0.35; lp.type = "lowpass"; lp.frequency.setValueAtTime(Math.min(9000, f * 8), when); lp.frequency.setTargetAtTime(f * 1.2, when, 0.09); a.connect(lp); b.connect(bg); bg.connect(lp); lp.connect(g); srcs.push(a, b); dec = 0.55; }
-  else if (name === "wood") { const a = o("sine", f), b = o("sine", f * 3.98), bg = ac.createGain(); bg.gain.setValueAtTime(0.4, when); bg.gain.setTargetAtTime(0, when, 0.03); a.connect(g); b.connect(bg); bg.connect(g); srcs.push(a, b); dec = 0.4; peak *= 1.1; }
-  else if (name === "drop") { const a = o("sine", f); a.frequency.setValueAtTime(f * 1.7, when); a.frequency.exponentialRampToValueAtTime(f, when + 0.05); a.connect(g); srcs.push(a); dec = 0.28; peak *= 1.1; }
-  else if (name === "pad") { const a = o("sawtooth", f), b = o("sawtooth", f), lp = ac.createBiquadFilter(); a.detune.value = -8; b.detune.value = 8; lp.type = "lowpass"; lp.frequency.value = Math.min(4000, 500 + f * 1.5); a.connect(lp); b.connect(lp); lp.connect(g); srcs.push(a, b); dec = 2.4; att = 0.14; peak *= 0.4; }
-  else { const a = o("sine", f), b = o("sine", f * 2), bg = ac.createGain(); bg.gain.value = 0.18; a.connect(g); b.connect(bg); bg.connect(g); srcs.push(a, b); dec = 1.3; }
-  if (soft) att = Math.max(att, 0.16);
-  dec *= len; g.gain.setValueAtTime(0, when); g.gain.linearRampToValueAtTime(peak, when + att); g.gain.setTargetAtTime(0, when + att, dec / 3.5);
-  for (const s of srcs) s.stop(when + att + dec * 1.6 + 0.1); g.connect(out);
+    const b = ac.createBufferSource(); b.buffer = s.buf; b.playbackRate.value = clamp(f / 261.63, 0.12, 8); b.connect(g); b.start(when); if (soft) { g.gain.setValueAtTime(0, when); g.gain.linearRampToValueAtTime(amp, when + 0.16); } else g.gain.setValueAtTime(amp, when); const end = when + Math.min(6, s.buf.duration / b.playbackRate.value); g.gain.setTargetAtTime(0, end - 0.05, 0.02); b.stop(end + 0.1); g.connect(out); return; }
+  if (!SYN.names.includes(name)) name = "bell";
+  const m = 69 + 12 * Math.log2(f / 440), base = clamp(Math.round(m), 12, 120), buf = noteBuf(name, base), src = ac.createBufferSource();
+  src.buffer = buf; src.playbackRate.value = Math.pow(2, (m - base) / 12);
+  // strength → brightness: a ripple from far away arrives softer and darker, like a gentler strike
+  const strength = clamp((len - 0.45) / 0.55, 0, 1), tone = ac.createBiquadFilter(); tone.type = "lowpass"; tone.Q.value = 0.4;
+  tone.frequency.value = Math.min(18000, 500 + f * (3 + 22 * strength * strength));
+  src.connect(tone); tone.connect(g); g.connect(out);
+  if (soft) { g.gain.setValueAtTime(0, when); g.gain.linearRampToValueAtTime(amp, when + 0.16); } else g.gain.setValueAtTime(amp, when);
+  const ringT = RING[name] * len, relAt = when + ringT * 1.5;   // weaker hits are damped sooner
+  g.gain.setTargetAtTime(0, relAt, ringT * 0.35);
+  src.start(when); src.stop(Math.min(when + buf.duration / src.playbackRate.value, relAt + ringT * 2.2) + 0.05);
 }
 // One node sounds. strength 0..1 (how close the ripple's source was), tp = pond time of the event.
 function ring(n, tp, strength){
@@ -185,12 +309,21 @@ function ring(n, tp, strength){
   setTimeout(() => { try { pn.disconnect(); } catch (e) {} }, (when - ac.currentTime + 9) * 1000);
 }
 // Heartbeat: a low thump on the root note that the whole pond breathes with.
+const thumps = new Map();
+function thumpBuf(f){   // a soft felt beater on a big drum: pitch settles, a little skin noise, gently saturated
+  const k = f.toFixed(2); if (thumps.has(k)) return thumps.get(k);
+  const sr = ac.sampleRate, n = Math.round(sr * 0.75), d = new Float32Array(n), rnd = rngS(Math.round(f * 100)); let ph = 0, nz = 0;
+  for (let i = 0; i < n; i++) { const t = i / sr, fr = f * (1 + 1.2 * Math.exp(-t / 0.022)); ph += 2 * Math.PI * fr / sr;
+    nz = nz * 0.9 + (rnd() * 2 - 1) * 0.1;
+    const body = Math.sin(ph) * Math.exp(-t / 0.16) + 0.25 * Math.sin(2 * ph + 0.4) * Math.exp(-t / 0.06) + nz * 2.2 * Math.exp(-t / 0.012);
+    d[i] = Math.tanh(1.5 * body * Math.min(1, t / 0.003)) * 0.8; }
+  const b = ac.createBuffer(1, n, sr); b.copyToChannel(d, 0); thumps.set(k, b); return b;
+}
+// Heartbeat: a low thump on the root note that the whole pond breathes with.
 function thump(tp, amp, up){
   if (!ac) return; const when = Math.max(ac.currentTime + 0.005, ac.currentTime - (pt - tp) + (document.hidden ? 0.13 : 0.05)), f = 440 * Math.pow(2, (36 + P.key - 69) / 12) * (up ? 1.26 : 1);
-  const o = ac.createOscillator(), o2 = ac.createOscillator(), g = ac.createGain(), g2 = ac.createGain(), lp = ac.createBiquadFilter();
-  o.frequency.setValueAtTime(f * 2.2, when); o.frequency.exponentialRampToValueAtTime(f, when + 0.06); o2.type = "triangle"; o2.frequency.setValueAtTime(f * 4.4, when); o2.frequency.exponentialRampToValueAtTime(f * 2, when + 0.05);
-  g.gain.setValueAtTime(0, when); g.gain.linearRampToValueAtTime(amp, when + 0.006); g.gain.setTargetAtTime(0, when + 0.02, 0.09); g2.gain.value = 0.3; lp.type = "lowpass"; lp.frequency.value = 900;
-  o.connect(g); o2.connect(g2); g2.connect(g); g.connect(lp); lp.connect(heartG); o.start(when); o2.start(when); o.stop(when + 0.7); o2.stop(when + 0.7);
+  const src = ac.createBufferSource(), g = ac.createGain(), lp = ac.createBiquadFilter(); src.buffer = thumpBuf(f); g.gain.value = amp * 1.1; lp.type = "lowpass"; lp.frequency.value = 1400;
+  src.connect(g); g.connect(lp); lp.connect(heartG); src.start(when);
   setTimeout(() => { pulse = Math.max(pulse, up ? 0.6 : 1); }, Math.max(0, (when - ac.currentTime) * 1000));
 }
 const isE = n => n.type === "e1" || n.type === "e2";
