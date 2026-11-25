@@ -1,5 +1,5 @@
 // Riso — offline support. Network first (so updates arrive), cache as fallback.
-const CACHE = "riso-v1";
+const CACHE = "riso-v2";
 const FILES = ["./", "index.html", "manifest.webmanifest", "/logos/riso.svg", "/logos/riso-180.png", "/logos/riso-512.png", "/logos/riso-32.png"];
 self.addEventListener("install", (e) => { e.waitUntil(caches.open(CACHE).then((c) => c.addAll(FILES))); self.skipWaiting(); });
 self.addEventListener("activate", (e) => {
