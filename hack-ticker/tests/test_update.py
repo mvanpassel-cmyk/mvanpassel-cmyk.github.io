@@ -41,6 +41,16 @@ class T(unittest.TestCase):
         self.assertEqual(out[1]["same_as"], "x1")
         self.assertEqual(out[1]["status"], "confirmed")
 
+    def test_parse_chain(self):
+        now = datetime(2026, 11, 25, tzinfo=timezone.utc)
+        cands = [{"source": "S", "url": "https://ex.org/a", "date": now, "title": "t", "summary": ""},
+                 {"source": "S", "url": "https://ex.org/b", "date": now, "title": "t", "summary": ""}]
+        txt = ('{"incidents":[{"i":[0],"title":"Vendor leak","impact":2,"chain":"card-vendor"},'
+               '{"i":[1],"title":"Other","impact":2,"chain":"made-up"}]}')
+        out = update.parse_incidents(txt, cands, set(), now, {"card-vendor"})
+        self.assertEqual(out[0]["chain"], "card-vendor")
+        self.assertNotIn("chain", out[1])  # unknown chains are dropped, not invented
+
     def test_similar(self):
         inc = [{"id": "a", "date": "2026-10-29", "victim": "Binance", "title": "Binance drained", "sources": []}]
         d = datetime(2026, 10, 29, tzinfo=timezone.utc)

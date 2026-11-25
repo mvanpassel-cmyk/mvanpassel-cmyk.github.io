@@ -1,0 +1,71 @@
+{
+ "month": "2026-11",
+ "written": "2026-11-25",
+ "by": "Claude Opus 5.5 (chat session)",
+ "read": 377,
+ "added": 94,
+ "updated": 20,
+ "headline": "November: the month AI agents clocked in",
+ "points": [
+  {
+   "title": "AI agents went from demo to intruder",
+   "text": "The European Commission and Barracuda were hit with the ARTEX framework, Cairn agents spent a day finding a zero-day in medical imaging software on their own, Bell Canada named its intruder \"agentic\", and Google called an attack on French targets the first one run end to end by AI.",
+   "view": "p=30&ai=true",
+   "label": "AI-related, last 30 days"
+  },
+  {
+   "title": "Breaches travel down the supply chain",
+   "text": "Fireworks AI led to Notion, Uber and Cursor; Optimizely scripts served skimmers on 178 sites including KLM; one vendor leaked Visa, Mastercard and JPMorgan customers; one IT provider exposed 40 Irish credit unions. MSP tools (ScreenConnect, N-able) were the other way in.",
+   "view": "c=supplier-cascade&p=all",
+   "label": "Hit through a supplier"
+  },
+  {
+   "title": "Following the Binance money",
+   "text": "The US moved to seize $1.2 billion and Binance won a $6.5 billion freezing order, while $149 million went through coin mixers. The FBI also pinned $400 million in deepfake video-call thefts on North Korea.",
+   "view": "c=north-korea-crypto&p=all",
+   "label": "North Korea's crypto heists"
+  },
+  {
+   "title": "Europe and the Netherlands",
+   "text": "Commission HR data, Poland's e-government platform offline, 22 million people in La Poste's Maileva breach, Guadeloupe's hospital on its emergency plan. In the Netherlands: ads on VI and GeenStijl served iPhone malware, club software AllUnited leaked member data, and police tied violence in Amsterdam and The Hague to the Revolut leak.",
+   "view": "p=30&r=EU",
+   "label": "Europe incl. NL, last 30 days"
+  }
+ ],
+ "ruled_out": [
+  {
+   "title": "Microsoft 365 global outage (12–16 Nov)",
+   "text": "Microsoft ruled out a cyberattack and blamed a months-old bug.",
+   "src": [
+    {
+     "name": "BleepingComputer",
+     "url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-says-months-old-bug-caused-global-microsoft-365-outage/"
+    },
+    {
+     "name": "SecurityWeek",
+     "url": "https://www.securityweek.com/microsoft-rules-out-cyberattack-in-outage-warns-of-phishing-campaign/"
+    }
+   ]
+  },
+  {
+   "title": "FAA ground stop (13 Nov)",
+   "text": "No signs of hacking; the FBI reportedly looked at a software update.",
+   "src": [
+    {
+     "name": "SecurityWeek",
+     "url": "https://www.securityweek.com/no-signs-of-hacking-in-faa-ground-stop-as-fbi-reportedly-probes-software-update/"
+    }
+   ]
+  },
+  {
+   "title": "NSA classified network down (17 Nov)",
+   "text": "The NSA said there was no evidence of a cyberattack.",
+   "src": [
+    {
+     "name": "DataBreaches.net",
+     "url": "https://databreaches.net/2026/11/17/highly-classified-nsa-communications-network-is-down-cnn-sources/"
+    }
+   ]
+  }
+ ]
+}

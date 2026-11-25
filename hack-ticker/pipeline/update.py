@@ -313,10 +313,11 @@ def claude_request(body, timeout):
     raise RuntimeError(f"Claude API unavailable ({last}); will retry next run.")
 
 
-def ask_claude(cands, recent):
+def ask_claude(cands, recent, chains=()):
     lines = [f"[{i}] {c['source']} | {c['date'].strftime('%Y-%m-%d') if c['date'] else '?'} | {c['title']} | {c['summary'][:240]}"
              for i, c in enumerate(cands)]
     known = [f"{i['id']} | {i['date']} | {i['title']}" for i in recent]
+    chain_lines = [f"{c['id']}: {c['name']}. {c['text']}" for c in chains]
     system = ("You are the editor of Hack Ticker, a timeline of real cyber incidents. From security news headlines you "
               "identify concrete incidents: an attack, breach, theft, leak or disruption that happened to a named "
               "organisation, country or service. Also include software flaws confirmed to be exploited at scale (type Mass exploitation). "
@@ -324,7 +325,9 @@ def ask_claude(cands, recent):
               "arrests, opinion and trend reports. Merge headlines about the same incident. " + RUBRIC)
     user = ("Incidents already on the timeline. For news about one of these, use same_as; then fill only the fields "
             "that changed: status, impact (revised), restored (true when services are back), and a short note:\n"
-            + "\n".join(known[:120]) + "\n\nNew headlines:\n" + "\n".join(lines) +
+            + "\n".join(known[:120]) +
+            ("\n\nChains of linked incidents (same attacker, tool, supplier or campaign):\n" + "\n".join(chain_lines) if chain_lines else "") +
+            "\n\nNew headlines:\n" + "\n".join(lines) +
             "\n\nReturn JSON only: {\"incidents\":[{\"i\":[headline indexes],\"same_as\":\"existing id or null\","
             "\"date\":\"YYYY-MM-DD the incident happened or was disclosed\",\"title\":\"neutral headline in your own words, max 12 words\","
             "\"victim\":\"organisation or service\",\"country\":\"ISO 3166 alpha-2 of the victim, or empty\","
@@ -333,13 +336,14 @@ def ask_claude(cands, recent):
             "\"status\":\"confirmed|claimed|disputed\",\"impact_reason\":\"why this class, max 14 words\","
             "\"ai\":true if AI systems carried out the attack or were the target,"
             "\"summary\":\"one sentence in your own words, max 30 words\","
-            "\"note\":\"for same_as only: what is new, max 16 words\",\"restored\":true or null}]}")
+            "\"note\":\"for same_as only: what is new, max 16 words\",\"restored\":true or null,"
+            "\"chain\":\"id of a chain above if clearly part of it, else null\"}]}")
     body = json.dumps({"model": MODEL, "max_tokens": 16000, "system": system,
                        "messages": [{"role": "user", "content": user}]}).encode()
     return claude_request(body, 180)
 
 
-def parse_incidents(text, cands, known_ids, now):
+def parse_incidents(text, cands, known_ids, now, chain_ids=()):
     obj = None
     dec = json.JSONDecoder()
     body = re.sub(r"```(?:json)?", "", text)
@@ -369,6 +373,8 @@ def parse_incidents(text, cands, known_ids, now):
                 upd["impact"] = x["impact"]
             if x.get("restored") is True:
                 upd["restored"] = True
+            if x.get("chain") in chain_ids:
+                upd["chain"] = x["chain"]
             out.append(upd)
             continue
         try:
@@ -392,13 +398,15 @@ def parse_incidents(text, cands, known_ids, now):
             "people": num(x.get("people")), "usd": num(x.get("usd")), "status": st,
             "impact_reason": clean(x.get("impact_reason", ""), 120), "summary": clean(x.get("summary", ""), 240),
             "sources": srcs, "via": "news", "ai": bool(x.get("ai")), "updates": []})
+        if x.get("chain") in chain_ids:
+            out[-1]["chain"] = x["chain"]
     return out
 
 
 # ---------- CSV record ----------
 CSV_COLUMNS = ["id", "date", "date_precision", "added", "impact", "impact_label", "title", "victim", "country", "region",
                "sector", "type", "records_or_accounts", "usd", "status", "impact_reason", "ai_related", "summary",
-               "first_recorded", "first_impact", "first_status", "updates", "sources", "found_via"]
+               "first_recorded", "first_impact", "first_status", "updates", "sources", "found_via", "chain"]
 LABELS = {1: "Minor", 2: "Limited", 3: "Significant", 4: "Major", 5: "Severe"}
 
 
@@ -415,7 +423,7 @@ def write_csv(incidents):
                     (i.get("first_recorded") or {}).get("date", ""), (i.get("first_recorded") or {}).get("impact", ""),
                     (i.get("first_recorded") or {}).get("status", ""),
                     " | ".join(f"{u['date']} {u['kind']}: {u['text']}" for u in i.get("updates", [])),
-                    " | ".join(f"{s['name']}: {s['url']}" for s in i.get("sources", [])), i.get("via", "")])
+                    " | ".join(f"{s['name']}: {s['url']}" for s in i.get("sources", [])), i.get("via", ""), i.get("chain", "")])
     path = os.path.join(DATA, "incidents.csv")
     with open(path + ".tmp", "w", encoding="utf-8-sig", newline="") as f:  # BOM so Excel reads accents correctly
         f.write(buf.getvalue())
@@ -445,7 +453,7 @@ def main():
     queue = load("queue.json", {})          # headline key -> headline, waiting for the editor
     status = {"last_run": now.strftime("%Y-%m-%dT%H:%M:%SZ"), "feeds_ok": 0, "feeds_failed": [], "sources_failed": [],
               "news_new": 0, "incidents_added": 0, "ai": ai, "model": MODEL}
-    for k in ("editor_last", "editor_read"):
+    for k in ("editor_last", "editor_read", "editor_by"):
         if k in prev:
             status[k] = prev[k]
 
@@ -491,7 +499,9 @@ def main():
         cutoff = (now - timedelta(days=45)).strftime("%Y-%m-%d")
         recent = [i for i in incidents if i["date"] >= cutoff]
         try:
-            found = parse_incidents(ask_claude(cands, recent), cands, {i["id"] for i in incidents}, now)
+            chains = load("chains.json", [])
+            found = parse_incidents(ask_claude(cands, recent, chains), cands, {i["id"] for i in incidents}, now,
+                                    {c["id"] for c in chains})
             byid = {i["id"]: i for i in incidents}
             for x in found:
                 if "same_as" in x:
@@ -505,6 +515,8 @@ def main():
                     if x.get("impact") and x["impact"] != tgt["impact"]:
                         log(tgt, now, "impact", f"Impact revised from {tgt['impact']} to {x['impact']}" + (f": {x['note']}" if x["note"] else ""))
                         tgt["impact"] = x["impact"]
+                    if x.get("chain") and not tgt.get("chain"):
+                        tgt["chain"] = x["chain"]
                     if x.get("restored") and not tgt.get("restored"):
                         tgt["restored"] = now.strftime("%Y-%m-%d")
                         log(tgt, now, "restored", x["note"] or "Services restored")
@@ -521,6 +533,7 @@ def main():
                 queue.pop(c["key"], None)
             status["editor_last"] = now.strftime("%Y-%m-%dT%H:%M:%SZ")
             status["editor_read"] = len(cands)
+            status["editor_by"] = MODEL
         except RuntimeError as e:
             status["note"] = str(e)
     elif not ai:
