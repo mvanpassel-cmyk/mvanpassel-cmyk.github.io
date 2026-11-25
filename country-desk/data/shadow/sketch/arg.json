@@ -1,34 +1,94 @@
 {
- "checked": "2026-11-14",
+ "checked": "2026-11-25",
  "model": "Claude Opus 5.5 (chat session)",
- "snapshot": {
-  "text": "Three-part system of public hospitals, union-run social insurance funds (obras sociales) and private prepaid plans. The Milei government has cut and merged health bodies, confirmed Argentina's exit from WHO and announced a reform of the health system.",
-  "src": [
-   "https://www.lavozdesanjusto.com.ar/el-gobierno-anuncio-una-reforma-del-sistema-sanitario-y-confirmo-la-salida-de-la-oms",
-   "https://www.cronista.com/economia-politica/el-gobierno-disuelve-por-decreto-un-organismo-clave-para-la-salud-y-fusiona-otros"
-  ]
- },
+ "depth": "full",
+ "leaders": [
+  {
+   "role": "President",
+   "name": "Javier Milei"
+  }
+ ],
  "minister": {
   "name": "Mario Lugones",
   "role": "Minister of Health",
   "since": "2024",
-  "src": "https://www.infobae.com/salud/2026/03/10/la-exposicion-del-ministro-de-salud-mario-lugones-en-argentina-week-el-pais-ofrece-talento-y-oportunidades/"
+  "src": "https://www.argentina.gob.ar/salud/ministro"
+ },
+ "snapshot": {
+  "text": "Three-part system of public hospitals, union-run social insurance funds (obras sociales) and private prepaid plans. The Milei government has cut and merged health bodies, confirmed the exit from WHO (Argentina still takes part in PAHO) and presents health as a driver of private investment.",
+  "src": [
+   "https://www.lavozdesanjusto.com.ar/el-gobierno-anuncio-una-reforma-del-sistema-sanitario-y",
+   "https://www.baenegocios.com/politica/mario-lugones-afirmo-que-la-salud-ya-es-un-motor-del-desarrollo-argentino/"
+  ]
  },
  "priorities": [
   {
    "title": "Health system reform and WHO exit",
-   "text": "A reform package of the health system, with the withdrawal from WHO confirmed and a review of vaccines and medicines.",
-   "src": "https://www.lavozdesanjusto.com.ar/el-gobierno-anuncio-una-reforma-del-sistema-sanitario-y-confirmo-la-salida-de-la-oms"
+   "text": "A reform package of the health system, with the withdrawal from WHO confirmed and a review of vaccines and medicines; Argentina did take part in PAHO's 63rd Directing Council.",
+   "src": "https://www.cronica.com.ar/salud/lugones-destaco-la-agenda-de-salud-de-la-semana-inversiones-residencias-y-nuevas-medidas-para-el-sistema-sanitario/"
   },
   {
-   "title": "Limits on what doctors may prescribe",
-   "text": "New rules will limit which medicines doctors can prescribe.",
-   "src": "https://www.iprofesional.com/salud/454342-medicina-argentina-cambia-limitara-medicamentos-pueden-recetar-medicos"
+   "title": "Health as an investment sector",
+   "text": "Minister Lugones says health is already a driver of Argentine development and that the state should create conditions for private investment.",
+   "src": "https://www.baenegocios.com/politica/mario-lugones-afirmo-que-la-salud-ya-es-un-motor-del-desarrollo-argentino/"
   },
   {
-   "title": "Merging health agencies",
-   "text": "The government dissolved a key health body by decree and merged others.",
-   "src": "https://www.cronista.com/economia-politica/el-gobierno-disuelve-por-decreto-un-organismo-clave-para-la-salud-y-fusiona-otros"
+   "title": "Under pressure: fentanyl and PAMI",
+   "text": "The minister faces pressure over the contaminated fentanyl case and the crisis at PAMI, the pensioners' health insurer; an impeachment request was filed in the Chamber of Deputies.",
+   "src": "https://www.perfil.com/noticias/politica/lugones-bajo-presion-por-el-fentanilo-y-la-crisis-del-pami.phtml"
+  }
+ ],
+ "netherlands": {
+  "text": "The Netherlands is Argentina's third-largest investor; science cooperation covers human and animal health. No bilateral health programme with the Milei government found.",
+  "src": "https://www.argentina.gob.ar/node/475783"
+ },
+ "institutions": [
+  {
+   "name": "Ministerio de Salud",
+   "role": "National health policy",
+   "url": "https://www.argentina.gob.ar/salud"
+  },
+  {
+   "name": "ANMAT",
+   "role": "Medicines and food regulator",
+   "url": "https://www.argentina.gob.ar/anmat"
+  },
+  {
+   "name": "ANLIS-Malbrán",
+   "role": "National laboratories and institutes",
+   "url": "https://www.argentina.gob.ar/salud/anlis"
+  },
+  {
+   "name": "PAMI",
+   "role": "Pensioners' health insurer",
+   "url": "https://www.pami.org.ar/"
+  },
+  {
+   "name": "Embassy of the Netherlands",
+   "role": "Dutch mission and consular information",
+   "url": "https://www.netherlandsandyou.nl/web/argentina"
+  }
+ ],
+ "timeline": [
+  {
+   "date": "2026-03-10",
+   "text": "At Argentina Week in New York, Lugones pitches the health sector to investors.",
+   "src": "https://www.infobae.com/salud/2026/03/10/la-exposicion-del-ministro-de-salud-mario-lugones-en-argentina-week-el-pais-ofrece-talento-y-oportunidades/"
+  },
+  {
+   "date": "2026-08-05",
+   "text": "Minister calls health 'a driver of Argentine development'.",
+   "src": "https://www.baenegocios.com/politica/mario-lugones-afirmo-que-la-salud-ya-es-un-motor-del-desarrollo-argentino/"
+  },
+  {
+   "date": "2026-08-15",
+   "text": "Ministry reports savings of ARS 116 billion and new hospital measures.",
+   "src": "https://www.baenegocios.com/saludybienestar/lugones-destaco-un-ahorro-de-116-000-millones-y-nuevas-medidas-en-hospitales/"
+  },
+  {
+   "date": "2026-10-03",
+   "text": "Argentina takes part in PAHO's 63rd Directing Council; new map of active doctors published.",
+   "src": "https://www.baenegocios.com/saludybienestar/agenda-de-gestion-el-ministerio-de-salud-presento-sus-avances-semanales-y-los-datos-del-mapa-de-medicos-en-el-pais/"
   }
  ]
 }

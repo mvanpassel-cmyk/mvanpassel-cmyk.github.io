@@ -1,29 +1,99 @@
 {
- "checked": "2026-11-14",
+ "checked": "2026-11-25",
  "model": "Claude Opus 5.5 (chat session)",
- "snapshot": {
-  "text": "Dual system of public insurer FONASA and private ISAPREs. The Kast government took office in March 2026 facing long waiting lists, and declared a health alert to clear more than 27,000 delayed cancer treatments.",
-  "src": [
-   "https://www.theclinic.cl/2026/03/20/nos-va-a-dar-flexibilidad-para-dar-recursos-gobierno-decreta-alerta-sanitaria-para-atender-las-mas-de-27-mil-atenciones-oncologicas-retrasadas/",
-   "https://www.ciperchile.cl/2026/09/29/informe-de-la-subsecretaria-de-redes-asistenciales-muestra-aumento-de-listas-de-espera-para-intervenciones-quirurgicas-no-ges/"
-  ]
- },
+ "depth": "full",
+ "leaders": [
+  {
+   "role": "President",
+   "name": "José Antonio Kast"
+  }
+ ],
  "minister": {
   "name": "May Chomali",
   "role": "Minister of Health",
-  "since": "2026",
+  "since": "March 2026",
   "src": "https://www.minsal.cl/dra-may-chomali-asume-como-ministra-de-salud-junto-a-nuevas-autoridades-en-las-subsecretarias-de-la-cartera/"
+ },
+ "snapshot": {
+  "text": "Dual system of public insurer FONASA and private ISAPREs. The Kast government took office in March 2026 facing long waiting lists and budget pressure; Minister Chomali chaired PAHO's 63rd Directing Council.",
+  "src": [
+   "https://www.minsal.cl/ministra-chomali-en-su-cuenta-publica-queremos-un-sistema-publico-de-salud-que-responda-mejor-a-las-necesidades-de-las-personas/",
+   "https://paho.org/es/noticias/30-9-2026-medica-venezolana-recibe-premio-ops-por-sus-aportes-salud-indigena-e"
+  ]
  },
  "priorities": [
   {
-   "title": "Cancer health alert",
-   "text": "A health alert gives flexibility to fund more than 27,000 delayed oncology treatments.",
-   "src": "https://www.theclinic.cl/2026/03/20/nos-va-a-dar-flexibilidad-para-dar-recursos-gobierno-decreta-alerta-sanitaria-para-atender-las-mas-de-27-mil-atenciones-oncologicas-retrasadas/"
+   "title": "Waiting lists and cancer care",
+   "text": "A health alert gives flexibility to fund more than 27,000 delayed oncology treatments; the 2027 budget rises 4.7% with a focus on management, efficiency and shorter waiting lists.",
+   "src": "https://www.minsal.cl/salud-aumentara-su-presupuesto-en-47-para-2027-ministra-chomali-destaca-foco-en-gestion-eficiencia-y-reduccion-de-listas-de-espera/"
   },
   {
-   "title": "Surgical waiting lists",
-   "text": "A September 2026 report shows waiting times for non-GES surgery rose in seven health services compared with 2025.",
-   "src": "https://www.ciperchile.cl/2026/09/29/informe-de-la-subsecretaria-de-redes-asistenciales-muestra-aumento-de-listas-de-espera-para-intervenciones-quirurgicas-no-ges/"
+   "title": "Mental health and access",
+   "text": "In her first public account the minister announced 50 new community mental health centres and highlighted Chile's certification as the first country in the Americas to eliminate leprosy.",
+   "src": "https://www.minsal.cl/ministra-chomali-en-su-cuenta-publica-queremos-un-sistema-publico-de-salud-que-responda-mejor-a-las-necesidades-de-las-personas/"
+  },
+  {
+   "title": "Digital transformation",
+   "text": "The ministry is using AI and new information technology to make public health management more efficient, building on the minister's background in health information systems.",
+   "src": "https://www.minsal.cl/?p=152192"
+  }
+ ],
+ "netherlands": {
+  "text": "Ties are mainly trade and innovation; an RVO market study maps openings for the Dutch health sector in Chile's digital health and hospital plans. No current government-to-government health track found.",
+  "src": "https://www.rvo.nl/sites/default/files/2019/11/Report-Chile-Healthsector-November-2019.pdf"
+ },
+ "institutions": [
+  {
+   "name": "Ministerio de Salud (Minsal)",
+   "role": "National health policy",
+   "url": "https://www.minsal.cl/"
+  },
+  {
+   "name": "Instituto de Salud Pública",
+   "role": "National public health institute and regulator",
+   "url": "https://www.ispch.gob.cl/"
+  },
+  {
+   "name": "FONASA",
+   "role": "Public health insurer",
+   "url": "https://www.fonasa.cl/"
+  },
+  {
+   "name": "Superintendencia de Salud",
+   "role": "Health insurance supervisor",
+   "url": "https://www.superdesalud.gob.cl/"
+  },
+  {
+   "name": "Embassy of the Netherlands",
+   "role": "Dutch mission and consular information",
+   "url": "https://www.netherlandsandyou.nl/web/chile"
+  }
+ ],
+ "timeline": [
+  {
+   "date": "2026-03-11",
+   "text": "Kast government takes office; May Chomali becomes health minister.",
+   "src": "https://www.minsal.cl/dra-may-chomali-asume-como-ministra-de-salud-junto-a-nuevas-autoridades-en-las-subsecretarias-de-la-cartera/"
+  },
+  {
+   "date": "2026-03-20",
+   "text": "Health alert to fund more than 27,000 delayed cancer treatments.",
+   "src": "https://www.theclinic.cl/2026/03/20/nos-va-a-dar-flexibilidad-para-dar-recursos-gobierno-d"
+  },
+  {
+   "date": "2026-07-29",
+   "text": "First public account: 50 new community mental health centres, leprosy elimination certified.",
+   "src": "https://www.minsal.cl/ministra-chomali-en-su-cuenta-publica-queremos-un-sistema-publico-de-salud-que-responda-mejor-a-las-necesidades-de-las-personas/"
+  },
+  {
+   "date": "2026-09-29",
+   "text": "Report: waiting times for non-GES surgery rose in seven health services.",
+   "src": "https://www.ciperchile.cl/2026/09/29/informe-de-la-subsecretaria-de-redes-asistenciales-mu"
+  },
+  {
+   "date": "2026-09-30",
+   "text": "Chomali chairs PAHO's 63rd Directing Council in Washington.",
+   "src": "https://paho.org/es/noticias/30-9-2026-medica-venezolana-recibe-premio-ops-por-sus-aportes-salud-indigena-e"
   }
  ]
 }

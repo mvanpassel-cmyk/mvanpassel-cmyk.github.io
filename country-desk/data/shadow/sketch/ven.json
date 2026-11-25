@@ -1,18 +1,100 @@
 {
- "checked": "2026-11-14",
+ "checked": "2026-11-25",
  "model": "Claude Opus 5.5 (chat session)",
+ "depth": "full",
+ "leaders": [
+  {
+   "role": "Acting President",
+   "name": "Delcy Rodríguez",
+   "src": "https://www.infobae.com/america/agencias/2026/01/14/delcy-rodriguez-promete-destinar-cada-dolar-de-la-venta-de-hidrocarburos-al-sistema-de-salud/"
+  }
+ ],
+ "minister": {
+  "name": "Carlos Alvarado",
+  "role": "Minister of People's Power for Health",
+  "since": "April 2026",
+  "src": "https://eldiario.com/2026/04/17/designaron-carlos-alvarado-ministro-de-salud/"
+ },
  "snapshot": {
-  "text": "Public health system weakened by years of economic crisis, shortages and emigration of health workers. Earthquakes in mid-2026 overwhelmed hospitals and raised the risk of disease outbreaks.",
+  "text": "A public system that provides most care, weakened by years of crisis: run-down hospitals, shortages of medicines and supplies, and the emigration of health workers. Since January 2026 an acting government under Delcy Rodríguez has promised oil revenue for health; earthquakes in mid-2026 added pressure.",
   "src": [
-   "https://www.globalsecurity.org/military/library/news/2026/07/mil-260702-unnews01.htm",
-   "https://www.projecthope.org/news-stories/press-release/health-crisis-deepens-in-venezuela-as-facilities-face-shortages-and-capacity-gaps"
+   "https://eldiario.com/2026/06/24/comision-sector-salud/",
+   "https://www.infobae.com/america/agencias/2026/01/14/delcy-rodriguez-promete-destinar-cada-dolar-de-la-venta-de-hidrocarburos-al-sistema-de-salud/"
   ]
  },
  "priorities": [
   {
-   "title": "Earthquake response",
-   "text": "After the earthquakes hospitals are saturated and the risk of disease is rising.",
-   "src": "https://wtop.com/news/2026/07/tras-los-terremotos-venezuela-se-acerca-a-una-crisis-sanitaria-entre-hospitales-saturados-y-un-sistema-debilitado/"
+   "title": "Oil revenue for health",
+   "text": "Acting President Rodríguez pledged that every dollar from oil and gas sales would go to the health system, and called on private companies to help raise capacity.",
+   "src": "https://www.infobae.com/america/agencias/2026/01/14/delcy-rodriguez-promete-destinar-cada-dolar-de-la-venta-de-hidrocarburos-al-sistema-de-salud/"
+  },
+  {
+   "title": "Private clinics for public patients",
+   "text": "Patients waiting for surgery in public hospitals can request operations in private clinics through the VenApp platform; in June a commission was set up to contract works and services for the health sector.",
+   "src": "https://eldiario.com/2026/03/06/pacientes-hospitales-publicos-solicitar-atencion-quirurgica-clinicas-venapp/"
+  },
+  {
+   "title": "Disasters and outbreaks",
+   "text": "After the earthquakes hospitals were saturated and disease risk rose; in July the ministry responded to three hantavirus deaths.",
+   "src": "https://wtop.com/news/2026/07/tras-los-terremotos-venezuela-se-acerca-a-una-crisis-sanitar"
+  }
+ ],
+ "netherlands": {
+  "text": "Venezuela borders the Kingdom through Aruba, Curaçao and Bonaire. After the June 2026 earthquakes the Netherlands sent its urban search and rescue team and HNLMS Groningen from Curaçao with relief supplies; Curaçao served as a regional hub.",
+  "src": "https://nltimes.nl/2026/06/29/netherlands-sends-navy-ship-curacao-venezuela-emergency-earthquake-aid"
+ },
+ "institutions": [
+  {
+   "name": "Ministerio del Poder Popular para la Salud",
+   "role": "National health policy",
+   "url": "https://mpps.gob.ve/"
+  },
+  {
+   "name": "Instituto Nacional de Higiene Rafael Rangel",
+   "role": "National reference laboratory and regulator",
+   "url": "https://www.inhrr.gob.ve/"
+  },
+  {
+   "name": "PAHO Venezuela",
+   "role": "PAHO/WHO country office",
+   "url": "https://www.paho.org/es/venezuela"
+  },
+  {
+   "name": "Embassy of the Netherlands",
+   "role": "Dutch mission and consular information",
+   "url": "https://www.netherlandsandyou.nl/web/venezuela"
+  }
+ ],
+ "timeline": [
+  {
+   "date": "2026-01-14",
+   "text": "Acting President Rodríguez pledges oil revenue for the health system.",
+   "src": "https://www.infobae.com/america/agencias/2026/01/14/delcy-rodriguez-promete-destinar-cada-dolar-de-la-venta-de-hidrocarburos-al-sistema-de-salud/"
+  },
+  {
+   "date": "2026-01-19",
+   "text": "Nuramy Gutiérrez appointed health minister.",
+   "src": "https://www.prensa-latina.cu/?p=1696011"
+  },
+  {
+   "date": "2026-03-06",
+   "text": "Surgery in private clinics for public patients via VenApp.",
+   "src": "https://eldiario.com/2026/03/06/pacientes-hospitales-publicos-solicitar-atencion-quirurgica-clinicas-venapp/"
+  },
+  {
+   "date": "2026-04-17",
+   "text": "Carlos Alvarado replaces Gutiérrez as health minister.",
+   "src": "https://eldiario.com/2026/04/17/designaron-carlos-alvarado-ministro-de-salud/"
+  },
+  {
+   "date": "2026-06-24",
+   "text": "Commission created to contract works and services in the health sector.",
+   "src": "https://eldiario.com/2026/06/24/comision-sector-salud/"
+  },
+  {
+   "date": "2026-09-30",
+   "text": "PAHO award for Vice-Minister Noly Fernández for indigenous and intercultural health.",
+   "src": "https://paho.org/es/noticias/30-9-2026-medica-venezolana-recibe-premio-ops-por-sus-aportes-salud-indigena-e"
   }
  ]
 }

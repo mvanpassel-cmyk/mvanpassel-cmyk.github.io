@@ -1,38 +1,100 @@
 {
- "checked": "2026-11-14",
- "model": "claude-sonnet-5-5",
- "snapshot": {
-  "text": "Fragmented system with five subsystems: the Ministry of Health (Minsa) covers about 60% of people, EsSalud about 30%, and the armed forces, police and private sector the rest. Poorer groups have less access to care. President Keiko Fujimori's government took office on 28 July 2026.",
-  "src": [
-   "https://en.wikipedia.org/wiki/Healthcare_in_Peru",
-   "https://www.infobae.com/peru/2026/07/28/quien-es-luis-dyer-fernandez-perfil-del-primer-ministro-de-salud-del-gobierno-de-keiko-fujimori/"
-  ]
- },
+ "checked": "2026-11-25",
+ "model": "Claude Opus 5.5 (chat session)",
+ "depth": "full",
+ "leaders": [
+  {
+   "role": "President",
+   "name": "Keiko Fujimori",
+   "src": "https://www.infobae.com/peru/2026/07/28/quien-es-luis-dyer-fernandez-perfil-del-primer-ministro-de-salud-del-gobierno-de-keiko-fujimori/"
+  }
+ ],
  "minister": {
   "name": "Luis Williams Dyer Fernández",
-  "role": "Ministro de Salud (Minister of Health)",
-  "since": "2026",
-  "src": "https://www.infobae.com/peru/2026/07/28/quien-es-luis-dyer-fernandez-perfil-del-primer-ministro-de-salud-del-gobierno-de-keiko-fujimori/"
+  "role": "Minister of Health",
+  "since": "July 2026",
+  "src": "https://www.gob.pe/institucion/minsa/noticias/1423610-luis-dyer-fernandez-juro-como-nuevo-ministro-de-salud"
+ },
+ "snapshot": {
+  "text": "Fragmented system with five subsystems: the Ministry of Health (Minsa) covers about 60% of people, EsSalud about 30%, and the armed forces, police and private sector the rest. President Keiko Fujimori's government took office on 28 July 2026, after several health ministers in quick succession.",
+  "src": [
+   "https://www.infobae.com/peru/2026/07/28/quien-es-luis-dyer-fernandez-perfil-del-primer-ministro-de-salud-del-gobierno-de-keiko-fujimori/",
+   "https://www.paho.org/en/news/19-5-2026-peru-joins-alliance-primary-health-care-americas"
+  ]
  },
  "priorities": [
   {
-   "title": "Strengthen primary care facilities",
-   "text": "Minister Dyer said Minsa will prioritise first-level facilities (postas and health centres) to relieve congested hospitals. He also named improving the medical appointment system as a strategic axis.",
-   "src": "https://www.infobae.com/peru/2026/08/06/minsa-redefine-estrategia-nacional-pondra-el-foco-en-mejorar-postas-y-centros-de-salud/"
+   "title": "Four axes",
+   "text": "The new minister's lines are fighting anaemia, cutting waiting times, free-market measures and preparing for El Niño.",
+   "src": "https://www.gob.pe/institucion/minsa/noticias/1424637-combatir-la-anemia-reducir-tiempos-de-espera-libre-mercado-y-enfrentar-el-fen-son-los-nuevos-ejes-de-gestion-del-ministro-de-salud"
   },
   {
-   "title": "Minsa reorganisation and management review",
-   "text": "The government declared Minsa under reorganisation for 90 days, to assess its administrative, organisational and management situation and to propose reforms.",
-   "src": "https://gestion.pe/peru/gobierno-declara-al-minsa-en-reorganizacion-por-90-dias-para-evaluar-gestion-y-proponer-reformas-noticia/"
+   "title": "Primary care and digital health",
+   "text": "Minsa prioritises first-level facilities to relieve hospitals; by November 2026 it had connected 743,000 clinical records and added 300 facilities to telehealth.",
+   "src": "https://elperuano.pe/noticia/308399-minsa-conecta-743-000-historias-clinicas-y-suma-300-establecimientos-a-la-telesalud"
   },
   {
-   "title": "Joined PAHO primary care alliance",
-   "text": "In May 2026 Peru formally joined the Alliance for Primary Health Care in the Americas, led by PAHO, the IDB and the World Bank. It aims to strengthen health systems through investment and technical cooperation.",
-   "src": "https://www.paho.org/en/news/19-5-2026-peru-joins-alliance-primary-health-care-americas"
+   "title": "El Niño preparedness",
+   "text": "The ministry approved an operational plan for El Niño 2026-2027 and works with the US embassy on prevention.",
+   "src": "https://www.gob.pe/institucion/minsa/noticias"
   }
  ],
  "netherlands": {
   "text": "The Netherlands and Peru jointly led adoption of the 2024 World Health Assembly resolution on climate change and health. I found no bilateral health programme in my searches.",
   "src": "https://www.who.int/news/item/10-10-2024-who-and-the-netherlands-renew-their-partnership-on-climate-change-and-health"
- }
+ },
+ "institutions": [
+  {
+   "name": "Ministerio de Salud (Minsa)",
+   "role": "National health policy",
+   "url": "https://www.gob.pe/minsa"
+  },
+  {
+   "name": "Instituto Nacional de Salud",
+   "role": "National public health institute",
+   "url": "https://www.gob.pe/ins"
+  },
+  {
+   "name": "CDC Perú",
+   "role": "Epidemiology, prevention and disease control",
+   "url": "https://www.dge.gob.pe/"
+  },
+  {
+   "name": "EsSalud",
+   "role": "Social health insurance",
+   "url": "https://www.essalud.gob.pe/"
+  },
+  {
+   "name": "Embassy of the Netherlands",
+   "role": "Dutch mission and consular information",
+   "url": "https://www.netherlandsandyou.nl/web/peru"
+  }
+ ],
+ "timeline": [
+  {
+   "date": "2026-03-12",
+   "text": "Juan Carlos Velasco replaces Luis Quiroz as health minister.",
+   "src": "https://www.infobae.com/peru/2026/03/12/juan-velasco-guerrero-juramenta-como-nuevo-ministro-de-salud-tras-renuncia-de-luis-quiroz-este-es-tu-perfil/"
+  },
+  {
+   "date": "2026-05-19",
+   "text": "Peru joins PAHO's Alliance for Primary Health Care in the Americas.",
+   "src": "https://www.paho.org/en/news/19-5-2026-peru-joins-alliance-primary-health-care-americas"
+  },
+  {
+   "date": "2026-07-28",
+   "text": "Keiko Fujimori takes office; Luis Dyer sworn in as health minister.",
+   "src": "https://www.gob.pe/institucion/minsa/noticias/1423610-luis-dyer-fernandez-juro-como-nuevo-ministro-de-salud"
+  },
+  {
+   "date": "2026-09-05",
+   "text": "Operational plan for El Niño 2026-2027 approved.",
+   "src": "https://www.gob.pe/institucion/minsa/noticias"
+  },
+  {
+   "date": "2026-11-05",
+   "text": "743,000 clinical records connected and 300 facilities added to telehealth.",
+   "src": "https://elperuano.pe/noticia/308399-minsa-conecta-743-000-historias-clinicas-y-suma-300-establecimientos-a-la-telesalud"
+  }
+ ]
 }

@@ -354,7 +354,9 @@ def main():
     if has_key and mode in ("missing", "all"):
         def last_checked(c):
             return U.load(os.path.join(SHADOW, "sketch", c["iso3"].lower() + ".json"), {}).get("checked", "")
-        queue = [c for c in todo if mode == "all" or not last_checked(c)]
+        def full(c):  # worked out by hand to desk depth: never overwritten by the API sketch
+            return U.load(os.path.join(SHADOW, "sketch", c["iso3"].lower() + ".json"), {}).get("depth") == "full"
+        queue = [c for c in todo if not full(c) and (mode == "all" or not last_checked(c))]
         prio = U.load(os.path.join(SHADOW, "priority.json"), {}).get("iso3", [])
         rank = {iso: i for i, iso in enumerate(prio)}
         queue.sort(key=lambda c: (last_checked(c), rank.get(c["iso3"], len(rank)), c["name"]))
@@ -394,6 +396,8 @@ def main():
                     "projects": len(live.get("nphi", [])) + len(live.get("wbProjects", [])),
                     "life": ind.get("WHOSIS_000001"), "uhc": ind.get("UHC_INDEX_REPORTED"),
                     "refreshed": live.get("refreshed", ""), "checked": sk.get("checked", "")})
+        if sk.get("depth") == "full":
+            row["full"] = True
         index.append(row)
     U.save(os.path.join(SHADOW, "index.json"), {"generated": now.strftime("%Y-%m-%dT%H:%M:%SZ"), "countries": index})
 

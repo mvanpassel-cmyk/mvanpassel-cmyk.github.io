@@ -73,7 +73,7 @@ function renderList() {
     h("span", { class: "name" }, h("i"), c.name),
     h("span", { class: "top" }, c.desk ? "Full desk page, updated weekly" : (c.line || "No sketch yet; figures and projects are on the page."),
       c.minister ? h("span", { text: `Health: ${c.minister}` }) : null),
-    h("span", { class: "counts" }, c.desk ? h("b", { class: "tag fulltag", text: "Full desk" }) :
+    h("span", { class: "counts" }, c.desk ? h("b", { class: "tag fulltag", text: "Full desk" }) : c.full ? h("b", { class: "tag", text: "Worked out" }) :
       [c.life != null ? `Life expectancy ${fmtNum(c.life)}` : "", c.projects ? `${c.projects} projects` : "", c.outbreaks ? `${c.outbreaks} outbreak notice${c.outbreaks > 1 ? "s" : ""}` : ""].filter(Boolean).join(", "))));
 
   const mapBox = h("div", { class: "map allmap" });
@@ -140,16 +140,24 @@ async function renderCountry(c) {
     h("header", { class: "head" }, h("div", null, h("h1", { text: c.name }),
       h("p", { class: "sub", text: [w.capital ? `Capital ${w.capital}` : "", c.region && c.region !== "Not a WHO region" ? `WHO ${c.region} Region` : c.region].filter(Boolean).join(", ") })),
       h("div", { class: "shadownote" }, h("b", { text: "Shadow page" }), h("span", { text: `Refreshed by hand: ${stamp}.` }))),
-    sk.minister ? h("ul", { class: "who" }, h("li", null, h("div", { class: "role", text: sk.minister.role + (sk.minister.since ? `, since ${sk.minister.since}` : "") }),
-      h("div", { class: "nm" }, link(sk.minister.name, sk.minister.src)))) : null].filter(Boolean));
+    sk.minister || (sk.leaders || []).length ? h("ul", { class: "who" },
+      (sk.leaders || []).map(p => h("li", null, h("div", { class: "role", text: p.role }), h("div", { class: "nm" }, p.src ? link(p.name, p.src) : p.name))),
+      sk.minister ? h("li", null, h("div", { class: "role", text: sk.minister.role + (sk.minister.since ? `, since ${sk.minister.since}` : "") }),
+        h("div", { class: "nm" }, link(sk.minister.name, sk.minister.src))) : null) : null].filter(Boolean));
 
   /* sketch */
   const pr = sk.priorities || [];
-  const sketch = section("sketch", "Sketch", sk.checked ? `Written by Claude with web search on ${shortDate(sk.checked)}; every point links to the page it rests on.` : "",
-    sk.snapshot ? h("p", { class: "snap" }, sk.snapshot.text, " ", h("span", { class: "srcs" }, sk.snapshot.src.map(u => link(host(u), u)))) : null,
-    pr.length ? h("div", { class: "agenda" }, pr.map(p => h("article", null, h("h3", { text: p.title }), h("p", { text: p.text }), h("p", { class: "srcs" }, link(host(p.src), p.src))))) : null,
+  const sketch = section("sketch", "Sketch", sk.checked ? `${sk.depth === "full" ? "Worked out" : "Written"} by Claude with web search on ${shortDate(sk.checked)}; every point links to the page it rests on.` : "",
+    sk.snapshot ? h("p", { class: "snap" }, sk.snapshot.text, " ", h("span", { class: "srcs" }, [].concat(sk.snapshot.src || []).map(u => link(host(u), u)))) : null,
+    pr.length ? h("div", { class: "agenda" }, pr.map(p => h("article", null, h("h3", { text: p.title }), h("p", { text: p.text }), h("p", { class: "srcs" }, [].concat(p.src || []).map(u => link(host(u), u)))))) : null,
     sk.netherlands ? h("p", { class: "watch" }, h("b", { text: "Netherlands: " }), sk.netherlands.text, " ", link(host(sk.netherlands.src), sk.netherlands.src, "small")) : null,
     !sk.snapshot && !pr.length ? h("p", { class: "empty", text: "No sketch yet. It is written at the next manual refresh; the figures and projects below are already there." }) : null);
+
+  const years = (sk.timeline || []).slice().sort((a, b) => a.date.localeCompare(b.date));
+  const year = years.length ? section("year", "The year so far", "Milestones in health policy this year, each linked to its source.",
+    h("ol", { class: "tl" }, years.map(e => h("li", null, h("time", { datetime: e.date, text: shortDate(e.date) }), h("span", null, e.text + " ", e.src ? link("Source", e.src, "small muted") : null))))) : null;
+  const inst = sk.institutions || [];
+  const who = inst.length ? section("whoiswho", "Who is who", "", h("ul", { class: "links" }, inst.map(i => h("li", null, link(i.name, i.url), h("span", { text: i.role }))))) : null;
 
   /* news from the Global Health Ribbon */
   const news = live.news || [];
@@ -216,7 +224,7 @@ async function renderCountry(c) {
         tr.nap ? [link("National action plan", tr.nap), ". "] : "", link("All answers in the TrACSS portal", "../../tracss-good-practices/"), ".")
       : h("p", { class: "empty", text: "No TrACSS 2025 answers for this country." }));
 
-  root.append(h("div", { class: "cols" }, h("div", null, sketch, newsSec, projects), h("div", null, calendar, alerts, numbers)),
+  root.append(h("div", { class: "cols" }, h("div", null, sketch, year, newsSec, projects), h("div", null, who, calendar, alerts, numbers)),
     h("footer", null,
       h("p", { text: "This is a shadow page: refreshed by hand, irregularly. Sources: WHO Global Health Observatory, World Bank projects, WHO Disease Outbreak News, WHO JEE reports, TrACSS 2025, the NPHI Collaboration Map, the Global Health Ribbon, Risk Radar and the World Calendar." }),
       h("p", { text: "The sketch is written automatically and can miss or misread things. Follow the links before relying on a point." })));

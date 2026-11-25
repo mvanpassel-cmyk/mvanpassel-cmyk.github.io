@@ -1,39 +1,104 @@
 {
- "checked": "2026-11-14",
- "model": "claude-haiku-5-5",
- "snapshot": {
-  "text": "Health system pursuing universal health coverage, with the Ministry of Health aiming for a digital, primary-care-focused reform. Main challenges include recurrent medicine shortages at the Central Pharmacy and pressure on social funds. Notable now: a National Charter for Health signed in October 2026.",
-  "src": [
-   "https://allafrica.com/stories/202610020099.html",
-   "https://dharab.com/tunisia-fast-tracks-medicine-supply-reform-with-emergency-funding/",
-   "https://iafrica.com/tunisia-advances-digital-health-reform-with-ai-and-national-cloud-strategy/"
-  ]
- },
+ "checked": "2026-11-25",
+ "model": "Claude Opus 5.5 (chat session)",
+ "depth": "full",
+ "leaders": [
+  {
+   "role": "President",
+   "name": "Kaïs Saïed"
+  }
+ ],
  "minister": {
   "name": "Mustapha Ferjani",
   "role": "Minister of Health",
   "since": "2024",
-  "src": "https://aiforgood.itu.int/speaker/h-e-mr-mustapha-ferjani/"
+  "src": "https://fr.allafrica.com/stories/202611130331.html"
+ },
+ "snapshot": {
+  "text": "A public system pursuing universal health coverage, with a digital, primary-care-focused reform. Recurrent medicine shortages at the Central Pharmacy and pressure on social funds are the main problems; the 2027 health budget rises by 9%.",
+  "src": [
+   "https://www.lapresse.tn/2026/11/15/ministere-de-la-sante-4-000-recrutements-en-2027-et-une-hausse-du-budget-de-878/",
+   "https://fr.allafrica.com/stories/202603310237.html"
+  ]
  },
  "priorities": [
   {
-   "title": "Central Pharmacy medicine supply overhaul",
-   "text": "Cabinet approved urgent funding for the Central Pharmacy, digital tracking of drug supplies, faster drug marketing approvals and expanded local generic production to end shortages.",
-   "src": "https://www.zawya.com/en/economy/north-africa/tunisia-cabinet-adopts-decisions-to-reform-healthcare-social-security-and-health-coverage-systems-m6xwrklh"
+   "title": "Medicine supply and a strategic stock",
+   "text": "An emergency plan aims to restore medicine supply and build a strategic stock, after a review of the Central Pharmacy's situation in a ministerial council.",
+   "src": "https://fr.allafrica.com/stories/202603310237.html"
   },
   {
-   "title": "National Charter for Health, universal coverage",
-   "text": "The ministry signed a charter with Japan, WHO and the World Bank to support universal health coverage; commitments go to a Tokyo summit in December 2026.",
+   "title": "Universal coverage and a National Health Charter",
+   "text": "The ministry signed a charter with Japan, WHO and the World Bank to support universal health coverage; commitments go to a summit in Tokyo in December 2026.",
    "src": "https://allafrica.com/stories/202610020099.html"
   },
   {
-   "title": "Digital health and sovereign health data",
-   "text": "Plans include extending high-speed internet to primary care facilities, moving health data to Tunisian cloud solutions, using AI for analysis and creating a citizen digital call centre.",
-   "src": "https://iafrica.com/tunisia-advances-digital-health-reform-with-ai-and-national-cloud-strategy/"
+   "title": "Budget 2027, equity and infrastructure",
+   "text": "The 2027 health budget is about 6.04 billion dinars (+9%); the minister's lines are equity in health and bringing services closer to citizens, with projects such as the King Salman hospital in Kairouan (due 2029); 4,000 health staff are to be recruited in 2027.",
+   "src": "https://www.lapresse.tn/2026/11/15/ministere-de-la-sante-4-000-recrutements-en-2027-et-une-hausse-du-budget-de-878/"
   }
  ],
  "netherlands": {
   "text": "A 2014 triangular programme, signed by the Dutch minister with a Tunisian counterpart, addressed maternal mortality and family planning in Mali and Yemen.",
   "src": "https://reliefweb.int/report/mali/netherlands-and-tunisia-lend-support-women-s-rights-mali-and-yemen"
- }
+ },
+ "institutions": [
+  {
+   "name": "Ministère de la Santé",
+   "role": "National health policy",
+   "url": "http://www.santetunisie.rns.tn/"
+  },
+  {
+   "name": "Institut Pasteur de Tunis",
+   "role": "Public health laboratory and research",
+   "url": "https://www.pasteur.tn/"
+  },
+  {
+   "name": "Pharmacie Centrale de Tunisie",
+   "role": "Central medicines purchaser",
+   "url": "https://www.phct.com.tn/"
+  },
+  {
+   "name": "Observatoire national des maladies nouvelles et émergentes",
+   "role": "Disease surveillance",
+   "url": "https://www.onmne.tn/"
+  },
+  {
+   "name": "Embassy of the Netherlands",
+   "role": "Dutch mission and consular information",
+   "url": "https://www.netherlandsandyou.nl/web/tunisia"
+  }
+ ],
+ "timeline": [
+  {
+   "date": "2026-03-25",
+   "text": "Joint health projects with France move into the operational phase.",
+   "src": "https://fr.allafrica.com/stories/202603260241.html"
+  },
+  {
+   "date": "2026-03-30",
+   "text": "Emergency plan to restore medicine supply and build a strategic stock.",
+   "src": "https://fr.allafrica.com/stories/202603310237.html"
+  },
+  {
+   "date": "2026-05-17",
+   "text": "At the World Health Assembly, Tunisia calls for a united African voice in global health governance reform.",
+   "src": "https://fr.allafrica.com/stories/202605180372.html"
+  },
+  {
+   "date": "2026-06-22",
+   "text": "Construction of the King Salman hospital in Kairouan starts; opening planned for 2029.",
+   "src": "https://fr.allafrica.com/stories/202606230227.html"
+  },
+  {
+   "date": "2026-11-12",
+   "text": "Cairo Declaration launches an Arab strategy 2026-2030 on health professionals abroad.",
+   "src": "https://fr.allafrica.com/stories/202611130331.html"
+  },
+  {
+   "date": "2026-11-15",
+   "text": "Health budget 2027 presented to parliament: about 6.04 billion dinars, up 9%.",
+   "src": "https://www.lapresse.tn/2026/11/15/ministere-de-la-sante-4-000-recrutements-en-2027-et-une-hausse-du-budget-de-878/"
+  }
+ ]
 }

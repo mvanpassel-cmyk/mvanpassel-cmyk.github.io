@@ -1,29 +1,104 @@
 {
- "checked": "2026-11-14",
+ "checked": "2026-11-25",
  "model": "Claude Opus 5.5 (chat session)",
- "snapshot": {
-  "text": "Health is largely devolved to the provinces, with a federal ministry for national health services and coordination. Polio eradication remains the national priority; Pakistan is one of the last countries with wild poliovirus.",
-  "src": [
-   "https://www.dawn.com/news/1898284/polio-eradication-remains-national-priority-health-minister-mustafa-kamal",
-   "https://tribune.com.pk/story/2638813/pm-orders-provinces-to-prepare-coordinated-polio-eradication-plan-within-a-week"
-  ]
- },
+ "depth": "full",
+ "leaders": [
+  {
+   "role": "Prime Minister",
+   "name": "Shehbaz Sharif"
+  }
+ ],
  "minister": {
-  "name": "Mustafa Kamal",
+  "name": "Syed Mustafa Kamal",
   "role": "Federal Minister for National Health Services, Regulations and Coordination",
-  "since": "",
-  "src": "https://www.dawn.com/news/1898284/polio-eradication-remains-national-priority-health-minister-mustafa-kamal"
+  "since": "2025",
+  "src": "https://www.gavi.org/governance/gavi-board/members/syed-mustafa-kamal"
+ },
+ "snapshot": {
+  "text": "Health is largely devolved to the provinces, with a federal ministry for regulation, coordination and national programmes. Polio eradication remains the national priority; the minister wants to shift the system from treatment to prevention.",
+  "src": [
+   "https://pid.gov.pk/site/press_detail/32817",
+   "https://dailytimes.com.pk/1484649/pakistan-prepares-new-preventive-health-strategy-says-mustafa-kamal/"
+  ]
  },
  "priorities": [
   {
    "title": "Polio eradication",
-   "text": "The prime minister ordered provinces to prepare a coordinated polio eradication plan, and the polio drive is to cover children up to age 15.",
-   "src": "https://tribune.com.pk/story/2638813/pm-orders-provinces-to-prepare-coordinated-polio-eradication-plan-within-a-week"
+   "text": "At the World Health Assembly in May 2026 the minister repeated that polio eradication is Pakistan's foremost national priority; Pakistan is one of the last countries with wild poliovirus.",
+   "src": "https://pid.gov.pk/site/press_detail/32817"
   },
   {
-   "title": "Barcodes on all medicines",
-   "text": "Every medicine in Pakistan is to carry a barcode, to fight counterfeit drugs.",
-   "src": "https://propakistani.pk/2025/07/07/every-medicine-in-pakistan-will-carry-a-barcode-within-3-months-health-minister/amp/"
+   "title": "Hepatitis C and prevention",
+   "text": "The minister called hepatitis C a national emergency and launched the Prime Minister's programme to eliminate it by 2030, alongside a new national strategy that shifts care from treatment to prevention.",
+   "src": "https://pid.gov.pk/site/press_detail/33370"
+  },
+  {
+   "title": "Local vaccine production and procurement scrutiny",
+   "text": "The ministry is accelerating a local vaccine production project with Asian Development Bank support. In November 2026 the prime minister's inquiry into a vaccine procurement controversy blamed the Border Health Services for breaking procurement rules.",
+   "src": "https://pid.gov.pk/site/press_detail/33333"
+  }
+ ],
+ "netherlands": {
+  "text": "No bilateral health programme found; contact runs mainly through multilateral channels. Minister Kamal sits on the board of Gavi, which the Netherlands funds, and Pakistan's polio drive relies on GPEI partners.",
+  "src": "https://www.gavi.org/governance/gavi-board/members/syed-mustafa-kamal"
+ },
+ "institutions": [
+  {
+   "name": "Ministry of National Health Services, Regulations and Coordination",
+   "role": "Federal health ministry",
+   "url": "https://www.nhsrc.gov.pk/"
+  },
+  {
+   "name": "National Institute of Health",
+   "role": "Public health institute and laboratories",
+   "url": "https://www.nih.org.pk/"
+  },
+  {
+   "name": "Drug Regulatory Authority of Pakistan",
+   "role": "Medicines regulator",
+   "url": "https://www.dra.gov.pk/"
+  },
+  {
+   "name": "Pakistan Polio Eradication Programme",
+   "role": "National polio programme",
+   "url": "https://www.endpolio.com.pk/"
+  },
+  {
+   "name": "Embassy of the Netherlands",
+   "role": "Dutch mission and consular information",
+   "url": "https://www.netherlandsandyou.nl/web/pakistan"
+  }
+ ],
+ "timeline": [
+  {
+   "date": "2026-04-21",
+   "text": "Minister says medicine stocks are sufficient for the next five to six months.",
+   "src": "https://www.dawn.com/news/1993828"
+  },
+  {
+   "date": "2026-04-27",
+   "text": "New national preventive health strategy announced.",
+   "src": "https://dailytimes.com.pk/1484649/pakistan-prepares-new-preventive-health-strategy-says-mustafa-kamal/"
+  },
+  {
+   "date": "2026-05-20",
+   "text": "At the World Health Assembly, Pakistan calls polio eradication its foremost priority.",
+   "src": "https://pid.gov.pk/site/press_detail/32817"
+  },
+  {
+   "date": "2026-07-23",
+   "text": "Minister orders faster work on local vaccine production.",
+   "src": "https://pid.gov.pk/site/press_detail/33333"
+  },
+  {
+   "date": "2026-07-28",
+   "text": "Hepatitis C declared a national emergency; elimination targeted by 2030.",
+   "src": "https://pid.gov.pk/site/press_detail/33370"
+  },
+  {
+   "date": "2026-11-10",
+   "text": "Vaccine procurement inquiry report made public; the minister says it found no loss to the government.",
+   "src": "https://bolnews.com/health/mustafa-kamal-denies-10-billion-vaccine-corruption-says-probe-found-no-loss-to-government"
   }
  ]
 }

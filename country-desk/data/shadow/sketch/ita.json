@@ -1,33 +1,94 @@
 {
- "checked": "2026-11-14",
- "model": "claude-haiku-5-5",
- "snapshot": {
-  "text": "Shared governance: the Ministry of Health works with the Regions on prevention and planning. Main challenges include mental health and prevention, and the government is now implementing a 2025–2030 mental health plan and a 2026–2031 prevention plan.",
-  "src": [
-   "https://www.mdpi.com/2673-947X/6/4/81",
-   "https://www.who.int/europe/news/item/27-01-2026-who-and-italy-strengthen-partnership-on-health-systems-of-the-future-at-italian-senate"
-  ]
- },
+ "checked": "2026-11-25",
+ "model": "Claude Opus 5.5 (chat session)",
+ "depth": "full",
+ "leaders": [
+  {
+   "role": "Prime Minister",
+   "name": "Giorgia Meloni"
+  }
+ ],
  "minister": {
   "name": "Orazio Schillaci",
   "role": "Minister of Health",
   "since": "2022",
-  "src": "https://en.wikipedia.org/wiki/Minister_of_Health_(Italy)"
+  "src": "https://www.quotidianosanita.it/?p=153175"
+ },
+ "snapshot": {
+  "text": "A national health service (SSN) run by the 21 regions and autonomous provinces, funded through the national health fund. The fund rose from about €126 billion in 2022 to almost €143 billion in 2026, but staff shortages and waiting lists dominate the debate.",
+  "src": [
+   "https://www.quotidianosanita.it/?p=153175",
+   "https://en.ilsole24ore.com/art/la-sanita-incassa-piu-fondi-il-2026-ma-resta-grande-incognita-crisi-professioni-sanitarie-AIrcGMf"
+  ]
  },
  "priorities": [
   {
-   "title": "Mental health action plan 2025–2030",
-   "text": "Italy is putting its National Mental Health Action Plan 2025–2030 into practice, using a One Mental Health approach and new 2026 prevention commitments, as confirmed at a WHO Europe event in the Senate.",
-   "src": "https://www.who.int/europe/news/item/27-01-2026-who-and-italy-strengthen-partnership-on-health-systems-of-the-future-at-italian-senate"
+   "title": "Budget 2027: less than asked for",
+   "text": "The 2027 budget adds €2.4 billion to the health fund, less than half of the €5.5 billion the minister requested to hire staff and pay doctors and nurses; doctors and regions sounded the alarm.",
+   "src": "https://en.ilsole24ore.com/art/budget-move-sparks-alarm-among-doctors-and-regional-authorities-with-just-24-billion-more-the-health-service-cannot-cope-AJO0450B"
   },
   {
-   "title": "National Prevention Plan 2026–2031",
-   "text": "The 2026–2031 prevention plan is delivered through the Ministry with the Regions, and part of its funding is a yearly allocation protected within the National Health Fund.",
-   "src": "https://www.mdpi.com/2673-947X/6/4/81"
+   "title": "Health workforce and waiting lists",
+   "text": "The minister wants more hiring, better pay and career prospects for health staff, and points to the national waiting-list monitoring platform for reliable data.",
+   "src": "https://www.quotidianosanita.it/governo-e-parlamento/manovra-schillaci-la-prossima-settimana-incontrer-giorgetti-chieder-pi-assunzioni-e-stipendi-migliori-per-il-personale-sanitario/"
+  },
+  {
+   "title": "Mental health and prevention plans",
+   "text": "Italy is implementing its National Mental Health Action Plan 2025-2030 and a 2026-2031 prevention plan, confirmed at a WHO Europe event in the Senate.",
+   "src": "https://www.who.int/europe/news/item/27-01-2026-who-and-italy-strengthen-partnership-on-health-systems-of-the-future-at-italian-senate"
   }
  ],
  "netherlands": {
   "text": "A Dutch-Italian development cooperation page lists sexual and reproductive health and rights among Dutch expertise themes. It does not confirm specific joint health projects with Italy.",
   "src": "https://www.netherlandsandyou.nl/your-country-and-the-netherlands/italy/and-the-netherlands/development-coorporation"
- }
+ },
+ "institutions": [
+  {
+   "name": "Ministero della Salute",
+   "role": "National health policy",
+   "url": "https://www.salute.gov.it/"
+  },
+  {
+   "name": "Istituto Superiore di Sanità",
+   "role": "National public health institute",
+   "url": "https://www.iss.it/"
+  },
+  {
+   "name": "AIFA",
+   "role": "Medicines agency",
+   "url": "https://www.aifa.gov.it/"
+  },
+  {
+   "name": "Agenas",
+   "role": "Regional health services agency, waiting-list monitoring",
+   "url": "https://www.agenas.gov.it/"
+  },
+  {
+   "name": "Embassy of the Netherlands",
+   "role": "Dutch mission and consular information",
+   "url": "https://www.netherlandsandyou.nl/web/italy"
+  }
+ ],
+ "timeline": [
+  {
+   "date": "2026-01-27",
+   "text": "WHO Europe and Italy strengthen their partnership at an event in the Senate.",
+   "src": "https://www.who.int/europe/news/item/27-01-2026-who-and-italy-strengthen-partnership-on-health-systems-of-the-future-at-italian-senate"
+  },
+  {
+   "date": "2026-10-07",
+   "text": "GIMBE: the health fund grew by €17.5 billion since 2022 but lags behind GDP growth.",
+   "src": "https://lespresso.it/c/salute/2026/10/7/fondo-sanitario-nazionale-italia-dati-spesa-soldi-tagli-regioni-medici-personale-infermieri-rapporto-gimbe/65206"
+  },
+  {
+   "date": "2026-10-31",
+   "text": "Budget gives €2.4 billion extra for health against €5.5 billion requested.",
+   "src": "https://www.ilfoglio.it/en/politics/2026/10/31/news/the-figures-that-dont-add-up-for-schillaci--412278"
+  },
+  {
+   "date": "2026-11-04",
+   "text": "Minister: health fund to reach €146 billion in 2027.",
+   "src": "https://www.my-personaltrainer.it/news/fondo-sanitario-nazionale-cosa-ha-detto-schillaci-sui-146-miliardi-nel-2027-e-sul-voucher-per-gli-anziani.html"
+  }
+ ]
 }

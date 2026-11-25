@@ -1,39 +1,93 @@
 {
- "checked": "2026-11-14",
- "model": "claude-haiku-5-5",
- "snapshot": {
-  "text": "A government-led health system now expanding universal health insurance. Main challenges: high out-of-pocket costs (about 28% of health spending), a shortage of specialists, and expected falls in donor funding for 2026/27. The 2007 Health Policy is under review.",
-  "src": [
-   "https://allafrica.com/stories/202605110752.html",
-   "https://www.thecitizen.co.tz/tanzania/news/national/tanzania-health-ministry-targets-11-priorities-in-sh1-8-trillion-2026-27-budget-5454838",
-   "https://businessinsider.co.tz/health-sovereignty-drive-puts-investment-local-production-in-focus-at-ths-2026/"
-  ]
- },
+ "checked": "2026-11-25",
+ "model": "Claude Opus 5.5 (chat session)",
+ "depth": "full",
+ "leaders": [
+  {
+   "role": "President",
+   "name": "Samia Suluhu Hassan"
+  }
+ ],
  "minister": {
   "name": "Mohamed Mchengerwa",
   "role": "Minister for Health",
-  "since": "",
-  "src": "https://allafrica.com/stories/202605110752.html"
+  "src": "https://thecitizen.co.tz/tanzania/news/national/tanzania-health-ministry-targets-11-priorities-in-sh1-8-trillion-2026-27-budget-5454838"
+ },
+ "snapshot": {
+  "text": "A government-led health system now rolling out universal health insurance under the 2023 UHI Act. Out-of-pocket costs, a shortage of specialists and falling donor funding are the main challenges; the 2007 Health Policy is under review.",
+  "src": [
+   "https://thecitizen.co.tz/tanzania/news/national/tanzania-health-ministry-targets-11-priorities-in-sh1-8-trillion-2026-27-budget-5454838",
+   "https://businessinsider.co.tz/health-sovereignty-drive-puts-investment-local-production-in"
+  ]
  },
  "priorities": [
   {
-   "title": "Universal health insurance rollout",
-   "text": "The government plans to keep enrolling needy households in the Universal Health Insurance Program, aiming to lower citizens' medical cost burden.",
-   "src": "https://allafrica.com/stories/202605110752.html"
+   "title": "Universal Health Insurance",
+   "text": "Rollout began in January 2026 for poor households; the second phase started on 22 October 2026 with the FAHARI AFYA package (TSh 150,000 per household of up to six) and a target of 25 million beneficiaries by mid-2027.",
+   "src": "https://dailynews.co.tz/?p=169276"
   },
   {
-   "title": "Local pharmaceutical manufacturing expansion",
-   "text": "The 2026/27 budget of Sh1.8 trillion funds a pharmaceutical research laboratory and local drug production, including antiretrovirals at Tanzania Pharmaceutical Industries.",
-   "src": "https://www.thecitizen.co.tz/tanzania/news/national/tanzania-health-ministry-targets-11-priorities-in-sh1-8-trillion-2026-27-budget-5454838"
+   "title": "Budget 2026/27: 11 priorities",
+   "text": "The TSh 1.8 trillion budget puts universal health insurance, local pharmaceutical manufacturing and specialist care at the centre.",
+   "src": "https://thecitizen.co.tz/tanzania/news/national/tanzania-health-ministry-targets-11-priorities-in-sh1-8-trillion-2026-27-budget-5454838"
   },
   {
-   "title": "Health sovereignty and policy reform",
-   "text": "Officials frame health sovereignty as a national security matter, and the Ministry is revising the 2007 Health Policy and the Health Services Management Act.",
-   "src": "https://businessinsider.co.tz/health-sovereignty-drive-puts-investment-local-production-in-focus-at-ths-2026/"
+   "title": "Health sovereignty",
+   "text": "Officials frame health sovereignty as a national security matter, and the ministry is revising the 2007 Health Policy and the Health Services Management Act.",
+   "src": "https://businessinsider.co.tz/health-sovereignty-drive-puts-investment-local-production-in"
   }
  ],
  "netherlands": {
   "text": "Dutch and German hospitals are working with Benjamin Mkapa Hospital in Dodoma on specialised cardiac care over five years, coordinated by ZGT Overzee. Radboudumc also partners with Muhimbili.",
   "src": "https://www.focusvoorafrika.nl/en/blog/international-cooperation-strengthens-specialized-cardiac-care-in-tanzania/"
- }
+ },
+ "institutions": [
+  {
+   "name": "Ministry of Health",
+   "role": "National health policy",
+   "url": "https://www.moh.go.tz/"
+  },
+  {
+   "name": "National Health Insurance Fund (NHIF)",
+   "role": "Health insurance",
+   "url": "https://www.nhif.or.tz/"
+  },
+  {
+   "name": "National Institute for Medical Research (NIMR)",
+   "role": "Health research",
+   "url": "https://www.nimr.or.tz/"
+  },
+  {
+   "name": "Tanzania Medicines and Medical Devices Authority",
+   "role": "Medicines regulator",
+   "url": "https://www.tmda.go.tz/"
+  },
+  {
+   "name": "Embassy of the Netherlands",
+   "role": "Dutch mission and consular information",
+   "url": "https://www.netherlandsandyou.nl/web/tanzania"
+  }
+ ],
+ "timeline": [
+  {
+   "date": "2026-01-26",
+   "text": "Essential Health Insurance Services Fund for the poor starts; UHI rollout begins.",
+   "src": "https://thecitizen.co.tz/tanzania/news/national/tanzania-launches-essential-health-insurance-fund-for-underprivileged-citizens-5336122"
+  },
+  {
+   "date": "2026-04-29",
+   "text": "National Health and Immunization Week under the theme of universal health insurance.",
+   "src": "https://dailynews.co.tz/?p=140490"
+  },
+  {
+   "date": "2026-05-11",
+   "text": "TSh 1.8 trillion health budget presented with 11 priorities.",
+   "src": "https://thecitizen.co.tz/tanzania/news/national/tanzania-health-ministry-targets-11-priorities-in-sh1-8-trillion-2026-27-budget-5454838"
+  },
+  {
+   "date": "2026-10-22",
+   "text": "Second phase of universal health insurance begins.",
+   "src": "https://dailynews.co.tz/?p=169276"
+  }
+ ]
 }
