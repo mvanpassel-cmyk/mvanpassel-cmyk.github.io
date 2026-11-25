@@ -7,6 +7,7 @@
   const app = $('#app');
   const params = new URLSearchParams(location.search);
 
+  const DEFAULT_CODE = clean(QZ.DEFAULT_CODE || '');
   let code = clean(params.get('c') || params.get('code') || '');
   let myName = '';
   let game = null;
@@ -50,6 +51,7 @@
       myName = saved.name;
       startSession(true);
     } else {
+      if (!code) code = DEFAULT_CODE;
       showJoin();
     }
     requestAnimationFrame(tick);

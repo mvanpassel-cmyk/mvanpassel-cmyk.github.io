@@ -9,6 +9,9 @@
 
   const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
 
+  /** Vaste spelcode: de kale spelerslink (zonder ?c=) vult deze automatisch in. */
+  const DEFAULT_CODE = 'BONN26';
+
   /** Totaalscore per speler: som van de punten die de quizmaster per vraag heeft vastgelegd. */
   function totals(game) {
     const t = {};
@@ -242,5 +245,5 @@
     }
   }
 
-  window.QZ = { esc, fmt, LETTERS, totals, board, scoreQuestion, tally, secs, placeLabel, confetti, registerSW, deltas, boardHtml, podiumHtml, revealHtml, speedRanking, speedHtml };
+  window.QZ = { DEFAULT_CODE, esc, fmt, LETTERS, totals, board, scoreQuestion, tally, secs, placeLabel, confetti, registerSW, deltas, boardHtml, podiumHtml, revealHtml, speedRanking, speedHtml };
 })();

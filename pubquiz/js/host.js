@@ -38,6 +38,7 @@
   let lastHtml = '';
   let confettiDone = false;
   const LAST = 'pubquiz-host-last';
+  const QZ_DEFAULT_CODE = () => QZ.DEFAULT_CODE || '';
 
   /* ---------------- opstart ---------------- */
   async function boot() {
@@ -101,8 +102,8 @@
       '<p class="muted">' + items.length + ' onderdelen: ' + scoredTotal + ' vragen met punten en ' + (items.length - scoredTotal) + ' stemvragen, in ' + usedRounds.length + ' rondes.</p>' +
       (error ? '<div class="banner err">' + esc(error) + '</div>' : '') +
       '<form id="newForm"><label for="code">Spelcode</label>' +
-      '<input id="code" class="code" type="text" maxlength="8" value="' + randomCode() + '">' +
-      '<p class="muted small">Kies zelf iets (bijv. BONN) of laat de willekeurige code staan.</p>' +
+      '<input id="code" class="code" type="text" maxlength="8" value="' + (QZ_DEFAULT_CODE() || randomCode()) + '">' +
+      '<p class="muted small">Met de vaste code werkt ook de kale spelerslink, zonder code. Je mag een andere kiezen.</p>' +
       '<button class="btn primary block" type="submit">Maak spel ▶</button></form>' +
       (last ? '<button class="btn ghost block" id="resume">Verder met spel ' + esc(last) + '</button>' : '') +
       '</div>' + questionList(-1) + '</div>';
