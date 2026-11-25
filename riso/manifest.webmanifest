@@ -1,0 +1,16 @@
+{
+  "name": "Riso",
+  "short_name": "Riso",
+  "description": "A small generative drum machine printed in riso inks.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f3eee4",
+  "theme_color": "#f3eee4",
+  "icons": [
+    { "src": "/logos/riso-180.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "/logos/riso-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/logos/riso.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
