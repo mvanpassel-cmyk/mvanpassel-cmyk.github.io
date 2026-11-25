@@ -37,7 +37,8 @@ HEALTH = re.compile(
     r"\b(health|healthcare|hospital|clinic|medic|doctor|nurse|disease|outbreak|epidemic|pandemic|virus|"
     r"vaccin|immuni[sz]|ebola|mpox|cholera|malaria|measles|polio|dengue|tubercul|\bTB\b|HIV|AIDS|"
     r"antimicrobial|antibiotic|pharma|drug|patient|maternal|nutrition|mental|cancer|diabet|insurance|"
-    r"WHO|Africa CDC|CDC|salud|hospital|vacuna|brote|EPS|m[eé]dic|sanitari|enfermedad|epidemi)", re.I)
+    r"WHO|Africa CDC|CDC|salud|hospital|vacuna|brote|EPS|m[eé]dic|sanitari|enfermedad|epidemi|"
+    r"sant[eé]|h[oô]pita|[eé]pid[eé]mi|maladie|paludisme|rougeole|chol[eé]ra|m[eé]decin|soins)", re.I)
 
 # WHO Global Health Observatory indicator codes
 INDICATORS = [

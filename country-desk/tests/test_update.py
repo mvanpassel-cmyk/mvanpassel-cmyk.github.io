@@ -17,6 +17,13 @@ class Relevance(unittest.TestCase):
     def test_names_are_whole_words(self):
         self.assertFalse(u.relevant("Shanghai hospital opens new wing", KENYA))
 
+    def test_french_headlines(self):
+        senegal = {"slug": "senegal", "name": "Senegal", "names": ["Sénégal", "sénégalais"], "terms": ["Ibrahima Sy"]}
+        self.assertTrue(u.relevant("Sénégal : le budget de la santé augmente en 2027", senegal))
+        self.assertTrue(u.relevant("Ibrahima Sy inaugure un nouvel hôpital à Tivaouane", senegal))
+        self.assertTrue(u.relevant("Épidémie de rougeole : le Sénégal renforce la riposte", senegal))
+        self.assertFalse(u.relevant("Le Sénégal remporte la Coupe d'Afrique U15", senegal))
+
 
 class Dates(unittest.TestCase):
     def test_stale_by_url(self):
