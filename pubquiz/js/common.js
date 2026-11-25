@@ -140,6 +140,44 @@
     return '<div class="podium">' + col(p[1], 'p2', p[1] ? p[1].rank : 2) + col(p[0], 'p1', p[0] ? p[0].rank : 1) + col(p[2], 'p3', p[2] ? p[2].rank : 3) + '</div>';
   }
 
+  /** Snelheidsprijs: laagste gemiddelde reactietijd over GOED beantwoorde meerkeuzevragen.
+      Wie te weinig goed had, telt niet mee (minimaal 5, of minder als niemand dat haalt). */
+  function speedRanking(game) {
+    const players = (game && game.players) || {};
+    const res = (game && game.results) || {};
+    const ans = (game && game.answers) || {};
+    const stat = {};
+    Object.keys(res).forEach((k) => {
+      if (!res[k] || res[k].type !== 'mc') return;
+      const pts = res[k].pts || {};
+      Object.keys(pts).forEach((id) => {
+        const a = ans[k] && ans[k][id];
+        if (pts[id] > 0 && a && isFinite(Number(a.ms))) {
+          const s = stat[id] || (stat[id] = { n: 0, ms: 0 });
+          s.n += 1; s.ms += Number(a.ms);
+        }
+      });
+    });
+    let rows = Object.keys(stat).filter((id) => players[id]).map((id) => ({
+      id, name: players[id].name || '?', n: stat[id].n, avg: stat[id].ms / stat[id].n }));
+    if (!rows.length) return [];
+    const maxN = Math.max.apply(null, rows.map((r) => r.n));
+    const minN = Math.min(5, maxN);
+    rows = rows.filter((r) => r.n >= minN).sort((a, b) => a.avg - b.avg);
+    return rows;
+  }
+
+  function speedHtml(game, me) {
+    const rows = speedRanking(game);
+    if (!rows.length) return '';
+    const w = rows[0];
+    const rest = rows.slice(1, 3).map((r, i) => (i + 2) + '. ' + esc(r.name) + ' (' + secs(r.avg) + ' s)').join(' · ');
+    return '<div class="card center speed"><div class="eyebrow">Speciale prijs</div><div class="big-emoji">⚡</div>' +
+      '<h2>Snelste reactie</h2><div class="speed-name">' + esc(w.name) + (w.id === me ? ' <span class="muted small">(jij!)</span>' : '') + '</div>' +
+      '<p class="muted">gemiddeld <b>' + secs(w.avg) + ' s</b> per goed antwoord (' + w.n + ' goed)</p>' +
+      (rest ? '<p class="muted small">' + rest + '</p>' : '') + '</div>';
+  }
+
   /** Onthulling van een vraag: gedeeld door quizmaster en spelers. */
   function revealHtml(game, me, isHost) {
     const st = game.state || {};
@@ -204,5 +242,5 @@
     }
   }
 
-  window.QZ = { esc, fmt, LETTERS, totals, board, scoreQuestion, tally, secs, placeLabel, confetti, registerSW, deltas, boardHtml, podiumHtml, revealHtml };
+  window.QZ = { esc, fmt, LETTERS, totals, board, scoreQuestion, tally, secs, placeLabel, confetti, registerSW, deltas, boardHtml, podiumHtml, revealHtml, speedRanking, speedHtml };
 })();

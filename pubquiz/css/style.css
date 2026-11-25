@@ -185,6 +185,8 @@ input.code { text-transform: uppercase; letter-spacing: .3em; font-weight: 800; 
 .podium .p2 .blk { height: 95px; background: var(--c); }
 .podium .p3 .blk { height: 70px; background: var(--m); color: #fff; }
 .podium .who { font-weight: 800; margin-bottom: 6px; word-break: break-word; }
+.speed { border-color: var(--y); }
+.speed .speed-name { font-size: 28px; font-weight: 900; color: var(--y); margin: 4px 0; word-break: break-word; }
 .podium .pts { color: var(--muted); font-size: 14px; margin-bottom: 6px; }
 
 /* ---------- spelers (chips) ---------- */

@@ -359,7 +359,7 @@
     const mine = rows.find((r) => r.id === Store.uid);
     return '<div class="card center"><div class="big-emoji">🏆</div><h1>Eindstand</h1>' +
       (mine ? '<p>Jij bent <b>' + mine.rank + 'e</b> geworden met <b>' + mine.score + '</b> punten.</p>' : '') +
-      QZ.podiumHtml(rows) + '</div>' +
+      QZ.podiumHtml(rows) + '</div>' + QZ.speedHtml(game, Store.uid) +
       '<div class="card">' + QZ.boardHtml(rows, { me: Store.uid }) + '</div>' +
       '<p class="center muted">Bedankt voor het meespelen en veel plezier in Bonn! 🎄</p>';
   }

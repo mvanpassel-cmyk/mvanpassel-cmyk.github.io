@@ -349,7 +349,7 @@
       }
       case 'final': {
         const rows = QZ.board(game);
-        return '<div class="card center"><div class="big-emoji">🏆</div><h1>Eindstand</h1>' + QZ.podiumHtml(rows) + '</div>' +
+        return '<div class="card center"><div class="big-emoji">🏆</div><h1>Eindstand</h1>' + QZ.podiumHtml(rows) + '</div>' + QZ.speedHtml(game) +
           '<div class="card">' + QZ.boardHtml(rows) + '</div>';
       }
       default: return '';
