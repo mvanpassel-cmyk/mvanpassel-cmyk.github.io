@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Real Pockets</title>
+<meta name="description" content="Women's trousers with pockets that actually hold your phone, from shops that deliver to the Netherlands.">
+<link rel="icon" type="image/png" sizes="32x32" href="/logos/real-pockets-32.png">
+<link rel="icon" type="image/svg+xml" href="/logos/real-pockets.svg">
+<link rel="apple-touch-icon" href="/logos/real-pockets-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* VOICE occasion, playful and cheeky but honest about the evidence
+   IDEA a denim garment: stitched patch pockets, thread, rivets, a hang-tag for every pair
+   PICTURE two pockets drawn to the Pudding's measured ratio, a phone that fits one and pokes out of the other
+   COLOUR denim blue ground band, white page, gold stitch thread, hot pink accent for actions
+   TYPE Rubik 900 display + Rubik text
+   LAYOUT hero band with title + stats left, pocket drawing right; stacks on phone; then filters, tag cards, the pocket test, footer */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0f1626);--ink:light-dark(#14203a,#eef2fb);--soft:light-dark(#4a5875,#a9b5cf);--denim:light-dark(#2c56a8,#1b3266);--denim2:light-dark(#3b69c2,#24427f);--thread:#f2b84b;--pink:light-dark(#e8336f,#ff6b98);--tag:light-dark(#f4f7fd,#17213a);--line:light-dark(#d6deee,#2b3855)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Rubik,system-ui,sans-serif;overflow-x:clip}
+a{color:inherit}
+.band{padding-block:clamp(28px,4vw,64px);padding-left:max(5vw,16px);padding-right:max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+nav{background:var(--denim);color:#fff;border-bottom:2px dashed var(--thread)}
+nav .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:center;justify-content:space-between;padding:14px max(5vw,16px)}
+.logo{font-weight:900;font-size:22px;letter-spacing:-.02em;text-decoration:none}
+.logo span{color:var(--thread)}
+nav ul{display:flex;flex-wrap:wrap;gap:4px 18px;list-style:none;margin:0;padding:0;font-weight:500}
+nav ul a{text-decoration:none;opacity:.9}
+nav ul a:hover{opacity:1;text-decoration:underline}
+.hero{background:var(--denim);color:#fff;background-image:repeating-linear-gradient(115deg,rgba(255,255,255,.035) 0 2px,transparent 2px 6px)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(20px,4vw,56px);align-items:center}
+h1{font-weight:900;font-size:clamp(34px,5vw,52px);line-height:1.05;letter-spacing:-.02em;margin:0 0 16px;text-wrap:balance}
+.lede{font-size:17px;max-width:34em;margin:0 0 24px;color:#e3ebfb}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(9em,1fr));gap:12px}
+.stat{border:2px dashed var(--thread);border-radius:14px;padding:12px 14px}
+.stat b{display:block;font-size:clamp(28px,3.4vw,38px);font-weight:900;line-height:1;color:var(--thread)}
+.stat span{font-size:14px;color:#e3ebfb}
+.src{font-size:13px;color:#c9d6f3;margin-top:12px}
+.src a{color:#fff}
+.fig{position:relative;aspect-ratio:520/390;width:100%}
+.fig svg{position:absolute;inset:0;width:100%;height:100%}
+.drop{animation:drop 1.3s cubic-bezier(.3,1.4,.5,1) .4s both}
+@keyframes drop{from{transform:translateY(-190px)}to{transform:none}}
+@media (prefers-reduced-motion:reduce){.drop{animation:none}}
+h2{font-weight:900;font-size:clamp(28px,3.6vw,40px);line-height:1.05;letter-spacing:-.02em;margin:0 0 8px;text-wrap:balance}
+.sub{color:var(--soft);margin:0 0 20px;max-width:60em}
+.filters{display:grid;grid-template-columns:repeat(3,minmax(0,auto));gap:14px 32px;justify-content:start;background:var(--tag);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-bottom:12px}
+.fgroup h3{font-size:14px;font-weight:700;margin:0 0 8px;color:var(--soft)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-size:15px;font-weight:500;min-height:44px;padding:8px 16px;border-radius:999px;border:2px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.chip:hover{border-color:var(--denim2)}
+.chip:focus-visible,.shop:focus-visible,.reset:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+.chip[aria-pressed=true]{background:var(--denim);border-color:var(--denim);color:#fff}
+.bar{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;margin:0 0 18px}
+.count{font-weight:700}
+.reset{font:inherit;font-size:15px;min-height:44px;padding:8px 14px;border:0;background:none;color:var(--pink);font-weight:700;cursor:pointer;text-decoration:underline}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:18px}
+.card{position:relative;display:flex;flex-direction:column;background:var(--tag);border:1px solid var(--line);border-radius:18px 18px 18px 18px;padding:22px 20px 20px;overflow:hidden}
+.card::before{content:"";position:absolute;top:12px;right:14px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--line)}
+.brand{font-size:14px;font-weight:700;color:var(--soft);margin:0}
+.card h3{font-size:21px;line-height:1.15;font-weight:800;margin:2px 28px 10px 0}
+.meta{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;margin-bottom:12px}
+.price{font-size:20px;font-weight:900;white-space:nowrap}
+.style{font-size:14px;color:var(--soft)}
+.meter{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.meter .lab{font-size:14px;font-weight:700;white-space:nowrap}
+.pk{display:flex;gap:4px}
+.pk i{display:block;width:20px;height:22px;border-radius:2px 2px 9px 9px;border:2px dashed var(--thread);background:var(--denim2)}
+.pk i.off{background:transparent;border-color:var(--line)}
+.fits{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.fit{font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;background:color-mix(in srgb,var(--denim2) 16%,transparent);color:var(--ink);white-space:nowrap}
+.fit.none{background:color-mix(in srgb,var(--pink) 14%,transparent)}
+.card p{margin:0 0 8px;font-size:15px}
+.ev{font-size:13px;color:var(--soft)}
+.shop{margin-top:auto;display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;border-radius:12px;background:var(--pink);color:#fff;font-weight:700;text-decoration:none;padding:10px 14px}
+.shop:hover{filter:brightness(1.08)}
+.spacer{height:10px}
+.empty{grid-column:1/-1;text-align:center;padding:40px 16px;border:2px dashed var(--line);border-radius:18px}
+.test{background:var(--denim);color:#fff}
+.test .sub{color:#d9e3f8}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;counter-reset:s}
+.step{border:2px dashed var(--thread);border-radius:16px;padding:18px}
+.step h3{font-size:18px;margin:0 0 6px}
+.step p{margin:0;font-size:15px;color:#e3ebfb}
+.ic{width:48px;height:48px;margin-bottom:8px}
+.why{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,4vw,56px);align-items:start}
+.why p{margin:0 0 12px}
+.quote{font-size:clamp(20px,2.4vw,26px);font-weight:800;line-height:1.25;border-left:6px solid var(--pink);padding-left:16px;margin:0 0 12px}
+footer{border-top:2px dashed var(--thread);background:var(--denim);color:#e3ebfb;font-size:14px}
+footer .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+footer h3{color:#fff;font-size:16px;margin:0 0 6px}
+footer ul{margin:0;padding-left:18px}
+footer a{color:#fff}
+@media(max-width:900px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}.filters{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:700px){.hero .wrap,.why,footer .wrap{grid-template-columns:minmax(0,1fr)}.fig{max-width:460px;margin:0 auto}}
+@media(max-width:520px){.steps{grid-template-columns:minmax(0,1fr)}nav ul{font-size:15px}}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo" href="#top">Real<span>Pockets</span></a><ul><li><a href="#shop">The pants</a></li><li><a href="#test">Pocket test</a></li><li><a href="#why">Why so tiny?</a></li></ul></div></nav>
+
+<header class="hero band" id="top"><div class="wrap">
+  <div>
+    <h1>Trousers for women with pockets that actually hold your phone</h1>
+    <p class="lede">Women's pockets are often too small for a phone, let alone a wallet or passport. They do exist, though. Here are pairs from shops that deliver to the Netherlands, with what fits in them and where to buy.</p>
+    <div class="stats">
+      <div class="stat"><b>48%</b><span>shorter: average front pocket in women's jeans vs men's</span></div>
+      <div class="stat"><b>40%</b><span>of women's front pockets fit a leading smartphone</span></div>
+      <div class="stat"><b>10%</b><span>fit the wearer's whole hand</span></div>
+    </div>
+    <p class="src">From The Pudding's 2018 measurement of 80 pairs of jeans, all size 32 waist. <a href="https://pudding.cool/2018/08/pockets/">Read the study</a></p>
+  </div>
+  <div class="fig" aria-label="Drawing: a typical men's pocket swallows a phone; a typical women's pocket, 48% shorter, leaves it sticking out">
+    <svg viewBox="0 0 520 390" role="img">
+      <defs>
+        <linearGradient id="bag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a86d8"/><stop offset="1" stop-color="#3a64b8"/></linearGradient>
+        <linearGradient id="scr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff8db0"/><stop offset="1" stop-color="#e8336f"/></linearGradient>
+        <g id="phone"><rect width="70" height="146" rx="14" fill="#111a2e"/><rect x="6" y="10" width="58" height="126" rx="8" fill="url(#scr)"/><rect x="27" y="4" width="16" height="3" rx="1.5" fill="#3a4566"/></g>
+      </defs>
+      <ellipse cx="140" cy="318" rx="92" ry="8" fill="#000" opacity=".18"/>
+      <ellipse cx="380" cy="190" rx="92" ry="8" fill="#000" opacity=".18"/>
+      <!-- men's pocket -->
+      <path d="M50 46 Q140 82 230 46 L230 276 Q230 310 196 310 L84 310 Q50 310 50 276 Z" fill="url(#bag)"/>
+      <g class="drop"><use href="#phone" x="105" y="150"/></g>
+      <path d="M50 46 Q140 82 230 46 L230 150 L50 150 Z" fill="#4b78cc"/>
+      <path d="M50 46 Q140 82 230 46" fill="none" stroke="#9db9ee" stroke-width="3"/>
+      <path d="M60 58 Q140 92 220 58 L220 274 Q220 300 194 300 L86 300 Q60 300 60 274 Z" fill="none" stroke="#f2b84b" stroke-width="3" stroke-dasharray="9 7"/>
+      <circle cx="58" cy="54" r="6" fill="#c98a2e"/><circle cx="222" cy="54" r="6" fill="#c98a2e"/>
+      <!-- women's pocket: 52% of the depth -->
+      <path d="M290 46 Q380 82 470 46 L470 152 Q470 184 438 184 L322 184 Q290 184 290 152 Z" fill="url(#bag)"/>
+      <use href="#phone" x="345" y="20" transform="rotate(4 380 100)"/>
+      <path d="M290 46 Q380 82 470 46 L470 120 L290 120 Z" fill="#4b78cc"/>
+      <path d="M290 46 Q380 82 470 46" fill="none" stroke="#9db9ee" stroke-width="3"/>
+      <path d="M300 58 Q380 92 460 58 L460 150 Q460 174 436 174 L324 174 Q300 174 300 150 Z" fill="none" stroke="#f2b84b" stroke-width="3" stroke-dasharray="9 7"/>
+      <circle cx="298" cy="54" r="6" fill="#c98a2e"/><circle cx="462" cy="54" r="6" fill="#c98a2e"/>
+      <g font-family="Rubik,system-ui,sans-serif" fill="#fff" text-anchor="middle">
+        <text x="140" y="352" font-size="20" font-weight="800">Typical men's</text>
+        <text x="140" y="376" font-size="16" fill="#e3ebfb">phone vanishes</text>
+        <text x="380" y="226" font-size="20" font-weight="800">Typical women's</text>
+        <text x="380" y="250" font-size="16" fill="#e3ebfb">phone pokes out</text>
+      </g>
+    </svg>
+  </div>
+</div></header>
+
+<main>
+<section class="band" id="shop"><div class="wrap">
+  <h2>Pick what has to fit, then shop</h2>
+  <p class="sub">The pocket-o-meter scores how many usable pockets a pair has and how safe they are (zips, flaps, a dedicated phone pocket). Few brands publish pocket depth, so each card says whether the details come from the brand or from reviewers. Prices were checked on 27 November 2026 and change often.</p>
+  <div class="filters">
+    <div class="fgroup"><h3>Must fit</h3><div class="chips" id="f-fit"></div></div>
+    <div class="fgroup"><h3>Style</h3><div class="chips" id="f-style"></div></div>
+    <div class="fgroup"><h3>Price</h3><div class="chips" id="f-price"></div></div>
+  </div>
+  <div class="bar"><span class="count" id="count" aria-live="polite"></span><button class="reset" id="reset" type="button">Clear filters</button></div>
+  <div class="grid" id="grid"></div>
+</div></section>
+
+<section class="band test" id="test"><div class="wrap">
+  <h2>The fitting-room pocket test</h2>
+  <p class="sub">A pocket that holds a phone on the hanger can still spit it out when you sit down. Take your own phone, with its case, and try these four checks.</p>
+  <div class="steps">
+    <div class="step"><svg class="ic" viewBox="0 0 48 48"><rect x="15" y="4" width="18" height="40" rx="5" fill="#ff6b98"/><path d="M8 20h32" stroke="#f2b84b" stroke-width="3" stroke-dasharray="4 3"/></svg><h3>Drop it in</h3><p>Slide the phone in upright. It should vanish below the opening, with room to spare.</p></div>
+    <div class="step"><svg class="ic" viewBox="0 0 48 48"><path d="M10 40V24h20v16M30 24l8-10" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/><rect x="18" y="14" width="8" height="14" rx="2" fill="#ff6b98"/></svg><h3>Sit down</h3><p>Sit on a chair. If the phone rides up or digs into your hip, the pocket is too shallow.</p></div>
+    <div class="step"><svg class="ic" viewBox="0 0 48 48"><path d="M6 40h10v-9h10v-9h10v-9h6" stroke="#fff" stroke-width="4" fill="none" stroke-linejoin="round"/><circle cx="40" cy="8" r="4" fill="#f2b84b"/></svg><h3>Climb and bend</h3><p>Walk, take some stairs, crouch to tie a shoe. Nothing should slide out.</p></div>
+    <div class="step"><svg class="ic" viewBox="0 0 48 48"><rect x="8" y="14" width="32" height="24" rx="4" fill="none" stroke="#fff" stroke-width="4"/><path d="M8 20h32" stroke="#f2b84b" stroke-width="4"/><circle cx="24" cy="29" r="4" fill="#ff6b98"/></svg><h3>Check the shape</h3><p>Feel the pocket bag. Many taper at the bottom, so a pocket that looks 15 cm deep may hold much less.</p></div>
+  </div>
+</div></section>
+
+<section class="band" id="why"><div class="wrap why">
+  <div>
+    <h2>Why are women's pockets so tiny?</h2>
+    <p class="quote">In 1954 Christian Dior put it bluntly: men have pockets to keep things in, women have them for decoration.</p>
+    <p>In 2018, data journalists Jan Diehm and Amber Thomas measured the front and back pockets of 80 pairs of jeans from 20 brands, all with a 32-inch waist so size couldn't explain the gap. Women's front pockets came out 48% shorter and 6.5% narrower than men's.</p>
+  </div>
+  <div>
+    <p>The usual explanations: a slim silhouette sells, stretch fabric shows every bulge, and pocketless clothes leave you buying handbags. Back pockets turned out roughly equal, so the gap is mostly at the front.</p>
+    <p>What helps when you shop: <b>patch pockets</b> (sewn on the outside) and <b>cargo pockets</b> usually beat hidden inset ones. <b>Outdoor and workwear</b> brands design pockets to be used. A <b>zip or flap</b> keeps a passport safe.</p>
+    <p class="ev">Know a pair that passes the test? The best tip is the one your friends already swear by.</p>
+  </div>
+</div></section>
+</main>
+
+<footer class="band"><div class="wrap">
+  <div><h3>RealPockets</h3><p>An independent shopping guide. No sponsored links, no paid placements. Pocket details come from brand pages and customer reviews, not our own tape measure, so do the test before you keep a pair.</p></div>
+  <div><h3>Sources</h3><ul>
+    <li><a href="https://pudding.cool/2018/08/pockets/">The Pudding: Women's pockets are inferior</a></li>
+    <li><a href="https://oglmove.com/blogs/guides/what-makes-a-pocket-functional-a-phone-fit-test-for-women-s-clothes">OGL: a phone fit test for women's clothes</a></li>
+    <li>Product details: each brand's or shop's product page, linked on its card</li>
+  </ul></div>
+</div></footer>
+
+<script>
+{
+const FITS={phone:'Phone',wallet:'Wallet',passport:'Passport (zipped)',big:'Big stuff (cargo/tools)'};
+const STYLES={jeans:'Jeans',work:'Workwear',outdoor:'Hiking & travel',joggers:'Joggers',leggings:'Leggings',dungarees:'Dungarees',smart:'Smart / office'};
+const PRICES={budget:'Up to €50',mid:'€50–€110',splurge:'Over €110'};
+const items=[
+{brand:'Fjällräven',name:'Vidda Pro Trousers W',price:'€168.90',tier:'splurge',style:'outdoor',score:5,fits:['phone','wallet','passport','big'],shop:'Outnorth',url:'https://www.outnorth.com/int/brands/fjallraven/women-s-vidda-pro-trousers-7026-FS43070',pockets:'Six practical pockets: hand pockets, a map pocket, a multitool pocket and an internal phone pocket. Tough G-1000 fabric, three leg lengths.',ev:'Brand spec. Depth not published, but there is a dedicated phone pocket.'},
+{brand:'Decathlon Forclaz',name:'MT500 Trekking Trousers',price:'€36',tier:'budget',style:'outdoor',score:4,fits:['phone','wallet','passport'],shop:'Decathlon',url:'https://www.decathlon.ie/p/329217-101847-women-s-mountain-trekking-trousers-mt500.html',pockets:'Four secure pockets: three zipped, one with flap and press studs. The hand-pocket zips close downwards, so a backpack hip belt never pulls them open.',ev:'Brand spec. Link goes to Decathlon Ireland; search "MT500" on decathlon.nl or in a Dutch store.'},
+{brand:'Decathlon Forclaz',name:'Travel 100 Zip-Off Trousers',price:'€35',tier:'budget',style:'outdoor',score:4,fits:['phone','passport'],shop:'Decathlon',url:'https://decathlon.com.gr/en/p/142686-33560-forclaz-travel-100-zip-off-hiking-pants-women-s.html',pockets:'Two hand pockets, two seat pockets and a zipped side patch pocket made for your smartphone. The legs zip off into shorts.',ev:'Brand spec. Link goes to Decathlon Greece; search "Travel 100" on decathlon.nl.'},
+{brand:'Patagonia',name:"Women's Quandary Pants",price:'€100',tier:'mid',style:'outdoor',score:4,fits:['phone','wallet','passport'],shop:'Patagonia EU',url:'https://eu.patagonia.com/ee/en/product/womens-quandary-hiking-pants-short/55411.html',pockets:'Two front drop-in pockets, two back pockets (the right one zipped) and a zipped cargo pocket on the right thigh. Light, stretchy, made of recycled nylon.',ev:'Brand spec. Link opens the short leg length; regular is on the same site.'},
+{brand:'Carhartt WIP',name:"W' Pierce Pant",price:'€89–€109',tier:'mid',style:'work',score:4,fits:['phone','wallet','big'],shop:'Carhartt WIP',url:'https://carhartt-wip.com/en/women-pants/women-pants-w-pierce-pant',pockets:'Proper work-trouser layout: two front and two back pockets, plus tool pockets and a hammer loop. Boyfriend fit, also sold as a straight-leg version.',ev:'Brand spec. Price depends on fabric; it was on sale when checked.'},
+{brand:'lululemon',name:'Dance Studio Relaxed-Fit Cargo Pant',price:'See shop',tier:'mid',style:'joggers',score:4,fits:['phone','wallet','big'],shop:'lululemon',url:'https://shop.lululemon.com/p/dance-studio-relaxed-fit-mr-cargo-pant/krkhu7tyts',pockets:'Hand pockets (one with a hidden card sleeve), back pockets and cargo pockets. lululemon calls it a "pocket-forward favourite".',ev:'Brand spec and reviews; one reviewer finds the side pockets almost too big. The site should switch you to the EU shop.'},
+{brand:'Lucy & Yak',name:'Original Corduroy Dungarees',price:'£65',tier:'mid',style:'dungarees',score:4,fits:['phone','wallet','big'],shop:'Lucy & Yak',url:'https://lucyandyak.com/products/original-dungaree-organic-corduroy-black',pockets:'Chest pocket plus hip patch pockets; the brand promises "extra big pockets". Organic cotton cord, loose fit.',ev:'Brand spec. UK brand that ships worldwide with DHL or Deutsche Post; about €75.'},
+{brand:'Girlfriend Collective',name:'High-Rise Pocket Leggings',price:'€81.95',tier:'mid',style:'leggings',score:3,fits:['phone'],shop:'Project Cece',url:'https://www.projectcece.com/catalog/product/2345715/compressive-high-rise-pocket-leggings-black',pockets:'A pocket on each hip for your phone, keys or cards, made from recycled bottles. Squat-proof compression fabric.',ev:'Reviewers say the pockets are perfectly sized for a phone and stay put on a run.'},
+{brand:'Boden',name:'Big Pocket Balloon Jeans',price:'€95',tier:'mid',style:'jeans',score:3,fits:['phone','wallet'],shop:'Boden EU',url:'https://eu.boden.com/en-eu/products/big-pocket-balloon-jeans-mid-vintage',pockets:'Large patch pockets on the hips, front and back, on a high-rise barrel leg.',ev:'Brand spec, no depth given. Was on clearance at €66.50 and out of stock when checked; watch for a restock.'},
+{brand:'M&S Collection',name:'High Waisted Patch Pocket Flared Jeans',price:'€52',tier:'mid',style:'jeans',score:3,fits:['phone'],shop:'M&S Ireland',url:'https://www.marksandspencer.com/ie/high-waisted-patch-pocket-flared-jeans/p/clp60774437?color=INDIGOMIX',pockets:'Front patch pockets are sewn on the outside, so there is no stingy pocket bag hidden inside.',ev:'Reviewers single out the front pockets; rated 4.7 from 425 reviews. Free delivery over €75.'},
+{brand:'Cellbes of Sweden',name:'Wide With Pockets',price:'€49.95',tier:'budget',style:'smart',score:2,fits:[],shop:'Zalando',url:'https://www.zalando.nl/dameskleding-broeken/cellbes-of-sweden',pockets:'Smart wide-leg black trousers with the promise right in the name. A rare office option, also in plus sizes.',ev:'Pocket depth unknown: do the phone test before you keep them.'}
+];
+const st={fit:new Set(),style:'all',price:'all'};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const chip=(g,k,label,on)=>`<button type="button" class="chip" data-g="${g}" data-k="${k}" aria-pressed="${on}">${esc(label)}</button>`;
+const fF=document.getElementById('f-fit'),fS=document.getElementById('f-style'),fP=document.getElementById('f-price'),grid=document.getElementById('grid'),count=document.getElementById('count');
+function chips(){
+  fF.innerHTML=Object.entries(FITS).map(([k,v])=>chip('fit',k,v,st.fit.has(k))).join('');
+  fS.innerHTML=chip('style','all','All',st.style==='all')+Object.entries(STYLES).filter(([k])=>items.some(i=>i.style===k)).map(([k,v])=>chip('style',k,v,st.style===k)).join('');
+  fP.innerHTML=chip('price','all','Any',st.price==='all')+Object.entries(PRICES).map(([k,v])=>chip('price',k,v,st.price===k)).join('');
+}
+function card(i){
+  const meter=[1,2,3,4,5].map(n=>`<i class="${n<=i.score?'':'off'}"></i>`).join('');
+  const fits=i.fits.length?i.fits.map(f=>`<span class="fit">✓ ${esc(FITS[f].split(' (')[0])}</span>`).join(''):'<span class="fit none">Untested: try your phone</span>';
+  return `<article class="card"><p class="brand">${esc(i.brand)}</p><h3>${esc(i.name)}</h3>
+  <div class="meta"><span class="price">${esc(i.price)}</span><span class="style">${esc(STYLES[i.style])}</span></div>
+  <div class="meter"><span class="lab">Pocket-o-meter</span><span class="pk" aria-label="${i.score} out of 5">${meter}</span></div>
+  <div class="fits">${fits}</div><p>${esc(i.pockets)}</p><p class="ev">${esc(i.ev)}</p><div class="spacer"></div>
+  <a class="shop" href="${esc(i.url)}" target="_blank" rel="noopener">Shop at ${esc(i.shop)} →</a></article>`;
+}
+function render(){
+  const list=items.filter(i=>[...st.fit].every(f=>i.fits.includes(f))&&(st.style==='all'||i.style===st.style)&&(st.price==='all'||i.tier===st.price)).sort((a,b)=>b.score-a.score);
+  count.textContent=list.length===1?'1 pair with real pockets':`${list.length} pairs with real pockets`;
+  grid.innerHTML=list.length?list.map(card).join(''):'<div class="empty"><h3>No pair ticks every box</h3><p>That combination is the pocket gap in action. Try fewer filters, or pick "Hiking & travel": outdoor brands have the most generous pockets.</p></div>';
+  try{localStorage.setItem('rp-filters',JSON.stringify({fit:[...st.fit],style:st.style,price:st.price}))}catch(e){}
+}
+document.querySelector('.filters').addEventListener('click',e=>{
+  const b=e.target.closest('.chip');if(!b)return;
+  const g=b.dataset.g,k=b.dataset.k;
+  if(g==='fit'){st.fit.has(k)?st.fit.delete(k):st.fit.add(k)}else st[g]=k;
+  chips();render();
+});
+document.getElementById('reset').addEventListener('click',()=>{st.fit.clear();st.style='all';st.price='all';chips();render()});
+try{const s=JSON.parse(localStorage.getItem('rp-filters')||'null');if(s){(s.fit||[]).forEach(f=>FITS[f]&&st.fit.add(f));if(s.style in STYLES)st.style=s.style;if(s.price in PRICES)st.price=s.price}}catch(e){}
+chips();render();
+}
+</script>
+<!-- visitor counter: GoatCounter, no cookies -->
+<script data-goatcounter="https://mvanpassel.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
