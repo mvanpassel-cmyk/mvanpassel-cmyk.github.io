@@ -27,10 +27,10 @@ window.QUIZ = {
         },
         {
           "type": "mc",
-          "q": "Welk van deze landen grenst aan de meeste andere landen?",
-          "options": ["Brazilië", "DR Congo", "China", "Duitsland"],
-          "answer": 2,
-          "info": "China: 14 buurlanden, van Noord-Korea tot Afghanistan. Alleen Rusland heeft er ook 14. Brazilië heeft er 10 (alle Zuid-Amerikaanse landen behalve Chili en Ecuador), Duitsland en DR Congo elk 9."
+          "q": "Welk land op het Afrikaanse continent grenst aan de meeste andere landen?",
+          "options": ["Tanzania", "Soedan", "Zambia", "DR Congo"],
+          "answer": 3,
+          "info": "DR Congo: 9 buurlanden, net als Duitsland. Tanzania en Zambia hebben er elk 8. Soedan had er 9, maar sinds Zuid-Soedan in 2011 onafhankelijk werd nog 7."
         },
         {
           "type": "mc",
