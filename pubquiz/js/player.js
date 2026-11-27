@@ -278,7 +278,7 @@
 
   function qHeader(st) {
     const q = st.q || {};
-    const label = q.type === 'vote' ? 'Stemvraag · geen punten' : 'Vraag ' + q.num + ' van ' + q.total;
+    const label = q.type === 'vote' ? (q.points ? 'Stemvraag · ' + q.points + ' punten als je met de meerderheid meestemt' : 'Stemvraag · geen punten') : 'Vraag ' + q.num + ' van ' + q.total;
     return '<div class="eyebrow">' + esc(q.emoji || '') + ' ' + esc(q.cat || '') + ' · ' + label + '</div>' +
       '<div class="qtext">' + esc(q.text) + '</div>';
   }
@@ -343,11 +343,12 @@
       else top = (pts[Store.uid] ? '<div class="score-pop ok">+' + pts[Store.uid] + '</div>' : '') +
         '<p class="muted">Jij zat er ' + QZ.fmt(Math.abs(Number(a.a) - st.reveal.correct)) + ' naast.</p>';
     } else if (q.type === 'vote') {
-      top = '<div class="eyebrow">De groep heeft gesproken</div>';
+      top = '<div class="eyebrow">De groep heeft gesproken</div>' +
+        (q.points && a ? (pts[Store.uid] ? '<div class="score-pop ok">Met de meerderheid mee! +' + pts[Store.uid] + '</div>' : '<div class="score-pop bad">Niet met de meerderheid mee</div>') : '');
     }
     if (!a && pending && pending.qkey === st.qkey) top += '<p class="muted small">Je antwoord kwam niet op tijd binnen (geen verbinding).</p>';
     return '<div class="card">' + qHeader(st) + '<div class="center">' + top + '</div>' + QZ.revealHtml(game, Store.uid, false) + '</div>' +
-      (mine && q.type !== 'vote' ? '<p class="center muted">Je staat <b>' + mine.rank + 'e</b> met <b>' + mine.score + '</b> punten.</p>' : '');
+      (mine && (q.type !== 'vote' || q.points) ? '<p class="center muted">Je staat <b>' + mine.rank + 'e</b> met <b>' + mine.score + '</b> punten.</p>' : '');
   }
 
   function viewScores(st) {

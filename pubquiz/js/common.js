@@ -56,6 +56,11 @@
           pts[id] = 0;
         }
       });
+    } else if (q.type === 'vote' && q.points > 0) {
+      // met de meerderheid mee: wie stemde op (een van) de grootste stemmentrekker(s) krijgt punten
+      const c = tally(answers);
+      const max = Math.max(0, ...Object.values(c));
+      list.forEach(([id, a]) => { pts[id] = (max > 0 && a && c[a.a] === max) ? q.points : 0; });
     } else if (q.type === 'estimate') {
       const diffs = list
         .map(([id, a]) => [id, Math.abs(Number(a && a.a) - q.answer)])

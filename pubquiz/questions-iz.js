@@ -6,6 +6,8 @@ window.QUIZ = {
   subtitle: 'VWS IZ · terugreis Bonn → Utrecht, 27 november 2026',
   code: 'IZ26',
   defaultTime: 30,
+  // stemvragen met punten: wie met de meerderheid meestemt krijgt dit aantal punten
+  votePoints: 10,
 
   rounds: [
     {

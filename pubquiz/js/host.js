@@ -25,6 +25,9 @@
     if (it.type !== 'vote') it.num = ++n;
   });
   const scoredTotal = n;
+  const VOTE_PTS = Number(QUIZ.votePoints) || 0;
+  if (VOTE_PTS) items.forEach((it) => { if (it.type === 'vote' && it.points == null) it.points = VOTE_PTS; });
+  const scores = (it) => it.type !== 'vote' || it.points > 0;
   const roundNo = (ri) => usedRounds.indexOf(ri) + 1;
 
   let code = (params.get('c') || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
@@ -180,7 +183,7 @@
     const q = { type: it.type, text: it.q, cat: it.roundTitle, emoji: it.roundEmoji, num: it.num || 0, total: scoredTotal };
     if (it.unit) q.unit = it.unit;
     if (it.type === 'mc') q.options = it.options;
-    if (it.type === 'vote') q.options = playersSorted();
+    if (it.type === 'vote') { q.options = playersSorted(); if (it.points > 0) q.points = it.points; }
     closingFor = null;
     return setState({ phase: 'question', idx: i, qkey: it.key, q, startedAt, duration, deadline: startedAt + duration });
   }
@@ -209,13 +212,13 @@
       'state/phase': 'reveal',
       'state/reveal': { correct: it.type === 'vote' ? null : it.answer, info: it.info || null }
     };
-    if (it.type !== 'vote') patch['results/' + st.qkey] = { type: it.type, pts: QZ.scoreQuestion(it, answers, st.duration) };
+    if (scores(it)) patch['results/' + st.qkey] = { type: it.type, pts: QZ.scoreQuestion(it, answers, st.duration) };
     Store.hostUpdate(code, patch);
   }
 
   function goScores(i) {
     const ri = items[i].roundIdx;
-    const keys = items.filter((x) => x.roundIdx === ri && x.type !== 'vote').map((x) => x.key);
+    const keys = items.filter((x) => x.roundIdx === ri && scores(x)).map((x) => x.key);
     return setState({ phase: 'scores', idx: i, roundNo: roundNo(ri), roundTitle: items[i].roundTitle, keys });
   }
 
@@ -329,7 +332,7 @@
             '<div class="opt o' + i + (peek && i === it.answer ? ' hostkey' : '') + '"><span class="letter">' + QZ.LETTERS[i] + '</span><span class="label">' + esc(o) + '</span></div>').join('') + '</div>' +
             (peek ? '<p class="muted small">Gestippeld = goede antwoord (alleen jij ziet dit).</p>' : '');
         } else if (q.type === 'vote') {
-          body = '<p class="muted">Iedereen kiest een collega. Geen punten, wel eer.</p>';
+          body = '<p class="muted">Iedereen kiest een collega. ' + (q.points ? 'Stem je met de meerderheid mee, dan krijg je ' + q.points + ' punten.' : 'Geen punten, wel eer.') + '</p>';
         } else if (q.type === 'estimate') {
           body = '<p class="muted">Spelers typen een getal.' + (peek ? ' Antwoord: <b>' + QZ.fmt(it.answer) + '</b>' : '') + '</p>';
         }
