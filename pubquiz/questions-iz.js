@@ -157,6 +157,16 @@ window.QUIZ = {
       questions: [
         {
           "type": "vote",
+          "q": "Wie van ons heeft de meeste inkopen gedaan in Bonn?",
+          "time": 25
+        },
+        {
+          "type": "vote",
+          "q": "Wie van ons was het kerstigst?",
+          "time": 25
+        },
+        {
+          "type": "vote",
           "q": "Wie van ons zou de beste minister-president zijn?",
           "time": 25
         },

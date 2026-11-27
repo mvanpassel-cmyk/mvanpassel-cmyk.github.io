@@ -354,7 +354,9 @@
       case 'final': {
         const rows = QZ.board(game);
         return '<div class="card center"><div class="big-emoji">🏆</div><h1>Eindstand</h1>' + QZ.podiumHtml(rows) + '</div>' + QZ.speedHtml(game) +
-          '<div class="card">' + QZ.boardHtml(rows) + '</div>';
+          '<div class="card">' + QZ.boardHtml(rows) + '</div>' +
+          '<div class="card center"><button class="btn primary" id="export">⬇️ Download alle antwoorden (CSV)</button>' +
+          '<p class="muted small">Per vraag: wat iedereen antwoordde, de punten, en de uitslag van de stemvragen.</p></div>';
       }
       default: return '';
     }
@@ -427,14 +429,60 @@
     on('copy', 'click', () => copy(joinUrl(), 'Link gekopieerd'));
     on('copyMsg', 'click', () => copy(invite(), 'Uitnodiging gekopieerd. Plak hem in Signal.'));
     on('share', 'click', () => navigator.share({ title: QUIZ.title, text: invite(false), url: joinUrl() }).catch(() => {}));
+    on('export', 'click', exportCsv);
     on('del', 'click', async () => {
       if (!confirm('Spel ' + code + ' en alle antwoorden verwijderen?')) return;
       await Store.deleteGame(code);
     });
   }
 
+  function exportCsv() {
+    const players = (game && game.players) || {};
+    const ids = Object.keys(players).sort((a, b) => String(players[a].name).localeCompare(String(players[b].name)));
+    const nm = (id) => (players[id] && players[id].name) || '?';
+    const q = (v) => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"';
+    const board = QZ.board(game);
+    const lines = [];
+    lines.push([q('Quiz'), q(QUIZ.title), q('Spelcode'), q(code), q('Geëxporteerd'), q(new Date().toLocaleString('nl-NL'))].join(';'));
+    lines.push('');
+    lines.push([q('Eindstand'), q('Punten')].join(';'));
+    board.forEach((r) => lines.push([q(r.rank + '. ' + r.name), r.score].join(';')));
+    const sp = QZ.speedRanking(game)[0];
+    if (sp) lines.push([q('Snelste reactie'), q(sp.name + ' (' + (sp.avg / 1000).toFixed(1) + ' s gemiddeld)')].join(';'));
+    lines.push('');
+    lines.push([q('Ronde'), q('Vraag'), q('Goed antwoord / uitslag')].concat(ids.map((id) => q(nm(id)))).concat(ids.map((id) => q('pt ' + nm(id)))).join(';'));
+    items.forEach((it) => {
+      const ans = (game.answers && game.answers[it.key]) || {};
+      const res = (game.results && game.results[it.key]) || {};
+      const pts = res.pts || {};
+      if (!Object.keys(ans).length && !res.pts) return; // niet gespeeld
+      const show = (a) => {
+        if (!a) return '';
+        if (it.type === 'mc') return (QZ.LETTERS ? QZ.LETTERS[a.a] + ') ' : '') + (it.options[a.a] != null ? it.options[a.a] : a.a);
+        if (it.type === 'vote') return nm(a.a);
+        return a.a;
+      };
+      let truth = '';
+      if (it.type === 'mc') truth = it.options[it.answer];
+      else if (it.type === 'estimate') truth = it.answer;
+      else {
+        const c = {};
+        Object.keys(ans).forEach((id) => { const v = ans[id].a; c[v] = (c[v] || 0) + 1; });
+        truth = Object.keys(c).sort((a, b) => c[b] - c[a]).map((v) => nm(v) + ' (' + c[v] + ')').join(', ');
+      }
+      lines.push([q(it.roundTitle), q(it.q), q(truth)].concat(ids.map((id) => q(show(ans[id])))).concat(ids.map((id) => (pts[id] != null ? pts[id] : ''))).join(';'));
+    });
+    const blob = new Blob(['\ufeff' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'pubquiz-' + code + '-antwoorden.csv';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+    toast('Antwoorden gedownload');
+  }
+
   function invite(withUrl) {
-    return '🚆 Pubquiz in de trein naar Bonn! Tik op de link, vul je naam in en doe mee' +
+    return '🚆 ' + (QUIZ.title || 'Pubquiz') + '! Tik op de link, vul je naam in en doe mee' +
       (withUrl === false ? '' : ': ' + joinUrl()) + ' (code ' + code + ')';
   }
 
