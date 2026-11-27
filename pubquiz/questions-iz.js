@@ -27,15 +27,10 @@ window.QUIZ = {
         },
         {
           "type": "mc",
-          "q": "Begin december is de AMR-ministersconferentie in de hoofdstad van Nigeria. Welke stad is dat?",
-          "options": [
-            "Lagos",
-            "Kano",
-            "Port Harcourt",
-            "Abuja"
-          ],
-          "answer": 3,
-          "info": "Abuja is sinds 1991 de hoofdstad; daarvoor was dat Lagos, nog altijd de grootste stad. Abuja werd speciaal gebouwd, centraal in het land."
+          "q": "Welk van deze landen grenst aan de meeste andere landen?",
+          "options": ["Brazilië", "DR Congo", "China", "Duitsland"],
+          "answer": 2,
+          "info": "China: 14 buurlanden, van Noord-Korea tot Afghanistan. Alleen Rusland heeft er ook 14. Brazilië heeft er 10 (alle Zuid-Amerikaanse landen behalve Chili en Ecuador), Duitsland en DR Congo elk 9."
         },
         {
           "type": "mc",
