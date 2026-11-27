@@ -52,6 +52,7 @@
       startSession(true);
     } else {
       if (!code) code = DEFAULT_CODE;
+      if (saved && saved.name) myName = saved.name; // naam alvast invullen bij een ander spel
       showJoin();
     }
     requestAnimationFrame(tick);

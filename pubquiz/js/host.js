@@ -37,8 +37,8 @@
   let revealTimer = null;
   let lastHtml = '';
   let confettiDone = false;
-  const LAST = 'pubquiz-host-last';
-  const QZ_DEFAULT_CODE = () => QZ.DEFAULT_CODE || '';
+  const LAST = 'pubquiz-host-last' + (QUIZ.code ? ':' + QUIZ.code : '');
+  const QZ_DEFAULT_CODE = () => String(QUIZ.code || QZ.DEFAULT_CODE || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
 
   /* ---------------- opstart ---------------- */
   async function boot() {
