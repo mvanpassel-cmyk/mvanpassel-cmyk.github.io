@@ -45,6 +45,7 @@ header p{color:var(--muted);margin:0;max-width:56ch}
 .body h2{font-size:17px;margin:0 0 2px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .lang{font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:0 5px}
 .body p{margin:0;color:var(--muted);font-size:14px}
+.body .upd{margin-top:8px;font-size:12px;opacity:.75}
 footer{margin-top:48px;color:var(--muted);font-size:13px}
 footer a{color:inherit}
 </style>
@@ -220,6 +221,22 @@ let active = "All";
 function iconHTML(t){
   return `<div class="icon"><img src="logos/${t.repo}.svg" alt="" loading="lazy"></div>`;
 }
+// Last real change per tool (data refreshes ignored), written daily by .github/workflows/tool-updates.yml
+let UPD = {};
+function ago(iso){
+  const days = Math.floor((Date.now() - new Date(iso)) / 864e5);
+  if (days < 1) return "today";
+  if (days < 2) return "yesterday";
+  if (days < 14) return days + " days ago";
+  if (days < 60) return Math.round(days / 7) + " weeks ago";
+  if (days < 365) return Math.round(days / 30.4) + " months ago";
+  const y = Math.round(days / 365); return y === 1 ? "a year ago" : y + " years ago";
+}
+function updated(t){
+  const iso = UPD[t.repo]; if (!iso) return "";
+  const exact = new Date(iso).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
+  return `<p class="upd" title="Last change to the tool itself: ${exact}">Updated ${ago(iso)}</p>`;
+}
 function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
 
 function card(t){
@@ -228,7 +245,7 @@ function card(t){
       ${iconHTML(t)}
       <div class="body">
         <h2>${esc(t.title)}${t.lang?`<span class="lang">${t.lang}</span>`:""}${t.live?`<span class="live" title="Data refreshes ${esc(t.live)}">↻ ${esc(t.live)}</span>`:""}</h2>
-        <p>${esc(t.desc)}</p>
+        <p>${esc(t.desc)}</p>${updated(t)}
       </div>
     </a>`;
 }
@@ -258,6 +275,8 @@ filters.addEventListener("click", e=>{
   active = b.dataset.c; renderFilters(); render();
 });
 renderFilters(); render();
+fetch("shared/tool-updates.json",{cache:"no-cache"}).then(r=>r.ok?r.json():null)
+  .then(j=>{ if(j&&j.tools){ UPD=j.tools; render(); } }).catch(()=>{});
 </script>
 <!-- bezoekersteller: GoatCounter, zonder cookies -->
 <script data-goatcounter="https://mvanpassel.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>

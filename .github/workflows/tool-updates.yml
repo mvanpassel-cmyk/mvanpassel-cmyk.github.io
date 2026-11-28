@@ -1,0 +1,54 @@
+name: Tool update dates for the landing page
+
+# Writes shared/tool-updates.json (last real change per tool, data refreshes ignored).
+# Runs after every push and once a day, so tools in their own repo are picked up too.
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "shared/tool-updates.json"
+  schedule:
+    - cron: "41 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tool-updates
+  cancel-in-progress: true
+
+jobs:
+  dates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0       # full history, so git log can see every tool's commits
+          filter: blob:none    # ...but without downloading old file contents
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Find each tool's last change
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python .github/scripts/tool-updates.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "tool-updates bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add shared/tool-updates.json
+          if git diff --cached --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+          git commit -m "Landing page: tool update dates $(date -u +%F)"
+          for i in 1 2 3; do
+            git pull --rebase origin "${GITHUB_REF_NAME}" && git push && exit 0
+            sleep 5
+          done
+          exit 1
